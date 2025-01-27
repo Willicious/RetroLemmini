@@ -1,0 +1,7 @@
+This is a list of all the things I want to accomplish in this fork.
+
+* hide scroll-lock icon on levels with no vertical area
+* add Lemmings for Windows 95 / Amiga (Lemmings 2?) view selector
+* add Lemmings for Windows 95 blue graphic
+* add Lemmings for Windows 95 font
+* add disclaimer at startup, saying this is a fan-recreation and in no way affiliated with the original or current owners of Lemmings.

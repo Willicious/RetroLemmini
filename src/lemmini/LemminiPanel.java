@@ -1,0 +1,1762 @@
+/*
+ * FILE MODIFIED BY RYAN SAKOWSKI
+ * 
+ * 
+ * Copyright 2009 Volker Oth
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package lemmini;
+
+import java.awt.*;
+import java.awt.event.InputEvent;
+import java.awt.event.MouseEvent;
+import java.nio.file.Path;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import lemmini.game.*;
+import lemmini.game.GameController.SuperLemminiTooOption;
+//import lemmini.game.LemmFont.Color;
+import lemmini.game.MiscGfx.Index;
+import lemmini.gameutil.Fader;
+import lemmini.graphics.GraphicsBuffer;
+import lemmini.graphics.GraphicsContext;
+import lemmini.graphics.LemmImage;
+import lemmini.gui.LevelCodeDialog;
+import lemmini.gui.LevelDialog;
+import lemmini.gui.OptionsDialog;
+import lemmini.gui.PlayerDialog;
+import lemmini.tools.ToolBox;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
+
+/**
+ * A graphics panel in which the actual game contents is displayed.
+ * @author Volker Oth
+ */
+public class LemminiPanel extends JPanel implements Runnable {
+    
+    private static final long serialVersionUID = 0x01L;
+    
+    /** step size in pixels for horizontal scrolling */
+    static final int X_STEP = 4;
+    /** step size in pixels for fast horizontal scrolling */
+    static final int X_STEP_FAST = 16;
+    /** size of auto scrolling range in pixels (from the left and right border) */
+    static final int AUTOSCROLL_RANGE = 20;
+    /** y coordinate of score display in pixels */
+    static final int SCORE_Y = LemminiFrame.LEVEL_HEIGHT;
+    /** x coordinate of counter displays in pixels */
+    static final int COUNTER_X = 32;
+    /** y coordinate of counter displays in pixels */
+    static final int COUNTER_Y = SCORE_Y + 40;
+    /** x coordinate of icons in pixels */
+    static final int ICONS_X = COUNTER_X;
+    /** y coordinate of icons in pixels */
+    static final int ICONS_Y = COUNTER_Y + 14;
+    /** x coordinate of minimap in pixels */
+    static final int SMALL_X = ICONS_X + 32 * 15 + 16;
+    /** y coordinate of minimap in pixels */
+    static final int SMALL_Y = ICONS_Y;
+    
+    private int getIconBarX() {
+    	if (GameController.isOptionEnabled(SuperLemminiTooOption.ENHANCED_ICONBAR) ) {
+    		return 0;
+    	}
+    	return ICONS_X;
+    }
+    
+    private int getIconBarY() {
+    	if (GameController.isOptionEnabled(SuperLemminiTooOption.ENHANCED_ICONBAR) ) {
+    		return ICONS_Y - 10;
+    	}
+    	return ICONS_Y;
+    }
+    
+
+    private int getSmallX() {
+    	if (GameController.isOptionEnabled(SuperLemminiTooOption.ENHANCED_ICONBAR) ) {
+    		return SMALL_X + 10;
+    	}
+    	return SMALL_X;
+    }
+    
+    private int getSmallY() {
+    	if (GameController.isOptionEnabled(SuperLemminiTooOption.ENHANCED_ICONBAR) ) {
+    		return SMALL_Y - 3;
+    	}
+    	return SMALL_Y;
+    }
+    
+    
+    private int menuOffsetX;
+    /** start x position of mouse drag (for mouse scrolling) */
+    private int mouseDragStartX;
+    /** start y position of mouse drag (for mouse scrolling) */
+    private int mouseDragStartY;
+    /** x position of cursor in level */
+    private int xMouse;
+    /** x position of cursor on screen */
+    private int xMouseScreen;
+    /** y position of cursor in level */
+    private int yMouse;
+    /** y position of cursor on screen */
+    private int yMouseScreen;
+    /** mouse drag length in x direction (pixels) */
+    private int mouseDx;
+    /** mouse drag length in y direction (pixels) */
+    private int mouseDy;
+    /** flag: shift key is pressed */
+    private boolean shiftPressed;
+    /** flag: control key is pressed */
+    private boolean controlPressed;
+    /** flag: alt key is pressed */
+    private boolean altPressed;
+    //TODO: create a combined modifier flag: SHIFT, CONTROL, ALT to more easily detect when *only* one modifier is pressed. 
+    /** flag: left key is pressed */
+    private boolean leftPressed;
+    /** flag: right key is pressed */
+    private boolean rightPressed;
+    /** flag: up key is pressed */
+    private boolean upPressed;
+    /** flag: down key is pressed */
+    private boolean downPressed;
+    /** flag: debug draw is active */
+    private boolean draw;
+    private boolean isFocused;
+    private boolean mouseHasEntered;
+    private boolean holdingMinimap;
+    /** graphics buffer for information string display */
+    private GraphicsBuffer outStrBuffer;
+    /** offscreen image */
+    private GraphicsBuffer offBuffer;
+    /** monitoring object used for synchronized painting */
+    private final Object paintSemaphore = new Object();
+    private boolean drawNextFrame;
+    private int unmaximizedWidth = 0;
+    private int unmaximizedHeight = 0;
+    
+    /**
+     * Creates new form LemminiPanel
+     */
+    public LemminiPanel() {
+        isFocused = true;
+        mouseHasEntered = true;
+        holdingMinimap = false;
+        shiftPressed = false;
+        initComponents();
+        unmaximizedWidth = getWidth();
+        unmaximizedHeight = getHeight();
+    }
+    
+    /**
+     * Initialization.
+     */
+    void init() {
+        setBufferSize(Core.unscale(getWidth()), Core.unscale(getHeight()));
+    }
+    
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        setBackground(new java.awt.Color(0, 0, 0));
+        setMinimumSize(new java.awt.Dimension(800, 450));
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                formMouseDragged(evt);
+            }
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                formMouseMoved(evt);
+            }
+        });
+        addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                formMouseWheelMoved(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                formMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                formMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                formMouseReleased(evt);
+            }
+        });
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 800, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 450, Short.MAX_VALUE)
+        );
+    }// </editor-fold>//GEN-END:initComponents
+    
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+        mouseHasEntered = false;
+        setSize(getWidth(), getHeight());
+    }//GEN-LAST:event_formComponentResized
+    
+    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
+        mouseDx = 0;
+        mouseDy = 0;
+        int x = Core.unscale(evt.getX());
+        int y = Core.unscale(evt.getY());
+        LemmCursor.setX(x);
+        LemmCursor.setY(y);
+        if (isFocused) {
+            mouseHasEntered = true;
+        }
+    }//GEN-LAST:event_formMouseEntered
+    
+    private void formMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseExited
+        switch (GameController.getGameState()) {
+            case BRIEFING:
+            case DEBRIEFING:
+            case LEVEL:
+                int x = xMouseScreen + Core.scale(mouseDx);
+                if (x >= getWidth()) {
+                    x = getWidth() - 1;
+                }
+                if (x < 0) {
+                    x = 0;
+                }
+                xMouseScreen = x;
+                x = Core.unscale(x) + GameController.getXPos();
+                xMouse = x;
+                LemmCursor.setX(Core.unscale(xMouseScreen));
+                
+                int y = yMouseScreen + Core.scale(mouseDy);
+                if (y >= getHeight()) {
+                    y = getHeight() - 1;
+                }
+                if (y < 0) {
+                    y = 0;
+                }
+                yMouseScreen = y;
+                y = Core.unscale(y) + GameController.getYPos();
+                yMouse = y;
+                LemmCursor.setY(Core.unscale(yMouseScreen));
+                evt.consume();
+                break;
+            default:
+                break;
+        }
+    }//GEN-LAST:event_formMouseExited
+    
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        int x = Core.unscale(evt.getX());
+        int y = Core.unscale(evt.getY());
+        mouseDx = 0;
+        mouseDy = 0;
+        //TODO: rewrite the mouse button selecting to allow changing what all the mouse buttons do
+        //for instance, right now, up to 5 mouse buttons are supported:
+        //BUTTON1 (left-click) is the main button
+        //BUTTON2 (right-click) 
+        boolean swapButtons = GameController.isOptionEnabled(GameController.Option.SWAP_BUTTONS);
+        int buttonPressed = evt.getButton();
+        int modifiers = evt.getModifiersEx();
+        boolean leftMousePressed = BooleanUtils.toBoolean(modifiers & InputEvent.BUTTON1_DOWN_MASK);
+        boolean rightMousePressed = BooleanUtils.toBoolean(modifiers & InputEvent.BUTTON3_DOWN_MASK);
+        
+        if (Fader.getState() != Fader.State.OFF
+                && GameController.getGameState() != GameController.State.LEVEL) {
+            return;
+        }
+        
+        switch (GameController.getGameState()) {
+            case INTRO:
+                if (buttonPressed == MouseEvent.BUTTON1) {
+                    TextScreen.Button button = TextScreen.getDialog().handleLeftClick(
+                            x - Core.getDrawWidth() / 2, y - Core.getDrawHeight() / 2);
+                    switch (button) {
+                        case PLAY_LEVEL:
+                            handlePlayLevel();
+                            break;
+                        case LOAD_REPLAY:
+                            handleLoadReplay();
+                            break;
+                        case ENTER_CODE:
+                            handleEnterCode();
+                            break;
+                        case PLAYERS:
+                            handlePlayers();
+                            break;
+                        case OPTIONS:
+                            handleOptions();
+                            break;
+                        case EXIT:
+                            getParentFrame().exit();
+                            break;
+                        default:
+                            break;
+                    }
+                    evt.consume();
+                }
+                break;
+            case BRIEFING:
+                if (buttonPressed == MouseEvent.BUTTON1) {
+                    TextScreen.Button button = TextScreen.getDialog().handleLeftClick(
+                            x - Core.getDrawWidth() / 2, y - Core.getDrawHeight() / 2);
+                    switch (button) {
+                        case SHOW_HINT:
+                            TextScreen.showHint();
+                            break;
+                        case SHOW_INFO:
+                            TextScreen.showLevelInfo();
+                            break;
+                        case NEXT_HINT:
+                            TextScreen.nextHint();
+                            break;
+                        case PREVIOUS_HINT:
+                            TextScreen.previousHint();
+                            break;
+                        case START_LEVEL:
+                            Minimap.init(1.0 / 16.0, 1.0 / 8.0, true);
+                            GameController.setTransition(GameController.TransitionState.TO_LEVEL);
+                            Fader.setState(Fader.State.OUT);
+                            GameController.resetGain();
+                            break;
+                        case MENU:
+                            GameController.setTransition(GameController.TransitionState.TO_INTRO);
+                            Fader.setState(Fader.State.OUT);
+                            Core.setTitle("SuperLemminiToo");
+                            break;
+                        default:
+                            break;
+                    }
+                    evt.consume();
+                }
+                break;
+            case DEBRIEFING:
+                if (buttonPressed == MouseEvent.BUTTON1) {
+                    TextScreen.Button button = TextScreen.getDialog().handleLeftClick(
+                            x - Core.getDrawWidth() / 2, y - Core.getDrawHeight() / 2);
+                    switch (button) {
+                        case CONTINUE:
+                            GameController.nextLevel(); // continue to next level
+                            GameController.requestChangeLevel(GameController.getCurLevelPackIdx(), GameController.getCurRating(),
+                                    GameController.getCurLevelNumber(), false);
+                            break;
+                        case RESTART:
+                            GameController.requestRestartLevel(false, true);
+                            break;
+                        case MENU:
+                            GameController.setTransition(GameController.TransitionState.TO_INTRO);
+                            Fader.setState(Fader.State.OUT);
+                            Core.setTitle("SuperLemminiToo");
+                            break;
+                        case REPLAY:
+                            GameController.requestRestartLevel(true, true);
+                            break;
+                        case SAVE_REPLAY:
+                            Path replayPath = ToolBox.getFileName(getParent(), Core.resourcePath, false, false, Core.REPLAY_EXTENSIONS);
+                            if (replayPath != null) {
+                                try {
+                                    String ext = FilenameUtils.getExtension(replayPath.getFileName().toString());
+                                    if (ext == null || ext.isEmpty()) {
+                                        replayPath = replayPath.resolveSibling(replayPath.getFileName().toString() + "." + Core.REPLAY_EXTENSIONS[0]);
+                                    }
+                                    if (GameController.saveReplay(replayPath)) {
+                                        return;
+                                    }
+                                    // else: no success
+                                    JOptionPane.showMessageDialog(getParent(), "Unable to save replay.", "Error", JOptionPane.ERROR_MESSAGE);
+                                } catch (HeadlessException ex) {
+                                    ToolBox.showException(ex);
+                                }
+                            }
+                            break;
+                        case NEXT_RATING:
+                            GameController.nextRating();
+                            GameController.requestChangeLevel(GameController.getCurLevelPackIdx(), GameController.getCurRating(),
+                                    GameController.getCurLevelNumber(), false);
+                            break;
+                        default:
+                            break;
+                    }
+                    evt.consume();
+                }
+                break;
+            case LEVEL:
+                //  debug drawing
+                if (leftMousePressed || rightMousePressed) {
+                    debugDraw(x, y, leftMousePressed);
+                }
+                if (buttonPressed == MouseEvent.BUTTON1) {
+                    if (y >= getIconBarY() && y < getIconBarY() + Icons.getIconHeight()) {
+                        //System.out.println("y:" + y + " x:" + x + "\n getIconBarX():" + getIconBarX() + " getIconBarY():" + getIconBarY());
+                    	//clicking on icons
+                    	Icons.IconType type = GameController.getIconType(x - menuOffsetX - getIconBarX());
+                        if (type != null) {
+                            GameController.handleIconButton(type);
+                        }
+                    } else {
+                    	//clicking on lemmings
+                        Lemming l = GameController.lemmUnderCursor(LemmCursor.getType());
+                        if (l != null) {
+                            GameController.requestSkill(l);
+                        } else if (y < LemminiFrame.LEVEL_HEIGHT) {
+                            GameController.stopReplayMode();
+                            if (!GameController.isOptionEnabled(GameController.SuperLemminiTooOption.DISABLE_FRAME_STEPPING)) {
+                            	GameController.advanceFrame();
+                            }
+                        }
+                    }
+                    // check minimap mouse move
+                    if (x >= getSmallX() + menuOffsetX && x < getSmallX() + menuOffsetX + Minimap.getVisibleWidth()
+                            && y >= getSmallY() && y < getSmallY() + Minimap.getVisibleHeight()) {
+                        holdingMinimap = true;
+                    }
+                    evt.consume();
+                } 
+                if (buttonPressed == (swapButtons ? MouseEvent.BUTTON2 : MouseEvent.BUTTON3)) {
+                    switch (LemmCursor.getType()) {
+                        case NORMAL:
+                            setCursor(LemmCursor.CursorType.WALKER);
+                            break;
+                        case LEFT:
+                            setCursor(LemmCursor.CursorType.WALKER_LEFT);
+                            break;
+                        case RIGHT:
+                            setCursor(LemmCursor.CursorType.WALKER_RIGHT);
+                            break;
+                        default:
+                            break;
+                    }
+                    shiftPressed = true;
+                }
+                if (buttonPressed == 4) {
+                    GameController.pressMinus(GameController.KEYREPEAT_KEY);
+                }
+                if (buttonPressed == 5) {
+                    GameController.pressPlus(GameController.KEYREPEAT_KEY);
+                }
+                break;
+            default:
+                break;
+        }
+    }//GEN-LAST:event_formMousePressed
+    
+    private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
+        int x = Core.unscale(evt.getX());
+        int y = Core.unscale(evt.getY());
+        mouseDx = 0;
+        mouseDy = 0;
+        boolean swapButtons = GameController.isOptionEnabled(GameController.Option.SWAP_BUTTONS);
+        int buttonPressed = evt.getButton();
+        
+        switch (GameController.getGameState()) {
+            case LEVEL:
+                if (buttonPressed == MouseEvent.BUTTON1) {
+                    holdingMinimap = false;
+                    if (y > getIconBarY() && y < getIconBarY() + Icons.getIconHeight()) {
+                        Icons.IconType type = GameController.getIconType(x - menuOffsetX - getIconBarX());
+                        if (type != null) {
+                            GameController.releaseIcon(type);
+                        }
+                    }
+                    // always release icons which don't stay pressed
+                    // this is to avoid the icons get stuck when they're pressed,
+                    // the the mouse is dragged out and released outside
+                    GameController.releasePlus(GameController.KEYREPEAT_ICON);
+                    GameController.releaseMinus(GameController.KEYREPEAT_ICON);
+                    GameController.releaseIcon(Icons.IconType.MINUS);
+                    GameController.releaseIcon(Icons.IconType.PLUS);
+                    GameController.releaseIcon(Icons.IconType.NUKE);
+                    GameController.releaseIcon(Icons.IconType.RESTART);
+                }
+                if (buttonPressed == (swapButtons ? MouseEvent.BUTTON2 : MouseEvent.BUTTON3)) {
+                    switch (LemmCursor.getType()) {
+                        case WALKER:
+                            setCursor(LemmCursor.CursorType.NORMAL);
+                            break;
+                        case WALKER_LEFT:
+                            setCursor(LemmCursor.CursorType.LEFT);
+                            break;
+                        case WALKER_RIGHT:
+                            setCursor(LemmCursor.CursorType.RIGHT);
+                            break;
+                        default:
+                            break;
+                    }
+                    shiftPressed = false;
+                }
+                if (buttonPressed == 4) {
+                    GameController.releaseMinus(GameController.KEYREPEAT_KEY);
+                }
+                if (buttonPressed == 5) {
+                    GameController.releasePlus(GameController.KEYREPEAT_KEY);
+                }
+                evt.consume();
+                break;
+            default:
+                break;
+        }
+    }//GEN-LAST:event_formMouseReleased
+    
+    private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
+        int modifiers = evt.getModifiersEx();
+        boolean leftMousePressed = BooleanUtils.toBoolean(modifiers & InputEvent.BUTTON1_DOWN_MASK);
+        boolean middleMousePressed = BooleanUtils.toBoolean(modifiers & InputEvent.BUTTON2_DOWN_MASK);
+        boolean rightMousePressed = BooleanUtils.toBoolean(modifiers & InputEvent.BUTTON3_DOWN_MASK);
+        mouseDx = 0;
+        mouseDy = 0;
+        // check minimap mouse move
+        switch (GameController.getGameState()) {
+            case LEVEL:
+                int x = Core.unscale(evt.getX());
+                int y = Core.unscale(evt.getY());
+                if (GameController.isOptionEnabled(GameController.Option.SWAP_BUTTONS)
+                        ? rightMousePressed : middleMousePressed) {
+                    int xOfsTemp = GameController.getXPos() + (x - mouseDragStartX);
+                    GameController.setXPos(xOfsTemp);
+                    if (!GameController.isVerticalLock()) {
+                        int yOfsTemp = GameController.getYPos() + (y - mouseDragStartY);
+                        GameController.setYPos(yOfsTemp);
+                    }
+                    Minimap.adjustXPos();
+                }
+                // debug drawing
+                if (leftMousePressed || rightMousePressed) {
+                    debugDraw(x, y, leftMousePressed);
+                }
+                formMouseMoved(evt);
+                evt.consume();
+                break;
+            default:
+                break;
+        }
+    }//GEN-LAST:event_formMouseDragged
+    
+    private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
+        int oldX = xMouse;
+        int oldY = yMouse;
+        
+        xMouse = Core.unscale(evt.getX()) + GameController.getXPos();
+        yMouse = Core.unscale(evt.getY()) + GameController.getYPos();
+        // LemmCursor
+        xMouseScreen = evt.getX();
+        if (xMouseScreen >= getWidth()) {
+            xMouseScreen = getWidth();
+        } else if (xMouseScreen < 0) {
+            xMouseScreen = 0;
+        }
+        yMouseScreen = evt.getY();
+        if (yMouseScreen >= getHeight()) {
+            yMouseScreen = getHeight() - 1;
+        } else if (yMouseScreen < 0) {
+            yMouseScreen = 0;
+        }
+        LemmCursor.setX(Core.unscale(xMouseScreen));
+        LemmCursor.setY(Core.unscale(yMouseScreen));
+        
+        if (isFocused) {
+            mouseHasEntered = true;
+        }
+        
+        switch (GameController.getGameState()) {
+            case INTRO:
+            case BRIEFING:
+            case DEBRIEFING:
+                TextScreen.getDialog().handleMouseMove(
+                        Core.unscale(xMouseScreen) - Core.getDrawWidth() / 2,
+                        Core.unscale(yMouseScreen) - Core.getDrawHeight() / 2);
+                /* falls through */
+            case LEVEL:
+                mouseDx = (xMouse - oldX);
+                mouseDy = (yMouse - oldY);
+                mouseDragStartX = Core.unscale(evt.getX());
+                mouseDragStartY = Core.unscale(evt.getY());
+                evt.consume();
+                break;
+            default:
+                break;
+        }
+    }//GEN-LAST:event_formMouseMoved
+    
+    private void formMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_formMouseWheelMoved
+        if (GameController.getGameState() == GameController.State.LEVEL && !GameController.isOptionEnabled(GameController.SuperLemminiTooOption.DISABLE_SCROLL_WHEEL)) {
+        	int wheelRotation = evt.getWheelRotation();
+            if (wheelRotation > 0) {
+                for (int i = 0; i < wheelRotation; i++) {
+                    GameController.nextSkill();
+                }
+            } else if (wheelRotation < 0) {
+                for (int i = 0; i > wheelRotation; i--) {
+                    GameController.previousSkill();
+                }
+            }
+        }
+    }//GEN-LAST:event_formMouseWheelMoved
+    
+    /**
+     * Set cursor type.
+     * @param c Cursor
+     */
+    public void setCursor(final LemmCursor.CursorType c) {
+        LemmCursor.setType(c);
+        super.setCursor(LemmCursor.getCursor());
+    }
+    
+    @Override
+    public void paint(final Graphics g) {
+        Graphics2D g2 = (Graphics2D) g;
+        synchronized (paintSemaphore) {
+            if (offBuffer != null) {
+                g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                        Core.isBilinear()
+                                ? RenderingHints.VALUE_INTERPOLATION_BILINEAR
+                                : RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+                g2.drawImage(offBuffer.getImage().getImage(),
+                        0, 0, Core.getScaledDrawWidth(), Core.getScaledDrawHeight(), null);
+            }
+        }
+    }
+    
+    @Override
+    public void update(final Graphics g) {
+        paint(g);
+    }
+    
+    void focusLost() {
+        shiftPressed = false;
+        controlPressed = false;
+        leftPressed = false;
+        rightPressed = false;
+        upPressed = false;
+        downPressed = false;
+        GameController.releasePlus(GameController.KEYREPEAT_ICON | GameController.KEYREPEAT_KEY);
+        GameController.releaseMinus(GameController.KEYREPEAT_ICON | GameController.KEYREPEAT_KEY);
+        GameController.releaseIcon(Icons.IconType.MINUS);
+        GameController.releaseIcon(Icons.IconType.PLUS);
+        GameController.releaseIcon(Icons.IconType.NUKE);
+        GameController.releaseIcon(Icons.IconType.RESTART);
+        LemmCursor.setBox(false);
+        setCursor(LemmCursor.CursorType.NORMAL);
+        isFocused = false;
+        mouseHasEntered = false;
+        holdingMinimap = false;
+    }
+    
+    void focusGained() {
+        isFocused = true;
+    }
+    
+    /**
+     * Redraw the offscreen image, then flip buffers and force repaint.
+     */
+    private void redraw() {
+        if (offBuffer == null) {
+            return;
+        }
+        
+        synchronized (paintSemaphore) {
+            GraphicsContext offGfx = offBuffer.getGraphicsContext();
+            
+            switch (GameController.getGameState()) {
+                case INTRO:
+                case BRIEFING:
+                case DEBRIEFING:
+                    offGfx.setClip(0, 0, Core.getDrawWidth(), Core.getDrawHeight());
+                    TextScreen.drawScreen(offGfx, 0, 0, Core.getDrawWidth(), Core.getDrawHeight());
+                    break;
+                case LEVEL:
+                case LEVEL_END:
+                    LemmImage fgImage = GameController.getFgImage();
+                    if (fgImage != null) {
+                        // store local copy of offsets to avoid sync problems with AWT threads
+                        int xOfsTemp = GameController.getXPos();
+                        int minimapXOfsTemp = Minimap.getXPos();
+                        int yOfsTemp = GameController.getYPos();
+                        
+                        int width = Core.getDrawWidth();
+                        int height = Core.getDrawHeight();
+                        int levelHeight = Math.min(LemminiFrame.LEVEL_HEIGHT, height);
+                        
+                        Level level = GameController.getLevel();
+                        if (level != null) {
+                            
+                            // clear screen
+                            offGfx.setClip(0, 0, width, levelHeight);
+                            offGfx.setBackground(level.getBgColor());
+                            offGfx.clearRect(0, 0, width, levelHeight);
+                            
+                            // draw background
+                            GameController.getLevel().drawBackground(offGfx, width, levelHeight, xOfsTemp, yOfsTemp);
+                            
+                            // draw "behind" objects
+                            GameController.getLevel().drawBehindObjects(offGfx, width, height, xOfsTemp, yOfsTemp);
+                            
+                            // draw foreground
+                            offGfx.drawImage(fgImage, 0, 0, width, levelHeight, xOfsTemp, yOfsTemp, xOfsTemp + width, yOfsTemp + levelHeight);
+                            
+                            // draw "in front" objects
+                            GameController.getLevel().drawInFrontObjects(offGfx, width, height, xOfsTemp, yOfsTemp);
+                        }
+                        // clear parts of the screen for menu etc.
+                        offGfx.setClip(0, LemminiFrame.LEVEL_HEIGHT, width, height - LemminiFrame.LEVEL_HEIGHT);
+                        offGfx.setBackground(java.awt.Color.BLACK);
+                        offGfx.clearRect(0, SCORE_Y, width, height - SCORE_Y);
+                        // draw counter, icons, small level pic
+                        // draw menu and skill counters
+                        int iconBarX = menuOffsetX + getIconBarX();
+                        int iconBarY = getIconBarY();
+                        int countBarX = menuOffsetX + getIconBarX();
+                        int countBarY = COUNTER_Y;
+                        if (GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ENHANCED_ICONBAR)) {
+                        	countBarY += 7;
+                        } else if (!GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ENHANCED_ICONBAR) && GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ENHANCED_STATUS)) {
+                        	
+                        	iconBarY += 3;
+                        	countBarY += 3;
+                        }
+                    	
+                        GameController.drawIconsAndCounters(offGfx, iconBarX, iconBarY, countBarX, countBarY);
+                        
+                        //draw the icon bar filler?
+                        if (GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ENHANCED_ICONBAR)) {
+                            LemmImage filler = MiscGfx.getImage(MiscGfx.Index.ICONBAR_FILLER);
+                        	offGfx.drawImage(filler, menuOffsetX + SMALL_X - 18, getIconBarY());
+                        	filler = null;
+                        }
+                        
+                        // draw minimap
+                        if (GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ENHANCED_ICONBAR)) {
+                        	drawMiniMapLarge(offGfx, width, height, minimapXOfsTemp, yOfsTemp);
+                        } else {
+                        	drawMiniMap(offGfx, width, height, minimapXOfsTemp, yOfsTemp);
+                        }
+                         
+                        // draw lemmings
+                        offGfx.setClip(0, 0, width, levelHeight);
+                        GameController.drawLemmings(offGfx);
+                        Lemming lemmUnderCursor = GameController.lemmUnderCursor(LemmCursor.getType());
+                        offGfx.setClip(0, 0, width, levelHeight);
+                        // draw explosions
+                        GameController.drawExplosions(offGfx, width, LemminiFrame.LEVEL_HEIGHT, xOfsTemp, yOfsTemp);
+                        offGfx.setClip(0, 0, width, height);
+                        //draw Visual SFX
+                        GameController.drawVisualSfx(offGfx);
+                        
+                        
+                        // draw info string
+                        LemmImage outStrImg = outStrBuffer.getImage();
+                        GraphicsContext outStrGfx = outStrBuffer.getGraphicsContext();
+                        outStrGfx.clearRect(0, 0, outStrImg.getWidth(), outStrImg.getHeight());
+                        int statusBarGap = 8; //8 pixels of padding between the bottom of the level and the top of the status line.
+                        if (GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ENHANCED_STATUS)) {
+                        	statusBarGap = 18;
+                        }
+                        int yOffset = LemminiFrame.LEVEL_HEIGHT + statusBarGap;  
+
+                        if (GameController.isCheat()) {
+                            // if debug mode is turned on, then show some debug details.
+                        	Stencil stencil = GameController.getStencil();
+                            if (stencil != null) {
+                                int stencilVal = stencil.getMask(xMouse, yMouse);
+                                int stencilObject = stencil.getMaskObjectID(xMouse, yMouse);
+                                String strObj;
+                                if (stencilObject >= 0) {
+                                    strObj = ", Obj: " + stencilObject;
+                                } else {
+                                    strObj = StringUtils.EMPTY;
+                                }
+                                String test = String.format("X: %4d, Y: %3d, Mask: %4d%s", xMouse, yMouse, stencilVal, strObj);
+                                if (draw) {
+                                    test = String.format("%-38s%s", test, "(draw)");
+                                }
+                                LemmFont.strImage(outStrGfx, test);
+                                offGfx.drawImage(outStrImg, menuOffsetX + 4, yOffset);
+                            }
+                        } else {
+                            //otherwise show the standard info set.
+                        	//there are 5 pieces to the standard status info:
+                        	//1: name: description of lemmings under the cursor
+                        	//2: out: lemmings "out" in the level
+                        	//3: home: lemmings that have made it "home"
+                        	//4: needed: the total lemmings you need
+                        	//5: time: time left in the level
+                        	String lemmingName;
+                            if (lemmUnderCursor != null) {
+                                lemmingName = lemmUnderCursor.getName();
+                                // display also the total number of lemmings under the cursor
+                                int num = GameController.getNumLemmsUnderCursor();
+                                if (num > 1) {
+                                    lemmingName += StringUtils.SPACE + num;
+                                }
+                            } else {
+                                lemmingName = StringUtils.EMPTY;
+                            }
+                            String strHome;
+                            String strNeeded;
+                            if (GameController.isOptionEnabled(GameController.Option.NO_PERCENTAGES)
+                                    || GameController.getNumLemmingsMax() > 100) {
+                                strHome = Integer.toString(GameController.getNumExited());
+                                strNeeded = Integer.toString(GameController.getNumToRescue());
+                            } else {
+                                int max = GameController.getNumLemmingsMax();
+                            	int home = GameController.getNumExited() * 100 / max;
+                                strHome = String.format("%02d%%", home);
+                                int neededPercent = GameController.getNumToRescue() * 100 / max;
+                                strNeeded = String.format("%02d%%", neededPercent);
+                            }
+
+                            if (!GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ENHANCED_STATUS)) {
+                                String status;
+                                status = String.format("%-15s OUT %-4d IN %-4s TIME %s", lemmingName, GameController.getNumLemmings(), strHome, GameController.getTimeString());
+                                //use the standard original "text-based" status bar
+                            	LemmFont.strImage(outStrGfx, status);
+                                offGfx.drawImage(outStrImg, menuOffsetX + 4, yOffset);
+                            } else {
+                                //these are the default offsets when we're using text
+                            	int xName = 4;
+                                int xOut = 292;
+                                int xHome = 454;
+                                int xNeeded = 0; //not displayed when we are using text.
+                                int xTime = 598;
+
+                                int xSpace = 18; //the game between text and value 
+                            	//draw each element individually
+                                LemmImage lemmName = LemmFont.strImage(String.format("%-15s", lemmingName));
+                                offGfx.drawImage(lemmName, menuOffsetX + xName, yOffset);
+                                lemmName = null;
+
+                                
+                                int xOutW=0, xHomeW=0, xNeededW=0, xTimeW=0;
+                                
+                                //NOTE: this option is here for debugging purposes only
+                                //if I wanted to use the original text (instead of icons) in the new layout method, 
+                                //I would set "showIcons" to false.
+                                boolean showIcons = true;
+
+                                // first draw the headers (be they text or icons) 
+                                if (!showIcons) {
+                                    //draw all the status labels with the original text placements.
+                                    LemmImage lemmTitleOut = LemmFont.strImage("OUT");
+                                    xOutW = lemmTitleOut.getWidth();
+                                    offGfx.drawImage(lemmTitleOut, menuOffsetX + xOut, yOffset);
+
+                                    LemmImage lemmTitleHome = LemmFont.strImage("IN"); //HOME was originally called IN, and is still labeled as such here, in the old status bar. 
+                                    xHomeW = lemmTitleHome.getWidth();
+                                    offGfx.drawImage(lemmTitleHome, menuOffsetX + xHome, yOffset);
+
+                                    LemmImage lemmTitleTime = LemmFont.strImage("TIME");
+                                    xTimeW = lemmTitleTime.getWidth();
+                                    offGfx.drawImage(lemmTitleTime, menuOffsetX + xTime, yOffset);
+
+                                    lemmTitleOut = null;
+                                    lemmTitleHome = null;
+                                    lemmTitleTime = null;
+                                } else {
+                                	//draw all the status labels with newer better icons.
+
+                                	/* *** We're commenting this out, because they're only for when we have 3 icons. We're using 4 icons.***
+                                	//change the padding margins because the icons take up less space.
+                                    //if the icons are going in the same space as the text, these are the new offsets:
+                                	xOut += 22;
+                                    xHome += 4;
+                                    xTime += 40;
+                                    */
+                                    //otherwise, since we're going to add a new "Needed" value, we need to re-space everything else. 
+                                    //note: we've shifted everything over a bit to better fit the maximums now being printed.
+                                	xOut = 300 - 10;
+                                    xHome = 410 - 20;
+                                    xNeeded = 520 - 25;
+                                    xTime = 630 + 10; //adding 10 pixels to better fit the space.
+                                    
+                                    //because we're using icons, we don't need as much space between the titles and the values.
+                                    xSpace = 4;
+                                    
+                                    //draw the status icons
+                                    LemmImage lemmIconOut = MiscGfx.getImage(Index.STATUS_OUT);
+                                    xOutW = lemmIconOut.getWidth();
+                                    offGfx.drawImage(lemmIconOut, menuOffsetX + xOut, yOffset);
+
+                                    LemmImage lemmIconHome = MiscGfx.getImage(Index.STATUS_IN);
+                                    xHomeW = lemmIconHome.getWidth();
+                                    offGfx.drawImage(lemmIconHome, menuOffsetX + xHome, yOffset);
+
+                                    LemmImage lemmIconNeeded = MiscGfx.getImage(Index.STATUS_NEEDED);
+                                    xNeededW = lemmIconNeeded.getWidth();
+                                    offGfx.drawImage(lemmIconNeeded, menuOffsetX + xNeeded, yOffset);
+
+                                    LemmImage lemmIconTime = MiscGfx.getImage(Index.STATUS_TIME);
+                                    xTimeW = lemmIconTime.getWidth();
+                                    offGfx.drawImage(lemmIconTime, menuOffsetX + xTime, yOffset);
+
+                                    lemmIconOut = null;
+                                    lemmIconHome = null;
+                                    lemmIconNeeded = null;
+                                    lemmIconTime = null;
+                                    
+                                    //update the offsets for the values now:
+                                    xOut += xSpace + xOutW;
+                                    xHome += xSpace + xHomeW;
+                                    xNeeded += xSpace + xNeededW;
+                                    xTime += xSpace + xTimeW;
+                                }
+                               
+                                //then draw the values
+                                int out = GameController.getNumLemmings();
+                                int needed = GameController.getNumToRescue();
+                                //draw the values that go with those headings.
+
+                                //lemmOut is the number of lemmings out in the level
+                                LemmImage lemmOut = LemmFont.strImage(String.format("%d", out));
+                                offGfx.drawImage(lemmOut, menuOffsetX + xOut, yOffset);
+                                xOut += lemmOut.getWidth(); //increase offset by the current image width.
+
+                                //show the number that have made it home
+                                LemmImage lemmHome;
+                                if (needed > GameController.getNumExited()) {
+                                	lemmHome = LemmFont.strImage(strHome, LemmFont.LemmColor.RED); //we don't have enough yet, so we show it as red.
+                                } else {
+                                	lemmHome = LemmFont.strImage(strHome);
+                                }
+                                offGfx.drawImage(lemmHome, menuOffsetX + xHome, yOffset);
+                                //xHome += (xSpace / 2) + lemmHome.getWidth();
+                                
+                                //and show the Needed icon
+                                if (showIcons) {
+                                    LemmImage lemmNeeded = LemmFont.strImage(strNeeded);
+                                    offGfx.drawImage(lemmNeeded, menuOffsetX + xNeeded, yOffset); //take off extra because the needed icon is very narrow
+                                    xNeeded += lemmNeeded.getWidth();
+                                    lemmNeeded = null;
+                                }
+
+                                //show the time left.
+                                LemmImage lemmTime = LemmFont.strImage(String.format("%s", GameController.getTimeString()));
+                                offGfx.drawImage(lemmTime, menuOffsetX + xTime, yOffset);
+
+                                if (GameController.isOptionEnabled(GameController.SuperLemminiTooOption.SHOW_STATUS_TOTALS)) {
+                                    int stillIn = GameController.getNumLemmingsUnreleased();
+                                    LemmImage lemmGate = LemmFont.strImage(":" + String.format("%d", stillIn), LemmFont.LemmColor.GREEN);
+                                    offGfx.drawImage(lemmGate, menuOffsetX + xOut, yOffset + 12, 0.5);
+
+                                    //if (GameController.isOptionEnabled(GameController.Option.NO_PERCENTAGES)) {
+	                                    int maxLemm = GameController.getNumLemmingsMax();
+	                                    LemmImage lemmMax = LemmFont.strImage("/" + String.format("%d", maxLemm), LemmFont.LemmColor.GREEN);
+	                                    offGfx.drawImage(lemmMax, menuOffsetX + xNeeded, yOffset + 12, 0.5);
+                                    //}
+                                }
+                                
+
+                                
+                                
+                                lemmOut = null;
+                                lemmHome = null;
+                                lemmTime = null;
+                                
+                                //we've dispose of all the images we created, by setting them null... 
+                                //not sure if this actually does anything... it feels like we're creating a lot of waste for 
+                                //the garbage collector to deal with...
+                                //hopefully this will encourage the garbage collector to de0clutter earlier, 
+                                //because it really feels like we're using a lot of memory with all these changes before  
+                            }
+                        }
+                        
+                        // now we show the title of the level
+                        if (GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ENHANCED_STATUS) && GameController.isOptionEnabled(GameController.SuperLemminiTooOption.SHOW_LEVEL_NAME)) {
+                            //Level level = GameController.getLevel();
+                        	//level.getLevelName();
+                            String rating = GameController.getCurLevelPack().getRatings().get(GameController.getCurRating());
+                        	int levelNum = GameController.getCurLevelNumber() + 1;
+                        	String levelName = rating + " " + levelNum + ": " + level.getLevelName().trim();
+                            LemmImage lemmLevelName = LemmFont.strImage(levelName, LemmFont.LemmColor.GREEN);
+                            offGfx.drawImage(lemmLevelName, menuOffsetX + 4, LemminiFrame.LEVEL_HEIGHT + 2, 0.5);
+                            lemmLevelName = null;
+                        }
+                        
+                        // replay icon
+                        LemmImage replayImage = GameController.getReplayImage();
+                        if (replayImage != null) {
+                            offGfx.drawImage(replayImage, width - 2 * replayImage.getWidth(), replayImage.getHeight());
+                        }
+                        // draw cursor
+                        if (lemmUnderCursor != null) {
+                            if (GameController.isOptionEnabled(GameController.Option.CLASSIC_CURSOR)) {
+                                if (mouseHasEntered && !LemmCursor.isBox()) {
+                                    LemmCursor.setBox(true);
+                                    setCursor(LemmCursor.getCursor());
+                                }
+                            } else {
+                                int lx = lemmUnderCursor.footX() - xOfsTemp; //NOTE: footX() was .midX()
+                                int ly = lemmUnderCursor.midY() - yOfsTemp;
+                                LemmImage cursorImg = LemmCursor.getBoxImage();
+                                lx -= cursorImg.getWidth() / 2;
+                                ly -= cursorImg.getHeight() / 2;
+                                offGfx.drawImage(cursorImg, lx, ly);
+                            }
+                        } else {
+                            if (GameController.isOptionEnabled(GameController.Option.CLASSIC_CURSOR)
+                                    && LemmCursor.isBox()) {
+                                LemmCursor.setBox(false);
+                                setCursor(LemmCursor.getCursor());
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+            
+            // fader
+            Fader.apply(offGfx);
+            
+            repaint();
+        }
+    }
+    
+    private void drawMiniMap(GraphicsContext offGfx, final int width, final int height, final int minimapXOfsTemp, final int yOfsTemp) {
+   	 	final int BORDER_WIDTH = 4; 
+        // draw minimap
+        offGfx.drawImage(MiscGfx.getMinimapImage(), menuOffsetX + getSmallX() - BORDER_WIDTH, getSmallY() - BORDER_WIDTH);
+        offGfx.setClip(menuOffsetX + getSmallX(), getSmallY(), Minimap.getVisibleWidth(), Minimap.getVisibleHeight());
+        Minimap.draw(offGfx, menuOffsetX + getSmallX(), getSmallY());
+        GameController.drawMinimapLemmings(offGfx, menuOffsetX + getSmallX(), getSmallY());
+        offGfx.setClip(0, 0, width, height);
+        Minimap.drawFrame(offGfx, menuOffsetX + getSmallX(), getSmallY());
+        // draw minimap arrows
+        if (minimapXOfsTemp > 0) {
+            LemmImage leftArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_LEFT);
+            offGfx.drawImage(leftArrow,
+                    menuOffsetX + getSmallX() - BORDER_WIDTH - leftArrow.getWidth(),
+                    getSmallY() + Minimap.getVisibleHeight() / 2 - leftArrow.getHeight() / 2);
+        }
+        if (minimapXOfsTemp < ToolBox.scale(GameController.getWidth(), Minimap.getScaleX()) - Minimap.getVisibleWidth()) {
+            LemmImage rightArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_RIGHT);
+            offGfx.drawImage(rightArrow,
+                    menuOffsetX + getSmallX() + Minimap.getVisibleWidth() + BORDER_WIDTH,
+                    getSmallY() + Minimap.getVisibleHeight() / 2 - rightArrow.getHeight() / 2);
+        }
+        if (yOfsTemp > 0) {
+            LemmImage upArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_UP);
+            offGfx.drawImage(upArrow,
+                    menuOffsetX + getSmallX() + Minimap.getVisibleWidth() / 2 - upArrow.getWidth() / 2,
+                    getSmallY() - BORDER_WIDTH - upArrow.getHeight());
+        }
+        if (yOfsTemp < GameController.getHeight() - LemminiFrame.LEVEL_HEIGHT) {
+            LemmImage downArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_DOWN);
+            offGfx.drawImage(downArrow,
+                    menuOffsetX + getSmallX() + Minimap.getVisibleWidth() / 2 - downArrow.getWidth() / 2,
+                    getSmallY() + Minimap.getVisibleHeight() + BORDER_WIDTH);
+        }
+    }
+    
+    private void drawMiniMapLarge(GraphicsContext offGfx, final int width, final int height, final int minimapXOfsTemp, final int yOfsTemp) {
+    	 final int BORDER_WIDTH = 7; 
+    	// draw minimap
+        //draw border around minimap
+    	offGfx.drawImage(MiscGfx.getMinimapLargeImage(), menuOffsetX + getSmallX() - BORDER_WIDTH, getSmallY() - BORDER_WIDTH);
+        offGfx.setClip(menuOffsetX + getSmallX(), getSmallY(), Minimap.getVisibleWidth(), Minimap.getVisibleHeight());
+        //draw contents of minimap
+        Minimap.draw(offGfx, menuOffsetX + getSmallX(), getSmallY());
+        //draw lemmings onto minimap
+        GameController.drawMinimapLemmings(offGfx, menuOffsetX + getSmallX(), getSmallY());
+        offGfx.setClip(0, 0, width, height);
+        //draw the yellow frame around what's visible
+        Minimap.drawFrame(offGfx, menuOffsetX + getSmallX(), getSmallY());
+
+        //if the minimap goes off screen??
+        // draw minimap arrows
+        if (minimapXOfsTemp > 0) {
+            LemmImage leftArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_LEFT);
+            offGfx.drawImage(leftArrow,
+                    menuOffsetX + getSmallX() - BORDER_WIDTH - leftArrow.getWidth(),
+                    getSmallY() + Minimap.getVisibleHeight() / 2 - leftArrow.getHeight() / 2);
+        }
+        if (minimapXOfsTemp < ToolBox.scale(GameController.getWidth(), Minimap.getScaleX()) - Minimap.getVisibleWidth()) {
+            LemmImage rightArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_RIGHT);
+            offGfx.drawImage(rightArrow,
+                    menuOffsetX + getSmallX() + Minimap.getVisibleWidth() + BORDER_WIDTH,
+                    getSmallY() + Minimap.getVisibleHeight() / 2 - rightArrow.getHeight() / 2);
+        }
+        if (yOfsTemp > 0) {
+            LemmImage upArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_UP);
+            offGfx.drawImage(upArrow,
+                    menuOffsetX + getSmallX() + Minimap.getVisibleWidth() / 2 - upArrow.getWidth() / 2,
+                    getSmallY() - BORDER_WIDTH - upArrow.getHeight());
+        }
+        if (yOfsTemp < GameController.getHeight() - LemminiFrame.LEVEL_HEIGHT) {
+            LemmImage downArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_DOWN);
+            offGfx.drawImage(downArrow,
+                    menuOffsetX + getSmallX() + Minimap.getVisibleWidth() / 2 - downArrow.getWidth() / 2,
+                    getSmallY() + Minimap.getVisibleHeight() + BORDER_WIDTH);
+        }
+    }
+    
+    private void updateFrame() {
+        LemmImage fgImage = GameController.getFgImage();
+        switch (GameController.getGameState()) {
+            case INTRO:
+                TextScreen.setMode(TextScreen.Mode.INTRO);
+                TextScreen.update();
+                TextScreen.getDialog().handleMouseMove(
+                        Core.unscale(xMouseScreen) - Core.getDrawWidth() / 2,
+                        Core.unscale(yMouseScreen) - Core.getDrawHeight() / 2);
+                break;
+            case BRIEFING:
+                TextScreen.setMode(TextScreen.Mode.BRIEFING);
+                TextScreen.update();
+                TextScreen.getDialog().handleMouseMove(
+                        Core.unscale(xMouseScreen) - Core.getDrawWidth() / 2,
+                        Core.unscale(yMouseScreen) - Core.getDrawHeight() / 2);
+                break;
+            case DEBRIEFING:
+                TextScreen.setMode(TextScreen.Mode.DEBRIEFING);
+                TextScreen.update();
+                TextScreen.getDialog().handleMouseMove(
+                        Core.unscale(xMouseScreen) - Core.getDrawWidth() / 2,
+                        Core.unscale(yMouseScreen) - Core.getDrawHeight() / 2);
+                break;
+            case LEVEL:
+            case LEVEL_END:
+                if (fgImage != null) {
+                    GameController.update();
+                    // store local copy of xOfs to avoid sync problems with AWT threads
+                    // (scrolling by dragging changes xOfs as well)
+                    int xOfsTemp = GameController.getXPos();
+                    int minimapXOfsTemp = Minimap.getXPos();
+                    int yOfsTemp = GameController.getYPos();
+                    // mouse movement
+                    if (holdingMinimap) {
+                        int framePos = ToolBox.scale(xOfsTemp, Minimap.getScaleX()) - minimapXOfsTemp;
+                        if (xMouseScreen < Core.scale(menuOffsetX + getSmallX()) && framePos <= 0) {
+                            xOfsTemp -= getStepSize();
+                            GameController.setXPos(xOfsTemp);
+                        } else if (xMouseScreen >= Core.scale(menuOffsetX + getSmallX() + Minimap.getVisibleWidth()) && framePos >= Minimap.getVisibleWidth() - ToolBox.scale(Core.getDrawWidth(), Minimap.getScaleX())) {
+                            xOfsTemp += getStepSize();
+                            GameController.setXPos(xOfsTemp);
+                        } else {
+                            xOfsTemp = Minimap.move(Core.unscale(xMouseScreen) - getSmallX() - menuOffsetX, Core.unscale(yMouse) - getSmallY());
+                            GameController.setXPos(xOfsTemp);
+                        }
+                        if (!GameController.isVerticalLock()) {
+                            if (yMouseScreen < Core.scale(getSmallY())) {
+                                yOfsTemp -= getStepSize();
+                                GameController.setYPos(yOfsTemp);
+                            } else if (yMouseScreen >= Core.scale(getSmallY() + Minimap.getVisibleHeight())) {
+                                yOfsTemp += getStepSize();
+                                GameController.setYPos(yOfsTemp);
+                            }
+                        }
+                    } else if (mouseHasEntered) {
+                        if (xMouseScreen >= getWidth() - Core.scale(AUTOSCROLL_RANGE)) {
+                            xOfsTemp += getStepSize();
+                            int beforeXPos = GameController.getXPos();
+                            GameController.setXPos(xOfsTemp);
+                            int afterXPos = GameController.getXPos();
+                            xMouse += (afterXPos - beforeXPos);
+                        } else if (xMouseScreen < Core.scale(AUTOSCROLL_RANGE)) {
+                            xOfsTemp -= getStepSize();
+                            int beforeXPos = GameController.getXPos();
+                            GameController.setXPos(xOfsTemp);
+                            int afterXPos = GameController.getXPos();
+                            xMouse -= (beforeXPos - afterXPos);
+                        }
+                        if (!GameController.isVerticalLock()) {
+                            if (yMouseScreen >= getHeight() - Core.scale(AUTOSCROLL_RANGE)) {
+                                yOfsTemp += getStepSize();
+                                int beforeYPos = GameController.getYPos();
+                                GameController.setYPos(yOfsTemp);
+                                int afterYPos = GameController.getYPos();
+                                yMouse += (afterYPos - beforeYPos);
+                            } else if (yMouseScreen < Core.scale(AUTOSCROLL_RANGE)) {
+                                yOfsTemp -= getStepSize();
+                                int beforeYPos = GameController.getYPos();
+                                GameController.setYPos(yOfsTemp);
+                                int afterYPos = GameController.getYPos();
+                                yMouse -= (beforeYPos - afterYPos);
+                            }
+                        }
+                    }
+                    if (rightPressed && !leftPressed) {
+                        xOfsTemp += getStepSize();
+                        GameController.setXPos(xOfsTemp);
+                    } else if (leftPressed && !rightPressed) {
+                        xOfsTemp -= getStepSize();
+                        GameController.setXPos(xOfsTemp);
+                    }
+                    if (!GameController.isVerticalLock()) {
+                        if (downPressed && !upPressed) {
+                            yOfsTemp += getStepSize();
+                            GameController.setYPos(yOfsTemp);
+                        } else if (upPressed && !downPressed) {
+                            yOfsTemp -= getStepSize();
+                            GameController.setYPos(yOfsTemp);
+                        }
+                    }
+                    Minimap.adjustXPos();
+
+                    GameController.updateLemmsUnderCursor();
+                }
+                break;
+            default:
+                break;
+        }
+        
+        // fader
+        GameController.fade();
+    }
+    
+    /* (non-Javadoc)
+     * @see java.lang.Runnable#run()
+     */
+    @Override
+    public void run() {
+        Thread.currentThread().setPriority(Thread.NORM_PRIORITY + 1);
+        final LemminiPanel thisPanel = this;
+        ScheduledExecutorService repaintScheduler = Executors.newSingleThreadScheduledExecutor();
+        Runnable repaintTask = thisPanel::drawNextFrame;
+        
+        try {
+            drawNextFrame = false;
+            repaintScheduler.scheduleAtFixedRate(
+                    repaintTask, 0, GameController.NANOSEC_PER_FRAME, TimeUnit.NANOSECONDS);
+            while (true) {
+                synchronized (this) {
+                    while (!drawNextFrame) {
+                        try {
+                            wait();
+                        } catch (InterruptedException ex) {
+                        }
+                    }
+                }
+                
+                if (drawNextFrame) {
+                    drawNextFrame = false;
+                    // time passed -> redraw necessary
+                    GameController.State gameState = GameController.getGameState();
+                    // special handling for fast forward or super lemming mode only during real gameplay
+                    if (gameState == GameController.State.LEVEL) {
+                        // in fast forward or super lemming modes, update the game mechanics
+                        // multiple times per (drawn) frame
+                        if (GameController.isFastForward()) {
+                            int multiplier = (GameController.isOptionEnabled(GameController.Option.FASTER_FAST_FORWARD)
+                                    ? GameController.FASTER_FAST_FWD_MULTI : GameController.FAST_FWD_MULTI);
+                            for (int f = 1; f < multiplier; f++) {
+                                GameController.update();
+                            }
+                        } else if (GameController.isSuperLemming()) {
+                            for (int f = 1; f < GameController.SUPERLEMM_MULTI; f++) {
+                                GameController.update();
+                            }
+                        }
+                    }
+                    updateFrame();
+                    redraw();
+                }
+            }
+        } catch (Throwable ex) {
+            ToolBox.showException(ex);
+            System.exit(1);
+        }
+    }
+    
+    /**
+     * Signals that the next frame should be drawn.
+     */
+    public synchronized void drawNextFrame() {
+        drawNextFrame = true;
+        notifyAll();
+    }
+    
+    /**
+     * Debug routine to draw terrain pixels in stencil and foreground image.
+     * @param x x position in pixels
+     * @param y y position in pixels
+     * @param doDraw true: draw, false: erase
+     */
+    private void debugDraw(final int x, final int y, final boolean doDraw) {
+        if (draw && GameController.isCheat()) {
+            boolean classicSteel = GameController.getLevel().getClassicSteel();
+            int rgbVal = (doDraw) ? 0xffffffff : 0x0;
+            int minimapVal = (doDraw || Minimap.isTinted()) ? rgbVal : GameController.getLevel().getBgColor().getRGB();
+            if (doDraw && Minimap.isTinted()) {
+                minimapVal = Minimap.tintColor(minimapVal);
+            }
+            int xOfs = GameController.getXPos();
+            int yOfs = GameController.getYPos();
+            LemmImage fgImage = GameController.getFgImage();
+            LemmImage fgImageSmall = Minimap.getImage();
+            Stencil stencil = GameController.getStencil();
+            double scaleX = (double) fgImageSmall.getWidth() / (double) fgImage.getWidth();
+            double scaleY = (double) fgImageSmall.getHeight() / (double) fgImage.getHeight();
+            double scaleXHalf = scaleX / 2.0;
+            double scaleYHalf = scaleY / 2.0;
+            for (int ya = y; ya < y + 2; ya++) {
+                double scaledY = (ya + 0.5) * scaleY % 1.0;
+                boolean drawSmallY = (scaledY >= (0.5 - scaleYHalf) % 1.0 && scaledY < (0.5 + scaleYHalf) % 1.0)
+                        || Math.abs(scaleY) >= 1.0;
+                for (int xa = x; xa < x + 2; xa++) {
+                    double scaledX = (xa + 0.5) * scaleX % 1.0;
+                    boolean drawSmallX = (scaledX >= (0.5 - scaleXHalf) % 1.0 && scaledX < (0.5 + scaleXHalf) % 1.0)
+                            || Math.abs(scaleX) >= 1.0;
+                    if (xa + xOfs >= 0 && xa + xOfs < GameController.getWidth()
+                            && ya + yOfs >= 0 && ya + yOfs < GameController.getHeight()) {
+                        int[] objects = stencil.getIDs(xa + xOfs, ya + yOfs);
+                        for (int obj : objects) {
+                            SpriteObject spr = GameController.getLevel().getSprObject(obj);
+                            if (spr != null && spr.getVisOnTerrain()) {
+                                if (doDraw) {
+                                    if ((GameController.getLevel().getClassicSteel() 
+                                                    || !spr.getType().isOneWay())
+                                            && !(spr.getType().isOneWay()
+                                                    && BooleanUtils.toBoolean(stencil.getMask(xa + xOfs, ya + yOfs) & Stencil.MSK_NO_ONE_WAY_DRAW))) {
+                                        spr.setPixelVisibility(xa + xOfs - spr.getX(), ya + yOfs - spr.getY(), true);
+                                    }
+                                } else {
+                                    spr.setPixelVisibility(xa + xOfs - spr.getX(), ya + yOfs - spr.getY(), false);
+                                }
+                            }
+                        }
+                        if (doDraw) {
+                            stencil.orMask(xa + xOfs, ya + yOfs, Stencil.MSK_BRICK);
+                        } else {
+                            stencil.andMask(xa + xOfs, ya + yOfs,
+                                    classicSteel ? ~Stencil.MSK_BRICK
+                                            : ~(Stencil.MSK_BRICK | Stencil.MSK_STEEL | Stencil.MSK_ONE_WAY));
+                        }
+                        GameController.getFgImage().setRGB(xa + xOfs, ya + yOfs, rgbVal);
+                        if (drawSmallX && drawSmallY) {
+                            fgImageSmall.setRGB(ToolBox.scale(xa + xOfs, scaleX), ToolBox.scale(ya + yOfs, scaleY), minimapVal);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    void handlePlayLevel() {
+        LevelDialog ld = new LevelDialog(getParentFrame(), true);
+        ld.setVisible(true);
+        int[] level = ld.getSelectedLevel();
+        if (level != null) {
+            GameController.requestChangeLevel(level[0], level[1], level[2], false);
+            getParentFrame().setRestartEnabled(true);
+        }
+    }
+    
+    void handleLoadReplay() {
+        Path replayPath = ToolBox.getFileName(getParentFrame(), Core.resourcePath, true, false, Core.REPLAY_EXTENSIONS);
+        if (replayPath != null) {
+            try {
+                if (FilenameUtils.getExtension(replayPath.getFileName().toString()).equalsIgnoreCase("rpl")) {
+                    ReplayLevelInfo rli = GameController.loadReplay(replayPath);
+                    if (rli != null) {
+                        int lpn = -1;
+                        int rn = -1;
+                        int ln = -1;
+                        LevelPack lp = null;
+                        for (int i = 0; i < GameController.getLevelPackCount(); i++) {
+                            LevelPack lpTemp = GameController.getLevelPack(i);
+                            if (ToolBox.looselyEquals(lpTemp.getName(), rli.getLevelPack())) {
+                                lpn = i;
+                                lp = lpTemp;
+                            }
+                        }
+                        if (lp != null && lpn >= 0) {
+                            java.util.List<String> ratings = lp.getRatings();
+                            int rnTemp = rli.getRatingNumber();
+                            if (rnTemp < ratings.size()) {
+                                rn = rnTemp;
+                            }
+                            if (rn < 0 || ToolBox.looselyEquals(ratings.get(rn), rli.getRatingName())) {
+                                for (int i = 0; i < ratings.size(); i++) {
+                                    if (ToolBox.looselyEquals(ratings.get(i), rli.getRatingName())) {
+                                        rn = i;
+                                    }
+                                }
+                            }
+                            if (rn >= 0) {
+                                java.util.List<String> levels = lp.getLevels(rn);
+                                int lnTemp = rli.getLvlNumber();
+                                if (lnTemp < levels.size()) {
+                                    ln = lnTemp;
+                                }
+                                if (ln < 0 || ToolBox.looselyEquals(levels.get(ln), rli.getLvlName())) {
+                                    for (int i = 0; i < levels.size(); i++) {
+                                        if (ToolBox.looselyEquals(levels.get(i), rli.getLvlName())) {
+                                            ln = i;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if (lpn >= 0 && rn >= 0 && ln >= 0) {
+                            // success
+                            GameController.requestChangeLevel(lpn, rn, ln, true);
+                            getParentFrame().setRestartEnabled(true);
+                        } else {
+                            // no success
+                            JOptionPane.showMessageDialog(getParent(),
+                                    "Level specified in replay file does not exist.",
+                                    "Load Replay", JOptionPane.ERROR_MESSAGE);
+                        }
+                        return;
+                    }
+                }
+                // else: no success
+                JOptionPane.showMessageDialog(getParent(), "Wrong format!", "Load Replay", JOptionPane.ERROR_MESSAGE);
+            } catch (LemmException ex) {
+                JOptionPane.showMessageDialog(getParent(), ex.getMessage(), "Load Replay", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception ex) {
+                ToolBox.showException(ex);
+            }
+        }
+    }
+    
+    void handleEnterCode() {
+        LevelCodeDialog lcd = new LevelCodeDialog(getParentFrame(), true);
+        lcd.setVisible(true);
+        String levelCode = lcd.getCode();
+        int lvlPack = lcd.getLevelPack();
+        if (levelCode != null && !levelCode.isEmpty() && lvlPack > 0) {
+            levelCode = levelCode.trim();
+            // cheat mode
+            if (levelCode.toLowerCase().equals("0xdeadbeef")) {
+                JOptionPane.showMessageDialog(getParent(), "All levels and debug mode enabled.", "Cheater!", JOptionPane.INFORMATION_MESSAGE);
+                Core.player.enableCheatMode();
+                return;
+            }
+            
+            // real level code -> get absolute level
+            levelCode = levelCode.toUpperCase();
+            LevelPack lpack = GameController.getLevelPack(lvlPack);
+            int[] codeInfo = LevelCode.getLevel(lpack.getCodeSeed(), levelCode, lpack.getCodeOffset());
+            if (codeInfo != null) {
+                if (Core.player.isCheat()) {
+                    JOptionPane.showMessageDialog(getParent(),
+                            String.format("Level: %d%nPercent Saved: %d%%%nTimes Failed: %d%nUnknown: %d",
+                                    codeInfo[0] + 1, codeInfo[1], codeInfo[2], codeInfo[3]),
+                            "Code Info",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+                // calculate level pack and relative level number from absolute number
+                int[] l = GameController.relLevelNum(lvlPack, codeInfo[0]);
+                int rating = l[0];
+                int lvlRel = l[1];
+                if (rating >= 0 && lvlRel >= 0) {
+                    Core.player.setAvailable(lpack.getName(), lpack.getRatings().get(rating), lvlRel);
+                    GameController.requestChangeLevel(lvlPack, rating, lvlRel, false);
+                    getParentFrame().setRestartEnabled(true);
+                    return;
+                }
+            }
+        }
+        // not found
+        if (lvlPack != -1) {
+            JOptionPane.showMessageDialog(getParent(), "Invalid Level Code.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    void handlePlayers() {
+        Core.player.store(); // save player in case it is changed
+        PlayerDialog d = new PlayerDialog(getParentFrame(), true);
+        d.setVisible(true);
+        // blocked until dialog returns
+        java.util.List<String> players = d.getPlayers();
+        if (players != null) {
+            String player = Core.player.getName(); // old player
+            int playerIdx = d.getSelection();
+            if (playerIdx != -1) {
+                player = players.get(playerIdx); // remember selected player
+            }
+            // check for players to delete
+            for (int i = 0; i < Core.getPlayerCount(); i++) {
+                String p = Core.getPlayer(i);
+                if (!players.contains(p)) {
+                    Core.deletePlayer(i);
+                    if (p.equals(player)) {
+                        player = "default";
+                    }
+                }
+            }
+            // rebuild players list
+            Core.clearPlayers();
+            // add default player if missing
+            if (!players.contains("default")) {
+                players.add("default");
+            }
+            // now copy all players and create properties
+            players.stream().forEachOrdered(Core::addPlayer);
+            
+            // select new default player
+            if (!Core.player.getName().equals(player)
+                    && GameController.getGameState() != GameController.State.INTRO) {
+                if (GameController.getGameState() == GameController.State.LEVEL) {
+                    GameController.setGameState(GameController.State.LEVEL_END);
+                }
+                GameController.setTransition(GameController.TransitionState.TO_INTRO);
+                Fader.setState(Fader.State.OUT);
+                Core.setTitle("SuperLemminiToo");
+            }
+            Core.player = new Player(player);
+        }
+    }
+    
+    void handleOptions() {
+        OptionsDialog d = new OptionsDialog(getParentFrame(), true);
+        d.setVisible(true);
+    }
+    
+    @Override
+    public void setSize(Dimension d) {
+        setSize(d.width, d.height);
+    }
+    
+    @Override
+    public void setSize(int width, int height) {
+        super.setSize(width, height);
+        LemminiFrame parentFrame = getParentFrame();
+        int frameState = 0;
+        if (parentFrame != null) {
+            frameState = parentFrame.getExtendedState();
+        }
+        if (!BooleanUtils.toBoolean(frameState & Frame.MAXIMIZED_HORIZ)) {
+            unmaximizedWidth = width;
+        }
+        if (!BooleanUtils.toBoolean(frameState & Frame.MAXIMIZED_VERT)) {
+            unmaximizedHeight = height;
+        }
+        setScale(getWidth(), getHeight());
+        Core.setDrawSize(Core.unscale(getWidth()), Core.unscale(getHeight()));
+        setBufferSize(Core.getDrawWidth(), Core.getDrawHeight());
+        // if possible, make sure that the screen is not positioned outside the level
+        GameController.setXPos(GameController.getXPos());
+        GameController.setYPos(GameController.getYPos());
+    }
+    
+    private void setScale(int width, int height) {
+        Dimension minSize = getMinimumSize();
+        if ((double) width / (double) height >= (double) minSize.width / (double) minSize.height) {
+            Core.setScale((double) height / (double) minSize.height);
+        } else {
+            Core.setScale((double) width / minSize.width);
+        }
+    }
+    
+    private void setBufferSize(int width, int height) {
+        if (width <= 0 || height <= 0 || LemmFont.getHeight() <= 0) {
+            return;
+        }
+        
+        synchronized (paintSemaphore) {
+            if (offBuffer == null) {
+                offBuffer = new GraphicsBuffer(width, height, Transparency.OPAQUE, true);
+            } else {
+                offBuffer.setSize(width, height);
+            }
+            
+            if (outStrBuffer == null) {
+                outStrBuffer = new GraphicsBuffer(width, LemmFont.getHeight(), Transparency.TRANSLUCENT, true);
+            } else {
+                outStrBuffer.setSize(width, LemmFont.getHeight());
+            }
+            
+            menuOffsetX = Math.max(0, (width - getMinimumSize().width) / 2);
+        }
+    }
+    
+    private LemminiFrame getParentFrame() {
+        Container container = getParent();
+        while (container != null && !(container instanceof LemminiFrame)) {
+            container = container.getParent();
+        }
+        return (LemminiFrame) container;
+    }
+    
+    int getUnmaximizedWidth() {
+        return unmaximizedWidth;
+    }
+    
+    int getUnmaximizedHeight() {
+        return unmaximizedHeight;
+    }
+    
+    /**
+     * Get cursor x position in pixels.
+     * @return cursor x position in pixels
+     */
+    int getCursorX() {
+        return xMouse;
+    }
+    
+    /**
+     * Get cursor y position in pixels.
+     * @return cursor y position in pixels
+     */
+    int getCursorY() {
+        return yMouse;
+    }
+    
+    /**
+     * Get flag: Shift key is pressed?
+     * @return true if shift key is pressed, false otherwise
+     */
+    boolean isShiftPressed() {
+        return shiftPressed;
+    }
+    
+    /**
+     * Set flag: Shift key is pressed.
+     * @param p true: Shift key is pressed, false otherwise
+     */
+    void setShiftPressed(final boolean p) {
+        shiftPressed = p;
+    }
+    
+    /**
+     * Get flag: Control key is pressed?
+     * @return true if control key is pressed, false otherwise
+     */
+    boolean isControlPressed() {
+        return controlPressed;
+    }
+    
+    /**
+     * Set flag: Control key is pressed.
+     * @param p true: control key is pressed, false otherwise
+     */
+    void setControlPressed(final boolean p) {
+        controlPressed = p;
+    }
+    
+    /**
+     * Get flag: Alt key is pressed?
+     * @return true if control key is pressed, false otherwise
+     */
+    boolean isAltPressed() {
+        return altPressed;
+    }
+    
+    /**
+     * Set flag: Alt key is pressed.
+     * @param p true: control key is pressed, false otherwise
+     */
+    void setAltPressed(final boolean p) {
+        altPressed = p;
+    }
+
+    /**
+     * Get flag: Left key is pressed?
+     * @return true if left key is pressed, false otherwise
+     */
+    boolean isLeftPressed() {
+        return leftPressed;
+    }
+    
+    /**
+     * Set flag: Left key is pressed.
+     * @param p true: Left key is pressed, false otherwise
+     */
+    void setLeftPressed(final boolean p) {
+        leftPressed = p;
+    }
+    
+    /**
+     * Get flag: Right key is pressed?
+     * @return true if right key is pressed, false otherwise
+     */
+    boolean isRightPressed() {
+        return rightPressed;
+    }
+    
+    /**
+     * Set flag: Right key is pressed.
+     * @param p true: Right key is pressed, false otherwise
+     */
+    void setRightPressed(final boolean p) {
+        rightPressed = p;
+    }
+    
+    /**
+     * Get flag: Up key is pressed?
+     * @return true if up key is pressed, false otherwise
+     */
+    boolean isUpPressed() {
+        return upPressed;
+    }
+    
+    /**
+     * Set flag: Up key is pressed.
+     * @param p true: Up key is pressed, false otherwise
+     */
+    void setUpPressed(final boolean p) {
+        upPressed = p;
+    }
+    
+    /**
+     * Get flag: Down key is pressed?
+     * @return true if down key is pressed, false otherwise
+     */
+    boolean isDownPressed() {
+        return downPressed;
+    }
+    
+    /**
+     * Set flag: Down key is pressed.
+     * @param p true: Down key is pressed, false otherwise
+     */
+    void setDownPressed(final boolean p) {
+        downPressed = p;
+    }
+    
+    /**
+     * Get state of debug draw option.
+     * @return true: debug draw is active, false otherwise
+     */
+    boolean getDebugDraw() {
+        return draw;
+    }
+    
+    /**
+     * Set state of debug draw option.
+     * @param d true: debug draw is active, false otherwise
+     */
+    void setDebugDraw(final boolean d) {
+        draw = d;
+    }
+    
+    private int getStepSize() {
+        return (shiftPressed ? X_STEP_FAST : X_STEP);
+    }
+    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // End of variables declaration//GEN-END:variables
+}
