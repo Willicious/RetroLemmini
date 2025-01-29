@@ -118,20 +118,20 @@ public class OptionsDialog extends JDialog {
 
         jLabelMixer.setText("SFX Mixer");
 
-        jCheckBoxVisualSfx.setSelected(GameController.isOptionEnabled(GameController.SuperLemminiTooOption.VISUAL_SFX));
+        jCheckBoxVisualSfx.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.VISUAL_SFX));
         jCheckBoxVisualSfx.setText("Visual SFX");
         
-        jCheckBoxEnhancedStatus.setSelected(GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ENHANCED_STATUS));
+        jCheckBoxEnhancedStatus.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.ENHANCED_STATUS));
         jCheckBoxEnhancedStatus.setText("Enhanced Status Bar");
 
-        jCheckBoxEnhancedIconBar.setSelected(GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ENHANCED_ICONBAR));
+        jCheckBoxEnhancedIconBar.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.ENHANCED_ICONBAR));
         jCheckBoxEnhancedIconBar.setText("Enhanced Icon Bar");
         //jCheckBoxEnhancedIconBar.setVisible(false);
 
-        jCheckBoxIconLabels.setSelected(GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ICON_LABELS));
+        jCheckBoxIconLabels.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.ICON_LABELS));
         jCheckBoxIconLabels.setText("Show labels on the Icon Bar");
         
-        jCheckBoxClassicTicker.setSelected(GameController.isOptionEnabled(GameController.SuperLemminiTooOption.CLASSIC_TICKER));
+        jCheckBoxClassicTicker.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.CLASSIC_TICKER));
         jCheckBoxClassicTicker.setText("Use Classic Ticker");
         jCheckBoxClassicTicker.setToolTipText("Show the classic yellow ticker tape on the title screen");
 
@@ -232,18 +232,18 @@ public class OptionsDialog extends JDialog {
         jCheckBoxUnpauseOnAssignment.setSelected(GameController.isOptionEnabled(GameController.Option.UNPAUSE_ON_ASSIGNMENT));
         jCheckBoxUnpauseOnAssignment.setText("Unpause After Assigning Skill");
 
-        jCheckBoxTimedBombers.setSelected(GameController.isOptionEnabled(GameController.SuperLemminiTooOption.TIMED_BOMBERS));
+        jCheckBoxTimedBombers.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.TIMED_BOMBERS));
         jCheckBoxTimedBombers.setText("Enable 5 second timed bombers");
 
-        jCheckBoxUnlockAllLevels.setSelected(GameController.isOptionEnabled(GameController.SuperLemminiTooOption.UNLOCK_ALL_LEVELS));
+        jCheckBoxUnlockAllLevels.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.UNLOCK_ALL_LEVELS));
         jCheckBoxUnlockAllLevels.setText("Unlock all levels");
         jCheckBoxUnlockAllLevels.setToolTipText("All access to all levels, without having to complete previous ones.");
 
-        jCheckBoxDisableScrollWheel.setSelected(GameController.isOptionEnabled(GameController.SuperLemminiTooOption.DISABLE_SCROLL_WHEEL));
+        jCheckBoxDisableScrollWheel.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.DISABLE_SCROLL_WHEEL));
         jCheckBoxDisableScrollWheel.setText("Disable Scroll Wheel");
         jCheckBoxDisableScrollWheel.setToolTipText("Prevent the scroll wheel from changing the selected skill.");
 
-        jCheckBoxDisableFrameStepping.setSelected(GameController.isOptionEnabled(GameController.SuperLemminiTooOption.DISABLE_FRAME_STEPPING));
+        jCheckBoxDisableFrameStepping.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.DISABLE_FRAME_STEPPING));
         jCheckBoxDisableFrameStepping.setText("Disable Frame Stepping");
         jCheckBoxDisableFrameStepping.setToolTipText("Disable advancing the game by single frames when paused.");
         
@@ -425,15 +425,15 @@ public class OptionsDialog extends JDialog {
         GameController.setOption(GameController.Option.NO_PERCENTAGES, !jCheckBoxNoPercentages.isSelected());
         GameController.setOption(GameController.Option.REPLAY_SCROLL, jCheckBoxReplayScroll.isSelected());
         GameController.setOption(GameController.Option.UNPAUSE_ON_ASSIGNMENT, jCheckBoxUnpauseOnAssignment.isSelected());
-        GameController.setOption(GameController.SuperLemminiTooOption.TIMED_BOMBERS, jCheckBoxTimedBombers.isSelected());
-        GameController.setOption(GameController.SuperLemminiTooOption.UNLOCK_ALL_LEVELS, jCheckBoxUnlockAllLevels.isSelected());
-        GameController.setOption(GameController.SuperLemminiTooOption.DISABLE_SCROLL_WHEEL, jCheckBoxDisableScrollWheel.isSelected());
-        GameController.setOption(GameController.SuperLemminiTooOption.DISABLE_FRAME_STEPPING, jCheckBoxDisableFrameStepping.isSelected());
-        GameController.setOption(GameController.SuperLemminiTooOption.VISUAL_SFX, jCheckBoxVisualSfx.isSelected());
-        GameController.setOption(GameController.SuperLemminiTooOption.ENHANCED_STATUS, jCheckBoxEnhancedStatus.isSelected());
-        GameController.setOption(GameController.SuperLemminiTooOption.ENHANCED_ICONBAR, jCheckBoxEnhancedIconBar.isSelected());
-        GameController.setOption(GameController.SuperLemminiTooOption.ICON_LABELS, jCheckBoxIconLabels.isSelected());
-        GameController.setOption(GameController.SuperLemminiTooOption.CLASSIC_TICKER, jCheckBoxClassicTicker.isSelected());
+        GameController.setOption(GameController.RetroLemminiOption.TIMED_BOMBERS, jCheckBoxTimedBombers.isSelected());
+        GameController.setOption(GameController.RetroLemminiOption.UNLOCK_ALL_LEVELS, jCheckBoxUnlockAllLevels.isSelected());
+        GameController.setOption(GameController.RetroLemminiOption.DISABLE_SCROLL_WHEEL, jCheckBoxDisableScrollWheel.isSelected());
+        GameController.setOption(GameController.RetroLemminiOption.DISABLE_FRAME_STEPPING, jCheckBoxDisableFrameStepping.isSelected());
+        GameController.setOption(GameController.RetroLemminiOption.VISUAL_SFX, jCheckBoxVisualSfx.isSelected());
+        GameController.setOption(GameController.RetroLemminiOption.ENHANCED_STATUS, jCheckBoxEnhancedStatus.isSelected());
+        GameController.setOption(GameController.RetroLemminiOption.ENHANCED_ICONBAR, jCheckBoxEnhancedIconBar.isSelected());
+        GameController.setOption(GameController.RetroLemminiOption.ICON_LABELS, jCheckBoxIconLabels.isSelected());
+        GameController.setOption(GameController.RetroLemminiOption.CLASSIC_TICKER, jCheckBoxClassicTicker.isSelected());
         
         
         //then commit all those settings to disk

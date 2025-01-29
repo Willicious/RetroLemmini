@@ -1,8 +1,8 @@
 # RetroLemmini
 
-A continuation of the Lemmini family of engines (Lemmini, SuperLemmini, SuperLemminiToo) which aims to fix a few bugs and generally update the engine.
+A continuation of the Lemmini family of engines (Lemmini, SuperLemmini, RetroLemmini) which aims to fix a few bugs and generally update the engine.
 
-At present, the engine creates a new folder called ".superlemminitoo" in C:\Users\username\
+At present, the engine creates a new folder called ".RetroLemmini" in C:\Users\username\
 The first step will be to allow the user to specify where files are saved, and give the folder a title
 The default will be Documents\RetroLemmini
 
@@ -52,7 +52,7 @@ I hope that it can be enjoyed for many years to come
 
 # === THANKS ===
 
-From Charles (SuperLemminiToo developer):
+From Charles (RetroLemmini developer):
 
 I want to stress that this program was truly written by Volker Oth (Lemmini) and Ryan Sakowski (SuperLemmini), over a combined total of more than twenty years.
 All I've done is hack a couple lines of code. None of this could be possible without the literally thousands of hours of work done by those two individuals,
@@ -63,4 +63,4 @@ Also special thanks to WillLem from the LemmingsForums.net for providing the upd
 SuperLemmini in particular
 
 Special thanks as well to jkapp76 from the LemmingsForums.net for making title icons. I modified them slightly to incorporate them into Icon Labels toggle
-in SuperLemminiToo
+in RetroLemmini

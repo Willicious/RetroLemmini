@@ -89,9 +89,9 @@ public class Core {
     public static Props programProps;
     /** path of (extracted) resources */
     public static Path resourcePath;
-    /** path of currently run SuperLemminiToo instance */
+    /** path of currently run RetroLemmini instance */
     public static Path gamePath;
-    /** path of the game data, within the SuperLemminiToo folder */
+    /** path of the game data, within the RetroLemmini folder */
     public static Path gameDataPath;
     /** list of all the game resources in an lzp file. */
     public static CaseInsensitiveFileTree resourceTree;
@@ -166,7 +166,7 @@ public class Core {
         	System.out.println("    config file read successfully");
         }
         
-        String resourcePathStr = programProps.get("resourcePath", Paths.get(SystemUtils.USER_HOME, ".superlemminitoo").toString());
+        String resourcePathStr = programProps.get("resourcePath", Paths.get(SystemUtils.USER_HOME, ".RetroLemmini").toString());
         //resourcePath is the source of your game resources
         resourcePath = Paths.get(resourcePathStr);
         System.out.println("      resourcePath: " + resourcePath.toString());
@@ -190,20 +190,20 @@ public class Core {
         GameController.setOption(GameController.Option.NO_PERCENTAGES, programProps.getBoolean("noPercentages", true));
         GameController.setOption(GameController.Option.REPLAY_SCROLL, programProps.getBoolean("replayScroll", true));
         GameController.setOption(GameController.Option.UNPAUSE_ON_ASSIGNMENT, programProps.getBoolean("unpauseOnAssignment", true));
-        // new settings added by SuperLemminiToo
-        GameController.setOption(GameController.SuperLemminiTooOption.TIMED_BOMBERS, programProps.getBoolean("timedBombers", true));
-        GameController.setOption(GameController.SuperLemminiTooOption.UNLOCK_ALL_LEVELS, programProps.getBoolean("unlockAllLevels", true));
-        GameController.setOption(GameController.SuperLemminiTooOption.DISABLE_SCROLL_WHEEL, programProps.getBoolean("disableScrollWheel", true));
-        GameController.setOption(GameController.SuperLemminiTooOption.DISABLE_FRAME_STEPPING, programProps.getBoolean("disableFrameStepping", true));
-        GameController.setOption(GameController.SuperLemminiTooOption.VISUAL_SFX, programProps.getBoolean("visualSFX", true));
-        GameController.setOption(GameController.SuperLemminiTooOption.ENHANCED_STATUS, programProps.getBoolean("enhancedStatus", true));
-        GameController.setOption(GameController.SuperLemminiTooOption.SHOW_STATUS_TOTALS, programProps.getBoolean("showStatusTotals", true));
-        GameController.setOption(GameController.SuperLemminiTooOption.SHOW_LEVEL_NAME, programProps.getBoolean("showLevelName", true));
-        GameController.setOption(GameController.SuperLemminiTooOption.ENHANCED_ICONBAR, programProps.getBoolean("enhancedIconBar", true));
-        GameController.setOption(GameController.SuperLemminiTooOption.ICON_LABELS, programProps.getBoolean("iconLabels", true));
-        GameController.setOption(GameController.SuperLemminiTooOption.ANIMATED_ICONS, programProps.getBoolean("animatedIcons", true));
-        GameController.setOption(GameController.SuperLemminiTooOption.CLASSIC_TICKER, programProps.getBoolean("classicTicker", true));
-        GameController.setOption(GameController.SuperLemminiTooOption.DEBUG_VERBOSE_PLAYER_LOAD, programProps.getBoolean("debugVerbosePlayerLoad", false));
+        // new settings added by RetroLemmini
+        GameController.setOption(GameController.RetroLemminiOption.TIMED_BOMBERS, programProps.getBoolean("timedBombers", true));
+        GameController.setOption(GameController.RetroLemminiOption.UNLOCK_ALL_LEVELS, programProps.getBoolean("unlockAllLevels", true));
+        GameController.setOption(GameController.RetroLemminiOption.DISABLE_SCROLL_WHEEL, programProps.getBoolean("disableScrollWheel", true));
+        GameController.setOption(GameController.RetroLemminiOption.DISABLE_FRAME_STEPPING, programProps.getBoolean("disableFrameStepping", true));
+        GameController.setOption(GameController.RetroLemminiOption.VISUAL_SFX, programProps.getBoolean("visualSFX", true));
+        GameController.setOption(GameController.RetroLemminiOption.ENHANCED_STATUS, programProps.getBoolean("enhancedStatus", true));
+        GameController.setOption(GameController.RetroLemminiOption.SHOW_STATUS_TOTALS, programProps.getBoolean("showStatusTotals", true));
+        GameController.setOption(GameController.RetroLemminiOption.SHOW_LEVEL_NAME, programProps.getBoolean("showLevelName", true));
+        GameController.setOption(GameController.RetroLemminiOption.ENHANCED_ICONBAR, programProps.getBoolean("enhancedIconBar", true));
+        GameController.setOption(GameController.RetroLemminiOption.ICON_LABELS, programProps.getBoolean("iconLabels", true));
+        GameController.setOption(GameController.RetroLemminiOption.ANIMATED_ICONS, programProps.getBoolean("animatedIcons", true));
+        GameController.setOption(GameController.RetroLemminiOption.CLASSIC_TICKER, programProps.getBoolean("classicTicker", true));
+        GameController.setOption(GameController.RetroLemminiOption.DEBUG_VERBOSE_PLAYER_LOAD, programProps.getBoolean("debugVerbosePlayerLoad", false));
 
         System.out.println("      all settings read from config");
         
@@ -452,20 +452,20 @@ public class Core {
         programProps.setBoolean("noPercentages", GameController.isOptionEnabled(GameController.Option.NO_PERCENTAGES));
         programProps.setBoolean("replayScroll", GameController.isOptionEnabled(GameController.Option.REPLAY_SCROLL));
         programProps.setBoolean("unpauseOnAssignment", GameController.isOptionEnabled(GameController.Option.UNPAUSE_ON_ASSIGNMENT));
-        // new settings added by SuperLemminiToo
-        programProps.setBoolean("timedBombers", GameController.isOptionEnabled(GameController.SuperLemminiTooOption.TIMED_BOMBERS));
-        programProps.setBoolean("unlockAllLevels", GameController.isOptionEnabled(GameController.SuperLemminiTooOption.UNLOCK_ALL_LEVELS));
-        programProps.setBoolean("disableScrollWheel", GameController.isOptionEnabled(GameController.SuperLemminiTooOption.DISABLE_SCROLL_WHEEL));
-        programProps.setBoolean("disableFrameStepping", GameController.isOptionEnabled(GameController.SuperLemminiTooOption.DISABLE_FRAME_STEPPING));
-        programProps.setBoolean("visualSFX", GameController.isOptionEnabled(GameController.SuperLemminiTooOption.VISUAL_SFX));
-        programProps.setBoolean("enhancedStatus", GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ENHANCED_STATUS));
-        programProps.setBoolean("showStatusTotals", GameController.isOptionEnabled(GameController.SuperLemminiTooOption.SHOW_STATUS_TOTALS));
-        programProps.setBoolean("showLevelName", GameController.isOptionEnabled(GameController.SuperLemminiTooOption.SHOW_LEVEL_NAME));
-        programProps.setBoolean("enhancedIconBar", GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ENHANCED_ICONBAR));
-        programProps.setBoolean("iconLabels", GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ICON_LABELS));
-        programProps.setBoolean("animatedIcons", GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ANIMATED_ICONS));
-        programProps.setBoolean("classicTicker", GameController.isOptionEnabled(GameController.SuperLemminiTooOption.CLASSIC_TICKER));
-        programProps.setBoolean("debugVerbosePlayerLoad", GameController.isOptionEnabled(GameController.SuperLemminiTooOption.DEBUG_VERBOSE_PLAYER_LOAD));
+        // new settings added by RetroLemmini
+        programProps.setBoolean("timedBombers", GameController.isOptionEnabled(GameController.RetroLemminiOption.TIMED_BOMBERS));
+        programProps.setBoolean("unlockAllLevels", GameController.isOptionEnabled(GameController.RetroLemminiOption.UNLOCK_ALL_LEVELS));
+        programProps.setBoolean("disableScrollWheel", GameController.isOptionEnabled(GameController.RetroLemminiOption.DISABLE_SCROLL_WHEEL));
+        programProps.setBoolean("disableFrameStepping", GameController.isOptionEnabled(GameController.RetroLemminiOption.DISABLE_FRAME_STEPPING));
+        programProps.setBoolean("visualSFX", GameController.isOptionEnabled(GameController.RetroLemminiOption.VISUAL_SFX));
+        programProps.setBoolean("enhancedStatus", GameController.isOptionEnabled(GameController.RetroLemminiOption.ENHANCED_STATUS));
+        programProps.setBoolean("showStatusTotals", GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_STATUS_TOTALS));
+        programProps.setBoolean("showLevelName", GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_LEVEL_NAME));
+        programProps.setBoolean("enhancedIconBar", GameController.isOptionEnabled(GameController.RetroLemminiOption.ENHANCED_ICONBAR));
+        programProps.setBoolean("iconLabels", GameController.isOptionEnabled(GameController.RetroLemminiOption.ICON_LABELS));
+        programProps.setBoolean("animatedIcons", GameController.isOptionEnabled(GameController.RetroLemminiOption.ANIMATED_ICONS));
+        programProps.setBoolean("classicTicker", GameController.isOptionEnabled(GameController.RetroLemminiOption.CLASSIC_TICKER));
+        programProps.setBoolean("debugVerbosePlayerLoad", GameController.isOptionEnabled(GameController.RetroLemminiOption.DEBUG_VERBOSE_PLAYER_LOAD));
     }
     
     public static String appendBeforeExtension(String fname, String suffix) {

@@ -103,10 +103,12 @@ public class TextScreen {
     private static final int ROT_ANIM_LENGTH = 21;
     /** scroll text */
     private static final String SCROLL_TEXT =
-        "SuperLemminiToo - a game engine for Lemmings(tm) in Java. "
-        + "Coded by Ryan Sakowski 2013-2020. "
-        + "Original Lemmini by Volker Oth 2005-2017. "
-        + "Original website: www.lemmini.de. "
+        "RetroLemmini - a game engine for Lemmings(tm) in Java. "
+    	+ "Programmed by Will James 2025 onwards... "
+        + "Based on SuperLemminiToo by Charles... "
+        + "SuperLemmini by Ryan Sakowski... "
+        + "Original Lemmini by Volker Oth. "
+        + "Lemmini website: www.lemmini.de. "
         + "Thanks to Martin Cameron for his IBXM library, "
         + "Mindless for his MOD conversions of the original Amiga Lemmings tunes and his Amiga level rips, "
         + "the guys of DMA Design for writing the original Lemmings, "
@@ -379,7 +381,7 @@ public class TextScreen {
             double scaleHeight = 2;
             double scaleWidth = 1;
             
-            if(GameController.isOptionEnabled(GameController.SuperLemminiTooOption.CLASSIC_TICKER)) {
+            if(GameController.isOptionEnabled(GameController.RetroLemminiOption.CLASSIC_TICKER)) {
             	scaleHeight=0.5;
             	scaleWidth=0.5;
             }
@@ -389,7 +391,7 @@ public class TextScreen {
             try {
                 scrollerGfx = scrollerImg.createGraphicsContext();
                 scrollerGfx.setBackground(new Color(0, 0, 0, 0)); //set transparent background.
-                if(GameController.isOptionEnabled(GameController.SuperLemminiTooOption.CLASSIC_TICKER)) {
+                if(GameController.isOptionEnabled(GameController.RetroLemminiOption.CLASSIC_TICKER)) {
 	                //draw the ticker-tape repeatedly onto the background:
 	                int idx = 0;
 	                do {

@@ -54,10 +54,10 @@ import org.apache.commons.lang3.SystemUtils;
 public class LemminiFrame extends JFrame {
     
     // These variables define the current revision
-	public static final String REVISION = "1.51";
+	public static final String REVISION = "0.0";
 	//when released, the date should be in the format of d MMM yyyy
 	//before it's released, the value should be BETA
-	public static final String REV_DATE = "14 DEC 2022"; 
+	public static final String REV_DATE = "JAN 2025"; 
     //RES_REVISION is stored in Core.
     
     public static final int LEVEL_HEIGHT = 320;
@@ -120,7 +120,7 @@ public class LemminiFrame extends JFrame {
         System.out.println("");
         java.time.format.DateTimeFormatter dtf = java.time.format.DateTimeFormatter.ofPattern("yyyy MMMM d  HH:mm:ss");  
         java.time.LocalDateTime now = java.time.LocalDateTime.now();  
-        System.out.println(dtf.format(now) + "\nloading SuperLemminiToo..." );
+        System.out.println(dtf.format(now) + "\nloading RetroLemmini..." );
         System.out.println("    Java version: " + System.getProperty("java.version").toString());
         System.out.println("    OS Name: " + System.getProperty("os.name"));
         System.out.println("    OS Version: " + System.getProperty("os.version"));
@@ -199,7 +199,7 @@ public class LemminiFrame extends JFrame {
         jMenuItemAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("SuperLemminiToo");
+        setTitle("RetroLemmini");
         setIconImage(Toolkit.getDefaultToolkit().getImage(LemminiFrame.class.getClassLoader().getResource("icon_32.png")));
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentMoved(java.awt.event.ComponentEvent evt) {
@@ -822,7 +822,7 @@ public class LemminiFrame extends JFrame {
          */
         if (!SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_8)) {
             System.out.println("JVM >= 1.8 [FAIL]");
-        	JOptionPane.showMessageDialog(null, "SuperLemminiToo requires JVM 1.8 or later.", "Error", JOptionPane.ERROR_MESSAGE);
+        	JOptionPane.showMessageDialog(null, "RetroLemmini requires JVM 1.8 or later.", "Error", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         } else {
             System.out.println("JVM >= 1.8 [PASS]");
@@ -853,7 +853,7 @@ public class LemminiFrame extends JFrame {
                     break;
                 case "-p":
                     createPatches = true;
-                    System.out.println("argument detected: -P <not supported in SuperLemminiToo>");
+                    System.out.println("argument detected: -P <not supported in RetroLemmini>");
                     break;
                 default:
                     break;

@@ -84,7 +84,7 @@ public class Player {
                 		groupName +=", "; //we're assuming there's always a space after any comma
                 	}
                 }
-                System.out.print(": “" + groupName + "”");
+                System.out.print(": ï¿½" + groupName + "ï¿½");
                 
                 // note: unlockedLevels are stored as bits. a bit 1 indicates the level is unlocked; bit 0 indicates the level is locked.
                 // unlocked means it is either completed, or is after a group of uncompleted levels.
@@ -95,7 +95,7 @@ public class Player {
                 
                 System.out.print("     building level stats map...");
 
-                if (GameController.isOptionEnabled(GameController.SuperLemminiTooOption.DEBUG_VERBOSE_PLAYER_LOAD))
+                if (GameController.isOptionEnabled(GameController.RetroLemminiOption.DEBUG_VERBOSE_PLAYER_LOAD))
                 	System.out.println();
                 
                 int compCount = 0;
@@ -103,7 +103,7 @@ public class Player {
                 int maxLevel = props.getHighestLevel(idx) + 1;
                 maxLevel = Math.max(maxLevel, unlockedLevels.bitLength());
                 for (int j = 0; j < maxLevel; j++) {
-                    if (GameController.isOptionEnabled(GameController.SuperLemminiTooOption.DEBUG_VERBOSE_PLAYER_LOAD))
+                    if (GameController.isOptionEnabled(GameController.RetroLemminiOption.DEBUG_VERBOSE_PLAYER_LOAD))
                     	System.out.print("     level " + j + ": ");
 
                 	String levelSetting = "group" + idx + "_level" + j;
@@ -118,7 +118,7 @@ public class Player {
                         int timeElapsed = props.getInt(levelSetting + "_timeElapsed", -1);
                         int score = props.getInt(levelSetting + "_score", -1);
                         levelRecords.put(j, new LevelRecord(completed, lemmingsSaved, skillsUsed, timeElapsed, score));
-                        if (GameController.isOptionEnabled(GameController.SuperLemminiTooOption.DEBUG_VERBOSE_PLAYER_LOAD)) {
+                        if (GameController.isOptionEnabled(GameController.RetroLemminiOption.DEBUG_VERBOSE_PLAYER_LOAD)) {
 	                        System.out.print("[completed]");
 	                        System.out.print(" saved: " + lemmingsSaved);
 	                        System.out.print(" skills: " + skillsUsed);
@@ -127,10 +127,10 @@ public class Player {
                         }
                     } else {
                         levelRecords.put(j, LevelRecord.BLANK_LEVEL_RECORD);
-                        if (GameController.isOptionEnabled(GameController.SuperLemminiTooOption.DEBUG_VERBOSE_PLAYER_LOAD))
+                        if (GameController.isOptionEnabled(GameController.RetroLemminiOption.DEBUG_VERBOSE_PLAYER_LOAD))
                         	System.out.print("[incomplete] ... creating blank records.");
                     }
-                    if (GameController.isOptionEnabled(GameController.SuperLemminiTooOption.DEBUG_VERBOSE_PLAYER_LOAD))
+                    if (GameController.isOptionEnabled(GameController.RetroLemminiOption.DEBUG_VERBOSE_PLAYER_LOAD))
                     	System.out.println();
                 }
                 lvlGroups.put(groupName, new LevelGroup(levelRecords));
@@ -211,7 +211,7 @@ public class Player {
      * @return true if allowed, false if not
      */
     public boolean isAvailable(final String pack, final String rating, final int num) {
-        if (GameController.isOptionEnabled(GameController.SuperLemminiTooOption.UNLOCK_ALL_LEVELS) || isCheat()) {
+        if (GameController.isOptionEnabled(GameController.RetroLemminiOption.UNLOCK_ALL_LEVELS) || isCheat()) {
             return true;
         }
         String id = LevelPack.getID(pack, rating);

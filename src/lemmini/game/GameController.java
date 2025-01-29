@@ -94,11 +94,11 @@ public class GameController {
     }
     
     /**
-     * Options exclusive to SuperLemminiToo
+     * Options exclusive to RetroLemmini
      * @author Charles
      *
      */
-    public static enum SuperLemminiTooOption {
+    public static enum RetroLemminiOption {
         TIMED_BOMBERS,
         UNLOCK_ALL_LEVELS,
         DISABLE_SCROLL_WHEEL,
@@ -175,8 +175,8 @@ public class GameController {
     /** the foreground image */
     private static LemmImage fgImage;
     private static final Set<Option> options = EnumSet.noneOf(Option.class);
-    /** SuperLemminiToo Exclusive options*/
-    private static final Set<SuperLemminiTooOption> SLToptions = EnumSet.noneOf(SuperLemminiTooOption.class);
+    /** RetroLemmini Exclusive options*/
+    private static final Set<RetroLemminiOption> SLToptions = EnumSet.noneOf(RetroLemminiOption.class);
 
     /** flag: fast forward mode is active */
     private static boolean fastForward;
@@ -1359,7 +1359,7 @@ public class GameController {
             lemmSkillRequest = lemm;
         }
         stopReplayMode();
-        if (!isOptionEnabled(SuperLemminiTooOption.DISABLE_FRAME_STEPPING)) {
+        if (!isOptionEnabled(RetroLemminiOption.DISABLE_FRAME_STEPPING)) {
         	advanceFrame();
         }
     }
@@ -1796,13 +1796,13 @@ public class GameController {
         int numLemmings = level.getNumLemmings();
         String lemmingWord = (numLemmings == 1) ? "Lemming" : "Lemmings";
         if (isOptionEnabled(Option.NO_PERCENTAGES) || numLemmings > 100) {
-            Core.setTitle(String.format("SuperLemminiToo - %s - Save %d of %d %s",
+            Core.setTitle(String.format("RetroLemmini - %s - Save %d of %d %s",
                     level.getLevelName().trim(),
                     level.getNumToRescue(),
                     numLemmings,
                     lemmingWord));
         } else {
-            Core.setTitle(String.format("SuperLemminiToo - %s - Save %d%% of %d %s",
+            Core.setTitle(String.format("RetroLemmini - %s - Save %d%% of %d %s",
                     level.getLevelName().trim(),
                     level.getNumToRescue() * 100 / numLemmings,
                     numLemmings,
@@ -1899,7 +1899,7 @@ public class GameController {
     	drawIcons(g, iconsX, iconsY);
     	drawCounters(g, countersX, countersY);
 /*
-    	if (!GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ENHANCED_ICONBAR)) {
+    	if (!GameController.isOptionEnabled(GameController.RetroLemminiOption.ENHANCED_ICONBAR)) {
         	//the enhanced icon bar should have the counters built into it.
         	drawCounters(g, countersX, countersY);
         }
@@ -2556,15 +2556,15 @@ public class GameController {
         return options.contains(option);
     }
     
-    public static void setOption(SuperLemminiTooOption option, boolean enable) {
+    public static void setOption(RetroLemminiOption option, boolean enable) {
         if (enable) {
             SLToptions.add(option);
         } else {
             SLToptions.remove(option);
         }
-        if (option == SuperLemminiTooOption.ICON_LABELS && gameState != null) {
+        if (option == RetroLemminiOption.ICON_LABELS && gameState != null) {
         	Icons.redraw();
-        } else if(option == SuperLemminiTooOption.ENHANCED_ICONBAR && gameState != null) {
+        } else if(option == RetroLemminiOption.ENHANCED_ICONBAR && gameState != null) {
         	try {
         		Icons.LoadIconResources();
         	}
@@ -2575,7 +2575,7 @@ public class GameController {
         }
     }
     
-    public static boolean isOptionEnabled(SuperLemminiTooOption option) {
+    public static boolean isOptionEnabled(RetroLemminiOption option) {
         return SLToptions.contains(option);
     }
     

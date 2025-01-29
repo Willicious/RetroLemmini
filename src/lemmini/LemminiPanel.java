@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import lemmini.game.*;
-import lemmini.game.GameController.SuperLemminiTooOption;
+import lemmini.game.GameController.RetroLemminiOption;
 //import lemmini.game.LemmFont.Color;
 import lemmini.game.MiscGfx.Index;
 import lemmini.gameutil.Fader;
@@ -74,14 +74,14 @@ public class LemminiPanel extends JPanel implements Runnable {
     static final int SMALL_Y = ICONS_Y;
     
     private int getIconBarX() {
-    	if (GameController.isOptionEnabled(SuperLemminiTooOption.ENHANCED_ICONBAR) ) {
+    	if (GameController.isOptionEnabled(RetroLemminiOption.ENHANCED_ICONBAR) ) {
     		return 0;
     	}
     	return ICONS_X;
     }
     
     private int getIconBarY() {
-    	if (GameController.isOptionEnabled(SuperLemminiTooOption.ENHANCED_ICONBAR) ) {
+    	if (GameController.isOptionEnabled(RetroLemminiOption.ENHANCED_ICONBAR) ) {
     		return ICONS_Y - 10;
     	}
     	return ICONS_Y;
@@ -89,14 +89,14 @@ public class LemminiPanel extends JPanel implements Runnable {
     
 
     private int getSmallX() {
-    	if (GameController.isOptionEnabled(SuperLemminiTooOption.ENHANCED_ICONBAR) ) {
+    	if (GameController.isOptionEnabled(RetroLemminiOption.ENHANCED_ICONBAR) ) {
     		return SMALL_X + 10;
     	}
     	return SMALL_X;
     }
     
     private int getSmallY() {
-    	if (GameController.isOptionEnabled(SuperLemminiTooOption.ENHANCED_ICONBAR) ) {
+    	if (GameController.isOptionEnabled(RetroLemminiOption.ENHANCED_ICONBAR) ) {
     		return SMALL_Y - 3;
     	}
     	return SMALL_Y;
@@ -354,7 +354,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                         case MENU:
                             GameController.setTransition(GameController.TransitionState.TO_INTRO);
                             Fader.setState(Fader.State.OUT);
-                            Core.setTitle("SuperLemminiToo");
+                            Core.setTitle("RetroLemmini");
                             break;
                         default:
                             break;
@@ -378,7 +378,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                         case MENU:
                             GameController.setTransition(GameController.TransitionState.TO_INTRO);
                             Fader.setState(Fader.State.OUT);
-                            Core.setTitle("SuperLemminiToo");
+                            Core.setTitle("RetroLemmini");
                             break;
                         case REPLAY:
                             GameController.requestRestartLevel(true, true);
@@ -432,7 +432,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                             GameController.requestSkill(l);
                         } else if (y < LemminiFrame.LEVEL_HEIGHT) {
                             GameController.stopReplayMode();
-                            if (!GameController.isOptionEnabled(GameController.SuperLemminiTooOption.DISABLE_FRAME_STEPPING)) {
+                            if (!GameController.isOptionEnabled(GameController.RetroLemminiOption.DISABLE_FRAME_STEPPING)) {
                             	GameController.advanceFrame();
                             }
                         }
@@ -610,7 +610,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     }//GEN-LAST:event_formMouseMoved
     
     private void formMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_formMouseWheelMoved
-        if (GameController.getGameState() == GameController.State.LEVEL && !GameController.isOptionEnabled(GameController.SuperLemminiTooOption.DISABLE_SCROLL_WHEEL)) {
+        if (GameController.getGameState() == GameController.State.LEVEL && !GameController.isOptionEnabled(GameController.RetroLemminiOption.DISABLE_SCROLL_WHEEL)) {
         	int wheelRotation = evt.getWheelRotation();
             if (wheelRotation > 0) {
                 for (int i = 0; i < wheelRotation; i++) {
@@ -738,9 +738,9 @@ public class LemminiPanel extends JPanel implements Runnable {
                         int iconBarY = getIconBarY();
                         int countBarX = menuOffsetX + getIconBarX();
                         int countBarY = COUNTER_Y;
-                        if (GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ENHANCED_ICONBAR)) {
+                        if (GameController.isOptionEnabled(GameController.RetroLemminiOption.ENHANCED_ICONBAR)) {
                         	countBarY += 7;
-                        } else if (!GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ENHANCED_ICONBAR) && GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ENHANCED_STATUS)) {
+                        } else if (!GameController.isOptionEnabled(GameController.RetroLemminiOption.ENHANCED_ICONBAR) && GameController.isOptionEnabled(GameController.RetroLemminiOption.ENHANCED_STATUS)) {
                         	
                         	iconBarY += 3;
                         	countBarY += 3;
@@ -749,14 +749,14 @@ public class LemminiPanel extends JPanel implements Runnable {
                         GameController.drawIconsAndCounters(offGfx, iconBarX, iconBarY, countBarX, countBarY);
                         
                         //draw the icon bar filler?
-                        if (GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ENHANCED_ICONBAR)) {
+                        if (GameController.isOptionEnabled(GameController.RetroLemminiOption.ENHANCED_ICONBAR)) {
                             LemmImage filler = MiscGfx.getImage(MiscGfx.Index.ICONBAR_FILLER);
                         	offGfx.drawImage(filler, menuOffsetX + SMALL_X - 18, getIconBarY());
                         	filler = null;
                         }
                         
                         // draw minimap
-                        if (GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ENHANCED_ICONBAR)) {
+                        if (GameController.isOptionEnabled(GameController.RetroLemminiOption.ENHANCED_ICONBAR)) {
                         	drawMiniMapLarge(offGfx, width, height, minimapXOfsTemp, yOfsTemp);
                         } else {
                         	drawMiniMap(offGfx, width, height, minimapXOfsTemp, yOfsTemp);
@@ -779,7 +779,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                         GraphicsContext outStrGfx = outStrBuffer.getGraphicsContext();
                         outStrGfx.clearRect(0, 0, outStrImg.getWidth(), outStrImg.getHeight());
                         int statusBarGap = 8; //8 pixels of padding between the bottom of the level and the top of the status line.
-                        if (GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ENHANCED_STATUS)) {
+                        if (GameController.isOptionEnabled(GameController.RetroLemminiOption.ENHANCED_STATUS)) {
                         	statusBarGap = 18;
                         }
                         int yOffset = LemminiFrame.LEVEL_HEIGHT + statusBarGap;  
@@ -836,7 +836,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                                 strNeeded = String.format("%02d%%", neededPercent);
                             }
 
-                            if (!GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ENHANCED_STATUS)) {
+                            if (!GameController.isOptionEnabled(GameController.RetroLemminiOption.ENHANCED_STATUS)) {
                                 String status;
                                 status = String.format("%-15s OUT %-4d IN %-4s TIME %s", lemmingName, GameController.getNumLemmings(), strHome, GameController.getTimeString());
                                 //use the standard original "text-based" status bar
@@ -963,7 +963,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                                 LemmImage lemmTime = LemmFont.strImage(String.format("%s", GameController.getTimeString()));
                                 offGfx.drawImage(lemmTime, menuOffsetX + xTime, yOffset);
 
-                                if (GameController.isOptionEnabled(GameController.SuperLemminiTooOption.SHOW_STATUS_TOTALS)) {
+                                if (GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_STATUS_TOTALS)) {
                                     int stillIn = GameController.getNumLemmingsUnreleased();
                                     LemmImage lemmGate = LemmFont.strImage(":" + String.format("%d", stillIn), LemmFont.LemmColor.GREEN);
                                     offGfx.drawImage(lemmGate, menuOffsetX + xOut, yOffset + 12, 0.5);
@@ -991,7 +991,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                         }
                         
                         // now we show the title of the level
-                        if (GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ENHANCED_STATUS) && GameController.isOptionEnabled(GameController.SuperLemminiTooOption.SHOW_LEVEL_NAME)) {
+                        if (GameController.isOptionEnabled(GameController.RetroLemminiOption.ENHANCED_STATUS) && GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_LEVEL_NAME)) {
                             //Level level = GameController.getLevel();
                         	//level.getLevelName();
                             String rating = GameController.getCurLevelPack().getRatings().get(GameController.getCurRating());
@@ -1524,7 +1524,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                 }
                 GameController.setTransition(GameController.TransitionState.TO_INTRO);
                 Fader.setState(Fader.State.OUT);
-                Core.setTitle("SuperLemminiToo");
+                Core.setTitle("RetroLemmini");
             }
             Core.player = new Player(player);
         }

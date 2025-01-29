@@ -11,7 +11,7 @@ import java.util.Locale;
 
 //import org.apache.commons.lang3.math.NumberUtils;
 
-import lemmini.game.GameController.SuperLemminiTooOption;
+import lemmini.game.GameController.RetroLemminiOption;
 import lemmini.gameutil.Sprite;
 import lemmini.graphics.GraphicsContext;
 import lemmini.graphics.LemmImage;
@@ -56,7 +56,7 @@ public class Icons {
      * @return
      */
     public static int getIconWidth() {
-    	if (GameController.isOptionEnabled(SuperLemminiTooOption.ENHANCED_ICONBAR)) {
+    	if (GameController.isOptionEnabled(RetroLemminiOption.ENHANCED_ICONBAR)) {
     		return ENHANCED_WIDTH;
     	} else {
     		return ORIGINAL_WIDTH;
@@ -68,7 +68,7 @@ public class Icons {
      * @return
      */
     public static int getIconHeight() {
-    	if (GameController.isOptionEnabled(SuperLemminiTooOption.ENHANCED_ICONBAR)) {
+    	if (GameController.isOptionEnabled(RetroLemminiOption.ENHANCED_ICONBAR)) {
     		return ENHANCED_HEIGHT;
     	} else {
     		return ORIGINAL_HEIGHT;
@@ -105,7 +105,7 @@ public class Icons {
      * @return
      */
     public static List<IconType> CurrentIconOrder() {
-        if (GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ENHANCED_ICONBAR)) {
+        if (GameController.isOptionEnabled(GameController.RetroLemminiOption.ENHANCED_ICONBAR)) {
         	return EnhancedIconOrder();
         } else {
         	return StandardIconOrder();
@@ -131,7 +131,7 @@ public class Icons {
     }
 
     /**
-     * List of all icons, in the Enhanced SuperLemminiToo order
+     * List of all icons, in the Enhanced RetroLemmini order
      * @return
      */
     private static List<IconType> EnhancedIconOrder() {
@@ -305,7 +305,7 @@ public class Icons {
         	// 5) if there's no standard animated icon, we load the standard transparent static icon.
         	
         	// 1) check for animated mods
-        	if (GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ENHANCED_ICONBAR)) {
+        	if (GameController.isOptionEnabled(GameController.RetroLemminiOption.ENHANCED_ICONBAR)) {
             	res = Core.findResourceEx(
 	                    "gfx/iconbar/anim_" + iconName + ".png",
 	                    true, false, 
@@ -325,7 +325,7 @@ public class Icons {
 	                    true, false,
 	                    Core.IMAGE_EXTENSIONS);
         	}
-        	if (GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ENHANCED_ICONBAR)) {
+        	if (GameController.isOptionEnabled(GameController.RetroLemminiOption.ENHANCED_ICONBAR)) {
         		// 4) check for animated standard
             	if (res == null) {
                 	res = Core.findResourceEx(
@@ -554,7 +554,7 @@ public class Icons {
     		int x = 0;
             int y = 0;
     		Sprite bgIcon; 
-            if (GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ENHANCED_ICONBAR)) {
+            if (GameController.isOptionEnabled(GameController.RetroLemminiOption.ENHANCED_ICONBAR)) {
                 bgIcon = bgIconsLarge.get(idx);
                 x = 1; //the larger icons have an added pixel on the side of padding.
                 y = 14; //the larger icons have 14 pixels more headroom (for the numbers)
@@ -576,7 +576,7 @@ public class Icons {
         	//these 5 icon types don't have numbers with them, so we can move the icons up a tad
         	int yIcon = 0;
         	int yLabel = 29; //we're manually moving the labels lower here. TODO: eventually we should just update the graphics so they're lower
-            if (GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ENHANCED_ICONBAR)) {
+            if (GameController.isOptionEnabled(GameController.RetroLemminiOption.ENHANCED_ICONBAR)) {
 	        	yLabel = 43;
 	        	yIcon = -5;
             	switch(type) {
@@ -592,7 +592,7 @@ public class Icons {
             }
 	        	
         	iconGfx.drawImage(icon.getImage(), getIconWidth() * idx + x, 0 + y + yIcon);
-            if (GameController.isOptionEnabled(GameController.SuperLemminiTooOption.ICON_LABELS))
+            if (GameController.isOptionEnabled(GameController.RetroLemminiOption.ICON_LABELS))
             	iconGfx.drawImage(iconLabel.getImage(), getIconWidth() * idx + x, yLabel);
         }
     }
