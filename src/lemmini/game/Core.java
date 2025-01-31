@@ -151,7 +151,7 @@ public class Core {
         	System.out.println("    unable to read config file... prompting disclaimer agreement ...");
         	// might exist or not - if not, it's created
         	// show the Legal Disclaimer. And force the user to choose "I Agree."
-        	// NOTE: the Legal Discalimer is loaded from "disclaimer.htm"
+        	// NOTE: the Legal Disclaimer is loaded from "disclaimer.htm"
             LegalFrame ld = new LegalFrame();
             ld.setVisible(true);
             ld.waitUntilClosed();
@@ -242,9 +242,7 @@ public class Core {
     	System.out.println(revStr);
         
       
-        //NOTE: we'll never try to extract resources... that should be moved to it's own program.
-        //the goal of this program should be to have resources already included in the distributable.
-        //maybe WilLem's hand-crafted remastered level pack for orig and ohno
+    	//NOTE: We'll never try to extract resources... the goal of this program should be to have resources already included in the distributable
         if (resourcePathStr.isEmpty()) {
         	if (resourcePathStr.isEmpty()) {
         		System.out.println("    resourcePath is invalid...");
@@ -253,9 +251,7 @@ public class Core {
         	throw new LemmException(String.format("resourcePath Game resources not found.\n Please place a valid copy of root.lzp into " + gameDataPath.toString(), (Object[])null));
         }
 
-        //NOTE: we'll never try to extract resources... that should be moved to it's own program.
-        //the goal of this program should be to have resources already included in the distributable.
-        //maybe WilLem's hand-crafted remastered level pack for orig and ohno
+      //NOTE: We'll never try to extract resources... the goal of this program should be to have resources already included in the distributable
         if (!rev.equalsIgnoreCase(RES_REVISION)) {
         	if (!rev.equalsIgnoreCase(RES_REVISION)) {
         		System.out.println("    " + ROOT_ZIP_NAME + " revision does not match required resource revision (" + RES_REVISION +")");
@@ -265,9 +261,7 @@ public class Core {
         	throw new LemmException(String.format("Game resources not found.\n Please place a valid copy of root.lzp into " + gameDataPath.toString(), (Object[])null));
         }
 
-        //NOTE: we'll never try to extract resources... that should be moved to it's own program.
-        //the goal of this program should be to have resources already included in the distributable.
-        //maybe WilLem's hand-crafted remastered level pack for orig and ohno
+        //NOTE: We'll never try to extract resources... the goal of this program should be to have resources already included in the distributable
         if (createPatches) {
         	if (createPatches) {
         		System.out.println("    forced resource creating was selected... unsupported...");
@@ -277,38 +271,6 @@ public class Core {
         	throw new LemmException(String.format("Game resources not found.\n Please place a valid copy of root.lzp into " + gameDataPath.toString(), (Object[])null));
         }
 
-        
-        //if(extractResource) {
-        	// extract resources
-            /*
-        	try {
-                Extract.extract(sourcePath, resourceTree, Paths.get("reference"), Paths.get("patch"), createPatches, maybeDeleteOldFiles);
-                resourceTree = Extract.getResourceTree();
-                resourcePath = resourceTree.getRoot();
-                programProps.set("revision", "zip");
-            } catch (ExtractException ex) {
-                if (ex.isCanceledByUser()) {
-                    return false;
-                } else {
-                    throw new LemmException(String.format("Resource extraction failed.%n%s", ex.getMessage()));
-                }
-            } finally {
-                CaseInsensitiveFileTree resTree = Extract.getResourceTree();
-                CaseInsensitiveFileTree srcTree = Extract.getSourceTree();
-                if (resTree != null) {
-                	//TODO
-                	//for now, we're going to comment this out... don't want to overwrite important stuff
-                	//programProps.set("resourcePath", resTree.getRoot().toString());
-                }
-                if (srcTree != null) {
-                    //TODO
-                	//for now, we're going to comment this out... don't want to overwrite important stuff
-                	//programProps.set("sourcePath", srcTree.getRoot().toString());
-                }
-                programProps.save(programPropsFilePath);
-            }
-            */
-        //}
         
         System.out.println("    populating resourceSet from patch.ini...");
         populateResourceSet();
