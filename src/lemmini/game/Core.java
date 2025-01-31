@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
@@ -74,6 +75,16 @@ public class Core {
     public static final String ROOT_ZIP_NAME = "root.lzp";
     /** path of external level cache */
     public static final String EXTERNAL_LEVEL_CACHE_PATH = "levels/$external/";
+    /** path for mods */
+    public static final String MODS_PATH = "mods/";
+    /** path for music */
+    public static final String MUSIC_PATH = "music/";
+    /** path for replays */
+    public static final String REPLAYS_PATH = "replays/";
+    /** path for sound */
+    public static final String SOUND_PATH = "sound/";
+    /** path for styles */
+    public static final String STYLES_PATH = "styles/";
     /** path for temporary files */
     public static final String TEMP_PATH = "temp/";
     /** The revision string for resource compatibility - not necessarily the version number */
@@ -123,8 +134,9 @@ public class Core {
      * @return true if loading was successful
      * @throws LemmException
      * @throws IOException
+     * @throws URISyntaxException 
      */
-    public static boolean init(final boolean createPatches, String workingFolder) throws LemmException, IOException  {
+    public static boolean init(final boolean createPatches, String workingFolder) throws LemmException, IOException, URISyntaxException  {
     	System.out.println("\ninitializing Core...");
     	String tmp;// = java.net.URLDecoder.decode(workingFolder, "UTF-8");
     	tmp = new java.io.File(workingFolder).getPath();
@@ -166,7 +178,9 @@ public class Core {
         	System.out.println("    config file read successfully");
         }
         
-        String resourcePathStr = programProps.get("resourcePath", Paths.get(SystemUtils.USER_HOME, ".RetroLemmini").toString());
+        String currentDirectory = new java.io.File(Core.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent();
+        String resourcePathStr = programProps.get("resourcePath", Paths.get(currentDirectory, "resources").toString());
+        
         //resourcePath is the source of your game resources
         resourcePath = Paths.get(resourcePathStr);
         System.out.println("      resourcePath: " + resourcePath.toString());
@@ -275,13 +289,27 @@ public class Core {
         System.out.println("    populating resourceSet from patch.ini...");
         populateResourceSet();
         
+        // create levels folder (with external level cache)
+        System.out.println("    creating levels folder (with external levels cache): " + Paths.get(resourceTree.getRoot().toString(), EXTERNAL_LEVEL_CACHE_PATH).toString());
+        resourceTree.createDirectories(EXTERNAL_LEVEL_CACHE_PATH);
+        // create mods folder
+        System.out.println("    creating mods folder: " + Paths.get(resourceTree.getRoot().toString(), MODS_PATH).toString());
+        resourceTree.createDirectories(MODS_PATH);
+        // create music folder
+        System.out.println("    creating music folder: " + Paths.get(resourceTree.getRoot().toString(), MUSIC_PATH).toString());
+        resourceTree.createDirectories(MUSIC_PATH);
+        // create music folder
+        System.out.println("    creating music folder: " + Paths.get(resourceTree.getRoot().toString(), MUSIC_PATH).toString());
+        resourceTree.createDirectories(REPLAYS_PATH);
+        // create sound folder
+        System.out.println("    creating sound folder: " + Paths.get(resourceTree.getRoot().toString(), SOUND_PATH).toString());
+        resourceTree.createDirectories(SOUND_PATH);
+        // create styles folder
+        System.out.println("    creating styles folder: " + Paths.get(resourceTree.getRoot().toString(), STYLES_PATH).toString());
+        resourceTree.createDirectories(STYLES_PATH);
         // create temp folder
         System.out.println("    creating temp folder: " + Paths.get(resourceTree.getRoot().toString(), TEMP_PATH).toString());
         resourceTree.createDirectories(TEMP_PATH);
-        
-        // create folder for external level cache
-        System.out.println("    creating external level cache folder: " + Paths.get(resourceTree.getRoot().toString(), EXTERNAL_LEVEL_CACHE_PATH).toString());
-        resourceTree.createDirectories(EXTERNAL_LEVEL_CACHE_PATH);
         
         System.out.println("    loading lzp add-on packs...");
         loadZipFiles();

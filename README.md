@@ -2,12 +2,11 @@
 
 A continuation of the Lemmini family of engines (Lemmini, SuperLemmini, RetroLemmini) which aims to fix a few bugs and generally update the engine.
 
-At present, the engine creates a new folder called ".RetroLemmini" in C:\Users\username\
-The first step will be to allow the user to specify where files are saved, and give the folder a title
-The default will be Documents\RetroLemmini
+# === V1.0 Updates ===
 
-Also, I've asked VolkerOth (original developer) about re-titling the project back to "Lemmini" rather than having more forks/names to keep track of
-Hopefully Volker agrees, and if so then development can be resumed under the original title, and all assets will be updated to reflect this
++ Renamed project to "RetroLemmini" everywhere relevant
++ Resources folder is now created in the root directory of the .jar and is called "resources"
++ All necessary folders are created within the "resources" folder (mods, music, replays, sound, styles)
 
 # === PROPOSED FEATURES/BUGFIXES ===
 
