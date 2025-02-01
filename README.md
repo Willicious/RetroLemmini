@@ -2,7 +2,7 @@
 
 A continuation of the Lemmini family of engines (Lemmini, SuperLemmini, RetroLemmini) which aims to fix a few bugs and generally update the engine.
 
-# === V1.0 Updates ===
+# ================= V1.0 Updates ============================
 
  # Project overview
  + Renamed project to "RetroLemmini" everywhere relevant
@@ -19,17 +19,18 @@ A continuation of the Lemmini family of engines (Lemmini, SuperLemmini, RetroLem
  
  # Skill Panel
  + Improved colour scheme and position of lemming button animations
+ + VLock button is now hidden and inactive when not needed
 
-# === PROPOSED FEATURES/BUGFIXES ===
+# =============== PROPOSED FEATURES/BUGFIXES ================
 
-Java base / File system:
+# Java base / File system:
 
 The data/root.lzp zip file will be removed altogether - all files will be loaded from "resources", no need to extract / patch / etc.
 In turn, this should remove the need to load RetroLemmini in a particular Java version
 
 * In fact, I think this has already been fixed, but it's definitely worth updating the file system anyway
 
-Timebombers:
+# Timebombers:
 
 These will need to be updated
 Either they should be level-side optional, or the two should exist as separate skills. Being player-side optional causes the following issues:
@@ -40,18 +41,12 @@ Either they should be level-side optional, or the two should exist as separate s
 Even if we could fix the above (there's really no sensible way to fix the first of these issues),
 it seems more appropriate to make Timebombers/Instabombers a design choice rather than a player choice
 
-Skill Panel:
-
-Add the red squiggle to the original (un-enhanced) panel
-Don't show the V-Lock icon if the level doesn't need it
-Update the graphics to the ones with improved colour scheme (see SLToo topic)
-
-Settings Menu:
+# Settings Menu:
 
 Improve layout
 Add tooltips to all items
 
-# === THANKS ===
+# =============== THANKS =====================
 
 From Will (RetroLemmini developer):
 
@@ -60,7 +55,7 @@ fact it's still used many years after its first version makes it worth the extra
 
 I hope that it can be enjoyed for many years to come
 
-# === THANKS ===
+# =============== THANKS =====================
 
 From Charles (RetroLemmini developer):
 
