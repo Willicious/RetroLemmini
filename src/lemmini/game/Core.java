@@ -92,7 +92,7 @@ public class Core {
     public static final Path[] EMPTY_PATH_ARRAY = {};
     
     /** name of the INI file */
-    private static final String PROGRAM_PROPS_FILE_NAME = "superlemmini.ini";
+    private static final String PROGRAM_PROPS_FILE_NAME = "retrolemmini_settings.ini";
     /** name of player properties file */
     private static final String PLAYER_PROPS_FILE_NAME = "players.ini";
     
@@ -136,12 +136,16 @@ public class Core {
      * @throws IOException
      * @throws URISyntaxException 
      */
-    public static boolean init(final boolean createPatches, String workingFolder) throws LemmException, IOException, URISyntaxException  {
+    public static boolean init(final boolean createPatches, String workingFolder) throws LemmException, IOException  {
     	System.out.println("\ninitializing Core...");
     	String tmp;// = java.net.URLDecoder.decode(workingFolder, "UTF-8");
     	tmp = new java.io.File(workingFolder).getPath();
+    	
     	gamePath = Paths.get(tmp);
+
     	System.out.println("    gamePath detected as: "+ gamePath.toString());	
+    	
+    	// Data directory
     	//if it's within the .jar file, we want the folder one up from that. 
     	if (gamePath.toString().endsWith(".jar")) {
             gameDataPath = Paths.get(gamePath.getParent().toString(), "data");
@@ -152,8 +156,12 @@ public class Core {
     	
         gameDataTree = new CaseInsensitiveFileTree(gameDataPath); 
 
-        // get ini path
-        programPropsFilePath = Paths.get(SystemUtils.USER_HOME);
+        // Settings directory
+    	if (gamePath.toString().endsWith(".jar")) {
+    		programPropsFilePath = Paths.get(gamePath.getParent().toString(), "settings");
+    	} else {
+    		programPropsFilePath = Paths.get(gamePath.toString(), "settings");
+    	}
         programPropsFilePath = programPropsFilePath.resolve(PROGRAM_PROPS_FILE_NAME);
         System.out.println("    game config: " + programPropsFilePath.toString());
         // read main ini file
@@ -178,11 +186,12 @@ public class Core {
         	System.out.println("    config file read successfully");
         }
         
-        String currentDirectory = new java.io.File(Core.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent();
-        String resourcePathStr = programProps.get("resourcePath", Paths.get(currentDirectory, "resources").toString());
-        
-        //resourcePath is the source of your game resources
-        resourcePath = Paths.get(resourcePathStr);
+    	// Resources directory
+        if (gamePath.toString().endsWith(".jar")) {
+    		resourcePath = Paths.get(gamePath.getParent().toString(), "resources");
+    	} else {
+    		resourcePath = Paths.get(gamePath.toString(), "resources");
+    	}
         System.out.println("      resourcePath: " + resourcePath.toString());
         resourceTree = new CaseInsensitiveFileTree(resourcePath);
         
@@ -257,8 +266,8 @@ public class Core {
         
       
     	//NOTE: We'll never try to extract resources... the goal of this program should be to have resources already included in the distributable
-        if (resourcePathStr.isEmpty()) {
-        	if (resourcePathStr.isEmpty()) {
+        if (resourcePath.toString().isEmpty()) {
+        	if (resourcePath.toString().isEmpty()) {
         		System.out.println("    resourcePath is invalid...");
         	}
         	System.out.println("    quitting...");
