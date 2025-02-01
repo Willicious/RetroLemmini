@@ -73,11 +73,19 @@ public class LemminiPanel extends JPanel implements Runnable {
     /** y coordinate of minimap in pixels */
     static final int SMALL_Y = ICONS_Y;
     
+    private boolean needVLockIcon() {
+        return GameController.getLevel() != null &&
+               GameController.getLevel().getHeight() > Level.DEFAULT_HEIGHT;
+    }
+    
     private int getIconBarX() {
     	if (GameController.isOptionEnabled(RetroLemminiOption.ENHANCED_ICONBAR) ) {
-    		return 0;
+    		if (!needVLockIcon())
+    			return ICONS_X - 10;
+    		else 
+    			return 0;
     	}
-    	return ICONS_X;
+    	else return ICONS_X + 10;
     }
     
     private int getIconBarY() {
@@ -748,10 +756,30 @@ public class LemminiPanel extends JPanel implements Runnable {
                     	
                         GameController.drawIconsAndCounters(offGfx, iconBarX, iconBarY, countBarX, countBarY);
                         
-                        //draw the icon bar filler?
+                        // Draw iconbar filler?
+                        // TODO: the VLock icon is currently hidden behind the filler icon when not needed
+                        // Ideally, the VLock button simply wouldn't be drawn at all
+                        int XOffset = 0;
+                        int YOffset = 0;
+                        
                         if (GameController.isOptionEnabled(GameController.RetroLemminiOption.ENHANCED_ICONBAR)) {
+                            if (needVLockIcon())
+                            	XOffset = 17;
+                            else
+                            	XOffset = 29;
+                        }
+                        else {
+                            if (needVLockIcon())
+                            	XOffset = -1; // Don't draw the filler if the V-Lock icon is needed
+                            else
+                            	XOffset = 37;
+                            
+                            YOffset = 6;
+                        }
+                        	
+                        if (XOffset > 0) {
                             LemmImage filler = MiscGfx.getImage(MiscGfx.Index.ICONBAR_FILLER);
-                        	offGfx.drawImage(filler, menuOffsetX + SMALL_X - 18, getIconBarY());
+                        	offGfx.drawImage(filler, menuOffsetX + SMALL_X - XOffset, getIconBarY() - YOffset);
                         	filler = null;
                         }
                         

@@ -461,6 +461,11 @@ public class GameController {
         return retval;
     }
     
+    private static boolean needVLock()
+    {
+    	return (getLevel() != null && getLevel().getHeight() > Level.DEFAULT_HEIGHT);
+    }
+    
     /**
      * Proceed to next level.
      * @return true: OK, false: no more levels in this rating
@@ -1616,10 +1621,14 @@ public class GameController {
                 case PAUSE:
                 case NUKE:
                 case FFWD:
-                case VLOCK:
                 case RESTART:
                     sound.playPitched(Sound.PitchedEffect.SKILL, Icons.GetPitch(type));
                     break;
+                case VLOCK: {
+                	if (needVLock())
+                		sound.playPitched(Sound.PitchedEffect.SKILL, Icons.GetPitch(type));
+                	break;
+                }
                 default:
                     break; // supress sound
             }
@@ -2314,6 +2323,9 @@ public class GameController {
     }
     
     public static void setVerticalLock(final boolean vl) {
+        if (!needVLock())
+        	return;
+    	
         verticalLock = vl;
     }
     
@@ -2382,7 +2394,7 @@ public class GameController {
      * Icon was pressed.
      * @param t icon type
      */
-    public static void pressIcon(final Icons.IconType t) {
+    public static void pressIcon(final Icons.IconType t) {    	
         Icons.press(t);
     }
     
