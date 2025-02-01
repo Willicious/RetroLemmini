@@ -105,18 +105,6 @@ public class Icons {
      * @return
      */
     public static List<IconType> CurrentIconOrder() {
-        if (GameController.isOptionEnabled(GameController.RetroLemminiOption.ENHANCED_ICONBAR)) {
-        	return EnhancedIconOrder();
-        } else {
-        	return StandardIconOrder();
-        }
-    }
-    
-    /**
-     * List of all icons, in the classic SuperLemmini order
-     * @return
-     */
-    private static List<IconType> StandardIconOrder() {
     	List<IconType> rslt;
     	rslt = new ArrayList<IconType>();
     	rslt.add(IconType.MINUS);
@@ -125,26 +113,9 @@ public class Icons {
     	rslt.add(IconType.PAUSE);
     	rslt.add(IconType.NUKE);
     	rslt.add(IconType.FFWD);
-    	rslt.add(IconType.VLOCK);
     	rslt.add(IconType.RESTART);
-    	return rslt;
-    }
-
-    /**
-     * List of all icons, in the Enhanced RetroLemmini order
-     * @return
-     */
-    private static List<IconType> EnhancedIconOrder() {
-    	List<IconType> rslt;
-    	rslt = new ArrayList<IconType>();
-    	rslt.add(IconType.MINUS);
-    	rslt.add(IconType.PLUS);
-    	rslt.addAll(SkillIconOrder());
-    	rslt.add(IconType.PAUSE);
-    	rslt.add(IconType.FFWD);
-    	rslt.add(IconType.NUKE);
-    	rslt.add(IconType.RESTART);
-    	rslt.add(IconType.VLOCK);
+  	    rslt.add(IconType.VLOCK);
+    	
     	return rslt;
     }
     
