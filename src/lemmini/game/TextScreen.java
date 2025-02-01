@@ -104,16 +104,18 @@ public class TextScreen {
     /** scroll text */
     private static final String SCROLL_TEXT =
         "RetroLemmini - a game engine for Lemmings(tm) in Java. "
-    	+ "Programmed by Will James 2025 onwards... "
+    	+ "Programmed by Will James... "
         + "Based on SuperLemminiToo by Charles... "
         + "SuperLemmini by Ryan Sakowski... "
         + "Original Lemmini by Volker Oth. "
         + "Lemmini website: www.lemmini.de. "
         + "Thanks to Martin Cameron for his IBXM library, "
-        + "Mindless for his MOD conversions of the original Amiga Lemmings tunes and his Amiga level rips, "
-        + "the guys of DMA Design for writing the original Lemmings, "
+        + "Mindless for his MOD conversions of the original Amiga Lemmings tunes, "
+        + "the guys of DMA Design for the original Lemmings game, "
         + "ccexplore and the other nice folks at the Lemmings Forum for discussion and advice, "
-        + "and Oracle for maintaining Java and providing the community with a free development environment.";
+        + "and Oracle for maintaining Java and providing the community with a free development environment. "
+        + "We accept no responsibility for: Loss of sleep... Loss of hair... Loss of sanity! "
+        + "Click 'Play Level' to begin... ";
     
     /** TextDialog used as base component */
     private static TextDialog textDialog;
@@ -160,7 +162,7 @@ public class TextScreen {
     static void initIntro() {
         textDialog.clear();
         textDialog.setBackground(MiscGfx.getImage(MiscGfx.Index.TILE_BROWN), true);
-        textDialog.addStringCentered("Release " + LemminiFrame.REVISION + " (" + LemminiFrame.REV_DATE + ")", null, 4, RED);
+        textDialog.addStringCentered("Version " + LemminiFrame.REVISION, null, 4, RED);
         textDialog.addTextButton("Play Level", "Play Level", null, -5, -2, Button.PLAY_LEVEL, GREEN, BROWN);
         textDialog.addTextButton("Load Replay", "Load Replay", null, -14, 0, Button.LOAD_REPLAY, BLUE, BROWN);
         textDialog.addTextButton("Enter Code", "Enter Code", null, 3, 0, Button.ENTER_CODE, BLUE, BROWN);
@@ -369,7 +371,7 @@ public class TextScreen {
             try {
                 scrollerGfx = tempScrollerImg.createGraphicsContext();
                 scrollerGfx.setBackground(new Color(0, 0, 0, 0));
-                LemmFont.strImage(scrollerGfx, SCROLL_TEXT, SCROLL_WIDTH + LemmFont.getWidth() * SCROLL_PADDING, 0, BLUE);
+                LemmFont.strImage(scrollerGfx, SCROLL_TEXT, SCROLL_WIDTH + LemmFont.getWidth() * SCROLL_PADDING, 0, BROWN);
             } finally {
                 if (scrollerGfx != null) {
                     scrollerGfx.dispose();
@@ -378,16 +380,17 @@ public class TextScreen {
             
             LemmImage tickerTape = MiscGfx.getImage(MiscGfx.Index.TICKER_TAPE);
             
-            double scaleHeight = 2;
+            double scaleHeight = 1;
             double scaleWidth = 1;
             
             if(GameController.isOptionEnabled(GameController.RetroLemminiOption.CLASSIC_TICKER)) {
-            	scaleHeight=0.5;
-            	scaleWidth=0.5;
+            	scaleHeight=0.8;
+            	scaleWidth=0.8;
             }
             
-            scrollerImg = ToolBox.createLemmImage(
-                    (int)(tempScrollerImg.getWidth()*scaleWidth) + (tickerTape.getWidth()*2), Math.max((int)(tempScrollerImg.getHeight()*scaleHeight), tickerTape.getHeight())); //we'll drop the width by
+            double padding = 60;
+			scrollerImg = ToolBox.createLemmImage(
+                    (int)(tempScrollerImg.getWidth()*scaleWidth + padding) + (tickerTape.getWidth()*2), Math.max((int)(tempScrollerImg.getHeight()*scaleHeight), tickerTape.getHeight()));
             try {
                 scrollerGfx = scrollerImg.createGraphicsContext();
                 scrollerGfx.setBackground(new Color(0, 0, 0, 0)); //set transparent background.
@@ -398,7 +401,7 @@ public class TextScreen {
 	                	scrollerGfx.drawImage(tickerTape, idx, 0);
 	                	idx += tickerTape.getWidth();
 	                } while(idx < scrollerImg.getWidth());
-	                scrollerGfx.drawImage(tempScrollerImg, 0, 3, scaleHeight); //and draw the font and half-size.
+	                scrollerGfx.drawImage(tempScrollerImg, 0, 6, scaleHeight); //and draw the font and half-size.
                 } else {
                     scrollerGfx.setBackground(new Color(0, 0, 0, 0));
                 	scrollerGfx.drawImage(tempScrollerImg, 0, 0, scrollerImg.getWidth(), scrollerImg.getHeight());
