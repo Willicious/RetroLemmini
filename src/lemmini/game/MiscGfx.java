@@ -120,7 +120,7 @@ public class MiscGfx {
         List<LemmImage> anim = ToolBox.getAnimation(Core.loadLemmImage(res), 4);
         images.addAll(anim);
         /* 10: LEMMINI title graphic */
-        img = Core.loadLemmImageJar("lemmini.png");
+        img = Core.loadLemmImageJar("retrolemmini_logo.png");
         images.add(img);
         /* 11: TILE_GREEN */
         res = Core.findResource("gfx/misc/background_level.png", Core.IMAGE_EXTENSIONS);
