@@ -575,19 +575,34 @@ public class Icons {
 
         	//these 5 icon types don't have numbers with them, so we can move the icons up a tad
         	int yIcon = 0;
-        	int yLabel = 29; //we're manually moving the labels lower here. TODO: eventually we should just update the graphics so they're lower
+        	int yLabel = 30;
             if (GameController.isOptionEnabled(GameController.RetroLemminiOption.ENHANCED_ICONBAR)) {
-	        	yLabel = 43;
-	        	yIcon = -5;
-            	switch(type) {
+	        	yLabel = 44;
+	        	
+	        	if (GameController.isOptionEnabled(GameController.RetroLemminiOption.ICON_LABELS))
+	        		yIcon = -7;
+	        	else
+	        		yIcon = -4;
+	            
+	        	// Fine tuning of y positions
+	        	switch(type) {
+	        	    case BLOCK:
+	        	    	yIcon -= 1;
+	        	    	break;
+	        	    case BASH:
+	        	    case MINE:
+	        	    case DIG:
+	        	    	yIcon -= 2;
+	        	    	break;
+	        	    case BUILD:
 		        	case FFWD:
 		        	case PAUSE:
 		        	case RESTART:
 		        	case VLOCK:
 		        	case NUKE:
-		        		yIcon -= 4;
-		        		break;
-		    		default:
+	        	    	yIcon -= 3;
+	        	    	break;
+	        	    default:
 	        	}
             }
 	        	

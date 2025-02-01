@@ -4,10 +4,21 @@ A continuation of the Lemmini family of engines (Lemmini, SuperLemmini, RetroLem
 
 # === V1.0 Updates ===
 
-+ Renamed project to "RetroLemmini" everywhere relevant
-+ Resources folder is now created in the root directory of the .jar and is called "resources"
-+ All necessary folders are created within the "resources" folder (mods, music, replays, sound, styles)
-+ SetupInstructions.txt created which will be bundled with all future releases and kept up-to-date
+ # Project overview
+ + Renamed project to "RetroLemmini" everywhere relevant
+
+ # File system
+ + Resources folder is now created in the root directory of the .jar and is called "resources"
+ + All necessary folders are created within the "resources" folder (mods, music, replays, sound, styles)
+ + SetupInstructions.txt created which will be bundled with all future releases and kept up-to-date
+ + Settings are now saved to "settings" folder in the root directory of the .jar
+
+ # Menu
+ + Updated menu ticker size & colour for readability (it's now yellow / yellow on blue for classic)
+ + Updated logo
+ 
+ # Skill Panel
+ + Improved colour scheme and position of lemming button animations
 
 # === PROPOSED FEATURES/BUGFIXES ===
 
