@@ -22,13 +22,12 @@ A continuation of the Lemmini family of engines (Lemmini, SuperLemmini, RetroLem
 
 # === PROPOSED FEATURES/BUGFIXES ===
 
-Java base:
+Java base / File system:
 
-Try to base the program on a later Java version, if at all possible. Something about Java 1.8 means that anyone running on 15 or later may experience
-issues relating to .png file loading. The main goal with the next update will be to completely remove the need for exteral setup files; ALL necessary assets
-will be included with the download, and the program will be as plug-and-play as possible
+The data/root.lzp zip file will be removed altogether - all files will be loaded from "resources", no need to extract / patch / etc.
+In turn, this should remove the need to load RetroLemmini in a particular Java version
 
-* Ideally, also detect the Java enironment before running the .jar (i.e. remove need for "Run with Java X.cmd" files)
+* In fact, I think this has already been fixed, but it's definitely worth updating the file system anyway
 
 Timebombers:
 
