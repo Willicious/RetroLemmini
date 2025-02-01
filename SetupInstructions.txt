@@ -1,0 +1,47 @@
+Welcome to RetroLemmini!
+
+A clone of the DMA Design game Lemmings(TM) with graphics from Lemmings For Windows 95
+
+Instructions for installation:
+
+1) Ensure that you have a copy of the latest version of Java installed on your system.
+
+For the JRE (good if you just want to run Java applications), go here:
+https://www.java.com/en/download/manual.jsp
+
+For the JDK (good if you intend to do some Java programming of your own!), go here:
+https://www.oracle.com/java/technologies/downloads/
+
+2) Copy across any levels, mods, music, player data, replays, sounds and styles
+   from your existing (Super)Lemmini(Too) installation into the relevant folder
+   within the "resources" folder
+   
+   (NOTE: The "data" folder contains a zipped file (root.lzp) which contains all
+   of the default RetroLemmini resources, you don't need to do anything with this)
+  
+   (NOTE: The "RetroLemmini_lib" folder contains all of the library dependencies
+   that RetroLemmini needs to run, you don't need to do anything with these)
+   
+3) Run RetroLemmini.jar
+
+4) Enjoy!
+
+Optional:
+
+Pin RetroLemmini to the Windows taskbar for quick access:
+1.	Right-click on the desktop and navitage to New>Shortcut
+2.	In the window that pops up, Browse to the RetroLemmini.jar Executable Jar File
+3.	Name the shortcut RetroLemmini
+4.	Check that the shortcut opens RetroLemmini
+5.	Right-click the shortcut and select Properties
+6.	In the Target field, type the following at the start, before the “C:\path\to\jar” text: javaw.exe[SPACE]-jar[SPACE]
+7.	Press Apply, OK
+8.	Check that the shortcut opens RetroLemmini
+9.	Now, when you right-click the Shortcut, it will give you the option to pin it to the Taskbar
+
+If you want to change the icon:
+1.	Right-click the Taskbar icon
+2.	Right-click RetroLemmini in the pop-up menu
+3.	Select Properties
+4.	Select Change Icon
+5.	Navigate to the desired Icon and click OK

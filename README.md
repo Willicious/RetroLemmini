@@ -7,6 +7,7 @@ A continuation of the Lemmini family of engines (Lemmini, SuperLemmini, RetroLem
 + Renamed project to "RetroLemmini" everywhere relevant
 + Resources folder is now created in the root directory of the .jar and is called "resources"
 + All necessary folders are created within the "resources" folder (mods, music, replays, sound, styles)
++ SetupInstructions.txt created which will be bundled with all future releases and kept up-to-date
 
 # === PROPOSED FEATURES/BUGFIXES ===
 
