@@ -19,8 +19,11 @@ https://www.oracle.com/java/technologies/downloads/
    (NOTE: The "data" folder contains a zipped file (root.lzp) which contains all
    of the default RetroLemmini resources, you don't need to do anything with this)
   
-   (NOTE: The "RetroLemmini_lib" folder contains all of the library dependencies
+   (NOTE: The "applibs" folder contains all of the library dependencies
    that RetroLemmini needs to run, you don't need to do anything with these)
+   
+   (NOTE: The "icons" folder contains .ico files that you can optionally
+   use to create a Windows shortcut for RetroLemmini - see below for details)
    
 3) Run RetroLemmini.jar
 
@@ -44,4 +47,4 @@ If you want to change the icon:
 2.	Right-click RetroLemmini in the pop-up menu
 3.	Select Properties
 4.	Select Change Icon
-5.	Navigate to the desired Icon and click OK
+5.	Navigate to the desired Icon (the default ones are available in the "icons" folder) and click OK
