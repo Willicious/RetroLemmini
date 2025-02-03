@@ -11,7 +11,7 @@ import java.util.Locale;
 
 //import org.apache.commons.lang3.math.NumberUtils;
 
-import lemmini.game.GameController.RetroLemminiOption;
+import lemmini.game.GameController.SLTooOption;
 import lemmini.gameutil.Sprite;
 import lemmini.graphics.GraphicsContext;
 import lemmini.graphics.LemmImage;
@@ -56,7 +56,7 @@ public class Icons {
      * @return
      */
     public static int getIconWidth() {
-    	if (GameController.isOptionEnabled(RetroLemminiOption.ENHANCED_ICONBAR)) {
+    	if (GameController.isOptionEnabled(SLTooOption.ENHANCED_ICONBAR)) {
     		return ENHANCED_WIDTH;
     	} else {
     		return ORIGINAL_WIDTH;
@@ -68,7 +68,7 @@ public class Icons {
      * @return
      */
     public static int getIconHeight() {
-    	if (GameController.isOptionEnabled(RetroLemminiOption.ENHANCED_ICONBAR)) {
+    	if (GameController.isOptionEnabled(SLTooOption.ENHANCED_ICONBAR)) {
     		return ENHANCED_HEIGHT;
     	} else {
     		return ORIGINAL_HEIGHT;
@@ -276,7 +276,7 @@ public class Icons {
         	// 5) if there's no standard animated icon, we load the standard transparent static icon.
         	
         	// 1) check for animated mods
-        	if (GameController.isOptionEnabled(GameController.RetroLemminiOption.ENHANCED_ICONBAR)) {
+        	if (GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_ICONBAR)) {
             	res = Core.findResourceEx(
 	                    "gfx/iconbar/anim_" + iconName + ".png",
 	                    true, false, 
@@ -296,7 +296,7 @@ public class Icons {
 	                    true, false,
 	                    Core.IMAGE_EXTENSIONS);
         	}
-        	if (GameController.isOptionEnabled(GameController.RetroLemminiOption.ENHANCED_ICONBAR)) {
+        	if (GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_ICONBAR)) {
         		// 4) check for animated standard
             	if (res == null) {
                 	res = Core.findResourceEx(
@@ -525,7 +525,7 @@ public class Icons {
     		int x = 0;
             int y = 0;
     		Sprite bgIcon; 
-            if (GameController.isOptionEnabled(GameController.RetroLemminiOption.ENHANCED_ICONBAR)) {
+            if (GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_ICONBAR)) {
                 bgIcon = bgIconsLarge.get(idx);
                 x = 1; //the larger icons have an added pixel on the side of padding.
                 y = 14; //the larger icons have 14 pixels more headroom (for the numbers)
@@ -547,10 +547,10 @@ public class Icons {
         	//these 5 icon types don't have numbers with them, so we can move the icons up a tad
         	int yIcon = 0;
         	int yLabel = 30;
-            if (GameController.isOptionEnabled(GameController.RetroLemminiOption.ENHANCED_ICONBAR)) {
+            if (GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_ICONBAR)) {
 	        	yLabel = 44;
 	        	
-	        	if (GameController.isOptionEnabled(GameController.RetroLemminiOption.ICON_LABELS))
+	        	if (GameController.isOptionEnabled(GameController.SLTooOption.ICON_LABELS))
 	        		yIcon = -7;
 	        	else
 	        		yIcon = -4;
@@ -578,7 +578,7 @@ public class Icons {
             }
 	        	
         	iconGfx.drawImage(icon.getImage(), getIconWidth() * idx + x, 0 + y + yIcon);
-            if (GameController.isOptionEnabled(GameController.RetroLemminiOption.ICON_LABELS))
+            if (GameController.isOptionEnabled(GameController.SLTooOption.ICON_LABELS))
             	iconGfx.drawImage(iconLabel.getImage(), getIconWidth() * idx + x, yLabel);
         }
     }

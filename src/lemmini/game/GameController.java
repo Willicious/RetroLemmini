@@ -94,11 +94,10 @@ public class GameController {
     }
     
     /**
-     * Options exclusive to RetroLemmini
+     * Options added in SuperLemminiToo
      * @author Charles
-     *
      */
-    public static enum RetroLemminiOption {
+    public static enum SLTooOption {
         TIMED_BOMBERS,
         UNLOCK_ALL_LEVELS,
         DISABLE_SCROLL_WHEEL,
@@ -175,8 +174,8 @@ public class GameController {
     /** the foreground image */
     private static LemmImage fgImage;
     private static final Set<Option> options = EnumSet.noneOf(Option.class);
-    /** RetroLemmini Exclusive options*/
-    private static final Set<RetroLemminiOption> SLToptions = EnumSet.noneOf(RetroLemminiOption.class);
+    /** Options added in SuperLemminiToo */
+    private static final Set<SLTooOption> SLToptions = EnumSet.noneOf(SLTooOption.class);
 
     /** flag: fast forward mode is active */
     private static boolean fastForward;
@@ -1364,7 +1363,7 @@ public class GameController {
             lemmSkillRequest = lemm;
         }
         stopReplayMode();
-        if (!isOptionEnabled(RetroLemminiOption.DISABLE_FRAME_STEPPING)) {
+        if (!isOptionEnabled(SLTooOption.DISABLE_FRAME_STEPPING)) {
         	advanceFrame();
         }
     }
@@ -1908,7 +1907,7 @@ public class GameController {
     	drawIcons(g, iconsX, iconsY);
     	drawCounters(g, countersX, countersY);
 /*
-    	if (!GameController.isOptionEnabled(GameController.RetroLemminiOption.ENHANCED_ICONBAR)) {
+    	if (!GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_ICONBAR)) {
         	//the enhanced icon bar should have the counters built into it.
         	drawCounters(g, countersX, countersY);
         }
@@ -2568,15 +2567,15 @@ public class GameController {
         return options.contains(option);
     }
     
-    public static void setOption(RetroLemminiOption option, boolean enable) {
+    public static void setOption(SLTooOption option, boolean enable) {
         if (enable) {
             SLToptions.add(option);
         } else {
             SLToptions.remove(option);
         }
-        if (option == RetroLemminiOption.ICON_LABELS && gameState != null) {
+        if (option == SLTooOption.ICON_LABELS && gameState != null) {
         	Icons.redraw();
-        } else if(option == RetroLemminiOption.ENHANCED_ICONBAR && gameState != null) {
+        } else if(option == SLTooOption.ENHANCED_ICONBAR && gameState != null) {
         	try {
         		Icons.LoadIconResources();
         	}
@@ -2587,7 +2586,7 @@ public class GameController {
         }
     }
     
-    public static boolean isOptionEnabled(RetroLemminiOption option) {
+    public static boolean isOptionEnabled(SLTooOption option) {
         return SLToptions.contains(option);
     }
     
