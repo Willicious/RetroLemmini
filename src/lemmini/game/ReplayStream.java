@@ -190,14 +190,18 @@ public class ReplayStream {
                 }
                 
                 switch (Integer.parseInt(e[1])) { /* type */
-                    case ASSIGN_SKILL:
-                        if (e.length < 4) {
-                            throw new LemmException("Not enough values in replay event.");
-                        }
-                        ev.add(new ReplayAssignSkillEvent(Integer.parseInt(e[0]),
-                                Lemming.Type.valueOf(e[2]),
-                                Integer.parseInt(e[3])));
-                        break;
+                case ASSIGN_SKILL:
+                    if (e.length < 5) {  // Ensure we have 5 values (including the new isTimedBomber flag)
+                        throw new LemmException("Not enough values in replay event for ASSIGN_SKILL.");
+	                    }
+                        // Check whether or not to apply the Bomber countdown timer
+                        // It should play back depending on the *original* setting, not the current one
+	                    boolean isTimedBomber = Boolean.parseBoolean(e[4]);
+	                    ev.add(new ReplayAssignSkillEvent(Integer.parseInt(e[0]),
+	                            Lemming.Type.valueOf(e[2]),
+	                            Integer.parseInt(e[3]),
+	                            isTimedBomber));
+	                    break;
                     case MOVE_POS:
                         if (e.length < 5) {
                             throw new LemmException("Not enough values in replay event.");
@@ -327,9 +331,11 @@ public class ReplayStream {
      * @param ctr frame counter
      * @param skill skill assigned
      * @param lemming Lemming the skill was assigned to
+     * @param isTimedBomber checks whether or not to apply the timer based on current user setting
      */
     public void addAssignSkillEvent(final int ctr, final Lemming.Type skill, final int lemming) {
-        ReplayAssignSkillEvent event = new ReplayAssignSkillEvent(ctr, skill, lemming);
+        boolean isTimedBomber = GameController.isOptionEnabled(GameController.SLTooOption.TIMED_BOMBERS);
+        ReplayAssignSkillEvent event = new ReplayAssignSkillEvent(ctr, skill, lemming, isTimedBomber);
         events.add(event);
     }
     
@@ -414,19 +420,33 @@ class ReplayAssignSkillEvent extends ReplayEvent {
     
     /** skill */
     Lemming.Type skill;
+    
     /** Lemming */
     int lemming;
+    
+    /** Timed Bomber state */
+    private boolean isTimedBomber;
     
     /**
      * Skill assigned
      * @param ctr Frame counter
      * @param s skill selected
      * @param lem lemming no. that the skill was assigned
+     * @param isTimedBomber indicates if the Timed Bomber option was enabled at the time of the event
      */
-    public ReplayAssignSkillEvent(final int ctr, final Lemming.Type s, final int lem) {
+    public ReplayAssignSkillEvent(final int ctr, final Lemming.Type s, final int lem, boolean isTimedBomber) {
         super(ctr, ReplayStream.ASSIGN_SKILL);
         skill = s;
         lemming = lem;
+        this.isTimedBomber = isTimedBomber;
+    }
+    
+    /**
+     * Returns whether the Timed Bomber option was enabled at the time of the event.
+     * @return true if Timed Bomber was enabled, false otherwise
+     */
+    public boolean isTimedBomber() {
+        return isTimedBomber;
     }
     
     /* (non-Javadoc)

@@ -1737,6 +1737,40 @@ public class Lemming {
      * Set new skill/type of this Lemming.
      * @param newSkill new skill/type
      * @param playSound
+     * @param r checks if it's a replay event
+     * @return true if a change was possible, false otherwise
+     */
+    public boolean setSkill(final Type newSkill, boolean playSound, ReplayEvent r) {
+        if (r == null || newSkill != Type.FLAPPER) {
+            return setSkill(newSkill, playSound);
+        }
+        
+    	// If the assignment is a replay event, check the Timed Bomber flag
+        if (r instanceof ReplayAssignSkillEvent) { 
+            ReplayAssignSkillEvent rs = (ReplayAssignSkillEvent) r;
+
+            // If the event has the Timed Bomber flag set, handle it as a Timed Bomber
+            if (rs.isTimedBomber()) {           	
+                if (explodeNumCtr == 0) {                	
+                    explodeNumCtr = MAX_BOMB_TIMER;
+                    explodeCtr = 0;
+                    return playSetSkillSound(true, playSound);
+                } else {                	
+                    return playSetSkillSound(false, playSound);
+                }
+            } else {            	
+                changeType(type, getExploderType());
+                return playSetSkillSound(true, playSound);
+            }
+        }
+        
+        return setSkill(newSkill, playSound); // Should never happen, but just in case
+    }
+    
+    /**
+     * Set new skill/type of this Lemming
+     * @param newSkill new skill/type
+     * @param playSound
      * @return true if a change was possible, false otherwise
      */
     public boolean setSkill(final Type newSkill, boolean playSound) {

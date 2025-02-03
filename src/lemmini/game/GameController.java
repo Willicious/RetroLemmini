@@ -1088,7 +1088,7 @@ public class GameController {
                         ReplayAssignSkillEvent rs = (ReplayAssignSkillEvent) r;
                         double pan;
                         Lemming l = lemmings.get(rs.lemming);
-                        l.setSkill(rs.skill, false);
+                        l.setSkill(rs.skill, false, r);
                         l.setSelected();
                         pan = l.getPan();
                         switch (rs.skill) {
