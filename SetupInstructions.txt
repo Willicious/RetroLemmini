@@ -15,11 +15,8 @@ https://www.oracle.com/java/technologies/downloads/
 2) Copy across any levels, mods, music, player data, replays, sounds and styles
    from your existing (Super)Lemmini(Too) installation into the relevant folder
    within the "resources" folder
-   
-   (NOTE: The "data" folder contains a zipped file (root.lzp) which contains all
-   of the default RetroLemmini resources, you don't need to do anything with this)
   
-   (NOTE: The "applibs" folder contains all of the library dependencies
+   (NOTE: The "RetroLemmini_lib" folder contains all of the library dependencies
    that RetroLemmini needs to run, you don't need to do anything with these)
    
    (NOTE: The "icons" folder contains .ico files that you can optionally

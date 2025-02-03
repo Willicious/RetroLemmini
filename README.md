@@ -8,10 +8,12 @@ A continuation of the Lemmini family of engines (Lemmini, SuperLemmini, RetroLem
  + Renamed project to "RetroLemmini" everywhere relevant
 
  # File system
- + Resources folder is now created in the root directory of the .jar and is called "resources"
- + All necessary folders are created within the "resources" folder (mods, music, replays, sound, styles)
+ + Resources folder is now included in the root directory of the .jar and is called "resources"
+ + All necessary folders are included within the "resources" folder (mods, music, replays, sound, styles)
  + SetupInstructions.txt created which will be bundled with all future releases and kept up-to-date
  + Settings are now saved to "settings" folder in the root directory of the .jar
+ + Icons are included in an "icons" folder
+ + "root.lzp" has now been removed: RetroLemmini no longer requires resource extraction or streaming from zip
 
  # Menu
  + Updated menu ticker size & colour for readability (it's now yellow / yellow on blue for classic)
@@ -23,23 +25,25 @@ A continuation of the Lemmini family of engines (Lemmini, SuperLemmini, RetroLem
 
 # =============== PROPOSED FEATURES/BUGFIXES ================
 
-# Java base / File system:
-
-The data/root.lzp zip file will be removed altogether - all files will be loaded from "resources", no need to extract / patch / etc.
-In turn, this should remove the need to load RetroLemmini in a particular Java version
-
-* In fact, I think this has already been fixed, but it's definitely worth updating the file system anyway
-
 # Timebombers:
 
-These will need to be updated
-Either they should be level-side optional, or the two should exist as separate skills. Being player-side optional causes the following issues:
+Being player-side optional causes the following issues:
 
 * Instabombers cannot be assigned during the first 5 seconds of the level, or the Timebomber option will break the level
 * Replays currently record at point of assignment for both, so - when shared with another user - th replay will break if that user has the opposite option
 
 Even if we could fix the above (there's really no sensible way to fix the first of these issues),
-it seems more appropriate to make Timebombers/Instabombers a design choice rather than a player choice
+it seems more appropriate to make Timebombers/Instabombers a design choice rather than a player choice.
+
+With that said, we could maybe fix the second issue by checking which option is active each time a Bomber is assigned,
+and then write the countdown to the replay as well. Then, at least replays would be option-independent.
+
+We could also adjust the player-side setting to "by level" or "always instabombers", then make it design-side optional.
+The problem with this is that there is no dedicated level editor, so the designer would have to manually enter it into
+the level's .ini file via a text editor.
+
+I'll get community feedback on this before going ahead with any drastic changes, but may at least see about the replay bug
+in the meantime.
 
 # Settings Menu:
 
