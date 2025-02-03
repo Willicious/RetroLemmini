@@ -187,7 +187,7 @@ public class Core {
         GameController.setOption(GameController.Option.CLASSIC_CURSOR, programProps.getBoolean("classicalCursor", false));
         GameController.setOption(GameController.Option.SWAP_BUTTONS, programProps.getBoolean("swapButtons", false));
         GameController.setOption(GameController.Option.FASTER_FAST_FORWARD, programProps.getBoolean("fasterFastForward", false));
-        GameController.setOption(GameController.Option.PAUSE_STOPS_FAST_FORWARD, programProps.getBoolean("pauseStopsFastForward", false));
+        GameController.setOption(GameController.Option.PAUSE_STOPS_FAST_FORWARD, programProps.getBoolean("pauseStopsFastForward", true));
         GameController.setOption(GameController.Option.NO_PERCENTAGES, programProps.getBoolean("noPercentages", true));
         GameController.setOption(GameController.Option.REPLAY_SCROLL, programProps.getBoolean("replayScroll", true));
         GameController.setOption(GameController.Option.UNPAUSE_ON_ASSIGNMENT, programProps.getBoolean("unpauseOnAssignment", true));
@@ -201,7 +201,7 @@ public class Core {
         GameController.setOption(GameController.SLTooOption.SHOW_STATUS_TOTALS, programProps.getBoolean("showStatusTotals", true));
         GameController.setOption(GameController.SLTooOption.SHOW_LEVEL_NAME, programProps.getBoolean("showLevelName", true));
         GameController.setOption(GameController.SLTooOption.ENHANCED_ICONBAR, programProps.getBoolean("enhancedIconBar", true));
-        GameController.setOption(GameController.SLTooOption.ICON_LABELS, programProps.getBoolean("iconLabels", true));
+        GameController.setOption(GameController.SLTooOption.ICON_LABELS, programProps.getBoolean("iconLabels", false));
         GameController.setOption(GameController.SLTooOption.ANIMATED_ICONS, programProps.getBoolean("animatedIcons", true));
         GameController.setOption(GameController.SLTooOption.CLASSIC_TICKER, programProps.getBoolean("classicTicker", true));
         GameController.setOption(GameController.SLTooOption.DEBUG_VERBOSE_PLAYER_LOAD, programProps.getBoolean("debugVerbosePlayerLoad", false));

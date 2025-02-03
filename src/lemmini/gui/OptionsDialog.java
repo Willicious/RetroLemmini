@@ -82,6 +82,7 @@ public class OptionsDialog extends JDialog {
         jCheckBoxDisableFrameStepping = new javax.swing.JCheckBox();
         jCheckBoxVisualSfx = new javax.swing.JCheckBox();
         jCheckBoxEnhancedStatus = new javax.swing.JCheckBox();
+        jCheckBoxShowName = new javax.swing.JCheckBox();
         jCheckBoxEnhancedIconBar = new javax.swing.JCheckBox();
         jCheckBoxIconLabels = new javax.swing.JCheckBox();
         jCheckBoxClassicTicker = new javax.swing.JCheckBox();
@@ -125,6 +126,9 @@ public class OptionsDialog extends JDialog {
         
         jCheckBoxEnhancedStatus.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_STATUS));
         jCheckBoxEnhancedStatus.setText("Enhanced Status Bar");
+        
+        jCheckBoxShowName.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.SHOW_LEVEL_NAME));
+        jCheckBoxShowName.setText("Show Level Name on the Status Bar");
 
         jCheckBoxEnhancedIconBar.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_ICONBAR));
         jCheckBoxEnhancedIconBar.setText("Enhanced Icon Bar");
@@ -196,6 +200,7 @@ public class OptionsDialog extends JDialog {
         	                .addComponent(jCheckBoxBilinear)
         	                .addComponent(jCheckBoxClassicCursor)
         	                .addComponent(jCheckBoxEnhancedStatus)
+        	                .addComponent(jCheckBoxShowName)
         	                .addComponent(jCheckBoxEnhancedIconBar)
         	                .addComponent(jCheckBoxIconLabels)
         	                .addComponent(jCheckBoxClassicTicker))
@@ -210,6 +215,8 @@ public class OptionsDialog extends JDialog {
                 .addComponent(jCheckBoxClassicCursor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxEnhancedStatus)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBoxShowName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxEnhancedIconBar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -466,6 +473,7 @@ public class OptionsDialog extends JDialog {
     private javax.swing.JCheckBox jCheckBoxDisableFrameStepping;
     private javax.swing.JCheckBox jCheckBoxVisualSfx;
     private javax.swing.JCheckBox jCheckBoxEnhancedStatus;
+    private javax.swing.JCheckBox jCheckBoxShowName;
     private javax.swing.JCheckBox jCheckBoxEnhancedIconBar;
     private javax.swing.JCheckBox jCheckBoxIconLabels;
     private javax.swing.JCheckBox jCheckBoxClassicTicker;
