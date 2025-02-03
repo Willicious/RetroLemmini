@@ -8,17 +8,24 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
+
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import lemmini.LemminiFrame;
 import lemmini.graphics.LemmImage;
 import lemmini.gui.LegalFrame;
 import lemmini.tools.CaseInsensitiveFileTree;
 import lemmini.tools.Props;
 import lemmini.tools.ToolBox;
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.StringUtils;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
@@ -125,7 +132,7 @@ public class Core {
     	
     	gamePath = Paths.get(tmp);
 
-    	System.out.println("    gamePath detected as: "+ gamePath.toString());	
+    	System.out.println("    gamePath detected as: "+ gamePath.toString());
     	
     	// Data directory   	
         gameDataTree = new CaseInsensitiveFileTree(gamePath); 

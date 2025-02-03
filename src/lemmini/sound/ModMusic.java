@@ -1,15 +1,17 @@
 package lemmini.sound;
 
-import ibxm.Channel;
-import ibxm.IBXM;
-import ibxm.Module;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
+
+import ibxm.Channel;
+import ibxm.IBXM;
+import ibxm.Module;
 import lemmini.game.GameController;
 import lemmini.game.LemmException;
 import lemmini.game.Resource;

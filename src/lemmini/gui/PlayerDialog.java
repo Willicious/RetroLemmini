@@ -24,9 +24,11 @@ import java.awt.Toolkit;
 import java.util.List;
 import java.util.Locale;
 import java.util.Vector;
+
 import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+
 import lemmini.LemminiFrame;
 import lemmini.game.Core;
 

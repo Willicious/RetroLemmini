@@ -2,9 +2,11 @@ package lemmini.game;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.lang3.math.NumberUtils;
+
 import lemmini.graphics.LemmImage;
 import lemmini.tools.ToolBox;
-import org.apache.commons.lang3.math.NumberUtils;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI

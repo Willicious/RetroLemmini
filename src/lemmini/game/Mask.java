@@ -3,9 +3,11 @@ package lemmini.game;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+
+import org.apache.commons.lang3.BooleanUtils;
+
 import lemmini.graphics.LemmImage;
 import lemmini.tools.ToolBox;
-import org.apache.commons.lang3.BooleanUtils;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI

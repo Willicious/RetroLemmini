@@ -18,19 +18,48 @@
  */
 package lemmini;
 
-import java.awt.*;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.HeadlessException;
+import java.awt.RenderingHints;
+import java.awt.Transparency;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.nio.file.Path;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import lemmini.game.*;
+
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
+
+import lemmini.game.Core;
+import lemmini.game.GameController;
 import lemmini.game.GameController.SLTooOption;
+import lemmini.game.Icons;
+import lemmini.game.LemmCursor;
+import lemmini.game.LemmException;
+import lemmini.game.LemmFont;
+import lemmini.game.Lemming;
+import lemmini.game.Level;
+import lemmini.game.LevelCode;
+import lemmini.game.LevelPack;
+import lemmini.game.Minimap;
+import lemmini.game.MiscGfx;
 //import lemmini.game.LemmFont.Color;
 import lemmini.game.MiscGfx.Index;
+import lemmini.game.Player;
+import lemmini.game.ReplayLevelInfo;
+import lemmini.game.SpriteObject;
+import lemmini.game.Stencil;
+import lemmini.game.TextScreen;
 import lemmini.gameutil.Fader;
 import lemmini.graphics.GraphicsBuffer;
 import lemmini.graphics.GraphicsContext;
@@ -40,9 +69,6 @@ import lemmini.gui.LevelDialog;
 import lemmini.gui.OptionsDialog;
 import lemmini.gui.PlayerDialog;
 import lemmini.tools.ToolBox;
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.BooleanUtils;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * A graphics panel in which the actual game contents is displayed.

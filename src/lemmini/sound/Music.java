@@ -4,11 +4,13 @@ package lemmini.sound;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
+
+import org.apache.commons.io.FilenameUtils;
+
 import lemmini.game.Core;
 import lemmini.game.LemmException;
 import lemmini.game.Resource;
 import lemmini.game.ResourceException;
-import org.apache.commons.io.FilenameUtils;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI

@@ -8,10 +8,12 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
 import java.util.stream.Collectors;
-import lemmini.tools.Props;
-import lemmini.tools.ToolBox;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+
+import lemmini.tools.Props;
+import lemmini.tools.ToolBox;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI

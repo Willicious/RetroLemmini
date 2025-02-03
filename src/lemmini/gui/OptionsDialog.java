@@ -17,8 +17,10 @@ package lemmini.gui;
 
 import java.awt.Frame;
 import java.awt.Toolkit;
+
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+
 import lemmini.LemminiFrame;
 import lemmini.game.Core;
 import lemmini.game.GameController;

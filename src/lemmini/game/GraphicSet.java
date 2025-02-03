@@ -23,11 +23,13 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
+
+import org.apache.commons.lang3.ArrayUtils;
+
 import lemmini.gameutil.Sprite;
 import lemmini.graphics.LemmImage;
 import lemmini.tools.Props;
 import lemmini.tools.ToolBox;
-import org.apache.commons.lang3.ArrayUtils;
 
 /**
  *

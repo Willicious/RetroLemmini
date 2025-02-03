@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
+
+import org.apache.commons.lang3.ArrayUtils;
+
 import lemmini.game.GameController;
 import lemmini.game.Lemming;
 import lemmini.graphics.LemmImage;
 import lemmini.tools.ToolBox;
-import org.apache.commons.lang3.ArrayUtils;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI

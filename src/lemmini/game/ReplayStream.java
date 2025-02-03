@@ -1,13 +1,17 @@
 package lemmini.game;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
+
 import javax.swing.JOptionPane;
+
 import lemmini.LemminiFrame;
 import lemmini.tools.ToolBox;
 

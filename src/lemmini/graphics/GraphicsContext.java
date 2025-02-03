@@ -1,7 +1,7 @@
 package lemmini.graphics;
 
-import java.awt.Color;
 import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;

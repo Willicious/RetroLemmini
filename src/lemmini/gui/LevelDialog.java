@@ -26,14 +26,25 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
+
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.tree.*;
-import lemmini.LemminiFrame;
-import lemmini.game.*;
-import lemmini.tools.ToolBox;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeSelectionModel;
+
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
+
+import lemmini.LemminiFrame;
+import lemmini.game.Core;
+import lemmini.game.GameController;
+import lemmini.game.LevelInfo;
+import lemmini.game.LevelPack;
+import lemmini.game.LevelRecord;
+import lemmini.tools.ToolBox;
 
 /**
  *

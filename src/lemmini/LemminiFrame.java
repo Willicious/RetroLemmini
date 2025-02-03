@@ -27,20 +27,31 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Locale;
+
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.JavaVersion;
+import org.apache.commons.lang3.SystemUtils;
+
 import keyrepeatfix.RepeatingReleasedEventsFixer;
-import lemmini.game.*;
+import lemmini.game.Core;
+import lemmini.game.GameController;
+import lemmini.game.Icons;
+import lemmini.game.LemmCursor;
+import lemmini.game.LemmException;
+import lemmini.game.Lemming;
+import lemmini.game.LevelPack;
+import lemmini.game.ResourceException;
+import lemmini.game.Vsfx;
 import lemmini.gameutil.Fader;
 import lemmini.graphics.LemmImage;
 import lemmini.sound.Music;
 import lemmini.tools.ToolBox;
-import org.apache.commons.lang3.BooleanUtils;
-import org.apache.commons.lang3.JavaVersion;
-import org.apache.commons.lang3.SystemUtils;
 
 /**
  * Lemmini - a game engine for Lemmings.<br>

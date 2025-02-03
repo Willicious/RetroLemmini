@@ -1,8 +1,10 @@
 package lemmini.game;
 
 import java.nio.charset.StandardCharsets;
-import lemmini.tools.ToolBox;
+
 import org.apache.commons.lang3.BooleanUtils;
+
+import lemmini.tools.ToolBox;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI

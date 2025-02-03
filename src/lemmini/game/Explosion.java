@@ -1,6 +1,7 @@
 package lemmini.game;
 
 import java.awt.Color;
+
 import lemmini.graphics.GraphicsContext;
 import lemmini.graphics.LemmImage;
 
