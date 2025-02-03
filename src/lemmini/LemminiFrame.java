@@ -881,13 +881,7 @@ public class LemminiFrame extends JFrame {
         Core.programProps.setBoolean("maximizedHoriz", BooleanUtils.toBoolean(getExtendedState() & MAXIMIZED_HORIZ));
         Core.programProps.setBoolean("maximizedVert", BooleanUtils.toBoolean(getExtendedState() & MAXIMIZED_VERT));
         Core.saveProgramProps();
-        // close the zip files
-        Core.zipFiles.stream().forEach(zipFile -> {
-            try {
-                zipFile.close();
-            } catch (IOException ex) {
-            }
-        });
+
         RepeatingReleasedEventsFixer.remove();
         System.exit(0);
     }

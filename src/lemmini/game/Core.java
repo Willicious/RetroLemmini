@@ -5,21 +5,16 @@ package lemmini.game;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Reader;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipException;
-import java.util.zip.ZipFile;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import lemmini.LemminiFrame;
 import lemmini.graphics.LemmImage;
 import lemmini.gui.LegalFrame;
 import lemmini.tools.CaseInsensitiveFileTree;
-import lemmini.tools.CaseInsensitiveZipFile;
 import lemmini.tools.Props;
 import lemmini.tools.ToolBox;
 import org.apache.commons.io.FilenameUtils;
@@ -65,8 +60,6 @@ public class Core {
         "ogg", "xm", "s3m", "mod", "mid"};
     public static final String[] SOUNDBANK_EXTENSIONS = {"sf2", "dls"};
     public static final String[] SOUND_EXTENSIONS = {"wav", "aiff", "aifc", "au", "snd"};
-    /** file name of main data resource set */
-    public static final String ROOT_ZIP_NAME = "root.lzp";
     /** path of external level cache */
     public static final String EXTERNAL_LEVEL_CACHE_PATH = "levels/$external/";
     /** path for mods */
@@ -97,8 +90,7 @@ public class Core {
     public static Path gamePath;
     /** list of all the game resources in an lzp file. */
     public static CaseInsensitiveFileTree resourceTree;
-    public static CaseInsensitiveFileTree gameDataTree;
-    public static List<ZipFile> zipFiles;
+    public static CaseInsensitiveFileTree gameDataTree; // BOOKMARK - remove?
     /** current player */
     public static Player player;
     
@@ -209,30 +201,17 @@ public class Core {
 
         System.out.println("      all settings read from config");
         
-        // check for the existence of root.lzp.
-        // if it's not there, then we must exit.
-        System.out.println("    searching for " + ROOT_ZIP_NAME + " in " + gamePath.toString());
-        List<Path> tmpDataFile = gameDataTree.getAllPaths(ROOT_ZIP_NAME);
-        System.out.println("      " + tmpDataFile.size() + " found");
-        if(tmpDataFile.isEmpty() ) {
-        	Path rootPath = Paths.get(gamePath.toString(), ROOT_ZIP_NAME);
-        	System.out.println("root.lzp not found. quitting...");
-        	throw new LemmException("Could not find main game data file.\nPlease enusure this file exists and is accessible by this user:\n\n" + rootPath.toString());
-        }
-        
       
-    	// BOOKMARK - check what triggers this message
-    	// TODO - ensure that resourcePath is "resources" folder, not root.lzp
+    	// Ensure "resources" folder exists
         if (resourcePath.toString().isEmpty()) {
         	if (resourcePath.toString().isEmpty()) {
         		System.out.println("    resourcePath is invalid...");
         	}
         	System.out.println("    quitting...");
-        	throw new LemmException(String.format("resourcePath Game resources not found.\n Please place a valid copy of root.lzp into " + gamePath.toString(), (Object[])null));
+        	throw new LemmException(String.format("Resources folder is missing from " + gamePath + ". The program will now quit.", (Object[])null));
         }
         
-        // =========================================================================== ^^^^^^^
-        
+        // Create folders (if they don't already exist - BOOKMARK - might not need to do this
         // create levels folder (with external level cache)
         System.out.println("    creating levels folder (with external levels cache): " + Paths.get(resourceTree.getRoot().toString(), EXTERNAL_LEVEL_CACHE_PATH).toString());
         resourceTree.createDirectories(EXTERNAL_LEVEL_CACHE_PATH);
@@ -254,9 +233,6 @@ public class Core {
         // create temp folder
         System.out.println("    creating temp folder: " + Paths.get(resourceTree.getRoot().toString(), TEMP_PATH).toString());
         resourceTree.createDirectories(TEMP_PATH);
-        
-        System.out.println("    loading lzp add-on packs...");
-        loadZipFiles();
        
         System.gc(); // force garbage collection here before the game starts
         
@@ -265,28 +241,6 @@ public class Core {
         
         System.out.println("Core initialization complete.");
         return true;
-    }
-    
-    /**
-     * Loads a list of all lzp zip files into the zipFiles ArrayList 
-     * @throws ZipException
-     * @throws IOException
-     */
-    private static void loadZipFiles() throws ZipException, IOException {
-        // scan for and open zip files in resource folder, being sure to open root.lzp last
-        //TODO: load all these lzp files from a user-specified folder. (or even the user's home folder, maybe?)
-        //and save the root.lzp for the Lemmings data folder itself.
-        zipFiles = new ArrayList<>(16);
-        for (Path file : resourceTree.getAllPathsRegex("[^/]+\\.lzp")) {
-            if (!file.getFileName().toString().toLowerCase(Locale.ROOT).equals(ROOT_ZIP_NAME)) {
-                zipFiles.add(new CaseInsensitiveZipFile(file.toFile()));
-            }
-        }
-        System.out.println("      " + zipFiles.size() + " found");
-        //load the main root.lzp from the game data folder.
-        for (Path file : gameDataTree.getAllPaths(ROOT_ZIP_NAME)) {
-            zipFiles.add(new CaseInsensitiveZipFile(file.toFile()));
-        }
     }
     
     /***
@@ -430,14 +384,6 @@ public class Core {
                         return new FileResource(fname, resString, resourceTree);
                     }
                 }
-                for (ZipFile zipFile : zipFiles) {
-                    for (String ext : extensions) {
-                        ZipEntry entry = zipFile.getEntry(mod + "/" + fnameNoExt + "." + ext);
-                        if (entry != null && !entry.isDirectory()) {
-                            return new ZipEntryResource(fname, zipFile, entry);
-                        }
-                    }
-                }
             }
         }
         // file not found in mod folders or mods not searched,
@@ -447,14 +393,6 @@ public class Core {
 	            String resString = fnameNoExt + "." + ext;
 	            if (resourceTree.exists(resString)) {
 	                return new FileResource(fname, resString, resourceTree);
-	            }
-	        }
-	        for (ZipFile zipFile : zipFiles) {
-	            for (String ext : extensions) {
-	                ZipEntry entry = zipFile.getEntry(fnameNoExt + "." + ext);
-	                if (entry != null && !entry.isDirectory()) {
-	                    return new ZipEntryResource(fname, zipFile, entry);
-	                }
 	            }
 	        }
         }
@@ -472,14 +410,6 @@ public class Core {
                         .map(file -> file.getFileName().toString())
                         .filter(fileName -> FilenameUtils.isExtension(fileName.toLowerCase(Locale.ROOT), extensions))
                         .forEachOrdered(resources::add);
-                zipFiles.stream().forEachOrdered(zipFile -> {
-                    zipFile.stream()
-                            .map(ZipEntry::getName)
-                            .filter(entryName -> ToolBox.getParent(entryName).toLowerCase(Locale.ROOT).equals(lowercasePath))
-                            .filter(entryName -> {
-                                return FilenameUtils.isExtension(entryName.toLowerCase(Locale.ROOT), extensions);
-                            }).forEachOrdered(entryName -> resources.add(ToolBox.getFileName(entryName)));
-                });
             });
         }
         String lowercasePath = folder.toLowerCase(Locale.ROOT);
@@ -487,14 +417,6 @@ public class Core {
                 .map(file -> file.getFileName().toString())
                 .filter(fileName -> FilenameUtils.isExtension(fileName.toLowerCase(Locale.ROOT), extensions))
                 .forEachOrdered(resources::add);
-        zipFiles.stream().forEachOrdered(zipFile -> {
-            zipFile.stream()
-                    .map(ZipEntry::getName)
-                    .filter(entryName -> ToolBox.getParent(entryName).toLowerCase(Locale.ROOT).equals(lowercasePath))
-                    .filter(entryName -> {
-                        return FilenameUtils.isExtension(entryName.toLowerCase(Locale.ROOT), extensions);
-                    }).forEachOrdered(entryName -> resources.add(ToolBox.getFileName(entryName)));
-        });
         
         return new ArrayList<>(resources);
     }

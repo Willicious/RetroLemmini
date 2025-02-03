@@ -6,8 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.regex.Pattern;
-import java.util.zip.ZipEntry;
 import javax.swing.JOptionPane;
 import java.awt.Color;
 
@@ -368,14 +366,6 @@ public class GameController {
         Core.resourceTree.getAllPathsRegex(LEVEL_DIR_REGEX).stream()
                 .map(file -> file.getParent().getFileName().toString().toLowerCase(Locale.ROOT))
                 .forEach(dirs::add);
-        Pattern levelDirPattern = Pattern.compile(LEVEL_DIR_REGEX);
-        Core.zipFiles.stream().forEach(zipFile -> {
-           zipFile.stream().map(ZipEntry::getName)
-                   .filter(entryName -> levelDirPattern.matcher(entryName).matches())
-                   .forEach(entryName -> {
-                dirs.add(entryName.substring(entryName.indexOf('/') + 1, entryName.lastIndexOf('/')).toLowerCase(Locale.ROOT));
-           });
-        });
         dirs.stream().sorted().forEachOrdered(lvlName -> {
             try {
                 Resource res = Core.findResource("levels/" + lvlName + "/levelpack.ini", false);
