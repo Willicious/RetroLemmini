@@ -121,14 +121,13 @@ public class OptionsDialog extends JDialog {
         jLabelMixer.setText("SFX Mixer");
 
         jCheckBoxVisualSfx.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.VISUAL_SFX));
-        jCheckBoxVisualSfx.setText("Visual SFX");
+        jCheckBoxVisualSfx.setText("Enable Visual SFX");
         
         jCheckBoxEnhancedStatus.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_STATUS));
         jCheckBoxEnhancedStatus.setText("Enhanced Status Bar");
 
         jCheckBoxEnhancedIconBar.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_ICONBAR));
         jCheckBoxEnhancedIconBar.setText("Enhanced Icon Bar");
-        //jCheckBoxEnhancedIconBar.setVisible(false);
 
         jCheckBoxIconLabels.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.ICON_LABELS));
         jCheckBoxIconLabels.setText("Show labels on the Icon Bar");
@@ -167,18 +166,18 @@ public class OptionsDialog extends JDialog {
                 .addComponent(jLabelMusicVolume)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSliderMusicVolume, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 40, 40)
                 .addComponent(jCheckBoxEnableSound)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCheckBoxVisualSfx)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelSoundVolume)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSliderSoundVolume, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 40, 40)
                 .addComponent(jLabelMixer)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxMixer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE)
-                .addComponent(jCheckBoxVisualSfx)
                 )
         );
 
@@ -190,17 +189,34 @@ public class OptionsDialog extends JDialog {
         javax.swing.GroupLayout jPanelGraphicsLayout = new javax.swing.GroupLayout(jPanelGraphics);
         jPanelGraphics.setLayout(jPanelGraphicsLayout);
         jPanelGraphicsLayout.setHorizontalGroup(
-            jPanelGraphicsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelGraphicsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jCheckBoxBilinear)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        	    jPanelGraphicsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        	        .addGroup(jPanelGraphicsLayout.createSequentialGroup()
+        	            .addContainerGap()
+        	            .addGroup(jPanelGraphicsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        	                .addComponent(jCheckBoxBilinear)
+        	                .addComponent(jCheckBoxClassicCursor)
+        	                .addComponent(jCheckBoxEnhancedStatus)
+        	                .addComponent(jCheckBoxEnhancedIconBar)
+        	                .addComponent(jCheckBoxIconLabels)
+        	                .addComponent(jCheckBoxClassicTicker))
+        	            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        	);
         jPanelGraphicsLayout.setVerticalGroup(
             jPanelGraphicsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelGraphicsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jCheckBoxBilinear)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBoxClassicCursor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBoxEnhancedStatus)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBoxEnhancedIconBar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBoxIconLabels)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBoxClassicTicker)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -257,7 +273,6 @@ public class OptionsDialog extends JDialog {
                 .addContainerGap()
                 .addGroup(jPanelMiscLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jCheckBoxAdvanced)
-                    .addComponent(jCheckBoxClassicCursor)
                     .addComponent(jCheckBoxSwap)
                     .addComponent(jCheckBoxFaster)
                     .addComponent(jCheckBoxNoPercentages)
@@ -268,10 +283,6 @@ public class OptionsDialog extends JDialog {
                 	.addComponent(jCheckBoxUnlockAllLevels)
                 	.addComponent(jCheckBoxDisableScrollWheel)
                 	.addComponent(jCheckBoxDisableFrameStepping)
-                	.addComponent(jCheckBoxEnhancedStatus)
-                	.addComponent(jCheckBoxEnhancedIconBar)
-                	.addComponent(jCheckBoxIconLabels)
-                	.addComponent(jCheckBoxClassicTicker)
                 	)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -280,8 +291,6 @@ public class OptionsDialog extends JDialog {
             .addGroup(jPanelMiscLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jCheckBoxAdvanced)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxClassicCursor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxSwap)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -303,13 +312,6 @@ public class OptionsDialog extends JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxDisableFrameStepping)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxEnhancedStatus)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxEnhancedIconBar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxIconLabels)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxClassicTicker)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -418,9 +420,14 @@ public class OptionsDialog extends JDialog {
         GameController.sound.setMixerIdx(jComboBoxMixer.getSelectedIndex());
         // apply graphics settings
         Core.setBilinear(jCheckBoxBilinear.isSelected());
+        GameController.setOption(GameController.Option.CLASSIC_CURSOR, jCheckBoxClassicCursor.isSelected());
+        GameController.setOption(GameController.SLTooOption.ENHANCED_STATUS, jCheckBoxEnhancedStatus.isSelected());
+        GameController.setOption(GameController.SLTooOption.SHOW_LEVEL_NAME, jCheckBoxShowName.isSelected());
+        GameController.setOption(GameController.SLTooOption.ENHANCED_ICONBAR, jCheckBoxEnhancedIconBar.isSelected());
+        GameController.setOption(GameController.SLTooOption.ICON_LABELS, jCheckBoxIconLabels.isSelected());
+        GameController.setOption(GameController.SLTooOption.CLASSIC_TICKER, jCheckBoxClassicTicker.isSelected());
         // apply miscellaneous settings
         GameController.setOption(GameController.Option.ADVANCED_SELECT, jCheckBoxAdvanced.isSelected());
-        GameController.setOption(GameController.Option.CLASSIC_CURSOR, jCheckBoxClassicCursor.isSelected());
         GameController.setOption(GameController.Option.SWAP_BUTTONS, jCheckBoxSwap.isSelected());
         GameController.setOption(GameController.Option.FASTER_FAST_FORWARD, jCheckBoxFaster.isSelected());
         GameController.setOption(GameController.Option.PAUSE_STOPS_FAST_FORWARD, jCheckBoxPauseStopsFastForward.isSelected());
@@ -432,10 +439,6 @@ public class OptionsDialog extends JDialog {
         GameController.setOption(GameController.SLTooOption.DISABLE_SCROLL_WHEEL, jCheckBoxDisableScrollWheel.isSelected());
         GameController.setOption(GameController.SLTooOption.DISABLE_FRAME_STEPPING, jCheckBoxDisableFrameStepping.isSelected());
         GameController.setOption(GameController.SLTooOption.VISUAL_SFX, jCheckBoxVisualSfx.isSelected());
-        GameController.setOption(GameController.SLTooOption.ENHANCED_STATUS, jCheckBoxEnhancedStatus.isSelected());
-        GameController.setOption(GameController.SLTooOption.ENHANCED_ICONBAR, jCheckBoxEnhancedIconBar.isSelected());
-        GameController.setOption(GameController.SLTooOption.ICON_LABELS, jCheckBoxIconLabels.isSelected());
-        GameController.setOption(GameController.SLTooOption.CLASSIC_TICKER, jCheckBoxClassicTicker.isSelected());
         
         
         //then commit all those settings to disk
