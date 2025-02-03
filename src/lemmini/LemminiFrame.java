@@ -767,7 +767,7 @@ public class LemminiFrame extends JFrame {
     private void jMenuItemFileExtractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed
     	try {
 			Extract.extract(Core.resourcePath, Core.resourceTree, Paths.get("reference"), Paths.get("patch"), true, false);
-		} catch (ExtractException e) {
+		} catch (ExtractException e) { // BOOKMARK - this can probably go
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

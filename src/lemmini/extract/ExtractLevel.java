@@ -1,3 +1,6 @@
+// BOOKMARK - this is needed for external levels (see GameController line 2092 & 2108)
+// TODO - keep only what's needed for that purpose, the rest can go
+
 package lemmini.extract;
 
 import java.io.*;

@@ -16,8 +16,6 @@ import java.util.zip.ZipFile;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import lemmini.LemminiFrame;
-//import lemmini.extract.Extract;
-//import lemmini.extract.ExtractException;
 import lemmini.graphics.LemmImage;
 import lemmini.gui.LegalFrame;
 import lemmini.tools.CaseInsensitiveFileTree;
@@ -98,7 +96,7 @@ public class Core {
     
     /** program properties */
     public static Props programProps;
-    /** path of (extracted) resources */
+    /** path of resources */
     public static Path resourcePath;
     /** path of currently run RetroLemmini instance */
     public static Path gamePath;
@@ -240,16 +238,16 @@ public class Core {
         	System.out.println("root.lzp not found. quitting...");
         	throw new LemmException("Could not find main game data file.\nPlease enusure this file exists and is accessible by this user:\n\n" + rootPath.toString());
         }
-
+        
+        // BOOKMARK - this is needed, redirect to "resources": =================================
+        
         // rev corresponds to the version number of the extracted resource files.
         // the revision is now contained within the root.lzp data zip, in a file called revision.ini
         // this is indicated by a revision of zip in the settings file.
         // if that setting doesn't exist, zip-invalid is the default value. 
-        // if the rev is empty or equals zip-invalid, or doesn't == zip, then we'll probably have to re-extract the resource files.
-		/*
-        boolean maybeDeleteOldFiles = !rev.isEmpty() && !(rev.equalsIgnoreCase("zip") || rev.equalsIgnoreCase("zip-invalid"));
-        */
         // if rev is "zip" then the actual revision in inside root.lzp->revision.ini
+        
+        // TODO - always point this to the "resources" folder, get rid of root.lzp
         if (rev.equalsIgnoreCase("zip")) {
         	System.out.println("    detecting " + ROOT_ZIP_NAME + " revision...");
         	rev = getRevisionFromRootLzp();
@@ -263,9 +261,12 @@ public class Core {
     		revStr += " [BAD -- should be " + RES_REVISION + "]";
     	}
     	System.out.println(revStr);
+    	
+    	//================================================================================
         
       
-    	//NOTE: We'll never try to extract resources... the goal of this program should be to have resources already included in the distributable
+    	// BOOKMARK - check what triggers this message
+    	// TODO - ensure that resourcePath is "resources" folder, not root.lzp
         if (resourcePath.toString().isEmpty()) {
         	if (resourcePath.toString().isEmpty()) {
         		System.out.println("    resourcePath is invalid...");
@@ -273,7 +274,12 @@ public class Core {
         	System.out.println("    quitting...");
         	throw new LemmException(String.format("resourcePath Game resources not found.\n Please place a valid copy of root.lzp into " + gameDataPath.toString(), (Object[])null));
         }
+        
+        
+        
 
+      // BOOKMARK - this might be able to be removed along with the revision check (above) ==========
+        
       //NOTE: We'll never try to extract resources... the goal of this program should be to have resources already included in the distributable
         if (!rev.equalsIgnoreCase(RES_REVISION)) {
         	if (!rev.equalsIgnoreCase(RES_REVISION)) {
@@ -283,20 +289,8 @@ public class Core {
 
         	throw new LemmException(String.format("Game resources not found.\n Please place a valid copy of root.lzp into " + gameDataPath.toString(), (Object[])null));
         }
-
-        //NOTE: We'll never try to extract resources... the goal of this program should be to have resources already included in the distributable
-        if (createPatches) {
-        	if (createPatches) {
-        		System.out.println("    forced resource creating was selected... unsupported...");
-        	}
-        	System.out.println("    quitting...");
-
-        	throw new LemmException(String.format("Game resources not found.\n Please place a valid copy of root.lzp into " + gameDataPath.toString(), (Object[])null));
-        }
-
         
-        System.out.println("    populating resourceSet from patch.ini...");
-        populateResourceSet();
+        // =========================================================================== ^^^^^^^
         
         // create levels folder (with external level cache)
         System.out.println("    creating levels folder (with external levels cache): " + Paths.get(resourceTree.getRoot().toString(), EXTERNAL_LEVEL_CACHE_PATH).toString());
@@ -348,42 +342,6 @@ public class Core {
         } catch (IOException ex) {
         }
         return StringUtils.EMPTY;
-    }
-    
-    
-    /**
-     * Reads in the contents of patch.ini into the HashSet resourceSet
-     */
-    private static void populateResourceSet() {
-        //NOTE: getting a list of all file data in the patch.ini file...? why??
-        resourceSet = new HashSet<>(2048);
-        Props patchINI = new Props();
-        if (patchINI.load(ToolBox.findFile(PATCH_INI_NAME))) {
-            for (int i = 0; true; i++) {
-                String[] entry = patchINI.getArray("extract_" + i, null);
-                if (ArrayUtils.isNotEmpty(entry)) {
-                    resourceSet.add(entry[0]);
-                } else {
-                    break;
-                }
-            }
-            for (int i = 0; true; i++) {
-                String[] entry = patchINI.getArray("check_" + i, null);
-                if (ArrayUtils.isNotEmpty(entry)) {
-                    resourceSet.add(entry[0]);
-                } else {
-                    break;
-                }
-            }
-            for (int i = 0; true; i++) {
-                String[] entry = patchINI.getArray("patch_" + i, null);
-                if (ArrayUtils.isNotEmpty(entry)) {
-                    resourceSet.add(entry[0]);
-                } else {
-                    break;
-                }
-            }
-        }
     }
     
     /**
@@ -641,13 +599,11 @@ public class Core {
      * @param rsrc name of missing resource.
      */
     public static void resourceError(final String rsrc) {
+    	// BOOKMARK - this is the same in both cases bacause we no longer extract resources
+    	// TODO - simplify this, check that it works for the resources folder
         if (resourceSet.contains(rsrc)) {
-            String out = String.format("The resource %s is missing.%n"
-                    + "Please restart to extract all resources.", rsrc);
+            String out = String.format("The resource %s is missing.%n", rsrc);
             JOptionPane.showMessageDialog(null, out, "Error", JOptionPane.ERROR_MESSAGE);
-            // invalidate resources
-            //programProps.set("revision", "zip-invalid"); //NOTE: we don't want to do that now that we're bundling the root.lzp with the executable.
-            //programProps.save(programPropsFilePath);
         } else {
             String out = String.format("The resource %s is missing.%n", rsrc);
             JOptionPane.showMessageDialog(null, out, "Error", JOptionPane.ERROR_MESSAGE);

@@ -1,5 +1,7 @@
+// BOOKMARK - this can go
+
 /*
- * FILE MODIFIED BY RYAN SAKOWSKI
+ * FILE MODIFIED BY RYAN SAKOWSKI 
  * 
  * 
  * Copyright 2009 Volker Oth
