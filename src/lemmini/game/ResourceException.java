@@ -20,7 +20,7 @@ package lemmini.game;
  */
 
 /**
- * Generic exception class for problems during resource extraction.
+ * Generic exception class for problems during resource gathering.
  *
  * @author Volker Oth
  */

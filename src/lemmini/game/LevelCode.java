@@ -124,7 +124,7 @@ public class LevelCode {
     }
     
     /**
-     * Extract the level info from the level code and seed
+     * Parse the level info from the level code and seed
      * @param seed The seed string used as base for the level code
      * @param code Code that contains the level number (amongst other things)
      * @param offset Used to get a higher code for the first level

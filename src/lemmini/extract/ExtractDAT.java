@@ -1,5 +1,3 @@
-// BOOKMARK - keep this 
-
 /*
 
  * Copyright 2014 Ryan Sakowski.

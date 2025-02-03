@@ -51,13 +51,6 @@ import org.apache.commons.lang3.SystemUtils;
  */
 public class LemminiFrame extends JFrame {
     
-    // These variables define the current revision
-	public static final String REVISION = "1.0";
-	//when released, the date should be in the format of d MMM yyyy
-	//before it's released, the value should be BETA
-	public static final String REV_DATE = "JAN 2025"; 
-    //RES_REVISION is stored in Core.
-    
     public static final int LEVEL_HEIGHT = 320;
     private static final long serialVersionUID = 0x01L;
     
@@ -104,7 +97,7 @@ public class LemminiFrame extends JFrame {
               + "    \\|__|\\|__|\\|_______|   \\|__|  \\|__|\\|__|\\|_______|\\|_______|\\|_______|\\|__|     \\|__|\\|__|     \\|__|\\|__|\\|__| \\|__|\\|__|\n";
         System.out.println(logo);
         System.out.println("===================================================================================================================");
-        System.out.println("      Version " + REVISION + "     (Resource Revision: " + Core.RES_REVISION + ")                 Date: " + REV_DATE);    
+        System.out.println("      Version " + Core.REVISION + "         Date: " + Core.REV_DATE);    
         System.out.println("===================================================================================================================");
         System.out.println("");
         java.time.format.DateTimeFormatter dtf = java.time.format.DateTimeFormatter.ofPattern("yyyy MMMM d  HH:mm:ss");  

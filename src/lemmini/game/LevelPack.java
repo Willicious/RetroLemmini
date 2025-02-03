@@ -110,7 +110,7 @@ public class LevelPack {
      * @throws ResourceException
      */
     public LevelPack(final Resource res) throws ResourceException {
-        // extract path from descriptor file
+        // get path from descriptor file
         path = ToolBox.getParent(res.getOriginalPath());
         // load the descriptor file
         Props props = new Props();

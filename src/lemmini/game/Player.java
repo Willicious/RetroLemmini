@@ -63,7 +63,7 @@ public class Player {
         System.out.println("    loading player level stats: " + iniFilePath);
         
         if (props.load(iniFilePath)) { // might exist or not - if not, it's created
-            // file exists, now extract entries
+            // file exists, now parse entries
             for (int idx = 0; true; idx++) {
             	System.out.print("    loading level group " + idx);
             	// first string is the level group key identifier

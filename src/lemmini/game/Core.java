@@ -52,8 +52,8 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class Core {
 
-	public static final String RES_REVISION = "1.46";
-
+	public static final String REVISION = "1.0";
+	public static final String REV_DATE = "Jan 2025";
     
     /** extensions accepted for level files in file dialog */
     public static final String[] LEVEL_EXTENSIONS = {"ini", "lvl", "dat"};
@@ -81,7 +81,6 @@ public class Core {
     public static final String STYLES_PATH = "styles/";
     /** path for temporary files */
     public static final String TEMP_PATH = "temp/";
-    /** The revision string for resource compatibility - not necessarily the version number */
     
     public static final Path[] EMPTY_PATH_ARRAY = {};
     
@@ -188,12 +187,9 @@ public class Core {
         System.out.println("      resourcePath: " + resourcePath.toString());
         resourceTree = new CaseInsensitiveFileTree(resourcePath);
         
-        //SourcePath is the source of your original WinLemm installation
-        //Path sourcePath = Paths.get(programProps.get("sourcePath", StringUtils.EMPTY));
-        String rev = programProps.get("revision", "zip");
-        //TODO: remove dependency on this setting... the revision being internal to the root.lzp file should be non-negotiable.
-        System.out.println("      revision: " + rev);
         bilinear = programProps.getBoolean("bilinear", false);
+        
+        // Set options
         GameController.setOption(GameController.Option.MUSIC_ON, programProps.getBoolean("music", true));
         GameController.setOption(GameController.Option.SOUND_ON, programProps.getBoolean("sound", true));
         GameController.setMusicGain(programProps.getDouble("musicGain", 1.0));
@@ -234,31 +230,6 @@ public class Core {
         	throw new LemmException("Could not find main game data file.\nPlease enusure this file exists and is accessible by this user:\n\n" + rootPath.toString());
         }
         
-        // BOOKMARK - this is needed, redirect to "resources": =================================
-        
-        // rev corresponds to the version number of the extracted resource files.
-        // the revision is now contained within the root.lzp data zip, in a file called revision.ini
-        // this is indicated by a revision of zip in the settings file.
-        // if that setting doesn't exist, zip-invalid is the default value. 
-        // if rev is "zip" then the actual revision in inside root.lzp->revision.ini
-        
-        // TODO - always point this to the "resources" folder, get rid of root.lzp
-        if (rev.equalsIgnoreCase("zip")) {
-        	System.out.println("    detecting " + ROOT_ZIP_NAME + " revision...");
-        	rev = getRevisionFromRootLzp();
-        } else {
-        	System.out.println("    using revision in " + PROGRAM_PROPS_FILE_NAME + "...");
-        }
-    	String revStr="      revision: " + rev;
-    	if (rev.equalsIgnoreCase(RES_REVISION)) {
-    		revStr += " [GOOD]";
-    	} else {
-    		revStr += " [BAD -- should be " + RES_REVISION + "]";
-    	}
-    	System.out.println(revStr);
-    	
-    	//================================================================================
-        
       
     	// BOOKMARK - check what triggers this message
     	// TODO - ensure that resourcePath is "resources" folder, not root.lzp
@@ -269,8 +240,6 @@ public class Core {
         	System.out.println("    quitting...");
         	throw new LemmException(String.format("resourcePath Game resources not found.\n Please place a valid copy of root.lzp into " + gameDataPath.toString(), (Object[])null));
         }
-        
-        
         
 
       // BOOKMARK - this might be able to be removed along with the revision check (above) ==========
@@ -319,24 +288,6 @@ public class Core {
         
         System.out.println("Core initialization complete.");
         return true;
-    }
-    
-    /**
-     * Reads root.lzp->revision.ini and returns the value for the "revision" entry.
-     * @return Returns the revision value, or "" if nothing if found.
-     */
-    private static String getRevisionFromRootLzp() {
-        try (ZipFile zip = new CaseInsensitiveZipFile(gameDataTree.getPath(ROOT_ZIP_NAME).toFile())) {
-            ZipEntry entry = zip.getEntry("revision.ini");
-            try (Reader r = ToolBox.getBufferedReader(zip.getInputStream(entry))) {
-                Props p = new Props();
-                if (p.load(r)) {
-                    return p.get("revision", StringUtils.EMPTY);
-                }
-            }
-        } catch (IOException ex) {
-        }
-        return StringUtils.EMPTY;
     }
     
     /**
