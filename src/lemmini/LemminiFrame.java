@@ -33,8 +33,6 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import keyrepeatfix.RepeatingReleasedEventsFixer;
-import lemmini.extract.Extract;
-import lemmini.extract.ExtractException;
 import lemmini.game.*;
 import lemmini.gameutil.Fader;
 import lemmini.graphics.LemmImage;
@@ -66,8 +64,6 @@ public class LemminiFrame extends JFrame {
     private int unmaximizedPosX;
     private int unmaximizedPosY;
     
-    private static boolean createPatches = false;
-    
     /** self reference */
     static LemminiFrame thisFrame;
     
@@ -79,7 +75,7 @@ public class LemminiFrame extends JFrame {
         	//found at: https://stackoverflow.com/questions/2837263/how-do-i-get-the-directory-that-the-currently-executing-jar-file-is-in
         	String currentFolderStr = URLDecoder.decode(getClass().getProtectionDomain().getCodeSource().getLocation().getFile(), "UTF-8");
         	System.out.println("Current directory: " + currentFolderStr);
-        	boolean successful = Core.init(createPatches, currentFolderStr); // initialize Core object
+        	boolean successful = Core.init(currentFolderStr); // initialize Core object
             if (!successful) {
                 System.exit(0);
             }
@@ -179,7 +175,6 @@ public class LemminiFrame extends JFrame {
         jMenuBarMain = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
         jMenuItemExit = new javax.swing.JMenuItem();
-        jMenuItemFileExtract = new javax.swing.JMenuItem();
         jMenuPlayers = new javax.swing.JMenu();
         jMenuItemManagePlayers = new javax.swing.JMenuItem();
         jMenuLevel = new javax.swing.JMenu();
@@ -244,15 +239,6 @@ public class LemminiFrame extends JFrame {
             }
         });
         jMenuFile.add(jMenuItemExit);
-
-        jMenuItemFileExtract.setText("Extract ...");
-        jMenuItemFileExtract.setVisible(false);
-        jMenuItemFileExtract.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	jMenuItemFileExtractActionPerformed(evt);
-            }
-        });
-        jMenuFile.add(jMenuItemFileExtract);
         
         jMenuBarMain.add(jMenuFile);
 
@@ -763,15 +749,6 @@ public class LemminiFrame extends JFrame {
     private void jMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed
         exit();
     }//GEN-LAST:event_jMenuItemExitActionPerformed
-    
-    private void jMenuItemFileExtractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed
-    	try {
-			Extract.extract(Core.resourcePath, Core.resourceTree, Paths.get("reference"), Paths.get("patch"), true, false);
-		} catch (ExtractException e) { // BOOKMARK - this can probably go
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    }//GEN-LAST:event_jMenuItemExitActionPerformed
 
     private void jMenuItemManagePlayersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemManagePlayersActionPerformed
         lemminiPanelMain.handlePlayers();
@@ -843,10 +820,6 @@ public class LemminiFrame extends JFrame {
                     } else {
                         System.out.println("argument detected: -L " + level.toString());
                     }
-                    break;
-                case "-p":
-                    createPatches = true;
-                    System.out.println("argument detected: -P <not supported in RetroLemmini>");
                     break;
                 default:
                     break;
@@ -959,7 +932,6 @@ public class LemminiFrame extends JFrame {
     private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenuItem jMenuItemEnterLevelCode;
     private javax.swing.JMenuItem jMenuItemExit;
-    private javax.swing.JMenuItem jMenuItemFileExtract;
     private javax.swing.JMenuItem jMenuItemLoadReplay;
     private javax.swing.JMenuItem jMenuItemManagePlayers;
     private javax.swing.JMenuItem jMenuItemOptions;

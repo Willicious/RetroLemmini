@@ -1613,7 +1613,7 @@ public class Lemming {
     
     /**
      * Replace two colors in the animation frames other colors.
-     * Used to patch the color of debris to level-specific colors.
+     * Used to shift the color of debris to level-specific colors.
      * @param replaceCol first color to replace
      * @param replaceCol2 second color to replace
      */
@@ -2093,7 +2093,10 @@ class LemmingResource {
     int maskStep;
     /** list of images to store the animation [Direction][AnimationFrame] */
     private final List<List<LemmImage>> img = new ArrayList<>(2);
+    
+    // BOOKMARK - is this needed?
     private final List<List<LemmImage>> unpatchedImg = new ArrayList<>(2);
+    
     /** list of removal masks used for digging/bashing/mining/explosions etc. [Direction] */
     private List<Mask> mask = null;
     
@@ -2108,6 +2111,8 @@ class LemmingResource {
         List<LemmImage> imgTemp = new ArrayList<>(1);
         imgTemp.add(ToolBox.createLemmImage(width, height, Transparency.BITMASK));
         img.add(imgTemp);
+        
+        // BOOKMARK - is this needed?
         unpatchedImg.add(new ArrayList<>(imgTemp));
     }
     
@@ -2124,6 +2129,8 @@ class LemmingResource {
         animMode = Lemming.Animation.NONE;
         List<LemmImage> anim = ToolBox.getAnimation(sourceImg, animFrames);
         img.add(anim);
+        
+        // BOOKMARK - is this needed?
         unpatchedImg.add(new ArrayList<>(anim));
     }
     
@@ -2143,6 +2150,8 @@ class LemmingResource {
         List<LemmImage> animLeft = ToolBox.getAnimation(sourceImgLeft, animFrames);
         img.add(animRight);
         img.add(animLeft);
+        
+        // BOOKMARK - are these needed?
         unpatchedImg.add(new ArrayList<>(animRight));
         unpatchedImg.add(new ArrayList<>(animLeft));
     }
@@ -2184,6 +2193,8 @@ class LemmingResource {
     
     void replaceColors(final int templateCol, final int replaceCol,
             final int templateCol2, final int replaceCol2) {
+    	
+    	                                         // BOOKMARK - is this needed?
         for (ListIterator<List<LemmImage>> itd = unpatchedImg.listIterator();
                 itd.hasNext(); ) { // go though all directions
             int di = itd.nextIndex();

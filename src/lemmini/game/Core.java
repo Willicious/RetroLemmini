@@ -23,9 +23,7 @@ import lemmini.tools.CaseInsensitiveZipFile;
 import lemmini.tools.Props;
 import lemmini.tools.ToolBox;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.SystemUtils;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
@@ -67,8 +65,6 @@ public class Core {
         "ogg", "xm", "s3m", "mod", "mid"};
     public static final String[] SOUNDBANK_EXTENSIONS = {"sf2", "dls"};
     public static final String[] SOUND_EXTENSIONS = {"wav", "aiff", "aifc", "au", "snd"};
-    /** file name of patching configuration */
-    public static final String PATCH_INI_NAME = "patch.ini";
     /** file name of main data resource set */
     public static final String ROOT_ZIP_NAME = "root.lzp";
     /** path of external level cache */
@@ -128,13 +124,12 @@ public class Core {
     /**
      * Initialize some core elements.
      * Loads settings from ini file.
-     * @param createPatches
      * @return true if loading was successful
      * @throws LemmException
      * @throws IOException
      * @throws URISyntaxException 
      */
-    public static boolean init(final boolean createPatches, String workingFolder) throws LemmException, IOException  {
+    public static boolean init(String workingFolder) throws LemmException, IOException  {
     	System.out.println("\ninitializing Core...");
     	String tmp;// = java.net.URLDecoder.decode(workingFolder, "UTF-8");
     	tmp = new java.io.File(workingFolder).getPath();

@@ -781,7 +781,7 @@ public class GameController {
         }
         
         Resource lvlRes = levelPacks.get(curLevelPack).getInfo(curRating, curLevelNumber).getLevelResource();
-        // loading the level will patch appropriate lemmings pixels to the correct colors
+        // loading the level will swap appropriate lemmings pixels to the correct colors
         level = new Level(lvlRes, level);
         
         initLevel(true);

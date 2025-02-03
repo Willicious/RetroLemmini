@@ -412,19 +412,19 @@ public class LemmFont {
                     int r = (col >> 16) & 0xff;
                     int g = (col >> 8) & 0xff;
                     int b = col & 0xff;
-                    // patch image to blue version by swapping blue and green components
+                    // shift image to blue version by swapping blue and green components
                     col = a | (r << 16) | (b << 8) | g;
                     glyphColorsArray[1].setRGB(xp, yp, col);
-                    // patch image to red version by swapping red and green components
+                    // shift image to red version by swapping red and green components
                     col = a | (g << 16) | (r << 8) | b;
                     glyphColorsArray[2].setRGB(xp, yp, col);
-                    // patch image to brown version by setting red component to value of green component
+                    // shift image to brown version by setting red component to value of green component
                     col = a | (g << 16) | (g << 8) | b;
                     glyphColorsArray[3].setRGB(xp, yp, col);
-                    // patch image to turquoise version by setting blue component to value of green component
+                    // shift image to turquoise version by setting blue component to value of green component
                     col = a | (r << 16) | (g << 8) | g;
                     glyphColorsArray[4].setRGB(xp, yp, col);
-                    // patch image to violet version by exchanging red and blue with green
+                    // shift image to violet version by exchanging red and blue with green
                     col = a | (g << 16) | (((r + b) << 7) & 0xff00) | g;
                     glyphColorsArray[5].setRGB(xp, yp, col);
                 }
