@@ -95,8 +95,6 @@ public class Core {
     public static Path resourcePath;
     /** path of currently run RetroLemmini instance */
     public static Path gamePath;
-    /** path of the game data, within the RetroLemmini folder */
-    public static Path gameDataPath;
     /** list of all the game resources in an lzp file. */
     public static CaseInsensitiveFileTree resourceTree;
     public static CaseInsensitiveFileTree gameDataTree;
@@ -137,16 +135,8 @@ public class Core {
 
     	System.out.println("    gamePath detected as: "+ gamePath.toString());	
     	
-    	// Data directory
-    	//if it's within the .jar file, we want the folder one up from that. 
-    	if (gamePath.toString().endsWith(".jar")) {
-            gameDataPath = Paths.get(gamePath.getParent().toString(), "data");
-    	} else {
-            gameDataPath = Paths.get(gamePath.toString(), "data");
-    	}
-    	System.out.println("    gameDataPath detected as: "+ gameDataPath.toString());	
-    	
-        gameDataTree = new CaseInsensitiveFileTree(gameDataPath); 
+    	// Data directory   	
+        gameDataTree = new CaseInsensitiveFileTree(gamePath); 
 
         // Settings directory
     	if (gamePath.toString().endsWith(".jar")) {
@@ -221,11 +211,11 @@ public class Core {
         
         // check for the existence of root.lzp.
         // if it's not there, then we must exit.
-        System.out.println("    searching for " + ROOT_ZIP_NAME + " in " + gameDataPath.toString());
+        System.out.println("    searching for " + ROOT_ZIP_NAME + " in " + gamePath.toString());
         List<Path> tmpDataFile = gameDataTree.getAllPaths(ROOT_ZIP_NAME);
         System.out.println("      " + tmpDataFile.size() + " found");
         if(tmpDataFile.isEmpty() ) {
-        	Path rootPath = Paths.get(gameDataPath.toString(), ROOT_ZIP_NAME);
+        	Path rootPath = Paths.get(gamePath.toString(), ROOT_ZIP_NAME);
         	System.out.println("root.lzp not found. quitting...");
         	throw new LemmException("Could not find main game data file.\nPlease enusure this file exists and is accessible by this user:\n\n" + rootPath.toString());
         }
@@ -238,7 +228,7 @@ public class Core {
         		System.out.println("    resourcePath is invalid...");
         	}
         	System.out.println("    quitting...");
-        	throw new LemmException(String.format("resourcePath Game resources not found.\n Please place a valid copy of root.lzp into " + gameDataPath.toString(), (Object[])null));
+        	throw new LemmException(String.format("resourcePath Game resources not found.\n Please place a valid copy of root.lzp into " + gamePath.toString(), (Object[])null));
         }
         
         // =========================================================================== ^^^^^^^
