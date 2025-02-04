@@ -1426,6 +1426,21 @@ public class LemminiPanel extends JPanel implements Runnable {
         }
     }
     
+    /**
+     * This interprets the DMA Remastered level packs as simply "Lemmings" or "Oh No! More Lemmings"
+     */
+    private boolean checkForDMARemasters(String replayPackName, String actualPackName) {
+        if (replayPackName.equals("DMA Lemmings [Remastered]")) {
+            return ToolBox.looselyEquals(actualPackName, "Lemmings") || 
+                   ToolBox.looselyEquals(actualPackName, "DMA Lemmings [Remastered]");
+        }
+        if (replayPackName.equals("DMA Oh No! More Lemmings [Remastered]")) {
+            return ToolBox.looselyEquals(actualPackName, "Oh No! More Lemmings") || 
+                   ToolBox.looselyEquals(actualPackName, "DMA Oh No! More Lemmings [Remastered]");
+        }
+        return false;
+    }
+    
     void handleLoadReplay() {
         Path replayPath = ToolBox.getFileName(getParentFrame(), Core.resourcePath, true, false, Core.REPLAY_EXTENSIONS);
         if (replayPath != null) {
@@ -1439,7 +1454,9 @@ public class LemminiPanel extends JPanel implements Runnable {
                         LevelPack lp = null;
                         for (int i = 0; i < GameController.getLevelPackCount(); i++) {
                             LevelPack lpTemp = GameController.getLevelPack(i);
-                            if (ToolBox.looselyEquals(lpTemp.getName(), rli.getLevelPack())) {
+                            if (ToolBox.looselyEquals(lpTemp.getName(), rli.getLevelPack()) || 
+                            	    // Handle replays created with the DMA Remastered packs
+                            		checkForDMARemasters(rli.getLevelPack(), lpTemp.getName())) {
                                 lpn = i;
                                 lp = lpTemp;
                             }

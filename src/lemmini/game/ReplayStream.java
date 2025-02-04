@@ -49,6 +49,7 @@ public class ReplayStream {
     
     static final int CURRENT_FORMAT = 1;
     static final String CURRENT_REVISION = Core.REVISION;
+    static final String SUPERLEMMINI_REVISION = "0.104";
     
     private List<ReplayEvent> events;
     private int replayIndex;
@@ -191,16 +192,21 @@ public class ReplayStream {
                 
                 switch (Integer.parseInt(e[1])) { /* type */
                 case ASSIGN_SKILL:
-                    if (e.length < 5) {  // Ensure we have 5 values (including the new isTimedBomber flag)
-                        throw new LemmException("Not enough values in replay event for ASSIGN_SKILL.");
+	                    if (e.length < 4) { // 4 values for backwards-compatibility with old replays
+	                        throw new LemmException("Not enough values in replay event for ASSIGN_SKILL.");
 	                    }
-                        // Check whether or not to apply the Bomber countdown timer
-                        // It should play back depending on the *original* setting, not the current one
-	                    boolean isTimedBomber = Boolean.parseBoolean(e[4]);
-	                    ev.add(new ReplayAssignSkillEvent(Integer.parseInt(e[0]),
-	                            Lemming.Type.valueOf(e[2]),
-	                            Integer.parseInt(e[3]),
-	                            isTimedBomber));
+	                    
+	                    // If 5th value (Timed/Untimed Bomber) is missing, use the current user setting
+	                    boolean isTimedBomber = (e.length >= 5) 
+	                        ? Boolean.parseBoolean(e[4]) 
+	                        : GameController.isOptionEnabled(GameController.SLTooOption.TIMED_BOMBERS);
+	
+	                    ev.add(new ReplayAssignSkillEvent(
+	                        Integer.parseInt(e[0]),   
+	                        Lemming.Type.valueOf(e[2]),  
+	                        Integer.parseInt(e[3]),   
+	                        isTimedBomber             
+	                    ));
 	                    break;
                     case MOVE_POS:
                         if (e.length < 5) {
@@ -236,10 +242,10 @@ public class ReplayStream {
                         throw new LemmException(String.format("Unsupported event found: %s", e[1]));
                 }
             }
-            events = ev;
-            if (!revision.equals(CURRENT_REVISION)) {
+            events = ev;                              // For backwards compatibility
+            if (!revision.equals(CURRENT_REVISION) && !revision.equals(SUPERLEMMINI_REVISION)) {
                 JOptionPane.showMessageDialog(LemminiFrame.getFrame(),
-                        "This replay was created with a potentially incompatible version of SuperLemmini. "
+                        "This replay was created with a potentially incompatible version of RetroLemmini. "
                         + "For this reason, the replay might not play properly.",
                         "Load Replay",
                         JOptionPane.WARNING_MESSAGE);
@@ -454,7 +460,7 @@ class ReplayAssignSkillEvent extends ReplayEvent {
      */
     @Override
     public String toString() {
-        return String.format(Locale.ROOT, "%s, %s, %d", super.toString(), skill.name(), lemming);
+        return String.format(Locale.ROOT, "%s, %s, %d, %b", super.toString(), skill.name(), lemming, isTimedBomber);
     }
 }
 
