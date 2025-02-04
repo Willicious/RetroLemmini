@@ -205,6 +205,8 @@ public class Core {
         GameController.setOption(GameController.SLTooOption.ANIMATED_ICONS, programProps.getBoolean("animatedIcons", true));
         GameController.setOption(GameController.SLTooOption.CLASSIC_TICKER, programProps.getBoolean("classicTicker", true));
         GameController.setOption(GameController.SLTooOption.DEBUG_VERBOSE_PLAYER_LOAD, programProps.getBoolean("debugVerbosePlayerLoad", false));
+        // Settings added in RetroLemmini
+        GameController.setOption(GameController.RetroLemminiOption.AUTOSAVE_REPLAYS, programProps.getBoolean("autoSaveReplays", false));
 
         System.out.println("      all settings read from config");
         
@@ -307,6 +309,8 @@ public class Core {
         programProps.setBoolean("animatedIcons", GameController.isOptionEnabled(GameController.SLTooOption.ANIMATED_ICONS));
         programProps.setBoolean("classicTicker", GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_TICKER));
         programProps.setBoolean("debugVerbosePlayerLoad", GameController.isOptionEnabled(GameController.SLTooOption.DEBUG_VERBOSE_PLAYER_LOAD));
+        // Settings added in RetroLemmini
+        programProps.setBoolean("autoSaveReplays", GameController.isOptionEnabled(GameController.RetroLemminiOption.AUTOSAVE_REPLAYS));
     }
     
     public static String appendBeforeExtension(String fname, String suffix) {

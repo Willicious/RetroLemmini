@@ -68,6 +68,7 @@ public class OptionsDialog extends JDialog {
         jPanelGraphics = new javax.swing.JPanel();
         jCheckBoxBilinear = new javax.swing.JCheckBox();
         jPanelMisc = new javax.swing.JPanel();
+        jPanelReplays = new javax.swing.JPanel();
         jCheckBoxAdvanced = new javax.swing.JCheckBox();
         jCheckBoxClassicCursor = new javax.swing.JCheckBox();
         jCheckBoxSwap = new javax.swing.JCheckBox();
@@ -82,10 +83,11 @@ public class OptionsDialog extends JDialog {
         jCheckBoxDisableFrameStepping = new javax.swing.JCheckBox();
         jCheckBoxVisualSfx = new javax.swing.JCheckBox();
         jCheckBoxEnhancedStatus = new javax.swing.JCheckBox();
-        jCheckBoxShowName = new javax.swing.JCheckBox();
+        jCheckBoxShowLevelName = new javax.swing.JCheckBox();
         jCheckBoxEnhancedIconBar = new javax.swing.JCheckBox();
         jCheckBoxIconLabels = new javax.swing.JCheckBox();
         jCheckBoxClassicTicker = new javax.swing.JCheckBox();
+        jCheckBoxAutoSaveReplays = new javax.swing.JCheckBox();
         jButtonOK = new javax.swing.JButton();
         jButtonCancel = new javax.swing.JButton();
         jButtonApply = new javax.swing.JButton();
@@ -126,9 +128,18 @@ public class OptionsDialog extends JDialog {
         
         jCheckBoxEnhancedStatus.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_STATUS));
         jCheckBoxEnhancedStatus.setText("Enhanced Status Bar");
+        jCheckBoxEnhancedStatus.addActionListener(e -> {
+            boolean enabled = jCheckBoxEnhancedStatus.isSelected();
+            jCheckBoxShowLevelName.setEnabled(enabled);
+
+            if (!enabled) {
+                jCheckBoxShowLevelName.setSelected(false);
+            }
+        });
         
-        jCheckBoxShowName.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.SHOW_LEVEL_NAME));
-        jCheckBoxShowName.setText("Show Level Name on the Status Bar");
+        jCheckBoxShowLevelName.setEnabled(jCheckBoxEnhancedStatus.isSelected());
+        jCheckBoxShowLevelName.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.SHOW_LEVEL_NAME));
+        jCheckBoxShowLevelName.setText("Show Level Name on the Status Bar");
 
         jCheckBoxEnhancedIconBar.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_ICONBAR));
         jCheckBoxEnhancedIconBar.setText("Enhanced Icon Bar");
@@ -200,7 +211,7 @@ public class OptionsDialog extends JDialog {
         	                .addComponent(jCheckBoxBilinear)
         	                .addComponent(jCheckBoxClassicCursor)
         	                .addComponent(jCheckBoxEnhancedStatus)
-        	                .addComponent(jCheckBoxShowName)
+        	                .addComponent(jCheckBoxShowLevelName)
         	                .addComponent(jCheckBoxEnhancedIconBar)
         	                .addComponent(jCheckBoxIconLabels)
         	                .addComponent(jCheckBoxClassicTicker))
@@ -216,7 +227,7 @@ public class OptionsDialog extends JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxEnhancedStatus)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxShowName)
+                .addComponent(jCheckBoxShowLevelName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxEnhancedIconBar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -226,7 +237,33 @@ public class OptionsDialog extends JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        
+        jPanelReplays.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Replays", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        
+        jCheckBoxAutoSaveReplays.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.AUTOSAVE_REPLAYS));
+        jCheckBoxAutoSaveReplays.setText("Auto-Save Successful Replays");
+        jCheckBoxAutoSaveReplays.setToolTipText("Automatically saves replays for succesfully-completed levels to 'resources/replays/'");
 
+        javax.swing.GroupLayout jPanelReplaysLayout = new javax.swing.GroupLayout(jPanelReplays);
+        jPanelReplays.setLayout(jPanelReplaysLayout);
+        jPanelReplaysLayout.setHorizontalGroup(
+        		jPanelReplaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelReplaysLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelReplaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBoxAutoSaveReplays)
+                	)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanelReplaysLayout.setVerticalGroup(
+        	    jPanelReplaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelReplaysLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jCheckBoxAutoSaveReplays)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        
         jPanelMisc.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Miscellaneous", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         jCheckBoxAdvanced.setSelected(GameController.isOptionEnabled(GameController.Option.ADVANCED_SELECT));
@@ -361,11 +398,11 @@ public class OptionsDialog extends JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanelSound, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanelGraphics, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanelMisc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        )
+                            .addComponent(jPanelGraphics, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanelReplays, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanelMisc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     )
                 )
                 .addContainerGap()
@@ -377,11 +414,12 @@ public class OptionsDialog extends JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelSound, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelGraphics, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanelGraphics, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanelMisc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanelReplays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     )
+                    .addComponent(jPanelMisc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 )
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -429,10 +467,12 @@ public class OptionsDialog extends JDialog {
         Core.setBilinear(jCheckBoxBilinear.isSelected());
         GameController.setOption(GameController.Option.CLASSIC_CURSOR, jCheckBoxClassicCursor.isSelected());
         GameController.setOption(GameController.SLTooOption.ENHANCED_STATUS, jCheckBoxEnhancedStatus.isSelected());
-        GameController.setOption(GameController.SLTooOption.SHOW_LEVEL_NAME, jCheckBoxShowName.isSelected());
+        GameController.setOption(GameController.SLTooOption.SHOW_LEVEL_NAME, jCheckBoxShowLevelName.isSelected());
         GameController.setOption(GameController.SLTooOption.ENHANCED_ICONBAR, jCheckBoxEnhancedIconBar.isSelected());
         GameController.setOption(GameController.SLTooOption.ICON_LABELS, jCheckBoxIconLabels.isSelected());
         GameController.setOption(GameController.SLTooOption.CLASSIC_TICKER, jCheckBoxClassicTicker.isSelected());
+        // apply replay settings
+        GameController.setOption(GameController.RetroLemminiOption.AUTOSAVE_REPLAYS, jCheckBoxAutoSaveReplays.isSelected());
         // apply miscellaneous settings
         GameController.setOption(GameController.Option.ADVANCED_SELECT, jCheckBoxAdvanced.isSelected());
         GameController.setOption(GameController.Option.SWAP_BUTTONS, jCheckBoxSwap.isSelected());
@@ -473,16 +513,18 @@ public class OptionsDialog extends JDialog {
     private javax.swing.JCheckBox jCheckBoxDisableFrameStepping;
     private javax.swing.JCheckBox jCheckBoxVisualSfx;
     private javax.swing.JCheckBox jCheckBoxEnhancedStatus;
-    private javax.swing.JCheckBox jCheckBoxShowName;
+    private javax.swing.JCheckBox jCheckBoxShowLevelName;
     private javax.swing.JCheckBox jCheckBoxEnhancedIconBar;
     private javax.swing.JCheckBox jCheckBoxIconLabels;
     private javax.swing.JCheckBox jCheckBoxClassicTicker;
+    private javax.swing.JCheckBox jCheckBoxAutoSaveReplays;
     private javax.swing.JComboBox<String> jComboBoxMixer;
     private javax.swing.JLabel jLabelMixer;
     private javax.swing.JLabel jLabelMusicVolume;
     private javax.swing.JLabel jLabelSoundVolume;
     private javax.swing.JPanel jPanelGraphics;
     private javax.swing.JPanel jPanelMisc;
+    private javax.swing.JPanel jPanelReplays;
     private javax.swing.JPanel jPanelSound;
     private javax.swing.JSlider jSliderMusicVolume;
     private javax.swing.JSlider jSliderSoundVolume;

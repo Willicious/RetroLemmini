@@ -29,6 +29,8 @@ import java.awt.Transparency;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -183,6 +185,8 @@ public class LemminiPanel extends JPanel implements Runnable {
     private boolean drawNextFrame;
     private int unmaximizedWidth = 0;
     private int unmaximizedHeight = 0;
+    
+    private boolean replaySaved = false;
     
     /**
      * Creates new form LemminiPanel
@@ -396,7 +400,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                     evt.consume();
                 }
                 break;
-            case DEBRIEFING:
+            case DEBRIEFING:            	
                 if (buttonPressed == MouseEvent.BUTTON1) {
                     TextScreen.Button button = TextScreen.getDialog().handleLeftClick(
                             x - Core.getDrawWidth() / 2, y - Core.getDrawHeight() / 2);
@@ -443,6 +447,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                         default:
                             break;
                     }
+
                     evt.consume();
                 }
                 break;
@@ -1190,6 +1195,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                 TextScreen.getDialog().handleMouseMove(
                         Core.unscale(xMouseScreen) - Core.getDrawWidth() / 2,
                         Core.unscale(yMouseScreen) - Core.getDrawHeight() / 2);
+                replaySaved = false;
                 break;
             case DEBRIEFING:
                 TextScreen.setMode(TextScreen.Mode.DEBRIEFING);
@@ -1197,6 +1203,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                 TextScreen.getDialog().handleMouseMove(
                         Core.unscale(xMouseScreen) - Core.getDrawWidth() / 2,
                         Core.unscale(yMouseScreen) - Core.getDrawHeight() / 2);
+                maybeAutoSaveReplay();
                 break;
             case LEVEL:
             case LEVEL_END:
@@ -1423,6 +1430,41 @@ public class LemminiPanel extends JPanel implements Runnable {
         if (level != null) {
             GameController.requestChangeLevel(level[0], level[1], level[2], false);
             getParentFrame().setRestartEnabled(true);
+        }
+    }
+    
+    private void maybeAutoSaveReplay() {
+        if (!GameController.isOptionEnabled(GameController.RetroLemminiOption.AUTOSAVE_REPLAYS))
+        	return;
+    	
+    	if (replaySaved) return;
+
+        if (GameController.getWasCheated() || GameController.wasLost()) return;
+
+        Level level = GameController.getLevel();
+        LevelPack levelPack = GameController.getCurLevelPack();
+        int curRating = GameController.getCurRating();
+        int curLevelNum = GameController.getCurLevelNumber();
+
+        if (level == null || levelPack == null) return;
+
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH_mm_ss__dd_MM_yyyy");
+        String timestamp = now.format(formatter);
+
+        String levelName = level.getLevelName().replaceAll("[^a-zA-Z0-9_\\-]", "_");
+        String levelPackName = levelPack.getName().replaceAll("[^a-zA-Z0-9_\\-]", "_");
+        String ratingName = levelPack.getRatings().get(curRating).replaceAll("[^a-zA-Z0-9_\\-]", "_");
+
+        String replayFileName = String.format("%s__%s__%02d__%s__%s.lrb", 
+            levelPackName, ratingName, curLevelNum + 1, levelName, timestamp);
+
+        Path replayPath = Core.resourcePath.resolve(Core.REPLAYS_PATH).resolve(replayFileName);
+
+        if (!GameController.saveReplay(replayPath)) {
+            JOptionPane.showMessageDialog(getParent(), "Unable to auto-save replay.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            replaySaved = true;
         }
     }
     

@@ -136,6 +136,11 @@ public class GameController {
         DEBUG_VERBOSE_PLAYER_LOAD
     }
     
+    public static enum RetroLemminiOption {
+    	//** flag: automatically save successful replays from debriefing screen
+    	AUTOSAVE_REPLAYS
+    }
+    
     public static enum LevelFormat {
         INI,
         LVL,
@@ -190,6 +195,8 @@ public class GameController {
     private static final Set<Option> options = EnumSet.noneOf(Option.class);
     /** Options added in SuperLemminiToo */
     private static final Set<SLTooOption> SLToptions = EnumSet.noneOf(SLTooOption.class);
+    /** Options added in RetroLemmini */
+    private static final Set<RetroLemminiOption> RLoptions = EnumSet.noneOf(RetroLemminiOption.class);
 
     /** flag: fast forward mode is active */
     private static boolean fastForward;
@@ -806,7 +813,7 @@ public class GameController {
      * Get level lost state.
      * @return true if level was lost, false otherwise
      */
-    static synchronized boolean wasLost() {
+    public static synchronized boolean wasLost() {
         return gameState == State.LEVEL || numExited < numToRescue;
     }
     
@@ -2594,6 +2601,18 @@ public class GameController {
     
     public static boolean isOptionEnabled(SLTooOption option) {
         return SLToptions.contains(option);
+    }
+    
+    public static void setOption(RetroLemminiOption option, boolean enable) {
+        if (enable) {
+        	RLoptions.add(option);
+        } else {
+        	RLoptions.remove(option);
+        }
+    }
+    
+    public static boolean isOptionEnabled(RetroLemminiOption option) {
+        return RLoptions.contains(option);
     }
     
     /**
