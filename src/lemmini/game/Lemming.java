@@ -959,10 +959,6 @@ public class Lemming {
                 case Stencil.MSK_EXIT:
                     switch (newType) {
                         case FLAPPER:
-                            if (homer) {
-                                break;
-                            }
-                            /* falls through */
                         case WALKER:
                         case FLOATER:
                         case FLOATER_START:
@@ -1040,10 +1036,7 @@ public class Lemming {
                     case SPLATTER:
                         hasDied = true;
                         break;
-                    case HOMER:
-                        if (flapper) {
-                            newType = Type.EXPLODER;
-                        } else {
+                    case HOMER: {
                             hasExited = true;
                             GameController.increaseExited();
                         }
