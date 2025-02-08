@@ -18,6 +18,7 @@
  */
 package lemmini;
 
+import java.awt.Desktop;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -29,10 +30,15 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.imageio.ImageIO;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.JavaVersion;
@@ -307,14 +313,50 @@ public class LemminiFrame extends JFrame {
         jMenuItemAbout.setText("About...");
         jMenuItemAbout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	String msg = "";
-            	msg += "Java version: " + System.getProperty("java.version").toString();
-            	// msg += "\n";
-            	// msg += "Current Folder:" + getClass().getProtectionDomain().getCodeSource().getLocation();
-            	JOptionPane.showMessageDialog(thisFrame, msg);
+                String urlLemmini = "http://lemmini.de";
+                String urlForumBoard = "https://www.lemmingsforums.net/index.php?board=10.0";
+                String urlRetroLemmini = "https://www.lemmingsforums.net/index.php?topic=7030.0";
+
+                // Create a JEditorPane with HTML content
+                JEditorPane editorPane = new JEditorPane("text/html", 
+                        "<html>"
+                        + "RetroLemmini Version " + Core.REVISION + "<br>"
+                        + "By William James<br><br>"
+                        + "Based on<br><br>"
+                        + "SuperLemminiToo by Charles Irwin<br>"
+                        + "SuperLemmini by Ryan Sakowski<br>"
+                        + "Original Lemmini by Volker Oth<br><br>"
+                        + "Get the latest version of RetroLemmini here: <a href='" + urlRetroLemmini + "'>" + "RetroLemmini on LemmingsForums.net" + "</a><br>"
+                        + "Join the Forum discussion here: <a href='" + urlForumBoard + "'>" + "Discussion board on LemmingsForums.net" + "</a><br>"
+                        + "Lemmini website: <a href='" + urlLemmini + "'>" + urlLemmini + "</a><br><br>"
+                        + "Java version: " + System.getProperty("java.version")
+                        + "</html>");
+                
+                editorPane.setEditable(false);
+                editorPane.setBackground(new JLabel().getBackground()); // Match the background color
+
+                // Add a HyperlinkListener to detect clicks
+                editorPane.addHyperlinkListener(new HyperlinkListener() {
+                    public void hyperlinkUpdate(HyperlinkEvent e) {
+                        if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+                            try {
+                                Desktop.getDesktop().browse(e.getURL().toURI());
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
+                        }
+                    }
+                });
+
+                JOptionPane.showConfirmDialog(
+                	    thisFrame, 
+                	    new JScrollPane(editorPane), 
+                	    "About", 
+                	    JOptionPane.DEFAULT_OPTION, 
+                	    JOptionPane.PLAIN_MESSAGE
+                	);
             }
         });
-        
         
         jMenuOptions.add(jMenuItemOptions);
         jMenuOptions.add(jMenuItemAbout);
