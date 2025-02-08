@@ -15,7 +15,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import lemmini.graphics.LemmImage;
 import lemmini.sound.Sound;
-import lemmini.sound.Sound.Effect;
 import lemmini.tools.Props;
 import lemmini.tools.ToolBox;
 
@@ -212,7 +211,6 @@ public class Lemming {
     private boolean canChangeSkill;
     private boolean flapper;
     private boolean drowner;
-    private boolean homer;
     /** Lemming is to be nuked */
     private boolean nuke;
     /** Lemming has died */
@@ -254,7 +252,6 @@ public class Lemming {
         hasExited = false;  // not yet
         flapper = false;
         drowner = false;
-        homer = false;
         nuke = false;
     }
     
@@ -990,7 +987,6 @@ public class Lemming {
                                                                              // set by "Effect"
                                                                              // GO_HOME isn't yet set up...
                                     //GameController.sound.play(Effect.EXPLODE);
-                                    homer = true;
                                     newType = Type.HOMER;
                                 }
                             }
