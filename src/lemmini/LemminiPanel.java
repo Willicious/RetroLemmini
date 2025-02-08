@@ -1576,7 +1576,7 @@ public class LemminiPanel extends JPanel implements Runnable {
         if (levelCode != null && !levelCode.isEmpty() && lvlPack > 0) {
             levelCode = levelCode.trim();
             // cheat mode
-            if (levelCode.toLowerCase().equals("0xdeadbeef")) {
+            if (levelCode.toLowerCase().equals("0xlemdebug")) {
                 JOptionPane.showMessageDialog(getParent(), "All levels and debug mode enabled.", "Cheater!", JOptionPane.INFORMATION_MESSAGE);
                 Core.player.enableCheatMode();
                 return;
