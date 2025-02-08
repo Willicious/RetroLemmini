@@ -194,6 +194,7 @@ public class LemminiFrame extends JFrame {
         jMenuItemEnterLevelCode = new javax.swing.JMenuItem();
         jMenuOptions = new javax.swing.JMenu();
         jMenuItemOptions = new javax.swing.JMenuItem();
+        jMenuItemHotkeys = new javax.swing.JMenuItem();
         jMenuItemAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -310,55 +311,22 @@ public class LemminiFrame extends JFrame {
             }
         });
         
+        jMenuItemHotkeys.setText("Hotkeys...");
+        jMenuItemHotkeys.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	handleHotkeys();
+            }
+        });
+        
         jMenuItemAbout.setText("About...");
         jMenuItemAbout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                String urlLemmini = "http://lemmini.de";
-                String urlForumBoard = "https://www.lemmingsforums.net/index.php?board=10.0";
-                String urlRetroLemmini = "https://www.lemmingsforums.net/index.php?topic=7030.0";
-
-                // Create a JEditorPane with HTML content
-                JEditorPane editorPane = new JEditorPane("text/html", 
-                        "<html>"
-                        + "RetroLemmini Version " + Core.REVISION + "<br>"
-                        + "By William James<br><br>"
-                        + "Based on<br><br>"
-                        + "SuperLemminiToo by Charles Irwin<br>"
-                        + "SuperLemmini by Ryan Sakowski<br>"
-                        + "Original Lemmini by Volker Oth<br><br>"
-                        + "Get the latest version of RetroLemmini here: <a href='" + urlRetroLemmini + "'>" + "RetroLemmini on LemmingsForums.net" + "</a><br>"
-                        + "Join the Forum discussion here: <a href='" + urlForumBoard + "'>" + "Discussion board on LemmingsForums.net" + "</a><br>"
-                        + "Lemmini website: <a href='" + urlLemmini + "'>" + urlLemmini + "</a><br><br>"
-                        + "Java version: " + System.getProperty("java.version")
-                        + "</html>");
-                
-                editorPane.setEditable(false);
-                editorPane.setBackground(new JLabel().getBackground()); // Match the background color
-
-                // Add a HyperlinkListener to detect clicks
-                editorPane.addHyperlinkListener(new HyperlinkListener() {
-                    public void hyperlinkUpdate(HyperlinkEvent e) {
-                        if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-                            try {
-                                Desktop.getDesktop().browse(e.getURL().toURI());
-                            } catch (Exception ex) {
-                                ex.printStackTrace();
-                            }
-                        }
-                    }
-                });
-
-                JOptionPane.showConfirmDialog(
-                	    thisFrame, 
-                	    new JScrollPane(editorPane), 
-                	    "About", 
-                	    JOptionPane.DEFAULT_OPTION, 
-                	    JOptionPane.PLAIN_MESSAGE
-                	);
+            	handleAbout();
             }
         });
         
         jMenuOptions.add(jMenuItemOptions);
+        jMenuOptions.add(jMenuItemHotkeys);
         jMenuOptions.add(jMenuItemAbout);
 
         jMenuBarMain.add(jMenuOptions);
@@ -381,6 +349,89 @@ public class LemminiFrame extends JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
+    void handleHotkeys() {
+    	String hotkeyList = "<html><body>"
+    	        + "<h3>Hotkeys</h3>"
+    	        + "<table border='0' cellspacing='0'>"
+    	        + "<tr><td><b>F1 | Minus(-)</b></td>             		  <td>Decrease RR (press twice to jump to min)</td></tr>"
+    	        + "<tr><td><b>F2 | Plus(+) | Equals(=)</b></td>  		  <td>Increase RR (press twice to jump to max)</td></tr>"
+    	        + "<tr><td><b>F3-F10 / 1-8</b></td>              		  <td>Select Skill (same order as panel buttons)</td></tr>"
+    	        + "<tr><td><b>F11 | Space | P</b></td>           		  <td>Pause/Resume</td></tr>"
+    	        + "<tr><td><b>F12</b></td>                       		  <td>Nuke Level</td></tr>"
+    	        + "<tr><td><b>Ctrl + R</b></td>                 		  <td>Restart Level</td></tr>"
+    	        + "<tr><td><b>S</b></td>                         		  <td>Toggle Vertical Lock</td></tr>"
+    	        + "<tr><td><b>F</b></td>                         		  <td>Fast-Forward</td></tr>"
+    	        + "<tr><td><b>G | Ctrl + F</b></td>                       <td>Turbo-Forward</td></tr>"
+    	        + "<tr><td><b>X</b></td>                                  <td>Cancel Replay</td></tr>"
+    	        + "<tr><td><b>V</b></td>                         		  <td>Save Level As Image</td></tr>"
+    	        + "<tr><td><b>(Advanced Select On) Arrows: Left</b></td>  <td>Select Left-Facing Lemming</td></tr>"
+    	        + "<tr><td><b>(Advanced Select On) Arrows: Right</b></td> <td>Select Right-Facing Lemming</td></tr>"
+    	        + "<tr><td><b>(Advanced Select On) Arrows: Up</b></td>    <td>Select Walker Lemming</td></tr>"
+    	        + "<tr><td><b>(Advanced Select Off) Arrows: Left</b></td> <td>Nudge Level Left</td></tr>"
+    	        + "<tr><td><b>(Advanced Select Off) Arrows: Right</b></td><td>Nudge Level Right</td></tr>"
+    	        + "<tr><td><b>(Advanced Select Off) Arrows: Up</b></td>   <td>Nudge Level Up</td></tr>"
+    	        + "<tr><td><b>(Advanced Select Off) Arrows: Down</b></td> <td>Nudge Level Down</td></tr>"
+    	        + "<tr><td><b>Ctrl + S</b></td>                           <td>Save Replay (from Level/Debriefing)</td></tr>"
+    	        + "<tr><td><b>Ctrl + L</b></td>                           <td>Load Replay</td></tr>"    	       
+    	        + "<tr><td><b>Ctrl + F4</b></td>                          <td>Manage Players</td></tr>"
+    	        + "<tr><td><b>Ctrl + F5</b></td>                          <td>Enter Code</td></tr>"
+    	        + "<tr><td><b>Ctrl + F9</b></td>                          <td>Select Level</td></tr>"
+    	        + "<tr><td><b>Ctrl + F10</b></td>                         <td>Options</td></tr>"
+    	        + "<tr><td><b>Ctrl + F11</b></td>                         <td>Hotkeys</td></tr>"
+    	        + "<tr><td><b>Ctrl + F12</b></td>                         <td>About</td></tr>"
+    	        + "<tr><td><b>Ctrl + M</b></td>                           <td>Toggle Menu Bar Visibility</td></tr>" 
+    	        + "<tr><td><b>Esc</b></td>                                <td>Quit Level / Close RetroLemmini (from Menu)</td></tr>"
+    	        + "</table>"
+    	        + "</body></html>";
+
+    	JOptionPane.showMessageDialog(thisFrame, hotkeyList, "Hotkeys", JOptionPane.PLAIN_MESSAGE);
+    }
+    
+    void handleAbout() {
+        String urlLemmini = "http://lemmini.de";
+        String urlForumBoard = "https://www.lemmingsforums.net/index.php?board=10.0";
+        String urlRetroLemmini = "https://www.lemmingsforums.net/index.php?topic=7030.0";
+
+        // Create a JEditorPane with HTML content
+        JEditorPane editorPane = new JEditorPane("text/html", 
+                "<html>"
+                + "RetroLemmini Version " + Core.REVISION + "<br>"
+                + "By William James<br><br>"
+                + "Based on<br><br>"
+                + "SuperLemminiToo by Charles Irwin<br>"
+                + "SuperLemmini by Ryan Sakowski<br>"
+                + "Original Lemmini by Volker Oth<br><br>"
+                + "Get the latest version of RetroLemmini here: <a href='" + urlRetroLemmini + "'>" + "RetroLemmini on LemmingsForums.net" + "</a><br>"
+                + "Join the Forum discussion here: <a href='" + urlForumBoard + "'>" + "Discussion board on LemmingsForums.net" + "</a><br>"
+                + "Lemmini website: <a href='" + urlLemmini + "'>" + urlLemmini + "</a><br><br>"
+                + "Java version: " + System.getProperty("java.version")
+                + "</html>");
+        
+        editorPane.setEditable(false);
+        editorPane.setBackground(new JLabel().getBackground()); // Match the background color
+
+        // Add a HyperlinkListener to detect clicks
+        editorPane.addHyperlinkListener(new HyperlinkListener() {
+            public void hyperlinkUpdate(HyperlinkEvent e) {
+                if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+                    try {
+                        Desktop.getDesktop().browse(e.getURL().toURI());
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        JOptionPane.showConfirmDialog(
+        	    thisFrame, 
+        	    new JScrollPane(editorPane), 
+        	    "About", 
+        	    JOptionPane.DEFAULT_OPTION, 
+        	    JOptionPane.PLAIN_MESSAGE
+        	);
+    }
+    
     private void formComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentMoved
         storeUnmaximizedPos();
     }//GEN-LAST:event_formComponentMoved
@@ -399,32 +450,40 @@ public class LemminiFrame extends JFrame {
 		    case KeyEvent.VK_ALT:
 		    	lemminiPanelMain.setAltPressed(true);
 		        break;
-        }
-        
-     // Toggle menu bar visibility
-        if (lemminiPanelMain.isControlPressed() && code == KeyEvent.VK_M) {
-            boolean isMenuBarVisible = getJMenuBar() != null;
-
-            if (isMenuBarVisible) {
-                setJMenuBar(null);
-            } else {
-                setJMenuBar(jMenuBarMain);
-            }
-
-            // Adjust the window height based on the visibility of the menu bar
-            int windowHeight = getHeight();
-            int menuBarHeight = jMenuBarMain.getPreferredSize().height;
-
-            if (isMenuBarVisible) {
-                setSize(getWidth(), windowHeight - menuBarHeight);
-            } else {
-                setSize(getWidth(), windowHeight + menuBarHeight);
-            }
-
-            // Re-draw frame and exit method to prevent further processing
-            revalidate();
-            repaint();
-            return;
+		    case KeyEvent.VK_L:
+		    	if (lemminiPanelMain.isControlPressed())
+		    		lemminiPanelMain.handleLoadReplay();
+		    	break;
+		    case KeyEvent.VK_M:
+		        if (lemminiPanelMain.isControlPressed())
+		        	toggleMenuBarVisibility();
+		        break;
+		    case KeyEvent.VK_F4:
+		    	if (lemminiPanelMain.isControlPressed())
+		    		lemminiPanelMain.handlePlayers();
+		    	break;
+		    case KeyEvent.VK_F3:
+		    case KeyEvent.VK_F9:
+		    	if (lemminiPanelMain.isControlPressed())
+		    		lemminiPanelMain.handlePlayLevel();
+		    	break;
+		    case KeyEvent.VK_F5:
+		    	if (lemminiPanelMain.isControlPressed())
+		    		lemminiPanelMain.handleEnterCode();
+		    	break;
+		    case KeyEvent.VK_F2:
+		    case KeyEvent.VK_F10:
+		    	if (lemminiPanelMain.isControlPressed())
+		    		lemminiPanelMain.handleOptions();
+		    	break;
+		    case KeyEvent.VK_F11:
+		    	if (lemminiPanelMain.isControlPressed())
+		    		handleHotkeys();
+		    	break;
+		    case KeyEvent.VK_F12:
+		    	if (lemminiPanelMain.isControlPressed())
+		    		handleAbout();
+		    	break;
         }
         
         switch (GameController.getGameState()) {
@@ -974,6 +1033,30 @@ public class LemminiFrame extends JFrame {
         }
     }
     
+    void toggleMenuBarVisibility() {
+        boolean isMenuBarVisible = getJMenuBar() != null;
+
+        if (isMenuBarVisible) {
+            setJMenuBar(null);
+        } else {
+            setJMenuBar(jMenuBarMain);
+        }
+
+        // Adjust the window height based on the visibility of the menu bar
+        int windowHeight = getHeight();
+        int menuBarHeight = jMenuBarMain.getPreferredSize().height;
+
+        if (isMenuBarVisible) {
+            setSize(getWidth(), windowHeight - menuBarHeight);
+        } else {
+            setSize(getWidth(), windowHeight + menuBarHeight);
+        }
+
+        // Re-draw frame and exit method to prevent further processing
+        revalidate();
+        repaint();
+    }
+    
     /**
      * Common exit method to use in exit events.
      */
@@ -1031,6 +1114,7 @@ public class LemminiFrame extends JFrame {
     private javax.swing.JMenuItem jMenuItemLoadReplay;
     private javax.swing.JMenuItem jMenuItemManagePlayers;
     private javax.swing.JMenuItem jMenuItemOptions;
+    private javax.swing.JMenuItem jMenuItemHotkeys;
     private javax.swing.JMenuItem jMenuItemAbout;
     private javax.swing.JMenuItem jMenuItemPlayLevel;
     private javax.swing.JMenuItem jMenuItemRestartLevel;
