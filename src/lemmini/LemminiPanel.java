@@ -422,22 +422,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                             GameController.requestRestartLevel(true, true);
                             break;
                         case SAVE_REPLAY:
-                            Path replayPath = ToolBox.getFileName(getParent(), Core.resourcePath, false, false, Core.REPLAY_EXTENSIONS);
-                            if (replayPath != null) {
-                                try {
-                                    String ext = FilenameUtils.getExtension(replayPath.getFileName().toString());
-                                    if (ext == null || ext.isEmpty()) {
-                                        replayPath = replayPath.resolveSibling(replayPath.getFileName().toString() + "." + Core.REPLAY_EXTENSIONS[0]);
-                                    }
-                                    if (GameController.saveReplay(replayPath)) {
-                                        return;
-                                    }
-                                    // else: no success
-                                    JOptionPane.showMessageDialog(getParent(), "Unable to save replay.", "Error", JOptionPane.ERROR_MESSAGE);
-                                } catch (HeadlessException ex) {
-                                    ToolBox.showException(ex);
-                                }
-                            }
+                            handleSaveReplay();
                             break;
                         case NEXT_RATING:
                             GameController.nextRating();
@@ -1475,6 +1460,25 @@ public class LemminiPanel extends JPanel implements Runnable {
             JOptionPane.showMessageDialog(getParent(), "Unable to auto-save replay.", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             replaySaved = true;
+        }
+    }
+    
+    void handleSaveReplay() {
+        Path replayPath = ToolBox.getFileName(getParent(), Core.resourcePath, false, false, Core.REPLAY_EXTENSIONS);
+        if (replayPath != null) {
+            try {
+                String ext = FilenameUtils.getExtension(replayPath.getFileName().toString());
+                if (ext == null || ext.isEmpty()) {
+                    replayPath = replayPath.resolveSibling(replayPath.getFileName().toString() + "." + Core.REPLAY_EXTENSIONS[0]);
+                }
+                if (GameController.saveReplay(replayPath)) {
+                    return;
+                }
+                // else: no success
+                JOptionPane.showMessageDialog(getParent(), "Unable to save replay.", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (HeadlessException ex) {
+                ToolBox.showException(ex);
+            }
         }
     }
     

@@ -481,6 +481,9 @@ public class LemminiFrame extends JFrame {
                         }
                         break;
                     case KeyEvent.VK_S:
+                    	if (lemminiPanelMain.isControlPressed()) {
+                    		lemminiPanelMain.handleSaveReplay();
+                    	}
                         GameController.setVerticalLock(!GameController.isVerticalLock());
                         GameController.pressIcon(Icons.IconType.VLOCK);
                         break;
@@ -719,6 +722,10 @@ public class LemminiFrame extends JFrame {
                         } catch (IOException ex) {
                         }
                         break;
+                    case KeyEvent.VK_S:
+                    	if (lemminiPanelMain.isControlPressed()) {
+                    		lemminiPanelMain.handleSaveReplay();
+                    	}
                     default:
                         break;
                 }
