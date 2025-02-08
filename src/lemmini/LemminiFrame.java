@@ -712,6 +712,11 @@ public class LemminiFrame extends JFrame {
                         break;
                 }
                 /* falls through */
+            case INTRO:
+            	switch (code) {
+            	case KeyEvent.VK_ESCAPE:
+            		exit();
+            	}
             case DEBRIEFING:
             case LEVEL_END:
                 switch (code) {
