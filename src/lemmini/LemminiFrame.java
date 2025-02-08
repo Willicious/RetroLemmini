@@ -387,6 +387,46 @@ public class LemminiFrame extends JFrame {
     
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         int code = evt.getKeyCode();
+        
+        // Handle modifiers
+        switch (code) {
+		    case KeyEvent.VK_SHIFT:
+		        lemminiPanelMain.setShiftPressed(true);
+		        break;
+		    case KeyEvent.VK_CONTROL:
+		        lemminiPanelMain.setControlPressed(true);
+		        break;
+		    case KeyEvent.VK_ALT:
+		    	lemminiPanelMain.setAltPressed(true);
+		        break;
+        }
+        
+     // Toggle menu bar visibility
+        if (lemminiPanelMain.isControlPressed() && code == KeyEvent.VK_M) {
+            boolean isMenuBarVisible = getJMenuBar() != null;
+
+            if (isMenuBarVisible) {
+                setJMenuBar(null);
+            } else {
+                setJMenuBar(jMenuBarMain);
+            }
+
+            // Adjust the window height based on the visibility of the menu bar
+            int windowHeight = getHeight();
+            int menuBarHeight = jMenuBarMain.getPreferredSize().height;
+
+            if (isMenuBarVisible) {
+                setSize(getWidth(), windowHeight - menuBarHeight);
+            } else {
+                setSize(getWidth(), windowHeight + menuBarHeight);
+            }
+
+            // Re-draw frame and exit method to prevent further processing
+            revalidate();
+            repaint();
+            return;
+        }
+        
         switch (GameController.getGameState()) {
             case LEVEL:
                 switch (code) {
@@ -538,15 +578,6 @@ public class LemminiFrame extends JFrame {
                         if (!GameController.isOptionEnabled(GameController.Option.ADVANCED_SELECT)) {
                             lemminiPanelMain.setDownPressed(true);
                         }
-                        break;
-                    case KeyEvent.VK_SHIFT:
-                        lemminiPanelMain.setShiftPressed(true);
-                        break;
-                    case KeyEvent.VK_CONTROL:
-                        lemminiPanelMain.setControlPressed(true);
-                        break;
-                    case KeyEvent.VK_ALT:
-                    	lemminiPanelMain.setAltPressed(true);
                         break;
                     case KeyEvent.VK_N:
                         if (GameController.isCheat()) {

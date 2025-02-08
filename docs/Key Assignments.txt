@@ -1,3 +1,7 @@
+At any time:
+
+Ctrl & M: Toggle menu bar visibility
+
 While playing a level:
 
 1 or F3: Select climber skill
