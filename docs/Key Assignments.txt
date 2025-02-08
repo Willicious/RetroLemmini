@@ -1,6 +1,13 @@
 At any time:
 
 Ctrl & M: Toggle menu bar visibility
+Ctrl & L: Load Replay
+Ctrl & F4: Manage Players
+Ctrl & F5: Enter Code
+Ctrl & F9, Ctrl & F3: Select Level
+Ctrl & F10, Ctrl & F2: Options
+Ctrl & F11: Hotkeys
+Ctrl & F12: About
 
 While playing a level:
 
@@ -15,9 +22,11 @@ While playing a level:
 - or F1: Decrease release rate
 =, +, or F2: Increase release rate
 F12 (twice): Nuke level
-P or F11 or SPACE: Pause/unpause game
+P or F11: Pause/unpause game
 F or Enter: Toggle fast-forward
+G or Ctrl + F: Toggle turbo-forward
 S: Toggle vertical scroll lock
+X: Cancel Replay
 Up (if Advanced Select is enabled): Select walkers only
 Left (if Advanced Select is enabled): Select left-facing lemmings only
 Right (if Advanced Select is enabled): Select right-facing lemmings only
@@ -25,18 +34,10 @@ Up (if Advanced Select is disabled): Scroll level up
 Down (if Advanced Select is disabled): Scroll level down
 Left (if Advanced Select is disabled): Scroll level left
 Right (if Advanced Select is disabled): Scroll level right
-Shift: Increase scroll speed
+Shift & Scroll: Increase scroll speed
 V: Save image of level in current state
-Ctrl-R: Restart level
+Ctrl & R: Restart level
 Esc: End level
-
-To use the following controls, enable debug mode by pressing CTRL-ALT-SHIFT-D while playing a level.
-D (debug mode only): Enable/disable draw mode
-W (debug mode only): End level with all lemmings saved
-U (debug mode only): Toggle superlemming mode
-T (debug mode only): Toggle timer countdown
-N (debug mode only): Add a new Lemming into the level (at the cursor's position)
-
 
 While viewing a level preview:
 
@@ -45,7 +46,23 @@ Down: Next rating
 Left: Next level
 Right: Previous level
 
-
 While viewing a level preview or debriefing:
 
 V: Save image of level in current state
+
+While playing a level / debriefing:
+
+Ctrl & S: Save Replay
+
+To use the following controls, enable debug mode by entering "0xlemdebug" (without quotes) in the Enter Level Code dialog.
+
+C: Toggle cheat mode
+D (cheat mode only): Enable/disable draw mode
+W (cheat mode only): End level with all lemmings saved
+U (cheat mode only): Toggle superlemming mode
+T (cheat mode only): Toggle timer countdown
+N (cheat mode only): Spawn lemming at cursor
+
+From the main menu:
+
+Esc: Close RetroLemmini
