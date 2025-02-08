@@ -499,6 +499,9 @@ public class LemminiFrame extends JFrame {
                             GameController.setSuperLemming(!GameController.isSuperLemming());
                         }
                         break;
+                    case KeyEvent.VK_X:
+                    	GameController.stopReplayMode();
+                    	break;
                     case KeyEvent.VK_C: //C toggles Cheat Mode, if the debug mode has been entered.
                         if (Core.player.isCheat()) {
                             GameController.setCheat(!GameController.isCheat());
