@@ -200,6 +200,7 @@ public class GameController {
 
     /** flag: fast forward mode is active */
     private static boolean fastForward;
+    private static boolean turbo;
     private static boolean verticalLock;
     /** flag: Superlemming mode is active */
     private static boolean superLemming;
@@ -2327,11 +2328,27 @@ public class GameController {
     }
     
     /**
+     * Enable turbo mode.
+     * @param ff true: turbo is active, false otherwise
+     */
+    public static void setTurbo(final boolean t) {
+        turbo = t;
+    }
+    
+    /**
      * Get fast forward state.
      * @return true if fast forward is active, false otherwise
      */
     public static boolean isFastForward() {
         return fastForward;
+    }
+    
+    /**
+     * Get turbo state.
+     * @return true if turbo is active, false otherwise
+     */
+    public static boolean isTurbo() {
+        return turbo;
     }
     
     public static void setVerticalLock(final boolean vl) {
