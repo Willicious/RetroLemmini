@@ -171,22 +171,22 @@ public class Level {
      * @throws ResourceException
      * @throws LemmException
      */
-    public Level(final Resource res, final Level level2) throws ResourceException, LemmException {
+    public Level(final Resource resource, final Level level2) throws ResourceException, LemmException {
         levelProps = new ArrayList<>(4);
         hints = new ArrayList<>(4);
         // read level properties from file
         Props p = new Props();
-        if (!p.load(res)) {
-            throw new ResourceException(res);
+        if (!p.load(resource)) {
+            throw new ResourceException(resource);
         }
         levelProps.add(p);
         
         String mainLevel = p.get("mainLevel", StringUtils.EMPTY);
         while (!mainLevel.isEmpty()) {
-            Resource res2 = res.getSibling(mainLevel);
+            Resource resource2 = resource.getSibling(mainLevel);
             p = new Props();
-            if (!p.load(res2)) {
-                throw new ResourceException(res2);
+            if (!p.load(resource2)) {
+                throw new ResourceException(resource2);
             }
             levelProps.add(p);
             mainLevel = p.get("mainLevel", StringUtils.EMPTY);

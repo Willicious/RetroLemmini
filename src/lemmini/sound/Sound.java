@@ -236,9 +236,9 @@ public class Sound {
     }
     
     public final void load() throws ResourceException {
-        Resource res = Core.findResource(SOUND_INI_STR, true);
+        Resource resource = Core.findResource(SOUND_INI_STR, true);
         Props p = new Props();
-        if (!p.load(res)) {
+        if (!p.load(resource)) {
             throw new ResourceException(SOUND_INI_STR);
         }
         sampleNames.clear();
@@ -284,11 +284,11 @@ public class Sound {
         
         try {
             for (int i = 0; i < sampleNum; i++) {
-                res = Core.findResource(
+            	resource = Core.findResource(
                         "sound/" + sampleNames.get(i),
                         Core.SOUND_EXTENSIONS);
                 if (loaded) {
-                    if (res.equals(resources[i])) {
+                    if (resource.equals(resources[i])) {
                         continue;
                     }
                     if (!reloadPitched) {
@@ -300,12 +300,12 @@ public class Sound {
                         }
                     }
                 } else {
-                    resources[i] = res;
+                    resources[i] = resource;
                 }
                 
                 AudioFormat currentFormat;
                 
-                try (InputStream in = new BufferedInputStream(res.getInputStream());
+                try (InputStream in = new BufferedInputStream(resource.getInputStream());
                         AudioInputStream ais = AudioSystem.getAudioInputStream(in)) {
                     currentFormat = ais.getFormat();
                     soundBuffers[i] = new byte[(int) ais.getFrameLength() * currentFormat.getFrameSize()];
@@ -328,7 +328,7 @@ public class Sound {
                 soundBuffers[i] = resample(soundBuffers[i], currentFormat, format.getSampleRate(),  resamplingQuality);
             }
         } catch (UnsupportedAudioFileException | IOException ex) {
-            throw new ResourceException(res);
+            throw new ResourceException(resource);
         }
         
         if (reloadPitched) {

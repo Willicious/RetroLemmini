@@ -29,7 +29,7 @@ public interface MusicPlayer {
      * @throws ResourceException
      * @throws LemmException
      */
-    void load(Resource res, boolean loop) throws ResourceException, LemmException;
+    void load(Resource resource, boolean loop) throws ResourceException, LemmException;
     
     void stop();
     void play();

@@ -88,75 +88,75 @@ public class MiscGfx {
      */
     public static void init(int mmWidth) throws ResourceException {
         images.clear();
-        Resource res;
+        Resource resource;
         LemmImage img;
 
         /* 0: MINIMAP_LEFT */
-        res = Core.findResource("gfx/misc/minimap_left.png", Core.IMAGE_EXTENSIONS);
-        img = Core.loadLemmImage(res);
+        resource = Core.findResource("gfx/misc/minimap_left.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
         images.add(img);
         /* 1: MINIMAP_CENTER */
-        res = Core.findResource("gfx/misc/minimap_center.png", Core.IMAGE_EXTENSIONS);
-        img = Core.loadLemmImage(res);
+        resource = Core.findResource("gfx/misc/minimap_center.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
         images.add(img);
         /* 2: MINIMAP_RIGHT */
-        res = Core.findResource("gfx/misc/minimap_right.png", Core.IMAGE_EXTENSIONS);
-        img = Core.loadLemmImage(res);
+        resource = Core.findResource("gfx/misc/minimap_right.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
         images.add(img);
 
         /* 3: MINIMAP_LARGE_LEFT */
-        res = Core.findResource("gfx/iconbar/large_minimap_left.png", Core.IMAGE_EXTENSIONS);
-        img = Core.loadLemmImage(res);
+        resource = Core.findResource("gfx/iconbar/large_minimap_left.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
         images.add(img);
         /* 4: MINIMAP_LARGE_CENTER */
-        res = Core.findResource("gfx/iconbar/large_minimap_center.png", Core.IMAGE_EXTENSIONS);
-        img = Core.loadLemmImage(res);
+        resource = Core.findResource("gfx/iconbar/large_minimap_center.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
         images.add(img);
         /* 5: MINIMAP_LARGE_RIGHT */
-        res = Core.findResource("gfx/iconbar/large_minimap_right.png", Core.IMAGE_EXTENSIONS);
-        img = Core.loadLemmImage(res);
+        resource = Core.findResource("gfx/iconbar/large_minimap_right.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
         images.add(img);
         
         /* 6: MINIMAP_ARROW_LEFT, 7: MINIMAP_ARROW_UP, 8: MINIMAP_ARROW_RIGHT, 9: MINIMAP_ARROW_DOWN */
-        res = Core.findResource("gfx/misc/minimap_arrows.png", Core.IMAGE_EXTENSIONS);
-        List<LemmImage> anim = ToolBox.getAnimation(Core.loadLemmImage(res), 4);
+        resource = Core.findResource("gfx/misc/minimap_arrows.png", Core.IMAGE_EXTENSIONS);
+        List<LemmImage> anim = ToolBox.getAnimation(Core.loadLemmImage(resource), 4);
         images.addAll(anim);
         /* 10: LEMMINI title graphic */
         img = Core.loadLemmImageJar("retrolemmini_logo.png");
         images.add(img);
         /* 11: TILE_GREEN */
-        res = Core.findResource("gfx/misc/background_level.png", Core.IMAGE_EXTENSIONS);
-        img = Core.loadLemmImage(res);
+        resource = Core.findResource("gfx/misc/background_level.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
         images.add(img);
         /* 12: TILE_BROWN */
-        res = Core.findResource("gfx/misc/background_main.png", Core.IMAGE_EXTENSIONS);
-        img = Core.loadLemmImage(res);
+        resource = Core.findResource("gfx/misc/background_main.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
         images.add(img);
         /* 13: REPLAY_1, 14: REPLAY_2 */
-        res = Core.findResource("gfx/misc/replay.png", Core.IMAGE_EXTENSIONS);
-        anim = ToolBox.getAnimation(Core.loadLemmImage(res), 2);
+        resource = Core.findResource("gfx/misc/replay.png", Core.IMAGE_EXTENSIONS);
+        anim = ToolBox.getAnimation(Core.loadLemmImage(resource), 2);
         images.addAll(anim);
         /* 15: SELECT */
-        res = Core.findResource("gfx/misc/select.png", Core.IMAGE_EXTENSIONS);
-        img = Core.loadLemmImage(res);
+        resource = Core.findResource("gfx/misc/select.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
         images.add(img);
         /* 16: STATUS_OUT, 17: STATUS_IN, 18: STATUS_NEEDED, 19: STATUS_TIME */
-        res = Core.findResource("gfx/misc/status-icons.png", Core.IMAGE_EXTENSIONS);
-        anim = ToolBox.getAnimation(Core.loadLemmImage(res), 4);
+        resource = Core.findResource("gfx/misc/status-icons.png", Core.IMAGE_EXTENSIONS);
+        anim = ToolBox.getAnimation(Core.loadLemmImage(resource), 4);
         images.addAll(anim);
         /* 20: ICONBAR_FILLER */
-        res = Core.findResource("gfx/iconbar/iconbar_filler.png", Core.IMAGE_EXTENSIONS);
-        img = Core.loadLemmImage(res);
+        resource = Core.findResource("gfx/iconbar/iconbar_filler.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
         images.add(img);
         /* 21: TICKER_TAPE */
-        res = Core.findResource("gfx/misc/ticker-tape.png", Core.IMAGE_EXTENSIONS);
-        img = Core.loadLemmImage(res);
+        resource = Core.findResource("gfx/misc/ticker-tape.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
         images.add(img);
 
         
         /*add visual sfx images */
-        res = Core.findResource("gfx/misc/vsfxbig.png", Core.IMAGE_EXTENSIONS);
-        anim = ToolBox.getAnimation(Core.loadLemmImage(res), Vsfx.VSFX_COUNT);
+        resource = Core.findResource("gfx/misc/vsfxbig.png", Core.IMAGE_EXTENSIONS);
+        anim = ToolBox.getAnimation(Core.loadLemmImage(resource), Vsfx.VSFX_COUNT);
         vsfx_images.addAll(anim);
         
         /* Assemble minimap */

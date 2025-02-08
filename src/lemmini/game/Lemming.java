@@ -1638,9 +1638,9 @@ public class Lemming {
     public static void loadLemmings() throws ResourceException {
         explodeFont = new ExplodeFont();
         // read lemmings definition file
-        Resource res = Core.findResource(LEMM_INI_STR, true);
+        Resource resource = Core.findResource(LEMM_INI_STR, true);
         Props p = new Props();
-        if (!p.load(res)) {
+        if (!p.load(resource)) {
             throw new ResourceException(LEMM_INI_STR);
         }
         lemmings.clear();
@@ -1654,15 +1654,15 @@ public class Lemming {
             boolean bidirectional = type.bidirectional;
             LemmingResource newLemResource;
             if (type.frames > 0) {
-                res = Core.findResource(
+            	resource = Core.findResource(
                         "gfx/lemming/lemm_" + type.name().toLowerCase(Locale.ROOT) + ".png",
                         Core.IMAGE_EXTENSIONS);
-                LemmImage sourceImg = Core.loadLemmImage(res);
+                LemmImage sourceImg = Core.loadLemmImage(resource);
                 if (bidirectional) {
-                    res = Core.findResource(
+                	resource = Core.findResource(
                             "gfx/lemming/lemm_" + type.name().toLowerCase(Locale.ROOT) + "_left.png",
                             Core.IMAGE_EXTENSIONS);
-                    LemmImage sourceImgLeft = Core.loadLemmImage(res);
+                    LemmImage sourceImgLeft = Core.loadLemmImage(resource);
                     newLemResource = new LemmingResource(sourceImg, sourceImgLeft, type.frames);
                 } else {
                     newLemResource = new LemmingResource(sourceImg, type.frames);
@@ -1674,17 +1674,17 @@ public class Lemming {
             // read mask
             if (type.maskFrames > 0) {
                 // mask_Y: frames, directions, step
-                res = Core.findResource(
+            	resource = Core.findResource(
                         "gfx/lemming/mask_" + type.name().toLowerCase(Locale.ROOT) + ".png",
                         Core.IMAGE_EXTENSIONS);
-                LemmImage sourceImg = Core.loadLemmImage(res);
+                LemmImage sourceImg = Core.loadLemmImage(resource);
                 List<Mask> masks = new ArrayList<>(2);
                 masks.add(new Mask(sourceImg, type.maskFrames));
                 if (bidirectional) {
-                    res = Core.findResource(
+                	resource = Core.findResource(
                             "gfx/lemming/mask_" + type.name().toLowerCase(Locale.ROOT) + "_left.png",
                             Core.IMAGE_EXTENSIONS);
-                    LemmImage sourceImgLeft = Core.loadLemmImage(res);
+                    LemmImage sourceImgLeft = Core.loadLemmImage(resource);
                     masks.add(new Mask(sourceImgLeft, type.maskFrames));
                 }
                 newLemResource.setMasks(masks);
@@ -2273,8 +2273,8 @@ class ExplodeFont {
      * @throws ResourceException
      */
     ExplodeFont() throws ResourceException {
-        Resource res = Core.findResource("gfx/lemming/countdown.png", Core.IMAGE_EXTENSIONS);
-        LemmImage sourceImg = Core.loadLemmImage(res);
+        Resource resource = Core.findResource("gfx/lemming/countdown.png", Core.IMAGE_EXTENSIONS);
+        LemmImage sourceImg = Core.loadLemmImage(resource);
         img = ToolBox.getAnimation(sourceImg, 5);
     }
     

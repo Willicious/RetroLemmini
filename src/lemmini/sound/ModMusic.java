@@ -63,18 +63,18 @@ public class ModMusic implements Runnable, MusicPlayer {
      * @throws LemmException
      */
     @Override
-    public void load(final Resource res, final boolean loop) throws ResourceException, LemmException {
+    public void load(final Resource resource, final boolean loop) throws ResourceException, LemmException {
         if (modThread != null) {
             close();
         }
         loopSong = loop;
         Module module;
-        try (InputStream songInputStream = res.getInputStream()) {
+        try (InputStream songInputStream = resource.getInputStream()) {
         	module = new Module(songInputStream);
         } catch (FileNotFoundException ex) {
-            throw new ResourceException(res);
+            throw new ResourceException(resource);
         } catch (IOException ex) {
-            throw new LemmException(res.getFileName() + " (IO exception)");
+            throw new LemmException(resource.getFileName() + " (IO exception)");
         }
         int sampleRate = ToolBox.cap(8000, (int) GameController.sound.getSampleRate(), 128000);
         ibxm = new IBXM(module, sampleRate);

@@ -491,21 +491,20 @@ public class Core {
     */
     /**
      * Loads an image from the given resource.
-     * @param res resource
      * @return Image
      * @throws ResourceException
      */
-    public static LemmImage loadLemmImage(final Resource res) throws ResourceException {
+    public static LemmImage loadLemmImage(final Resource resource) throws ResourceException {
         BufferedImage img = null;
-        if (res != null) {
-            try (InputStream in = res.getInputStream()) {
+        if (resource != null) {
+            try (InputStream in = resource.getInputStream()) {
                 img = ImageIO.read(in);
             } catch (IOException ex) {
                 img = null;
             }
         }
         if (img == null) {
-            throw new ResourceException(res);
+            throw new ResourceException(resource);
         }
         return new LemmImage(img);
     }

@@ -47,7 +47,7 @@ public class ResourceException extends Exception {
      * Constructor that accepts a resource.
      * @param res resource
      */
-    public ResourceException(final Resource res) {
-        super(res.getOriginalPath());
+    public ResourceException(final Resource resource) {
+        super(resource.getOriginalPath());
     }
 }

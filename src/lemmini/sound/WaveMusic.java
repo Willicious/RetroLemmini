@@ -50,7 +50,7 @@ public class WaveMusic implements Runnable, MusicPlayer {
     private Thread waveThread;
     
     @Override
-    public void load(final Resource res, final boolean loop) throws ResourceException, LemmException {
+    public void load(final Resource resource, final boolean loop) throws ResourceException, LemmException {
         if (waveThread != null) {
             close();
         }
@@ -59,8 +59,8 @@ public class WaveMusic implements Runnable, MusicPlayer {
             in = null;
             format=null;
              
-        	file = res;
-            introFile = res.getSibling(Core.appendBeforeExtension(res.getFileName(), "_intro"));
+        	file = resource;
+            introFile = resource.getSibling(Core.appendBeforeExtension(resource.getFileName(), "_intro"));
             InputStream tempIn = file.getInputStream();
             if (tempIn.markSupported()) {
                 in = AudioSystem.getAudioInputStream(tempIn);
@@ -94,11 +94,11 @@ public class WaveMusic implements Runnable, MusicPlayer {
                 din.mark(Integer.MAX_VALUE);
             }
         } catch (FileNotFoundException ex) {
-            throw new ResourceException(res);
+            throw new ResourceException(resource);
         } catch (IOException ex) {
-            throw new LemmException(res + " (IO exception)");
+            throw new LemmException(resource + " (IO exception)");
         } catch (UnsupportedAudioFileException ex) {
-        	throw new LemmException(res.getFileName() + " (Unsupported Audio File)");
+        	throw new LemmException(resource.getFileName() + " (Unsupported Audio File)");
         }
         waveThread = new Thread(this);
         waveThread.start();

@@ -493,8 +493,8 @@ public class Props {
      * @param res property file resource
      * @return True if OK, false if exception occurred
      */
-    public boolean load(final Resource res) {
-        try (Reader r = res.getBufferedReader()) {
+    public boolean load(final Resource resource) {
+        try (Reader r = resource.getBufferedReader()) {
             hash.load(r);
             return true;
         } catch (IOException | NullPointerException e) {

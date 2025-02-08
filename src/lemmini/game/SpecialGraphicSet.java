@@ -48,8 +48,8 @@ public class SpecialGraphicSet {
     public SpecialGraphicSet(String name) throws LemmException, ResourceException {
         this.name = name;
         props = new Props();
-        Resource res = Core.findResource("styles/special/" + name + "/" + name + ".ini", true);
-        if (!props.load(res)) {
+        Resource resource = Core.findResource("styles/special/" + name + "/" + name + ".ini", true);
+        if (!props.load(resource)) {
             throw new LemmException("Unable to read " + name + ".ini.");
         }
         
@@ -65,18 +65,18 @@ public class SpecialGraphicSet {
         positionY = props.getInt("positionY", 0);
         
         // load main image
-        res = Core.findResource(
+        resource = Core.findResource(
                 "styles/special/" + name + "/" + name + ".png",
                 Core.IMAGE_EXTENSIONS);
-        image = Core.loadLemmImage(res);
+        image = Core.loadLemmImage(resource);
         
         // load mask
         LemmImage sourceImage;
         try {
-            res = Core.findResource(
+        	resource = Core.findResource(
                     "styles/special/" + name + "/" + name + "m.png",
                     Core.IMAGE_EXTENSIONS);
-            sourceImage = Core.loadLemmImage(res);
+            sourceImage = Core.loadLemmImage(resource);
         } catch (ResourceException ex) {
             sourceImage = image;
         }
@@ -89,10 +89,10 @@ public class SpecialGraphicSet {
         
         // load steel mask
         try {
-            res = Core.findResource(
+        	resource = Core.findResource(
                     "styles/special/" + name + "/" + name + "s.png",
                     Core.IMAGE_EXTENSIONS);
-            sourceImage = Core.loadLemmImage(res);
+            sourceImage = Core.loadLemmImage(resource);
             steelMask = new boolean[sourceImage.getHeight()][sourceImage.getWidth()];
             for (int y = 0; y < steelMask.length; y++) {
                 for (int x = 0; x < steelMask[y].length; x++) {

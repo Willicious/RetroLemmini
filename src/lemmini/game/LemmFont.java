@@ -77,9 +77,9 @@ public class LemmFont {
      * @throws ResourceException
      */
     public static void init() throws ResourceException {
-        Resource res = Core.findResource(FONT_INI_STR, true);
+        Resource resource = Core.findResource(FONT_INI_STR, true);
         Props p = new Props();
-        if (!p.load(res)) {
+        if (!p.load(resource)) {
             throw new ResourceException(FONT_INI_STR);
         }
         
@@ -98,11 +98,11 @@ public class LemmFont {
                 break;
             }
             
-            res = Core.findResource("gfx/font/" + fileName, Core.IMAGE_EXTENSIONS);
+            resource = Core.findResource("gfx/font/" + fileName, Core.IMAGE_EXTENSIONS);
             
             String name = FilenameUtils.removeExtension(fileName);
             
-            LemmImage sourceImg = Core.loadLemmImage(res);
+            LemmImage sourceImg = Core.loadLemmImage(resource);
             List<LemmImage> glyphImg = ToolBox.getAnimation(sourceImg, numChars, sourceImg.getWidth());
             List<Glyph> glyphs = new ArrayList<>(numChars);
             for (ListIterator<LemmImage> lit = glyphImg.listIterator(); lit.hasNext(); ) {

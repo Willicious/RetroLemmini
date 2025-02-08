@@ -91,8 +91,8 @@ public class Music {
     public static void load(final String fName) throws ResourceException, LemmException {
         close();
         playing = false;
-        Resource res = Core.findResource(fName, Core.MUSIC_EXTENSIONS);
-        switch (FilenameUtils.getExtension(res.getFileName()).toLowerCase(Locale.ROOT)) {
+        Resource resource = Core.findResource(fName, Core.MUSIC_EXTENSIONS);
+        switch (FilenameUtils.getExtension(resource.getFileName()).toLowerCase(Locale.ROOT)) {
             case "mid":
                 if (!midiAvailable) {
                     throw new LemmException("MIDI not supported.");
@@ -111,7 +111,7 @@ public class Music {
                 type = Type.WAVE;
                 break;
         }
-        musicPlayer.load(res, true);
+        musicPlayer.load(resource, true);
     }
     
     /**

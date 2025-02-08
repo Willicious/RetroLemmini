@@ -128,8 +128,8 @@ public class GraphicSet {
         props = new Props();
         
         if (name.toLowerCase(Locale.ROOT).equals("special")) {
-            Resource res = Core.findResource("styles/dirt/dirt.ini", true);
-            if (!props.load(res)) {
+            Resource resource = Core.findResource("styles/dirt/dirt.ini", true);
+            if (!props.load(resource)) {
                 throw new LemmException("Unable to read dirt.ini.");
             }
             
@@ -160,8 +160,8 @@ public class GraphicSet {
             }
         } else {
             String pathPrefix = "styles/" + name + "/" + name;
-            Resource res = Core.findResource(pathPrefix + ".ini", true);
-            if (!props.load(res)) {
+            Resource resource = Core.findResource(pathPrefix + ".ini", true);
+            if (!props.load(resource)) {
                 throw new LemmException("Unable to read " + name + ".ini.");
             }
             
@@ -315,10 +315,10 @@ public class GraphicSet {
         
         public List<LemmImage> getImages(Orientation orientation) throws ResourceException {
             if (!images.containsKey(Orientation.NORMAL)) {
-                Resource res = Core.findResource(
+                Resource resource = Core.findResource(
                         pathPrefix + "o_" + index + ".png",
                         Core.IMAGE_EXTENSIONS);
-                LemmImage sourceImage = Core.loadLemmImage(res);
+                LemmImage sourceImage = Core.loadLemmImage(resource);
                 images.put(Orientation.NORMAL, ToolBox.getAnimation(sourceImage, numFrames));
             }
             if (!images.containsKey(orientation)) {
@@ -344,10 +344,10 @@ public class GraphicSet {
                     case TRAP_REPLACE:
                     case TRAP_DROWN:
                     case STEEL:
-                        Resource res = Core.findResource(
+                        Resource resource = Core.findResource(
                                 pathPrefix + "om_" + index + ".png",
                                 Core.IMAGE_EXTENSIONS);
-                        LemmImage sourceImage = Core.loadLemmImage(res);
+                        LemmImage sourceImage = Core.loadLemmImage(resource);
                         mask = new boolean[sourceImage.getHeight()][sourceImage.getWidth()];
                         for (int y = 0; y < mask.length; y++) {
                             for (int x = 0; x < mask[y].length; x++) {
@@ -385,16 +385,16 @@ public class GraphicSet {
         
         public LemmImage getImage() throws ResourceException {
             if (image == null) {
-                Resource res;
+                Resource resource;
                 if (index >= 0) {
-                    res = Core.findResource(
+                	resource = Core.findResource(
                             pathPrefix + "_" + index + ".png",
                             Core.IMAGE_EXTENSIONS);
                 } else {
-                    res = Core.findResource(pathPrefix + ".png",
+                	resource = Core.findResource(pathPrefix + ".png",
                             Core.IMAGE_EXTENSIONS);
                 }
-                image = Core.loadLemmImage(res);
+                image = Core.loadLemmImage(resource);
             }
             return image;
         }
@@ -403,16 +403,16 @@ public class GraphicSet {
             if (mask == null) {
                 LemmImage sourceImage;
                 try {
-                    Resource res;
+                    Resource resource;
                     if (index >= 0) {
-                        res = Core.findResource(
+                    	resource = Core.findResource(
                                 pathPrefix + "m_" + index + ".png",
                                 Core.IMAGE_EXTENSIONS);
                     } else {
-                        res = Core.findResource(pathPrefix + "m.png",
+                    	resource = Core.findResource(pathPrefix + "m.png",
                                 Core.IMAGE_EXTENSIONS);
                     }
-                    sourceImage = Core.loadLemmImage(res);
+                    sourceImage = Core.loadLemmImage(resource);
                 } catch (ResourceException ex) {
                     sourceImage = getImage();
                 }

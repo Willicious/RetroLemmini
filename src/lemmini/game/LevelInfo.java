@@ -42,7 +42,7 @@ public class LevelInfo {
     /** name of music for this level */
     private String music;
     /** resource object for the INI file containing the level information */
-    private Resource levelRes;
+    private Resource levelResource;
     /** release rate: 0 is slowest, 99 is fastest */
     private int releaseRate;
     /** number of Lemmings in this level (maximum 0x0072 in original LVL format) */
@@ -73,7 +73,7 @@ public class LevelInfo {
         name = StringUtils.EMPTY;
         author = StringUtils.EMPTY;
         music = StringUtils.EMPTY;
-        levelRes = new FileResource(StringUtils.EMPTY, StringUtils.EMPTY, Core.resourceTree);
+        levelResource = new FileResource(StringUtils.EMPTY, StringUtils.EMPTY, Core.resourceTree);
         releaseRate = 0;
         numLemmings = 1;
         numToRescue = 0;
@@ -90,21 +90,21 @@ public class LevelInfo {
     }
     
     public LevelInfo(String fname, String newMusic) {
-        Resource res;
+        Resource resource;
         try {
-            res = Core.findResource(fname, false);
+        	resource = Core.findResource(fname, false);
         } catch (ResourceException ex) {
-            res = null;
+        	resource = null;
         }
-        init(res, newMusic);
+        init(resource, newMusic);
     }
     
-    public LevelInfo(Resource res, String newMusic) {
-        init(res, newMusic);
+    public LevelInfo(Resource resource, String newMusic) {
+        init(resource, newMusic);
     }
     
-    private void init(Resource res, String newMusic) {
-        levelRes = res;
+    private void init(Resource resource, String newMusic) {
+    	levelResource = resource;
         music = newMusic;
         name = StringUtils.EMPTY;
         author = StringUtils.EMPTY;
@@ -122,8 +122,8 @@ public class LevelInfo {
         numDiggers = 0;
         validLevel = false;
         
-        if (res != null) {
-            try (Reader r = levelRes.getBufferedReader()) {
+        if (resource != null) {
+            try (Reader r = levelResource.getBufferedReader()) {
                 if (ToolBox.checkFileID(r, "# LVL")) {
                     List<Props> propsList = new ArrayList<>(4);
                     Props props = new Props();
@@ -131,7 +131,7 @@ public class LevelInfo {
                     propsList.add(props);
                     String mainLevel = props.get("mainLevel", StringUtils.EMPTY);
                     while (!mainLevel.isEmpty()) {
-                        Resource levelRes2 = levelRes.getSibling(mainLevel);
+                        Resource levelRes2 = levelResource.getSibling(mainLevel);
                         if (!levelRes2.exists()) {
                             return;
                         }
@@ -195,7 +195,7 @@ public class LevelInfo {
      * @return resource object
      */
     public Resource getLevelResource() {
-        return levelRes;
+        return levelResource;
     }
     
     /**
@@ -287,6 +287,6 @@ public class LevelInfo {
     }
     
     public boolean isValidLevel() {
-        return validLevel && levelRes != null;
+        return validLevel && levelResource != null;
     }
 }

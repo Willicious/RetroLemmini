@@ -227,15 +227,15 @@ public class Icons {
     	iconbarImages.add("large_minimap_left");
     	iconbarImages.add("large_minimap_right");
 
-    	Resource res = null;
+    	Resource resource = null;
     	//now check for a Mod resource for each of the images listed above.
     	for (String img : iconbarImages) {
     		String resString ="gfx/iconbar/" + img + ".png";
-    		res = Core.findResourceEx(
+    		resource = Core.findResourceEx(
                     resString,
                     true, false,
                     Core.IMAGE_EXTENSIONS);
-    		if (res != null) {
+    		if (resource != null) {
     			//if one exists, then this mod is Enhanced-Iconbar-Aware!
     			return true;
     		}
@@ -262,7 +262,7 @@ public class Icons {
         //get the background image we're going to use...
         for (int i = 0; i < iconOrder.size(); i++) {
         	LemmImage sourceImg;
-        	Resource res = null;
+        	Resource resource = null;
         	Sprite icon;
        	
         	String iconName = iconOrder.get(i).toString().toLowerCase(Locale.ROOT);
@@ -277,68 +277,68 @@ public class Icons {
         	
         	// 1) check for animated mods
         	if (GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_ICONBAR)) {
-            	res = Core.findResourceEx(
+        		resource = Core.findResourceEx(
 	                    "gfx/iconbar/anim_" + iconName + ".png",
 	                    true, false, 
 	                    Core.IMAGE_EXTENSIONS);
         	}
         	// 2) check for static mods
-        	if (res == null && bModUsesEnhancedIconBar) {
-	        	res = Core.findResourceEx(
+        	if (resource == null && bModUsesEnhancedIconBar) {
+        		resource = Core.findResourceEx(
 	                    "gfx/iconbar/ticon_" + iconName + ".png",
 	                    true, false,
 	                    Core.IMAGE_EXTENSIONS);
         	}
         	// 3) check for old-style static mods (with background)
-        	if (res == null && !bModUsesEnhancedIconBar) {
-	        	res = Core.findResourceEx(
+        	if (resource == null && !bModUsesEnhancedIconBar) {
+        		resource = Core.findResourceEx(
 	                    "gfx/icons/icon_" + iconName + ".png",
 	                    true, false,
 	                    Core.IMAGE_EXTENSIONS);
         	}
         	if (GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_ICONBAR)) {
         		// 4) check for animated standard
-            	if (res == null) {
-                	res = Core.findResourceEx(
+            	if (resource == null) {
+            		resource = Core.findResourceEx(
     	                    "gfx/iconbar/anim_" + iconName + ".png",
     	                    false, true, 
     	                    Core.IMAGE_EXTENSIONS);
 	        	}
         	}
         	// 5) check for static standard
-        	if (res == null) {
-	        	res = Core.findResourceEx(
+        	if (resource == null) {
+        		resource = Core.findResourceEx(
 	                    "gfx/iconbar/ticon_" + iconName + ".png",
 	                    false, true,
 	                    Core.IMAGE_EXTENSIONS);
         	}
         	// if we still can't find anything, then this should throw an error.
-        	if (res == null)
-        		res = Core.findResource("gfx/iconbar/ticon_" + iconName + ".png", Core.IMAGE_EXTENSIONS);
-            sourceImg = Core.loadLemmImage(res);
+        	if (resource == null)
+        		resource = Core.findResource("gfx/iconbar/ticon_" + iconName + ".png", Core.IMAGE_EXTENSIONS);
+            sourceImg = Core.loadLemmImage(resource);
             int frames = sourceImg.getHeight() / 40;
             icon = new Sprite(sourceImg, frames, 1, false);
             icons.add(icon);
 	            
             //load standard size backgrounds
             //TODO: allow for multiple different background objects
-            res = Core.findResource("gfx/icons/icon_empty.png", Core.IMAGE_EXTENSIONS);
-            sourceImg = Core.loadLemmImage(res);
+            resource = Core.findResource("gfx/icons/icon_empty.png", Core.IMAGE_EXTENSIONS);
+            sourceImg = Core.loadLemmImage(resource);
             icon = new Sprite(sourceImg, 2, 1, false);
             bgIcons.add(icon);
 
             //load larger background icons
             //TODO: allow for multiple different background objects
-            res = Core.findResource("gfx/iconbar/icon_empty_large.png", Core.IMAGE_EXTENSIONS);
-            sourceImg = Core.loadLemmImage(res);
+            resource = Core.findResource("gfx/iconbar/icon_empty_large.png", Core.IMAGE_EXTENSIONS);
+            sourceImg = Core.loadLemmImage(resource);
             icon = new Sprite(sourceImg, 2, 1, false);
             bgIconsLarge.add(icon);
 
             //load the label overlays
-            res = Core.findResource(
+            resource = Core.findResource(
                     "gfx/icon_labels/label_" + iconName + ".png",
                     Core.IMAGE_EXTENSIONS);
-            sourceImg = Core.loadLemmImage(res);
+            sourceImg = Core.loadLemmImage(resource);
             icon = new Sprite(sourceImg, 2, 1, false);
             iconLabels.add(icon);
         }

@@ -111,13 +111,13 @@ public class LevelPack {
      * @param res resource object for level pack INI
      * @throws ResourceException
      */
-    public LevelPack(final Resource res) throws ResourceException {
+    public LevelPack(final Resource resource) throws ResourceException {
         // get path from descriptor file
-        path = ToolBox.getParent(res.getOriginalPath());
+        path = ToolBox.getParent(resource.getOriginalPath());
         // load the descriptor file
         Props props = new Props();
-        if (!props.load(res)) {
-            throw new ResourceException(res.toString());
+        if (!props.load(resource)) {
+            throw new ResourceException(resource.toString());
         }
         // read name
         name = props.get("name", StringUtils.EMPTY);
