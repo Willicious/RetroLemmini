@@ -1293,9 +1293,12 @@ public class GameController {
                     }
                 }
                 level.openBackgroundEntrances();
-                //this is the *creak* sound of the doors opening.
-                //for now let's not play the "creak" sound as the entrance doors open.
+                // BOOKMARK - this is the *creak* sound of the doors opening (sound_5 door.wav)
+                
+                // this code here plays the sound and shows the "creak" VSFX
                 //entranceSprites.stream().forEach(sound::playVisualSFX);
+                
+                // this code just plays the sound
                 entranceSprites.stream().forEach(sound::play);
             } else if (entranceOpenCtr == MAX_ENTRANCE_OPEN_CTR + 30) {
                 //System.out.println("opened");

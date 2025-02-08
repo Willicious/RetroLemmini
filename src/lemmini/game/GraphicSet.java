@@ -267,7 +267,7 @@ public class GraphicSet {
             // get mask offsets
             maskOffsetX = props.getInt("maskOffsetX_" + index, 0);
             maskOffsetY = props.getInt("maskOffsetY_" + index, 0);
-            // get sound
+            // get sound                       // BOOKMARK - this parses the sound from the style .ini file on a per-object basis
             int[] soundTemp = props.getIntArray("sound_" + index, ArrayUtils.EMPTY_INT_ARRAY);
             if (soundTemp.length >= 2 && numFrames > 0) {
                 sound = new int[numFrames];
