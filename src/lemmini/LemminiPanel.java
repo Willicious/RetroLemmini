@@ -1380,48 +1380,58 @@ public class LemminiPanel extends JPanel implements Runnable {
             double scaleY = (double) fgImageSmall.getHeight() / (double) fgImage.getHeight();
             double scaleXHalf = scaleX / 2.0;
             double scaleYHalf = scaleY / 2.0;
-            for (int ya = y; ya < y + 2; ya++) {
-                double scaledY = (ya + 0.5) * scaleY % 1.0;
-                boolean drawSmallY = (scaledY >= (0.5 - scaleYHalf) % 1.0 && scaledY < (0.5 + scaleYHalf) % 1.0)
-                        || Math.abs(scaleY) >= 1.0;
-                for (int xa = x; xa < x + 2; xa++) {
-                    double scaledX = (xa + 0.5) * scaleX % 1.0;
-                    boolean drawSmallX = (scaledX >= (0.5 - scaleXHalf) % 1.0 && scaledX < (0.5 + scaleXHalf) % 1.0)
-                            || Math.abs(scaleX) >= 1.0;
-                    if (xa + xOfs >= 0 && xa + xOfs < GameController.getWidth()
-                            && ya + yOfs >= 0 && ya + yOfs < GameController.getHeight()) {
-                        int[] objects = stencil.getIDs(xa + xOfs, ya + yOfs);
-                        for (int obj : objects) {
-                            SpriteObject spr = GameController.getLevel().getSprObject(obj);
-                            if (spr != null && spr.getVisOnTerrain()) {
-                                if (doDraw) {
-                                    if ((GameController.getLevel().getClassicSteel() 
-                                                    || !spr.getType().isOneWay())
-                                            && !(spr.getType().isOneWay()
-                                                    && BooleanUtils.toBoolean(stencil.getMask(xa + xOfs, ya + yOfs) & Stencil.MSK_NO_ONE_WAY_DRAW))) {
-                                        spr.setPixelVisibility(xa + xOfs - spr.getX(), ya + yOfs - spr.getY(), true);
+
+            // Define the radius of the "paintbrush" circle
+            int radius = 5;
+
+            // Loop through a circle-shaped area
+            for (int ya = y - radius; ya <= y + radius; ya++) {
+                for (int xa = x - radius; xa <= x + radius; xa++) {
+                    // Check if the point is within the circle (using Pythagorean theorem)
+                    if (Math.pow(xa - x, 2) + Math.pow(ya - y, 2) <= Math.pow(radius, 2)) {
+                        double scaledY = (ya + 0.5) * scaleY % 1.0;
+                        boolean drawSmallY = (scaledY >= (0.5 - scaleYHalf) % 1.0 && scaledY < (0.5 + scaleYHalf) % 1.0)
+                                || Math.abs(scaleY) >= 1.0;
+                        double scaledX = (xa + 0.5) * scaleX % 1.0;
+                        boolean drawSmallX = (scaledX >= (0.5 - scaleXHalf) % 1.0 && scaledX < (0.5 + scaleXHalf) % 1.0)
+                                || Math.abs(scaleX) >= 1.0;
+
+                        if (xa + xOfs >= 0 && xa + xOfs < GameController.getWidth()
+                                && ya + yOfs >= 0 && ya + yOfs < GameController.getHeight()) {
+                            int[] objects = stencil.getIDs(xa + xOfs, ya + yOfs);
+                            for (int obj : objects) {
+                                SpriteObject spr = GameController.getLevel().getSprObject(obj);
+                                if (spr != null && spr.getVisOnTerrain()) {
+                                    if (doDraw) {
+                                        if ((GameController.getLevel().getClassicSteel() 
+                                                        || !spr.getType().isOneWay())
+                                                && !(spr.getType().isOneWay()
+                                                        && BooleanUtils.toBoolean(stencil.getMask(xa + xOfs, ya + yOfs) & Stencil.MSK_NO_ONE_WAY_DRAW))) {
+                                            spr.setPixelVisibility(xa + xOfs - spr.getX(), ya + yOfs - spr.getY(), true);
+                                        }
+                                    } else {
+                                        spr.setPixelVisibility(xa + xOfs - spr.getX(), ya + yOfs - spr.getY(), false);
                                     }
-                                } else {
-                                    spr.setPixelVisibility(xa + xOfs - spr.getX(), ya + yOfs - spr.getY(), false);
                                 }
                             }
-                        }
-                        if (doDraw) {
-                            stencil.orMask(xa + xOfs, ya + yOfs, Stencil.MSK_BRICK);
-                        } else {
-                            stencil.andMask(xa + xOfs, ya + yOfs,
-                                    classicSteel ? ~Stencil.MSK_BRICK
-                                            : ~(Stencil.MSK_BRICK | Stencil.MSK_STEEL | Stencil.MSK_ONE_WAY));
-                        }
-                        GameController.getFgImage().setRGB(xa + xOfs, ya + yOfs, rgbVal);
-                        if (drawSmallX && drawSmallY) {
-                            fgImageSmall.setRGB(ToolBox.scale(xa + xOfs, scaleX), ToolBox.scale(ya + yOfs, scaleY), minimapVal);
+                            if (doDraw) {
+                                stencil.orMask(xa + xOfs, ya + yOfs, Stencil.MSK_BRICK);
+                            } else {
+                                stencil.andMask(xa + xOfs, ya + yOfs,
+                                        classicSteel ? ~Stencil.MSK_BRICK
+                                                : ~(Stencil.MSK_BRICK | Stencil.MSK_STEEL | Stencil.MSK_ONE_WAY));
+                            }
+                            GameController.getFgImage().setRGB(xa + xOfs, ya + yOfs, rgbVal);
+                            if (drawSmallX && drawSmallY) {
+                                fgImageSmall.setRGB(ToolBox.scale(xa + xOfs, scaleX), ToolBox.scale(ya + yOfs, scaleY), minimapVal);
+                            }
                         }
                     }
                 }
             }
         }
     }
+
     
     void handlePlayLevel() {
         LevelDialog ld = new LevelDialog(getParentFrame(), true);
