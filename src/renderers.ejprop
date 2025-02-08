@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entirejFramework>
+    <renderer>
+        <formRenderers>
+            <renderer name="Form" group="" rendererDefinitionClassName=""/>
+        </formRenderers>
+        <blockRenderers>
+            <renderer name="SingleRecord" group="Standard Renderers" rendererDefinitionClassName=""/>
+            <renderer name="MultiRecord" group="Standard Renderers" rendererDefinitionClassName=""/>
+            <renderer name="TreeRecord" group="Standard Renderers" rendererDefinitionClassName=""/>
+            <renderer name="TreeTableRecord" group="Standard Renderers" rendererDefinitionClassName=""/>
+            <renderer name="HTMLMultiRecord" group="Standard Renderers" rendererDefinitionClassName="org.entirej.applicationframework.rwt.renderers.block.definition.EJRWTHtmlTableBlockRendererDefinition"/>
+            <renderer name="LineChartRecord" group="Graph Renderers" rendererDefinitionClassName="org.entirej.applicationframework.rwt.renderers.block.definition.EJRWTLineChartRecordBlockDefinition"/>
+            <renderer name="PieChartRecord" group="Graph Renderers" rendererDefinitionClassName="org.entirej.applicationframework.rwt.renderers.block.definition.EJRWTPieChartRecordBlockDefinition"/>
+            <renderer name="BarChartRecord" group="Graph Renderers" rendererDefinitionClassName="org.entirej.applicationframework.rwt.renderers.block.definition.EJRWTBarChartRecordBlockDefinition"/>
+            <renderer name="RadarChartRecord" group="Graph Renderers" rendererDefinitionClassName="org.entirej.applicationframework.rwt.renderers.block.definition.EJRWTRadarChartRecordBlockDefinition"/>
+        </blockRenderers>
+        <itemRenderers>
+            <renderer name="TextItem" group="" rendererDefinitionClassName="">
+            </renderer>
+            <renderer name="TextArea" group="" rendererDefinitionClassName="">
+            </renderer>
+            <renderer name="NumberItem" group="" rendererDefinitionClassName="">
+            </renderer>
+            <renderer name="DateItem" group="" rendererDefinitionClassName="">
+            </renderer>
+            <renderer name="DateTimeItem" group="" rendererDefinitionClassName="">
+            </renderer>
+            <renderer name="LabelItem" group="" rendererDefinitionClassName="">
+            </renderer>
+            <renderer name="ButtonItem" group="" rendererDefinitionClassName="">
+            </renderer>
+            <renderer name="ComboItem" group="" rendererDefinitionClassName="">
+            </renderer>
+            <renderer name="RadioGroupItem" group="" rendererDefinitionClassName="">
+            </renderer>
+            <renderer name="CheckBoxItem" group="" rendererDefinitionClassName="">
+            </renderer>
+            <renderer name="ImageItemRenderer" group="" rendererDefinitionClassName="">
+            </renderer>
+            <renderer name="ListItem" group="" rendererDefinitionClassName="org.entirej.applicationframework.rwt.renderers.item.definition.EJRWTListBoxRendererDefinition">
+            </renderer>
+            <renderer name="StackedItem" group="" rendererDefinitionClassName="org.entirej.applicationframework.rwt.renderers.item.definition.EJRWTStackedItemRendererDefinition">
+            </renderer>
+        </itemRenderers>
+        <lovRenderers>
+            <renderer name="StandardLovRenderer" group="" rendererDefinitionClassName=""/>
+            <renderer name="LookupLovRenderer" group="" rendererDefinitionClassName=""/>
+        </lovRenderers>
+        <menuRenderers>
+        </menuRenderers>
+        <appCompRenderers>
+            <renderer name="TabFormContainer" group="" rendererDefinitionClassName=""/>
+            <renderer name="MenuTree" group="" rendererDefinitionClassName=""/>
+            <renderer name="FormToolBar" group="" rendererDefinitionClassName=""/>
+            <renderer name="Banner" group="" rendererDefinitionClassName=""/>
+            <renderer name="SingleFormContainer" group="" rendererDefinitionClassName=""/>
+            <renderer name="StackedFormContainer" group="" rendererDefinitionClassName=""/>
+            <renderer name="Statusbar" group="" rendererDefinitionClassName=""/>
+        </appCompRenderers>
+    </renderer>
+</entirejFramework>

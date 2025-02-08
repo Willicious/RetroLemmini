@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entirejFramework>
+    <version><![CDATA[2.7]]></version>
+    <applicationManager></applicationManager>
+    <applicationManagerDefinition><![CDATA[org.entirej.applicationframework.rwt.renderers.application.EJRWTApplicationDefinition]]></applicationManagerDefinition>
+    <connectionFactoryClassName><![CDATA[org.entirej.framework.core.EJDefaultConnectionFactory]]></connectionFactoryClassName>
+    <applicationActionProcessor></applicationActionProcessor>
+    <reusableBlocksLocation></reusableBlocksLocation>
+    <reusableLovDefinitionLocation></reusableLovDefinitionLocation>
+    <objectGroupDefinitionLocation></objectGroupDefinitionLocation>
+    <translatorClassName></translatorClassName>
+    <applicationLevelParameterList>
+    </applicationLevelParameterList>
+    <applicationDefinedProperties>
+    </applicationDefinedProperties>
+    <packages>
+    </packages>
+    <renderer>
+        <formRenderers>
+            <renderer name="Form" rendererClassName=""/>
+        </formRenderers>
+        <blockRenderers>
+            <renderer name="SingleRecord" rendererClassName=""/>
+            <renderer name="MultiRecord" rendererClassName=""/>
+            <renderer name="TreeRecord" rendererClassName=""/>
+            <renderer name="TreeTableRecord" rendererClassName=""/>
+            <renderer name="HTMLMultiRecord" rendererClassName="org.entirej.applicationframework.rwt.renderers.html.EJRWTHtmlTableBlockRenderer"/>
+            <renderer name="LineChartRecord" rendererClassName="org.entirej.applicationframework.rwt.renderers.chart.EJRWTLineChartRecordBlockRenderer"/>
+            <renderer name="PieChartRecord" rendererClassName="org.entirej.applicationframework.rwt.renderers.chart.EJRWTPieChartRecordBlockRenderer"/>
+            <renderer name="BarChartRecord" rendererClassName="org.entirej.applicationframework.rwt.renderers.chart.EJRWTBarChartRecordBlockRenderer"/>
+            <renderer name="RadarChartRecord" rendererClassName="org.entirej.applicationframework.rwt.renderers.chart.EJRWTRadarChartRecordBlockRenderer"/>
+        </blockRenderers>
+        <itemRenderers>
+            <renderer name="TextItem" rendererClassName="">
+            </renderer>
+            <renderer name="TextArea" rendererClassName="">
+            </renderer>
+            <renderer name="NumberItem" rendererClassName="">
+            </renderer>
+            <renderer name="DateItem" rendererClassName="">
+            </renderer>
+            <renderer name="DateTimeItem" rendererClassName="">
+            </renderer>
+            <renderer name="LabelItem" rendererClassName="">
+            </renderer>
+            <renderer name="ButtonItem" rendererClassName="">
+            </renderer>
+            <renderer name="ComboItem" rendererClassName="">
+            </renderer>
+            <renderer name="RadioGroupItem" rendererClassName="">
+            </renderer>
+            <renderer name="CheckBoxItem" rendererClassName="">
+            </renderer>
+            <renderer name="ImageItemRenderer" rendererClassName="">
+            </renderer>
+            <renderer name="ListItem" rendererClassName="org.entirej.applicationframework.rwt.renderers.item.EJRWTListItemRenderer">
+            </renderer>
+            <renderer name="StackedItem" rendererClassName="org.entirej.applicationframework.rwt.renderers.item.EJRWTStackedItemRenderer">
+            </renderer>
+        </itemRenderers>
+        <lovRenderers>
+            <renderer name="StandardLovRenderer" rendererClassName=""/>
+            <renderer name="LookupLovRenderer" rendererClassName=""/>
+        </lovRenderers>
+        <menuRenderers>
+        </menuRenderers>
+        <appCompRenderers>
+            <renderer name="TabFormContainer" rendererClassName=""/>
+            <renderer name="MenuTree" rendererClassName=""/>
+            <renderer name="FormToolBar" rendererClassName=""/>
+            <renderer name="Banner" rendererClassName=""/>
+            <renderer name="SingleFormContainer" rendererClassName=""/>
+            <renderer name="StackedFormContainer" rendererClassName=""/>
+            <renderer name="Statusbar" rendererClassName=""/>
+        </appCompRenderers>
+    </renderer>
+    <applicationMenus>
+        <applicationMenu name="Default" actionProcessorClassName="" default="true">
+        </applicationMenu>
+    </applicationMenus>
+    <applicationLayout>
+        <title><![CDATA[EntireJ RWT Application]]></title>
+        <col>1</col>
+        <height>0</height>
+        <width>0</width>
+        <items>
+            <item type="SPLIT">
+                <name><![CDATA[Tab Forms]]></name>
+                <title></title>
+                <fill><![CDATA[BOTH]]></fill>
+                <grab><![CDATA[BOTH]]></grab>
+                <hHint>0</hHint>
+                <wHint>0</wHint>
+                <hMin>0</hMin>
+                <wMin>0</wMin>
+                <hSpan>1</hSpan>
+                <VSpan>1</VSpan>
+                <orientation><![CDATA[HORIZONTAL]]></orientation>
+                <items>
+                    <item type="COMPONENT">
+                        <name><![CDATA[component_1]]></name>
+                        <title></title>
+                        <fill><![CDATA[BOTH]]></fill>
+                        <grab><![CDATA[BOTH]]></grab>
+                        <hHint>0</hHint>
+                        <wHint>2</wHint>
+                        <hMin>0</hMin>
+                        <wMin>0</wMin>
+                        <hSpan>1</hSpan>
+                        <VSpan>1</VSpan>
+                        <renderer><![CDATA[MenuTree]]></renderer>
+                        <rendererProperties>
+                            <property name="MENU_GROUP" multilingual="false" propertyType="MENU_GROUP"><![CDATA[Default]]></property>
+                        </rendererProperties>
+                    </item>
+                    <item type="GROUP">
+                        <name><![CDATA[group_1]]></name>
+                        <title></title>
+                        <fill><![CDATA[BOTH]]></fill>
+                        <grab><![CDATA[BOTH]]></grab>
+                        <hHint>0</hHint>
+                        <wHint>8</wHint>
+                        <hMin>0</hMin>
+                        <wMin>0</wMin>
+                        <hSpan>1</hSpan>
+                        <VSpan>1</VSpan>
+                        <col>2</col>
+                        <title></title>
+                        <border>false</border>
+                        <hideMargin>false</hideMargin>
+                        <items>
+                            <item type="COMPONENT">
+                                <name><![CDATA[component_2]]></name>
+                                <title></title>
+                                <fill><![CDATA[BOTH]]></fill>
+                                <grab><![CDATA[NONE]]></grab>
+                                <hHint>32</hHint>
+                                <wHint>0</wHint>
+                                <hMin>0</hMin>
+                                <wMin>0</wMin>
+                                <hSpan>2</hSpan>
+                                <VSpan>1</VSpan>
+                                <renderer><![CDATA[FormToolBar]]></renderer>
+                                <rendererProperties>
+                                </rendererProperties>
+                            </item>
+                            <item type="COMPONENT">
+                                <name><![CDATA[component_3]]></name>
+                                <title></title>
+                                <fill><![CDATA[BOTH]]></fill>
+                                <grab><![CDATA[BOTH]]></grab>
+                                <hHint>0</hHint>
+                                <wHint>8</wHint>
+                                <hMin>0</hMin>
+                                <wMin>0</wMin>
+                                <hSpan>1</hSpan>
+                                <VSpan>1</VSpan>
+                                <renderer><![CDATA[TabFormContainer]]></renderer>
+                                <rendererProperties>
+                                </rendererProperties>
+                            </item>
+                        </items>
+                    </item>
+                </items>
+            </item>
+        </items>
+    </applicationLayout>
+    <visualAttributes>
+        <visualAttribute name="va_login_header">
+            <fontName><![CDATA[Unspecified]]></fontName>
+            <fontSize>20</fontSize>
+            <fontSizeAsPercentage>false</fontSizeAsPercentage>
+            <style><![CDATA[Unspecified]]></style>
+            <weight><![CDATA[Bold]]></weight>
+            <foregroundColor></foregroundColor>
+            <backgroundColor></backgroundColor>
+        </visualAttribute>
+        <visualAttribute name="va_login_body">
+            <fontName><![CDATA[Unspecified]]></fontName>
+            <fontSize>-1</fontSize>
+            <fontSizeAsPercentage>false</fontSizeAsPercentage>
+            <style><![CDATA[Unspecified]]></style>
+            <weight><![CDATA[Unspecified]]></weight>
+            <foregroundColor></foregroundColor>
+            <backgroundColor><![CDATA[r255g255b255]]></backgroundColor>
+        </visualAttribute>
+        <visualAttribute name="va_login_button">
+            <fontName><![CDATA[Unspecified]]></fontName>
+            <fontSize>-1</fontSize>
+            <fontSizeAsPercentage>false</fontSizeAsPercentage>
+            <style><![CDATA[Unspecified]]></style>
+            <weight><![CDATA[Bold]]></weight>
+            <foregroundColor></foregroundColor>
+            <backgroundColor></backgroundColor>
+        </visualAttribute>
+        <visualAttribute name="va_login_error_msg">
+            <fontName><![CDATA[Unspecified]]></fontName>
+            <fontSize>-1</fontSize>
+            <fontSizeAsPercentage>false</fontSizeAsPercentage>
+            <style><![CDATA[Unspecified]]></style>
+            <weight><![CDATA[Bold]]></weight>
+            <foregroundColor><![CDATA[r128g0b0]]></foregroundColor>
+            <backgroundColor></backgroundColor>
+        </visualAttribute>
+    </visualAttributes>
+</entirejFramework>

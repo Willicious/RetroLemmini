@@ -13,5 +13,6 @@
 	<classpathentry kind="lib" path="dependencies/jorbis-0.0.15.jar"/>
 	<classpathentry kind="lib" path="dependencies/tritonus_share.jar"/>
 	<classpathentry kind="lib" path="dependencies/vorbisspi1.0.3.jar"/>
+	<classpathentry kind="con" path="org.eclipse.rwt.runtime.RWT_CORE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
