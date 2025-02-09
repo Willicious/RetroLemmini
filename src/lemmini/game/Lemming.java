@@ -94,7 +94,9 @@ public class Lemming {
         /** a blocker that is told to explode */
         FLAPPER_BLOCKER ("FLAPPER", 0, false, false, 0, 0),
         /** a floater before the parachute opened completely */
-        FLOATER_START ("FLOATER", 0, false, false, 0, 0);
+        FLOATER_START ("FLOATER", 0, false, false, 0, 0),
+        /** allows faller to exit in direct drop mode */
+        MAX_EXIT_LEM ("FALLER", 0, false, false, 0, 0);
         
         private final String name;
         private final int frames;
@@ -895,6 +897,7 @@ public class Lemming {
             // check collision with exit and traps
             int s = stencilFoot();
             int object = objectFoot();
+            
             switch (s & (Stencil.MSK_TRAP | Stencil.MSK_EXIT)) {
                 case Stencil.MSK_TRAP_LIQUID:
                     if (type != Type.DROWNER) {
@@ -954,7 +957,33 @@ public class Lemming {
                         }
                         break;
                     }
-                case Stencil.MSK_EXIT:
+                case Stencil.MSK_EXIT:                
+                	if (Core.player.isDirectDrop() || Core.player.isMaximumExitPhysics()) { // Fallers and splatters can exit in either of these modes
+                		switch (newType) {
+                	       case FALLER:
+                	       case SPLATTER:
+                	    	   newType = Type.MAX_EXIT_LEM;
+                	           break;
+                	       default:
+                	           break;
+                		}
+                	}
+                	if (Core.player.isMaximumExitPhysics()) { // All lem types exit in maximum exit physics mode
+                		switch (newType) {
+                		   case CLIMBER:
+                		   case FLIPPER:
+                		   case BLOCKER:
+                		   case DROWNER:
+                		   case FRIER:
+                		   case SHRUGGER:
+                		   case EXPLODER:
+                		   case NUKE:
+                			   newType = Type.MAX_EXIT_LEM;
+                			   break;
+                		   default:
+                			   break;
+                		}
+                	}
                     switch (newType) {
                         case FLAPPER:
                         case WALKER:
@@ -966,6 +995,7 @@ public class Lemming {
                         case BUILDER:
                         case DIGGER:
                         case DROWNER:
+                        case MAX_EXIT_LEM:
                             SpriteObject spr = GameController.getLevel().getSprObject(object);
                             if (spr != null) {
                                 boolean triggered = true;

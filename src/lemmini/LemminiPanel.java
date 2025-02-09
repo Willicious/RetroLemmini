@@ -1577,8 +1577,18 @@ public class LemminiPanel extends JPanel implements Runnable {
             levelCode = levelCode.trim();
             // cheat mode
             if (levelCode.toLowerCase().equals("0xlemdebug")) {
-                JOptionPane.showMessageDialog(getParent(), "All levels and debug mode enabled.", "Cheater!", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(getParent(), "All levels and debug mode activated.", "Cheater!", JOptionPane.INFORMATION_MESSAGE);
                 Core.player.enableCheatMode();
+                return;
+            }
+            if (levelCode.toLowerCase().equals("directdr0p")) {
+                JOptionPane.showMessageDialog(getParent(), "Direct Drop activated.", "Geronimo!", JOptionPane.INFORMATION_MESSAGE);
+                Core.player.enableDirectDrop();
+                return;
+            }
+            if (levelCode.toLowerCase().equals("exitrule0k")) {
+                JOptionPane.showMessageDialog(getParent(), "Maximum Exit Physics activated.", "Let's Go Home!", JOptionPane.INFORMATION_MESSAGE);
+                Core.player.enableMaximumExitPhysics();
                 return;
             }
             
