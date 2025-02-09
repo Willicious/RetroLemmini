@@ -9,6 +9,8 @@ import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
@@ -88,6 +90,11 @@ public class Core {
     private static final String PROGRAM_PROPS_FILE_NAME = "retrolemmini_settings.ini";
     /** name of player properties file */
     private static final String PLAYER_PROPS_FILE_NAME = "players.ini";
+    
+    public static final Set<String> OG_STYLES = new HashSet<>(Arrays.asList(
+            "brick", "bubble", "crystal", "dirt", "fire",
+            "marble", "pillar", "rock", "snow", "xmas"
+        ));
     
     /** program properties */
     public static Props programProps;
