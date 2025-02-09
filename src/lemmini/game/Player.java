@@ -45,8 +45,6 @@ public class Player {
     private Map<String, LevelGroup> lvlGroups;
     /** cheat mode enabled? */
     private boolean cheat;
-    /** direct drop enabled? */
-    private boolean directDrop;
     /** maximum exit physics enabled? */
     private boolean maximumExitPhysics;
     /** player's name */
@@ -165,14 +163,7 @@ public class Player {
     }
     
     /**
-     * Enable cheat mode for this player.
-     */
-    public void enableDirectDrop() {
-        directDrop = true;
-    }
-    
-    /**
-     * Enable cheat mode for this player.
+     * Enable max exit physics mode for this player.
      */
     public void enableMaximumExitPhysics() {
         maximumExitPhysics = true;
@@ -297,15 +288,7 @@ public class Player {
     }
     
     /**
-     * Get cheat state.
-     * @return true if direct drop is enabled
-     */
-    public boolean isDirectDrop() {
-        return directDrop;
-    }
-    
-    /**
-     * Get cheat state.
+     * Get maximum exit physics state.
      * @return true if maximum exit physics is enabled
      */
     public boolean isMaximumExitPhysics() {

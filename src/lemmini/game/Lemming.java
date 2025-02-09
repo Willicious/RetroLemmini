@@ -958,18 +958,10 @@ public class Lemming {
                         break;
                     }
                 case Stencil.MSK_EXIT:                
-                	if (Core.player.isDirectDrop() || Core.player.isMaximumExitPhysics()) { // Fallers and splatters can exit in either of these modes
+                	if (Core.player.isMaximumExitPhysics()) { // All lem types exit in maximum exit physics mode
                 		switch (newType) {
                 	       case FALLER:
                 	       case SPLATTER:
-                	    	   newType = Type.MAX_EXIT_LEM;
-                	           break;
-                	       default:
-                	           break;
-                		}
-                	}
-                	if (Core.player.isMaximumExitPhysics()) { // All lem types exit in maximum exit physics mode
-                		switch (newType) {
                 		   case CLIMBER:
                 		   case FLIPPER:
                 		   case BLOCKER:

@@ -1,3 +1,2 @@
 0xlemdebug = Enable debug mode
-directdr0p = Enable direct drop (fallers and splatters can exit)
-exitrule0k = Enable lems always exit on contact with exit trigger
+exitrule0k = Enable maximum exit physics (lems of any state can exit on contact with exit trigger)
