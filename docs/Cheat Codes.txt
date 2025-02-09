@@ -1,2 +1,3 @@
 0xlemdebug = Enable debug mode
+directdr0p = Enable maximum exit physics (lems of any state can exit on contact with exit trigger)
 exitrule0k = Enable maximum exit physics (lems of any state can exit on contact with exit trigger)
