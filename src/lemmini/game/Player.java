@@ -156,17 +156,17 @@ public class Player {
     }
     
     /**
-     * Enable debug mode for this player.
+     * Set debug mode for this player.
      */
-    public void enableDebugMode() {
-    	debugMode = true;
+    public void setDebugMode(final boolean d) {
+    	debugMode = d;
     }
     
     /**
-     * Enable max exit physics mode for this player.
+     * Set max exit physics mode for this player.
      */
-    public void enableMaximumExitPhysics() {
-        maximumExitPhysics = true;
+    public void setMaximumExitPhysics(final boolean e) {
+        maximumExitPhysics = e;
     }
     
     /**

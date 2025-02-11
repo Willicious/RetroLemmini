@@ -523,10 +523,9 @@ public class LemminiFrame extends JFrame {
                         break;
                     case KeyEvent.VK_D: //CTRL+ALT+D is to toggle Debug mode. just D (while in Debug mode) is Draw mode
                     	if (lemminiPanelMain.isControlPressed() && lemminiPanelMain.isAltPressed()) {
-                    		// Enable Debug mode
-                    		if (!Core.player.isDebugMode())
-                    			Core.player.enableDebugMode();
-                            // Toggle Cheat mode on/off
+                    		// Toggle Debug mode
+                    		Core.player.setDebugMode(!Core.player.isDebugMode());
+                            // Toggle Cheat mode
                     		GameController.setCheat(!GameController.isCheat());
                     		// 'Cheated' flag remains true if debug mode is entered
                             GameController.setWasCheated(true);
@@ -534,6 +533,14 @@ public class LemminiFrame extends JFrame {
                             lemminiPanelMain.setDebugDraw(!lemminiPanelMain.getDebugDraw());
                         }
                         break;
+                    case KeyEvent.VK_E:
+                    	if (lemminiPanelMain.isControlPressed() && lemminiPanelMain.isAltPressed()) {
+                    		// Toggle maximum exit physics
+                    		Core.player.setMaximumExitPhysics(!Core.player.isMaximumExitPhysics());
+                    		// 'Cheated' flag remains true if maximum exit physics is activated
+                            GameController.setWasCheated(true);
+                    	}
+                    	break;
                     case KeyEvent.VK_W:
                         if (GameController.isCheat()) {
                             GameController.setNumExited(GameController.getNumLemmingsMax());
