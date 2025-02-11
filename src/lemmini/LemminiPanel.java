@@ -1710,8 +1710,6 @@ public class LemminiPanel extends JPanel implements Runnable {
         // Update UI to process changes
         getParentFrame().toggleMenuBarVisibility(true);
         TextScreen.toggleScrollerType();
-        revalidate();
-        repaint();
     }
     
     @Override
