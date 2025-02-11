@@ -138,7 +138,9 @@ public class GameController {
     
     public static enum RetroLemminiOption {
     	//** flag: automatically save successful replays from debriefing screen
-    	AUTOSAVE_REPLAYS
+    	AUTOSAVE_REPLAYS,
+    	//** flag: show/hide the top menu bar
+    	SHOW_MENU_BAR
     }
     
     public static enum LevelFormat {

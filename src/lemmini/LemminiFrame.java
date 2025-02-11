@@ -139,6 +139,7 @@ public class LemminiFrame extends JFrame {
             int h = Math.max(lemminiPanelMain.getHeight(), Core.programProps.getInt("frameHeight", lemminiPanelMain.getHeight()));
             lemminiPanelMain.setSize(w, h);
             lemminiPanelMain.setPreferredSize(lemminiPanelMain.getSize()); // needed for pack() to keep this size
+            toggleMenuBarVisibility(false);
             pack();
             // center the window, then load the window position
             setLocationRelativeTo(null);
@@ -455,8 +456,11 @@ public class LemminiFrame extends JFrame {
 		    		lemminiPanelMain.handleLoadReplay();
 		    	break;
 		    case KeyEvent.VK_M:
-		        if (lemminiPanelMain.isControlPressed())
-		        	toggleMenuBarVisibility();
+		        if (lemminiPanelMain.isControlPressed()) {
+		        	GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, !GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
+		        	toggleMenuBarVisibility(true);
+		        	Core.saveSettings();
+		        }
 		        break;
 		    case KeyEvent.VK_F4:
 		    	if (lemminiPanelMain.isControlPressed())
@@ -1036,28 +1040,25 @@ public class LemminiFrame extends JFrame {
         }
     }
     
-    void toggleMenuBarVisibility() {
-        boolean isMenuBarVisible = getJMenuBar() != null;
+    void toggleMenuBarVisibility(boolean doResize) {
+        boolean shouldShowMenuBar = GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR);
 
-        if (isMenuBarVisible) {
-            setJMenuBar(null);
-        } else {
+        if (shouldShowMenuBar)
             setJMenuBar(jMenuBarMain);
-        }
+        else
+            setJMenuBar(null);
+        
+        if (!doResize)
+        	return;
 
         // Adjust the window height based on the visibility of the menu bar
         int windowHeight = getHeight();
         int menuBarHeight = jMenuBarMain.getPreferredSize().height;
 
-        if (isMenuBarVisible) {
-            setSize(getWidth(), windowHeight - menuBarHeight);
-        } else {
+        if (shouldShowMenuBar)
             setSize(getWidth(), windowHeight + menuBarHeight);
-        }
-
-        // Re-draw frame and exit method to prevent further processing
-        revalidate();
-        repaint();
+        else
+            setSize(getWidth(), windowHeight - menuBarHeight);
     }
     
     /**

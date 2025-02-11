@@ -1706,6 +1706,11 @@ public class LemminiPanel extends JPanel implements Runnable {
     void handleOptions() {
         OptionsDialog d = new OptionsDialog(getParentFrame(), true);
         d.setVisible(true);
+        
+        // Update UI to process changes
+        getParentFrame().toggleMenuBarVisibility(true);
+        revalidate();
+        repaint();
     }
     
     @Override

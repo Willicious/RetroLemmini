@@ -87,6 +87,7 @@ public class OptionsDialog extends JDialog {
         jCheckBoxEnhancedIconBar = new javax.swing.JCheckBox();
         jCheckBoxIconLabels = new javax.swing.JCheckBox();
         jCheckBoxClassicScroller = new javax.swing.JCheckBox();
+        jCheckBoxShowMenuBar = new javax.swing.JCheckBox();
         jCheckBoxAutoSaveReplays = new javax.swing.JCheckBox();
         jButtonOK = new javax.swing.JButton();
         jButtonCancel = new javax.swing.JButton();
@@ -150,6 +151,10 @@ public class OptionsDialog extends JDialog {
         jCheckBoxClassicScroller.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_SCROLLER));
         jCheckBoxClassicScroller.setText("Use Classic Scroller");
         jCheckBoxClassicScroller.setToolTipText("Show the classic ticker tape scroller on the title screen");
+        
+        jCheckBoxShowMenuBar.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
+        jCheckBoxShowMenuBar.setText("Show Menu Bar (Ctrl + M)");
+        jCheckBoxShowMenuBar.setToolTipText("Show the menu bar at the top of the game window. Use Ctrl + M to toggle visibility at any time");
 
         jComboBoxMixer.setSelectedIndex(GameController.sound.getMixerIdx());
 
@@ -215,6 +220,7 @@ public class OptionsDialog extends JDialog {
         	                .addComponent(jCheckBoxEnhancedIconBar)
         	                .addComponent(jCheckBoxIconLabels)
         	                .addComponent(jCheckBoxClassicScroller)
+        	                .addComponent(jCheckBoxShowMenuBar))
         	            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         	);
         jPanelGraphicsLayout.setVerticalGroup(
@@ -234,6 +240,8 @@ public class OptionsDialog extends JDialog {
                 .addComponent(jCheckBoxIconLabels)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxClassicScroller)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBoxShowMenuBar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -473,6 +481,7 @@ public class OptionsDialog extends JDialog {
         GameController.setOption(GameController.SLTooOption.CLASSIC_SCROLLER, jCheckBoxClassicScroller.isSelected());
         // apply replay settings
         GameController.setOption(GameController.RetroLemminiOption.AUTOSAVE_REPLAYS, jCheckBoxAutoSaveReplays.isSelected());
+        GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, jCheckBoxShowMenuBar.isSelected());
         // apply miscellaneous settings
         GameController.setOption(GameController.Option.ADVANCED_SELECT, jCheckBoxAdvanced.isSelected());
         GameController.setOption(GameController.Option.SWAP_BUTTONS, jCheckBoxSwap.isSelected());
@@ -516,6 +525,7 @@ public class OptionsDialog extends JDialog {
     private javax.swing.JCheckBox jCheckBoxEnhancedIconBar;
     private javax.swing.JCheckBox jCheckBoxIconLabels;
     private javax.swing.JCheckBox jCheckBoxClassicScroller;
+    private javax.swing.JCheckBox jCheckBoxShowMenuBar;
     private javax.swing.JCheckBox jCheckBoxAutoSaveReplays;
     private javax.swing.JComboBox<String> jComboBoxMixer;
     private javax.swing.JLabel jLabelMixer;
