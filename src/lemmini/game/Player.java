@@ -43,8 +43,8 @@ public class Player {
     private Props props;
     /** used to store level progress */
     private Map<String, LevelGroup> lvlGroups;
-    /** cheat mode enabled? */
-    private boolean cheat;
+    /** debug mode enabled? */
+    private boolean debugMode;
     /** maximum exit physics enabled? */
     private boolean maximumExitPhysics;
     /** player's name */
@@ -149,17 +149,17 @@ public class Player {
         	System.out.println("    ini file not found... new one created.");
         }
         
-        // cheat mode
-        cheat = false;
+        // debug mode
+        debugMode = false;
         
         System.out.println();
     }
     
     /**
-     * Enable cheat mode for this player.
+     * Enable debug mode for this player.
      */
-    public void enableCheatMode() {
-        cheat = true;
+    public void enableDebugMode() {
+    	debugMode = true;
     }
     
     /**
@@ -225,7 +225,7 @@ public class Player {
      * @return true if allowed, false if not
      */
     public boolean isAvailable(final String pack, final String rating, final int num) {
-        if (GameController.isOptionEnabled(GameController.SLTooOption.UNLOCK_ALL_LEVELS) || isCheat()) {
+        if (GameController.isOptionEnabled(GameController.SLTooOption.UNLOCK_ALL_LEVELS) || isDebugMode()) {
             return true;
         }
         String id = LevelPack.getID(pack, rating);
@@ -280,11 +280,11 @@ public class Player {
     }
     
     /**
-     * Get cheat state.
-     * @return true if cheat is enabled
+     * Get debug mode state.
+     * @return true if debug mode is enabled
      */
-    public boolean isCheat() {
-        return cheat;
+    public boolean isDebugMode() {
+        return debugMode;
     }
     
     /**

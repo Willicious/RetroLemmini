@@ -521,9 +521,15 @@ public class LemminiFrame extends JFrame {
                     case KeyEvent.VK_F10:
                         GameController.handleIconButton(Icons.IconType.DIG);
                         break;
-                    case KeyEvent.VK_D: //CTRL-ALT-SHIFT-D is to enter Debug mode. just D (while in Debug mode) is Draw mode
-                    	if (lemminiPanelMain.isControlPressed() && lemminiPanelMain.isShiftPressed() && lemminiPanelMain.isAltPressed()) {
-                            GameController.setCheat(!GameController.isCheat());
+                    case KeyEvent.VK_D: //CTRL+ALT+D is to toggle Debug mode. just D (while in Debug mode) is Draw mode
+                    	if (lemminiPanelMain.isControlPressed() && lemminiPanelMain.isAltPressed()) {
+                    		// Enable Debug mode
+                    		if (!Core.player.isDebugMode())
+                    			Core.player.enableDebugMode();
+                            // Toggle Cheat mode on/off
+                    		GameController.setCheat(!GameController.isCheat());
+                    		// 'Cheated' flag remains true if debug mode is entered
+                            GameController.setWasCheated(true);
                         } else if (!lemminiPanelMain.isControlPressed() && !lemminiPanelMain.isShiftPressed() && !lemminiPanelMain.isAltPressed() && GameController.isCheat()) {
                             lemminiPanelMain.setDebugDraw(!lemminiPanelMain.getDebugDraw());
                         }
@@ -561,16 +567,6 @@ public class LemminiFrame extends JFrame {
                     case KeyEvent.VK_X:
                     	GameController.stopReplayMode();
                     	break;
-                    case KeyEvent.VK_C: //C toggles Cheat Mode, if the debug mode has been entered.
-                        if (Core.player.isCheat()) {
-                            GameController.setCheat(!GameController.isCheat());
-                            if (GameController.isCheat()) {
-                                GameController.setWasCheated(true);
-                            }
-                        } else {
-                            GameController.setCheat(false);
-                        }
-                        break;
                     case KeyEvent.VK_SPACE:
                     case KeyEvent.VK_F11:
                     case KeyEvent.VK_P: //SPACE, F11 or P toggles Pause

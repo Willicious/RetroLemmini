@@ -308,7 +308,7 @@ public class TextScreen {
             if (StringUtils.isNotEmpty(author)) {
                 textDialog.addString(String.format("Author    %s", author), "info", -9, 3, RED);
             }
-            if (level.getNumHints() > 0 && (Core.player.isCheat() || GameController.getTimesFailed() >= FAILURE_THRESHOLD_FOR_HINTS)) {
+            if (level.getNumHints() > 0 && (Core.player.isDebugMode() || GameController.getTimesFailed() >= FAILURE_THRESHOLD_FOR_HINTS)) {
                 textDialog.addTextButton("Show Hint", "Show Hint", "info", -4, 5, Button.SHOW_HINT, BLUE, BROWN);
             }
         }
@@ -324,7 +324,7 @@ public class TextScreen {
             if (hintIndex > 0) {
                 textDialog.addTextButton("Previous Hint", "Previous Hint", "info", -19, 5, Button.PREVIOUS_HINT, BLUE, BROWN);
             }
-            if ((Core.player.isCheat() && hintIndex < level.getNumHints() - 1)
+            if ((Core.player.isDebugMode() && hintIndex < level.getNumHints() - 1)
                      || (hintIndex < Math.min(level.getNumHints() - 1, GameController.getTimesFailed() - FAILURE_THRESHOLD_FOR_HINTS))) {
                 textDialog.addTextButton("Next Hint", "Next Hint", "info", 8, 5, Button.NEXT_HINT, BLUE, BROWN);
             }

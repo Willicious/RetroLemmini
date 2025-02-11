@@ -1577,8 +1577,8 @@ public class LemminiPanel extends JPanel implements Runnable {
             levelCode = levelCode.trim();
             // cheat mode
             if (levelCode.toLowerCase().equals("0xlemdebug")) {
-                JOptionPane.showMessageDialog(getParent(), "All levels and debug mode activated.", "Cheater!", JOptionPane.INFORMATION_MESSAGE);
-                Core.player.enableCheatMode();
+                JOptionPane.showMessageDialog(getParent(), "All Levels and Debug Mode activated.", "Cheater!", JOptionPane.INFORMATION_MESSAGE);
+                Core.player.enableDebugMode();
                 return;
             }
             if (levelCode.toLowerCase().equals("exitrule0k") || levelCode.toLowerCase().equals("directdr0p")) {
@@ -1592,7 +1592,7 @@ public class LemminiPanel extends JPanel implements Runnable {
             LevelPack lpack = GameController.getLevelPack(lvlPack);
             int[] codeInfo = LevelCode.getLevel(lpack.getCodeSeed(), levelCode, lpack.getCodeOffset());
             if (codeInfo != null) {
-                if (Core.player.isCheat()) {
+                if (Core.player.isDebugMode()) {
                     JOptionPane.showMessageDialog(getParent(),
                             String.format("Level: %d%nPercent Saved: %d%%%nTimes Failed: %d%nUnknown: %d",
                                     codeInfo[0] + 1, codeInfo[1], codeInfo[2], codeInfo[3]),
