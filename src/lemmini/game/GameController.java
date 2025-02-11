@@ -217,10 +217,8 @@ public class GameController {
     private static boolean nuke;
     /** flag: game is paused */
     private static boolean paused;
-    /** flag: cheat/debug mode is activated */
-    private static boolean cheat = false;
-    /** flag: cheat mode was activated during play */
-    private static boolean wasCheated = false;
+    /** flag: debug mode was activated during play */
+    private static boolean debugWasActivated = false;
     private static boolean forceAdvanceFrame = false;
     /** frame counter for handling opening of entrances */
     private static int entranceOpenCtr;
@@ -425,7 +423,7 @@ public class GameController {
         replayMode = false;
         stopReplayMode = false;
         
-        wasCheated = isCheat();
+        debugWasActivated = Core.player.isDebugMode();
 
         System.out.println("GameController initialization complete.");
     }
@@ -514,7 +512,7 @@ public class GameController {
      * Fade out at end of level.
      */
     public static synchronized void endLevel() {
-        if (!replayMode && !wasCheated) {
+        if (!replayMode && !debugWasActivated) {
             replay.addEndEvent(replayFrame);
         }
         transitionState = TransitionState.END_LEVEL;
@@ -712,7 +710,7 @@ public class GameController {
             transitionState = TransitionState.TO_LEVEL;
         }
         
-        wasCheated = isCheat();
+        debugWasActivated = Core.player.isDebugMode();
     }
     
     /**
@@ -1059,7 +1057,7 @@ public class GameController {
         }
         
         if (!replayMode) {
-            if (!wasCheated) {
+            if (!debugWasActivated) {
                 // replay: release rate changed?
                 if (releaseRate != releaseRateOld) {
                     replay.addReleaseRateEvent(replayFrame, releaseRate);
@@ -1242,7 +1240,7 @@ public class GameController {
             } else {
                 time++;
             }
-            if (!isCheat() && time <= 0 && timed) {
+            if (Core.player.isDebugMode() && time <= 0 && timed) {
                 // level failed
                 endLevel();
             }
@@ -1399,7 +1397,7 @@ public class GameController {
         boolean canSet = false;
         stopReplayMode();
         
-        if (isCheat()) {
+        if (Core.player.isDebugMode()) {
             canSet = lemm.setSkill(lemmSkill, true);
         } else {
             switch (lemmSkill) {
@@ -1518,7 +1516,7 @@ public class GameController {
                 pressIcon(Icons.IconType.PAUSE);
             }
             // add to replay stream
-            if (!wasCheated) {
+            if (!debugWasActivated) {
                 int idx = lemmings.indexOf(lemm);
                 if (idx != StringUtils.INDEX_NOT_FOUND) {
                     // if 2nd try (delete == true) assign to next frame
@@ -1704,21 +1702,21 @@ public class GameController {
             case RESTART:
                 return true;
             case CLIMB:
-                return (isCheat() || numClimbers > 0) && Icons.getSelectedSkill() != type;
+                return (Core.player.isDebugMode() || numClimbers > 0) && Icons.getSelectedSkill() != type;
             case FLOAT:
-                return (isCheat() || numFloaters > 0) && Icons.getSelectedSkill() != type;
+                return (Core.player.isDebugMode() || numFloaters > 0) && Icons.getSelectedSkill() != type;
             case BOMB:
-                return (isCheat() || numBombers > 0) && Icons.getSelectedSkill() != type;
+                return (Core.player.isDebugMode() || numBombers > 0) && Icons.getSelectedSkill() != type;
             case BLOCK:
-                return (isCheat() || numBlockers > 0) && Icons.getSelectedSkill() != type;
+                return (Core.player.isDebugMode() || numBlockers > 0) && Icons.getSelectedSkill() != type;
             case BUILD:
-                return (isCheat() || numBuilders > 0) && Icons.getSelectedSkill() != type;
+                return (Core.player.isDebugMode() || numBuilders > 0) && Icons.getSelectedSkill() != type;
             case BASH:
-                return (isCheat() || numBashers > 0) && Icons.getSelectedSkill() != type;
+                return (Core.player.isDebugMode() || numBashers > 0) && Icons.getSelectedSkill() != type;
             case MINE:
-                return (isCheat() || numMiners > 0) && Icons.getSelectedSkill() != type;
+                return (Core.player.isDebugMode() || numMiners > 0) && Icons.getSelectedSkill() != type;
             case DIG:
-                return (isCheat() || numDiggers > 0) && Icons.getSelectedSkill() != type;
+                return (Core.player.isDebugMode() || numDiggers > 0) && Icons.getSelectedSkill() != type;
             case NUKE:
                 return !nuke;
             default:
@@ -2227,22 +2225,6 @@ public class GameController {
         return gameState;
     }
     
-    /**
-     * Enable/disable cheat mode.
-     * @param c true: enable, false: disable
-     */
-    public static void setCheat(final boolean c) {
-        cheat = c;
-    }
-    
-    /**
-     * Get state of cheat mode.
-     * @return true if cheat mode enabled, false otherwise
-     */
-    public static boolean isCheat() {
-        return cheat;
-    }
-    
     public static void advanceFrame() {
         forceAdvanceFrame = true;
     }
@@ -2293,14 +2275,14 @@ public class GameController {
     
     /**
      * Set cheated detection.
-     * @param c true: cheat mode was activated, false otherwise
+     * @param c true: debug mode was activated at any time during gameplay, false otherwise
      */
     public static void setWasCheated(final boolean c) {
-        wasCheated = c;
+        debugWasActivated = c;
     }
     
     public static boolean getWasCheated() {
-        return wasCheated;
+        return debugWasActivated;
     }
     
     /**
@@ -2686,7 +2668,7 @@ public class GameController {
     }
     
     public static LevelRecord getLevelRecord() {
-        if (!wasLost() && !wasCheated) {
+        if (!wasLost() && !debugWasActivated) {
             return new LevelRecord(true, numExited, numSkillsUsed,
                     timed ? (timeLimit - timeElapsedTillLastExited) : time, getScore());
         } else {

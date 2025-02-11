@@ -525,11 +525,9 @@ public class LemminiFrame extends JFrame {
                     	if (lemminiPanelMain.isControlPressed() && lemminiPanelMain.isAltPressed()) {
                     		// Toggle Debug mode
                     		Core.player.setDebugMode(!Core.player.isDebugMode());
-                            // Toggle Cheat mode
-                    		GameController.setCheat(!GameController.isCheat());
                     		// 'Cheated' flag remains true if debug mode is entered
                             GameController.setWasCheated(true);
-                        } else if (!lemminiPanelMain.isControlPressed() && !lemminiPanelMain.isShiftPressed() && !lemminiPanelMain.isAltPressed() && GameController.isCheat()) {
+                        } else if (!lemminiPanelMain.isControlPressed() && !lemminiPanelMain.isShiftPressed() && !lemminiPanelMain.isAltPressed() && Core.player.isDebugMode()) {
                             lemminiPanelMain.setDebugDraw(!lemminiPanelMain.getDebugDraw());
                         }
                         break;
@@ -542,13 +540,13 @@ public class LemminiFrame extends JFrame {
                     	}
                     	break;
                     case KeyEvent.VK_W:
-                        if (GameController.isCheat()) {
+                        if (Core.player.isDebugMode()) {
                             GameController.setNumExited(GameController.getNumLemmingsMax());
                             GameController.endLevel();
                         }
                         break;
                     case KeyEvent.VK_L: // print current level on the console
-                        if (GameController.isCheat()) {
+                        if (Core.player.isDebugMode()) {
                             System.out.println(GameController.getLevelPack(GameController.getCurLevelPackIdx()).getInfo(GameController.getCurRating(), GameController.getCurLevelNumber()).getLevelResource());
                         }
                         break;
@@ -567,7 +565,7 @@ public class LemminiFrame extends JFrame {
                         }
                         break;
                     case KeyEvent.VK_U: // superlemming on/off
-                        if (GameController.isCheat()) {
+                        if (Core.player.isDebugMode()) {
                             GameController.setSuperLemming(!GameController.isSuperLemming());
                         }
                         break;
@@ -602,7 +600,7 @@ public class LemminiFrame extends JFrame {
                     	GameController.pressIcon(Icons.IconType.FFWD);
                     	break;
                     case KeyEvent.VK_T:
-                        if (GameController.isCheat()) {
+                        if (Core.player.isDebugMode()) {
                             GameController.setTimed(!GameController.isTimed());
                         }
                         break;
@@ -658,7 +656,7 @@ public class LemminiFrame extends JFrame {
                         }
                         break;
                     case KeyEvent.VK_N:
-                        if (GameController.isCheat()) {
+                        if (Core.player.isDebugMode()) {
                             Lemming l = new Lemming(lemminiPanelMain.getCursorX(), lemminiPanelMain.getCursorY(), Lemming.Direction.RIGHT);
                             GameController.addLemming(l);
                             Vsfx v = new Vsfx(lemminiPanelMain.getCursorX(), lemminiPanelMain.getCursorY(), Vsfx.Vsfx_Index.YIPPEE);

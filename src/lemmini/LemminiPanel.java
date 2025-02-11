@@ -828,7 +828,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                         }
                         int yOffset = LemminiFrame.LEVEL_HEIGHT + statusBarGap;  
 
-                        if (GameController.isCheat()) {
+                        if (Core.player.isDebugMode()) {
                             // if debug mode is turned on, then show some debug details.
                         	Stencil stencil = GameController.getStencil();
                             if (stencil != null) {
@@ -1349,7 +1349,7 @@ public class LemminiPanel extends JPanel implements Runnable {
      * @param doDraw true: draw, false: erase
      */
     private void debugDraw(final int x, final int y, final boolean doDraw) {
-        if (draw && GameController.isCheat()) {
+        if (draw && Core.player.isDebugMode()) {
             boolean classicSteel = GameController.getLevel().getClassicSteel();
             int rgbVal = (doDraw) ? 0xffffffff : 0x0;
             int minimapVal = (doDraw || Minimap.isTinted()) ? rgbVal : GameController.getLevel().getBgColor().getRGB();
@@ -1575,7 +1575,7 @@ public class LemminiPanel extends JPanel implements Runnable {
         int lvlPack = lcd.getLevelPack();
         if (levelCode != null && !levelCode.isEmpty() && lvlPack > 0) {
             levelCode = levelCode.trim();
-            // cheat mode
+
             if (levelCode.toLowerCase().equals("0xlemdebug")) {
                 JOptionPane.showMessageDialog(getParent(), "All Levels and Debug Mode activated.", "Cheater!", JOptionPane.INFORMATION_MESSAGE);
                 Core.player.setDebugMode(true);
