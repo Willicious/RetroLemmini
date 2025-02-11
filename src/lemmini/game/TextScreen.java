@@ -143,7 +143,7 @@ public class TextScreen {
      * @param m mode.
      */
     public static void setMode(final Mode m) {
-        synchronized (monitor) {
+        synchronized (getMonitor()) {
             if (mode != m) {
                 switch (m) {
                     case INTRO:
@@ -282,7 +282,7 @@ public class TextScreen {
     }
     
     public static void showLevelInfo() {
-        synchronized (monitor) {
+        synchronized (getMonitor()) {
             textDialog.clearGroup("info");
             Level level = GameController.getLevel();
             String rating = GameController.getCurLevelPack().getRatings().get(GameController.getCurRating());
@@ -315,7 +315,7 @@ public class TextScreen {
     }
     
     public static void showHint() {
-        synchronized (monitor) {
+        synchronized (getMonitor()) {
             textDialog.clearGroup("info");
             Level level = GameController.getLevel();
             textDialog.addString(String.format("Hint %d", hintIndex + 1), "info", -3, -2, TURQUOISE);
@@ -346,7 +346,7 @@ public class TextScreen {
      * @return text dialog.
      */
     public static TextDialog getDialog() {
-        synchronized (monitor) {
+        synchronized (getMonitor()) {
             return textDialog;
         }
     }
@@ -355,7 +355,7 @@ public class TextScreen {
      * Initialize text screen.
      */
     public static void init() {
-        synchronized (monitor) {
+        synchronized (getMonitor()) {
             rotImg = new LemmImage[ROT_ANIM_LENGTH];
             rotImg[0] = MiscGfx.getImage(MiscGfx.Index.LEMMINI).getScaledInstance(560,  154);
             for (int i = 1; i < rotImg.length; i++) {
@@ -370,54 +370,7 @@ public class TextScreen {
             }
             rotCtr = 0;
             scrollPixCtr = 0;
-            
-            LemmImage tempScrollerImg = ToolBox.createLemmImage(
-                    LemmFont.getWidth() * (LemmFont.getCharCount(SCROLL_TEXT) + SCROLL_PADDING * 2) + SCROLL_WIDTH * 2,
-                    LemmFont.getHeight());
-            GraphicsContext scrollerGfx = null;
-            try {
-                scrollerGfx = tempScrollerImg.createGraphicsContext();
-                scrollerGfx.setBackground(new Color(0, 0, 0, 0));
-                LemmFont.strImage(scrollerGfx, SCROLL_TEXT, SCROLL_WIDTH + LemmFont.getWidth() * SCROLL_PADDING, 0, BROWN);
-            } finally {
-                if (scrollerGfx != null) {
-                    scrollerGfx.dispose();
-                }
-            }
-            
-            LemmImage tickerTape = MiscGfx.getImage(MiscGfx.Index.TICKER_TAPE);
-            
-            double scaleHeight = 1;
-            double scaleWidth = 1;
-            
-            if(GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_SCROLLER)) {
-            	scaleHeight=0.8;
-            	scaleWidth=0.8;
-            }
-            
-            double padding = 60;
-			scrollerImg = ToolBox.createLemmImage(
-                    (int)(tempScrollerImg.getWidth()*scaleWidth + padding) + (tickerTape.getWidth()*2), Math.max((int)(tempScrollerImg.getHeight()*scaleHeight), tickerTape.getHeight()));
-            try {
-                scrollerGfx = scrollerImg.createGraphicsContext();
-                scrollerGfx.setBackground(new Color(0, 0, 0, 0)); //set transparent background.
-                if(GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_SCROLLER)) {
-	                //draw the ticker-tape repeatedly onto the background:
-	                int idx = 0;
-	                do {
-	                	scrollerGfx.drawImage(tickerTape, idx, 0);
-	                	idx += tickerTape.getWidth();
-	                } while(idx < scrollerImg.getWidth());
-	                scrollerGfx.drawImage(tempScrollerImg, 0, 6, scaleHeight); //and draw the font and half-size.
-                } else {
-                    scrollerGfx.setBackground(new Color(0, 0, 0, 0));
-                	scrollerGfx.drawImage(tempScrollerImg, 0, 0, scrollerImg.getWidth(), scrollerImg.getHeight());
-                }
-            } finally {
-                if (scrollerGfx != null) {
-                    scrollerGfx.dispose();
-                }
-            }
+            drawScroller();
             
             textDialog = new TextDialog();
         }
@@ -427,7 +380,7 @@ public class TextScreen {
      * Update the text screen (for animations)
      */
     public static void update() {
-        synchronized (monitor) {
+        synchronized (getMonitor()) {
             switch (mode) {
                 case INTRO:
                     update_intro();
@@ -498,8 +451,82 @@ public class TextScreen {
      * @param height
      */
     public static void drawScreen(GraphicsContext g, int x, int y, int width, int height) {
-        synchronized (monitor) {
+        synchronized (getMonitor()) {
             textDialog.drawScreen(g, x, y, width, height);
         }
     }
+	
+    /**
+     * Toggle between regular and classic scroller
+     */
+    public static void toggleScrollerType() {
+        synchronized (getMonitor()) {
+            drawScroller();
+        }
+    }
+
+	/**
+	 * Draw the animated scroller
+	 */
+	public static void drawScroller() {
+	    synchronized (getMonitor()) {
+	        LemmImage tempScrollerImg = ToolBox.createLemmImage(
+	                LemmFont.getWidth() * (LemmFont.getCharCount(SCROLL_TEXT) + SCROLL_PADDING * 2) + SCROLL_WIDTH * 2,
+	                LemmFont.getHeight());
+
+	        GraphicsContext scrollerGfx = null;
+	        try {
+	            scrollerGfx = tempScrollerImg.createGraphicsContext();
+	            scrollerGfx.setBackground(new Color(0, 0, 0, 0));
+	            LemmFont.strImage(scrollerGfx, SCROLL_TEXT, SCROLL_WIDTH + LemmFont.getWidth() * SCROLL_PADDING, 0, BROWN);
+	        } finally {
+	            if (scrollerGfx != null) {
+	                scrollerGfx.dispose();
+	            }
+	        }
+
+	        LemmImage tickerTape = MiscGfx.getImage(MiscGfx.Index.TICKER_TAPE);
+
+	        double scaleHeight = 1;
+	        double scaleWidth = 1;
+
+	        if (GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_SCROLLER)) {
+	            scaleHeight = 0.8;
+	            scaleWidth = 0.8;
+	        }
+
+	        double padding = 60;
+	        scrollerImg = ToolBox.createLemmImage(
+	                (int) (tempScrollerImg.getWidth() * scaleWidth + padding) + (tickerTape.getWidth() * 2),
+	                Math.max((int) (tempScrollerImg.getHeight() * scaleHeight), tickerTape.getHeight()));
+
+	        try {
+	            scrollerGfx = scrollerImg.createGraphicsContext();
+	            scrollerGfx.setBackground(new Color(0, 0, 0, 0)); // Transparent background.
+
+	            if (GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_SCROLLER)) {
+	                int idx = 0;
+	                do {
+	                    scrollerGfx.drawImage(tickerTape, idx, 0);
+	                    idx += tickerTape.getWidth();
+	                } while (idx < scrollerImg.getWidth());
+
+	                scrollerGfx.drawImage(tempScrollerImg, 0, 6, scaleHeight);
+	            } else {
+	                scrollerGfx.drawImage(tempScrollerImg, 0, 0, scrollerImg.getWidth(), scrollerImg.getHeight());
+	            }
+	        } finally {
+	            if (scrollerGfx != null) {
+	                scrollerGfx.dispose();
+	            }
+	        }
+	    }
+	}
+	
+    /**
+     * Getter method for monitor
+     */
+	public static Object getMonitor() {
+		return monitor;
+	}
 }
