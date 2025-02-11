@@ -2,6 +2,29 @@
 
 A continuation of the Lemmini family of engines (Lemmini, SuperLemmini, RetroLemmini) which aims to fix a few bugs and generally update the engine.
 
+# ================= Build Instructions =================
+
+To build via the Command Line:
+
+1. Ensure build.xml is present in the source folder
+2. Run: ant
+3. Run: ant LemminiFrame
+
+To build via Eclipse IDE:
+
+1. Add dependencies to build path
+   (Project > Properties > Java Build Path > Libraries > Add Library/Add JARs)
+   Navigate to "dependencies" folder and add each one
+2. Run
+   RetroLemmini should compile and run without issues, but to get a runnable JAR file it's necessary to Export from Eclipse:
+   
+   (File > Export > Java > Runnable JAR file > Next)
+   Recommended: Copy required libraries into a sub-folder
+   
+If you experience any issues, head to the Lemmini board on the Lemmings Forums:
+
+https://www.lemmingsforums.net/index.php?board=10.0
+
 # ================= Updates ============================
 
 For a full overview of the updates between (Super)Lemmini(Too) and RetroLemmini, and the planned updates for the future,

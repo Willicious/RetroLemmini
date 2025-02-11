@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="RetroLemmini">
+    <property environment="env"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.8"/>
+    <property name="source" value="1.8"/>
+    <path id="EntireJ Bundled RWT/RAP Core 5.1.0 Runtime Libraries..libraryclasspath">
+        <pathelement location="../../../.p2/pool/plugins/org.entirej.ide.cf.rwt_5.1.0.202210271046/extlibs-rwt/guava-28.1-jre.jar"/>
+        <pathelement location="../../../.p2/pool/plugins/org.entirej.ide.cf.rwt_5.1.0.202210271046/extlibs-rwt/org.apache.commons.fileupload_1.3.2.v20170320-2229.jar"/>
+        <pathelement location="../../../.p2/pool/plugins/org.entirej.ide.cf.rwt_5.1.0.202210271046/extlibs-rwt/org.apache.commons.io_2.2.0.v201405211200.jar"/>
+        <pathelement location="../../../.p2/pool/plugins/org.entirej.ide.cf.rwt_5.1.0.202210271046/extlibs-rwt/org.eclipse.core.commands_3.9.200.v20180827-1727.jar"/>
+        <pathelement location="../../../.p2/pool/plugins/org.entirej.ide.cf.rwt_5.1.0.202210271046/extlibs-rwt/org.eclipse.core.runtime_3.15.100.v20181107-1343.jar"/>
+        <pathelement location="../../../.p2/pool/plugins/org.entirej.ide.cf.rwt_5.1.0.202210271046/extlibs-rwt/org.eclipse.equinox.common_3.10.200.v20181021-1645.jar"/>
+        <pathelement location="../../../.p2/pool/plugins/org.entirej.ide.cf.rwt_5.1.0.202210271046/extlibs-rwt/org.eclipse.osgi_3.13.200.v20181130-2106.jar"/>
+        <pathelement location="../../../.p2/pool/plugins/org.entirej.ide.cf.rwt_5.1.0.202210271046/extlibs-rwt/org.eclipse.rap.chartjs.jar"/>
+        <pathelement location="../../../.p2/pool/plugins/org.entirej.ide.cf.rwt_5.1.0.202210271046/extlibs-rwt/org.eclipse.rap.filedialog_3.7.0.20181127-1118.jar"/>
+        <pathelement location="../../../.p2/pool/plugins/org.entirej.ide.cf.rwt_5.1.0.202210271046/extlibs-rwt/org.eclipse.rap.fileupload_3.7.0.20181127-1118.jar"/>
+        <pathelement location="../../../.p2/pool/plugins/org.entirej.ide.cf.rwt_5.1.0.202210271046/extlibs-rwt/org.eclipse.rap.jface_3.7.0.20180928-1107.jar"/>
+        <pathelement location="../../../.p2/pool/plugins/org.entirej.ide.cf.rwt_5.1.0.202210271046/extlibs-rwt/org.eclipse.rap.nebula.jface.gridviewer_3.7.0.20180926-0748.jar"/>
+        <pathelement location="../../../.p2/pool/plugins/org.entirej.ide.cf.rwt_5.1.0.202210271046/extlibs-rwt/org.eclipse.rap.nebula.widgets.grid_3.7.0.20180926-0748.jar"/>
+        <pathelement location="../../../.p2/pool/plugins/org.entirej.ide.cf.rwt_5.1.0.202210271046/extlibs-rwt/org.eclipse.rap.rwt.osgi_3.7.0.20180926-0748.jar"/>
+        <pathelement location="../../../.p2/pool/plugins/org.entirej.ide.cf.rwt_5.1.0.202210271046/extlibs-rwt/org.eclipse.rap.rwt_3.7.0.20181121-1549.jar"/>
+        <pathelement location="../../../.p2/pool/plugins/org.entirej.ide.cf.rwt_5.1.0.202210271046/extlibs-rwt/org.eclipse.rap.ui.forms_3.7.0.20180926-0748.jar"/>
+        <pathelement location="../../../.p2/pool/plugins/org.entirej.ide.cf.rwt_5.1.0.202210271046/extlibs-rwt/org.eclipse.rap.ui.views_3.7.0.20180926-0748.jar"/>
+        <pathelement location="../../../.p2/pool/plugins/org.entirej.ide.cf.rwt_5.1.0.202210271046/extlibs-rwt/org.eclipse.rap.ui.workbench_3.7.0.20180926-0748.jar"/>
+        <pathelement location="../../../.p2/pool/plugins/org.entirej.ide.cf.rwt_5.1.0.202210271046/extlibs-rwt/org.eclipse.rap.ui_3.7.0.20180926-0748.jar"/>
+        <pathelement location="../../../.p2/pool/plugins/org.entirej.ide.cf.rwt_5.1.0.202210271046/extlibs-rwt/org.json_1.0.0.v201011060100.jar"/>
+        <pathelement location="../../../.p2/pool/plugins/org.entirej.ide.cf.rwt_5.1.0.202210271046/extlibs-rwt/ziplet-2.4.1.jar"/>
+    </path>
+    <path id="RetroLemmini.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="dependencies/ibxm-a74.jar"/>
+        <pathelement location="dependencies/commons-io-2.11.0/commons-io-2.11.0.jar"/>
+        <pathelement location="dependencies/commons-lang3-3.12.0/commons-lang3-3.12.0.jar"/>
+        <pathelement location="dependencies/jogg-0.0.7.jar"/>
+        <pathelement location="dependencies/jorbis-0.0.15.jar"/>
+        <pathelement location="dependencies/tritonus_share.jar"/>
+        <pathelement location="dependencies/vorbisspi1.0.3.jar"/>
+        <path refid="EntireJ Bundled RWT/RAP Core 5.1.0 Runtime Libraries..libraryclasspath"/>
+    </path>
+    <path id="run.LemminiFrame.classpath">
+        <path refid="RetroLemmini.classpath"/>
+        <pathelement location="dependencies/ibxm-a74.jar"/>
+        <pathelement location="dependencies/commons-io-2.11.0/commons-io-2.11.0.jar"/>
+        <pathelement location="dependencies/commons-lang3-3.12.0/commons-lang3-3.12.0.jar"/>
+        <pathelement location="dependencies/jogg-0.0.7.jar"/>
+        <pathelement location="dependencies/jorbis-0.0.15.jar"/>
+        <pathelement location="dependencies/tritonus_share.jar"/>
+        <pathelement location="dependencies/vorbisspi1.0.3.jar"/>
+        <path refid="EntireJ Bundled RWT/RAP Core 5.1.0 Runtime Libraries..libraryclasspath"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+                <exclude name="dependencies/"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <exclude name="dependencies/"/>
+            <classpath refid="RetroLemmini.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target name="LemminiFrame">
+        <java classname="lemmini.LemminiFrame" failonerror="true" fork="yes">
+            <classpath refid="run.LemminiFrame.classpath"/>
+        </java>
+    </target>
+</project>
