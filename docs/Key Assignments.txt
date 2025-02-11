@@ -1,4 +1,4 @@
-At any time:
+========== At any time:
 
 Ctrl & M: Toggle menu bar visibility
 Ctrl & L: Load Replay
@@ -9,7 +9,7 @@ Ctrl & F10, Ctrl & F2: Options
 Ctrl & F11: Hotkeys
 Ctrl & F12: About
 
-While playing a level:
+========== While playing a level:
 
 1 or F3: Select climber skill
 2 or F4: Select floater skill
@@ -39,30 +39,42 @@ V: Save image of level in current state
 Ctrl & R: Restart level
 Esc: End level
 
-While viewing a level preview:
+========== While viewing a level preview:
 
 Up: Previous rating
 Down: Next rating
 Left: Next level
 Right: Previous level
 
-While viewing a level preview or debriefing:
+========== While viewing a level preview or debriefing:
 
 V: Save image of level in current state
 
-While playing a level / debriefing:
+========== While playing a level / debriefing:
 
 Ctrl & S: Save Replay
 
-To use the following controls, enable debug mode by entering "0xlemdebug" (without quotes) in the Enter Level Code dialog.
-
-C: Toggle cheat mode
-D (cheat mode only): Enable/disable draw mode
-W (cheat mode only): End level with all lemmings saved
-U (cheat mode only): Toggle superlemming mode
-T (cheat mode only): Toggle timer countdown
-N (cheat mode only): Spawn lemming at cursor
-
-From the main menu:
+========== From the main menu:
 
 Esc: Close RetroLemmini
+
+================================================== Debug Mode ===========================================================
+
+To use the following controls, enable Debug mode by entering "0xlemdebug" (without quotes) in the Enter Level Code dialog
+or by pressing Ctrl & Alt & D at any time during gameplay
+
+NOTE: The level will count as having been cheated if Debug mode is activated at any time, and records will not be saved
+
+D (Debug mode only): Enable/disable draw mode
+W (Debug mode only): End level with all lemmings saved
+U (Debug mode only): Toggle superlemming mode
+T (Debug mode only): Toggle timer countdown
+N (Debug mode only): Spawn lemming at cursor
+
+============================================= Maximum Exit Physics Mode =====================================================
+
+To activate Maximum Exit Physics (any lemming can exit on contact with the exit trigger, regardless of current action/state):
+Enter "exitrule0k" or "directdr0p" (without quotes) in the Enter Level Code dialog
+or press Ctrl & Alt & E at any time during gameplay
+
+NOTE: The level will count as having been cheated if Maximum Exit Physics is activated at any time, and records will not be saved
