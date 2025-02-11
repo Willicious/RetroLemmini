@@ -545,6 +545,8 @@ public class LemminiFrame extends JFrame {
                             GameController.endLevel();
                         }
                         break;
+                    case KeyEvent.VK_I: // show/hide debug cursor info
+                    	lemminiPanelMain.setDebugCursorInfo(!lemminiPanelMain.debugCursorInfoVisible());
                     case KeyEvent.VK_L: // print current level on the console
                         if (Core.player.isDebugMode()) {
                             System.out.println(GameController.getLevelPack(GameController.getCurLevelPackIdx()).getInfo(GameController.getCurRating(), GameController.getCurLevelNumber()).getLevelResource());

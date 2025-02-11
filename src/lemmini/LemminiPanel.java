@@ -176,6 +176,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     private boolean isFocused;
     private boolean mouseHasEntered;
     private boolean holdingMinimap;
+    private boolean showDebugCursorInfo;
     /** graphics buffer for information string display */
     private GraphicsBuffer outStrBuffer;
     /** offscreen image */
@@ -828,8 +829,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                         }
                         int yOffset = LemminiFrame.LEVEL_HEIGHT + statusBarGap;  
 
-                        if (Core.player.isDebugMode()) {
-                            // if debug mode is turned on, then show some debug details.
+                        if (Core.player.isDebugMode() && showDebugCursorInfo) {
                         	Stencil stencil = GameController.getStencil();
                             if (stencil != null) {
                                 int stencilVal = stencil.getMask(xMouse, yMouse);
@@ -841,9 +841,6 @@ public class LemminiPanel extends JPanel implements Runnable {
                                     strObj = StringUtils.EMPTY;
                                 }
                                 String test = String.format("X: %4d, Y: %3d, Mask: %4d%s", xMouse, yMouse, stencilVal, strObj);
-                                if (draw) {
-                                    test = String.format("%-38s%s", test, "(draw)");
-                                }
                                 LemmFont.strImage(outStrGfx, test);
                                 offGfx.drawImage(outStrImg, menuOffsetX + 4, yOffset);
                             }
@@ -1019,9 +1016,6 @@ public class LemminiPanel extends JPanel implements Runnable {
                                     //}
                                 }
                                 
-
-                                
-                                
                                 lemmOut = null;
                                 lemmHome = null;
                                 lemmTime = null;
@@ -1034,15 +1028,33 @@ public class LemminiPanel extends JPanel implements Runnable {
                             }
                         }
                         
-                        // now we show the title of the level
+                        // Additional panel info (smaller text at the top of the panel)
+                        int xOffset = 0;
+                        int charWidth = 9;
+                        
+                        // Show if debug/draw mode are enabled
+                        if (Core.player.isDebugMode()) {
+                        	String modeStr;
+                        	
+                        	if (draw) {
+                        		modeStr = "DEBUG DRAW ";
+                        		xOffset = 11 * charWidth;
+                        	} else {
+                        		modeStr = "DEBUG ";
+                        		xOffset = 6 * charWidth;
+                        	}
+                        	
+                        	LemmImage debugdraw = LemmFont.strImage(String.format("%s", modeStr), LemmFont.LemmColor.BLUE);
+                        	offGfx.drawImage(debugdraw, menuOffsetX + 4, LemminiFrame.LEVEL_HEIGHT + 2, 0.5);
+                        }
+                        
+                        // Show the title of the level?
                         if (GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_STATUS) && GameController.isOptionEnabled(GameController.SLTooOption.SHOW_LEVEL_NAME)) {
-                            //Level level = GameController.getLevel();
-                        	//level.getLevelName();
                             String rating = GameController.getCurLevelPack().getRatings().get(GameController.getCurRating());
                         	int levelNum = GameController.getCurLevelNumber() + 1;
                         	String levelName = rating + " " + levelNum + ": " + level.getLevelName().trim();
                             LemmImage lemmLevelName = LemmFont.strImage(levelName, LemmFont.LemmColor.GREEN);
-                            offGfx.drawImage(lemmLevelName, menuOffsetX + 4, LemminiFrame.LEVEL_HEIGHT + 2, 0.5);
+                            offGfx.drawImage(lemmLevelName, menuOffsetX + 4 + xOffset, LemminiFrame.LEVEL_HEIGHT + 2, 0.5);
                             lemmLevelName = null;
                         }
                         
@@ -1051,6 +1063,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                         if (replayImage != null) {
                             offGfx.drawImage(replayImage, width - 2 * replayImage.getWidth(), replayImage.getHeight());
                         }
+                        
                         // draw cursor
                         if (lemmUnderCursor != null) {
                             if (GameController.isOptionEnabled(GameController.Option.CLASSIC_CURSOR)) {
@@ -1883,6 +1896,22 @@ public class LemminiPanel extends JPanel implements Runnable {
      */
     void setDebugDraw(final boolean d) {
         draw = d;
+    }
+    
+    /**
+     * Get state of debug cursor info visiblity.
+     * @return true if showDebugCursorInfo is true, false otherwise
+     */
+    boolean debugCursorInfoVisible() {
+    	return showDebugCursorInfo;
+    }
+    
+    /**
+     * Set state of debug cursor info visiblity.
+     * @param i true: showDebugCursorInfo is true, false otherwise
+     */
+    void setDebugCursorInfo(final boolean i) {
+    	showDebugCursorInfo = i;
     }
     
     private int getStepSize() {
