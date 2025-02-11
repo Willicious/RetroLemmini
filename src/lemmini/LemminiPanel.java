@@ -1000,8 +1000,23 @@ public class LemminiPanel extends JPanel implements Runnable {
                                     lemmNeeded = null;
                                 }
 
-                                //show the time left.
-                                LemmImage lemmTime = LemmFont.strImage(String.format("%s", GameController.getTimeString()));
+                                //show the timer
+                                LemmFont.LemmColor color;
+                                int time = GameController.getTime();
+                                String timeString = GameController.getTimeString();
+                                
+                                if (GameController.isTimed()) {
+                                	color = LemmFont.LemmColor.GREEN; // time limit
+                                	
+                                	if (time <= 59)
+                                		color = LemmFont.LemmColor.BROWN;
+                                	
+                                	if (time <= 10)
+                                		color = LemmFont.LemmColor.RED;
+                                } else
+                                	color = LemmFont.LemmColor.BLUE; // infinite time
+                                
+                                LemmImage lemmTime = LemmFont.strImage(String.format("%s", timeString), color);
                                 offGfx.drawImage(lemmTime, menuOffsetX + xTime, yOffset);
 
                                 if (GameController.isOptionEnabled(GameController.SLTooOption.SHOW_STATUS_TOTALS)) {
