@@ -1029,23 +1029,36 @@ public class LemminiPanel extends JPanel implements Runnable {
                         }
                         
                         // Additional panel info (smaller text at the top of the panel)
-                        int xOffset = 0;
+                        int debugModeOffset = 0;
+                        int maxExitOffset = 0;
                         int charWidth = 9;
                         
-                        // Show if debug/draw mode are enabled
+                        // Show if debug mode is enabled, plus features thereof
                         if (Core.player.isDebugMode()) {
-                        	String modeStr;
+                        	String debugModeString = "DEBUG ";
+                        	debugModeOffset += 6 * charWidth;
                         	
                         	if (draw) {
-                        		modeStr = "DEBUG DRAW ";
-                        		xOffset = 11 * charWidth;
-                        	} else {
-                        		modeStr = "DEBUG ";
-                        		xOffset = 6 * charWidth;
+                        		debugModeString += "DRAW ";
+                        		debugModeOffset += 5 * charWidth;
                         	}
                         	
-                        	LemmImage debugdraw = LemmFont.strImage(String.format("%s", modeStr), LemmFont.LemmColor.BLUE);
-                        	offGfx.drawImage(debugdraw, menuOffsetX + 4, LemminiFrame.LEVEL_HEIGHT + 2, 0.5);
+                        	if (GameController.isSuperLemming()) {
+                        		debugModeString += "SUPERLEMMING ";
+                        		debugModeOffset += 13 * charWidth;	
+                        	}
+                        	
+                        	LemmImage modeImage = LemmFont.strImage(String.format("%s", debugModeString), LemmFont.LemmColor.BLUE);
+                        	offGfx.drawImage(modeImage, menuOffsetX + 4, LemminiFrame.LEVEL_HEIGHT + 2, 0.5);
+                        }
+                        
+                        // Show if maximum exit physics is enabled
+                        if (Core.player.isMaximumExitPhysics()) {                       	
+                        	String maxExitString = "MAX-EXIT ";
+                        	maxExitOffset += 9 * charWidth;
+                            
+                        	LemmImage maxExitImage = LemmFont.strImage(String.format("%s", maxExitString), LemmFont.LemmColor.VIOLET);
+                        	offGfx.drawImage(maxExitImage, menuOffsetX + 4 + debugModeOffset, LemminiFrame.LEVEL_HEIGHT + 2, 0.5);
                         }
                         
                         // Show the title of the level?
@@ -1054,7 +1067,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                         	int levelNum = GameController.getCurLevelNumber() + 1;
                         	String levelName = rating + " " + levelNum + ": " + level.getLevelName().trim();
                             LemmImage lemmLevelName = LemmFont.strImage(levelName, LemmFont.LemmColor.GREEN);
-                            offGfx.drawImage(lemmLevelName, menuOffsetX + 4 + xOffset, LemminiFrame.LEVEL_HEIGHT + 2, 0.5);
+                            offGfx.drawImage(lemmLevelName, menuOffsetX + 4 + debugModeOffset + maxExitOffset, LemminiFrame.LEVEL_HEIGHT + 2, 0.5);
                             lemmLevelName = null;
                         }
                         

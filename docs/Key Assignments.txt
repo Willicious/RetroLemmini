@@ -68,8 +68,9 @@ NOTE: The level will count as having been cheated if Debug mode is activated at 
 D (Debug mode only): Enable/disable draw mode
 W (Debug mode only): End level with all lemmings saved
 U (Debug mode only): Toggle superlemming mode
-T (Debug mode only): Toggle timer countdown
+T (Debug mode only): Toggle timer countdown up/down
 N (Debug mode only): Spawn lemming at cursor
+I (Debug mode only): Toggle cursor info (in status bar)
 
 ============================================= Maximum Exit Physics Mode =====================================================
 
