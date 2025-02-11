@@ -2,53 +2,12 @@
 
 A continuation of the Lemmini family of engines (Lemmini, SuperLemmini, RetroLemmini) which aims to fix a few bugs and generally update the engine.
 
-# ================= V1.0 Updates ============================
+# ================= Updates ============================
 
- # Project overview
- + Renamed project to "RetroLemmini" everywhere relevant
+For a full overview of the updates between (Super)Lemmini(Too) and RetroLemmini, and the planned updates for the future,
+please visit the Lemmings Forums release topic:
 
- # File system
- + Resources folder is now included in the root directory of the .jar and is called "resources"
- + All necessary folders are included within the "resources" folder (mods, music, replays, sound, styles)
- + SetupInstructions.txt created which will be bundled with all future releases and kept up-to-date
- + Settings are now saved to "settings" folder in the root directory of the .jar
- + Icons are included in an "icons" folder
- + "root.lzp" has now been removed: RetroLemmini no longer requires resource extraction or streaming from zip
-
- # Menu
- + Updated menu ticker size & colour for readability (it's now yellow / yellow on blue for classic)
- + Updated logo
- 
- # Skill Panel
- + Improved colour scheme and position of lemming button animations
- + VLock button is now hidden and inactive when not needed
-
-# =============== PROPOSED FEATURES/BUGFIXES ================
-
-# Timebombers:
-
-Being player-side optional causes the following issues:
-
-* Instabombers cannot be assigned during the first 5 seconds of the level, or the Timebomber option will break the level
-* Replays currently record at point of assignment for both, so - when shared with another user - th replay will break if that user has the opposite option
-
-Even if we could fix the above (there's really no sensible way to fix the first of these issues),
-it seems more appropriate to make Timebombers/Instabombers a design choice rather than a player choice.
-
-With that said, we could maybe fix the second issue by checking which option is active each time a Bomber is assigned,
-and then write the countdown to the replay as well. Then, at least replays would be option-independent.
-
-We could also adjust the player-side setting to "by level" or "always instabombers", then make it design-side optional.
-The problem with this is that there is no dedicated level editor, so the designer would have to manually enter it into
-the level's .ini file via a text editor.
-
-I'll get community feedback on this before going ahead with any drastic changes, but may at least see about the replay bug
-in the meantime.
-
-# Settings Menu:
-
-Improve layout
-Add tooltips to all items
+https://www.lemmingsforums.net/index.php?msg=105514
 
 # =============== THANKS =====================
 

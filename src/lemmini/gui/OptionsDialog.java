@@ -86,7 +86,7 @@ public class OptionsDialog extends JDialog {
         jCheckBoxShowLevelName = new javax.swing.JCheckBox();
         jCheckBoxEnhancedIconBar = new javax.swing.JCheckBox();
         jCheckBoxIconLabels = new javax.swing.JCheckBox();
-        jCheckBoxClassicTicker = new javax.swing.JCheckBox();
+        jCheckBoxClassicScroller = new javax.swing.JCheckBox();
         jCheckBoxAutoSaveReplays = new javax.swing.JCheckBox();
         jButtonOK = new javax.swing.JButton();
         jButtonCancel = new javax.swing.JButton();
@@ -147,9 +147,9 @@ public class OptionsDialog extends JDialog {
         jCheckBoxIconLabels.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.ICON_LABELS));
         jCheckBoxIconLabels.setText("Show labels on the Icon Bar");
         
-        jCheckBoxClassicTicker.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_TICKER));
-        jCheckBoxClassicTicker.setText("Use Classic Ticker");
-        jCheckBoxClassicTicker.setToolTipText("Show the classic yellow ticker tape on the title screen");
+        jCheckBoxClassicScroller.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_SCROLLER));
+        jCheckBoxClassicScroller.setText("Use Classic Scroller");
+        jCheckBoxClassicScroller.setToolTipText("Show the classic ticker tape scroller on the title screen");
 
         jComboBoxMixer.setSelectedIndex(GameController.sound.getMixerIdx());
 
@@ -214,7 +214,7 @@ public class OptionsDialog extends JDialog {
         	                .addComponent(jCheckBoxShowLevelName)
         	                .addComponent(jCheckBoxEnhancedIconBar)
         	                .addComponent(jCheckBoxIconLabels)
-        	                .addComponent(jCheckBoxClassicTicker))
+        	                .addComponent(jCheckBoxClassicScroller)
         	            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         	);
         jPanelGraphicsLayout.setVerticalGroup(
@@ -233,7 +233,7 @@ public class OptionsDialog extends JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxIconLabels)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxClassicTicker)
+                .addComponent(jCheckBoxClassicScroller)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -470,7 +470,7 @@ public class OptionsDialog extends JDialog {
         GameController.setOption(GameController.SLTooOption.SHOW_LEVEL_NAME, jCheckBoxShowLevelName.isSelected());
         GameController.setOption(GameController.SLTooOption.ENHANCED_ICONBAR, jCheckBoxEnhancedIconBar.isSelected());
         GameController.setOption(GameController.SLTooOption.ICON_LABELS, jCheckBoxIconLabels.isSelected());
-        GameController.setOption(GameController.SLTooOption.CLASSIC_TICKER, jCheckBoxClassicTicker.isSelected());
+        GameController.setOption(GameController.SLTooOption.CLASSIC_SCROLLER, jCheckBoxClassicScroller.isSelected());
         // apply replay settings
         GameController.setOption(GameController.RetroLemminiOption.AUTOSAVE_REPLAYS, jCheckBoxAutoSaveReplays.isSelected());
         // apply miscellaneous settings
@@ -486,7 +486,6 @@ public class OptionsDialog extends JDialog {
         GameController.setOption(GameController.SLTooOption.DISABLE_SCROLL_WHEEL, jCheckBoxDisableScrollWheel.isSelected());
         GameController.setOption(GameController.SLTooOption.DISABLE_FRAME_STEPPING, jCheckBoxDisableFrameStepping.isSelected());
         GameController.setOption(GameController.SLTooOption.VISUAL_SFX, jCheckBoxVisualSfx.isSelected());
-        
         
         //then commit all those settings to disk
         Core.saveSettings();
@@ -516,7 +515,7 @@ public class OptionsDialog extends JDialog {
     private javax.swing.JCheckBox jCheckBoxShowLevelName;
     private javax.swing.JCheckBox jCheckBoxEnhancedIconBar;
     private javax.swing.JCheckBox jCheckBoxIconLabels;
-    private javax.swing.JCheckBox jCheckBoxClassicTicker;
+    private javax.swing.JCheckBox jCheckBoxClassicScroller;
     private javax.swing.JCheckBox jCheckBoxAutoSaveReplays;
     private javax.swing.JComboBox<String> jComboBoxMixer;
     private javax.swing.JLabel jLabelMixer;

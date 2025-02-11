@@ -390,7 +390,7 @@ public class TextScreen {
             double scaleHeight = 1;
             double scaleWidth = 1;
             
-            if(GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_TICKER)) {
+            if(GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_SCROLLER)) {
             	scaleHeight=0.8;
             	scaleWidth=0.8;
             }
@@ -401,7 +401,7 @@ public class TextScreen {
             try {
                 scrollerGfx = scrollerImg.createGraphicsContext();
                 scrollerGfx.setBackground(new Color(0, 0, 0, 0)); //set transparent background.
-                if(GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_TICKER)) {
+                if(GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_SCROLLER)) {
 	                //draw the ticker-tape repeatedly onto the background:
 	                int idx = 0;
 	                do {
