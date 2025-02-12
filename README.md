@@ -1,6 +1,6 @@
 # RetroLemmini
 
-A continuation of the Lemmini family of engines (Lemmini, SuperLemmini, RetroLemmini) which aims to fix a few bugs and generally update the engine.
+A continuation of the Lemmini family of engines (Lemmini, SuperLemmini, SuperLemminiToo) which aims to fix a few bugs and generally update the engine.
 
 ## Build Instructions
 
@@ -36,19 +36,19 @@ please visit [RetroLemmini's release topic on Lemmings Forums](https://www.lemmi
 ### From Will (RetroLemmini developer):
 
 Many thanks to Volker, Ryan, Charles and Jeremy for their hard work and support on the Lemmini project over the years. It's such a great program, and the
-fact it's still used many years after its first version makes it worth the extra TLC to keep it up to date
+fact it's still used many years after its first version makes it worth the extra TLC to keep it up to date.
 
-I hope that it can be enjoyed for many years to come
+I hope that it can be enjoyed for many years to come.
 
-### From Charles (RetroLemmini developer):
+### From Charles (SuperLemminiToo developer):
 
 I want to stress that this program was truly written by Volker Oth (Lemmini) and Ryan Sakowski (SuperLemmini), over a combined total of more than twenty years.
 All I've done is hack a couple lines of code. None of this could be possible without the literally thousands of hours of work done by those two individuals,
 and their making the source code freely available. Thanks you both for letting me re-live some joy from my childhood in a new way, and for letting me share
-it with my kids
+it with my kids.
 
 Also special thanks to WillLem from the LemmingsForums.net for providing the updated title graphic, and being all around supportive of this endeavour and
-SuperLemmini in particular
+SuperLemmini in particular.
 
 Special thanks as well to jkapp76 from the LemmingsForums.net for making title icons. I modified them slightly to incorporate them into Icon Labels toggle
-in RetroLemmini
+in SuperLemminiToo.
