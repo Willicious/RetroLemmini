@@ -19,6 +19,7 @@
 package lemmini;
 
 import java.awt.Desktop;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -139,7 +140,7 @@ public class LemminiFrame extends JFrame {
             int h = Math.max(lemminiPanelMain.getHeight(), Core.programProps.getInt("frameHeight", lemminiPanelMain.getHeight()));
             lemminiPanelMain.setSize(w, h);
             lemminiPanelMain.setPreferredSize(lemminiPanelMain.getSize()); // needed for pack() to keep this size
-            toggleMenuBarVisibility(false);
+            toggleMenuBarVisibility();
             pack();
             // center the window, then load the window position
             setLocationRelativeTo(null);
@@ -458,7 +459,7 @@ public class LemminiFrame extends JFrame {
 		    case KeyEvent.VK_M:
 		        if (lemminiPanelMain.isControlPressed()) {
 		        	GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, !GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
-		        	toggleMenuBarVisibility(true);
+		        	toggleMenuBarVisibility();
 		        	Core.saveSettings();
 		        }
 		        break;
@@ -1040,25 +1041,20 @@ public class LemminiFrame extends JFrame {
         }
     }
     
-    void toggleMenuBarVisibility(boolean doResize) {
+    void toggleMenuBarVisibility() {
         boolean shouldShowMenuBar = GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR);
 
         if (shouldShowMenuBar)
             setJMenuBar(jMenuBarMain);
         else
             setJMenuBar(null);
-        
-        if (!doResize)
-        	return;
 
-        // Adjust the window height based on the visibility of the menu bar
-        int windowHeight = getHeight();
-        int menuBarHeight = jMenuBarMain.getPreferredSize().height;
-
-        if (shouldShowMenuBar)
-            setSize(getWidth(), windowHeight + menuBarHeight);
-        else
-            setSize(getWidth(), windowHeight - menuBarHeight);
+        // Set the frame size to maintain the same content size (insets are borders, title bar, the menu bar itself, etc)
+        validate();
+        Insets insets = getInsets();
+        int contentWidth = getWidth() - insets.left - insets.right;
+        int contentHeight = getHeight() - insets.top - insets.bottom;
+        setSize(contentWidth + insets.left + insets.right, contentHeight + insets.top + insets.bottom);
     }
     
     /**

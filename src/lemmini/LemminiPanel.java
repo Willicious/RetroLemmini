@@ -1708,7 +1708,7 @@ public class LemminiPanel extends JPanel implements Runnable {
         d.setVisible(true);
         
         // Update UI to process changes
-        getParentFrame().toggleMenuBarVisibility(true);
+        getParentFrame().toggleMenuBarVisibility();
         TextScreen.toggleScrollerType();
     }
     
