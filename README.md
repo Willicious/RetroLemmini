@@ -6,9 +6,11 @@ A continuation of the Lemmini family of engines (Lemmini, SuperLemmini, RetroLem
 
 To build via the Command Line:
 
-1. Ensure build.xml is present in the source folder
-2. Run: ant
-3. Run: ant LemminiFrame
+1. Install a JDK.
+2. Install Ant, the Java build tool.
+3. Navigate to RetroLemmini's root directory (it contains `build.xml`).
+4. Run `ant` to build.
+5. Run `ant run` to play.
 
 To build via Eclipse IDE:
 
