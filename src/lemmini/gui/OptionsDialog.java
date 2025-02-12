@@ -91,7 +91,6 @@ public class OptionsDialog extends JDialog {
         jCheckBoxAutoSaveReplays = new javax.swing.JCheckBox();
         jButtonOK = new javax.swing.JButton();
         jButtonCancel = new javax.swing.JButton();
-        jButtonApply = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Options");
@@ -367,7 +366,7 @@ public class OptionsDialog extends JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButtonOK.setText("OK");
+        jButtonOK.setText("Save and Close");
         jButtonOK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonOKActionPerformed(evt);
@@ -378,13 +377,6 @@ public class OptionsDialog extends JDialog {
         jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancelActionPerformed(evt);
-            }
-        });
-
-        jButtonApply.setText("Apply");
-        jButtonApply.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonApplyActionPerformed(evt);
             }
         });
 
@@ -400,8 +392,6 @@ public class OptionsDialog extends JDialog {
                         .addComponent(jButtonOK)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonCancel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonApply)
                     )
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanelSound, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -431,7 +421,6 @@ public class OptionsDialog extends JDialog {
                 )
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonApply)
                     .addComponent(jButtonCancel)
                     .addComponent(jButtonOK)
                 )
@@ -450,10 +439,6 @@ public class OptionsDialog extends JDialog {
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         dispose();
     }//GEN-LAST:event_jButtonCancelActionPerformed
-    
-    private void jButtonApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonApplyActionPerformed
-        applyChanges();
-    }//GEN-LAST:event_jButtonApplyActionPerformed
     
     private void applyChanges() {
     	// set all game settings based on GUI options first
@@ -501,7 +486,6 @@ public class OptionsDialog extends JDialog {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonApply;
     private javax.swing.JButton jButtonCancel;
     private javax.swing.JButton jButtonOK;
     private javax.swing.JCheckBox jCheckBoxAdvanced;
