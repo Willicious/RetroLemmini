@@ -25,8 +25,10 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLDecoder;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Locale;
 
@@ -603,11 +605,7 @@ public class LemminiFrame extends JFrame {
                         GameController.pressIcon(Icons.IconType.VLOCK);
                         break;
                     case KeyEvent.VK_V:
-                        LemmImage tmp = GameController.getLevel().createMinimap(GameController.getFgImage(), 1.0, 1.0, true, false, true);
-                        try (OutputStream out = Core.resourceTree.newOutputStream("level.png")) {
-                            ImageIO.write(tmp.getImage(), "png", out);
-                        } catch (IOException ex) {
-                        }
+                    	saveLevelAsImage();
                         break;
                     case KeyEvent.VK_U: // superlemming on/off
                         if (Core.player.isDebugMode()) {
@@ -1142,6 +1140,32 @@ public class LemminiFrame extends JFrame {
     
     public static LemminiFrame getFrame() {
         return thisFrame;
+    }
+    
+    private void saveLevelAsImage() {
+        String levelName = GameController.getLevel().getLevelName();
+        String baseFileName = levelName.replaceAll("[^a-zA-Z0-9._-]", "_"); // Sanitize filename
+        String fileName = baseFileName + ".png";
+        Path filePath = Core.resourceTree.getPath(fileName);
+        
+        int counter = 1;
+        while (Files.exists(filePath)) {
+            fileName = baseFileName + "(" + counter + ").png";
+            filePath = Core.resourceTree.getPath(fileName);
+            counter++;
+        }
+        
+        LemmImage tmp = GameController.getLevel().createMinimap(GameController.getFgImage(), 1.0, 1.0, true, false, true);
+        // TODO: See if there's a way to draw the lemmings to this image as well
+        // TODO: If there is, maybe show a quick "options" dialog where the user can choose whether or not to include lemmings, background, etc
+        try (OutputStream out = Files.newOutputStream(filePath, StandardOpenOption.CREATE_NEW)) {
+            ImageIO.write(tmp.getImage(), "png", out);
+            out.flush();
+            JOptionPane.showMessageDialog(null, "Level image successfully saved to\n" + filePath, "Save Level Image", JOptionPane.PLAIN_MESSAGE);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Could not save level image", "Save Level Image", JOptionPane.ERROR_MESSAGE);
+        }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
