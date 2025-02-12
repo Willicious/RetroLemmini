@@ -2,9 +2,9 @@
 
 A continuation of the Lemmini family of engines (Lemmini, SuperLemmini, RetroLemmini) which aims to fix a few bugs and generally update the engine.
 
-# ================= Build Instructions =================
+## Build Instructions
 
-To build via the Command Line:
+### Via the Command Line
 
 1. Install a JDK.
 2. Install Ant, the Java build tool.
@@ -12,40 +12,35 @@ To build via the Command Line:
 4. Run `ant` to build.
 5. Run `ant run` to play.
 
-To build via Eclipse IDE:
+### Via Eclipse IDE
 
 1. Add dependencies to build path
    (Project > Properties > Java Build Path > Libraries > Add Library/Add JARs)
    Navigate to "dependencies" folder and add each one
 2. Run
    RetroLemmini should compile and run without issues, but to get a runnable JAR file it's necessary to Export from Eclipse:
-   
+
    (File > Export > Java > Runnable JAR file > Next)
    Recommended: Copy required libraries into a sub-folder
-   
-If you experience any issues, head to the Lemmini board on the Lemmings Forums:
 
-https://www.lemmingsforums.net/index.php?board=10.0
+If you experience any issues, visit the
+[Lemmini board on Lemmings Forums](https://www.lemmingsforums.net/index.php?board=10.0).
 
-# ================= Updates ============================
+## Updates
 
 For a full overview of the updates between (Super)Lemmini(Too) and RetroLemmini, and the planned updates for the future,
-please visit the Lemmings Forums release topic:
+please visit [RetroLemmini's release topic on Lemmings Forums](https://www.lemmingsforums.net/index.php?msg=105514).
 
-https://www.lemmingsforums.net/index.php?msg=105514
+## Thanks
 
-# =============== THANKS =====================
-
-From Will (RetroLemmini developer):
+### From Will (RetroLemmini developer):
 
 Many thanks to Volker, Ryan, Charles and Jeremy for their hard work and support on the Lemmini project over the years. It's such a great program, and the
 fact it's still used many years after its first version makes it worth the extra TLC to keep it up to date
 
 I hope that it can be enjoyed for many years to come
 
-# =============== THANKS =====================
-
-From Charles (RetroLemmini developer):
+### From Charles (RetroLemmini developer):
 
 I want to stress that this program was truly written by Volker Oth (Lemmini) and Ryan Sakowski (SuperLemmini), over a combined total of more than twenty years.
 All I've done is hack a couple lines of code. None of this could be possible without the literally thousands of hours of work done by those two individuals,
