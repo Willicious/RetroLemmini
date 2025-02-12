@@ -142,16 +142,23 @@ public class Core {
     	System.out.println("    gamePath detected as: "+ gamePath.toString());
     	
     	// Data directory   	
-        gameDataTree = new CaseInsensitiveFileTree(gamePath); 
+        gameDataTree = new CaseInsensitiveFileTree(gamePath);
 
         // Settings directory
-    	if (gamePath.toString().endsWith(".jar")) {
-    		programPropsFilePath = Paths.get(gamePath.getParent().toString(), "settings");
-    	} else {
-    		programPropsFilePath = Paths.get(gamePath.toString(), "settings");
+        System.out.println("    creating settings folder: " + Paths.get(gameDataTree.getRoot().toString(), "settings/").toString());
+    	try {
+    		gameDataTree.createDirectories("settings/");
+    	} catch (IOException e) {
+    	    System.err.println("Failed to create settings directory: " + e.getMessage());
+    	    e.printStackTrace();
     	}
+    	if (gamePath.toString().endsWith(".jar"))
+    		programPropsFilePath = Paths.get(gamePath.getParent().toString(), "settings");
+    	else
+    		programPropsFilePath = Paths.get(gamePath.toString(), "settings");
         programPropsFilePath = programPropsFilePath.resolve(PROGRAM_PROPS_FILE_NAME);
         System.out.println("    game config: " + programPropsFilePath.toString());
+        
         // read main ini file
         programProps = new Props();
         
