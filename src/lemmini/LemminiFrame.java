@@ -493,39 +493,77 @@ public class LemminiFrame extends JFrame {
         
         switch (GameController.getGameState()) {
             case LEVEL:
+            	if (!lemminiPanelMain.isControlPressed()) {
+	                switch (code) {
+	                    case KeyEvent.VK_1:
+	                    case KeyEvent.VK_F3:
+	                    	if (lemminiPanelMain.getDebugDraw())
+	                    		lemminiPanelMain.setDrawBrushSize(1);
+	                    	else
+	                    		GameController.handleIconButton(Icons.IconType.CLIMB);
+	                        break;
+	                    case KeyEvent.VK_2:
+	                    case KeyEvent.VK_F4:
+	                    	if (lemminiPanelMain.getDebugDraw())
+	                    		lemminiPanelMain.setDrawBrushSize(2);
+	                    	else
+	                    		GameController.handleIconButton(Icons.IconType.FLOAT);
+	                        break;
+	                    case KeyEvent.VK_3:
+	                    case KeyEvent.VK_F5:
+	                    	if (lemminiPanelMain.getDebugDraw())
+	                    		lemminiPanelMain.setDrawBrushSize(3);
+	                    	else
+	                    		GameController.handleIconButton(Icons.IconType.BOMB);
+	                        break;
+	                    case KeyEvent.VK_4:
+	                    case KeyEvent.VK_F6:
+	                    	if (lemminiPanelMain.getDebugDraw())
+	                    		lemminiPanelMain.setDrawBrushSize(4);
+	                    	else
+	                    		GameController.handleIconButton(Icons.IconType.BLOCK);
+	                        break;
+	                    case KeyEvent.VK_5:
+	                    case KeyEvent.VK_F7:
+	                    	if (lemminiPanelMain.getDebugDraw())
+	                    		lemminiPanelMain.setDrawBrushSize(5);
+	                    	else
+	                    		GameController.handleIconButton(Icons.IconType.BUILD);
+	                        break;
+	                    case KeyEvent.VK_6:
+	                    case KeyEvent.VK_F8:
+	                    	if (lemminiPanelMain.getDebugDraw())
+	                    		lemminiPanelMain.setDrawBrushSize(6);
+	                    	else
+	                    		GameController.handleIconButton(Icons.IconType.BASH);
+	                        break;
+	                    case KeyEvent.VK_7:
+	                    case KeyEvent.VK_F9:
+	                    	if (lemminiPanelMain.getDebugDraw())
+	                    		lemminiPanelMain.setDrawBrushSize(7);
+	                    	else
+	                    		GameController.handleIconButton(Icons.IconType.MINE);
+	                        break;
+	                    case KeyEvent.VK_8:
+	                    case KeyEvent.VK_F10:
+	                    	if (lemminiPanelMain.getDebugDraw())
+	                    		lemminiPanelMain.setDrawBrushSize(8);
+	                    	else
+	                    		GameController.handleIconButton(Icons.IconType.DIG);
+	                        break;
+	                    case KeyEvent.VK_9:
+	                    	if (lemminiPanelMain.getDebugDraw())
+	                    		lemminiPanelMain.setDrawBrushSize(9);
+	                    	break;
+	                    case KeyEvent.VK_0:
+	                    	if (lemminiPanelMain.getDebugDraw())
+	                    		lemminiPanelMain.setDrawBrushSize(10);
+	                    	break;
+	                    default:
+	                    	break;
+	                }
+                }
                 switch (code) {
-                    case KeyEvent.VK_1:
-                    case KeyEvent.VK_F3:
-                        GameController.handleIconButton(Icons.IconType.CLIMB);
-                        break;
-                    case KeyEvent.VK_2:
-                    case KeyEvent.VK_F4:
-                        GameController.handleIconButton(Icons.IconType.FLOAT);
-                        break;
-                    case KeyEvent.VK_3:
-                    case KeyEvent.VK_F5:
-                        GameController.handleIconButton(Icons.IconType.BOMB);
-                        break;
-                    case KeyEvent.VK_4:
-                    case KeyEvent.VK_F6:
-                        GameController.handleIconButton(Icons.IconType.BLOCK);
-                        break;
-                    case KeyEvent.VK_5:
-                    case KeyEvent.VK_F7:
-                        GameController.handleIconButton(Icons.IconType.BUILD);
-                        break;
-                    case KeyEvent.VK_6:
-                    case KeyEvent.VK_F8:
-                        GameController.handleIconButton(Icons.IconType.BASH);
-                        break;
-                    case KeyEvent.VK_7:
-                    case KeyEvent.VK_F9:
-                        GameController.handleIconButton(Icons.IconType.MINE);
-                        break;
-                    case KeyEvent.VK_8:
-                    case KeyEvent.VK_F10:
-                        GameController.handleIconButton(Icons.IconType.DIG);
-                        break;
                     case KeyEvent.VK_D: //CTRL+ALT+D is to toggle Debug mode. just D (while in Debug mode) is Draw mode
                     	if (lemminiPanelMain.isControlPressed() && lemminiPanelMain.isAltPressed()) {
                     		// Toggle Debug mode

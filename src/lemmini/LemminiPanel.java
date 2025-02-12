@@ -177,6 +177,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     private boolean mouseHasEntered;
     private boolean holdingMinimap;
     private boolean showDebugCursorInfo;
+    private int drawBrushSize;
     /** graphics buffer for information string display */
     private GraphicsBuffer outStrBuffer;
     /** offscreen image */
@@ -1408,7 +1409,10 @@ public class LemminiPanel extends JPanel implements Runnable {
             double scaleYHalf = scaleY / 2.0;
 
             // Define the radius of the "paintbrush" circle
-            int radius = 5;
+            if (drawBrushSize <= 0 || drawBrushSize >= 11)
+            	drawBrushSize = 5;
+            
+            int radius = drawBrushSize;
 
             // Loop through a circle-shaped area
             for (int ya = y - radius; ya <= y + radius; ya++) {
@@ -1949,6 +1953,14 @@ public class LemminiPanel extends JPanel implements Runnable {
     private int getStepSize() {
         return (shiftPressed ? X_STEP_FAST : X_STEP);
     }
+
+	public int getDrawBrushSize() {
+		return drawBrushSize;
+	}
+
+	public void setDrawBrushSize(int drawBrushSize) {
+		this.drawBrushSize = drawBrushSize;
+	}
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
