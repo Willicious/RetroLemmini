@@ -182,7 +182,7 @@ public class GameController {
     /** +/- icons: time for key repeat to kick in */
     private static final long NANOSEC_KEYREPEAT_START = 250_000_000;
     /** +/- icons: time for key repeat rate */
-    private static final long NANOSEC_KEYREPEAT_REPEAT = 67_000_000;
+    private static final long NANOSEC_KEYREPEAT_REPEAT = 39_000_000;
     
     private static final String LEVEL_DIR_REGEX = "levels/[^/]+/levelpack.ini";
     private static final String LEVEL_CACHE_INI = "$levelcache.ini";
@@ -1025,7 +1025,8 @@ public class GameController {
                     releaseRate += 1;
                 }
                 calcReleaseBase();
-                sound.playPitched(Sound.PitchedEffect.RELEASE_RATE, releaseRate + 99);
+                sound.playPitched(Sound.PitchedEffect.RELEASE_RATE, (int) Math.round(releaseRate * 2.69));
+
             } else {
                 sound.play(Sound.Effect.INVALID);
             }
@@ -1040,7 +1041,7 @@ public class GameController {
                     releaseRate -= 1;
                 }
                 calcReleaseBase();
-                sound.playPitched(Sound.PitchedEffect.RELEASE_RATE, releaseRate + 99);
+                sound.playPitched(Sound.PitchedEffect.RELEASE_RATE, (int) Math.round(releaseRate * 2.69));
             } else {
                 sound.play(Sound.Effect.INVALID);
             }

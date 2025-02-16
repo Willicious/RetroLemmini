@@ -88,7 +88,7 @@ public class Sound {
     }
     
     public enum PitchedEffect {
-        RELEASE_RATE (Effect.CHANGE_RR, 2.0, -100.0, 96.0, 206),
+        RELEASE_RATE (Effect.CHANGE_RR, 2.0, -100.0, 96.0, 269),
         SKILL (Effect.SELECT_SKILL, 2.0, -4.0, 12.0, 13);
         
         private final Effect effect;
