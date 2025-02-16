@@ -82,6 +82,7 @@ public class OptionsDialog extends JDialog {
         jCheckBoxDisableScrollWheel = new javax.swing.JCheckBox();
         jCheckBoxDisableFrameStepping = new javax.swing.JCheckBox();
         jCheckBoxVisualSfx = new javax.swing.JCheckBox();
+        jCheckBoxFullScreen = new javax.swing.JCheckBox();
         jCheckBoxEnhancedStatus = new javax.swing.JCheckBox();
         jCheckBoxShowLevelName = new javax.swing.JCheckBox();
         jCheckBoxEnhancedIconBar = new javax.swing.JCheckBox();
@@ -126,6 +127,9 @@ public class OptionsDialog extends JDialog {
         jCheckBoxVisualSfx.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.VISUAL_SFX));
         jCheckBoxVisualSfx.setText("Enable Visual SFX");
         
+        jCheckBoxFullScreen.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_SCREEN));
+        jCheckBoxFullScreen.setText("Full Screen");
+        
         jCheckBoxEnhancedStatus.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_STATUS));
         jCheckBoxEnhancedStatus.setText("Enhanced Status Bar");
         jCheckBoxEnhancedStatus.addActionListener(e -> {
@@ -145,10 +149,10 @@ public class OptionsDialog extends JDialog {
         jCheckBoxEnhancedIconBar.setText("Enhanced Icon Bar");
 
         jCheckBoxIconLabels.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.ICON_LABELS));
-        jCheckBoxIconLabels.setText("Show labels on the Icon Bar");
+        jCheckBoxIconLabels.setText("Show Labels on the Icon Bar");
         
         jCheckBoxClassicScroller.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_SCROLLER));
-        jCheckBoxClassicScroller.setText("Use Classic Scroller");
+        jCheckBoxClassicScroller.setText("Classic Scroller");
         jCheckBoxClassicScroller.setToolTipText("Show the classic ticker tape scroller on the title screen");
         
         jCheckBoxShowMenuBar.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
@@ -212,23 +216,31 @@ public class OptionsDialog extends JDialog {
         	        .addGroup(jPanelGraphicsLayout.createSequentialGroup()
         	            .addContainerGap()
         	            .addGroup(jPanelGraphicsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        	                .addComponent(jCheckBoxBilinear)
+        	            	//.addComponent(jCheckBoxFullScreen) // BOOKMARK - Yet to be implemented
+        	            	.addComponent(jCheckBoxShowMenuBar)
+        	            	.addComponent(jCheckBoxBilinear)
         	                .addComponent(jCheckBoxClassicCursor)
+        	                .addComponent(jCheckBoxClassicScroller)
         	                .addComponent(jCheckBoxEnhancedStatus)
         	                .addComponent(jCheckBoxShowLevelName)
         	                .addComponent(jCheckBoxEnhancedIconBar)
         	                .addComponent(jCheckBoxIconLabels)
-        	                .addComponent(jCheckBoxClassicScroller)
-        	                .addComponent(jCheckBoxShowMenuBar))
+        	                )
         	            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         	);
         jPanelGraphicsLayout.setVerticalGroup(
             jPanelGraphicsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelGraphicsLayout.createSequentialGroup()
                 .addContainerGap()
+//                .addComponent(jCheckBoxFullScreen)
+//                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED) // BOOKMARK - Yet to be implemented
+                .addComponent(jCheckBoxShowMenuBar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxBilinear)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxClassicCursor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBoxClassicScroller)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxEnhancedStatus)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -237,10 +249,6 @@ public class OptionsDialog extends JDialog {
                 .addComponent(jCheckBoxEnhancedIconBar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxIconLabels)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxClassicScroller)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxShowMenuBar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -459,6 +467,7 @@ public class OptionsDialog extends JDialog {
         // apply graphics settings
         Core.setBilinear(jCheckBoxBilinear.isSelected());
         GameController.setOption(GameController.Option.CLASSIC_CURSOR, jCheckBoxClassicCursor.isSelected());
+        GameController.setOption(GameController.RetroLemminiOption.FULL_SCREEN, jCheckBoxFullScreen.isSelected());
         GameController.setOption(GameController.SLTooOption.ENHANCED_STATUS, jCheckBoxEnhancedStatus.isSelected());
         GameController.setOption(GameController.SLTooOption.SHOW_LEVEL_NAME, jCheckBoxShowLevelName.isSelected());
         GameController.setOption(GameController.SLTooOption.ENHANCED_ICONBAR, jCheckBoxEnhancedIconBar.isSelected());
@@ -504,6 +513,7 @@ public class OptionsDialog extends JDialog {
     private javax.swing.JCheckBox jCheckBoxDisableScrollWheel;
     private javax.swing.JCheckBox jCheckBoxDisableFrameStepping;
     private javax.swing.JCheckBox jCheckBoxVisualSfx;
+    private javax.swing.JCheckBox jCheckBoxFullScreen;
     private javax.swing.JCheckBox jCheckBoxEnhancedStatus;
     private javax.swing.JCheckBox jCheckBoxShowLevelName;
     private javax.swing.JCheckBox jCheckBoxEnhancedIconBar;

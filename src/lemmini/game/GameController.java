@@ -140,7 +140,9 @@ public class GameController {
     	//** flag: automatically save successful replays from debriefing screen
     	AUTOSAVE_REPLAYS,
     	//** flag: show/hide the top menu bar
-    	SHOW_MENU_BAR
+    	SHOW_MENU_BAR,
+    	//** flag: full screen or windowed
+    	FULL_SCREEN
     }
     
     public static enum LevelFormat {
