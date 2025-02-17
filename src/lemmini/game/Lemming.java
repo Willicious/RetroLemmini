@@ -999,16 +999,7 @@ public class Lemming {
                                         // erase blocker mask
                                         eraseBlockerMask();
                                     }
-                                    GameController.sound.playVisualSFX(spr); // BOOKMARK - this handles both the
-                                                                             // sound effect as set by styles.ini
-                                                                             // and the VisualSFX graphic
-                                                                             // Best bet is probably to
-                                                                             // check if spr has a value,
-                                                                             // and if it doesn't then use
-                                                                             // the default sound effect as
-                                                                             // set by "Effect"
-                                                                             // GO_HOME isn't yet set up...
-                                    //GameController.sound.play(Effect.EXPLODE);
+                                    GameController.sound.playVisualSFX(spr);
                                     newType = Type.HOMER;
                                 }
                             }

@@ -145,6 +145,13 @@ public class GameController {
     	FULL_SCREEN
     }
     
+    // 3-way option for setting the Exit sound
+    public enum ExitSoundOption {
+        YIPPEE,
+        BOING,
+        AUTO
+    }
+    
     public static enum LevelFormat {
         INI,
         LVL,
@@ -201,6 +208,9 @@ public class GameController {
     private static final Set<SLTooOption> SLToptions = EnumSet.noneOf(SLTooOption.class);
     /** Options added in RetroLemmini */
     private static final Set<RetroLemminiOption> RLoptions = EnumSet.noneOf(RetroLemminiOption.class);
+    
+    /** 3-way option for setting the Exit sound */
+    private static ExitSoundOption exitSoundOption = ExitSoundOption.AUTO; // Default value
 
     /** flag: fast forward mode is active */
     private static boolean fastForward;
@@ -2617,6 +2627,14 @@ public class GameController {
     
     public static boolean isOptionEnabled(RetroLemminiOption option) {
         return RLoptions.contains(option);
+    }
+    
+    public static void setExitSoundOption(ExitSoundOption option) {
+        	exitSoundOption = option;
+    }
+
+    public static ExitSoundOption getExitSoundOption() {
+        return exitSoundOption;
     }
     
     /**
