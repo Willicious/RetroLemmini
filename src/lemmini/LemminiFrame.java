@@ -1156,8 +1156,8 @@ public class LemminiFrame extends JFrame {
         }
         
         LemmImage tmp = GameController.getLevel().createMinimap(GameController.getFgImage(), 1.0, 1.0, true, false, true);
-        // TODO: See if there's a way to draw the lemmings to this image as well
-        // TODO: If there is, maybe show a quick "options" dialog where the user can choose whether or not to include lemmings, background, etc
+        // BOOKMARK TODO: See if there's a way to draw the lemmings to this image as well
+        //                If there is, maybe show a quick "options" dialog where the user can choose whether or not to include lemmings, background, etc
         try (OutputStream out = Files.newOutputStream(filePath, StandardOpenOption.CREATE_NEW)) {
             ImageIO.write(tmp.getImage(), "png", out);
             out.flush();

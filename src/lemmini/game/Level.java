@@ -762,7 +762,7 @@ public class Level {
                                     | Stencil.MSK_STEEL_BRICK
                                     | Stencil.MSK_NO_ONE_WAY
                                     | Stencil.MSK_NO_ONE_WAY_DRAW;
-                            stencilMask |= maskType;
+                            stencilMask |= maskType;                                              // BOOKMARK
                             stencil.setMask(spr.getX() + xDest, yDest + spr.getY(), stencilMask); // TODO: send the object ID through here as well
                             stencil.setMaskObjectID(spr.getX() + xDest, yDest + spr.getY(), n);   //       decide which to priortise in the stencil class
                         }

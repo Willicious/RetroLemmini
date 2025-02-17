@@ -1962,7 +1962,6 @@ public class GameController {
     private static void drawCounters(final GraphicsContext g, final int x, final int y) {
         // draw counters
         Integer val = NumberUtils.INTEGER_ZERO;
-        //TODO: match these up with wherever the actual 
         List<Icons.IconType> iconOrder = Icons.CurrentIconOrder();
         for (int i = 0; i < iconOrder.size(); i++) {
         	Icons.IconType type = iconOrder.get(i);

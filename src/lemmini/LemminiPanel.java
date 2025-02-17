@@ -162,7 +162,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     private boolean controlPressed;
     /** flag: alt key is pressed */
     private boolean altPressed;
-    //TODO: create a combined modifier flag: SHIFT, CONTROL, ALT to more easily detect when *only* one modifier is pressed. 
+    // BOOKMARK TODO: create a combined modifier flag: SHIFT, CONTROL, ALT to more easily detect when *only* one modifier is pressed. 
     /** flag: left key is pressed */
     private boolean leftPressed;
     /** flag: right key is pressed */
@@ -323,10 +323,10 @@ public class LemminiPanel extends JPanel implements Runnable {
         int y = Core.unscale(evt.getY());
         mouseDx = 0;
         mouseDy = 0;
-        //TODO: rewrite the mouse button selecting to allow changing what all the mouse buttons do
-        //for instance, right now, up to 5 mouse buttons are supported:
-        //BUTTON1 (left-click) is the main button
-        //BUTTON2 (right-click) 
+        // BOOKMARK TODO: rewrite the mouse button selecting to allow changing what all the mouse buttons do
+        //                for instance, right now, up to 5 mouse buttons are supported:
+        //                BUTTON1 (left-click) is the main button
+        //                BUTTON2 (right-click) 
         boolean swapButtons = GameController.isOptionEnabled(GameController.Option.SWAP_BUTTONS);
         int buttonPressed = evt.getButton();
         int modifiers = evt.getModifiersEx();
@@ -775,8 +775,8 @@ public class LemminiPanel extends JPanel implements Runnable {
                         GameController.drawIconsAndCounters(offGfx, iconBarX, iconBarY, countBarX, countBarY);
                         
                         // Draw iconbar filler?
-                        // TODO: the VLock icon is currently hidden behind the filler icon when not needed
-                        // Ideally, the VLock button simply wouldn't be drawn at all
+                        // BOOKMARK TODO: the VLock icon is currently hidden behind the filler icon when not needed
+                        //                Ideally, the VLock button simply wouldn't be drawn at all
                         int XOffset = 0;
                         int YOffset = 0;
                         

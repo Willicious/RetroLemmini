@@ -115,8 +115,8 @@ public class Player {
 
                 	String levelSetting = "group" + idx + "_level" + j;
                 	String completedKey = levelSetting + "_completed";
-                	//TODO: check if we're on the last level, and there is no compKey... 
-                	//props.containsKey(completedKey); 
+                	// BOOKMARK TODO: check if we're on the last level, and there is no compKey... 
+                	// props.containsKey(completedKey); 
                     boolean completed = props.getBoolean(completedKey, false);
                     if (completed) {
                     	compCount++;
@@ -126,6 +126,7 @@ public class Player {
                         int score = props.getInt(levelSetting + "_score", -1);
                         levelRecords.put(j, new LevelRecord(completed, lemmingsSaved, skillsUsed, timeElapsed, score));
                         if (GameController.isOptionEnabled(GameController.SLTooOption.DEBUG_VERBOSE_PLAYER_LOAD)) {
+                        	// BOOKMARK TODO: ALso show if a level has been attempted?
 	                        System.out.print("[completed]");
 	                        System.out.print(" saved: " + lemmingsSaved);
 	                        System.out.print(" skills: " + skillsUsed);
