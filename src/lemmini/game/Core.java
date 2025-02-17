@@ -23,6 +23,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import lemmini.LemminiFrame;
+import lemmini.game.GameController.ExitSoundOption;
 import lemmini.graphics.LemmImage;
 import lemmini.gui.LegalFrame;
 import lemmini.tools.CaseInsensitiveFileTree;
@@ -223,6 +224,8 @@ public class Core {
         GameController.setOption(GameController.RetroLemminiOption.AUTOSAVE_REPLAYS, programProps.getBoolean("autoSaveReplays", false));
         GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, programProps.getBoolean("showMenuBar", true));
         GameController.setOption(GameController.RetroLemminiOption.FULL_SCREEN, programProps.getBoolean("fullScreen", false));
+        // Exit sound settings
+        GameController.setExitSoundOption(ExitSoundOption.valueOf(programProps.get("exitSound", "AUTO")));
 
         System.out.println("      all settings read from config");
         
@@ -329,6 +332,8 @@ public class Core {
         programProps.setBoolean("autoSaveReplays", GameController.isOptionEnabled(GameController.RetroLemminiOption.AUTOSAVE_REPLAYS));
         programProps.setBoolean("showMenuBar", GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
         programProps.setBoolean("fullScreen", GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_SCREEN));
+        // Exit sound
+        programProps.set("exitSound", GameController.getExitSoundOption().name());
     }
     
     public static String appendBeforeExtension(String fname, String suffix) {

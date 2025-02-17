@@ -24,6 +24,7 @@ import javax.swing.JDialog;
 import lemmini.LemminiFrame;
 import lemmini.game.Core;
 import lemmini.game.GameController;
+import lemmini.game.GameController.ExitSoundOption;
 import lemmini.sound.Music;
 
 /**
@@ -65,6 +66,11 @@ public class OptionsDialog extends JDialog {
         jSliderSoundVolume = new javax.swing.JSlider();
         jLabelMixer = new javax.swing.JLabel();
         jComboBoxMixer = new JComboBox<String>(GameController.sound.getMixers());
+        jLabelExitSound = new javax.swing.JLabel();
+        jRadioButtonYippee = new javax.swing.JRadioButton();
+        jRadioButtonBoing = new javax.swing.JRadioButton();
+        jRadioButtonAuto = new javax.swing.JRadioButton();
+        exitSoundGroup = new javax.swing.ButtonGroup();
         jPanelGraphics = new javax.swing.JPanel();
         jCheckBoxBilinear = new javax.swing.JCheckBox();
         jPanelMisc = new javax.swing.JPanel();
@@ -127,6 +133,30 @@ public class OptionsDialog extends JDialog {
         jCheckBoxVisualSfx.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.VISUAL_SFX));
         jCheckBoxVisualSfx.setText("Enable Visual SFX");
         
+        // Radio group for Exit sound
+        jLabelExitSound.setText("Exit Sound");
+        jRadioButtonYippee.setText("Yippee");
+        jRadioButtonBoing.setText("Boing");
+        jRadioButtonAuto.setText("Auto");
+
+        exitSoundGroup.add(jRadioButtonYippee);
+        exitSoundGroup.add(jRadioButtonBoing);
+        exitSoundGroup.add(jRadioButtonAuto);
+        
+        ExitSoundOption savedOption = GameController.getExitSoundOption();
+        switch (savedOption) {
+            case YIPPEE:
+                jRadioButtonYippee.setSelected(true);
+                break;
+            case BOING:
+                jRadioButtonBoing.setSelected(true);
+                break;
+            case AUTO:
+            default:
+                jRadioButtonAuto.setSelected(true);
+                break;
+        }
+        
         jCheckBoxFullScreen.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_SCREEN));
         jCheckBoxFullScreen.setText("Full Screen");
         
@@ -177,6 +207,13 @@ public class OptionsDialog extends JDialog {
                     .addComponent(jLabelMixer)
                     .addComponent(jComboBoxMixer, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jCheckBoxVisualSfx)
+                    .addComponent(jLabelExitSound)
+                    .addGroup(jPanelSoundLayout.createSequentialGroup()
+                    	    .addComponent(jRadioButtonYippee)
+                    	    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    	    .addComponent(jRadioButtonBoing)
+                    	    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    	    .addComponent(jRadioButtonAuto))
                     )
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -201,7 +238,13 @@ public class OptionsDialog extends JDialog {
                 .addComponent(jLabelMixer)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxMixer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                )
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 20, 20)
+                .addComponent(jLabelExitSound)
+                .addGroup(jPanelSoundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                	    .addComponent(jRadioButtonYippee)
+                	    .addComponent(jRadioButtonBoing)
+                	    .addComponent(jRadioButtonAuto))
+            	)
         );
 
         jPanelGraphics.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Graphics", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -464,6 +507,12 @@ public class OptionsDialog extends JDialog {
         GameController.setOption(GameController.Option.SOUND_ON, jCheckBoxEnableSound.isSelected());
         GameController.setSoundGain(jSliderSoundVolume.getValue() / 100.0);
         GameController.sound.setMixerIdx(jComboBoxMixer.getSelectedIndex());
+        // apply exit sound setting
+        GameController.setExitSoundOption(
+        	    jRadioButtonYippee.isSelected() ? GameController.ExitSoundOption.YIPPEE :
+        	    jRadioButtonBoing.isSelected() ? GameController.ExitSoundOption.BOING :
+        	    GameController.ExitSoundOption.AUTO
+        	);
         // apply graphics settings
         Core.setBilinear(jCheckBoxBilinear.isSelected());
         GameController.setOption(GameController.Option.CLASSIC_CURSOR, jCheckBoxClassicCursor.isSelected());
@@ -525,6 +574,11 @@ public class OptionsDialog extends JDialog {
     private javax.swing.JLabel jLabelMixer;
     private javax.swing.JLabel jLabelMusicVolume;
     private javax.swing.JLabel jLabelSoundVolume;
+    private javax.swing.JLabel jLabelExitSound;
+    private javax.swing.JRadioButton jRadioButtonYippee;
+    private javax.swing.JRadioButton jRadioButtonBoing;
+    private javax.swing.JRadioButton jRadioButtonAuto;
+    private javax.swing.ButtonGroup exitSoundGroup;
     private javax.swing.JPanel jPanelGraphics;
     private javax.swing.JPanel jPanelMisc;
     private javax.swing.JPanel jPanelReplays;

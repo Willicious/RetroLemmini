@@ -398,11 +398,19 @@ public class Sprite {
     public int getSound() {
         if (ArrayUtils.isEmpty(sound)) {
             return -1;
-        } else {
-            return sound[0];
         }
+
+        int currentSound = sound[0];
+
+        if (GameController.getExitSoundOption() == GameController.ExitSoundOption.BOING) {
+            return (currentSound == 23) ? 14 : currentSound;
+        } else if (GameController.getExitSoundOption() == GameController.ExitSoundOption.YIPPEE) {
+            return (currentSound == 14) ? 23 : currentSound;
+        }
+
+        return currentSound;
     }
-    
+
     /**
      * Set sound index.
      * @param s sound index
@@ -413,15 +421,38 @@ public class Sprite {
             Arrays.fill(sound, -1);
             for (int i = 0; i < s.length - 1; i += 2) {
                 if (s[i + 1] >= 0) {
-                    sound[s[i + 1]] = s[i];
+                    // If the sound is one of the exit sounds (14, 23), see if we need to swap it
+                    if (s[i] == 23 || s[i] == 14)
+                        sound[s[i + 1]] = applySoundPreference(s[i]);
+                    else
+                        sound[s[i + 1]] = s[i];
                 }
             }
         } else if (s.length == 1) {
             sound = new int[1];
-            sound[0] = s[0];
+            
+            // If the sound is one of the exit sounds (14, 23), see if we need to swap it
+            if (s[0] == 14 || s[0] == 23)
+                sound[0] = applySoundPreference(s[0]);
+            else
+                sound[0] = s[0];
         } else {
-            sound = null;
+        	sound = null;
         }
+    }
+    
+    /**
+     * Apply user preference to modify sound index.
+     * @param inputSound The original sound index
+     * @return Adjusted sound index based on preference
+     */
+    private int applySoundPreference(int inputSound) {
+        if (GameController.getExitSoundOption() == GameController.ExitSoundOption.BOING) {
+            return (inputSound == 23) ? 14 : inputSound;
+        } else if (GameController.getExitSoundOption() == GameController.ExitSoundOption.YIPPEE) {
+            return (inputSound == 14) ? 23 : inputSound;
+        }
+        return inputSound;
     }
     
     /**
