@@ -43,9 +43,8 @@ public class Mask {
     private final int height;
     /** array of images. Note: masks may be animated and thus contain multiple frames. */
     private final List<LemmImage> mask;
-    
-    // BOOKMARK - is this needed?
-    private final List<LemmImage> unpatchedMask;
+    /** for recoloring purposes */
+    private final List<LemmImage> originalColorMask;
     
     /**
      * Constructor.
@@ -56,9 +55,7 @@ public class Mask {
         width = img.getWidth();
         height = img.getHeight() / frames;
         mask = ToolBox.getAnimation(img, frames);
-        
-     // BOOKMARK - is this needed?
-        unpatchedMask = new ArrayList<>(mask);
+        originalColorMask = new ArrayList<>(mask);
     }
     
     /**
@@ -335,9 +332,7 @@ public class Mask {
     
     void replaceColors(final int templateCol, final int replaceCol,
             final int templateCol2, final int replaceCol2) {
-    	
-    	                                   // BOOKMARK - is this needed?
-        for (ListIterator<LemmImage> itf = unpatchedMask.listIterator();
+        for (ListIterator<LemmImage> itf = originalColorMask.listIterator();
                 itf.hasNext(); ) { // go through all frames
             int fi = itf.nextIndex();
             LemmImage i = ToolBox.copyLemmImage(itf.next());

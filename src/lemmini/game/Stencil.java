@@ -108,7 +108,7 @@ public class Stencil {
 //           return;
 //       }
 //       
-//       // TODO: using the gadget ID, set the mask priority and pass only the highest value mask, regardless of order
+//       // BOOKMARK TODO: using the gadget ID, set the mask priority and pass only the highest value mask, regardless of order
 //       
 //       // So, check for existing value at the current pixel, then pass the highest value
 //       

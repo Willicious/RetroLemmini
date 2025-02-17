@@ -105,7 +105,7 @@ public class Core {
     public static Path gamePath;
     /** list of all the game resources in an lzp file. */
     public static CaseInsensitiveFileTree resourceTree;
-    public static CaseInsensitiveFileTree gameDataTree; // BOOKMARK - remove?
+    public static CaseInsensitiveFileTree gameDataTree;
     /** current player */
     public static Player player;
     
@@ -115,7 +115,6 @@ public class Core {
     private static Props playerProps;
     /** list of all players */
     private static List<String> players;
-    private static Set<String> resourceSet;
     /** Zoom scale */
     private static double scale = 1.0;
     private static boolean bilinear;
@@ -239,7 +238,7 @@ public class Core {
         	throw new LemmException(String.format("Resources folder is missing from " + gamePath + ". The program will now quit.", (Object[])null));
         }
         
-        // Create folders (if they don't already exist - BOOKMARK - might not need to do this
+        // Create folders (if they don't already exist)
         // create levels folder (with external level cache)
         System.out.println("    creating levels folder (with external levels cache): " + Paths.get(resourceTree.getRoot().toString(), EXTERNAL_LEVEL_CACHE_PATH).toString());
         resourceTree.createDirectories(EXTERNAL_LEVEL_CACHE_PATH);
@@ -478,15 +477,8 @@ public class Core {
      * @param rsrc name of missing resource.
      */
     public static void resourceError(final String rsrc) {
-    	// BOOKMARK - this is the same in both cases bacause we no longer extract resources
-    	// TODO - simplify this, check that it works for the resources folder
-        if (resourceSet.contains(rsrc)) {
-            String out = String.format("The resource %s is missing.%n", rsrc);
-            JOptionPane.showMessageDialog(null, out, "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            String out = String.format("The resource %s is missing.%n", rsrc);
-            JOptionPane.showMessageDialog(null, out, "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        String out = String.format("The resource %s is missing.%n", rsrc);
+        JOptionPane.showMessageDialog(null, out, "Error", JOptionPane.ERROR_MESSAGE);
         System.exit(1);
     }
     

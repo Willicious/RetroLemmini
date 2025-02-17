@@ -321,14 +321,14 @@ public class Icons {
             icons.add(icon);
 	            
             //load standard size backgrounds
-            //TODO: allow for multiple different background objects
+            // BOOKMARK TODO: allow for multiple different background objects
             resource = Core.findResource("gfx/icons/icon_empty.png", Core.IMAGE_EXTENSIONS);
             sourceImg = Core.loadLemmImage(resource);
             icon = new Sprite(sourceImg, 2, 1, false);
             bgIcons.add(icon);
 
             //load larger background icons
-            //TODO: allow for multiple different background objects
+            // BOOKMARK TODO: allow for multiple different background objects
             resource = Core.findResource("gfx/iconbar/icon_empty_large.png", Core.IMAGE_EXTENSIONS);
             sourceImg = Core.loadLemmImage(resource);
             icon = new Sprite(sourceImg, 2, 1, false);

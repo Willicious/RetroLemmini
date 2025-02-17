@@ -259,7 +259,7 @@ public class OptionsDialog extends JDialog {
         	        .addGroup(jPanelGraphicsLayout.createSequentialGroup()
         	            .addContainerGap()
         	            .addGroup(jPanelGraphicsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        	            	//.addComponent(jCheckBoxFullScreen) // BOOKMARK - Yet to be implemented
+        	            	//.addComponent(jCheckBoxFullScreen) // BOOKMARK TODO: Yet to be implemented
         	            	.addComponent(jCheckBoxShowMenuBar)
         	            	.addComponent(jCheckBoxBilinear)
         	                .addComponent(jCheckBoxClassicCursor)
@@ -276,7 +276,7 @@ public class OptionsDialog extends JDialog {
             .addGroup(jPanelGraphicsLayout.createSequentialGroup()
                 .addContainerGap()
 //                .addComponent(jCheckBoxFullScreen)
-//                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED) // BOOKMARK - Yet to be implemented
+//                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED) // BOOKMARK TODO: Yet to be implemented
                 .addComponent(jCheckBoxShowMenuBar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxBilinear)
