@@ -99,6 +99,10 @@ public class Level {
     private SpriteObject[] sprObjFront;
     /** array of all sprite objects (in front and behind) */
     private SpriteObject[] sprObjects;
+    /** lists of combined level components, grouped by the desired layer */
+    private List<SpriteObject> oCombined;
+    private List<SpriteObject> oBehind;
+    private List<SpriteObject> oFront;
     /** list of level entrances */
     private List<Entrance> entrances;
     /** release rate: 0 is slowest, 99 is fastest */
@@ -426,17 +430,7 @@ public class Level {
         Lemming.replaceColors(getDebrisColor(), getDebrisColor2());
     }
     
-    /**
-     * Paint a level.
-     */
-    void paintLevel() throws ResourceException, LemmException {
-        // flush all resources
-        sprObjFront = null;
-        sprObjBehind = null;
-        sprObjects = null;
-        entrances = null;
-        System.gc();
-        // create images and stencil
+    void createLevelImage() {
         if (fgImage != null && fgImage.getWidth() == levelWidth && fgImage.getHeight() == levelHeight) {
             GraphicsContext gfx = null;
             try {
@@ -451,6 +445,9 @@ public class Level {
         } else {
             fgImage = ToolBox.createLemmImage(levelWidth, levelHeight);
         }
+    }
+    
+    void createStencil() {
         bgImages = new LemmImage[backgrounds.length];
         for (int i = 0; i < backgrounds.length; i++) {
             bgImages[i] = ToolBox.createLemmImage(
@@ -461,7 +458,9 @@ public class Level {
         } else {
             stencil = new Stencil(levelWidth, levelHeight);
         }
-        // paint terrain
+    }
+    
+    void paintTerrain() throws ResourceException, LemmException {
         for (Terrain t : terrain) {
             if (t.id < 0) {
                 continue;
@@ -636,8 +635,9 @@ public class Level {
                 }
             }
         }
-        
-        // paint steel tiles into stencil
+    }
+    
+    void paintSteel() {
         steel.stream().forEachOrdered(stl -> {
             int sx = stl.xPos;
             int sy = stl.yPos;
@@ -658,12 +658,9 @@ public class Level {
                 }
             }
         });
-        
-        // now for the animated objects
-        List<SpriteObject> oCombined = new ArrayList<>(64);
-        List<SpriteObject> oBehind = new ArrayList<>(64);
-        List<SpriteObject> oFront = new ArrayList<>(64);
-        entrances = new ArrayList<>(8);
+    }
+    
+    void paintObjects() throws ResourceException, LemmException {
         for (ListIterator<LvlObject> lit = objects.listIterator(); lit.hasNext(); ) {
             int n = lit.nextIndex();
             LvlObject o = lit.next();
@@ -791,9 +788,10 @@ public class Level {
                 }
             }
         }
-        
-        // paint background
-        if (ArrayUtils.isNotEmpty(bgImages)) {
+    }
+    
+    void paintBackground() throws ResourceException, LemmException {
+    	if (ArrayUtils.isNotEmpty(bgImages)) {
             List<SpriteObject> bgOCombined = new ArrayList<>(32);
             List<SpriteObject> bgOFront = new ArrayList<>(32);
             List<SpriteObject> bgOBehind = new ArrayList<>(32);
@@ -950,6 +948,32 @@ public class Level {
                 bg.sprObjBehind = bgOBehind.toArray(new SpriteObject[bgOBehind.size()]);
             }
         }
+    }
+    
+    /**
+     * Paint a level.
+     */
+    void paintLevel() throws ResourceException, LemmException {
+        // flush all resources
+        sprObjFront = null;
+        sprObjBehind = null;
+        sprObjects = null;
+        entrances = null;
+        System.gc();
+        
+        createLevelImage();
+        createStencil();
+        
+        paintTerrain();
+        paintSteel();
+        
+        oCombined = new ArrayList<>(64);
+        oBehind = new ArrayList<>(64);
+        oFront = new ArrayList<>(64);
+        entrances = new ArrayList<>(8);
+
+        paintObjects();
+        paintBackground();
         
         sprObjects = oCombined.toArray(new SpriteObject[oCombined.size()]);
         sprObjFront = oFront.toArray(new SpriteObject[oFront.size()]);
