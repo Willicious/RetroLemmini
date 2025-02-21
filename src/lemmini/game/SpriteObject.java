@@ -12,8 +12,8 @@ import lemmini.tools.ToolBox;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,7 +34,7 @@ import lemmini.tools.ToolBox;
  * @author Volker Oth
  */
 public class SpriteObject extends Sprite {
-    
+
     /** Type of level object */
     public static enum Type {
         /** no influence on gameplay */
@@ -59,24 +59,24 @@ public class SpriteObject extends Sprite {
         STEEL (false, false),
         /** level entrance */
         ENTRANCE (false, false);
-        
+
         private final boolean triggeredByFoot;
         private final boolean oneWay;
-        
+
         private Type(boolean triggeredByFoot, boolean sometimesIndestructible) {
             this.triggeredByFoot = triggeredByFoot;
             this.oneWay = sometimesIndestructible;
         }
-        
+
         public boolean isTriggeredByFoot() {
             return triggeredByFoot;
         }
-        
+
         public boolean isOneWay() {
             return oneWay;
         }
     }
-    
+
     /** x position in pixels */
     private int x;
     /** y position in pixels */
@@ -90,7 +90,7 @@ public class SpriteObject extends Sprite {
     private int maskWidth;
     private int maskHeight;
     private boolean visOnTerrain;
-    
+
     /**
      * Get Type depending on integer value from INI.
      * @param t integer type
@@ -122,7 +122,7 @@ public class SpriteObject extends Sprite {
                 return Type.PASSIVE;
         }
     }
-    
+
     /**
      * Constructor.
      * @param sourceImg Image containing animation frames one above each other.
@@ -136,7 +136,7 @@ public class SpriteObject extends Sprite {
         x = 0;
         y = 0;
     }
-    
+
     /**
      * Constructor.
      * @param obj Level object.
@@ -157,7 +157,7 @@ public class SpriteObject extends Sprite {
         x = 0;
         y = 0;
     }
-    
+
     /**
      * Constructor. Create Sprite from another Sprite.
      * @param src Sprite to clone.
@@ -177,7 +177,7 @@ public class SpriteObject extends Sprite {
         type = src.type;
         mask = src.mask; // flat copy - no deep copy needed!
     }
-    
+
     /**
      * Set the collision mask.
      * @param imgMask image containing the collision mask.
@@ -198,7 +198,7 @@ public class SpriteObject extends Sprite {
             }
         }
     }*/
-    
+
     /**
      * Set the collision mask.
      * @param imgMask image containing the collision mask.
@@ -221,7 +221,7 @@ public class SpriteObject extends Sprite {
         maskOffsetX = xOffset;
         maskOffsetY = yOffset;
     }*/
-    
+
     /**
      * Get type of level object.
      * @return mask as used in Stencil
@@ -250,7 +250,7 @@ public class SpriteObject extends Sprite {
                 return -1;
         }
     }
-    
+
     /**
      * Set x position.
      * @param xi x position in pixels
@@ -258,7 +258,7 @@ public class SpriteObject extends Sprite {
     public final void setX(final int xi) {
         x = xi;
     }
-    
+
     /**
      * Get x position.
      * @return x position in pixels
@@ -266,7 +266,7 @@ public class SpriteObject extends Sprite {
     public int getX() {
         return x;
     }
-    
+
     /**
      * Gets the x visual mid-point of the object
      * @return
@@ -274,7 +274,7 @@ public class SpriteObject extends Sprite {
     public int midX() {
         return x + (width/2);
     }
-    
+
     /**
      * Set y position.
      * @param yi y position in pixels
@@ -282,7 +282,7 @@ public class SpriteObject extends Sprite {
     public final void setY(final int yi) {
         y = yi;
     }
-    
+
     /**
      * Get y position.
      * @return y position in pixels
@@ -298,23 +298,23 @@ public class SpriteObject extends Sprite {
     public int midY() {
         return y + (height/2);
     }
-    
+
     public int getMaskOffsetX() {
         return maskOffsetX;
     }
-    
+
     public int getMaskOffsetY() {
         return maskOffsetY;
     }
-    
+
     public int getMaskWidth() {
         return maskWidth;
     }
-    
+
     public int getMaskHeight() {
         return maskHeight;
     }
-    
+
     /**
      * Set whether this object is visible only on terrain.
      * @param vis whether this object is visible only on terrain
@@ -335,7 +335,7 @@ public class SpriteObject extends Sprite {
         }
         modifiable = vis;
     }
-    
+
     /**
      * Set type of level object.
      * @param t type of level object
@@ -343,7 +343,7 @@ public class SpriteObject extends Sprite {
     public void setType(final Type t) {
         type = t;
     }
-    
+
     /**
      * Get type of level object.
      * @return type of level object
@@ -351,7 +351,7 @@ public class SpriteObject extends Sprite {
     public Type getType() {
         return type;
     }
-    
+
     /**
      * Get whether this object is visible only on terrain.
      * @return whether this object is visible only on terrain
@@ -359,7 +359,7 @@ public class SpriteObject extends Sprite {
     public boolean getVisOnTerrain() {
         return visOnTerrain;
     }
-    
+
     /**
      * Get mask value.
      * @param x x position in pixels

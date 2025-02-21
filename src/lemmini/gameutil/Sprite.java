@@ -14,8 +14,8 @@ import lemmini.tools.ToolBox;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,7 +37,7 @@ import lemmini.tools.ToolBox;
  * @author Volker Oth
  */
 public class Sprite {
-    
+
     /**
      * Animation style.
      */
@@ -52,7 +52,7 @@ public class Sprite {
         ONCE,
         ONCE_ENTRANCE;
     }
-    
+
     /** number of animation frames */
     protected final int numFrames;
     /** sprite width in pixels */
@@ -74,7 +74,7 @@ public class Sprite {
     protected boolean modifiable;
     protected int[][] origColors;
     private Lemming lemming;
-    
+
     /**
      * Get Animation depending on integer value from INI.
      * @param t integer type
@@ -92,7 +92,7 @@ public class Sprite {
                 return Animation.NONE;
         }
     }
-    
+
     /**
      * Constructor.
      * @param sourceImg Image containing animation frames one above each other.
@@ -126,7 +126,7 @@ public class Sprite {
         }
         lemming = null;
     }
-    
+
     /**
      * Constructor.
      * @param frames Animation frames.
@@ -159,7 +159,7 @@ public class Sprite {
         }
         lemming = null;
     }
-    
+
     /**
      * Constructor. Create a Sprite from another Sprite.
      * @param src Sprite to clone.
@@ -188,7 +188,7 @@ public class Sprite {
         }
         lemming = src.lemming;
     }
-    
+
     /**
      * Get given animation frame.
      * @param idx index of animation frame
@@ -197,7 +197,7 @@ public class Sprite {
     public LemmImage getImage(final int idx) {
         return frames.get(idx);
     }
-    
+
     /**
      * Get current animation frame.
      * @return current animation frame.
@@ -205,7 +205,7 @@ public class Sprite {
     public LemmImage getImage() {
         return getImage(frameIdx);
     }
-    
+
     /**
      * Replace one animation frame.
      * Note: replacing with an image of different size will create problems.
@@ -215,7 +215,7 @@ public class Sprite {
     public void setImage(final int idx, final LemmImage img) {
         frames.set(idx, img);
     }
-    
+
     /**
      * Get current animation frame and animate.
      * @return current animation frame (before increasing the animation step).
@@ -266,7 +266,7 @@ public class Sprite {
         }
         return getImage(frameIdx);
     }
-    
+
     /**
      * Set visibility of pixel in all animation frames.
      * @param x x position
@@ -284,7 +284,7 @@ public class Sprite {
             }
         }
     }
-    
+
     public void flipSprite(boolean horizontal, boolean vertical) {
         if (!modifiable || (!horizontal && !vertical)) {
             return;
@@ -293,7 +293,7 @@ public class Sprite {
             int i = lit.nextIndex();
             LemmImage imgSpr = lit.next().transform(false, horizontal, vertical);
             lit.set(imgSpr);
-            
+
             int[] buffer = origColors[i].clone();
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
@@ -302,12 +302,12 @@ public class Sprite {
             }
         }
     }
-    
+
     public void applyTint(int tint) {
         if (!modifiable || (tint & 0xff000000) == 0) {
             return;
         }
-        
+
         for (ListIterator<LemmImage> lit = frames.listIterator(); lit.hasNext(); ) {
             int i = lit.nextIndex();
             lit.next().applyTint(tint);
@@ -318,7 +318,7 @@ public class Sprite {
             }
         }
     }
-    
+
     /**
      * Get animation mode.
      * @return animation mode.
@@ -326,7 +326,7 @@ public class Sprite {
     public Animation getAnimMode() {
         return animMode;
     }
-    
+
     /**
      * Set animation mode.
      * @param mode animation mode
@@ -334,7 +334,7 @@ public class Sprite {
     public void setAnimMode(final Animation mode) {
         animMode = mode;
     }
-    
+
     /**
      * Check if the animation is a triggered type.
      * @return true if the animation is Animation.TRIGGERED.
@@ -342,11 +342,11 @@ public class Sprite {
     public boolean canBeTriggered() {
         return (animMode == Animation.TRIGGERED);
     }
-    
+
     public boolean isTriggered() {
         return triggered;
     }
-    
+
     /**
      * Trigger a triggered animation
      * @param l
@@ -367,7 +367,7 @@ public class Sprite {
         counter = speed - 1;
         return true;
     }
-    
+
     /**
      * Get current animation frame index.
      * @return current animation frame index
@@ -375,14 +375,14 @@ public class Sprite {
     public int getFrameIdx() {
         return frameIdx;
     }
-    
+
     /** Set current animation frame index.
      * @param frameIdx current animation frame index
      */
     public void setFrameIdx(final int frameIdx) {
         this.frameIdx = frameIdx;
     }
-    
+
     /**
      * Get number of animation frames.
      * @return number of animation frames
@@ -390,7 +390,7 @@ public class Sprite {
     public int getNumFrames() {
         return numFrames;
     }
-    
+
     /**
      * Get sound index.
      * @return sound index
@@ -430,7 +430,7 @@ public class Sprite {
             }
         } else if (s.length == 1) {
             sound = new int[1];
-            
+
             // If the sound is one of the exit sounds (14, 23), see if we need to swap it
             if (s[0] == 14 || s[0] == 23)
                 sound[0] = applySoundPreference(s[0]);
@@ -440,7 +440,7 @@ public class Sprite {
             sound = null;
         }
     }
-    
+
     /**
      * Apply user preference to modify sound index.
      * @param inputSound The original sound index
@@ -454,7 +454,7 @@ public class Sprite {
         }
         return inputSound;
     }
-    
+
     /**
      * Get width of Sprite in pixels.
      * @return width of Sprite in pixels
@@ -462,7 +462,7 @@ public class Sprite {
     public int getWidth() {
         return width;
     }
-    
+
     /**
      * Get height of Sprite in pixels.
      * @return height of Sprite in pixels

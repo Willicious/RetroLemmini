@@ -6,8 +6,8 @@ import java.awt.image.AffineTransformOp;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2010 Arne Limburg
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,17 +24,17 @@ import java.awt.image.AffineTransformOp;
  */
 
 public class GraphicsOperation {
-    
+
     private final AffineTransform affineTransform = new AffineTransform();
-    
+
     public void setToScale(double sx, double sy) {
         affineTransform.setToScale(sx, sy);
     }
-    
+
     public void translate(double tx, double ty) {
         affineTransform.translate(tx, ty);
     }
-    
+
     public void execute(LemmImage source, LemmImage destination) {
         AffineTransformOp op = new AffineTransformOp(affineTransform, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
         op.filter(source.getImage(), destination.getImage());

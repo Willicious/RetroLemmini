@@ -25,37 +25,37 @@ import lemmini.tools.ToolBox;
  * @author Ryan Sakowski
  */
 public class GraphicsBuffer {
-    
+
     private LemmImage image;
     private LemmImage subimage;
     private GraphicsContext graphics;
     private final int transparency;
     private final boolean resizable;
-    
+
     public GraphicsBuffer(int width, int height, int transparency, boolean resizable) {
         this.transparency = transparency;
         this.resizable = resizable;
         setSize(width, height);
     }
-    
+
     public synchronized final void setSize(int width, int height) {
         if (image != null && !resizable) {
             return;
         }
-        
+
         int w = width;
         int h = height;
-        
+
         if (image != null) {
             w = Math.max(w, image.getWidth());
             h = Math.max(h, image.getHeight());
         }
-        
+
         if (resizable) {
             w = toPowerOf2(w);
             h = toPowerOf2(h);
         }
-        
+
         if (image == null || w > image.getWidth() || h > image.getHeight()) {
             if (graphics != null) {
                 graphics.dispose();
@@ -76,19 +76,19 @@ public class GraphicsBuffer {
             }
         }
     }
-    
+
     public synchronized LemmImage getImage() {
         return subimage;
     }
-    
+
     public synchronized GraphicsContext getGraphicsContext() {
         return graphics;
     }
-    
+
     public synchronized void dispose() {
         graphics.dispose();
     }
-    
+
     private static int toPowerOf2(int n) {
         if (n <= 0) {
             return 1;

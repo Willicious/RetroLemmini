@@ -30,8 +30,8 @@ import lemmini.game.ResourceException;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -53,7 +53,7 @@ import lemmini.game.ResourceException;
  * @author Volker Oth
  */
 public class MidiMusic implements MusicPlayer {
-    
+
     /** MIDI sequencer */
     private Sequencer sequencer;
     private Synthesizer synthesizer;
@@ -63,7 +63,7 @@ public class MidiMusic implements MusicPlayer {
     private boolean canPlay;
     private final byte[] gainSysexData = {(byte) 0xF0, 0x7F, 0x7F, 0x04, 0x01, 0x7F, 0x7F, (byte) 0xF7};
     private final SysexMessage gainSysex = new SysexMessage();
-    
+
     /**
      * Constructor.
      * @throws LemmException
@@ -80,7 +80,7 @@ public class MidiMusic implements MusicPlayer {
             throw new LemmException("MIDI not supported.");
         }
     }
-    
+
     @Override
     public void load(final Resource resource, final boolean loop) throws ResourceException, LemmException {
     close();
@@ -131,7 +131,7 @@ public class MidiMusic implements MusicPlayer {
             throw new LemmException("MIDI not supported.");
         }
     }
-    
+
     /**
      * Play current MIDI file.
      */
@@ -141,7 +141,7 @@ public class MidiMusic implements MusicPlayer {
             sequencer.start();
         }
     }
-    
+
     /**
      * Stop current MIDI file.
      */
@@ -151,7 +151,7 @@ public class MidiMusic implements MusicPlayer {
             sequencer.stop();
         }
     }
-    
+
     /**
      * Close current MIDI file.
      */
@@ -166,7 +166,7 @@ public class MidiMusic implements MusicPlayer {
         }
         canPlay = false;
     }
-    
+
     /**
      * Set gain (volume) of MIDI output
      * @param gn gain factor: 0.0 (off) - 1.0 (full volume)
@@ -182,7 +182,7 @@ public class MidiMusic implements MusicPlayer {
             } else {
                 gain = (int) (gn * 16383);
             }
-            
+
             byte gainLsb = (byte) (gain & 0x7F);
             byte gainMsb = (byte) ((gain >> 7) & 0x7F);
             gainSysexData[5] = gainLsb;
@@ -194,7 +194,7 @@ public class MidiMusic implements MusicPlayer {
             }
         }
     }
-    
+
     private static long[] findLoopPoints(Sequence seq) throws InvalidMidiDataException {
         long loopStart = -1;
         long loopEnd = -1;
@@ -250,7 +250,7 @@ public class MidiMusic implements MusicPlayer {
         }
         return new long[]{loopStart, loopEnd};
     }
-    
+
     private static Soundbank getSoundbank(Resource resource) {
         try {
             Resource resource2 = Core.findResource(resource.getOriginalPath(), Core.SOUNDBANK_EXTENSIONS);

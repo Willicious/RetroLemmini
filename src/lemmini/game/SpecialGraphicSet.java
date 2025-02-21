@@ -27,12 +27,12 @@ import lemmini.tools.Props;
  * @author Ryan Sakowski
  */
 public class SpecialGraphicSet {
-    
+
     /** list of default special styles */
     @SuppressWarnings("unused")
     private static final List<String> DEFAULT_SPECIAL_STYLES = Arrays.asList("awesome", "menace", "beastii", "beasti",
         "covox", "prima", "apple");
-    
+
     private final String name;
     private final Props props;
     private final Color bgColor;
@@ -44,7 +44,7 @@ public class SpecialGraphicSet {
     private LemmImage image = null;
     private boolean[][] mask = null;
     private boolean[][] steelMask = null;
-    
+
     public SpecialGraphicSet(String name) throws LemmException, ResourceException {
         this.name = name;
         props = new Props();
@@ -52,7 +52,7 @@ public class SpecialGraphicSet {
         if (!props.load(resource)) {
             throw new LemmException("Unable to read " + name + ".ini.");
         }
-        
+
         int bgCol = props.getInt("bgColor", props.getInt("bgColor", 0x000000)) | 0xff000000;
         bgColor = new Color(bgCol);
         debrisColor = props.getInt("debrisColor", 0xffffff) | 0xff000000;
@@ -63,13 +63,13 @@ public class SpecialGraphicSet {
         }
         positionX = props.getInt("positionX", 0);
         positionY = props.getInt("positionY", 0);
-        
+
         // load main image
         resource = Core.findResource(
                 "styles/special/" + name + "/" + name + ".png",
                 Core.IMAGE_EXTENSIONS);
         image = Core.loadLemmImage(resource);
-        
+
         // load mask
         LemmImage sourceImage;
         try {
@@ -86,7 +86,7 @@ public class SpecialGraphicSet {
                 mask[y][x] = (sourceImage.getRGB(x, y) >>> 24) >= 0x80;
             }
         }
-        
+
         // load steel mask
         try {
             resource = Core.findResource(
@@ -103,43 +103,43 @@ public class SpecialGraphicSet {
             steelMask = new boolean[0][0];
         }
     }
-    
+
     public String getName() {
         return name;
     }
-    
+
     public Color getBgColor() {
         return bgColor;
     }
-    
+
     public int getDebrisColor() {
         return debrisColor;
     }
-    
+
     public int getDebrisColor2() {
         return debrisColor2;
     }
-    
+
     public int[] getParticleColor() {
         return particleColor;
     }
-    
+
     public int getPositionX() {
         return positionX;
     }
-    
+
     public int getPositionY() {
         return positionY;
     }
-    
+
     public LemmImage getImage() {
         return image;
     }
-    
+
     public boolean[][] getMask() {
         return mask;
     }
-    
+
     public boolean[][] getSteelMask() {
         return steelMask;
     }

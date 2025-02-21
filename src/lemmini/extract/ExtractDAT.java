@@ -33,7 +33,7 @@ import org.apache.commons.lang3.BooleanUtils;
  * @author Ryan Sakowski
  */
 public class ExtractDAT {
-    
+
     public static List<byte[]> decompress(Path source) throws Exception {
         List<byte[]> decompressedSections = new ArrayList<>(32);
         try (SeekableByteChannel datFile = Files.newByteChannel(source)) {
@@ -46,7 +46,7 @@ public class ExtractDAT {
                 if (section == null) {
                     throw new Exception(String.format("%s is not a valid Lemmings DAT file.", source));
                 }
-                
+
                 byte[] decompressedSection = section.decompress();
                 decompressedSections.add(decompressedSection);
             } while (true);
@@ -67,17 +67,17 @@ public class ExtractDAT {
  * @author Ryan Sakowski
  */
 class DATSection {
-    
+
     /**
      * The size of the header--always 10 bytes.
      */
     private static final int HEADER_SIZE = 10;
-    
+
     /**
      * Byte array representing the compressed data.
      */
     private final byte[] compressedData;
-    /** 
+    /**
      * Number of bits to read from the first read byte (that is, the last one
      * in the array) of the compressed data.
      */
@@ -86,7 +86,7 @@ class DATSection {
      * Size of the decompressed data.
      */
     private final int decompressedDataSize;
-    /** 
+    /**
      * Current byte index into compressedData. Reading starts at the last
      * byte of the compressed data.
      */
@@ -96,12 +96,12 @@ class DATSection {
      * each byte of the compressed data is read first.
      */
     private int bitIndex;
-    
+
     /**
      * Constructor for DatSection.
      * @param compressedData
      * @param numBitsInFirstByte
-     * @param decompressedDataSize 
+     * @param decompressedDataSize
      */
     DATSection(byte[] compressedData, int numBitsInFirstByte, int decompressedDataSize) {
         this.compressedData = compressedData;
@@ -109,12 +109,12 @@ class DATSection {
         this.decompressedDataSize = decompressedDataSize;
         resetIndex();
     }
-    
+
     /**
      * Static method for creating a DATSection from a ByteChannel.
      * @param bc the ByteChannel to read from
      * @return DATSection if the section was read successfully, null otherwise.
-     * @throws IOException 
+     * @throws IOException
      */
     static DATSection getDATSection(ByteChannel bc) throws IOException {
         // Read the header.
@@ -127,20 +127,20 @@ class DATSection {
         byte targetChecksum = buffer.get();
         int decompressedDataSize = buffer.getInt();
         int compressedDataSize = buffer.getInt() - HEADER_SIZE;
-        
+
         // Make sure that numBitsInFirstByte is in the range of 0-8.
         // Technically, it shouldn't be 0, but that can be handled easily.
         if (numBitsInFirstByte < 0 || numBitsInFirstByte > 8) {
             return null;
         }
-        
+
         // Read the compressed data.
         buffer = ByteBuffer.allocate(compressedDataSize);
         if (bc.read(buffer) != compressedDataSize) {
             return null;
         }
         byte[] compressedData = buffer.array();
-        
+
         // Calculate the compressed data's checksum by XORing all of its bytes,
         // and then make sure that the checksum matches the one in the header.
         byte sectionChecksum = 0;
@@ -150,10 +150,10 @@ class DATSection {
         if (sectionChecksum != targetChecksum) {
             return null;
         }
-        
+
         return new DATSection(compressedData, numBitsInFirstByte, decompressedDataSize);
     }
-    
+
     /**
      * Returns a byte array containing the decompressed data of this section.
      * @return a byte array containing the decompressed data
@@ -213,7 +213,7 @@ class DATSection {
                             break;
                         case 0b10:
                             // Method 110: Similar to methods 01, 100, and 101,
-                            // except the number of bytes to copy is determined 
+                            // except the number of bytes to copy is determined
                             // by the next 8-bit value, and the offset (which
                             // is read after the byte count) is a 12-bit value.
                             byteCount = nextValue(8) + 1;
@@ -240,7 +240,7 @@ class DATSection {
         resetIndex();
         return decompressedData;
     }
-    
+
     /**
      * Resets the index to the end of the compressed data in preparation for
      * decompression.
@@ -249,7 +249,7 @@ class DATSection {
         index = compressedData.length - ((numBitsInFirstByte == 0) ? 2 : 1);
         bitIndex = 0;
     }
-    
+
     /**
      * Reads a bit from the compressed data and advances the index.
      * @return true if the bit is set to 1, false if it's set to 0
@@ -265,7 +265,7 @@ class DATSection {
         }
         return retBool;
     }
-    
+
     /**
      * Extracts a value of the specified size from the compressed data and
      * advances the index. The most significant bit is read first.
@@ -279,7 +279,7 @@ class DATSection {
         }
         return retValue;
     }
-    
+
     /**
      * Extracts a byte from the compressed data. Equivalent to calling
      * nextValue(8) and casting to byte.
@@ -288,7 +288,7 @@ class DATSection {
     private byte nextByte() {
         return (byte) nextValue(8);
     }
-    
+
     /**
      * Extracts the specified number of bytes from the compressed data into the
      * given array. The first byte is copied to the specified index, and each
@@ -302,7 +302,7 @@ class DATSection {
             data[idx--] = nextByte();
         }
     }
-    
+
     /**
      * Copies the specified number of bytes from one index of the given array
      * to another index. The first byte is copied from the specified offset to

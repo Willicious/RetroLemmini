@@ -1,7 +1,7 @@
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -71,20 +71,20 @@ import lemmini.tools.ToolBox;
  * @author Volker Oth
  */
 public class LemminiFrame extends JFrame {
-    
+
     public static final int LEVEL_HEIGHT = 320;
     private static final long serialVersionUID = 0x01L;
-    
+
     private int unmaximizedPosX;
     private int unmaximizedPosY;
-    
+
     /** self reference */
     static LemminiFrame thisFrame;
-    
+
 //    /** full screen version */
 //    static LemminiFrame fullscreenFrame;
 //    private static boolean isFullScreen;
-    
+
     /**
      * Creates new form LemminiFrame
      */
@@ -105,15 +105,15 @@ public class LemminiFrame extends JFrame {
             ToolBox.showException(ex);
             System.exit(1);
         }
-        
+
         initComponents();
         setMinimumSize(getSize());
         RepeatingReleasedEventsFixer.install();
     }
-    
+
     private static void consoleInit() {
         //logo curtesy of: https://www.coolgenerator.com/ascii-text-generator
-        String logo = 
+        String logo =
                 " ________  _______  _________  ________  ________  ___       _______   _____ ______   _____ ______   ___  ________   ___     \n"
               + "|\\   __  \\|\\  ___ \\|\\___   ___\\\\   __  \\|\\   __  \\|\\  \\     |\\  ___ \\ |\\   _ \\  _   \\|\\   _ \\  _   \\|\\  \\|\\   ___  \\|\\  \\    \n"
               + "\\ \\  \\|\\  \\ \\   __/\\|___ \\  \\_\\ \\  \\|\\  \\ \\  \\|\\  \\ \\  \\    \\ \\   __/|\\ \\  \\\\\\__\\ \\  \\ \\  \\\\\\__\\ \\  \\ \\  \\ \\  \\\\ \\  \\ \\  \\   \n"
@@ -123,33 +123,33 @@ public class LemminiFrame extends JFrame {
               + "    \\|__|\\|__|\\|_______|   \\|__|  \\|__|\\|__|\\|_______|\\|_______|\\|_______|\\|__|     \\|__|\\|__|     \\|__|\\|__|\\|__| \\|__|\\|__|\n";
         System.out.println(logo);
         System.out.println("===================================================================================================================");
-        System.out.println("      Version " + Core.REVISION + "         Date: " + Core.REV_DATE);    
+        System.out.println("      Version " + Core.REVISION + "         Date: " + Core.REV_DATE);
         System.out.println("===================================================================================================================");
         System.out.println("");
-        java.time.format.DateTimeFormatter dtf = java.time.format.DateTimeFormatter.ofPattern("yyyy MMMM d  HH:mm:ss");  
-        java.time.LocalDateTime now = java.time.LocalDateTime.now();  
+        java.time.format.DateTimeFormatter dtf = java.time.format.DateTimeFormatter.ofPattern("yyyy MMMM d  HH:mm:ss");
+        java.time.LocalDateTime now = java.time.LocalDateTime.now();
         System.out.println(dtf.format(now) + "\nloading RetroLemmini..." );
         System.out.println("    Java version: " + System.getProperty("java.version").toString());
         System.out.println("    OS Name: " + System.getProperty("os.name"));
         System.out.println("    OS Version: " + System.getProperty("os.version"));
         System.out.println("");
          };
-    
+
     void init(//LemminiFrame frame // BOOKMARK TODO: (Fullscreen attempted implementation) Passing values here might be causing issues
             ) {
         System.out.println("\ninitializing LemminiFrame...");
         try {
             // initialize the game controller and main panel
             GameController.init();
-            
+
          // BOOKMARK TODO: This correctly sets the fullscreen bool
 //            isFullScreen = GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_SCREEN);
-            
+
             lemminiPanelMain.init();
             lemminiPanelMain.setCursor(LemmCursor.getCursor());
-            
+
             toggleMenuBarVisibility();
-            
+
             // load the panel size
 //            if (frame == fullscreenFrame || isFullScreen) {
 //                //setFullScreen();
@@ -159,16 +159,16 @@ public class LemminiFrame extends JFrame {
                 lemminiPanelMain.setSize(w, h);
                 lemminiPanelMain.setPreferredSize(lemminiPanelMain.getSize()); // needed for pack() to keep this size
 //            }
-            
+
             pack();
-            
+
 //            if (frame == thisFrame && !isFullScreen) {
                 // center the window, then load the window position
                 setLocationRelativeTo(null);
                 int posX = Core.programProps.getInt("framePosX", getX());
                 int posY = Core.programProps.getInt("framePosY", getY());
                 setLocation(posX, posY);
-            
+
                 // load the maximized state
                 int maximizedState = 0;
                 if (Core.programProps.getBoolean("maximizedHoriz", false)) {
@@ -179,14 +179,14 @@ public class LemminiFrame extends JFrame {
                 }
                 setExtendedState(getExtendedState() | maximizedState);
 //            }
-            
+
             GameController.setGameState(GameController.State.INTRO);
             GameController.setTransition(GameController.TransitionState.NONE);
             Fader.setState(Fader.State.IN);
-            
+
             Thread t = new Thread(lemminiPanelMain);
             t.start();
-            
+
 //            if (fullscreenFrame != null) fullscreenFrame.setVisible(isFullScreen);
 //            if (thisFrame != null) thisFrame.setVisible(!isFullScreen);
             setVisible(true);
@@ -198,17 +198,17 @@ public class LemminiFrame extends JFrame {
         }
         System.out.println("LemminiFrame initialization complete.");
     }
-    
+
 //    public void setFullScreen() { // BOOKMARK TODO: This works well enough to set the window to fill the screen
                                     // but we can't use setUndecorated (not sure why)
                                     // and, the panel content doesn't get loaded properly (again, not sure why)
 //        System.out.println("setting full screen........................");
-//        
+//
 //        setExtendedState(MAXIMIZED_BOTH);
 //        setResizable(false);
-//        
+//
 //        Point l = getLocation();
-//        
+//
 //        // Disable window movement
 //        addComponentListener(new java.awt.event.ComponentAdapter() {
 //            @Override
@@ -217,13 +217,13 @@ public class LemminiFrame extends JFrame {
 //            }
 //        });
 //    }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
      * regenerated by the Form Editor.
      */
-    
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -296,7 +296,7 @@ public class LemminiFrame extends JFrame {
             }
         });
         jMenuFile.add(jMenuItemExit);
-        
+
         jMenuBarMain.add(jMenuFile);
 
         jMenuPlayers.setText("Players");
@@ -356,21 +356,21 @@ public class LemminiFrame extends JFrame {
                 jMenuItemOptionsActionPerformed(evt);
             }
         });
-        
+
         jMenuItemHotkeys.setText("Hotkeys...");
         jMenuItemHotkeys.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 handleHotkeys();
             }
         });
-        
+
         jMenuItemAbout.setText("About...");
         jMenuItemAbout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 handleAbout();
             }
         });
-        
+
         jMenuOptions.add(jMenuItemOptions);
         jMenuOptions.add(jMenuItemHotkeys);
         jMenuOptions.add(jMenuItemAbout);
@@ -394,7 +394,7 @@ public class LemminiFrame extends JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     void handleHotkeys() {
         String hotkeyList = "<html><body>"
                 + "<h3>Hotkeys</h3>"
@@ -418,31 +418,31 @@ public class LemminiFrame extends JFrame {
                 + "<tr><td><b>(Advanced Select Off) Arrows: Up</b></td>   <td>Nudge Level Up</td></tr>"
                 + "<tr><td><b>(Advanced Select Off) Arrows: Down</b></td> <td>Nudge Level Down</td></tr>"
                 + "<tr><td><b>Ctrl + S</b></td>                           <td>Save Replay (from Level/Debriefing)</td></tr>"
-                + "<tr><td><b>Ctrl + L</b></td>                           <td>Load Replay</td></tr>"               
+                + "<tr><td><b>Ctrl + L</b></td>                           <td>Load Replay</td></tr>"
                 + "<tr><td><b>Ctrl + F4</b></td>                          <td>Manage Players</td></tr>"
                 + "<tr><td><b>Ctrl + F5</b></td>                          <td>Enter Code</td></tr>"
                 + "<tr><td><b>Ctrl + F9</b></td>                          <td>Select Level</td></tr>"
                 + "<tr><td><b>Ctrl + F10</b></td>                         <td>Options</td></tr>"
                 + "<tr><td><b>Ctrl + F11</b></td>                         <td>Hotkeys</td></tr>"
                 + "<tr><td><b>Ctrl + F12</b></td>                         <td>About</td></tr>"
-                + "<tr><td><b>Ctrl + M</b></td>                           <td>Toggle Menu Bar Visibility</td></tr>" 
+                + "<tr><td><b>Ctrl + M</b></td>                           <td>Toggle Menu Bar Visibility</td></tr>"
                 + "<tr><td><b>Esc</b></td>                                <td>Quit Level / Close RetroLemmini (from Menu)</td></tr>"
                 + "</table>"
                 + "</body></html>";
 
         LemminiFrame frame = thisFrame;
 //        if (isFullScreen) frame = fullscreenFrame; else frame = thisFrame; // BOOKMARK TODO: Not sure if this actually works
-        
+
         JOptionPane.showMessageDialog(frame, hotkeyList, "Hotkeys", JOptionPane.PLAIN_MESSAGE);
     }
-    
+
     void handleAbout() {
         String urlLemmini = "http://lemmini.de";
         String urlForumBoard = "https://www.lemmingsforums.net/index.php?board=10.0";
         String urlRetroLemmini = "https://www.lemmingsforums.net/index.php?topic=7030.0";
 
         // Create a JEditorPane with HTML content
-        JEditorPane editorPane = new JEditorPane("text/html", 
+        JEditorPane editorPane = new JEditorPane("text/html",
                 "<html>"
                 + "RetroLemmini Version " + Core.REVISION + "<br>"
                 + "By William James<br><br>"
@@ -455,7 +455,7 @@ public class LemminiFrame extends JFrame {
                 + "Lemmini website: <a href='" + urlLemmini + "'>" + urlLemmini + "</a><br><br>"
                 + "Java version: " + System.getProperty("java.version")
                 + "</html>");
-        
+
         editorPane.setEditable(false);
         editorPane.setBackground(new JLabel().getBackground()); // Match the background color
 
@@ -471,23 +471,23 @@ public class LemminiFrame extends JFrame {
                 }
             }
         });
-        
-        LemminiFrame frame = thisFrame;      
+
+        LemminiFrame frame = thisFrame;
 //        if (isFullScreen) frame = fullscreenFrame; else frame = thisFrame; // BOOKMARK TODO: Not sure if this actually works
 
         JOptionPane.showConfirmDialog(
-                frame, 
-                new JScrollPane(editorPane), 
-                "About", 
-                JOptionPane.DEFAULT_OPTION, 
+                frame,
+                new JScrollPane(editorPane),
+                "About",
+                JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE
             );
     }
-    
+
     private void formComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentMoved
         storeUnmaximizedPos();
     }//GEN-LAST:event_formComponentMoved
-    
+
     private void togglePause() {
         boolean isPaused = GameController.isPaused();
         if (GameController.isOptionEnabled(GameController.Option.PAUSE_STOPS_FAST_FORWARD)
@@ -498,15 +498,15 @@ public class LemminiFrame extends JFrame {
         GameController.setPaused(!isPaused);
         GameController.pressIcon(Icons.IconType.PAUSE);
     }
-    
+
     private void printLevelNameToConsole() {
         System.out.println(GameController.getLevelPack(GameController.getCurLevelPackIdx()).getInfo(GameController.getCurRating(),
                                                        GameController.getCurLevelNumber()).getLevelResource());
     }
-    
+
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         int code = evt.getKeyCode();
-        
+
         // Handle modifiers
         switch (code) {
             case KeyEvent.VK_SHIFT:
@@ -519,7 +519,7 @@ public class LemminiFrame extends JFrame {
                 lemminiPanelMain.setAltPressed(true);
                 break;
         }
-        
+
         switch (GameController.getGameState()) {
             case LEVEL:
                 switch (code) {
@@ -605,7 +605,7 @@ public class LemminiFrame extends JFrame {
                         if (lemminiPanelMain.isControlPressed())
                             lemminiPanelMain.handleLoadReplay();
                         else if (Core.player.isDebugMode()) {
-                            printLevelNameToConsole();    
+                            printLevelNameToConsole();
                         }
                         break;
                     case KeyEvent.VK_M:
@@ -675,7 +675,7 @@ public class LemminiFrame extends JFrame {
                             GameController.setTurbo(!GameController.isTurbo());
                         else
                             GameController.setTurbo(false);
-                        
+
                         GameController.setFastForward(!GameController.isFastForward());
                         GameController.pressIcon(Icons.IconType.FFWD);
                         break;
@@ -1023,7 +1023,7 @@ public class LemminiFrame extends JFrame {
                 break;
         }
     }//GEN-LAST:event_formKeyPressed
-    
+
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
         int code = evt.getKeyCode();
         if (GameController.getGameState() == GameController.State.LEVEL) {
@@ -1102,23 +1102,23 @@ public class LemminiFrame extends JFrame {
             }
         }
     }//GEN-LAST:event_formKeyReleased
-    
+
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         exit();
     }//GEN-LAST:event_formWindowClosed
-    
+
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         exit();
     }//GEN-LAST:event_formWindowClosing
-    
+
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         lemminiPanelMain.focusGained();
     }//GEN-LAST:event_formWindowGainedFocus
-    
+
     private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
         lemminiPanelMain.focusLost();
     }//GEN-LAST:event_formWindowLostFocus
-    
+
     private void jMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed
         exit();
     }//GEN-LAST:event_jMenuItemExitActionPerformed
@@ -1126,11 +1126,11 @@ public class LemminiFrame extends JFrame {
     private void jMenuItemManagePlayersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemManagePlayersActionPerformed
         lemminiPanelMain.handlePlayers();
     }//GEN-LAST:event_jMenuItemManagePlayersActionPerformed
-    
+
     private void jMenuItemPlayLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPlayLevelActionPerformed
         lemminiPanelMain.handlePlayLevel();
     }//GEN-LAST:event_jMenuItemPlayLevelActionPerformed
-    
+
     private void jMenuItemRestartLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRestartLevelActionPerformed
         if (GameController.getLevel() == null) {
             GameController.requestChangeLevel(GameController.getCurLevelPackIdx(), GameController.getCurRating(), GameController.getCurLevelNumber(), false);
@@ -1138,19 +1138,19 @@ public class LemminiFrame extends JFrame {
             GameController.requestRestartLevel(false, true);
         }
     }//GEN-LAST:event_jMenuItemRestartLevelActionPerformed
-    
+
     private void jMenuItemLoadReplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLoadReplayActionPerformed
         lemminiPanelMain.handleLoadReplay();
     }//GEN-LAST:event_jMenuItemLoadReplayActionPerformed
-    
+
     private void jMenuItemEnterLevelCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEnterLevelCodeActionPerformed
         lemminiPanelMain.handleEnterCode();
     }//GEN-LAST:event_jMenuItemEnterLevelCodeActionPerformed
-    
+
     private void jMenuItemOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemOptionsActionPerformed
         lemminiPanelMain.handleOptions();
     }//GEN-LAST:event_jMenuItemOptionsActionPerformed
-    
+
     /**
      * The main function. Entry point of the program.
      * @param args the command line arguments
@@ -1170,7 +1170,7 @@ public class LemminiFrame extends JFrame {
         } else {
             System.out.println("JVM >= 1.8 [PASS]");
         }
-        
+
         // check free memory
         long free = Runtime.getRuntime().maxMemory();
         long memReq = 96 * 1024 * 1024;
@@ -1181,7 +1181,7 @@ public class LemminiFrame extends JFrame {
         } else {
             System.out.println("memory check: " + (int)(free / (1024*1024)) + "MB >= " + (int)(memReq / (1024*1024)) + "MB [PASS]");
         }
-        
+
         Path level = null;
         for (int i = 0; i < args.length; i++) {
             switch (args[i].toLowerCase(Locale.ROOT)) {
@@ -1198,7 +1198,7 @@ public class LemminiFrame extends JFrame {
                     break;
             }
         }
-        
+
 
         System.out.println("applying system \"Look and Feel\" and system specific settings...");
         /*
@@ -1209,12 +1209,12 @@ public class LemminiFrame extends JFrame {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             /* don't care */
         }
-        
+
         /*
          * Apple menu bar for MacOS
          */
         System.setProperty("apple.laf.useScreenMenuBar", "true");
-        
+
         // workaround to adjust time base to 1ms under Windows
         // see http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6435126
         new Thread() {
@@ -1232,30 +1232,30 @@ public class LemminiFrame extends JFrame {
                 }
             }
         };
-        
+
         /* Create and display the form */
         System.out.println("\ncreating LemminiFrame...");
-        
+
         thisFrame = new LemminiFrame(//thisFrame // BOOKMARK TODO: (Fullscreen mode attempted implementation)
                                                  // Passing values here might be causing issues, not entirely sure
                 );
         thisFrame.init(//thisFrame
                 );
-        
+
 //        fullscreenFrame = new LemminiFrame(fullscreenFrame);
 //        fullscreenFrame.setUndecorated(true);
 //        fullscreenFrame.init(fullscreenFrame);
-        
+
         if (level != null) {
             System.out.println("external level loaded. starting up inside level...");
             int[] levelPosition = GameController.addExternalLevel(level, null, true);
             GameController.requestChangeLevel(levelPosition[0], levelPosition[1], levelPosition[2], false);
         }
     }
-    
+
     void toggleMenuBarVisibility() {
         boolean shouldShowMenuBar;
-        
+
         // BOOKMARK TODO: (Fullscreen implementation) Find a way to auto-hide the menu bar
         //                                            in such a way that the user can toggle it back on, even in Fullsreen
         //shouldShowMenuBar = !GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_SCREEN);
@@ -1273,7 +1273,7 @@ public class LemminiFrame extends JFrame {
         int contentHeight = getHeight() - insets.top - insets.bottom;
         setSize(contentWidth + insets.left + insets.right, contentHeight + insets.top + insets.bottom);
     }
-    
+
     /**
      * Common exit method to use in exit events.
      */
@@ -1294,13 +1294,13 @@ public class LemminiFrame extends JFrame {
         RepeatingReleasedEventsFixer.remove();
         System.exit(0);
     }
-    
+
     @Override
     public void setLocation(int x, int y) {
         super.setLocation(x, y);
         storeUnmaximizedPos();
     }
-    
+
     private void storeUnmaximizedPos() {
         int frameState = getExtendedState();
         if (!BooleanUtils.toBoolean(frameState & MAXIMIZED_HORIZ)) {
@@ -1310,35 +1310,35 @@ public class LemminiFrame extends JFrame {
             unmaximizedPosY = getY();
         }
     }
-    
+
     public void setCursor(final LemmCursor.CursorType c) {
         lemminiPanelMain.setCursor(c);
     }
-    
+
     void setRestartEnabled(boolean restartEnabled) {
         jMenuItemRestartLevel.setEnabled(restartEnabled);
     }
-    
+
     public static LemminiFrame getFrame() {
 //        if (isFullScreen)
 //            return fullscreenFrame; // BOOKMARK TODO: More stuff for attempted fullscreen mode
 //        else
             return thisFrame;
     }
-    
+
     private void saveLevelAsImage() {
         String levelName = GameController.getLevel().getLevelName();
         String baseFileName = levelName.replaceAll("[^a-zA-Z0-9._-]", "_"); // Sanitize filename
         String fileName = baseFileName + ".png";
         Path filePath = Core.resourceTree.getPath(fileName);
-        
+
         int counter = 1;
         while (Files.exists(filePath)) {
             fileName = baseFileName + "(" + counter + ").png";
             filePath = Core.resourceTree.getPath(fileName);
             counter++;
         }
-        
+
         LemmImage tmp = GameController.getLevel().createMinimap(GameController.getFgImage(), 1.0, 1.0, true, false, true);
         // BOOKMARK TODO: See if there's a way to draw the lemmings to this image as well
         //                If there is, maybe show a quick "options" dialog where the user can choose whether or not to include lemmings, background, etc
@@ -1351,7 +1351,7 @@ public class LemminiFrame extends JFrame {
             JOptionPane.showMessageDialog(null, "Could not save level image", "Save Level Image", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBarMain;
     private javax.swing.JMenu jMenuFile;

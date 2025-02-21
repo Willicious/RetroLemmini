@@ -10,8 +10,8 @@ import lemmini.tools.ToolBox;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,7 +34,7 @@ import lemmini.tools.ToolBox;
  * @author Volker Oth
  */
 public class MiscGfx {
-    
+
     /** Index of images */
     public static enum Index {
         /** border for the minimap */
@@ -72,7 +72,7 @@ public class MiscGfx {
         /** the scrolling ticker-tape shown at the start of the game. */
         TICKER_TAPE
     }
-    
+
 
     /** list of images */
     private static final List<LemmImage> images = new ArrayList<>(16);
@@ -80,7 +80,7 @@ public class MiscGfx {
     private static LemmImage minimap;
     private static LemmImage minimapLarge;
     private static int minimapWidth;
-    
+
     /**
      * Initialization.
      * @param mmWidth Minimap width
@@ -116,7 +116,7 @@ public class MiscGfx {
         resource = Core.findResource("gfx/iconbar/large_minimap_right.png", Core.IMAGE_EXTENSIONS);
         img = Core.loadLemmImage(resource);
         images.add(img);
-        
+
         /* 6: MINIMAP_ARROW_LEFT, 7: MINIMAP_ARROW_UP, 8: MINIMAP_ARROW_RIGHT, 9: MINIMAP_ARROW_DOWN */
         resource = Core.findResource("gfx/misc/minimap_arrows.png", Core.IMAGE_EXTENSIONS);
         List<LemmImage> anim = ToolBox.getAnimation(Core.loadLemmImage(resource), 4);
@@ -153,17 +153,17 @@ public class MiscGfx {
         img = Core.loadLemmImage(resource);
         images.add(img);
 
-        
+
         /*add visual sfx images */
         resource = Core.findResource("gfx/misc/vsfxbig.png", Core.IMAGE_EXTENSIONS);
         anim = ToolBox.getAnimation(Core.loadLemmImage(resource), Vsfx.VSFX_COUNT);
         vsfx_images.addAll(anim);
-        
+
         /* Assemble minimap */
         minimapWidth = -1;
         setMinimapWidth(mmWidth);
     }
-    
+
     /**
      * Get image.
      * @param idx Index
@@ -183,26 +183,26 @@ public class MiscGfx {
     }
 
     /**
-     * Get Visual SFX image. 
+     * Get Visual SFX image.
      * @param idx
      * @return
      */
     public static LemmImage getVsfxImage(int idx) {
         return vsfx_images.get(idx);
     }
-    
+
     public static LemmImage getMinimapImage() {
         return minimap;
     }
-    
+
     public static LemmImage getMinimapLargeImage() {
         return minimapLarge;
     }
-    
+
     public static int getMinimapWidth() {
         return minimapWidth;
     }
-    
+
     public static void setMinimapWidth(int width) {
         if (width == minimapWidth) {
             return;
@@ -212,20 +212,20 @@ public class MiscGfx {
         minimap = createMiniMapFrame(width);
         minimapLarge = createLargeMiniMapFrame(width);
     }
-    
+
     private static LemmImage createMiniMapFrame(int width) {
         final int BORDER = 4;
         LemmImage minimapLeft = images.get(Index.MINIMAP_LEFT.ordinal());
         LemmImage minimapCenter = images.get(Index.MINIMAP_CENTER.ordinal());
         LemmImage minimapRight = images.get(Index.MINIMAP_RIGHT.ordinal());
-        
+
         int leftWidth = Math.min(minimapLeft.getWidth(), BORDER + width);
         int centerWidth = width + BORDER - leftWidth;
         int rightWidth = minimapRight.getWidth();
-        
+
         LemmImage tempMinimap = ToolBox.createLemmImage(leftWidth + centerWidth + rightWidth,
                 NumberUtils.max(minimapLeft.getHeight(), minimapCenter.getHeight(), minimapRight.getHeight()));
-        
+
         for (int y = 0; y < minimapLeft.getHeight(); y++) {
             for (int x = 0; x < leftWidth; x++) {
                 tempMinimap.setRGB(x, y, minimapLeft.getRGB(x, y));
@@ -243,20 +243,20 @@ public class MiscGfx {
         }
         return tempMinimap;
     }
-    
+
     private static LemmImage createLargeMiniMapFrame(int width) {
         final int BORDER = 7;
         LemmImage minimapLeft = images.get(Index.MINIMAP_LARGE_LEFT.ordinal());
         LemmImage minimapCenter = images.get(Index.MINIMAP_LARGE_CENTER.ordinal());
         LemmImage minimapRight = images.get(Index.MINIMAP_LARGE_RIGHT.ordinal());
-        
+
         int leftWidth = Math.min(minimapLeft.getWidth(), BORDER + width);
         int centerWidth = width + BORDER - leftWidth;
         int rightWidth = minimapRight.getWidth();
-        
+
         LemmImage tempMinimap = ToolBox.createLemmImage(leftWidth + centerWidth + rightWidth,
                 NumberUtils.max(minimapLeft.getHeight(), minimapCenter.getHeight(), minimapRight.getHeight()));
-        
+
         for (int y = 0; y < minimapLeft.getHeight(); y++) {
             for (int x = 0; x < leftWidth; x++) {
                 tempMinimap.setRGB(x, y, minimapLeft.getRGB(x, y));

@@ -16,8 +16,8 @@ import lemmini.game.Resource;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,12 +39,12 @@ import lemmini.game.Resource;
  * @author Volker Oth
  */
 public class Props {
-    
+
     /** extended hash to store properties */
     private final Properties hash;
     /** header string */
     private String header;
-    
+
     /**
      * Constructor
      */
@@ -52,7 +52,7 @@ public class Props {
         hash = new Properties();
         header = new String();
     }
-    
+
     /**
      * Set the property file header
      * @param h String containing Header information
@@ -60,14 +60,14 @@ public class Props {
     public void setHeader(final String h) {
         header = h;
     }
-    
+
     /**
      * Clear all properties
      */
     public void clear() {
         hash.clear();
     }
-    
+
     /**
      * Remove key
      * @param key Name of key
@@ -75,7 +75,7 @@ public class Props {
     public void remove(final String key) {
         hash.remove(key);
     }
-    
+
     /**
      * Set string property
      * @param key Name of the key to set value for
@@ -84,7 +84,7 @@ public class Props {
     public void set(final String key, final String value) {
         hash.setProperty(key, value);
     }
-    
+
     /**
      * Set integer property
      * @param key Name of the key to set value for
@@ -93,7 +93,7 @@ public class Props {
     public void setInt(final String key, final int value) {
         hash.setProperty(key, Integer.toString(value));
     }
-    
+
     /**
      * Set double property
      * @param key Name of the key to set value for
@@ -102,7 +102,7 @@ public class Props {
     public void setDouble(final String key, final double value) {
         hash.setProperty(key, Double.toString(value));
     }
-    
+
     /**
      * Set boolean property
      * @param key Name of the key to set value for
@@ -111,7 +111,7 @@ public class Props {
     public void setBoolean(final String key, final boolean value) {
         hash.setProperty(key, Boolean.toString(value));
     }
-    
+
     /**
      * Get string property
      * @param key Name of the key to get value for
@@ -121,7 +121,7 @@ public class Props {
     public String get(final String key, final String def) {
         return hash.getProperty(key, def);
     }
-    
+
     /**
      * Get string property from the first Props object that contains it
      * @param pCollection Collection of Props objects to search
@@ -137,7 +137,7 @@ public class Props {
         }
         return def;
     }
-    
+
     /**
      * Get string array property (an array is a result split by commas)
      * @param key Name of the key to get value for
@@ -154,10 +154,10 @@ public class Props {
         for (int i = 0; i < members.length; i++) {
             members[i] = members[i].trim();
         }
-        
+
         return members;
     }
-    
+
     /**
      * Get string array property from the first Props object that contains it
      * @param pCollection Collection of Props objects to search
@@ -173,7 +173,7 @@ public class Props {
         }
         return def;
     }
-    
+
     /**
      * Get integer property
      * @param key Name of the key to get value for
@@ -187,7 +187,7 @@ public class Props {
         }
         return ToolBox.parseInt(s.trim());
     }
-    
+
     /**
      * Get integer property from the first Props object that contains it
      * @param pCollection Collection of Props objects to search
@@ -203,7 +203,7 @@ public class Props {
         }
         return def;
     }
-    
+
     /**
      * Get integer array property
      * @param key Name of the key to get value for
@@ -216,16 +216,16 @@ public class Props {
             return def;
         }
         String[] members = s.split(",");
-        
+
         int[] ret;
         ret = new int[members.length];
         for (int i = 0; i < members.length; i++) {
             ret[i] = ToolBox.parseInt(members[i].trim());
         }
-        
+
         return ret;
     }
-    
+
     /**
      * Get integer array property from the first Props object that contains it
      * @param pCollection Collection of Props objects to search
@@ -241,7 +241,7 @@ public class Props {
         }
         return def;
     }
-    
+
     /**
      * Get double property
      * @param key Name of the key to get value for
@@ -264,7 +264,7 @@ public class Props {
             return Double.parseDouble(s);
         }
     }
-    
+
     /**
      * Get double property from the first Props object that contains it
      * @param pCollection Collection of Props objects to search
@@ -280,7 +280,7 @@ public class Props {
         }
         return def;
     }
-    
+
     /**
      * Get double array property
      * @param key Name of the key to get value for
@@ -293,7 +293,7 @@ public class Props {
             return def;
         }
         String[] members = s.split(",");
-        
+
         double[] ret;
         ret = new double[members.length];
         for (int i = 0; i < members.length; i++) {
@@ -308,10 +308,10 @@ public class Props {
                 ret[i] = Double.parseDouble(members[i]);
             }
         }
-        
+
         return ret;
     }
-    
+
     /**
      * Get double array property from the first Props object that contains it
      * @param pCollection Collection of Props objects to search
@@ -327,7 +327,7 @@ public class Props {
         }
         return def;
     }
-    
+
     /**
      * Get boolean property
      * @param key Name of the key to get value for
@@ -341,7 +341,7 @@ public class Props {
         }
         return Boolean.parseBoolean(s.trim());
     }
-    
+
     /**
      * Get boolean property from the first Props object that contains it
      * @param pCollection Collection of Props objects to search
@@ -357,7 +357,7 @@ public class Props {
         }
         return def;
     }
-    
+
     /**
      * Get boolean array property
      * @param key Name of the key to get value for
@@ -370,16 +370,16 @@ public class Props {
             return def;
         }
         String[] members = s.split(",");
-        
+
         boolean[] ret;
         ret = new boolean[members.length];
         for (int i = 0; i < members.length; i++) {
             ret[i] = Boolean.parseBoolean(members[i].trim());
         }
-        
+
         return ret;
     }
-    
+
     /**
      * Get boolean array property from the first Props object that contains it
      * @param pCollection Collection of Props objects to search
@@ -395,11 +395,11 @@ public class Props {
         }
         return def;
     }
-    
+
     public boolean containsKey(final String key) {
         return hash.containsKey(key);
     }
-    
+
     /**
      * Save property file
      * @param fname File name of property file
@@ -414,7 +414,7 @@ public class Props {
             return false;
         }
     }
-    
+
     /**
      * Save property file
      * @param fname File name of property file
@@ -429,7 +429,7 @@ public class Props {
             return false;
         }
     }
-    
+
     /**
      * Save property file
      * @param w Writer to property file
@@ -445,7 +445,7 @@ public class Props {
             return false;
         }
     }
-    
+
     /**
      * Load property file
      * @param fname Name of property file
@@ -459,7 +459,7 @@ public class Props {
             return false;
         }
     }
-    
+
     /**
      * Load property file
      * @param fname Name of property file
@@ -473,7 +473,7 @@ public class Props {
             return false;
         }
     }
-    
+
     /**
      * Load property file
      * @param file URL of property file
@@ -487,7 +487,7 @@ public class Props {
             return false;
         }
     }
-    
+
     /**
      * Load property file
      * @param res property file resource
@@ -501,7 +501,7 @@ public class Props {
             return false;
         }
     }
-    
+
     /**
      * Load property file
      * @param r Reader for property file
@@ -515,8 +515,8 @@ public class Props {
             return false;
         }
     }
-    
-    
+
+
     /**
      * Returns the highest level number present for the supplied Group, in the records.
      * @param groupNum The group number from the player INI file to check levels against
@@ -544,5 +544,5 @@ public class Props {
         }
         return max;
     }
-    
+
 }

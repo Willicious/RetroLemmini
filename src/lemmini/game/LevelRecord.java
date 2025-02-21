@@ -20,15 +20,15 @@ package lemmini.game;
  * @author Ryan Sakowski
  */
 public class LevelRecord {
-    
+
     public static final LevelRecord BLANK_LEVEL_RECORD = new LevelRecord(false, 0, Integer.MAX_VALUE, Integer.MAX_VALUE, 0);
-    
+
     private final boolean completed;
     private final int lemmingsSaved;
     private final int skillsUsed;
     private final int timeElapsed;
     private final int score;
-    
+
     public LevelRecord(boolean completed, int lemmingsSaved, int skillsUsed, int timeElapsed, int score) {
         this.completed = completed;
         this.lemmingsSaved = lemmingsSaved;
@@ -36,23 +36,23 @@ public class LevelRecord {
         this.timeElapsed = timeElapsed;
         this.score = score;
     }
-    
+
     public boolean isCompleted() {
         return completed;
     }
-    
+
     public int getLemmingsSaved() {
         return lemmingsSaved;
     }
-    
+
     public int getSkillsUsed() {
         return skillsUsed;
     }
-    
+
     public int getTimeElapsed() {
         return timeElapsed;
     }
-    
+
     public int getScore() {
         return score;
     }

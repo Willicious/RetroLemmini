@@ -32,8 +32,8 @@ import lemmini.tools.ToolBox;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -59,12 +59,12 @@ public class Core {
 
     public static final String REVISION = "2.0";
     public static final String REV_DATE = "Jan 2025";
-    
+
     /** extensions accepted for level files in file dialog */
     public static final String[] LEVEL_EXTENSIONS = {"ini", "lvl", "dat"};
     /** extensions accepted for replay files in file dialog */
     public static final String[] REPLAY_EXTENSIONS = {"rpl"};
-    
+
     public static final String[] IMAGE_EXTENSIONS = {"png", "bmp", "gif", "jpg", "wbmp"};
     public static final String[] MUSIC_EXTENSIONS = {"wav", "aiff", "aifc", "au", "snd",
         "ogg", "xm", "s3m", "mod", "mid"};
@@ -84,19 +84,19 @@ public class Core {
     public static final String STYLES_PATH = "styles/";
     /** path for temporary files */
     public static final String TEMP_PATH = "temp/";
-    
+
     public static final Path[] EMPTY_PATH_ARRAY = {};
-    
+
     /** name of the INI file */
     private static final String PROGRAM_PROPS_FILE_NAME = "retrolemmini_settings.ini";
     /** name of player properties file */
     private static final String PLAYER_PROPS_FILE_NAME = "players.ini";
-    
+
     public static final Set<String> OG_STYLES = new HashSet<>(Arrays.asList(
             "brick", "bubble", "crystal", "dirt", "fire",
             "marble", "pillar", "rock", "snow", "xmas"
         ));
-    
+
     /** program properties */
     public static Props programProps;
     /** path of resources */
@@ -108,7 +108,7 @@ public class Core {
     public static CaseInsensitiveFileTree gameDataTree;
     /** current player */
     public static Player player;
-    
+
     /** name of program properties file */
     private static Path programPropsFilePath;
     /** player properties */
@@ -122,26 +122,26 @@ public class Core {
     private static int drawWidth;
     /** draw height */
     private static int drawHeight;
-    
-    
+
+
     /**
      * Initialize some core elements.
      * Loads settings from ini file.
      * @return true if loading was successful
      * @throws LemmException
      * @throws IOException
-     * @throws URISyntaxException 
+     * @throws URISyntaxException
      */
     public static boolean init(String workingFolder) throws LemmException, IOException  {
         System.out.println("\ninitializing Core...");
         String tmp;// = java.net.URLDecoder.decode(workingFolder, "UTF-8");
         tmp = new java.io.File(workingFolder).getPath();
-        
+
         gamePath = Paths.get(tmp);
 
         System.out.println("    gamePath detected as: "+ gamePath.toString());
-        
-        // Data directory       
+
+        // Data directory
         gameDataTree = new CaseInsensitiveFileTree(gamePath);
 
         // Settings directory
@@ -158,11 +158,11 @@ public class Core {
             programPropsFilePath = Paths.get(gamePath.toString(), "settings");
         programPropsFilePath = programPropsFilePath.resolve(PROGRAM_PROPS_FILE_NAME);
         System.out.println("    game config: " + programPropsFilePath.toString());
-        
+
         // read main ini file
         programProps = new Props();
-        
-        if (!programProps.load(programPropsFilePath)) { 
+
+        if (!programProps.load(programPropsFilePath)) {
             System.out.println("    unable to read config file... prompting disclaimer agreement ...");
             // might exist or not - if not, it's created
             // show the Legal Disclaimer. And force the user to choose "I Agree."
@@ -180,7 +180,7 @@ public class Core {
         } else {
             System.out.println("    config file read successfully");
         }
-        
+
         // Resources directory
         if (gamePath.toString().endsWith(".jar")) {
             resourcePath = Paths.get(gamePath.getParent().toString(), "resources");
@@ -189,9 +189,9 @@ public class Core {
         }
         System.out.println("      resourcePath: " + resourcePath.toString());
         resourceTree = new CaseInsensitiveFileTree(resourcePath);
-        
+
         bilinear = programProps.getBoolean("bilinear", false);
-        
+
         // Set options
         GameController.setOption(GameController.Option.MUSIC_ON, programProps.getBoolean("music", true));
         GameController.setOption(GameController.Option.SOUND_ON, programProps.getBoolean("sound", true));
@@ -227,8 +227,8 @@ public class Core {
         GameController.setExitSoundOption(ExitSoundOption.valueOf(programProps.get("exitSound", "AUTO")));
 
         System.out.println("      all settings read from config");
-        
-      
+
+
         // Ensure "resources" folder exists
         if (resourcePath.toString().isEmpty()) {
             if (resourcePath.toString().isEmpty()) {
@@ -237,7 +237,7 @@ public class Core {
             System.out.println("    quitting...");
             throw new LemmException(String.format("Resources folder is missing from " + gamePath + ". The program will now quit.", (Object[])null));
         }
-        
+
         // Create folders (if they don't already exist)
         // create levels folder (with external level cache)
         System.out.println("    creating levels folder (with external levels cache): " + Paths.get(resourceTree.getRoot().toString(), EXTERNAL_LEVEL_CACHE_PATH).toString());
@@ -260,16 +260,16 @@ public class Core {
         // create temp folder
         System.out.println("    creating temp folder: " + Paths.get(resourceTree.getRoot().toString(), TEMP_PATH).toString());
         resourceTree.createDirectories(TEMP_PATH);
-       
+
         System.gc(); // force garbage collection here before the game starts
-        
+
         System.out.println("    loading player settings...");
         loadPlayerSettings();
-        
+
         System.out.println("Core initialization complete.");
         return true;
     }
-    
+
     /***
      *  Reads all player settings from the players.ini file
      */
@@ -293,7 +293,7 @@ public class Core {
         }
         player = new Player(defaultPlayer);
     }
-    
+
     /***
      * Writes all applicable settings to the settings ini file
      */
@@ -334,7 +334,7 @@ public class Core {
         // Exit sound
         programProps.set("exitSound", GameController.getExitSoundOption().name());
     }
-    
+
     public static String appendBeforeExtension(String fname, String suffix) {
         String extension = FilenameUtils.getExtension(fname);
         if (extension.isEmpty()) {
@@ -343,7 +343,7 @@ public class Core {
             return FilenameUtils.removeExtension(fname) + suffix + "." + extension;
         }
     }
-    
+
     /**
      * Get Path to resource in resource path.
      * @param fname file name (without resource path)
@@ -355,23 +355,23 @@ public class Core {
         String originalExt = FilenameUtils.getExtension(fname);
         return findResource(fname, searchMods, true, originalExt);
     }
-    
+
     /**
      * Get Path to resource in resource path (searches mods and main file by default).
      * @param fname file name (without resource path)
-     * @param extensions 
+     * @param extensions
      * @return resource object
      * @throws ResourceException if file is not found
      */
     public static Resource findResource(String fname, String... extensions) throws ResourceException {
         return findResource(fname, true, true, extensions);
     }
-    
+
     /**
      * Get Path to resource in resource path (searches main file by default).
      * @param fname file name (without resource path)
      * @param searchMods are mods included in the search?
-     * @param extensions 
+     * @param extensions
      * @return resource object
      * @throws ResourceException if file is not found
      */
@@ -384,7 +384,7 @@ public class Core {
      * @param fname file name (without resource path)
      * @param searchMods are mods included in the search?
      * @param searchMain is the main folder included in the search?
-     * @param extensions 
+     * @param extensions
      * @return resource object
      * @throws ResourceException if file is not found
      */
@@ -394,15 +394,15 @@ public class Core {
             // file still not found, so throw a ResourceException
             throw new ResourceException(fname);
         }
-        
+
         return rslt;
     }
-    
+
     /**
      * Get Path to resource in resource path.
      * @param fname file name (without resource path)
      * @param searchMods
-     * @param extensions 
+     * @param extensions
      * @return resource object
      * @throws ResourceException if file is not found
      */
@@ -432,10 +432,10 @@ public class Core {
         // file still not found, so throw a ResourceException
         return null;
     }
-    
+
     public static List<String> searchForResources(String folder, boolean searchMods, String... extensions) {
         Set<String> resources = new LinkedHashSet<>(64);
-        
+
         if (searchMods) {
             GameController.getModPaths().stream().forEachOrdered(mod -> {
                 String lowercasePath = ("mods/" + mod + "/" + folder).toLowerCase(Locale.ROOT);
@@ -450,10 +450,10 @@ public class Core {
                 .map(file -> file.getFileName().toString())
                 .filter(fileName -> FilenameUtils.isExtension(fileName.toLowerCase(Locale.ROOT), extensions))
                 .forEachOrdered(resources::add);
-        
+
         return new ArrayList<>(resources);
     }
-    
+
     /**
      * Set the title
      * @param title
@@ -461,7 +461,7 @@ public class Core {
     public static void setTitle(String title) {
         LemminiFrame.getFrame().setTitle(title);
     }
-    
+
     /**
      * Store program properties.
      */
@@ -471,7 +471,7 @@ public class Core {
         playerProps.save(PLAYER_PROPS_FILE_NAME);
         player.store();
     }
-    
+
     /**
      * Output error message box in case of a missing resource.
      * @param rsrc name of missing resource.
@@ -481,7 +481,7 @@ public class Core {
         JOptionPane.showMessageDialog(null, out, "Error", JOptionPane.ERROR_MESSAGE);
         System.exit(1);
     }
-    
+
     /**
      * Adds the given image to the given tracker.
      * @param tracker media tracker
@@ -523,7 +523,7 @@ public class Core {
         }
         return new LemmImage(img);
     }
-    
+
     /**
      * Load an image from inside the JAR or the directory of the main class.
      * @param fname
@@ -539,7 +539,7 @@ public class Core {
         }
         return new LemmImage(img);
     }
-    
+
     /**
      * Get player name via index.
      * @param idx player index
@@ -548,7 +548,7 @@ public class Core {
     public static String getPlayer(final int idx) {
         return players.get(idx);
     }
-    
+
     /**
      * Get number of players.
      * @return number of player.
@@ -559,7 +559,7 @@ public class Core {
         }
         return players.size();
     }
-    
+
     /**
      * Delete a player.
      * @param idx index of player to delete
@@ -568,7 +568,7 @@ public class Core {
         Player.deletePlayerINIFile(players.get(idx));
         players.remove(idx);
     }
-    
+
     /**
      * Reset list of players.
      */
@@ -576,7 +576,7 @@ public class Core {
         players.clear();
         playerProps.clear();
     }
-    
+
     /**
      * Add player.
      * @param name player name
@@ -585,7 +585,7 @@ public class Core {
         players.add(name);
         playerProps.set("player_" + (players.size() - 1), name);
     }
-    
+
     /**
      * Get internal draw width
      * @return internal draw width
@@ -593,7 +593,7 @@ public class Core {
     public static int getDrawWidth() {
         return drawWidth;
     }
-    
+
     /**
      * Get scaled internal draw width
      * @return scaled internal draw width
@@ -601,7 +601,7 @@ public class Core {
     public static int getScaledDrawWidth() {
         return (scale == 1.0) ? drawWidth : (int) Math.ceil(drawWidth * scale);
     }
-    
+
     /**
      * Get internal draw height
      * @return internal draw width
@@ -609,7 +609,7 @@ public class Core {
     public static int getDrawHeight() {
         return drawHeight;
     }
-    
+
     /**
      * Get scaled internal draw height
      * @return scaled internal draw width
@@ -617,7 +617,7 @@ public class Core {
     public static int getScaledDrawHeight() {
         return (scale == 1.0) ? drawHeight : (int) Math.ceil(drawHeight * scale);
     }
-    
+
     /**
      * Set internal draw size
      * @param w draw width
@@ -627,7 +627,7 @@ public class Core {
         drawWidth = w;
         drawHeight = h;
     }
-    
+
     /**
      * Get zoom scale
      * @return zoom scale
@@ -635,7 +635,7 @@ public class Core {
     public static double getScale() {
         return scale;
     }
-    
+
     /**
      * Set zoom scale
      * @param s zoom scale
@@ -643,19 +643,19 @@ public class Core {
     public static void setScale(double s) {
         scale = s;
     }
-    
+
     public static int scale(int n) {
         return ToolBox.scale(n, scale);
     }
-    
+
     public static int unscale(int n) {
         return ToolBox.unscale(n, scale);
     }
-    
+
     public static boolean isBilinear() {
         return bilinear;
     }
-    
+
     public static void setBilinear(final boolean b) {
         bilinear = b;
     }

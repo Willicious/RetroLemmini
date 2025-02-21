@@ -19,8 +19,8 @@ import lemmini.tools.ToolBox;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -43,7 +43,7 @@ import lemmini.tools.ToolBox;
  * @author Volker Oth
  */
 public class TextScreen {
-    
+
     /** Mode (type of screen to present) */
     public static enum Mode {
         /** initial state */
@@ -55,7 +55,7 @@ public class TextScreen {
         /** level debriefing screen */
         DEBRIEFING
     }
-    
+
     public static enum Button {
         /** play level */
         PLAY_LEVEL,
@@ -93,7 +93,7 @@ public class TextScreen {
         NEXT_RATING,
         NONE;
     }
-    
+
     /** synchronization monitor */
     private static final Object monitor = new Object();
     /** y position of scroll text - pixels relative to center */
@@ -123,7 +123,7 @@ public class TextScreen {
         + "and Oracle for maintaining Java and providing the community with a free development environment. "
         + "We accept no responsibility for: Loss of sleep... Loss of hair... Loss of sanity! "
         + "Click 'Play Level' to begin... ";
-    
+
     /** TextDialog used as base component */
     private static TextDialog textDialog;
     /** frames for rotation animation */
@@ -137,7 +137,7 @@ public class TextScreen {
     /** screen type to display */
     private static Mode mode;
     private static int hintIndex;
-    
+
     /**
      * Set mode.
      * @param m mode.
@@ -162,7 +162,7 @@ public class TextScreen {
             mode = m;
         }
     }
-    
+
     /**
      * Initialize the intro screen.
      */
@@ -177,7 +177,7 @@ public class TextScreen {
         textDialog.addTextButton("Options", "Options", null, 4, 1, Button.OPTIONS, BLUE, BROWN);
         textDialog.addTextButton("Exit", "Exit", null, -2, 2, Button.EXIT, BLUE, BROWN);
     }
-    
+
     /**
      * Initialize the briefing screen.
      */
@@ -192,7 +192,7 @@ public class TextScreen {
         textDialog.addTextButton("Start Level", "Start Level", null, -12, 6, Button.START_LEVEL, BLUE, BROWN);
         textDialog.addTextButton("Menu", "Menu", null, 4, 6, Button.MENU, BLUE, BROWN);
     }
-    
+
     /**
      * Initialize the debriefing screen.
      */
@@ -280,7 +280,7 @@ public class TextScreen {
         }
         textDialog.addTextButton("Menu", "Menu", null, -9, 6, Button.MENU, BLUE, BROWN);
     }
-    
+
     public static void showLevelInfo() {
         synchronized (getMonitor()) {
             textDialog.clearGroup("info");
@@ -313,7 +313,7 @@ public class TextScreen {
             }
         }
     }
-    
+
     public static void showHint() {
         synchronized (getMonitor()) {
             textDialog.clearGroup("info");
@@ -330,17 +330,17 @@ public class TextScreen {
             }
         }
     }
-    
+
     public static void nextHint() {
         hintIndex++;
         showHint();
     }
-    
+
     public static void previousHint() {
         hintIndex--;
         showHint();
     }
-    
+
     /**
      * Get text dialog.
      * @return text dialog.
@@ -350,7 +350,7 @@ public class TextScreen {
             return textDialog;
         }
     }
-    
+
     /**
      * Initialize text screen.
      */
@@ -371,11 +371,11 @@ public class TextScreen {
             rotCtr = 0;
             scrollPixCtr = 0;
             drawScroller();
-            
+
             textDialog = new TextDialog();
         }
     }
-    
+
     /**
      * Update the text screen (for animations)
      */
@@ -396,7 +396,7 @@ public class TextScreen {
             }
         }
     }
-    
+
     /**
      * Update the into screen.
      */
@@ -423,25 +423,25 @@ public class TextScreen {
         // manage scroller
         LemmImage subimage = scrollerImg.getSubimage(scrollPixCtr, 0, SCROLL_WIDTH, scrollerImg.getHeight());
         textDialog.addImage(subimage, "introAnimation", SCROLL_Y);
-        
+
         scrollPixCtr += SCROLL_STEP;
         if (scrollPixCtr >= scrollerImg.getWidth() - SCROLL_WIDTH) {
             scrollPixCtr = 0;
         }
     }
-    
+
     /**
      * Update the briefing screen.
      */
     private static void update_briefing() {
     }
-    
+
     /**
      * Update the debriefing screen.
      */
     private static void update_debriefing() {
     }
-    
+
     /**
      * Draw the text screen to the given graphics object.
      * @param g graphics object to draw the text screen to
@@ -455,7 +455,7 @@ public class TextScreen {
             textDialog.drawScreen(g, x, y, width, height);
         }
     }
-    
+
     /**
      * Toggle between regular and classic scroller
      */
@@ -522,7 +522,7 @@ public class TextScreen {
             }
         }
     }
-    
+
     /**
      * Getter method for monitor
      */

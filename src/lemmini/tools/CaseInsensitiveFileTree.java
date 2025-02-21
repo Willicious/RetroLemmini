@@ -50,43 +50,43 @@ import org.apache.commons.lang3.StringUtils;
  * @author Ryan Sakowski
  */
 public class CaseInsensitiveFileTree {
-    
+
     private static final FileNameComparator FILE_NAME_COMPARATOR = new FileNameComparator();
-    
+
     private final Path root;
     private final Map<String, List<Path>> files = new LinkedHashMap<>(1024);
-    
+
     public CaseInsensitiveFileTree(Path directory) throws IOException {
         this(directory, Integer.MAX_VALUE);
     }
-    
+
     public CaseInsensitiveFileTree(Path directory, int maxDepth) throws IOException {
         root = directory;
         refresh(maxDepth);
     }
-    
+
     /**
      * Clears the file-name cache and re-scans the directory tree.
      * @param maxDepth
-     * @throws IOException 
+     * @throws IOException
      */
     public final void refresh(int maxDepth) throws IOException {
         files.clear();
         Map<String, List<Path>> filesTemp = new TreeMap<>(FILE_NAME_COMPARATOR);
-        
+
         FileVisitor<Path> visitor = new SimpleFileVisitor<Path>() {
             @Override
             public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
                 addPath(dir);
                 return FileVisitResult.CONTINUE;
             }
-            
+
             @Override
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                 addPath(file);
                 return FileVisitResult.CONTINUE;
             }
-            
+
             @Override
             public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
                 // skip files that can't be read due to an AccessDeniedException
@@ -96,24 +96,24 @@ public class CaseInsensitiveFileTree {
                     throw exc;
                 }
             }
-            
+
             private void addPath(Path path) {
                 String relativePathStr = pathToString(root.relativize(path));
                 List<Path> pathVariants = filesTemp.computeIfAbsent(relativePathStr,  s -> new ArrayList<>(1));
                 pathVariants.add(path);
             }
         };
-        
+
         if (Files.exists(root)) {
             Files.walkFileTree(root, Collections.emptySet(), maxDepth, visitor);
         }
         files.putAll(filesTemp);
     }
-    
+
     public Path getRoot() {
         return root;
     }
-    
+
     /**
      * Returns a Path that matches the given file name.
      * @param fileName the name of the file to look for
@@ -138,7 +138,7 @@ public class CaseInsensitiveFileTree {
             return possiblePath;
         }
     }
-    
+
     private Path getPath1(String normalizedFileName) {
         List<Path> fileVariants = files.getOrDefault(normalizedFileName, Collections.emptyList());
         for (Iterator<Path> it = fileVariants.iterator(); it.hasNext(); ) {
@@ -152,7 +152,7 @@ public class CaseInsensitiveFileTree {
         files.remove(normalizedFileName);
         return null;
     }
-    
+
     /**
      * Returns a List of Paths that match the given file name.
      * @param fileName the name of the file to look for
@@ -161,7 +161,7 @@ public class CaseInsensitiveFileTree {
     public List<Path> getAllPaths(String fileName) {
         return Collections.unmodifiableList(files.getOrDefault(normalize(fileName), Collections.emptyList()));
     }
-    
+
     /**
      * Returns a List of Paths that match the given regular expression.
      * @param regex
@@ -174,11 +174,11 @@ public class CaseInsensitiveFileTree {
                 .map(Map.Entry::getValue)
                 .collect(() -> new ArrayList<>(512), List::addAll, List::addAll);
     }
-    
+
     public boolean exists(String fileName) {
         return !files.getOrDefault(normalize(fileName), Collections.emptyList()).isEmpty();
     }
-    
+
     /**
      * Attempts to open an OutputStream on the given file.
      * @param fileName name of file to open
@@ -222,14 +222,14 @@ public class CaseInsensitiveFileTree {
             return Files.newOutputStream(possiblePath, options);
         }
     }
-    
+
     /**
      * Opens a BufferedWriter on the given file using the given encoding.
      * @param fileName
      * @param cs
      * @param options
      * @return
-     * @throws IOException 
+     * @throws IOException
      */
     public BufferedWriter newBufferedWriter(String fileName, Charset cs, OpenOption... options) throws IOException {
         String normalizedFileName = normalize(fileName);
@@ -266,18 +266,18 @@ public class CaseInsensitiveFileTree {
             return Files.newBufferedWriter(possiblePath, cs, options);
         }
     }
-    
+
     /**
      * Opens a BufferedWriter on the given file using the UTF-8 encoding.
      * @param fileName
      * @param options
      * @return
-     * @throws IOException 
+     * @throws IOException
      */
     public BufferedWriter newBufferedWriter(String fileName, OpenOption... options) throws IOException {
         return newBufferedWriter(fileName, StandardCharsets.UTF_8, options);
     }
-    
+
     public Path createDirectories(String fileName, FileAttribute<?>... attrs) throws IOException {
         String normalizedFileName = normalize(fileName);
         if (!isDirectory(normalizedFileName)) {
@@ -297,13 +297,13 @@ public class CaseInsensitiveFileTree {
         }
         return directory;
     }
-    
+
     /**
      * Deletes all files and directories that match the given name. If a
      * directory name is given, then all files and directories in that directory
      * are also deleted.
      * @param fileName
-     * @throws IOException 
+     * @throws IOException
      */
     public void delete(String fileName) throws IOException {
         String normalizedFileName = normalize(fileName);
@@ -354,11 +354,11 @@ public class CaseInsensitiveFileTree {
             files.remove(normalizedFileName);
         }
     }
-    
+
     /**
      * Deletes all empty directories that match the given name.
      * @param fileName
-     * @throws IOException 
+     * @throws IOException
      */
     public void deleteIfEmpty(String fileName) throws IOException {
         String normalizedFileName = normalize(fileName);
@@ -379,7 +379,7 @@ public class CaseInsensitiveFileTree {
             }
         }
     }
-    
+
     private static String pathToString(Path path) {
         StringBuilder sb = new StringBuilder(64);
         for (Path name : path) {
@@ -390,7 +390,7 @@ public class CaseInsensitiveFileTree {
         }
         return sb.toString();
     }
-    
+
     private static String normalize(String fileName) {
         if (fileName.isEmpty()) {
             return "/";
@@ -398,27 +398,27 @@ public class CaseInsensitiveFileTree {
             return FilenameUtils.normalize(fileName, true).toLowerCase(Locale.ROOT);
         }
     }
-    
+
     private static boolean isDirectory(String fileName) {
         return fileName.endsWith("/");
     }
-    
+
     private static class FileNameComparator implements Comparator<String> {
-        
+
         @Override
         public int compare(String o1, String o2) {
-            if ((o1.isEmpty() && !o2.isEmpty()) 
+            if ((o1.isEmpty() && !o2.isEmpty())
                     || (o1.equals("/") && !o2.equals("/"))) {
                 return -1;
             } else if ((!o1.isEmpty() && o2.isEmpty())
                     || (!o1.equals("/") && o2.equals("/"))) {
                 return 1;
             }
-            
+
             int length1 = o1.length();
             int length2 = o2.length();
             int minLength = Math.min(length1, length2);
-            
+
             for (int i = 0; i < minLength; i++) {
                 char c1 = o1.charAt(i);
                 char c2 = o2.charAt(i);
@@ -446,7 +446,7 @@ public class CaseInsensitiveFileTree {
                     }
                 }
             }
-            
+
             return length1 - length2;
         }
     }

@@ -32,67 +32,67 @@ import lemmini.tools.ToolBox;
  * @author Ryan
  */
 public class FileResource implements Resource {
-    
+
     private final String origPath;
     private final String realPath;
     private final CaseInsensitiveFileTree tree;
     private final Path file;
-    
+
     public FileResource(Path file) throws IOException {
         this.origPath = FilenameUtils.separatorsToUnix(file.toString());
         this.realPath = origPath;
         this.tree = new CaseInsensitiveFileTree(file.getParent(), 1);
         this.file = file;
     }
-    
+
     public FileResource(String origPath, CaseInsensitiveFileTree tree) {
         this(origPath, origPath, tree);
     }
-    
+
     public FileResource(String origPath, String realPath, CaseInsensitiveFileTree tree) {
         this.origPath = origPath;
         this.realPath = realPath;
         this.tree = tree;
         this.file = tree.getPath(realPath);
     }
-    
+
     @Override
     public boolean exists() {
         return Files.isRegularFile(file);
     }
-    
+
     @Override
     public String getFileName() {
         return file.getFileName().toString();
     }
-    
+
     @Override
     public String getOriginalPath() {
         return origPath;
     }
-    
+
     @Override
     public FileResource getSibling(String sibling) {
         String newOrigPath = ToolBox.getParent(origPath) + sibling;
         String newRealPath = ToolBox.getParent(realPath) + sibling;
         return new FileResource(newOrigPath, newRealPath, tree);
     }
-    
+
     @Override
     public InputStream getInputStream() throws IOException {
         return Files.newInputStream(file);
     }
-    
+
     @Override
     public BufferedReader getBufferedReader() throws IOException {
         return ToolBox.getBufferedReader(file);
     }
-    
+
     @Override
     public byte[] readAllBytes() throws IOException {
         return Files.readAllBytes(file);
     }
-    
+
     @Override
     public boolean equals(Object o) {
         if (o == this) {
@@ -101,12 +101,12 @@ public class FileResource implements Resource {
         if (!(o instanceof FileResource)) {
             return false;
         }
-        
+
         FileResource res2 = (FileResource) o;
-        
+
         return file.equals(res2.file);
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 5;

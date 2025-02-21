@@ -62,7 +62,7 @@ import javax.swing.Timer;
 public class RepeatingReleasedEventsFixer implements AWTEventListener {
 
     private final Map<Integer, ReleasedAction> _map = new HashMap<>();
-    
+
     private static RepeatingReleasedEventsFixer installed;
     private static final Object INSTALLED_SYNC = new Object();
 
@@ -147,7 +147,7 @@ public class RepeatingReleasedEventsFixer implements AWTEventListener {
                 throw new AssertionError("All IDs should be covered.");
         }
     }
- 
+
     /**
      * The ActionListener that posts the RELEASED {@link RepostedKeyEvent} if the {@link Timer} times out (and hence the
      * repeat-action was over).
@@ -206,7 +206,7 @@ public class RepeatingReleasedEventsFixer implements AWTEventListener {
      */
     public static class RepostedKeyEvent extends KeyEvent implements Reposted {
         /**
-         * 
+         *
          */
         private static final long serialVersionUID = 1L;
 

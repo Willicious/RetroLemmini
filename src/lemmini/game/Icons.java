@@ -19,8 +19,8 @@ import lemmini.tools.ToolBox;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -42,7 +42,7 @@ import lemmini.tools.ToolBox;
  * @author Volker Oth
  */
 public class Icons {
-    
+
     private static final int DEFAULT_PITCH = 4;
     /** a special counter for animation frames 31.2 frames/second */
     private static final int[] ANIMATION_CTR = {3, 3, 4, 3, 3}; //allows for a maximum of 5 seconds.
@@ -50,7 +50,7 @@ public class Icons {
     /** internal counter tracking when to move to the next frame of animation */
     private static int animateCtr = 0;
     private static int currentAnimateFrame = 0;
-    
+
     /**
      * icon width in pixels (of currently selected icon bar)
      * @return
@@ -62,7 +62,7 @@ public class Icons {
             return ORIGINAL_WIDTH;
         }
     }
-    
+
     /**
      * icon height in pixels (of currently selected icon bar)
      * @return
@@ -74,13 +74,13 @@ public class Icons {
             return ORIGINAL_HEIGHT;
         }
     }
-    
+
     private static final int ORIGINAL_WIDTH = 32;
     private static final int ORIGINAL_HEIGHT = 40;
-    
+
     private static final int ENHANCED_WIDTH = 34;
     private static final int ENHANCED_HEIGHT = 54;
-    
+
     public static enum IconType {
         MINUS,
         PLUS,
@@ -99,7 +99,7 @@ public class Icons {
         VLOCK,
         EMPTY
     }
-    
+
     /**
      * The currently chosen order of icons
      * @return
@@ -115,12 +115,12 @@ public class Icons {
         rslt.add(IconType.FFWD);
         rslt.add(IconType.RESTART);
           rslt.add(IconType.VLOCK);
-        
+
         return rslt;
     }
-    
+
     /**
-     * List of basic skillset icons, in order. 
+     * List of basic skillset icons, in order.
      * @return
      */
     public static List<IconType> SkillIconOrder() {
@@ -143,7 +143,7 @@ public class Icons {
     private static GraphicsContext iconGfx = null;
     /** the currently selected skill */
     private static IconType selectedSkill = null;
-    
+
     /** list of Sprites that contains the icons */
     private static final List<Sprite> icons = new ArrayList<>(IconType.values().length);
     /** list of Sprites that contains the standard-sized background icons */
@@ -152,17 +152,17 @@ public class Icons {
     private static final List<Sprite> bgIconsLarge = new ArrayList<>(IconType.values().length);
     /** list of Sprites the contain the icon labels */
     private static final List<Sprite> iconLabels = new ArrayList<>(IconType.values().length);
-       
+
     /** the current frame for each icon's sprite */
     private static final HashMap<IconType, Integer> iconFrame = new HashMap<>(IconType.values().length);
     /** the current pressed state of each icon (true is pressed, false is not pressed) */
     private static final HashMap<IconType, Boolean> iconPressed = new HashMap<>(IconType.values().length);
-    
-    /** 
-     * Initialization. 
-     * @throws ResourceException 
-     */   
-    public static void init() throws ResourceException { 
+
+    /**
+     * Initialization.
+     * @throws ResourceException
+     */
+    public static void init() throws ResourceException {
         //load the hashmap with initial values for each of the IconTypes
         if (iconFrame.isEmpty()) {
             for(IconType x : IconType.values()) {
@@ -179,12 +179,12 @@ public class Icons {
         //reset the icon bar to draw it fresh
         reset();
     }
-    
-    
+
+
     private static boolean ModHasEnhancedIconBar() throws ResourceException {
         //create a list of all possible images in the EnhancedIconBar
-        //we're going to check is any one of these exists. 
-        //If so, we'll assume this mod supports the Enhanced Toolbar, 
+        //we're going to check is any one of these exists.
+        //If so, we'll assume this mod supports the Enhanced Toolbar,
         //and so we won't use any static icons.
         List<String> iconbarImages;
         iconbarImages = new ArrayList<String>();
@@ -242,11 +242,11 @@ public class Icons {
         }
         return false;
     }
-    
+
     public static void LoadIconResources() throws ResourceException {
-        bgIcons.clear(); 
+        bgIcons.clear();
         bgIconsLarge.clear();
-        icons.clear(); 
+        icons.clear();
         iconLabels.clear();
 
         if (iconGfx != null) {
@@ -258,28 +258,28 @@ public class Icons {
 
         boolean bModUsesEnhancedIconBar;
         bModUsesEnhancedIconBar = ModHasEnhancedIconBar();
-        
+
         //get the background image we're going to use...
         for (int i = 0; i < iconOrder.size(); i++) {
             LemmImage sourceImg;
             Resource resource = null;
             Sprite icon;
-           
+
             String iconName = iconOrder.get(i).toString().toLowerCase(Locale.ROOT);
-            
-            
+
+
             //animated icons we need to load a little differently.
             // 1) we try the animated icon for the mod *only*
             // 2) if that's not found, we try the transparent static icon for the mod
             // 3) if that's not found, we try the original static icon (with background) for the mod
-            // 4) if that's not found, we try the standard animated icon 
+            // 4) if that's not found, we try the standard animated icon
             // 5) if there's no standard animated icon, we load the standard transparent static icon.
-            
+
             // 1) check for animated mods
             if (GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_ICONBAR)) {
                 resource = Core.findResourceEx(
                         "gfx/iconbar/anim_" + iconName + ".png",
-                        true, false, 
+                        true, false,
                         Core.IMAGE_EXTENSIONS);
             }
             // 2) check for static mods
@@ -301,7 +301,7 @@ public class Icons {
                 if (resource == null) {
                     resource = Core.findResourceEx(
                             "gfx/iconbar/anim_" + iconName + ".png",
-                            false, true, 
+                            false, true,
                             Core.IMAGE_EXTENSIONS);
                 }
             }
@@ -319,7 +319,7 @@ public class Icons {
             int frames = sourceImg.getHeight() / 40;
             icon = new Sprite(sourceImg, frames, 1, false);
             icons.add(icon);
-                
+
             //load standard size backgrounds
             // BOOKMARK TODO: allow for multiple different background objects
             resource = Core.findResource("gfx/icons/icon_empty.png", Core.IMAGE_EXTENSIONS);
@@ -343,8 +343,8 @@ public class Icons {
             iconLabels.add(icon);
         }
     }
-    
-    
+
+
     /**
      * Get icon type by x position.
      * @param x x position inside bar in pixels
@@ -357,7 +357,7 @@ public class Icons {
         }
         return iconOrder.get(x / getIconWidth());
     }
-    
+
     /**
      * Get buffered image that contains the whole icon bar in its current state.
      * @return image of icon bar
@@ -365,7 +365,7 @@ public class Icons {
     public static LemmImage getImg() {
         return iconImg;
     }
-    
+
     /**
      * Get pressed state of the given icon
      * @param type
@@ -379,7 +379,7 @@ public class Icons {
         }
         return (icons.get(idx).getFrameIdx() != 0);
     }
-    
+
     /**
      * Press down icon.
      * @param type Icon Type
@@ -434,15 +434,15 @@ public class Icons {
                 break;
         }
     }
-    
-    /** 
+
+    /**
      * Update the frame for animated icons.
      */
     static public void Animate() {
         if (++animateCtr >= ANIMATION_CTR[currentAnimateFrame % ANIMATION_CTR.length]) {
             animateCtr -= ANIMATION_CTR[currentAnimateFrame % ANIMATION_CTR.length];
             currentAnimateFrame = currentAnimateFrame++ % ANIMATION_CTR.length;
-        
+
             List<IconType> iconOrder = CurrentIconOrder();
             for (IconType x:iconPressed.keySet()) {
                 if(iconPressed.get(x)) {
@@ -472,7 +472,7 @@ public class Icons {
         }
     }
     */
-    
+
     /**
      * Release icon.
      * @param type Icon Type
@@ -501,9 +501,9 @@ public class Icons {
                 break;
         }
     }
-    
+
     /**
-     * Sets the current Sprite Index for the 
+     * Sets the current Sprite Index for the
      * @param iconIdx the index of the icon, from the CurrentIconOrder()
      */
     private static void setIconFrame(int iconIdx, boolean pressed) {
@@ -514,7 +514,7 @@ public class Icons {
             iconPressed.replace(type,  pressed);
         }
     }
-    
+
     /**
      * Draws the background and icon of the selected icon button.
      * @param idx
@@ -524,7 +524,7 @@ public class Icons {
             IconType type = CurrentIconOrder().get(idx);
             int x = 0;
             int y = 0;
-            Sprite bgIcon; 
+            Sprite bgIcon;
             if (GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_ICONBAR)) {
                 bgIcon = bgIconsLarge.get(idx);
                 x = 1; //the larger icons have an added pixel on the side of padding.
@@ -541,7 +541,7 @@ public class Icons {
             bgIcon.setFrameIdx(staticFrameIdx);
             iconLabel.setFrameIdx(staticFrameIdx);
             icon.setFrameIdx(frameIdx);
-            
+
             iconGfx.drawImage(bgIcon.getImage(), getIconWidth() * idx, 0);
 
             //these 5 icon types don't have numbers with them, so we can move the icons up a tad
@@ -549,12 +549,12 @@ public class Icons {
             int yLabel = 30;
             if (GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_ICONBAR)) {
                 yLabel = 44;
-                
+
                 if (GameController.isOptionEnabled(GameController.SLTooOption.ICON_LABELS))
                     yIcon = -7;
                 else
                     yIcon = -4;
-                
+
                 // Fine tuning of y positions
                 switch(type) {
                     case BLOCK:
@@ -576,13 +576,13 @@ public class Icons {
                     default:
                 }
             }
-                
+
             iconGfx.drawImage(icon.getImage(), getIconWidth() * idx + x, 0 + y + yIcon);
             if (GameController.isOptionEnabled(GameController.SLTooOption.ICON_LABELS))
                 iconGfx.drawImage(iconLabel.getImage(), getIconWidth() * idx + x, yLabel);
         }
     }
-    
+
     /**
      * Get the selected skill icon.
      * @return the selected skill icon if one is pressed, or null if none is pressed
@@ -590,7 +590,7 @@ public class Icons {
     static IconType getSelectedSkill() {
         return selectedSkill;
     }
-    
+
     static IconType getNextRadioIcon(IconType type) {
         List<IconType> skillOrder = SkillIconOrder();
         int skillIdx = skillOrder.indexOf(type);
@@ -598,7 +598,7 @@ public class Icons {
             //outside the range of skills
             return null;
         }
-        
+
         //get the next index up (if we're at the end, get the 1st index)
         int nextSkillIdx;
         if (skillIdx == skillOrder.size() - 1) {
@@ -606,10 +606,10 @@ public class Icons {
         } else {
             nextSkillIdx = skillIdx + 1;
         }
-        
+
         return skillOrder.get(nextSkillIdx);
     }
-    
+
     static IconType getPreviousRadioIcon(IconType type) {
         List<IconType> skillOrder = SkillIconOrder();
         int skillIdx = skillOrder.indexOf(type);
@@ -617,7 +617,7 @@ public class Icons {
             //outside the range of skills
             return null;
         }
-        
+
         //get the next index up (if we're at the start, get the last index)
         int nextSkillIdx;
         if (skillIdx == 0) {
@@ -625,10 +625,10 @@ public class Icons {
         } else {
             nextSkillIdx = skillIdx - 1;
         }
-        
+
         return skillOrder.get(nextSkillIdx);
     }
-    
+
     /**
      * Reset icon bar.
      */
@@ -639,7 +639,7 @@ public class Icons {
         }
         selectedSkill = null;
     }
-    
+
     /**
      * Redraws the icon bar, with current states.
      */
@@ -655,7 +655,7 @@ public class Icons {
         }
         selectedSkill = null;
     }
-    
+
     /**
      * Returns the pitch of the tone to play when clicking the button.
      * @param type
@@ -666,7 +666,7 @@ public class Icons {
         int idx = iconOrder.indexOf(type);
         if (idx == -1)
             return DEFAULT_PITCH;
-        
+
         switch (type) {
             case MINUS:
             case PLUS:
@@ -683,8 +683,8 @@ public class Icons {
                     }
                 }
         }
-        
+
         return DEFAULT_PITCH;
     }
-    
+
 }

@@ -7,8 +7,8 @@ import lemmini.graphics.LemmImage;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,7 +29,7 @@ import lemmini.graphics.LemmImage;
  * @author Volker Oth
  */
 public class Explosion {
-    
+
     /** number of particles per explosion */
     private static final int PARTICLE_NUM = 24;
     /** maximum step width (velocity) in X direction (pixels per step) */
@@ -49,7 +49,7 @@ public class Explosion {
     /** Remove the explosion bitmaps after REMOVE_IMAGE_CTR animation steps */
     private static final int REMOVE_IMAGE_CTR = 2;
     private static final int PARTICLE_SIZE = 2;
-    
+
     /** array of particles */
     private final Particle[] particles;
     /** time/frame counter for explosion */
@@ -64,7 +64,7 @@ public class Explosion {
     private boolean finished;
     /** explosion image used for the first few frames */
     private static LemmImage expImg;
-    
+
     /**
      * Load explosion image as static resource.
      * Mainly outside constructor for easier handling of ResourceException.
@@ -74,7 +74,7 @@ public class Explosion {
         Resource resource = Core.findResource("gfx/misc/explode.png", Core.IMAGE_EXTENSIONS);
         expImg = Core.loadLemmImage(resource);
     }
-    
+
     /**
      * Constructor.
      * @param x x position in pixels.
@@ -98,7 +98,7 @@ public class Explosion {
         counter = 0;
         finished = false;
     }
-    
+
     /**
      * Update explosion (move particles etc.).
      */
@@ -123,7 +123,7 @@ public class Explosion {
             finished = true;
         }
     }
-    
+
     /**
      * Draw explosion on graphics object.
      * @param g
@@ -159,7 +159,7 @@ public class Explosion {
             }
         }
     }
-    
+
     /**
      * Get finished state.
      * @return true if the explosion is over, false otherwise
@@ -167,7 +167,7 @@ public class Explosion {
     public boolean isFinished() {
         return finished;
     }
-    
+
     /**
      * Storage class for a particle.
      * @author Volker Oth
@@ -185,7 +185,7 @@ public class Explosion {
         Color color;
         /** life counter in steps (counting down) */
         int lifeCtr;
-        
+
         /**
          * Constructor
          * @param x0 initial x position in pixels
