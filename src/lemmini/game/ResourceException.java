@@ -2,8 +2,8 @@ package lemmini.game;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,16 +25,16 @@ package lemmini.game;
  * @author Volker Oth
  */
 public class ResourceException extends Exception {
-    
+
     private static final long serialVersionUID = 0x00000001L;
-    
+
     /**
      * Constructor.
      */
     public ResourceException() {
         super();
     }
-    
+
     /**
      * Constructor.
      * @param s Exception string
@@ -42,7 +42,7 @@ public class ResourceException extends Exception {
     public ResourceException(final String s) {
         super(s);
     }
-    
+
     /**
      * Constructor that accepts a resource.
      * @param res resource

@@ -14,8 +14,8 @@ import lemmini.game.ResourceException;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,7 +37,7 @@ import lemmini.game.ResourceException;
  * @author Volker Oth
  */
 public class Music {
-    
+
     /** music type */
     public static enum Type {
         /** no type */
@@ -49,7 +49,7 @@ public class Music {
         /** Wave music */
         WAVE
     }
-    
+
     /** music type */
     private static Type type;
     /** currently playing? */
@@ -64,8 +64,8 @@ public class Music {
     private static double gain = 1.0;
     private static MusicPlayer musicPlayer;
     private static boolean midiAvailable;
-    
-    
+
+
     /**
      * Initialization.
      */
@@ -81,7 +81,7 @@ public class Music {
             midiAvailable = false;
         }
     }
-    
+
     /**
      * Load music file.
      * @param fName file name
@@ -113,7 +113,7 @@ public class Music {
         }
         musicPlayer.load(resource, true);
     }
-    
+
     /**
      * Get file name of a random track.
      * @param style
@@ -129,7 +129,7 @@ public class Music {
                 }
             }
         }
-        
+
         if (!style.isEmpty()) {
             List<String> musicList = Core.searchForResources("music/" + style + "/", true, Core.MUSIC_EXTENSIONS).stream()
                     .map(FilenameUtils::removeExtension).map(music -> music.toLowerCase(Locale.ROOT))
@@ -139,14 +139,14 @@ public class Music {
                 return style + "/" + musicList.get((int) r);
             }
         }
-        
+
         List<String> musicList = Core.searchForResources("music/", true, Core.MUSIC_EXTENSIONS).stream()
                 .map(FilenameUtils::removeExtension).map(music -> music.toLowerCase(Locale.ROOT))
                 .filter(music -> !music.endsWith("_intro")).distinct().collect(Collectors.toList());
         double r = Math.random() * musicList.size();
         return musicList.get((int) r);
     }
-    
+
     /**
      * Play music.
      */
@@ -156,7 +156,7 @@ public class Music {
             playing = true;
         }
     }
-    
+
     /**
      * Stop music.
      */
@@ -166,7 +166,7 @@ public class Music {
         }
         playing = false;
     }
-    
+
     /**
      * Close music.
      */
@@ -176,7 +176,7 @@ public class Music {
         }
         playing = false;
     }
-    
+
     /**
      * Check if music is currently playing
      * @return true if music is currently playing, else false
@@ -184,7 +184,7 @@ public class Music {
     public static boolean isPlaying() {
         return playing;
     }
-    
+
     /**
      * Get current music gain (1.0=100%)
      * @return current music gain (1.0=100%)
@@ -192,7 +192,7 @@ public class Music {
     public static double getGain() {
         return gain;
     }
-    
+
     /**
      * Set music gain
      * @param gn gain (1.0=100%)
@@ -203,7 +203,7 @@ public class Music {
             musicPlayer.setGain(gain);
         }
     }
-    
+
     /**
      * Get current music type.
      * @return music type

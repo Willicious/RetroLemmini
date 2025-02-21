@@ -28,8 +28,8 @@ import lemmini.tools.ToolBox;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -49,7 +49,7 @@ import lemmini.tools.ToolBox;
  * Convert binary "Lemmings for Win95" level files into text format.
  */
 public class ExtractLevel {
-    
+
     /** Scale (to convert lowres levels into hires levels) */
     private static final double DEFAULT_SCALE = 2.0;
     private static final int DEFAULT_WIDTH = 1584;
@@ -60,7 +60,7 @@ public class ExtractLevel {
     private static final int MAX_ENTRANCES = 4;
     private static final int MAX_ENTRANCES_MULTI = 2;
     private static final int MAX_GREEN_FLAGS = 1;
-    
+
     /** names for default styles */
     private static final Map<Integer, String> STYLES = new HashMap<>(32);
     /** names for default special styles */
@@ -68,12 +68,12 @@ public class ExtractLevel {
     private static final Map<String, Set<Integer>> OBJECTS_TO_ALIGN = new HashMap<>(32);
     private static final Map<Integer, String> MUSIC_INDEX = new HashMap<>(64);
     private static final Map<String, String> MUSIC_STRING = new HashMap<>(64);
-    
+
     private static void addStyle(int styleIndex, String styleName, Integer... styleObjectsToAlign) {
         STYLES.put(styleIndex, styleName);
         OBJECTS_TO_ALIGN.put(styleName, new HashSet<>(Arrays.asList(styleObjectsToAlign)));
     }
-    
+
     static {
         addStyle(0, "dirt", 0, 3, 4, 5, 6, 7, 8, 10);
         addStyle(1, "fire", 0, 3, 4, 5, 6, 7, 8, 10);
@@ -90,7 +90,7 @@ public class ExtractLevel {
         //addStyle(22, "marble_md", 0, 3, 4, 5, 6, 8, 9);
         //addStyle(23, "pillar_md", 0, 3, 4, 5, 6, 8, 9, 10, 15, 16, 17);
         //addStyle(24, "crystal_md", 0, 4, 5, 6, 7, 8, 9, 10);
-        
+
         SPECIAL_STYLES.put(0, "awesome");
         SPECIAL_STYLES.put(1, "menace");
         SPECIAL_STYLES.put(2, "beastii");
@@ -104,7 +104,7 @@ public class ExtractLevel {
         SPECIAL_STYLES.put(14, "hebereke");
         SPECIAL_STYLES.put(15, "apple");
         SPECIAL_STYLES.put(101, "apple");
-        
+
         MUSIC_INDEX.put(1, "cancan.mod");
         MUSIC_INDEX.put(2, "lemming1.mod");
         MUSIC_INDEX.put(3, "tim2.mod");
@@ -128,7 +128,7 @@ public class ExtractLevel {
         MUSIC_INDEX.put(21, "tune4.mod");
         MUSIC_INDEX.put(22, "tune5.mod");
         MUSIC_INDEX.put(23, "tune6.mod");
-        
+
         MUSIC_STRING.put("awesome", "special/awesome.mod");
         MUSIC_STRING.put("beasti", "special/beasti.mod");
         MUSIC_STRING.put("beastii", "special/beastii.mod");
@@ -161,10 +161,10 @@ public class ExtractLevel {
         MUSIC_STRING.put("xmas_02", "xmas/kw.mod");
         MUSIC_STRING.put("xmas_03", "xmas/rudi.mod");
     }
-    
+
     private static final int GIMMICK_FLAG_SUPERLEMMING = 1;
     private static final int GIMMICK_FLAG_CHEAPO_FALL_DISTANCE = 1 << 30;
-    
+
     private static final int SKILL_FLAG_CLIMBER = 1 << 14;
     private static final int SKILL_FLAG_FLOATER = 1 << 12;
     private static final int SKILL_FLAG_BOMBER = 1 << 9;
@@ -173,7 +173,7 @@ public class ExtractLevel {
     private static final int SKILL_FLAG_BASHER = 1 << 3;
     private static final int SKILL_FLAG_MINER = 1 << 2;
     private static final int SKILL_FLAG_DIGGER = 1 << 1;
-    
+
     private static final int OPTION_FLAG_NEGATIVE_STEEL = 1;
     private static final int OPTION_FLAG_AUTOSTEEL = 1 << 1;
     private static final int OPTION_FLAG_IGNORE_STEEL = 1 << 2;
@@ -182,7 +182,7 @@ public class ExtractLevel {
     private static final int OPTION_FLAG_CUSTOM_SKILL_SET = 1 << 6;
     private static final int OPTION_FLAG_INVERT_ONE_WAY = 1 << 7;
     private static final int OPTION_FLAG_LOCK_RELEASE_RATE = 1 << 8;
-    
+
     /**
      * Convert one binary LVL file into text file
      * @param fnIn Name of binary LVL file
@@ -207,7 +207,7 @@ public class ExtractLevel {
         }
         convertLevel(b, fnIn.getFileName().toString().toLowerCase(Locale.ROOT), out, multi, classic);
     }
-    
+
     /**
      * Convert one binary LVL file into text file
      * @param in Byte array of binary LVL file
@@ -286,7 +286,7 @@ public class ExtractLevel {
         int entranceCount = 0;
         int activeEntranceCount = 0;
         int greenFlagCount = 0;
-        
+
         if (in.length < 177) {
             throw new Exception("Lemmings level files must be at least 177 bytes in size!");
         }
@@ -524,7 +524,7 @@ public class ExtractLevel {
                         b.position(b.position() + 32);
                     }
                     b.position(b.position() + 32);
-                    break;            
+                    break;
                 default:
                     throw new Exception(String.format("Unsupported level format: %d", format));
             }
@@ -793,7 +793,7 @@ public class ExtractLevel {
             // replace wrong apostrophes
             lvlName = lvlName.replace('`', '\'');
         }
-        
+
         // write the level
         // add only file name without the path in the first line
         out.write("# LVL extracted by SuperLemmini # " + fName + "\r\n");
@@ -1058,23 +1058,23 @@ public class ExtractLevel {
  * @author Volker Oth
  */
 class LvlObject {
-    
+
     /** paint mode: only visible on a terrain pixel */
     static final int MODE_VIS_ON_TERRAIN = 8;
     /** paint mode: don't overwrite terrain pixel in the original foreground image */
     static final int MODE_NO_OVERWRITE = 4;
     static final int MODE_INVISIBLE = 2;
-    
+
     /** flag: paint object upside down */
     static final int FLAG_UPSIDE_DOWN = 1;
     static final int FLAG_FAKE = 2;
     static final int FLAG_UPSIDE_DOWN_MASK = 4;
     static final int FLAG_FLIP_HORIZONTALLY = 8;
     static final int FLAG_ROTATE = 16;
-    
+
     static final int ENTRANCE_ID = 1;
     static final int GREEN_FLAG_ID = 2;
-    
+
     /** x position in pixels */
     long xPos;
     /** y position in pixels */
@@ -1090,7 +1090,7 @@ class LvlObject {
     byte byte4Value;
     byte byte6Value;
     byte byte7Value;
-    
+
     /**
      * Constructor.
      * @param b buffer
@@ -1228,7 +1228,7 @@ class LvlObject {
                 throw new Exception(String.format("Unsupported level format: %d", format));
         }
     }
-    
+
     static LvlObject getObject(ByteBuffer b, double scale, boolean classic, int format) throws Exception {
         int byteCount;
         switch (format) {
@@ -1257,14 +1257,14 @@ class LvlObject {
  * @author Volker Oth
  */
 class Terrain {
-    
+
     static final int FLAG_ROTATE = 128;
     static final int FLAG_NO_ONE_WAY = 64;
     static final int FLAG_FLIP_HORIZONTALLY = 32;
     static final int FLAG_NO_OVERWRITE = 8;
     static final int FLAG_UPSIDE_DOWN = 4;
     static final int FLAG_ERASE = 2;
-    
+
     /** identifier */
     int id;
     /** x position in pixels */
@@ -1276,7 +1276,7 @@ class Terrain {
     int styleIndex;
     boolean exists;
     byte byte3Value;
-    
+
     /**
      * Constructor.
      * @param b buffer
@@ -1383,7 +1383,7 @@ class Terrain {
                 throw new Exception(String.format("Unsupported level format: %d", format));
         }
     }
-    
+
     static Terrain getTerrain(ByteBuffer b, double scale, boolean classic, int format) throws Exception {
         int byteCount;
         switch (format) {
@@ -1413,7 +1413,7 @@ class Terrain {
  * @author Volker Oth
  */
 class Steel {
-    
+
     /** x position in pixels */
     long xPos;
     /** y position in pixels */
@@ -1425,7 +1425,7 @@ class Steel {
     boolean negative;
     boolean exists;
     byte byte3Value;
-    
+
     /**
      * Constructor.
      * @param b buffer
@@ -1513,7 +1513,7 @@ class Steel {
                 throw new Exception(String.format("Unsupported level format: %d", format));
         }
     }
-    
+
     static Steel getSteel(ByteBuffer b, double scale, boolean classic, int format) throws Exception {
         int byteCount;
         switch (format) {

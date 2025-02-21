@@ -11,8 +11,8 @@ import lemmini.tools.ToolBox;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,7 +36,7 @@ import lemmini.tools.ToolBox;
  * @author Volker Oth
  */
 public class Mask {
-    
+
     /** width of mask in pixels */
     private final int width;
     /** height of mask in pixels */
@@ -45,7 +45,7 @@ public class Mask {
     private final List<LemmImage> mask;
     /** for recoloring purposes */
     private final List<LemmImage> originalColorMask;
-    
+
     /**
      * Constructor.
      * @param img image which may contain several animation frames one above each other
@@ -57,7 +57,7 @@ public class Mask {
         mask = ToolBox.getAnimation(img, frames);
         originalColorMask = new ArrayList<>(mask);
     }
-    
+
     /**
      * Apply erase mask (to foreground image, minimap and stencil).
      * @param x0 x position in pixels
@@ -83,9 +83,9 @@ public class Mask {
         if (xMax >= fgImage.getWidth()) {
             xMax = fgImage.getWidth();
         }
-        
+
         int bgCol = Minimap.isTinted() ? 0 : GameController.getLevel().getBgColor().getRGB();
-        
+
         for (int y = y0; y < yMax; y++) {
             if (y < 0) {
                 continue;
@@ -128,7 +128,7 @@ public class Mask {
             }
         }
     }
-    
+
     /**
      * Paint one step (of a stair created by a Builder)
      * @param x0 x position in pixels
@@ -152,7 +152,7 @@ public class Mask {
         if (xMax >= fgImage.getWidth()) {
             xMax = fgImage.getWidth();
         }
-        
+
         for (int y = y0; y < yMax; y++) {
             if (y < 0) {
                 continue;
@@ -188,7 +188,7 @@ public class Mask {
                         SpriteObject spr = GameController.getLevel().getSprObject(obj);
                         // add pixel to all object images that are visible only on terrain
                         if (spr != null && spr.getVisOnTerrain()
-                                && (GameController.getLevel().getClassicSteel() 
+                                && (GameController.getLevel().getClassicSteel()
                                         || !spr.getType().isOneWay())
                                 && !(spr.getType().isOneWay()
                                         && BooleanUtils.toBoolean(stencil.getMask(x, y) & Stencil.MSK_NO_ONE_WAY_DRAW))) {
@@ -202,7 +202,7 @@ public class Mask {
             }
         }
     }
-    
+
     /**
      * Create blocker mask in the Stencil only (Lemming is assigned a Blocker)
      * @param x0 x position in pixels
@@ -219,7 +219,7 @@ public class Mask {
         if (xMax >= fgImage.getWidth()) {
             xMax = fgImage.getWidth();
         }
-        
+
         for (ListIterator<LemmImage> lit = mask.listIterator(); lit.hasNext(); ) {
             int i = lit.nextIndex();
             if (i >= 3) {
@@ -254,7 +254,7 @@ public class Mask {
             }
         }
     }
-    
+
     /**
      * Use mask to check bitmask properties of Stencil.
      * @param x0 x position in pixels
@@ -274,7 +274,7 @@ public class Mask {
         if (xMax >= stencil.getWidth()) {
             xMax = stencil.getWidth();
         }
-        
+
         for (int y = y0; y < yMax; y++) {
             if (y < 0) {
                 continue;
@@ -293,7 +293,7 @@ public class Mask {
         }
         return false;
     }
-    
+
     /**
      * Erase certain properties from Stencil bitmask.
      * @param x0 x position in pixels
@@ -313,7 +313,7 @@ public class Mask {
         if (xMax >= fgImage.getWidth()) {
             xMax = fgImage.getWidth();
         }
-        
+
         for (int y = y0; y < yMax; y++) {
             if (y < 0) {
                 continue;
@@ -329,7 +329,7 @@ public class Mask {
             }
         }
     }
-    
+
     void replaceColors(final int templateCol, final int replaceCol,
             final int templateCol2, final int replaceCol2) {
         for (ListIterator<LemmImage> itf = originalColorMask.listIterator();
@@ -341,7 +341,7 @@ public class Mask {
             mask.set(fi, i);
         }
     }
-    
+
     /**
      * Get width.
      * @return width in pixels.
@@ -349,7 +349,7 @@ public class Mask {
     public int getWidth() {
         return width;
     }
-    
+
     /**
      * Get height.
      * @return height in pixels.
@@ -357,7 +357,7 @@ public class Mask {
     public int getHeight() {
         return height;
     }
-    
+
     /**
      * Get the number of mask frames.
      * @return number of mask frames.

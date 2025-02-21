@@ -11,8 +11,8 @@ import lemmini.tools.ToolBox;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,7 +35,7 @@ import lemmini.tools.ToolBox;
  * @author Volker Oth
  */
 public class NumFont {
-    
+
     /** width in pixels */
     private static int width;
     /** height in pixels */
@@ -43,7 +43,7 @@ public class NumFont {
     /** list of images - one for each digit 0-9 */
     private static final List<LemmImage> NUM_IMG = new ArrayList<>(15);
     private static final Map<Integer, LemmImage> NUM_IMG_MAP = new HashMap<>();
-    
+
     /**
      * Load and initialize the font.
      * @throws ResourceException
@@ -60,7 +60,7 @@ public class NumFont {
         sourceImg = Core.loadLemmImage(resource);
         numImgTemp = ToolBox.getAnimation(sourceImg, 5);
         NUM_IMG.addAll(numImgTemp);
-        
+
         NUM_IMG_MAP.clear();
         LemmImage numImgTemp2;
         GraphicsContext g = null;
@@ -112,7 +112,7 @@ public class NumFont {
         }
         NUM_IMG_MAP.put(null, numImgTemp2);
     }
-    
+
     /**
      * Get an image for a number
      * @param n number

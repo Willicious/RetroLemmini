@@ -8,8 +8,8 @@ import lemmini.tools.ToolBox;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,7 +30,7 @@ import lemmini.tools.ToolBox;
  * @author Volker Oth
  */
 public class Minimap {
-    
+
     /** color of Lemmings in minimap */
     private static final Color LEMM_COLOR = Color.RED;
     /** color of screen frame in minimap */
@@ -38,7 +38,7 @@ public class Minimap {
     private static final int LEMM_DOT_SCALE = 2;
     private static final int MAX_VISIBLE_WIDTH = 200;
     private static final int MAX_VISIBLE_HEIGHT = 40;
-    
+
     /** image used for minimap */
     private static LemmImage img;
     /** X scale */
@@ -51,7 +51,7 @@ public class Minimap {
     private static int visibleHeight;
     private static int xPos;
     private static boolean tinted;
-    
+
     /**
      * init
      * @param sx X Scale
@@ -75,7 +75,7 @@ public class Minimap {
             xPos = ToolBox.cap(0, xPosTemp, img.getWidth() - visibleWidth);
         }
     }
-    
+
     /**
      * Draw minimap.
      * @param g Graphics object to draw on
@@ -85,7 +85,7 @@ public class Minimap {
     public static void draw(final GraphicsContext g, final int x, final int y) {
         g.drawImage(img, x - xPos, y - ToolBox.scale(GameController.getYPos(), scaleY));
     }
-    
+
     /**
      * Draw Lemming in minimap.
      * @param g Graphics object to draw on
@@ -103,7 +103,7 @@ public class Minimap {
             g.fillRect(sx, sy, LEMM_DOT_SCALE, LEMM_DOT_SCALE);
         }
     }
-    
+
     /**
      * Draw minimap frame.
      * @param g Graphics object to draw on
@@ -120,7 +120,7 @@ public class Minimap {
             g.drawRect(x + scaledXPos - xPos, y, wWidth - 1, visibleHeight - 1);
         }
     }
-    
+
     /**
      * Return current image.
      * @return current image.
@@ -128,27 +128,27 @@ public class Minimap {
     public static LemmImage getImage() {
         return img;
     }
-    
+
     public static int getVisibleWidth() {
         return visibleWidth;
     }
-    
+
     public static int getVisibleHeight() {
         return visibleHeight;
     }
-    
+
     public static int getXPos() {
         return xPos;
     }
-    
+
     public static double getScaleX() {
         return scaleX;
     }
-    
+
     public static double getScaleY() {
         return scaleY;
     }
-    
+
     /**
      * Move screen frame via minimap.
      * @param x cursor x position relative to minimap in original gfx.
@@ -160,7 +160,7 @@ public class Minimap {
         int cappedX = (int) ToolBox.cap(scaledDrawWidth / 2.0, x, Math.max(visibleWidth, scaledDrawWidth) - scaledDrawWidth / 2.0);
         return ToolBox.unscale(cappedX - scaledDrawWidth / 2 + xPos, scaleX);
     }
-    
+
     public static void adjustXPos() {
         if (img.getWidth() <= MAX_VISIBLE_WIDTH) {
             xPos = 0;
@@ -174,11 +174,11 @@ public class Minimap {
             }
         }
     }
-    
+
     public static boolean isTinted() {
         return tinted;
     }
-    
+
     public static int tintColor(int color) {
         int alpha = (color & 0xff000000) >>> 24;
         int sum = 0;
