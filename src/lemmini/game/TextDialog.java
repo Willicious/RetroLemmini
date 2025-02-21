@@ -11,8 +11,8 @@ import lemmini.graphics.LemmImage;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,15 +35,15 @@ import lemmini.graphics.LemmImage;
  * @author Volker Oth
  */
 public class TextDialog {
-    
+
     /** list of images */
     private final Map<String, List<TextDialogImage>> images;
     /** list of buttons */
     private final Map<String, List<Button>> buttons;
-    
+
     private LemmImage backgroundImage;
     private boolean tileBackground;
-    
+
     /**
      * Create dialog text screen.
      */
@@ -51,7 +51,7 @@ public class TextDialog {
         buttons = new LinkedHashMap<>();
         images = new LinkedHashMap<>();
     }
-    
+
     /**
      * Clear the text screen.
      */
@@ -64,7 +64,7 @@ public class TextDialog {
         }
         backgroundImage = null;
     }
-    
+
     /**
      * Draw the text screen to the given graphics object.
      * @param g graphics object to draw the text screen to
@@ -78,7 +78,7 @@ public class TextDialog {
         int heightHalf = height / 2;
         int centerX = widthHalf + x;
         int centerY = heightHalf + y;
-        
+
         if (backgroundImage != null) {
             if (tileBackground) {
                 int imageWidth = backgroundImage.getWidth();
@@ -111,7 +111,7 @@ public class TextDialog {
             });
         }
     }
-    
+
     /**
      * Set Image as background.
      * @param image Image to use as background
@@ -122,7 +122,7 @@ public class TextDialog {
         backgroundImage = image;
         tileBackground = true;
     }
-    
+
     /**
      * Draw string.
      * @param s String
@@ -153,7 +153,7 @@ public class TextDialog {
             }
         }
     }
-    
+
     /**
      * Draw string.
      * @param s String
@@ -164,7 +164,7 @@ public class TextDialog {
     public void addString(final String s, final String group, final int x, final int y) {
         addString(s, group, x, y, LemmFont.LemmColor.GREEN);
     }
-    
+
     /**
      * Draw string horizontally centered.
      * @param s String
@@ -198,7 +198,7 @@ public class TextDialog {
             }
         }
     }
-    
+
     /**
      * Draw string horizontally centered.
      * @param s String
@@ -208,7 +208,7 @@ public class TextDialog {
     public void addStringCentered(final String s, final String group, final int y) {
         addStringCentered(s, group, y, LemmFont.LemmColor.GREEN);
     }
-    
+
     /**
      * Add an image.
      * @param img Image
@@ -222,7 +222,7 @@ public class TextDialog {
             images.get(group).add(new TextDialogImage(img, x, y));
         }
     }
-    
+
     /**
      * Add a horizontally centered image.
      * @param img Image
@@ -236,7 +236,7 @@ public class TextDialog {
             images.get(group).add(new TextDialogImage(img, x, y));
         }
     }
-    
+
     /**
      * Add Button.
      * @param img Button image
@@ -256,7 +256,7 @@ public class TextDialog {
             buttons.get(group).add(b);
         }
     }
-    
+
     /**
      * Add text button.
      * @param type Button type
@@ -281,7 +281,7 @@ public class TextDialog {
             buttons.get(group).add(b);
         }
     }
-    
+
     /**
      * React on left click.
      * @param x X position in pixels relative to center
@@ -300,7 +300,7 @@ public class TextDialog {
         }
         return TextScreen.Button.NONE;
     }
-    
+
     /**
      * React on mouse hover.
      * @param x X position relative to center
@@ -315,7 +315,7 @@ public class TextDialog {
             });
         }
     }
-    
+
     public void clearGroup(String group) {
         synchronized (images) {
             if (images.containsKey(group)) {
@@ -328,13 +328,13 @@ public class TextDialog {
             }
         }
     }
-    
+
     private void addImageGroup(String group) {
         if (!images.containsKey(group)) {
             images.put(group, new ArrayList<>(16));
         }
     }
-    
+
     private void addButtonGroup(String group) {
         if (!buttons.containsKey(group)) {
             buttons.put(group, new ArrayList<>(16));
@@ -363,7 +363,7 @@ class Button {
     protected LemmImage image;
     /** selected button image */
     protected LemmImage imgSelected;
-    
+
     /**
      * Constructor
      * @param xi x position in pixels
@@ -380,7 +380,7 @@ class Button {
         image = null;
         imgSelected = null;
     }
-    
+
     /**
      * Set normal button image.
      * @param img image
@@ -394,7 +394,7 @@ class Button {
             width = image.getWidth();
         }
     }
-    
+
     /**
      * Set selected button image.
      * @param img image
@@ -408,7 +408,7 @@ class Button {
             width = imgSelected.getWidth();
         }
     }
-    
+
     /**
      * Return current button image (normal or selected, depending on state).
      * @return current button image
@@ -420,7 +420,7 @@ class Button {
             return image;
         }
     }
-    
+
     /**
      * Draw the button.
      * @param g graphics object to draw on
@@ -433,7 +433,7 @@ class Button {
             g.drawImage(getImage(), cx + x, cy + y);
         }
     }
-    
+
     /**
      * Check if a (mouse) position is inside this button.
      * @param xi
@@ -459,7 +459,7 @@ class TextButton extends Button {
     TextButton(final int xi, final int yi, final TextScreen.Button typei) {
         super(xi, yi, typei);
     }
-    
+
     /**
      * Set text which is used as button.
      * @param s String which contains the button text
@@ -477,7 +477,7 @@ class TextButton extends Button {
             width = image.getWidth();
         }
     }
-    
+
     /**
      * Set text for selected button.
      * @param s String which contains the selected button text
@@ -498,26 +498,26 @@ class TextButton extends Button {
 }
 
 class TextDialogImage {
-    
+
     /** x coordinate in pixels */
     private final int x;
     /** y coordinate in pixels */
     private final int y;
     /** string image */
     protected LemmImage image;
-    
+
     TextDialogImage(final LemmImage img, final int xi, final int yi) {
         x = xi;
         y = yi;
         image = img;
     }
-    
+
     TextDialogImage(final String text, final int xi, final int yi, final LemmFont.LemmColor col) {
         x = xi;
         y = yi;
         image = LemmFont.strImage(text, col);
     }
-    
+
     /**
      * Draw the image.
      * @param g graphics object to draw on

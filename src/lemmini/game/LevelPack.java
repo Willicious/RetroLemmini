@@ -17,8 +17,8 @@ import lemmini.tools.ToolBox;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -40,7 +40,7 @@ import lemmini.tools.ToolBox;
  * @author Volker Oth
  */
 public class LevelPack {
-    
+
     public static final String FAILURE_A_DEF =
             "ROCK BOTTOM! I hope for your sake\nthat you nuked that level.";
     public static final String FAILURE_B_DEF =
@@ -59,7 +59,7 @@ public class LevelPack {
             "You totally stormed that level!\nLet's see if you can storm the next...";
     public static final String SUCCESS_D_DEF =
             "Superb! You rescued every lemming on\nthat level. Can you do it again....?";
-    
+
     /** name of the level pack */
     private String name;
     private boolean allLevelsUnlocked;
@@ -75,10 +75,10 @@ public class LevelPack {
     private int maxFallDistance;
     /** offset to apply in level code algorithm */
     private int codeOffset;
-    
+
     private final List<String> debriefings = new ArrayList<>(9);
     private final List<String> mods;
-    
+
     /**
      * Constructor for dummy level pack. Needed for loading single levels.
      */
@@ -90,11 +90,11 @@ public class LevelPack {
         maxFallDistance = 126;
         codeOffset = 0;
         mods = Collections.emptyList();
-        
+
         ratings.add("Single Levels");
-        
+
         lvlInfo.add(new ArrayList<>(64));
-        
+
         debriefings.add(FAILURE_A_DEF);
         debriefings.add(FAILURE_B_DEF);
         debriefings.add(FAILURE_C_DEF);
@@ -105,7 +105,7 @@ public class LevelPack {
         debriefings.add(SUCCESS_C_DEF);
         debriefings.add(SUCCESS_D_DEF);
     }
-    
+
     /**
      * Constructor for loading a level pack.
      * @param res resource object for level pack INI
@@ -184,7 +184,7 @@ public class LevelPack {
             lvlInfo.add(levels);
         }
     }
-    
+
     /**
      * Assemble level pack and rating to string.
      * @param pack level pack
@@ -194,10 +194,10 @@ public class LevelPack {
     public static String getID(String pack, String rating) {
         pack = Normalizer.normalize(pack.toLowerCase(Locale.ROOT), Normalizer.Form.NFKC);
         rating = Normalizer.normalize(rating.toLowerCase(Locale.ROOT), Normalizer.Form.NFKC);
-        
+
         return pack + "-" + rating;
     }
-    
+
     /**
      * Return ratings as string list.
      * @return ratings as string list
@@ -205,7 +205,7 @@ public class LevelPack {
     public List<String> getRatings() {
         return Collections.unmodifiableList(ratings);
     }
-    
+
     /**
      * Get name of level pack.
      * @return name of level pack
@@ -213,7 +213,7 @@ public class LevelPack {
     public String getName() {
         return name;
     }
-    
+
     /**
      * Get code seed.
      * @return code seed.
@@ -221,7 +221,7 @@ public class LevelPack {
     public String getCodeSeed() {
         return codeSeed;
     }
-    
+
     /**
      * Get maximum fall distance.
      * @return maximum fall distance
@@ -229,15 +229,15 @@ public class LevelPack {
     public int getMaxFallDistance() {
         return maxFallDistance;
     }
-    
+
     public List<String> getDebriefings() {
         return Collections.unmodifiableList(debriefings);
     }
-    
+
     public boolean getAllLevelsUnlocked() {
         return allLevelsUnlocked;
     }
-    
+
     /**
      * Get offset to apply in level code algorithm.
      * @return offset to apply in level code algorithm
@@ -245,7 +245,7 @@ public class LevelPack {
     public int getCodeOffset() {
         return codeOffset;
     }
-    
+
     /**
      * Get level info for a certain level.
      * @param rating rating
@@ -255,7 +255,7 @@ public class LevelPack {
     public LevelInfo getInfo(final int rating, final int level) {
         return lvlInfo.get(rating).get(level);
     }
-    
+
     /**
      * Set level info for a certain level.
      * @param rating rating
@@ -265,7 +265,7 @@ public class LevelPack {
     public void setInfo(final int rating, final int level, final LevelInfo li) {
         lvlInfo.get(rating).set(level, li);
     }
-    
+
     /**
      * Add a level to the end of a rating.
      * @param rating rating
@@ -274,7 +274,7 @@ public class LevelPack {
     public void addLevel(final int rating, final LevelInfo li) {
         lvlInfo.get(rating).add(li);
     }
-    
+
     /**
      * Remove a level from a rating.
      * @param rating rating
@@ -283,7 +283,7 @@ public class LevelPack {
     public void removeLevel(final int rating, final int level) {
         lvlInfo.get(rating).remove(level);
     }
-    
+
     /**
      * Add a rating to this level pack.
      * @param rating name of rating
@@ -293,7 +293,7 @@ public class LevelPack {
         ratings.add(rating);
         lvlInfo.add(li);
     }
-    
+
     /**
      * Remove a rating from this level pack.
      * @param rating index of rating to remove
@@ -302,7 +302,7 @@ public class LevelPack {
         ratings.remove(rating);
         lvlInfo.remove(rating);
     }
-    
+
     /**
      * Return all levels for a rating
      * @param rating index of rating
@@ -311,15 +311,15 @@ public class LevelPack {
     public List<String> getLevels(final int rating) {
         return lvlInfo.get(rating).stream().map(li -> li.getName().trim()).collect(Collectors.toList());
     }
-    
+
     public int getRatingCount() {
         return lvlInfo.size();
     }
-    
+
     public int getLevelCount(final int rating) {
         return lvlInfo.get(rating).size();
     }
-    
+
     public List<String> getModPaths() {
         return Collections.unmodifiableList(mods);
     }

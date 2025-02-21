@@ -21,7 +21,7 @@ import lemmini.game.Resource;
 import lemmini.game.ResourceException;
 
 public interface MusicPlayer {
-    
+
     /**
      * Load file, initialize player.
      * @param res resource
@@ -30,7 +30,7 @@ public interface MusicPlayer {
      * @throws LemmException
      */
     void load(Resource resource, boolean loop) throws ResourceException, LemmException;
-    
+
     void stop();
     void play();
     void close();

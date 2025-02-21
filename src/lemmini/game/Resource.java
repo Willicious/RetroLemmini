@@ -24,18 +24,18 @@ import java.io.InputStream;
  * @author Ryan
  */
 public interface Resource {
-    
+
     boolean exists();
-    
+
     String getFileName();
-    
+
     String getOriginalPath();
-    
+
     Resource getSibling(String sibling);
-    
+
     InputStream getInputStream() throws IOException;
-    
+
     BufferedReader getBufferedReader() throws IOException;
-    
+
     byte[] readAllBytes() throws IOException;
 }

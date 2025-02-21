@@ -9,8 +9,8 @@ import lemmini.tools.ToolBox;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,17 +34,17 @@ import lemmini.tools.ToolBox;
  * @author Volker Oth
  */
 public class Fader {
-    
+
     public static final int FADE_STEP_FAST = 15;
     public static final int FADE_STEP_SLOW = 8;
-    
+
     /** width of square to use for fading */
     private static final int WIDTH = 64;
     /** height of square to use for fading */
     private static final int HEIGHT = 64;
     /** maximum alpha (opaque) */
     private static final int MAX_ALPHA = 0xff;
-    
+
     /** Fader state */
     public static enum State {
         /** don't fade */
@@ -56,7 +56,7 @@ public class Fader {
         /** fade out */
         OUT
     }
-    
+
     /** current alpha value */
     private static int fadeValue;
     /** current fade state */
@@ -71,7 +71,7 @@ public class Fader {
     private static LemmImage alphaImg = null;
     /** the graphics used as fading rectangle (static to avoid multiple allocation) */
     private static GraphicsContext alphaGfx;
-    
+
     /**
      * Set color to be used for fading.
      * @param c RGB color
@@ -80,7 +80,7 @@ public class Fader {
         color = c & 0xffffff;
         init();
     }
-    
+
     /**
      * Set alpha value to be used for fading.
      * @param a 8bit alpha value
@@ -89,7 +89,7 @@ public class Fader {
         alpha = ToolBox.cap(0, a, 0xff);
         init();
     }
-    
+
     /**
      * Initialize fader.
      */
@@ -105,7 +105,7 @@ public class Fader {
         alphaGfx.setBackground(fillColor);
         alphaGfx.clearRect(0, 0, WIDTH, HEIGHT);
     }
-    
+
     /**
      * Apply fader without changing the fader state.
      * @param g graphics to apply fader to
@@ -119,7 +119,7 @@ public class Fader {
             }
         }
     }
-    
+
     /**
      * Set fader state.
      * @param s state
@@ -141,7 +141,7 @@ public class Fader {
                 break;
         }
     }
-    
+
     /**
      * Get fader state.
      * @return fader state.
@@ -149,7 +149,7 @@ public class Fader {
     public static synchronized State getState() {
         return fadeState;
     }
-    
+
     /**
      * Set step size.
      * @param step
@@ -157,7 +157,7 @@ public class Fader {
     public static void setStep(final int step) {
         fadeStep = step;
     }
-    
+
     /**
      * Get step size.
      * @return step size
@@ -165,7 +165,7 @@ public class Fader {
     public static int getStep() {
         return fadeStep;
     }
-    
+
     /**
      * Fade.
      */

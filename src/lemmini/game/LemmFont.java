@@ -21,8 +21,8 @@ import lemmini.tools.ToolBox;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -44,7 +44,7 @@ import lemmini.tools.ToolBox;
  * @author Volker Oth
  */
 public class LemmFont {
-    
+
     /** Colors */
     public static enum LemmColor {
         /** green color */
@@ -60,9 +60,9 @@ public class LemmFont {
         /** violet color */
         VIOLET
     }
-    
+
     private static final String FONT_INI_STR = "gfx/font/font.ini";
-    
+
     /** width of one character in pixels */
     private static int width;
     /** height of one character in pixels */
@@ -71,7 +71,7 @@ public class LemmFont {
     private static final Map<String, Subset> subsets = new HashMap<>(4);
     private static Glyph missingChar;
     private static final List<Glyph> missingCharFont = new ArrayList<>(16);
-    
+
     /**
      * Initialization.
      * @throws ResourceException
@@ -82,26 +82,26 @@ public class LemmFont {
         if (!p.load(resource)) {
             throw new ResourceException(FONT_INI_STR);
         }
-        
+
         width = p.getInt("width", 0);
         height = p.getInt("height", 0);
-        
+
         chars.clear();
         subsets.clear();
         missingCharFont.clear();
-        
+
         for (int i = 0; true; i++) {
             String fileName = p.get("subset_" + i + "_fileName", StringUtils.EMPTY);
             int numChars = p.getInt("subset_" + i + "_numChars", 0);
-            
+
             if (fileName.isEmpty() | numChars <= 0) {
                 break;
             }
-            
+
             resource = Core.findResource("gfx/font/" + fileName, Core.IMAGE_EXTENSIONS);
-            
+
             String name = FilenameUtils.removeExtension(fileName);
-            
+
             LemmImage sourceImg = Core.loadLemmImage(resource);
             List<LemmImage> glyphImg = ToolBox.getAnimation(sourceImg, numChars, sourceImg.getWidth());
             List<Glyph> glyphs = new ArrayList<>(numChars);
@@ -115,7 +115,7 @@ public class LemmFont {
             }
             subsets.put(name, new Subset(glyphs));
         }
-        
+
         LemmImage img = ToolBox.createLemmImage(width, height);
         GraphicsContext g = null;
         try {
@@ -128,14 +128,14 @@ public class LemmFont {
             }
         }
         missingChar = new Glyph(img);
-        
+
         img = Core.loadLemmImageJar("missing_char_font.png");
         List<LemmImage> missingGlyphFontImg = ToolBox.getAnimation(img, 16);
         missingGlyphFontImg.stream().forEachOrdered(missingGlyphImg -> {
             missingCharFont.add(new Glyph(missingGlyphImg));
         });
     }
-    
+
     /**
      * Draw string into graphics object in given color.
      * @param g graphics object to draw to.
@@ -146,10 +146,10 @@ public class LemmFont {
      */
     public static void strImage(final GraphicsContext g, String s, int x, final int y, final LemmColor color) {
         s = Normalizer.normalize(s, Normalizer.Form.NFC);
-        
+
         for (int c, i = 0; i < s.length(); i += Character.charCount(c)) {
             c = s.codePointAt(i);
-            
+
             if (!isLegalChar(c) || Character.isIdentifierIgnorable(c)) {
                 // do nothing
             } else if (Character.isSpaceChar(c) || Character.isISOControl(c)) {
@@ -160,7 +160,7 @@ public class LemmFont {
             }
         }
     }
-    
+
     /**
      * Draw string into graphics object in given color.
      * @param g graphics object to draw to.
@@ -170,7 +170,7 @@ public class LemmFont {
     public static void strImage(final GraphicsContext g, final String s, final LemmColor color) {
         strImage(g, s, 0, 0, color);
     }
-    
+
     /**
      * Create image of string in given color.
      * @param s string to draw
@@ -190,7 +190,7 @@ public class LemmFont {
         }
         return image;
     }
-    
+
     /**
      * Create image of string in default color (green).
      * @param s string to draw
@@ -199,7 +199,7 @@ public class LemmFont {
     public static LemmImage strImage(final String s) {
         return strImage(s, LemmColor.GREEN);
     }
-    
+
     /**
      * Draw string into graphics object in default color (green).
      * @param g graphics object to draw to.
@@ -208,7 +208,7 @@ public class LemmFont {
     public static void strImage(final GraphicsContext g, final String s) {
         strImage(g, s, 0, 0, LemmColor.GREEN);
     }
-    
+
     private static void drawCharacter(GraphicsContext g, int c, int x, int y, LemmColor color) {
         if (chars.containsKey(c)) {
             LemmChar lemmChar = chars.get(c);
@@ -217,7 +217,7 @@ public class LemmFont {
             drawMissingChar(g, c, x, y, color);
         }
     }
-    
+
     private static void drawMissingChar(GraphicsContext g, int c, int x, int y, LemmColor color) {
         g.drawImage(missingChar.getColor(color), x, y);
         boolean bmpCodePoint = Character.isBmpCodePoint(c);
@@ -231,7 +231,7 @@ public class LemmFont {
             }
         }
     }
-    
+
     /**
      * Get the width of one character in pixels.
      * @return width of one character in pixels
@@ -239,7 +239,7 @@ public class LemmFont {
     public static int getWidth() {
         return width;
     }
-    
+
     /**
      * Get the height of one character in pixels.
      * @return height of one character in pixels
@@ -247,7 +247,7 @@ public class LemmFont {
     public static int getHeight() {
         return height;
     }
-    
+
     /**
      * Get the number of displayable characters in the given string.
      * @param s string
@@ -264,7 +264,7 @@ public class LemmFont {
         }
         return charCount;
     }
-    
+
     /**
      * Split a string into multiple lines at newline characters and, if
      * necessary to prevent the length of a line from exceeding maxLineLength,
@@ -278,7 +278,7 @@ public class LemmFont {
      */
     public static List<String> split(String s, int maxLineLength) {
         s = Normalizer.normalize(s, Normalizer.Form.NFC);
-        
+
         boolean wordWrap = maxLineLength > 0;
         List<String> sl = new ArrayList<>(4);
         BreakIterator bi = BreakIterator.getLineInstance(Locale.ROOT);
@@ -292,7 +292,7 @@ public class LemmFont {
             boolean breakHere = false;
             int charsToSkip = 0;
             boolean replaceSoftHyphen = false;
-            
+
             // break here if this character is a newline character
             if (type == Character.LINE_SEPARATOR || type == Character.PARAGRAPH_SEPARATOR) {
                 breakHere = true;
@@ -352,7 +352,7 @@ public class LemmFont {
                     }
                 } while (repeatLoop);
             }
-            
+
             if (breakHere) {
                 if (replaceSoftHyphen) {
                     // replace soft hyphen with a real hyphen
@@ -370,41 +370,41 @@ public class LemmFont {
                 lineLength++;
             }
         }
-        
+
         if (i > lastBreak) {
             sl.add(s.substring(lastBreak, i));
         }
         return Collections.unmodifiableList(sl);
     }
-    
+
     private static boolean isLegalChar(int c) {
         return Character.isValidCodePoint(c)
                 && Character.getType(c) != Character.SURROGATE
                 && (c & 0xffff) < 0xfffe
                 && (c < 0xfdd0 || c > 0xfdef);
     }
-    
+
     private static class Subset {
-        
+
         List<Glyph> glyphs;
-        
+
         Subset(List<Glyph> glyphs) {
             this.glyphs = glyphs;
         }
-        
+
         Glyph getGlyph(int g) {
             return glyphs.get(g);
         }
     }
-    
+
     private static class Glyph {
-        
+
         private final List<LemmImage> glyphColors;
-        
+
         Glyph(LemmImage glyph) {
             int width = glyph.getWidth();
             int height = glyph.getHeight();
-            
+
             LemmImage[] glyphColorsArray = {
                 glyph,
                 ToolBox.createLemmImage(width, height),
@@ -413,7 +413,7 @@ public class LemmFont {
                 ToolBox.createLemmImage(width, height),
                 ToolBox.createLemmImage(width, height),
             };
-            
+
             for (int xp = 0; xp < width; xp++) {
                 for (int yp = 0; yp < height; yp++) {
                     int col = glyph.getRGB(xp, yp); // A R G B
@@ -438,20 +438,20 @@ public class LemmFont {
                     glyphColorsArray[5].setRGB(xp, yp, col);
                 }
             }
-            
+
             glyphColors = Arrays.asList(glyphColorsArray);
         }
-        
+
         LemmImage getColor(LemmColor color) {
             return glyphColors.get(color.ordinal());
         }
     }
-    
+
     private static class LemmChar {
-        
+
         String subset;
         int glyphIndex;
-        
+
         LemmChar(String subset, int glyphIndex) {
             this.subset = subset;
             this.glyphIndex = glyphIndex;
