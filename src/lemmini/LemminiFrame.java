@@ -779,6 +779,10 @@ public class LemminiFrame extends JFrame {
             case BRIEFING:
                 key:
                 switch (code) {
+	                case KeyEvent.VK_ENTER:
+	                case KeyEvent.VK_SPACE:
+	                	lemminiPanelMain.startLevel();
+	                	break;
                     case KeyEvent.VK_LEFT:
                         if (Fader.getState() == Fader.State.OFF) {
                             LevelPack pack = GameController.getCurLevelPack();
@@ -871,19 +875,36 @@ public class LemminiFrame extends JFrame {
                                 }
                             }
                         }
+                    case KeyEvent.VK_ESCAPE:
+                    	lemminiPanelMain.exitToMenu();
                         break;
                     default:
                         break;
                 }
-                /* falls through */
+                break;
             case INTRO:
             	switch (code) {
             	case KeyEvent.VK_ESCAPE:
             		exit();
+            		break;
+                case KeyEvent.VK_ENTER:
+                case KeyEvent.VK_SPACE:
+                		lemminiPanelMain.loadDefaultLevel();
+                	break;
+                default:
+                    break;
             	}
+            	break;
             case DEBRIEFING:
             case LEVEL_END:
                 switch (code) {
+	                case KeyEvent.VK_ENTER:
+	                case KeyEvent.VK_SPACE:
+                    	if (GameController.wasLost())
+                    		GameController.requestRestartLevel(false, true);
+                    	else
+                    		lemminiPanelMain.continueToNextLevel();
+	                	break;
                     case KeyEvent.VK_V:
                         LemmImage tmp = GameController.getLevel().createMinimap(GameController.getFgImage(), 1.0, 1.0, true, false, true);
                         try (OutputStream out = Core.resourceTree.newOutputStream("level.png")) {
@@ -895,6 +916,9 @@ public class LemminiFrame extends JFrame {
                     	if (lemminiPanelMain.isControlPressed()) {
                     		lemminiPanelMain.handleSaveReplay();
                     	}
+                    case KeyEvent.VK_ESCAPE:
+                    	lemminiPanelMain.exitToMenu();
+                    	break;
                     default:
                         break;
                 }

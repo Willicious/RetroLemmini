@@ -343,7 +343,11 @@ public class LemminiPanel extends JPanel implements Runnable {
                 if (buttonPressed == MouseEvent.BUTTON1) {
                     TextScreen.Button button = TextScreen.getDialog().handleLeftClick(
                             x - Core.getDrawWidth() / 2, y - Core.getDrawHeight() / 2);
+                    
                     switch (button) {
+                        case NONE:
+                        	loadDefaultLevel();
+                        	break;
                         case PLAY_LEVEL:
                             handlePlayLevel();
                             break;
@@ -364,7 +368,8 @@ public class LemminiPanel extends JPanel implements Runnable {
                             break;
                         default:
                             break;
-                    }
+	                }
+                    
                     evt.consume();
                 }
                 break;
@@ -372,6 +377,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                 if (buttonPressed == MouseEvent.BUTTON1) {
                     TextScreen.Button button = TextScreen.getDialog().handleLeftClick(
                             x - Core.getDrawWidth() / 2, y - Core.getDrawHeight() / 2);
+                    
                     switch (button) {
                         case SHOW_HINT:
                             TextScreen.showHint();
@@ -385,32 +391,37 @@ public class LemminiPanel extends JPanel implements Runnable {
                         case PREVIOUS_HINT:
                             TextScreen.previousHint();
                             break;
+                        case NONE:
                         case START_LEVEL:
-                            Minimap.init(1.0 / 16.0, 1.0 / 8.0, true);
-                            GameController.setTransition(GameController.TransitionState.TO_LEVEL);
-                            Fader.setState(Fader.State.OUT);
-                            GameController.resetGain();
+                            startLevel();
                             break;
                         case MENU:
-                            GameController.setTransition(GameController.TransitionState.TO_INTRO);
-                            Fader.setState(Fader.State.OUT);
-                            Core.setTitle("RetroLemmini");
+                            exitToMenu();
                             break;
                         default:
                             break;
                     }
+                
                     evt.consume();
+                } else if (buttonPressed == MouseEvent.BUTTON3) {
+                	exitToMenu();
+                	evt.consume();
                 }
                 break;
             case DEBRIEFING:            	
                 if (buttonPressed == MouseEvent.BUTTON1) {
                     TextScreen.Button button = TextScreen.getDialog().handleLeftClick(
                             x - Core.getDrawWidth() / 2, y - Core.getDrawHeight() / 2);
+
                     switch (button) {
+                        case NONE:
+                        	if (GameController.wasLost())
+                        		GameController.requestRestartLevel(false, true);
+                        	else
+                        		continueToNextLevel();
+                        	break;
                         case CONTINUE:
-                            GameController.nextLevel(); // continue to next level
-                            GameController.requestChangeLevel(GameController.getCurLevelPackIdx(), GameController.getCurRating(),
-                                    GameController.getCurLevelNumber(), false);
+                        	continueToNextLevel();
                             break;
                         case RESTART:
                             GameController.requestRestartLevel(false, true);
@@ -434,8 +445,11 @@ public class LemminiPanel extends JPanel implements Runnable {
                         default:
                             break;
                     }
-
+                
                     evt.consume();
+                } else if (buttonPressed == MouseEvent.BUTTON3) {
+                	exitToMenu();
+                	evt.consume();
                 }
                 break;
             case LEVEL:
@@ -1471,6 +1485,34 @@ public class LemminiPanel extends JPanel implements Runnable {
             GameController.requestChangeLevel(level[0], level[1], level[2], false);
             getParentFrame().setRestartEnabled(true);
         }
+    }
+    
+    void loadDefaultLevel() {
+    	int[] level = {1, 0, 0}; // BOOKMARK TODO: This currently loads pack 1, group 0, level 0 (Just dig!)
+                                 // Ideally, we need a way to get the first unbeaten level relative to the last level played
+		if (level != null) {
+			GameController.requestChangeLevel(level[0], level[1], level[2], false);
+			getParentFrame().setRestartEnabled(true);
+		}
+    }
+    
+    void startLevel() {
+        Minimap.init(1.0 / 16.0, 1.0 / 8.0, true);
+        GameController.setTransition(GameController.TransitionState.TO_LEVEL);
+        Fader.setState(Fader.State.OUT);
+        GameController.resetGain();
+    }
+    
+    void continueToNextLevel() {
+        GameController.nextLevel(); // continue to next level
+        GameController.requestChangeLevel(GameController.getCurLevelPackIdx(), GameController.getCurRating(),
+                GameController.getCurLevelNumber(), false);
+    }
+    
+    void exitToMenu() {
+        GameController.setTransition(GameController.TransitionState.TO_INTRO);
+        Fader.setState(Fader.State.OUT);
+        Core.setTitle("RetroLemmini");
     }
     
     private void maybeAutoSaveReplay() {
