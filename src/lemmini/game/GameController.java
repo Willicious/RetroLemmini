@@ -137,12 +137,12 @@ public class GameController {
     }
     
     public static enum RetroLemminiOption {
-    	//** flag: automatically save successful replays from debriefing screen
-    	AUTOSAVE_REPLAYS,
-    	//** flag: show/hide the top menu bar
-    	SHOW_MENU_BAR,
-    	//** flag: full screen or windowed
-    	FULL_SCREEN
+        //** flag: automatically save successful replays from debriefing screen
+        AUTOSAVE_REPLAYS,
+        //** flag: show/hide the top menu bar
+        SHOW_MENU_BAR,
+        //** flag: full screen or windowed
+        FULL_SCREEN
     }
     
     // 3-way option for setting the Exit sound
@@ -356,7 +356,7 @@ public class GameController {
      */
     public static void init() throws ResourceException {
         System.out.println("initializing GameController...");
-    	width = Level.DEFAULT_WIDTH;
+        width = Level.DEFAULT_WIDTH;
         height = Level.DEFAULT_HEIGHT;
         
         fgImage = ToolBox.createLemmImage(width, height);
@@ -488,7 +488,7 @@ public class GameController {
     
     private static boolean needVLock()
     {
-    	return (getLevel() != null && getLevel().getHeight() > Level.DEFAULT_HEIGHT);
+        return (getLevel() != null && getLevel().getHeight() > Level.DEFAULT_HEIGHT);
     }
     
     /**
@@ -692,18 +692,18 @@ public class GameController {
         } catch (ResourceException ex) {
             Core.resourceError(ex.getMessage());
         } catch (LemmException ex) {
-        	if (music==null) {
-            	music="";
+            if (music==null) {
+                music="";
             }
-        	//get the "real" file, from the requested resource:
-        	Resource resource = Core.findResource("music/" + music, Core.MUSIC_EXTENSIONS);
-        	String ext = FilenameUtils.getExtension(resource.getFileName()).toLowerCase(Locale.ROOT);
+            //get the "real" file, from the requested resource:
+            Resource resource = Core.findResource("music/" + music, Core.MUSIC_EXTENSIONS);
+            String ext = FilenameUtils.getExtension(resource.getFileName()).toLowerCase(Locale.ROOT);
             //only show the error if it's not an .ogg file
-        	// .ogg files not playing properly is the result of missing dependencies.
-        	if(!ext.equals("ogg")) {
-            	JOptionPane.showMessageDialog(null, "Unable to load music resource:\n" + ex.getMessage() + "\n\nAttempting midi fallback.", "Error Loading Music", JOptionPane.ERROR_MESSAGE);
+            // .ogg files not playing properly is the result of missing dependencies.
+            if(!ext.equals("ogg")) {
+                JOptionPane.showMessageDialog(null, "Unable to load music resource:\n" + ex.getMessage() + "\n\nAttempting midi fallback.", "Error Loading Music", JOptionPane.ERROR_MESSAGE);
             }
-        	
+            
             try {
                 music = Music.getRandomTrack(level.getStyleName(), level.getSpecialStyleName());
                 Music.load("music/" + music);
@@ -1111,50 +1111,50 @@ public class GameController {
                         pan = l.getPan();
                         switch (rs.skill) {
                             case CLIMBER:
-                            	if (numClimbers != Integer.MAX_VALUE) {
-                            		numClimbers--;
+                                if (numClimbers != Integer.MAX_VALUE) {
+                                    numClimbers--;
                                     numSkillsUsed++;
                                 }
                                 break;
                             case FLOATER:
-                            	if (numFloaters != Integer.MAX_VALUE) {
-                            		numFloaters--;
+                                if (numFloaters != Integer.MAX_VALUE) {
+                                    numFloaters--;
                                     numSkillsUsed++;
                                 }
                                 break;
                             case FLAPPER:
-                            	if (numBombers != Integer.MAX_VALUE) {
-                            		numBombers--;
+                                if (numBombers != Integer.MAX_VALUE) {
+                                    numBombers--;
                                     numSkillsUsed++;
                                 }
                                 break;
                             case BLOCKER:
-                            	if (numBlockers != Integer.MAX_VALUE) {
+                                if (numBlockers != Integer.MAX_VALUE) {
                                     numBlockers--;
                                     numSkillsUsed++;
                                 }
                                 break;
                             case BUILDER:
-                            	if (numBuilders != Integer.MAX_VALUE) {
-                            		numBuilders--;
+                                if (numBuilders != Integer.MAX_VALUE) {
+                                    numBuilders--;
                                     numSkillsUsed++;
                                 }
                                 break;
                             case BASHER:
-                            	if (numBashers != Integer.MAX_VALUE) {
-                            		numBashers--;
+                                if (numBashers != Integer.MAX_VALUE) {
+                                    numBashers--;
                                     numSkillsUsed++;
                                 }
                                 break;
                             case MINER:
-                            	if (numMiners != Integer.MAX_VALUE) {
-                            		numMiners--;
+                                if (numMiners != Integer.MAX_VALUE) {
+                                    numMiners--;
                                     numSkillsUsed++;
                                 }
                                 break;
                             case DIGGER:
-                            	if (numDiggers != Integer.MAX_VALUE) {
-                            		numDiggers--;
+                                if (numDiggers != Integer.MAX_VALUE) {
+                                    numDiggers--;
                                     numSkillsUsed++;
                                 }
                                 break;
@@ -1285,12 +1285,12 @@ public class GameController {
             if (++startSoundCtr == MAX_START_SOUND_CTR) {
                 //show the Let's Go graphic several times
                 for( SpriteObject spr : entranceSprites) {
-                	//display the graphic right below the opening sprite.
-                	int y = spr.getY() + spr.getHeight() + (Vsfx.IMG_HEIGHT/2);
-                	sound.playVisualSFXSilent(Sound.Effect.START, spr.midX(), y);
+                    //display the graphic right below the opening sprite.
+                    int y = spr.getY() + spr.getHeight() + (Vsfx.IMG_HEIGHT/2);
+                    sound.playVisualSFXSilent(Sound.Effect.START, spr.midX(), y);
                 }
                 //play the actual sfx only once
-            	sound.play(Sound.Effect.START);
+                sound.play(Sound.Effect.START);
                 startSoundPlayed = true;
             }
         }
@@ -1357,7 +1357,7 @@ public class GameController {
 
         //animate or remove visual sfx
         for (Iterator<Vsfx> it = vsfxs.iterator(); it.hasNext(); ) {
-        	Vsfx l = it.next();
+            Vsfx l = it.next();
             l.animate();
             if (l.hasFinished()) {
                 it.remove();
@@ -1391,7 +1391,7 @@ public class GameController {
         }
         stopReplayMode();
         if (!isOptionEnabled(SLTooOption.DISABLE_FRAME_STEPPING)) {
-        	advanceFrame();
+            advanceFrame();
         }
     }
     
@@ -1651,9 +1651,9 @@ public class GameController {
                     sound.playPitched(Sound.PitchedEffect.SKILL, Icons.GetPitch(type));
                     break;
                 case VLOCK: {
-                	if (needVLock())
-                		sound.playPitched(Sound.PitchedEffect.SKILL, Icons.GetPitch(type));
-                	break;
+                    if (needVLock())
+                        sound.playPitched(Sound.PitchedEffect.SKILL, Icons.GetPitch(type));
+                    break;
                 }
                 default:
                     break; // supress sound
@@ -1869,21 +1869,21 @@ public class GameController {
     }
     
     public static synchronized void drawVisualSfx(final GraphicsContext g) {
-    	//draw the visual sfx
-    	vsfxs.stream().forEachOrdered(v -> {
-    		int vx = v.screenX();
-    		int vy = v.screenY();
-    		if (vx + v.width() > xPos && vx < xPos + Core.getDrawWidth()
+        //draw the visual sfx
+        vsfxs.stream().forEachOrdered(v -> {
+            int vx = v.screenX();
+            int vy = v.screenY();
+            if (vx + v.width() > xPos && vx < xPos + Core.getDrawWidth()
             && vy + v.height() > yPos && vy < yPos + LemminiFrame.LEVEL_HEIGHT) {
-		        g.drawImage(v.getImage(), vx - xPos, vy - yPos);
-		    }
-    	});
+                g.drawImage(v.getImage(), vx - xPos, vy - yPos);
+            }
+        });
     }
     
     public static synchronized void drawLemmings(final GraphicsContext g) {
         lemmings.stream().forEachOrdered(l -> {
             //draw lemming.
-        	int lx = l.screenX();
+            int lx = l.screenX();
             int ly = l.screenY();
             int mx = l.midX(); //used for countdown graphics, and selection indicators furing replay (lightbulbs)
             if (lx + l.width() > xPos && lx < xPos + Core.getDrawWidth()
@@ -1931,12 +1931,12 @@ public class GameController {
      * @param y y coordinate in pixels
      */
     public static void drawIconsAndCounters(final GraphicsContext g, final int iconsX, final int iconsY, final int countersX, final int countersY) {
-    	drawIcons(g, iconsX, iconsY);
-    	drawCounters(g, countersX, countersY);
+        drawIcons(g, iconsX, iconsY);
+        drawCounters(g, countersX, countersY);
 /*
-    	if (!GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_ICONBAR)) {
-        	//the enhanced icon bar should have the counters built into it.
-        	drawCounters(g, countersX, countersY);
+        if (!GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_ICONBAR)) {
+            //the enhanced icon bar should have the counters built into it.
+            drawCounters(g, countersX, countersY);
         }
         */
     }
@@ -1949,8 +1949,8 @@ public class GameController {
      */
     private static void drawIcons(final GraphicsContext g, final int x, final int y) {
         //System.out.println("drawing IconBar: " + x + "/" + y);
-    	Icons.Animate();
-    	g.drawImage(Icons.getImg(), x, y);
+        Icons.Animate();
+        g.drawImage(Icons.getImg(), x, y);
     }
     
     /**
@@ -1964,46 +1964,46 @@ public class GameController {
         Integer val = NumberUtils.INTEGER_ZERO;
         List<Icons.IconType> iconOrder = Icons.CurrentIconOrder();
         for (int i = 0; i < iconOrder.size(); i++) {
-        	Icons.IconType type = iconOrder.get(i);
-        	switch (type) {
-        		case MINUS:
+            Icons.IconType type = iconOrder.get(i);
+            switch (type) {
+                case MINUS:
                     val = level.getReleaseRate();
                     break;
-        		case PLUS:
+                case PLUS:
                     val = lockReleaseRate ? null : releaseRate;
                     break;
-        		case CLIMB:
+                case CLIMB:
                     val = numClimbers;
                     break;
-        		case FLOAT:
+                case FLOAT:
                     val = numFloaters;
                     break;
-        		case BOMB:
+                case BOMB:
                     val = numBombers;
                     break;
-        		case BLOCK:
+                case BLOCK:
                     val = numBlockers;
                     break;
-        		case BUILD:
+                case BUILD:
                     val = numBuilders;
                     break;
-        		case BASH:
+                case BASH:
                     val = numBashers;
                     break;
-        		case MINE:
+                case MINE:
                     val = numMiners;
                     break;
-        		case DIG:
+                case DIG:
                     val = numDiggers;
                     break;
-        		default:
-        			val = 0;
-        			break;
-        	}
+                default:
+                    val = 0;
+                    break;
+            }
             if (val != null) {
                 if ((type != Icons.IconType.MINUS || type != Icons.IconType.PLUS) && val.compareTo(NumberUtils.INTEGER_ZERO) <= 0) {
                     //don't show any numbers for skills that are below (or equal to) 0.
-                	continue;
+                    continue;
                 }
             }
             LemmImage numImage = NumFont.numImage(val);
@@ -2349,8 +2349,8 @@ public class GameController {
     
     public static void setVerticalLock(final boolean vl) {
         if (!needVLock())
-        	return;
-    	
+            return;
+        
         verticalLock = vl;
     }
     
@@ -2402,7 +2402,7 @@ public class GameController {
      * @return number of lemmings still in the entrance gate.
      */
     public static int getNumLemmingsUnreleased() {
-    	return getNumLemmingsMax() - numLemmingsOut;
+        return getNumLemmingsMax() - numLemmingsOut;
     }
     
     
@@ -2419,7 +2419,7 @@ public class GameController {
      * Icon was pressed.
      * @param t icon type
      */
-    public static void pressIcon(final Icons.IconType t) {    	
+    public static void pressIcon(final Icons.IconType t) {        
         Icons.press(t);
     }
     
@@ -2504,11 +2504,11 @@ public class GameController {
      * @return list of all Visual SFX in this level
      */
     public static List<Vsfx> getVsfx() {
-    	return Collections.unmodifiableList(vsfxs);
+        return Collections.unmodifiableList(vsfxs);
     }
     
     public static synchronized void addVsfx(Vsfx v) {
-    	vsfxs.add(v);
+        vsfxs.add(v);
     }
     
     /**
@@ -2600,15 +2600,15 @@ public class GameController {
             SLToptions.remove(option);
         }
         if (option == SLTooOption.ICON_LABELS && gameState != null) {
-        	Icons.redraw();
+            Icons.redraw();
         } else if(option == SLTooOption.ENHANCED_ICONBAR && gameState != null) {
-        	try {
-        		Icons.LoadIconResources();
-        	}
-        	catch (ResourceException e) {
-        		System.out.println("error loading resources...");
-        	}
-        	Icons.redraw();
+            try {
+                Icons.LoadIconResources();
+            }
+            catch (ResourceException e) {
+                System.out.println("error loading resources...");
+            }
+            Icons.redraw();
         }
     }
     
@@ -2618,9 +2618,9 @@ public class GameController {
     
     public static void setOption(RetroLemminiOption option, boolean enable) {
         if (enable) {
-        	RLoptions.add(option);
+            RLoptions.add(option);
         } else {
-        	RLoptions.remove(option);
+            RLoptions.remove(option);
         }
     }
     
@@ -2629,7 +2629,7 @@ public class GameController {
     }
     
     public static void setExitSoundOption(ExitSoundOption option) {
-        	exitSoundOption = option;
+            exitSoundOption = option;
     }
 
     public static ExitSoundOption getExitSoundOption() {

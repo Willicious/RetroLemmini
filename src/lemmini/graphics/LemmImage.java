@@ -69,7 +69,7 @@ public class LemmImage {
         hints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         //g.addRenderingHints(hints);
         
-    	return getScaledInstance(targetWidth, targetHeight, RenderingHints.VALUE_INTERPOLATION_BILINEAR, false);
+        return getScaledInstance(targetWidth, targetHeight, RenderingHints.VALUE_INTERPOLATION_BILINEAR, false);
     }
 
     public LemmImage getScaledInstance(int targetWidth, int targetHeight,

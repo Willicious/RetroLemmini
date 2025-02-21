@@ -771,7 +771,7 @@ public class Lemming {
                         m.paintStep(screenMaskX(), screenMaskY(), 0);
                     } else if (idx == 10 * TIME_SCALE) {
                         if (counter >= STEPS_WARNING) {
-                        	playVisualSFX(Sound.Effect.STEP_WARNING);
+                            playVisualSFX(Sound.Effect.STEP_WARNING);
                         }
                     }
                     turnedByBlocker();
@@ -813,7 +813,7 @@ public class Lemming {
                 } else {
                     int idx = frameIdx + 1;
                     if (idx == 5 * TIME_SCALE && !nuke) { 
-                    	playVisualSFX(Sound.Effect.OHNO);
+                        playVisualSFX(Sound.Effect.OHNO);
                     }
                     break;
                 }
@@ -822,7 +822,7 @@ public class Lemming {
                 {
                     int idx = frameIdx + 1;
                     if (idx == 5 * TIME_SCALE && !nuke) { 
-                    	playVisualSFX(Sound.Effect.OHNO);
+                        playVisualSFX(Sound.Effect.OHNO);
                     }
                     free = freeBelow(FALLER_STEP);
                     y += StrictMath.min(FALLER_STEP, free); // max: FALLER_STEP
@@ -857,7 +857,7 @@ public class Lemming {
                     }
                     int idx = frameIdx + 1;
                     if (idx == 3 * TIME_SCALE) {
-                    	playVisualSFX(Sound.Effect.DIE);
+                        playVisualSFX(Sound.Effect.DIE);
                     }
                     break;
                 }
@@ -866,7 +866,7 @@ public class Lemming {
                 if (counter == 1 * TIME_SCALE) {
                     Stencil stencil = GameController.getStencil();
                     Mask m = lemRes.getMask(Direction.RIGHT);
-                	playVisualSFX(Sound.Effect.EXPLODE);
+                    playVisualSFX(Sound.Effect.EXPLODE);
                     if (!GameController.getLevel().getClassicSteel()) {
                         m.eraseMask(screenMaskX(), StrictMath.max(screenMaskY(), -8), 0,
                                 Stencil.MSK_BRICK | Stencil.MSK_ONE_WAY, Stencil.MSK_STEEL);
@@ -959,24 +959,24 @@ public class Lemming {
                         break;
                     }
                 case Stencil.MSK_EXIT:                
-                	if (Core.player.isMaximumExitPhysics()) { // All lem types exit in maximum exit physics mode
-                		switch (newType) {
-                	       case FALLER:
-                	       case SPLATTER:
-                		   case CLIMBER:
-                		   case FLIPPER:
-                		   case BLOCKER:
-                		   case DROWNER:
-                		   case FRIER:
-                		   case SHRUGGER:
-                		   case EXPLODER:
-                		   case NUKE:
-                			   newType = Type.MAX_EXIT_LEM;
-                			   break;
-                		   default:
-                			   break;
-                		}
-                	}
+                    if (Core.player.isMaximumExitPhysics()) { // All lem types exit in maximum exit physics mode
+                        switch (newType) {
+                           case FALLER:
+                           case SPLATTER:
+                           case CLIMBER:
+                           case FLIPPER:
+                           case BLOCKER:
+                           case DROWNER:
+                           case FRIER:
+                           case SHRUGGER:
+                           case EXPLODER:
+                           case NUKE:
+                               newType = Type.MAX_EXIT_LEM;
+                               break;
+                           default:
+                               break;
+                        }
+                    }
                     switch (newType) {
                         case FLAPPER:
                         case WALKER:
@@ -1045,7 +1045,7 @@ public class Lemming {
                         newType = Type.EXPLODER;
                         break;
                     case DROWNER:
-                    	playVisualSFX(Sound.Effect.DROWN);
+                        playVisualSFX(Sound.Effect.DROWN);
                         /* falls through */
                     case FRIER:
                         if (flapper) {
@@ -1131,7 +1131,7 @@ public class Lemming {
      * @param e The Sound Effect to play
      */
     public void playVisualSFX(Sound.Effect e) {
-    	GameController.sound.playVisualSFX(e, footX(), midY()); //NOTE: footX was midX 
+        GameController.sound.playVisualSFX(e, footX(), midY()); //NOTE: footX was midX 
     }
     
     /**
@@ -1155,7 +1155,7 @@ public class Lemming {
         if (BooleanUtils.toBoolean(s & Stencil.MSK_TURN_LEFT) && dir == Direction.RIGHT) {
             int id = objectFoot();
             if (id >= 0) {
-            	SpriteObject spr = GameController.getLevel().getSprObject(id);
+                SpriteObject spr = GameController.getLevel().getSprObject(id);
                 GameController.sound.playVisualSFX(spr);
             }
             dir = Direction.LEFT;
@@ -1164,7 +1164,7 @@ public class Lemming {
         if (BooleanUtils.toBoolean(s & Stencil.MSK_TURN_RIGHT) && dir == Direction.LEFT) {
             int id = objectFoot();
             if (id >= 0) {
-            	SpriteObject spr = GameController.getLevel().getSprObject(id);
+                SpriteObject spr = GameController.getLevel().getSprObject(id);
                 GameController.sound.playVisualSFX(spr);
             }
             dir = Direction.RIGHT;
@@ -1191,7 +1191,7 @@ public class Lemming {
                 case SPLATTER:
                     counter = 0;
                     explodeNumCtr = 0;
-                	playVisualSFX(Sound.Effect.SPLAT);
+                    playVisualSFX(Sound.Effect.SPLAT);
                     break;
                 case FLAPPER:
                 case FLAPPER_BLOCKER:
@@ -1345,7 +1345,7 @@ public class Lemming {
                                         || (hitSteel && spr.getType() == SpriteObject.Type.STEEL))) {
                             GameController.sound.playVisualSFX(spr);
                         } else {
-                        	playVisualSFX(Sound.Effect.STEEL);
+                            playVisualSFX(Sound.Effect.STEEL);
                         }
                     }
                     return false;
@@ -1372,7 +1372,7 @@ public class Lemming {
                         if (spr != null && spr.getType() == SpriteObject.Type.STEEL) {
                             GameController.sound.playVisualSFX(spr);
                         } else {
-                        	playVisualSFX(Sound.Effect.STEEL);
+                            playVisualSFX(Sound.Effect.STEEL);
                         }
                     }
                     return false;
@@ -1390,7 +1390,7 @@ public class Lemming {
         if (x < GameController.getLevel().getLeftBoundary()
                 || x >= GameController.getWidth() + GameController.getLevel().getRightBoundary()) {
             if (!start && playSound) {
-            	playVisualSFX(Sound.Effect.STEEL);
+                playVisualSFX(Sound.Effect.STEEL);
             }
             return false;
         }
@@ -1421,7 +1421,7 @@ public class Lemming {
                                         || (hitSteel && spr.getType() == SpriteObject.Type.STEEL))) {
                             GameController.sound.playVisualSFX(spr);
                         } else {
-                        	playVisualSFX(Sound.Effect.STEEL);
+                            playVisualSFX(Sound.Effect.STEEL);
                         }
                     }
                     return false;
@@ -1447,7 +1447,7 @@ public class Lemming {
                                         || (hitSteel && spr.getType() == SpriteObject.Type.STEEL))) {
                             GameController.sound.playVisualSFX(spr);
                         } else {
-                        	playVisualSFX(Sound.Effect.STEEL);
+                            playVisualSFX(Sound.Effect.STEEL);
                         }
                     }
                     return false;
@@ -1568,7 +1568,7 @@ public class Lemming {
     private boolean crossedLowerBorder() {
         if (y >= GameController.getHeight() + GameController.getLevel().getBottomBoundary()) {
             hasDied = true;
-        	playVisualSFX(Sound.Effect.DIE);
+            playVisualSFX(Sound.Effect.DIE);
             return true;
         }
         return false;
@@ -1668,12 +1668,12 @@ public class Lemming {
             boolean bidirectional = type.bidirectional;
             LemmingResource newLemResource;
             if (type.frames > 0) {
-            	resource = Core.findResource(
+                resource = Core.findResource(
                         "gfx/lemming/lemm_" + type.name().toLowerCase(Locale.ROOT) + ".png",
                         Core.IMAGE_EXTENSIONS);
                 LemmImage sourceImg = Core.loadLemmImage(resource);
                 if (bidirectional) {
-                	resource = Core.findResource(
+                    resource = Core.findResource(
                             "gfx/lemming/lemm_" + type.name().toLowerCase(Locale.ROOT) + "_left.png",
                             Core.IMAGE_EXTENSIONS);
                     LemmImage sourceImgLeft = Core.loadLemmImage(resource);
@@ -1688,14 +1688,14 @@ public class Lemming {
             // read mask
             if (type.maskFrames > 0) {
                 // mask_Y: frames, directions, step
-            	resource = Core.findResource(
+                resource = Core.findResource(
                         "gfx/lemming/mask_" + type.name().toLowerCase(Locale.ROOT) + ".png",
                         Core.IMAGE_EXTENSIONS);
                 LemmImage sourceImg = Core.loadLemmImage(resource);
                 List<Mask> masks = new ArrayList<>(2);
                 masks.add(new Mask(sourceImg, type.maskFrames));
                 if (bidirectional) {
-                	resource = Core.findResource(
+                    resource = Core.findResource(
                             "gfx/lemming/mask_" + type.name().toLowerCase(Locale.ROOT) + "_left.png",
                             Core.IMAGE_EXTENSIONS);
                     LemmImage sourceImgLeft = Core.loadLemmImage(resource);
@@ -1758,20 +1758,20 @@ public class Lemming {
             return setSkill(newSkill, playSound);
         }
         
-    	// If the assignment is a replay event, check the Timed Bomber flag
+        // If the assignment is a replay event, check the Timed Bomber flag
         if (r instanceof ReplayAssignSkillEvent) { 
             ReplayAssignSkillEvent rs = (ReplayAssignSkillEvent) r;
 
             // If the event has the Timed Bomber flag set, handle it as a Timed Bomber
-            if (rs.isTimedBomber()) {           	
-                if (explodeNumCtr == 0) {                	
+            if (rs.isTimedBomber()) {               
+                if (explodeNumCtr == 0) {                    
                     explodeNumCtr = MAX_BOMB_TIMER;
                     explodeCtr = 0;
                     return playSetSkillSound(true, playSound);
-                } else {                	
+                } else {                    
                     return playSetSkillSound(false, playSound);
                 }
-            } else {            	
+            } else {                
                 changeType(type, getExploderType());
                 return playSetSkillSound(true, playSound);
             }
@@ -1788,7 +1788,7 @@ public class Lemming {
      */
     public boolean setSkill(final Type newSkill, boolean playSound) {
         if (newSkill == type || hasDied) {
-        	return playSetSkillSound(false, playSound);
+            return playSetSkillSound(false, playSound);
         }
         
         // check types which can't even get an additional skill anymore
@@ -1798,7 +1798,7 @@ public class Lemming {
             case FRIER:
             case FLAPPER:
                 if (newSkill != Type.NUKE) {
-                	return playSetSkillSound(false, playSound);
+                    return playSetSkillSound(false, playSound);
                 }
             case SPLATTER:
             case EXPLODER:
@@ -1814,21 +1814,21 @@ public class Lemming {
         switch (newSkill) {
             case CLIMBER:
                 if (canClimb || type == Type.BLOCKER) {
-                	return playSetSkillSound(false, playSound);
+                    return playSetSkillSound(false, playSound);
                 } else {
                     canClimb = true;
                     return playSetSkillSound(true, playSound);
                 }
             case FLOATER:
                 if (canFloat || type == Type.BLOCKER) {
-                	return playSetSkillSound(false, playSound);
+                    return playSetSkillSound(false, playSound);
                 } else {
                     canFloat = true;
                     return playSetSkillSound(true, playSound);
                 }
             case NUKE: // special case:  nuke request
                 if (nuke) {
-                	return playSetSkillSound(false, playSound);
+                    return playSetSkillSound(false, playSound);
                 }
                 nuke = true;
                 if (explodeNumCtr == 0) {
@@ -1836,20 +1836,20 @@ public class Lemming {
                     explodeCtr = 0;
                     return playSetSkillSound(true, playSound);
                 } else {
-                	return playSetSkillSound(false, playSound);
+                    return playSetSkillSound(false, playSound);
                 }
             case FLAPPER:
                 if (GameController.isOptionEnabled(GameController.SLTooOption.TIMED_BOMBERS)) {
-	            	if (explodeNumCtr == 0) {
-	                    explodeNumCtr = MAX_BOMB_TIMER;
-	                    explodeCtr = 0;
-	                    return playSetSkillSound(true, playSound);
-	                } else {
-	                	return playSetSkillSound(false, playSound);
-	                }
+                    if (explodeNumCtr == 0) {
+                        explodeNumCtr = MAX_BOMB_TIMER;
+                        explodeCtr = 0;
+                        return playSetSkillSound(true, playSound);
+                    } else {
+                        return playSetSkillSound(false, playSound);
+                    }
                 } else {
-	            	changeType(type, getExploderType());
-	                return playSetSkillSound(true, playSound);
+                    changeType(type, getExploderType());
+                    return playSetSkillSound(true, playSound);
                 }
             default:
                 break;
@@ -1984,7 +1984,7 @@ public class Lemming {
      */
     public int midX() {
         // BOOKMARK TODO: figure out how to avoid a magic number of 3.
-    	return x + 3;
+        return x + 3;
     }
     
     /**
@@ -2119,7 +2119,7 @@ public class Lemming {
     }
     
     public double getPan() {
-    	return lemmini.sound.Sound.getPan(x);
+        return lemmini.sound.Sound.getPan(x);
     }
 }
 
@@ -2243,7 +2243,7 @@ class LemmingResource {
     
     void replaceColors(final int templateCol, final int replaceCol,
             final int templateCol2, final int replaceCol2) {
-    	
+        
         for (ListIterator<List<LemmImage>> itd = originalColorImg.listIterator();
                 itd.hasNext(); ) { // go though all directions
             int di = itd.nextIndex();

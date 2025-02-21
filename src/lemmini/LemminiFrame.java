@@ -83,18 +83,18 @@ public class LemminiFrame extends JFrame {
     
 //    /** full screen version */
 //    static LemminiFrame fullscreenFrame;
-//	private static boolean isFullScreen;
+//    private static boolean isFullScreen;
     
     /**
      * Creates new form LemminiFrame
      */
     public LemminiFrame(//LemminiFrame frame // BOOKMARK TODO: (Fullscreen attempted implementation) Passing values here might be causing issues
-    		) {
-    	try {
-        	//found at: https://stackoverflow.com/questions/2837263/how-do-i-get-the-directory-that-the-currently-executing-jar-file-is-in
-        	String currentFolderStr = URLDecoder.decode(getClass().getProtectionDomain().getCodeSource().getLocation().getFile(), "UTF-8");
-        	System.out.println("Current directory: " + currentFolderStr);
-        	boolean successful = Core.init(currentFolderStr); // initialize Core object
+            ) {
+        try {
+            //found at: https://stackoverflow.com/questions/2837263/how-do-i-get-the-directory-that-the-currently-executing-jar-file-is-in
+            String currentFolderStr = URLDecoder.decode(getClass().getProtectionDomain().getCodeSource().getLocation().getFile(), "UTF-8");
+            System.out.println("Current directory: " + currentFolderStr);
+            boolean successful = Core.init(currentFolderStr); // initialize Core object
             if (!successful) {
                 System.exit(0);
             }
@@ -136,9 +136,9 @@ public class LemminiFrame extends JFrame {
          };
     
     void init(//LemminiFrame frame // BOOKMARK TODO: (Fullscreen attempted implementation) Passing values here might be causing issues
-    		) {
+            ) {
         System.out.println("\ninitializing LemminiFrame...");
-    	try {
+        try {
             // initialize the game controller and main panel
             GameController.init();
             
@@ -152,32 +152,32 @@ public class LemminiFrame extends JFrame {
             
             // load the panel size
 //            if (frame == fullscreenFrame || isFullScreen) {
-//            	//setFullScreen();
+//                //setFullScreen();
 //            } else {
-	            int w = Math.max(lemminiPanelMain.getWidth(), Core.programProps.getInt("frameWidth", lemminiPanelMain.getWidth()));
-	            int h = Math.max(lemminiPanelMain.getHeight(), Core.programProps.getInt("frameHeight", lemminiPanelMain.getHeight()));
-	            lemminiPanelMain.setSize(w, h);
-	            lemminiPanelMain.setPreferredSize(lemminiPanelMain.getSize()); // needed for pack() to keep this size
+                int w = Math.max(lemminiPanelMain.getWidth(), Core.programProps.getInt("frameWidth", lemminiPanelMain.getWidth()));
+                int h = Math.max(lemminiPanelMain.getHeight(), Core.programProps.getInt("frameHeight", lemminiPanelMain.getHeight()));
+                lemminiPanelMain.setSize(w, h);
+                lemminiPanelMain.setPreferredSize(lemminiPanelMain.getSize()); // needed for pack() to keep this size
 //            }
             
             pack();
             
 //            if (frame == thisFrame && !isFullScreen) {
-            	// center the window, then load the window position
-	            setLocationRelativeTo(null);
-	            int posX = Core.programProps.getInt("framePosX", getX());
-	            int posY = Core.programProps.getInt("framePosY", getY());
-	            setLocation(posX, posY);
+                // center the window, then load the window position
+                setLocationRelativeTo(null);
+                int posX = Core.programProps.getInt("framePosX", getX());
+                int posY = Core.programProps.getInt("framePosY", getY());
+                setLocation(posX, posY);
             
-	            // load the maximized state
-	            int maximizedState = 0;
-	            if (Core.programProps.getBoolean("maximizedHoriz", false)) {
-	                maximizedState |= MAXIMIZED_HORIZ;
-	            }
-	            if (Core.programProps.getBoolean("maximizedVert", false)) {
-	                maximizedState |= MAXIMIZED_VERT;
-	            }
-	            setExtendedState(getExtendedState() | maximizedState);
+                // load the maximized state
+                int maximizedState = 0;
+                if (Core.programProps.getBoolean("maximizedHoriz", false)) {
+                    maximizedState |= MAXIMIZED_HORIZ;
+                }
+                if (Core.programProps.getBoolean("maximizedVert", false)) {
+                    maximizedState |= MAXIMIZED_VERT;
+                }
+                setExtendedState(getExtendedState() | maximizedState);
 //            }
             
             GameController.setGameState(GameController.State.INTRO);
@@ -202,9 +202,9 @@ public class LemminiFrame extends JFrame {
 //    public void setFullScreen() { // BOOKMARK TODO: This works well enough to set the window to fill the screen
                                     // but we can't use setUndecorated (not sure why)
                                     // and, the panel content doesn't get loaded properly (again, not sure why)
-//    	System.out.println("setting full screen........................");
-//    	
-//    	setExtendedState(MAXIMIZED_BOTH);
+//        System.out.println("setting full screen........................");
+//        
+//        setExtendedState(MAXIMIZED_BOTH);
 //        setResizable(false);
 //        
 //        Point l = getLocation();
@@ -360,14 +360,14 @@ public class LemminiFrame extends JFrame {
         jMenuItemHotkeys.setText("Hotkeys...");
         jMenuItemHotkeys.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	handleHotkeys();
+                handleHotkeys();
             }
         });
         
         jMenuItemAbout.setText("About...");
         jMenuItemAbout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	handleAbout();
+                handleAbout();
             }
         });
         
@@ -396,44 +396,44 @@ public class LemminiFrame extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     void handleHotkeys() {
-    	String hotkeyList = "<html><body>"
-    	        + "<h3>Hotkeys</h3>"
-    	        + "<table border='0' cellspacing='0'>"
-    	        + "<tr><td><b>F1 | Minus(-)</b></td>             		  <td>Decrease RR (press twice to jump to min)</td></tr>"
-    	        + "<tr><td><b>F2 | Plus(+) | Equals(=)</b></td>  		  <td>Increase RR (press twice to jump to max)</td></tr>"
-    	        + "<tr><td><b>F3-F10 / 1-8</b></td>              		  <td>Select Skill (same order as panel buttons)</td></tr>"
-    	        + "<tr><td><b>F11 | Space | P</b></td>           		  <td>Pause/Resume</td></tr>"
-    	        + "<tr><td><b>F12</b></td>                       		  <td>Nuke Level</td></tr>"
-    	        + "<tr><td><b>Ctrl + R</b></td>                 		  <td>Restart Level</td></tr>"
-    	        + "<tr><td><b>S</b></td>                         		  <td>Toggle Vertical Lock</td></tr>"
-    	        + "<tr><td><b>F</b></td>                         		  <td>Fast-Forward</td></tr>"
-    	        + "<tr><td><b>G | Ctrl + F</b></td>                       <td>Turbo-Forward</td></tr>"
-    	        + "<tr><td><b>X</b></td>                                  <td>Cancel Replay</td></tr>"
-    	        + "<tr><td><b>V</b></td>                         		  <td>Save Level As Image</td></tr>"
-    	        + "<tr><td><b>(Advanced Select On) Arrows: Left</b></td>  <td>Select Left-Facing Lemming</td></tr>"
-    	        + "<tr><td><b>(Advanced Select On) Arrows: Right</b></td> <td>Select Right-Facing Lemming</td></tr>"
-    	        + "<tr><td><b>(Advanced Select On) Arrows: Up</b></td>    <td>Select Walker Lemming</td></tr>"
-    	        + "<tr><td><b>(Advanced Select Off) Arrows: Left</b></td> <td>Nudge Level Left</td></tr>"
-    	        + "<tr><td><b>(Advanced Select Off) Arrows: Right</b></td><td>Nudge Level Right</td></tr>"
-    	        + "<tr><td><b>(Advanced Select Off) Arrows: Up</b></td>   <td>Nudge Level Up</td></tr>"
-    	        + "<tr><td><b>(Advanced Select Off) Arrows: Down</b></td> <td>Nudge Level Down</td></tr>"
-    	        + "<tr><td><b>Ctrl + S</b></td>                           <td>Save Replay (from Level/Debriefing)</td></tr>"
-    	        + "<tr><td><b>Ctrl + L</b></td>                           <td>Load Replay</td></tr>"    	       
-    	        + "<tr><td><b>Ctrl + F4</b></td>                          <td>Manage Players</td></tr>"
-    	        + "<tr><td><b>Ctrl + F5</b></td>                          <td>Enter Code</td></tr>"
-    	        + "<tr><td><b>Ctrl + F9</b></td>                          <td>Select Level</td></tr>"
-    	        + "<tr><td><b>Ctrl + F10</b></td>                         <td>Options</td></tr>"
-    	        + "<tr><td><b>Ctrl + F11</b></td>                         <td>Hotkeys</td></tr>"
-    	        + "<tr><td><b>Ctrl + F12</b></td>                         <td>About</td></tr>"
-    	        + "<tr><td><b>Ctrl + M</b></td>                           <td>Toggle Menu Bar Visibility</td></tr>" 
-    	        + "<tr><td><b>Esc</b></td>                                <td>Quit Level / Close RetroLemmini (from Menu)</td></tr>"
-    	        + "</table>"
-    	        + "</body></html>";
+        String hotkeyList = "<html><body>"
+                + "<h3>Hotkeys</h3>"
+                + "<table border='0' cellspacing='0'>"
+                + "<tr><td><b>F1 | Minus(-)</b></td>                       <td>Decrease RR (press twice to jump to min)</td></tr>"
+                + "<tr><td><b>F2 | Plus(+) | Equals(=)</b></td>            <td>Increase RR (press twice to jump to max)</td></tr>"
+                + "<tr><td><b>F3-F10 / 1-8</b></td>                        <td>Select Skill (same order as panel buttons)</td></tr>"
+                + "<tr><td><b>F11 | Space | P</b></td>                     <td>Pause/Resume</td></tr>"
+                + "<tr><td><b>F12</b></td>                                 <td>Nuke Level</td></tr>"
+                + "<tr><td><b>Ctrl + R</b></td>                           <td>Restart Level</td></tr>"
+                + "<tr><td><b>S</b></td>                                   <td>Toggle Vertical Lock</td></tr>"
+                + "<tr><td><b>F</b></td>                                   <td>Fast-Forward</td></tr>"
+                + "<tr><td><b>G | Ctrl + F</b></td>                       <td>Turbo-Forward</td></tr>"
+                + "<tr><td><b>X</b></td>                                  <td>Cancel Replay</td></tr>"
+                + "<tr><td><b>V</b></td>                                   <td>Save Level As Image</td></tr>"
+                + "<tr><td><b>(Advanced Select On) Arrows: Left</b></td>  <td>Select Left-Facing Lemming</td></tr>"
+                + "<tr><td><b>(Advanced Select On) Arrows: Right</b></td> <td>Select Right-Facing Lemming</td></tr>"
+                + "<tr><td><b>(Advanced Select On) Arrows: Up</b></td>    <td>Select Walker Lemming</td></tr>"
+                + "<tr><td><b>(Advanced Select Off) Arrows: Left</b></td> <td>Nudge Level Left</td></tr>"
+                + "<tr><td><b>(Advanced Select Off) Arrows: Right</b></td><td>Nudge Level Right</td></tr>"
+                + "<tr><td><b>(Advanced Select Off) Arrows: Up</b></td>   <td>Nudge Level Up</td></tr>"
+                + "<tr><td><b>(Advanced Select Off) Arrows: Down</b></td> <td>Nudge Level Down</td></tr>"
+                + "<tr><td><b>Ctrl + S</b></td>                           <td>Save Replay (from Level/Debriefing)</td></tr>"
+                + "<tr><td><b>Ctrl + L</b></td>                           <td>Load Replay</td></tr>"               
+                + "<tr><td><b>Ctrl + F4</b></td>                          <td>Manage Players</td></tr>"
+                + "<tr><td><b>Ctrl + F5</b></td>                          <td>Enter Code</td></tr>"
+                + "<tr><td><b>Ctrl + F9</b></td>                          <td>Select Level</td></tr>"
+                + "<tr><td><b>Ctrl + F10</b></td>                         <td>Options</td></tr>"
+                + "<tr><td><b>Ctrl + F11</b></td>                         <td>Hotkeys</td></tr>"
+                + "<tr><td><b>Ctrl + F12</b></td>                         <td>About</td></tr>"
+                + "<tr><td><b>Ctrl + M</b></td>                           <td>Toggle Menu Bar Visibility</td></tr>" 
+                + "<tr><td><b>Esc</b></td>                                <td>Quit Level / Close RetroLemmini (from Menu)</td></tr>"
+                + "</table>"
+                + "</body></html>";
 
-    	LemminiFrame frame = thisFrame;
-//    	if (isFullScreen) frame = fullscreenFrame; else frame = thisFrame; // BOOKMARK TODO: Not sure if this actually works
-    	
-    	JOptionPane.showMessageDialog(frame, hotkeyList, "Hotkeys", JOptionPane.PLAIN_MESSAGE);
+        LemminiFrame frame = thisFrame;
+//        if (isFullScreen) frame = fullscreenFrame; else frame = thisFrame; // BOOKMARK TODO: Not sure if this actually works
+        
+        JOptionPane.showMessageDialog(frame, hotkeyList, "Hotkeys", JOptionPane.PLAIN_MESSAGE);
     }
     
     void handleAbout() {
@@ -476,12 +476,12 @@ public class LemminiFrame extends JFrame {
 //        if (isFullScreen) frame = fullscreenFrame; else frame = thisFrame; // BOOKMARK TODO: Not sure if this actually works
 
         JOptionPane.showConfirmDialog(
-        	    frame, 
-        	    new JScrollPane(editorPane), 
-        	    "About", 
-        	    JOptionPane.DEFAULT_OPTION, 
-        	    JOptionPane.PLAIN_MESSAGE
-        	);
+                frame, 
+                new JScrollPane(editorPane), 
+                "About", 
+                JOptionPane.DEFAULT_OPTION, 
+                JOptionPane.PLAIN_MESSAGE
+            );
     }
     
     private void formComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentMoved
@@ -500,8 +500,8 @@ public class LemminiFrame extends JFrame {
     }
     
     private void printLevelNameToConsole() {
-    	System.out.println(GameController.getLevelPack(GameController.getCurLevelPackIdx()).getInfo(GameController.getCurRating(),
-    			                                       GameController.getCurLevelNumber()).getLevelResource());
+        System.out.println(GameController.getLevelPack(GameController.getCurLevelPackIdx()).getInfo(GameController.getCurRating(),
+                                                       GameController.getCurLevelNumber()).getLevelResource());
     }
     
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
@@ -509,15 +509,15 @@ public class LemminiFrame extends JFrame {
         
         // Handle modifiers
         switch (code) {
-		    case KeyEvent.VK_SHIFT:
-		        lemminiPanelMain.setShiftPressed(true);
-		        break;
-		    case KeyEvent.VK_CONTROL:
-		        lemminiPanelMain.setControlPressed(true);
-		        break;
-		    case KeyEvent.VK_ALT:
-		    	lemminiPanelMain.setAltPressed(true);
-		        break;
+            case KeyEvent.VK_SHIFT:
+                lemminiPanelMain.setShiftPressed(true);
+                break;
+            case KeyEvent.VK_CONTROL:
+                lemminiPanelMain.setControlPressed(true);
+                break;
+            case KeyEvent.VK_ALT:
+                lemminiPanelMain.setAltPressed(true);
+                break;
         }
         
         switch (GameController.getGameState()) {
@@ -525,120 +525,120 @@ public class LemminiFrame extends JFrame {
                 switch (code) {
                     case KeyEvent.VK_1:
                     case KeyEvent.VK_F3:
-                    	if (lemminiPanelMain.getDebugDraw())
-                    		lemminiPanelMain.setDrawBrushSize(1);
-                    	else
-                    		GameController.handleIconButton(Icons.IconType.CLIMB);
+                        if (lemminiPanelMain.getDebugDraw())
+                            lemminiPanelMain.setDrawBrushSize(1);
+                        else
+                            GameController.handleIconButton(Icons.IconType.CLIMB);
                         break;
                     case KeyEvent.VK_2:
                     case KeyEvent.VK_F4:
-        		    	if (lemminiPanelMain.isControlPressed())
-        		    		lemminiPanelMain.handlePlayers();
-        		    	else if (lemminiPanelMain.getDebugDraw())
-                    		lemminiPanelMain.setDrawBrushSize(2);
-                    	else
-                    		GameController.handleIconButton(Icons.IconType.FLOAT);
+                        if (lemminiPanelMain.isControlPressed())
+                            lemminiPanelMain.handlePlayers();
+                        else if (lemminiPanelMain.getDebugDraw())
+                            lemminiPanelMain.setDrawBrushSize(2);
+                        else
+                            GameController.handleIconButton(Icons.IconType.FLOAT);
                         break;
                     case KeyEvent.VK_3:
                     case KeyEvent.VK_F5:
-        		    	if (lemminiPanelMain.isControlPressed())
-        		    		lemminiPanelMain.handleEnterCode();
-        		    	else if (lemminiPanelMain.getDebugDraw())
-                    		lemminiPanelMain.setDrawBrushSize(3);
-                    	else
-                    		GameController.handleIconButton(Icons.IconType.BOMB);
+                        if (lemminiPanelMain.isControlPressed())
+                            lemminiPanelMain.handleEnterCode();
+                        else if (lemminiPanelMain.getDebugDraw())
+                            lemminiPanelMain.setDrawBrushSize(3);
+                        else
+                            GameController.handleIconButton(Icons.IconType.BOMB);
                         break;
                     case KeyEvent.VK_4:
                     case KeyEvent.VK_F6:
-                    	if (lemminiPanelMain.getDebugDraw())
-                    		lemminiPanelMain.setDrawBrushSize(4);
-                    	else
-                    		GameController.handleIconButton(Icons.IconType.BLOCK);
+                        if (lemminiPanelMain.getDebugDraw())
+                            lemminiPanelMain.setDrawBrushSize(4);
+                        else
+                            GameController.handleIconButton(Icons.IconType.BLOCK);
                         break;
                     case KeyEvent.VK_5:
                     case KeyEvent.VK_F7:
-                    	if (lemminiPanelMain.getDebugDraw())
-                    		lemminiPanelMain.setDrawBrushSize(5);
-                    	else
-                    		GameController.handleIconButton(Icons.IconType.BUILD);
+                        if (lemminiPanelMain.getDebugDraw())
+                            lemminiPanelMain.setDrawBrushSize(5);
+                        else
+                            GameController.handleIconButton(Icons.IconType.BUILD);
                         break;
                     case KeyEvent.VK_6:
                     case KeyEvent.VK_F8:
-                    	if (lemminiPanelMain.getDebugDraw())
-                    		lemminiPanelMain.setDrawBrushSize(6);
-                    	else
-                    		GameController.handleIconButton(Icons.IconType.BASH);
+                        if (lemminiPanelMain.getDebugDraw())
+                            lemminiPanelMain.setDrawBrushSize(6);
+                        else
+                            GameController.handleIconButton(Icons.IconType.BASH);
                         break;
                     case KeyEvent.VK_7:
                     case KeyEvent.VK_F9:
-        		    	if (lemminiPanelMain.isControlPressed())
-        		    		lemminiPanelMain.handlePlayLevel();
-        		    	else if (lemminiPanelMain.getDebugDraw())
-                    		lemminiPanelMain.setDrawBrushSize(7);
-                    	else
-                    		GameController.handleIconButton(Icons.IconType.MINE);
+                        if (lemminiPanelMain.isControlPressed())
+                            lemminiPanelMain.handlePlayLevel();
+                        else if (lemminiPanelMain.getDebugDraw())
+                            lemminiPanelMain.setDrawBrushSize(7);
+                        else
+                            GameController.handleIconButton(Icons.IconType.MINE);
                         break;
                     case KeyEvent.VK_8:
                     case KeyEvent.VK_F10:
-        		    	if (lemminiPanelMain.isControlPressed())
-        		    		lemminiPanelMain.handleOptions();
-        		    	else if (lemminiPanelMain.getDebugDraw())
-                    		lemminiPanelMain.setDrawBrushSize(8);
-                    	else
-                    		GameController.handleIconButton(Icons.IconType.DIG);
+                        if (lemminiPanelMain.isControlPressed())
+                            lemminiPanelMain.handleOptions();
+                        else if (lemminiPanelMain.getDebugDraw())
+                            lemminiPanelMain.setDrawBrushSize(8);
+                        else
+                            GameController.handleIconButton(Icons.IconType.DIG);
                         break;
                     case KeyEvent.VK_9:
-                    	if (lemminiPanelMain.getDebugDraw())
-                    		lemminiPanelMain.setDrawBrushSize(9);
-                    	break;
+                        if (lemminiPanelMain.getDebugDraw())
+                            lemminiPanelMain.setDrawBrushSize(9);
+                        break;
                     case KeyEvent.VK_0:
-                    	if (lemminiPanelMain.getDebugDraw())
-                    		lemminiPanelMain.setDrawBrushSize(10);
-                    	break;
+                        if (lemminiPanelMain.getDebugDraw())
+                            lemminiPanelMain.setDrawBrushSize(10);
+                        break;
                     case KeyEvent.VK_F11:
-        		    	if (lemminiPanelMain.isControlPressed())
-        		    		handleHotkeys();
-        		    	else
-        		    		togglePause();
-                    	break;
-        		    case KeyEvent.VK_L:
-        		    	if (lemminiPanelMain.isControlPressed())
-        		    		lemminiPanelMain.handleLoadReplay();
-        		    	else if (Core.player.isDebugMode()) {
+                        if (lemminiPanelMain.isControlPressed())
+                            handleHotkeys();
+                        else
+                            togglePause();
+                        break;
+                    case KeyEvent.VK_L:
+                        if (lemminiPanelMain.isControlPressed())
+                            lemminiPanelMain.handleLoadReplay();
+                        else if (Core.player.isDebugMode()) {
                             printLevelNameToConsole();    
                         }
-        		    	break;
-        		    case KeyEvent.VK_M:
-        		        if (lemminiPanelMain.isControlPressed()) {
-        		        	GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, !GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
-        		        	toggleMenuBarVisibility();
-        		        	Core.saveSettings();
-        		        }
-        		        break;
-        		    case KeyEvent.VK_F12:
-        		    	if (lemminiPanelMain.isControlPressed())
-        		    		handleAbout();
-        		    	else
-        		    		GameController.handleIconButton(Icons.IconType.NUKE);
-        		    	break;
+                        break;
+                    case KeyEvent.VK_M:
+                        if (lemminiPanelMain.isControlPressed()) {
+                            GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, !GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
+                            toggleMenuBarVisibility();
+                            Core.saveSettings();
+                        }
+                        break;
+                    case KeyEvent.VK_F12:
+                        if (lemminiPanelMain.isControlPressed())
+                            handleAbout();
+                        else
+                            GameController.handleIconButton(Icons.IconType.NUKE);
+                        break;
                     case KeyEvent.VK_D: //CTRL+ALT+D is to toggle Debug mode. just D (while in Debug mode) is Draw mode
-                    	if (lemminiPanelMain.isControlPressed() && lemminiPanelMain.isAltPressed()) {
-                    		// Toggle Debug mode
-                    		Core.player.setDebugMode(!Core.player.isDebugMode());
-                    		// 'Cheated' flag remains true if debug mode is entered
+                        if (lemminiPanelMain.isControlPressed() && lemminiPanelMain.isAltPressed()) {
+                            // Toggle Debug mode
+                            Core.player.setDebugMode(!Core.player.isDebugMode());
+                            // 'Cheated' flag remains true if debug mode is entered
                             GameController.setWasCheated(true);
                         } else if (!lemminiPanelMain.isControlPressed() && !lemminiPanelMain.isShiftPressed() && !lemminiPanelMain.isAltPressed() && Core.player.isDebugMode()) {
                             lemminiPanelMain.setDebugDraw(!lemminiPanelMain.getDebugDraw());
                         }
                         break;
                     case KeyEvent.VK_E:
-                    	if (lemminiPanelMain.isControlPressed() && lemminiPanelMain.isAltPressed()) {
-                    		// Toggle maximum exit physics
-                    		Core.player.setMaximumExitPhysics(!Core.player.isMaximumExitPhysics());
-                    		// 'Cheated' flag remains true if maximum exit physics is activated
+                        if (lemminiPanelMain.isControlPressed() && lemminiPanelMain.isAltPressed()) {
+                            // Toggle maximum exit physics
+                            Core.player.setMaximumExitPhysics(!Core.player.isMaximumExitPhysics());
+                            // 'Cheated' flag remains true if maximum exit physics is activated
                             GameController.setWasCheated(true);
-                    	}
-                    	break;
+                        }
+                        break;
                     case KeyEvent.VK_W:
                         if (Core.player.isDebugMode()) {
                             GameController.setNumExited(GameController.getNumLemmingsMax());
@@ -646,16 +646,16 @@ public class LemminiFrame extends JFrame {
                         }
                         break;
                     case KeyEvent.VK_I: // show/hide debug cursor info
-                    	lemminiPanelMain.setDebugCursorInfo(!lemminiPanelMain.debugCursorInfoVisible());
+                        lemminiPanelMain.setDebugCursorInfo(!lemminiPanelMain.debugCursorInfoVisible());
                     case KeyEvent.VK_S:
-                    	if (lemminiPanelMain.isControlPressed()) {
-                    		lemminiPanelMain.handleSaveReplay();
-                    	}
+                        if (lemminiPanelMain.isControlPressed()) {
+                            lemminiPanelMain.handleSaveReplay();
+                        }
                         GameController.setVerticalLock(!GameController.isVerticalLock());
                         GameController.pressIcon(Icons.IconType.VLOCK);
                         break;
                     case KeyEvent.VK_V:
-                    	saveLevelAsImage();
+                        saveLevelAsImage();
                         break;
                     case KeyEvent.VK_U: // superlemming on/off
                         if (Core.player.isDebugMode()) {
@@ -663,27 +663,27 @@ public class LemminiFrame extends JFrame {
                         }
                         break;
                     case KeyEvent.VK_X:
-                    	GameController.stopReplayMode();
-                    	break;
+                        GameController.stopReplayMode();
+                        break;
                     case KeyEvent.VK_SPACE:
                     case KeyEvent.VK_P:
-                    	togglePause();
+                        togglePause();
                         break;
                     case KeyEvent.VK_F:
                     case KeyEvent.VK_ENTER: //F or ENTER toggles Fast-Forward
-                    	if (lemminiPanelMain.isControlPressed())
-                    		GameController.setTurbo(!GameController.isTurbo());
-                    	else
-                    		GameController.setTurbo(false);
-                    	
+                        if (lemminiPanelMain.isControlPressed())
+                            GameController.setTurbo(!GameController.isTurbo());
+                        else
+                            GameController.setTurbo(false);
+                        
                         GameController.setFastForward(!GameController.isFastForward());
                         GameController.pressIcon(Icons.IconType.FFWD);
                         break;
                     case KeyEvent.VK_G:
-                    	GameController.setTurbo(!GameController.isTurbo());
-                    	GameController.setFastForward(!GameController.isFastForward());
-                    	GameController.pressIcon(Icons.IconType.FFWD);
-                    	break;
+                        GameController.setTurbo(!GameController.isTurbo());
+                        GameController.setFastForward(!GameController.isFastForward());
+                        GameController.pressIcon(Icons.IconType.FFWD);
+                        break;
                     case KeyEvent.VK_T:
                         if (Core.player.isDebugMode()) {
                             GameController.setTimed(!GameController.isTimed());
@@ -770,45 +770,45 @@ public class LemminiFrame extends JFrame {
             case BRIEFING:
                 key:
                 switch (code) {
-	                case KeyEvent.VK_ENTER:
-	                case KeyEvent.VK_SPACE:
-	                	lemminiPanelMain.startLevel();
-	                	break;
-	    		    case KeyEvent.VK_L:
-	    		    	if (lemminiPanelMain.isControlPressed())
-	    		    		lemminiPanelMain.handleLoadReplay();
-	    		    	break;
-	    		    case KeyEvent.VK_M:
-	    		        if (lemminiPanelMain.isControlPressed()) {
-	    		        	GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, !GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
-	    		        	toggleMenuBarVisibility();
-	    		        	Core.saveSettings();
-	    		        }
-	    		        break;
-	    		    case KeyEvent.VK_F4:
-	    		    	if (lemminiPanelMain.isControlPressed())
-	    		    		lemminiPanelMain.handlePlayers();
-	    		    	break;
-	    		    case KeyEvent.VK_F9:
-	    		    	if (lemminiPanelMain.isControlPressed())
-	    		    		lemminiPanelMain.handlePlayLevel();
-	    		    	break;
-	    		    case KeyEvent.VK_F5:
-	    		    	if (lemminiPanelMain.isControlPressed())
-	    		    		lemminiPanelMain.handleEnterCode();
-	    		    	break;
-	    		    case KeyEvent.VK_F10:
-	    		    	if (lemminiPanelMain.isControlPressed())
-	    		    		lemminiPanelMain.handleOptions();
-	    		    	break;
-	    		    case KeyEvent.VK_F11:
-	    		    	if (lemminiPanelMain.isControlPressed())
-	    		    		handleHotkeys();
-	    		    	break;
-	    		    case KeyEvent.VK_F12:
-	    		    	if (lemminiPanelMain.isControlPressed())
-	    		    		handleAbout();
-	    		    	break;
+                    case KeyEvent.VK_ENTER:
+                    case KeyEvent.VK_SPACE:
+                        lemminiPanelMain.startLevel();
+                        break;
+                    case KeyEvent.VK_L:
+                        if (lemminiPanelMain.isControlPressed())
+                            lemminiPanelMain.handleLoadReplay();
+                        break;
+                    case KeyEvent.VK_M:
+                        if (lemminiPanelMain.isControlPressed()) {
+                            GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, !GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
+                            toggleMenuBarVisibility();
+                            Core.saveSettings();
+                        }
+                        break;
+                    case KeyEvent.VK_F4:
+                        if (lemminiPanelMain.isControlPressed())
+                            lemminiPanelMain.handlePlayers();
+                        break;
+                    case KeyEvent.VK_F9:
+                        if (lemminiPanelMain.isControlPressed())
+                            lemminiPanelMain.handlePlayLevel();
+                        break;
+                    case KeyEvent.VK_F5:
+                        if (lemminiPanelMain.isControlPressed())
+                            lemminiPanelMain.handleEnterCode();
+                        break;
+                    case KeyEvent.VK_F10:
+                        if (lemminiPanelMain.isControlPressed())
+                            lemminiPanelMain.handleOptions();
+                        break;
+                    case KeyEvent.VK_F11:
+                        if (lemminiPanelMain.isControlPressed())
+                            handleHotkeys();
+                        break;
+                    case KeyEvent.VK_F12:
+                        if (lemminiPanelMain.isControlPressed())
+                            handleAbout();
+                        break;
                     case KeyEvent.VK_LEFT:
                         if (Fader.getState() == Fader.State.OFF) {
                             LevelPack pack = GameController.getCurLevelPack();
@@ -902,105 +902,105 @@ public class LemminiFrame extends JFrame {
                             }
                         }
                     case KeyEvent.VK_ESCAPE:
-                    	lemminiPanelMain.exitToMenu();
+                        lemminiPanelMain.exitToMenu();
                         break;
                     default:
                         break;
                 }
                 break;
             case INTRO:
-            	switch (code) {
-            	case KeyEvent.VK_ESCAPE:
-            		exit();
-            		break;
+                switch (code) {
+                case KeyEvent.VK_ESCAPE:
+                    exit();
+                    break;
                 case KeyEvent.VK_ENTER:
                 case KeyEvent.VK_SPACE:
-                		lemminiPanelMain.loadDefaultLevel();
-                	break;
-    		    case KeyEvent.VK_L:
-    		    	if (lemminiPanelMain.isControlPressed())
-    		    		lemminiPanelMain.handleLoadReplay();
-    		    	break;
-    		    case KeyEvent.VK_M:
-    		        if (lemminiPanelMain.isControlPressed()) {
-    		        	GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, !GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
-    		        	toggleMenuBarVisibility();
-    		        	Core.saveSettings();
-    		        }
-    		        break;
-    		    case KeyEvent.VK_F4:
-    		    	if (lemminiPanelMain.isControlPressed())
-    		    		lemminiPanelMain.handlePlayers();
-    		    	break;
-    		    case KeyEvent.VK_F9:
-    		    	if (lemminiPanelMain.isControlPressed())
-    		    		lemminiPanelMain.handlePlayLevel();
-    		    	break;
-    		    case KeyEvent.VK_F5:
-    		    	if (lemminiPanelMain.isControlPressed())
-    		    		lemminiPanelMain.handleEnterCode();
-    		    	break;
-    		    case KeyEvent.VK_F10:
-    		    	if (lemminiPanelMain.isControlPressed())
-    		    		lemminiPanelMain.handleOptions();
-    		    	break;
-    		    case KeyEvent.VK_F11:
-    		    	if (lemminiPanelMain.isControlPressed())
-    		    		handleHotkeys();
-    		    	break;
-    		    case KeyEvent.VK_F12:
-    		    	if (lemminiPanelMain.isControlPressed())
-    		    		handleAbout();
-    		    	break;
+                        lemminiPanelMain.loadDefaultLevel();
+                    break;
+                case KeyEvent.VK_L:
+                    if (lemminiPanelMain.isControlPressed())
+                        lemminiPanelMain.handleLoadReplay();
+                    break;
+                case KeyEvent.VK_M:
+                    if (lemminiPanelMain.isControlPressed()) {
+                        GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, !GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
+                        toggleMenuBarVisibility();
+                        Core.saveSettings();
+                    }
+                    break;
+                case KeyEvent.VK_F4:
+                    if (lemminiPanelMain.isControlPressed())
+                        lemminiPanelMain.handlePlayers();
+                    break;
+                case KeyEvent.VK_F9:
+                    if (lemminiPanelMain.isControlPressed())
+                        lemminiPanelMain.handlePlayLevel();
+                    break;
+                case KeyEvent.VK_F5:
+                    if (lemminiPanelMain.isControlPressed())
+                        lemminiPanelMain.handleEnterCode();
+                    break;
+                case KeyEvent.VK_F10:
+                    if (lemminiPanelMain.isControlPressed())
+                        lemminiPanelMain.handleOptions();
+                    break;
+                case KeyEvent.VK_F11:
+                    if (lemminiPanelMain.isControlPressed())
+                        handleHotkeys();
+                    break;
+                case KeyEvent.VK_F12:
+                    if (lemminiPanelMain.isControlPressed())
+                        handleAbout();
+                    break;
                 default:
                     break;
-            	}
-            	break;
+                }
+                break;
             case DEBRIEFING:
             case LEVEL_END:
                 switch (code) {
-	                case KeyEvent.VK_ENTER:
-	                case KeyEvent.VK_SPACE:
-                    	if (GameController.wasLost())
-                    		GameController.requestRestartLevel(false, true);
-                    	else
-                    		lemminiPanelMain.continueToNextLevel();
-	                	break;
-	    		    case KeyEvent.VK_L:
-	    		    	if (lemminiPanelMain.isControlPressed())
-	    		    		lemminiPanelMain.handleLoadReplay();
-	    		    	break;
-	    		    case KeyEvent.VK_M:
-	    		        if (lemminiPanelMain.isControlPressed()) {
-	    		        	GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, !GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
-	    		        	toggleMenuBarVisibility();
-	    		        	Core.saveSettings();
-	    		        }
-	    		        break;
-	    		    case KeyEvent.VK_F4:
-	    		    	if (lemminiPanelMain.isControlPressed())
-	    		    		lemminiPanelMain.handlePlayers();
-	    		    	break;
-	    		    case KeyEvent.VK_F9:
-	    		    	if (lemminiPanelMain.isControlPressed())
-	    		    		lemminiPanelMain.handlePlayLevel();
-	    		    	break;
-	    		    case KeyEvent.VK_F5:
-	    		    	if (lemminiPanelMain.isControlPressed())
-	    		    		lemminiPanelMain.handleEnterCode();
-	    		    	break;
-	    		    case KeyEvent.VK_F10:
-	    		    	if (lemminiPanelMain.isControlPressed())
-	    		    		lemminiPanelMain.handleOptions();
-	    		    	break;
-	    		    case KeyEvent.VK_F11:
-	    		    	if (lemminiPanelMain.isControlPressed())
-	    		    		handleHotkeys();
-	    		    	break;
-	    		    case KeyEvent.VK_F12:
-	    		    	if (lemminiPanelMain.isControlPressed())
-	    		    		handleAbout();
-	    		    	break;
+                    case KeyEvent.VK_ENTER:
+                    case KeyEvent.VK_SPACE:
+                        if (GameController.wasLost())
+                            GameController.requestRestartLevel(false, true);
+                        else
+                            lemminiPanelMain.continueToNextLevel();
+                        break;
+                    case KeyEvent.VK_L:
+                        if (lemminiPanelMain.isControlPressed())
+                            lemminiPanelMain.handleLoadReplay();
+                        break;
+                    case KeyEvent.VK_M:
+                        if (lemminiPanelMain.isControlPressed()) {
+                            GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, !GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
+                            toggleMenuBarVisibility();
+                            Core.saveSettings();
+                        }
+                        break;
+                    case KeyEvent.VK_F4:
+                        if (lemminiPanelMain.isControlPressed())
+                            lemminiPanelMain.handlePlayers();
+                        break;
+                    case KeyEvent.VK_F9:
+                        if (lemminiPanelMain.isControlPressed())
+                            lemminiPanelMain.handlePlayLevel();
+                        break;
+                    case KeyEvent.VK_F5:
+                        if (lemminiPanelMain.isControlPressed())
+                            lemminiPanelMain.handleEnterCode();
+                        break;
+                    case KeyEvent.VK_F10:
+                        if (lemminiPanelMain.isControlPressed())
+                            lemminiPanelMain.handleOptions();
+                        break;
+                    case KeyEvent.VK_F11:
+                        if (lemminiPanelMain.isControlPressed())
+                            handleHotkeys();
+                        break;
+                    case KeyEvent.VK_F12:
+                        if (lemminiPanelMain.isControlPressed())
+                            handleAbout();
+                        break;
                     case KeyEvent.VK_V:
                         LemmImage tmp = GameController.getLevel().createMinimap(GameController.getFgImage(), 1.0, 1.0, true, false, true);
                         try (OutputStream out = Core.resourceTree.newOutputStream("level.png")) {
@@ -1009,12 +1009,12 @@ public class LemminiFrame extends JFrame {
                         }
                         break;
                     case KeyEvent.VK_S:
-                    	if (lemminiPanelMain.isControlPressed()) {
-                    		lemminiPanelMain.handleSaveReplay();
-                    	}
+                        if (lemminiPanelMain.isControlPressed()) {
+                            lemminiPanelMain.handleSaveReplay();
+                        }
                     case KeyEvent.VK_ESCAPE:
-                    	lemminiPanelMain.exitToMenu();
-                    	break;
+                        lemminiPanelMain.exitToMenu();
+                        break;
                     default:
                         break;
                 }
@@ -1157,15 +1157,15 @@ public class LemminiFrame extends JFrame {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-    	//write opening console log
-    	consoleInit();
+        //write opening console log
+        consoleInit();
 
         /*
          * Check JVM version
          */
         if (!SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_8)) {
             System.out.println("JVM >= 1.8 [FAIL]");
-        	JOptionPane.showMessageDialog(null, "RetroLemmini requires JVM 1.8 or later.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "RetroLemmini requires JVM 1.8 or later.", "Error", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         } else {
             System.out.println("JVM >= 1.8 [PASS]");
@@ -1175,18 +1175,18 @@ public class LemminiFrame extends JFrame {
         long free = Runtime.getRuntime().maxMemory();
         long memReq = 96 * 1024 * 1024;
         if (free < memReq) {
-        	System.out.println("memory check: " + (int)(free / (1024*1024)) + "MB >= " + (int)(memReq / (1024*1024)) + "MB [FAIL]");
-        	JOptionPane.showMessageDialog(null, "You need at least 96MB of heap.", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println("memory check: " + (int)(free / (1024*1024)) + "MB >= " + (int)(memReq / (1024*1024)) + "MB [FAIL]");
+            JOptionPane.showMessageDialog(null, "You need at least 96MB of heap.", "Error", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         } else {
-        	System.out.println("memory check: " + (int)(free / (1024*1024)) + "MB >= " + (int)(memReq / (1024*1024)) + "MB [PASS]");
+            System.out.println("memory check: " + (int)(free / (1024*1024)) + "MB >= " + (int)(memReq / (1024*1024)) + "MB [PASS]");
         }
-    	
-    	Path level = null;
+        
+        Path level = null;
         for (int i = 0; i < args.length; i++) {
             switch (args[i].toLowerCase(Locale.ROOT)) {
                 case "-l":
-                	i++;
+                    i++;
                     if (i < args.length) {
                         level = Paths.get(args[i]);
                         System.out.println("argument detected: -L, but no level filename supplied.");
@@ -1237,29 +1237,29 @@ public class LemminiFrame extends JFrame {
         System.out.println("\ncreating LemminiFrame...");
         
         thisFrame = new LemminiFrame(//thisFrame // BOOKMARK TODO: (Fullscreen mode attempted implementation)
-        		                                 // Passing values here might be causing issues, not entirely sure
-        		);
+                                                 // Passing values here might be causing issues, not entirely sure
+                );
         thisFrame.init(//thisFrame
-        		);
+                );
         
 //        fullscreenFrame = new LemminiFrame(fullscreenFrame);
 //        fullscreenFrame.setUndecorated(true);
 //        fullscreenFrame.init(fullscreenFrame);
         
         if (level != null) {
-        	System.out.println("external level loaded. starting up inside level...");
+            System.out.println("external level loaded. starting up inside level...");
             int[] levelPosition = GameController.addExternalLevel(level, null, true);
             GameController.requestChangeLevel(levelPosition[0], levelPosition[1], levelPosition[2], false);
         }
     }
     
     void toggleMenuBarVisibility() {
-    	boolean shouldShowMenuBar;
-    	
-    	// BOOKMARK TODO: (Fullscreen implementation) Find a way to auto-hide the menu bar
-    	//                                            in such a way that the user can toggle it back on, even in Fullsreen
+        boolean shouldShowMenuBar;
+        
+        // BOOKMARK TODO: (Fullscreen implementation) Find a way to auto-hide the menu bar
+        //                                            in such a way that the user can toggle it back on, even in Fullsreen
         //shouldShowMenuBar = !GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_SCREEN);
-    	shouldShowMenuBar = GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR);
+        shouldShowMenuBar = GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR);
 
         if (shouldShowMenuBar)
             setJMenuBar(jMenuBarMain);
@@ -1320,10 +1320,10 @@ public class LemminiFrame extends JFrame {
     }
     
     public static LemminiFrame getFrame() {
-//    	if (isFullScreen)
-//    		return fullscreenFrame; // BOOKMARK TODO: More stuff for attempted fullscreen mode
-//    	else
-    		return thisFrame;
+//        if (isFullScreen)
+//            return fullscreenFrame; // BOOKMARK TODO: More stuff for attempted fullscreen mode
+//        else
+            return thisFrame;
     }
     
     private void saveLevelAsImage() {

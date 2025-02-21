@@ -107,7 +107,7 @@ public class GraphicSet {
     
     /** list of default styles */
     @SuppressWarnings("unused")
-	private static final List<String> DEFAULT_STYLES = Arrays.asList("dirt", "fire", "marble", "pillar", "crystal",
+    private static final List<String> DEFAULT_STYLES = Arrays.asList("dirt", "fire", "marble", "pillar", "crystal",
         "brick", "rock", "snow", "bubble", "xmas");
     private static final int DEFAULT_ANIMATION_SPEED = 2;
     private static final int[] SPECIAL_STYLE_OBJECT_ORDER = {0, 1, 7};
@@ -387,11 +387,11 @@ public class GraphicSet {
             if (image == null) {
                 Resource resource;
                 if (index >= 0) {
-                	resource = Core.findResource(
+                    resource = Core.findResource(
                             pathPrefix + "_" + index + ".png",
                             Core.IMAGE_EXTENSIONS);
                 } else {
-                	resource = Core.findResource(pathPrefix + ".png",
+                    resource = Core.findResource(pathPrefix + ".png",
                             Core.IMAGE_EXTENSIONS);
                 }
                 image = Core.loadLemmImage(resource);
@@ -405,11 +405,11 @@ public class GraphicSet {
                 try {
                     Resource resource;
                     if (index >= 0) {
-                    	resource = Core.findResource(
+                        resource = Core.findResource(
                                 pathPrefix + "m_" + index + ".png",
                                 Core.IMAGE_EXTENSIONS);
                     } else {
-                    	resource = Core.findResource(pathPrefix + "m.png",
+                        resource = Core.findResource(pathPrefix + "m.png",
                                 Core.IMAGE_EXTENSIONS);
                     }
                     sourceImage = Core.loadLemmImage(resource);

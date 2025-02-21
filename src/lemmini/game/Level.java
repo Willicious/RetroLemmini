@@ -66,11 +66,11 @@ public class Level {
     
     /** list of default styles */
     @SuppressWarnings("unused")
-	private static final List<String> STYLES = Arrays.asList("dirt", "fire", "marble", "pillar", "crystal",
+    private static final List<String> STYLES = Arrays.asList("dirt", "fire", "marble", "pillar", "crystal",
         "brick", "rock", "snow", "bubble", "xmas");
     /** list of default special styles */
     @SuppressWarnings("unused")
-	private static final List<String> SPECIAL_STYLES = Arrays.asList("awesome", "menace", "beastii", "beasti",
+    private static final List<String> SPECIAL_STYLES = Arrays.asList("awesome", "menace", "beastii", "beasti",
         "covox", "prima", "apple");
     private static final int DEFAULT_TOP_BOUNDARY = 8;
     private static final int DEFAULT_BOTTOM_BOUNDARY = 20;
@@ -754,7 +754,7 @@ public class Level {
                         }
                         // manage collision mask
                         if (spr.getMask(x, y)) { // not transparent
-                        	stencil.addGadget(spr.getX() + xDest, yDest + spr.getY(), maskType, n);                                   
+                            stencil.addGadget(spr.getX() + xDest, yDest + spr.getY(), maskType, n);                                   
                         }
                     }
                 }
@@ -784,7 +784,7 @@ public class Level {
     }
     
     void paintBackground() throws ResourceException, LemmException {
-    	if (ArrayUtils.isNotEmpty(bgImages)) {
+        if (ArrayUtils.isNotEmpty(bgImages)) {
             List<SpriteObject> bgOCombined = new ArrayList<>(32);
             List<SpriteObject> bgOFront = new ArrayList<>(32);
             List<SpriteObject> bgOBehind = new ArrayList<>(32);

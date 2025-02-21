@@ -39,10 +39,10 @@ import lemmini.game.Core;
 public class PlayerDialog extends JDialog {
     
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private Vector<String> players;
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    private Vector<String> players;
     
     /**
      * Creates new form PlayerDialog
