@@ -1024,7 +1024,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                                 	color = LemmFont.LemmColor.GREEN; // time limit
                                 	
                                 	if (time <= 59)
-                                		color = LemmFont.LemmColor.BROWN;
+                                		color = LemmFont.LemmColor.YELLOW;
                                 	
                                 	if (time <= 10)
                                 		color = LemmFont.LemmColor.RED;

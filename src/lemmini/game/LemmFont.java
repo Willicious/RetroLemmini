@@ -1,5 +1,6 @@
 package lemmini.game;
 
+import java.awt.Color;
 import java.text.BreakIterator;
 import java.text.Normalizer;
 import java.util.ArrayList;
@@ -53,8 +54,12 @@ public class LemmFont {
         BLUE,
         /** red color */
         RED,
-        /** brown/yellow color */
-        BROWN,
+        /* hotter red */
+        HOT_RED,
+        /**yellow color */
+        YELLOW,
+        /** orange color */
+        ORANGE,
         /** turquoise/cyan color */
         TURQUOISE,
         /** violet color */
@@ -400,11 +405,11 @@ public class LemmFont {
     private static class Glyph {
         
         private final List<LemmImage> glyphColors;
-        
+
         Glyph(LemmImage glyph) {
             int width = glyph.getWidth();
             int height = glyph.getHeight();
-            
+
             LemmImage[] glyphColorsArray = {
                 glyph,
                 ToolBox.createLemmImage(width, height),
@@ -412,36 +417,50 @@ public class LemmFont {
                 ToolBox.createLemmImage(width, height),
                 ToolBox.createLemmImage(width, height),
                 ToolBox.createLemmImage(width, height),
+                ToolBox.createLemmImage(width, height),
+                ToolBox.createLemmImage(width, height)
             };
-            
+
             for (int xp = 0; xp < width; xp++) {
                 for (int yp = 0; yp < height; yp++) {
-                    int col = glyph.getRGB(xp, yp); // A R G B
-                    int a = col & 0xff000000; // transparent part
-                    int r = (col >> 16) & 0xff;
-                    int g = (col >> 8) & 0xff;
-                    int b = col & 0xff;
-                    // shift image to blue version by swapping blue and green components
-                    col = a | (r << 16) | (b << 8) | g;
-                    glyphColorsArray[1].setRGB(xp, yp, col);
-                    // shift image to red version by swapping red and green components
-                    col = a | (g << 16) | (r << 8) | b;
-                    glyphColorsArray[2].setRGB(xp, yp, col);
-                    // shift image to brown version by setting red component to value of green component
-                    col = a | (g << 16) | (g << 8) | b;
-                    glyphColorsArray[3].setRGB(xp, yp, col);
-                    // shift image to turquoise version by setting blue component to value of green component
-                    col = a | (r << 16) | (g << 8) | g;
-                    glyphColorsArray[4].setRGB(xp, yp, col);
-                    // shift image to violet version by exchanging red and blue with green
-                    col = a | (g << 16) | (((r + b) << 7) & 0xff00) | g;
-                    glyphColorsArray[5].setRGB(xp, yp, col);
+                    int col = glyph.getRGB(xp, yp);
+                    
+                    Color color = new Color(col, true); // Preserve alpha
+                    int a = color.getAlpha();
+                    int r = color.getRed();
+                    int g = color.getGreen();
+                    int b = color.getBlue();
+
+                    // BLUE: Swap blue and green
+                    glyphColorsArray[1].setRGB(xp, yp, new Color(r, b, g, a).getRGB());
+                    
+                    // RED: Swap red and green
+                    glyphColorsArray[2].setRGB(xp, yp, new Color(g, r, b, a).getRGB());
+                    
+                    // HOT_RED: adjust swapped green tint
+                    int hotterRed = Math.min(255, (int) (g * 1.2));
+                    glyphColorsArray[3].setRGB(xp, yp, new Color(hotterRed, r, b, a).getRGB());
+                    
+                    // YELLOW: Set red to green's value
+                    glyphColorsArray[4].setRGB(xp, yp, new Color(g, g, b, a).getRGB());
+
+                    // ORANGE: warmer and darker version of yellow, similar to the Amiga yellow
+                    int warmerRed = Math.min(255, (int) (g * 1.2));
+                    int adjustedGreen = Math.max(0, (int) (g * 0.8));
+                    glyphColorsArray[5].setRGB(xp, yp, new Color(warmerRed, adjustedGreen, b, a).getRGB());
+
+                    // TURQUOISE: Set blue to green's value
+                    glyphColorsArray[6].setRGB(xp, yp, new Color(r, g, g, a).getRGB());
+
+                    // VIOLET: Average red and blue, use as green
+                    int violetGreen = (r + b) / 2;
+                    glyphColorsArray[7].setRGB(xp, yp, new Color(g, violetGreen, g, a).getRGB());
                 }
             }
-            
+
             glyphColors = Arrays.asList(glyphColorsArray);
         }
-        
+
         LemmImage getColor(LemmColor color) {
             return glyphColors.get(color.ordinal());
         }

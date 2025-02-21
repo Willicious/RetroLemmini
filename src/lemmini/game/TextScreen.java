@@ -1,10 +1,12 @@
 package lemmini.game;
 
-import static lemmini.game.LemmFont.LemmColor.BLUE;
-import static lemmini.game.LemmFont.LemmColor.BROWN;
-import static lemmini.game.LemmFont.LemmColor.GREEN;
+import static lemmini.game.LemmFont.LemmColor.HOT_RED;
 import static lemmini.game.LemmFont.LemmColor.RED;
+import static lemmini.game.LemmFont.LemmColor.ORANGE;
+import static lemmini.game.LemmFont.LemmColor.YELLOW;
+import static lemmini.game.LemmFont.LemmColor.GREEN;
 import static lemmini.game.LemmFont.LemmColor.TURQUOISE;
+import static lemmini.game.LemmFont.LemmColor.BLUE;
 import static lemmini.game.LemmFont.LemmColor.VIOLET;
 
 import java.awt.Color;
@@ -170,12 +172,12 @@ public class TextScreen {
         textDialog.clear();
         textDialog.setBackground(MiscGfx.getImage(MiscGfx.Index.TILE_BROWN), true);
         textDialog.addStringCentered("Version " + Core.REVISION, null, 4, RED);
-        textDialog.addTextButton("Play Level", "Play Level", null, -5, -2, Button.PLAY_LEVEL, GREEN, BROWN);
-        textDialog.addTextButton("Load Replay", "Load Replay", null, -14, 0, Button.LOAD_REPLAY, BLUE, BROWN);
-        textDialog.addTextButton("Enter Code", "Enter Code", null, 3, 0, Button.ENTER_CODE, BLUE, BROWN);
-        textDialog.addTextButton("Players", "Players", null, -12, 1, Button.PLAYERS, BLUE, BROWN);
-        textDialog.addTextButton("Options", "Options", null, 4, 1, Button.OPTIONS, BLUE, BROWN);
-        textDialog.addTextButton("Exit", "Exit", null, -2, 2, Button.EXIT, BLUE, BROWN);
+        textDialog.addTextButton("Play Level", "Play Level", null, -5, -2, Button.PLAY_LEVEL, GREEN, YELLOW);
+        textDialog.addTextButton("Load Replay", "Load Replay", null, -14, 0, Button.LOAD_REPLAY, BLUE, YELLOW);
+        textDialog.addTextButton("Enter Code", "Enter Code", null, 3, 0, Button.ENTER_CODE, BLUE, YELLOW);
+        textDialog.addTextButton("Players", "Players", null, -12, 1, Button.PLAYERS, BLUE, YELLOW);
+        textDialog.addTextButton("Options", "Options", null, 4, 1, Button.OPTIONS, BLUE, YELLOW);
+        textDialog.addTextButton("Exit", "Exit", null, -2, 2, Button.EXIT, BLUE, YELLOW);
     }
     
     /**
@@ -189,8 +191,8 @@ public class TextScreen {
         textDialog.addImage(GameController.getMapPreview(), null, -225);
         textDialog.addString(String.format("Level %-3d %s", GameController.getCurLevelNumber() + 1, level.getLevelName()), null, -21, -4, RED);
         showLevelInfo();
-        textDialog.addTextButton("Start Level", "Start Level", null, -12, 6, Button.START_LEVEL, BLUE, BROWN);
-        textDialog.addTextButton("Menu", "Menu", null, 4, 6, Button.MENU, BLUE, BROWN);
+        textDialog.addTextButton("Start Level", "Start Level", null, -12, 6, Button.START_LEVEL, BLUE, YELLOW);
+        textDialog.addTextButton("Menu", "Menu", null, 4, 6, Button.MENU, BLUE, YELLOW);
     }
     
     /**
@@ -241,7 +243,7 @@ public class TextScreen {
                 debriefing = debriefings.get(4);
             }
             textDialog.addStringCentered(debriefing, null, -1, RED);
-            textDialog.addTextButton("Retry Level", "Retry Level", null, -12, 5, Button.RESTART, BLUE, BROWN);
+            textDialog.addTextButton("Retry Level", "Retry Level", null, -12, 5, Button.RESTART, BLUE, YELLOW);
         } else {
             String debriefing;
             if (rescued <= toRescue && rescued < numLemmings) {
@@ -262,23 +264,23 @@ public class TextScreen {
                 String code = LevelCode.create(lp.getCodeSeed(), absLevel, rescuedPercent,
                         GameController.getTimesFailed(), 0, lp.getCodeOffset());
                 if (code != null) {
-                    textDialog.addStringCentered(String.format("Your access code for level %d%nis %s", ln + 2, code), null, 2, BROWN);
+                    textDialog.addStringCentered(String.format("Your access code for level %d%nis %s", ln + 2, code), null, 2, YELLOW);
                 }
-                textDialog.addTextButton("Continue", "Continue", null, -11, 5, Button.CONTINUE, BLUE, BROWN);
+                textDialog.addTextButton("Continue", "Continue", null, -11, 5, Button.CONTINUE, BLUE, YELLOW);
             } else if (!(lpn == 0 && r == 0)) {
                 List<String> ratings = lp.getRatings();
-                textDialog.addStringCentered("Congratulations!", null, 2, BROWN);
+                textDialog.addStringCentered("Congratulations!", null, 2, YELLOW);
                 textDialog.addStringCentered(String.format("You finished all the %s levels!", ratings.get(GameController.getCurRating())), null, 3, GREEN);
                 if (lpn != 0 && lp.getLevelCount(r) <= ln + 1 && ratings.size() > r + 1) {
-                    textDialog.addTextButton("Continue", "Continue", null, -11, 5, Button.NEXT_RATING, BLUE, BROWN);
+                    textDialog.addTextButton("Continue", "Continue", null, -11, 5, Button.NEXT_RATING, BLUE, YELLOW);
                 }
             }
         }
         if (!GameController.getWasCheated()) {
-            textDialog.addTextButton("View Replay", "View Replay", null, 1, 5, Button.REPLAY, BLUE, BROWN);
-            textDialog.addTextButton("Save Replay", "Save Replay", null, 1, 6, Button.SAVE_REPLAY, BLUE, BROWN);
+            textDialog.addTextButton("View Replay", "View Replay", null, 1, 5, Button.REPLAY, BLUE, YELLOW);
+            textDialog.addTextButton("Save Replay", "Save Replay", null, 1, 6, Button.SAVE_REPLAY, BLUE, YELLOW);
         }
-        textDialog.addTextButton("Menu", "Menu", null, -9, 6, Button.MENU, BLUE, BROWN);
+        textDialog.addTextButton("Menu", "Menu", null, -9, 6, Button.MENU, BLUE, YELLOW);
     }
     
     public static void showLevelInfo() {
@@ -292,7 +294,7 @@ public class TextScreen {
             } else {
                 textDialog.addString(String.format("%d%% to be saved", level.getNumToRescue() * 100 / level.getNumLemmings()), "info", -9, -1, GREEN);
             }
-            textDialog.addString(String.format("Release Rate %d", level.getReleaseRate()), "info", -9, 0, BROWN);
+            textDialog.addString(String.format("Release Rate %d", level.getReleaseRate()), "info", -9, 0, YELLOW);
             int minutes = level.getTimeLimitSeconds() / 60;
             int seconds = level.getTimeLimitSeconds() % 60;
             if (!GameController.isTimed()) {
@@ -309,7 +311,7 @@ public class TextScreen {
                 textDialog.addString(String.format("Author    %s", author), "info", -9, 3, RED);
             }
             if (level.getNumHints() > 0 && (Core.player.isDebugMode() || GameController.getTimesFailed() >= FAILURE_THRESHOLD_FOR_HINTS)) {
-                textDialog.addTextButton("Show Hint", "Show Hint", "info", -4, 5, Button.SHOW_HINT, BLUE, BROWN);
+                textDialog.addTextButton("Show Hint", "Show Hint", "info", -4, 5, Button.SHOW_HINT, BLUE, YELLOW);
             }
         }
     }
@@ -320,13 +322,13 @@ public class TextScreen {
             Level level = GameController.getLevel();
             textDialog.addString(String.format("Hint %d", hintIndex + 1), "info", -3, -2, TURQUOISE);
             textDialog.addStringCentered(level.getHint(hintIndex), "info", 0, GREEN);
-            textDialog.addTextButton("Show Info", "Show Info", "info", -4, 5, Button.SHOW_INFO, BLUE, BROWN);
+            textDialog.addTextButton("Show Info", "Show Info", "info", -4, 5, Button.SHOW_INFO, BLUE, YELLOW);
             if (hintIndex > 0) {
-                textDialog.addTextButton("Previous Hint", "Previous Hint", "info", -19, 5, Button.PREVIOUS_HINT, BLUE, BROWN);
+                textDialog.addTextButton("Previous Hint", "Previous Hint", "info", -19, 5, Button.PREVIOUS_HINT, BLUE, YELLOW);
             }
             if ((Core.player.isDebugMode() && hintIndex < level.getNumHints() - 1)
                      || (hintIndex < Math.min(level.getNumHints() - 1, GameController.getTimesFailed() - FAILURE_THRESHOLD_FOR_HINTS))) {
-                textDialog.addTextButton("Next Hint", "Next Hint", "info", 8, 5, Button.NEXT_HINT, BLUE, BROWN);
+                textDialog.addTextButton("Next Hint", "Next Hint", "info", 8, 5, Button.NEXT_HINT, BLUE, YELLOW);
             }
         }
     }
@@ -478,7 +480,7 @@ public class TextScreen {
 	        try {
 	            scrollerGfx = tempScrollerImg.createGraphicsContext();
 	            scrollerGfx.setBackground(new Color(0, 0, 0, 0));
-	            LemmFont.strImage(scrollerGfx, SCROLL_TEXT, SCROLL_WIDTH + LemmFont.getWidth() * SCROLL_PADDING, 0, BROWN);
+	            LemmFont.strImage(scrollerGfx, SCROLL_TEXT, SCROLL_WIDTH + LemmFont.getWidth() * SCROLL_PADDING, 0, YELLOW);
 	        } finally {
 	            if (scrollerGfx != null) {
 	                scrollerGfx.dispose();
