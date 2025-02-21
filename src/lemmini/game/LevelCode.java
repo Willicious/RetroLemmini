@@ -8,8 +8,8 @@ import lemmini.tools.ToolBox;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,7 +36,7 @@ public class LevelCode {
     //  3  2  1  0| 3  2  1  0| 3  2  1  0| 3  2  1  0| 3  2  1  0| 3  2  1  0| 3  2  1  0
     // -----------|-----------|-----------|-----------|-----------|-----------|-----------
     // L0 %0 F0 U0|U1 L1  0 %1|U2 L2 %2 F1|U4 U3 %3 L3|%4 U5 L4 F2|U6 %5 F3 L5|L7 L6  0 %6
-    
+
     /* level: L */
     private static final int[] LMASK   = {1, 2, 4,  8, 16, 32, 192};
     private static final int[] LSHIFTL = {3, 1, 0,  0,  0,  0,   0};
@@ -53,16 +53,16 @@ public class LevelCode {
     private static final int[] UMASK   = {1, 2, 4, 24, 32, 64,   0};
     private static final int[] USHIFTL = {0, 2, 1,  0,  0,  0,   0};
     private static final int[] USHIFTR = {0, 0, 0,  1,  3,  3,   0};
-    
+
     private static final int MAX_LVL_NUM = 255;
     private static final int MAX_PERCENT = 127;
     private static final int MAX_FAILED = 15;
     private static final int MAX_UNKNOWN = 127;
-    
+
     private static final int FIRST_LETTER = 0x41;
     private static final int LAST_LETTER = 0x5A;
-    
-    
+
+
     /**
      * Create a level code from the given parameters
      * @param seed The seed string used as base for the level code
@@ -89,11 +89,11 @@ public class LevelCode {
         byte[] bi;
         bi = seed.getBytes(StandardCharsets.US_ASCII);
         byte[] bo = new byte[bi.length];
-        
+
         // add offset and wrap around
         int level = lvl + offset;
         level %= (MAX_LVL_NUM + 1);
-        
+
         // create first 7 bytes
         int sum = 0;
         for (int i = 0; i < 7; i++) {
@@ -124,7 +124,7 @@ public class LevelCode {
         }
         return new String(bo, StandardCharsets.US_ASCII);
     }
-    
+
     /**
      * Parse the level info from the level code and seed
      * @param seed The seed string used as base for the level code
@@ -138,7 +138,7 @@ public class LevelCode {
         bs = seed.getBytes(StandardCharsets.US_ASCII);
         bi = code.getBytes(StandardCharsets.US_ASCII);
         byte[] bo = new byte[bi.length];
-        
+
         if (seed.length() != 10 || code.length() != 10) {
             return null;
         }
@@ -148,22 +148,22 @@ public class LevelCode {
                 return null;
             }
         }
-        
+
         // verify checksum
         if (bi[9] < bs[9]) {
             bi[9] += 26;
-        } 
+        }
         if (((bi[0] + bi[1] + bi[2] + bi[3] + bi[4] + bi[5] + bi[6] + bi[7] + bi[8]) & 0xf) != bi[9] - bs[9]) {
             return null;
         }
-        
+
         for (int i = 7; i < 9; i++) {
             if (bi[i] < bs[i]) {
                 bi[i] += 26;
             }
         }
         int level = ((bi[7] - bs[7]) & 0xf) | (((bi[8] - bs[8]) & 0xf) << 4);
-        
+
         // unrotate
         for (int i = 0; i < 7; i++) {
             bo[(i + 6 + (level % 8)) % 7] = bi[i];
@@ -173,12 +173,12 @@ public class LevelCode {
                 bi[i] += 26;
             }
         }
-        
+
         // check bits that must be 0
         if (BooleanUtils.toBoolean((bo[1] - bs[1]) & 2) || BooleanUtils.toBoolean((bo[6] - bs[6]) & 2)) {
             return null;
         }
-        
+
         // decode
         int level_ = 0;
         int percent = 0;
@@ -194,12 +194,12 @@ public class LevelCode {
         if (level != level_) {
             return null;
         }
-        
+
         level -= offset;
         while (level < 0) {
             level += MAX_LVL_NUM;
         }
-        
+
         int[] ret = {level, percent, failed, unknown};
         return ret;
     }

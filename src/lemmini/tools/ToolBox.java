@@ -46,8 +46,8 @@ import lemmini.graphics.LemmImage;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -69,7 +69,7 @@ import lemmini.graphics.LemmImage;
  * @author Volker Oth
  */
 public class ToolBox {
-    
+
     private static final ByteOrderMark[] BYTE_ORDER_MARKS = {
         ByteOrderMark.UTF_32BE, ByteOrderMark.UTF_32LE, ByteOrderMark.UTF_8,
         ByteOrderMark.UTF_16BE, ByteOrderMark.UTF_16LE};
@@ -79,7 +79,7 @@ public class ToolBox {
             new int[]{8, 8, 8, 1},
             true, false,
             Transparency.BITMASK, DataBuffer.TYPE_BYTE);
-    
+
     /**
      * Creates a graphics operation
      * @return the graphics operation
@@ -87,7 +87,7 @@ public class ToolBox {
     public static GraphicsOperation createGraphicsOperation() {
         return new GraphicsOperation();
     }
-    
+
     /**
      * Creates a custom cursor from the image
      * @param image
@@ -98,7 +98,7 @@ public class ToolBox {
     public static Cursor createCursor(LemmImage image, int centerX, int centerY) {
         return Toolkit.getDefaultToolkit().createCustomCursor(image.getImage(), new Point(centerX, centerY), StringUtils.EMPTY);
     }
-    
+
     /**
      * Create a compatible buffered image.
      * @param width width of image in pixels
@@ -121,7 +121,7 @@ public class ToolBox {
                 throw new IllegalArgumentException("Invalid transparency: " + transparency);
         }
     }
-    
+
     /**
      * Create a compatible buffered image.
      * @param width width of image in pixels
@@ -131,7 +131,7 @@ public class ToolBox {
     public static LemmImage createLemmImage(final int width, final int height) {
         return createLemmImage(width, height, Transparency.TRANSLUCENT);
     }
-    
+
     /**
      * Create a compatible buffered image.
      * @param width width of image in pixels
@@ -142,11 +142,11 @@ public class ToolBox {
     public static LemmImage createLemmImage(final int width, final int height, final int transparency) {
         return new LemmImage(createImage(width, height, transparency));
     }
-    
+
     public static LemmImage copyLemmImage(LemmImage img) {
         return copyLemmImage(img, Transparency.TRANSLUCENT);
     }
-    
+
     public static LemmImage copyLemmImage(LemmImage img, int transparency) {
         LemmImage newImg = ToolBox.createLemmImage(img.getWidth(), img.getHeight(), transparency);
         GraphicsContext g = null;
@@ -160,7 +160,7 @@ public class ToolBox {
         }
         return newImg;
     }
-    
+
     /**
      * Return a list of buffered images which contains an animation.
      * @param img image containing all the frames one above each other
@@ -170,7 +170,7 @@ public class ToolBox {
     public static java.util.List<LemmImage> getAnimation(final LemmImage img, final int frames) {
         return getAnimation(img, frames, img.getWidth());
     }
-    
+
     /**
      * Return a list of buffered images which contains an animation.
      * @param img image containing all the frames one above each other
@@ -186,7 +186,7 @@ public class ToolBox {
         }
         return imgList;
     }
-    
+
     /**
      * Use the Loader to find a file.
      * @param fname file name
@@ -196,7 +196,7 @@ public class ToolBox {
         ClassLoader loader = ToolBox.class.getClassLoader();
         return loader.getResource(fname);
     }
-    
+
     /**
      * Open file dialog.
      * @param parent parent frame
@@ -234,7 +234,7 @@ public class ToolBox {
         }
         return null;
     }
-    
+
     /**
      * Open file dialog.
      * @param parent parent frame
@@ -272,11 +272,11 @@ public class ToolBox {
         }
         return null;
     }
-     
+
     /**
      * Checks whether the first few characters of the given file matches the given header.
      * @param r Reader for the file
-     * @param header 
+     * @param header
      * @return True if file begins with the given header, false otherwise
      */
     public static boolean checkFileID(final Reader r, final String header) {
@@ -291,7 +291,7 @@ public class ToolBox {
             return false;
         }
     }
-    
+
     public static BufferedReader getBufferedReader(final Path fname) throws IOException {
         InputStream in = null;
         try {
@@ -304,7 +304,7 @@ public class ToolBox {
             throw ex;
         }
     }
-    
+
     public static BufferedReader getBufferedReader(final URL file) throws IOException {
         InputStream in = null;
         try {
@@ -317,7 +317,7 @@ public class ToolBox {
             throw ex;
         }
     }
-    
+
     public static BufferedReader getBufferedReader(final InputStream in) throws IOException {
         BOMInputStream in2 = new BOMInputStream(in, BYTE_ORDER_MARKS);
         Charset encoding;
@@ -326,11 +326,11 @@ public class ToolBox {
         } else {
             encoding = StandardCharsets.UTF_8;
         }
-        
+
         BufferedReader r = new BufferedReader(new InputStreamReader(in2, encoding));
         return r;
     }
-    
+
     public static String addBackslashes(String s, final boolean addBackslashesToAllSpaces) {
         s = s.replace("\\", "\\\\");
         s = s.replace("#", "\\#");
@@ -344,10 +344,10 @@ public class ToolBox {
                 s = "\\" + s;
             }
         }
-        
+
         return s;
     }
-    
+
     /**
      * Show exception message box.
      * @param ex exception
@@ -366,55 +366,55 @@ public class ToolBox {
         ex.printStackTrace();
         JOptionPane.showMessageDialog(null, sb.toString(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-    
+
     public static int cap(int min, int value, int max) {
         if (min > max) {
             throw new IllegalArgumentException("max must be >= min");
         }
         return Math.max(min, Math.min(value, max));
     }
-    
+
     public static long cap(long min, long value, long max) {
         if (min > max) {
             throw new IllegalArgumentException("max must be >= min");
         }
         return Math.max(min, Math.min(value, max));
     }
-    
+
     public static float cap(float min, float value, float max) {
         if (min > max) {
             throw new IllegalArgumentException("max must be >= min");
         }
         return Math.max(min, Math.min(value, max));
     }
-    
+
     public static double cap(double min, double value, double max) {
         if (min > max) {
             throw new IllegalArgumentException("max must be >= min");
         }
         return Math.max(min, Math.min(value, max));
     }
-    
+
     public static int roundToInt(double a) {
         return (int) cap(Integer.MIN_VALUE, Math.round(a), Integer.MAX_VALUE);
     }
-    
+
     public static int scale(int n, double s) {
         return (int) roundToInt(n * s);
     }
-    
+
     public static double scale(double n, double s) {
         return n * s;
     }
-    
+
     public static int unscale(int n, double s) {
         return (int) roundToInt(n / s);
     }
-    
+
     public static double unscale(double n, double s) {
         return n / s;
     }
-    
+
     /**
      * Parse decimal, hex, or binary number as int
      * @param s String that contains one number
@@ -426,13 +426,13 @@ public class ToolBox {
         } else if (s.equalsIgnoreCase("-Infinity")) {
             return Integer.MIN_VALUE;
         }
-        
+
         int index = 0;
         boolean hasSign = isSign(s.charAt(index));
         if (hasSign) {
             index++;
         }
-        
+
         if (s.charAt(index) == '0') {
             index++;
             if (s.length() <= index) {
@@ -458,7 +458,7 @@ public class ToolBox {
                     index--;
                     break;
             }
-            
+
             if (radix != 10) {
                 if (s.charAt(0) == '-') {
                     throw new NumberFormatException(String.format("Illegal leading minus sign on unsigned string %s.", s));
@@ -469,11 +469,11 @@ public class ToolBox {
                 return Integer.parseUnsignedInt((hasSign ? s.charAt(0) : StringUtils.EMPTY) + s.substring(index), radix);
             }
         }
-        
+
         // decimal
         return Integer.parseInt(s);
     }
-    
+
     /**
      * Parse decimal, hex, or binary number as long
      * @param s String that contains one number
@@ -485,13 +485,13 @@ public class ToolBox {
         } else if (s.equalsIgnoreCase("-Infinity")) {
             return Long.MIN_VALUE;
         }
-        
+
         int index = 0;
         boolean hasSign = isSign(s.charAt(index));
         if (hasSign) {
             index++;
         }
-        
+
         if (s.charAt(index) == '0') {
             index++;
             if (s.length() <= index) {
@@ -516,7 +516,7 @@ public class ToolBox {
                     radix = 10;
                     break;
             }
-            
+
             if (radix != 10) {
                 if (s.charAt(0) == '-') {
                     throw new NumberFormatException(String.format("Illegal leading minus sign on unsigned string %s.", s));
@@ -527,11 +527,11 @@ public class ToolBox {
                 return Long.parseUnsignedLong((hasSign ? s.charAt(0) : StringUtils.EMPTY) + s.substring(index), radix);
             }
         }
-        
+
         // decimal
         return Long.parseLong(s);
     }
-    
+
     /**
      * Parse decimal, hex, or binary number as BigInteger
      * @param s String that contains one number
@@ -543,7 +543,7 @@ public class ToolBox {
         if (hasSign) {
             index++;
         }
-        
+
         if (s.charAt(index) == '0') {
             index++;
             if (s.length() <= index) {
@@ -568,7 +568,7 @@ public class ToolBox {
                     radix = 10;
                     break;
             }
-            
+
             if (radix != 10) {
                 if (isSign(s.charAt(index))) {
                     throw new NumberFormatException("Sign character is not permitted after the radix prefix.");
@@ -576,11 +576,11 @@ public class ToolBox {
                 return new BigInteger((hasSign ? s.charAt(0) : StringUtils.EMPTY) + s.substring(index), radix);
             }
         }
-        
+
         // decimal
         return new BigInteger(s);
     }
-    
+
     public static String intToString(int number, boolean useInfinitySymbol) {
         // \u221e = infinity symbol
         switch (number) {
@@ -592,7 +592,7 @@ public class ToolBox {
                 return Integer.toString(number);
         }
     }
-    
+
     /**
      * Checks whether the given character is a sign.
      * @param c Character to check
@@ -601,11 +601,11 @@ public class ToolBox {
     public static boolean isSign(char c) {
         return c == '+' || c == '-';
     }
-    
+
     public static boolean isHexDigit(char c) {
         return (c >= '0' && c <= '9') || (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f');
     }
-    
+
     /**
      * Checks whether two strings are equal after trimming, converting to
      * lowercase, and applying NFKC normalization.
@@ -617,10 +617,10 @@ public class ToolBox {
         return Normalizer.normalize(s1.trim().toLowerCase(Locale.ROOT), Normalizer.Form.NFKC)
                 .equals(Normalizer.normalize(s2.trim().toLowerCase(Locale.ROOT), Normalizer.Form.NFKC));
     }
-    
+
     public static String literalToRegex(String s) {
         StringBuilder sb = null;
-        
+
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             switch (c) {
@@ -648,14 +648,14 @@ public class ToolBox {
                     break;
             }
         }
-        
+
         return (sb == null) ? s : sb.toString();
     }
-    
+
     public static void deleteFileTree(Path path) throws IOException {
         Files.walkFileTree(path, new DeleteTreeFileVisitor());
     }
-    
+
     public static String getFileName(String path) {
         if (path.isEmpty() || path.equals("/") || path.equals("\\")) {
             return path;
@@ -688,7 +688,7 @@ public class ToolBox {
             }
         }
     }
-    
+
     public static String getParent(String path) {
         if (path.isEmpty() || path.equals("/") || path.equals("\\")) {
             return path;
@@ -726,13 +726,13 @@ public class ToolBox {
 }
 
 class DeleteTreeFileVisitor extends SimpleFileVisitor<Path> {
-    
+
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
         Files.delete(file);
         return FileVisitResult.CONTINUE;
     }
-    
+
     @Override
     public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
         if (exc == null) {

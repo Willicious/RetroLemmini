@@ -35,7 +35,7 @@ import lemmini.game.Resource;
 import lemmini.game.ResourceException;
 
 public class WaveMusic implements Runnable, MusicPlayer {
-    
+
     private boolean loopSong;
     private boolean play;
     private SourceDataLine line;
@@ -48,7 +48,7 @@ public class WaveMusic implements Runnable, MusicPlayer {
     private boolean playIntro;
     private AudioFormat format;
     private Thread waveThread;
-    
+
     @Override
     public void load(final Resource resource, final boolean loop) throws ResourceException, LemmException {
         if (waveThread != null) {
@@ -58,14 +58,14 @@ public class WaveMusic implements Runnable, MusicPlayer {
         try {
             in = null;
             format=null;
-             
+
             file = resource;
             introFile = resource.getSibling(Core.appendBeforeExtension(resource.getFileName(), "_intro"));
             InputStream tempIn = file.getInputStream();
             if (tempIn.markSupported()) {
                 in = AudioSystem.getAudioInputStream(tempIn);
             } else {
-                
+
                 in = AudioSystem.getAudioInputStream(new BufferedInputStream(tempIn));
             }
             if (in != null) {
@@ -103,7 +103,7 @@ public class WaveMusic implements Runnable, MusicPlayer {
         waveThread = new Thread(this);
         waveThread.start();
     }
-    
+
     private static AudioFormat getDecodeFormat(AudioFormat baseFormat) {
         if (baseFormat.getEncoding() == AudioFormat.Encoding.PCM_SIGNED
                 || baseFormat.getEncoding() == AudioFormat.Encoding.PCM_UNSIGNED) {
@@ -117,7 +117,7 @@ public class WaveMusic implements Runnable, MusicPlayer {
                     false);
         }
     }
-    
+
     @Override
     public void run() {
         try {
@@ -180,18 +180,18 @@ public class WaveMusic implements Runnable, MusicPlayer {
             close();
         }
     }
-    
+
     @Override
     public synchronized void stop() {
         play = false;
     }
-    
+
     @Override
     public synchronized void play() {
         play = true;
         notifyAll();
     }
-    
+
     @Override
     public void close() {
         if (waveThread == null) {
@@ -204,7 +204,7 @@ public class WaveMusic implements Runnable, MusicPlayer {
             moribund.join();
         } catch (InterruptedException ex) {
         }
-        
+
         try {
             if (introIn != null) {
                 introIn.close();
@@ -220,7 +220,7 @@ public class WaveMusic implements Runnable, MusicPlayer {
         } catch (IOException ex) {
         }
     }
-    
+
     @Override
     public void setGain(double gain) {
         if (gain > 2.0) {

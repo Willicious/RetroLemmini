@@ -16,8 +16,8 @@ import lemmini.tools.ToolBox;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,7 +38,7 @@ import lemmini.tools.ToolBox;
  * @author Volker Oth
  */
 public class Player {
-    
+
     /** property class to store player settings persistently */
     private Props props;
     /** used to store level progress */
@@ -49,7 +49,7 @@ public class Player {
     private boolean maximumExitPhysics;
     /** player's name */
     private String name;
-    
+
     /**
      * Constructor.
      * @param n player's name
@@ -68,7 +68,7 @@ public class Player {
         }
         Path iniFilePath = getPlayerINIFilePath(name);
         System.out.println("    loading player level stats: " + iniFilePath);
-        
+
         if (props.load(iniFilePath)) { // might exist or not - if not, it's created
             // file exists, now parse entries
             for (int idx = 0; true; idx++) {
@@ -92,21 +92,21 @@ public class Player {
                     }
                 }
                 System.out.print(": �" + groupName + "�");
-                
+
                 // note: unlockedLevels are stored as bits. a bit 1 indicates the level is unlocked; bit 0 indicates the level is locked.
                 // unlocked means it is either completed, or is after a group of uncompleted levels.
                 BigInteger unlockedLevels = ToolBox.parseBigInteger(s1);
                 System.out.println("  [" + unlockedLevels.bitLength() + ":" + unlockedLevels.toString(16) + "]");
                 Map<Integer, LevelRecord> levelRecords = new LinkedHashMap<>();
 
-                
+
                 System.out.print("     building level stats map...");
 
                 if (GameController.isOptionEnabled(GameController.SLTooOption.DEBUG_VERBOSE_PLAYER_LOAD))
                     System.out.println();
-                
+
                 int compCount = 0;
-               
+
                 int maxLevel = props.getHighestLevel(idx) + 1;
                 maxLevel = Math.max(maxLevel, unlockedLevels.bitLength());
                 for (int j = 0; j < maxLevel; j++) {
@@ -115,8 +115,8 @@ public class Player {
 
                     String levelSetting = "group" + idx + "_level" + j;
                     String completedKey = levelSetting + "_completed";
-                    // BOOKMARK TODO: check if we're on the last level, and there is no compKey... 
-                    // props.containsKey(completedKey); 
+                    // BOOKMARK TODO: check if we're on the last level, and there is no compKey...
+                    // props.containsKey(completedKey);
                     boolean completed = props.getBoolean(completedKey, false);
                     if (completed) {
                         compCount++;
@@ -149,27 +149,27 @@ public class Player {
         } else {
             System.out.println("    ini file not found... new one created.");
         }
-        
+
         // debug mode
         debugMode = false;
-        
+
         System.out.println();
     }
-    
+
     /**
      * Set debug mode for this player.
      */
     public void setDebugMode(final boolean d) {
         debugMode = d;
     }
-    
+
     /**
      * Set max exit physics mode for this player.
      */
     public void setMaximumExitPhysics(final boolean e) {
         maximumExitPhysics = e;
     }
-    
+
     /**
      * Store player's progress.
      */
@@ -195,7 +195,7 @@ public class Player {
         }
         props.save(getPlayerINIFilePath(name));
     }
-    
+
     /**
      * Allow a level to be played.
      * @param pack level pack
@@ -217,7 +217,7 @@ public class Player {
             lg.levelRecords.put(num, LevelRecord.BLANK_LEVEL_RECORD);
         }
     }
-    
+
     /**
      * Check if player is allowed to play a level.
      * @param pack level pack
@@ -236,7 +236,7 @@ public class Player {
         }
         return (lg.levelRecords.containsKey(num));
     }
-    
+
     public void setLevelRecord(final String pack, final String rating, final int num, final LevelRecord record) {
         String id = LevelPack.getID(pack, rating);
         LevelGroup lg = lvlGroups.get(id);
@@ -261,7 +261,7 @@ public class Player {
             }
         }
     }
-    
+
     public LevelRecord getLevelRecord(final String pack, final String rating, final int num) {
         String id = LevelPack.getID(pack, rating);
         LevelGroup lg = lvlGroups.get(id);
@@ -271,7 +271,7 @@ public class Player {
             return lg.levelRecords.get(num);
         }
     }
-    
+
     /**
      * Get player's name.
      * @return player's name
@@ -279,7 +279,7 @@ public class Player {
     public String getName() {
         return name;
     }
-    
+
     /**
      * Get debug mode state.
      * @return true if debug mode is enabled
@@ -287,7 +287,7 @@ public class Player {
     public boolean isDebugMode() {
         return debugMode;
     }
-    
+
     /**
      * Get maximum exit physics state.
      * @return true if maximum exit physics is enabled
@@ -295,7 +295,7 @@ public class Player {
     public boolean isMaximumExitPhysics() {
         return maximumExitPhysics;
     }
-    
+
     public static Path getPlayerINIFilePath(final String name) {
         Path retFile = Core.resourceTree.getPath("players/" + addEscapes(name) + ".ini");
         if (Files.notExists(retFile)) {
@@ -308,10 +308,10 @@ public class Player {
                 }
             }
         }
-        
+
         return retFile;
     }
-    
+
     public static void deletePlayerINIFile(final String name) {
         Core.resourceTree.getAllPathsRegex("players/[^/]+\\.ini").stream()
                 .map(file -> FilenameUtils.removeExtension(file.getFileName().toString()))
@@ -325,12 +325,12 @@ public class Player {
             }
         });
     }
-    
+
     /**
      * Converts certain characters and names to escape sequences to ensure
      * compatibility with various file systems.
-     * @param s 
-     * @return 
+     * @param s
+     * @return
      */
     public static String addEscapes(final String s) {
         int length = s.length();
@@ -418,12 +418,12 @@ public class Player {
         }
         return (sb == null) ? s : sb.toString();
     }
-    
+
     /**
      * Converts every instance of _xxxx or __xxxxxx (where x is a hex digit) to
      * the corresponding Unicode code point.
-     * @param s 
-     * @return 
+     * @param s
+     * @return
      */
     public static String convertEscapes(final String s) {
         int length = s.length();
@@ -461,15 +461,15 @@ public class Player {
         }
         return (sb == null) ? s : sb.toString();
     }
-    
+
     private class LevelGroup {
-        
+
         private final Map<Integer, LevelRecord> levelRecords;
-        
+
         private LevelGroup(Map<Integer, LevelRecord> levelRecords) {
             this.levelRecords = levelRecords;
         }
-        
+
         private BigInteger getBitField() {
             Set<Integer> availableLevels = levelRecords.keySet();
             BigInteger bf = BigInteger.ZERO;

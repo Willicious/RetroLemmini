@@ -12,8 +12,8 @@ import lemmini.tools.ToolBox;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -68,7 +68,7 @@ public class LevelInfo {
     /** number of diggers in this level */
     private int numDiggers;
     private boolean validLevel;
-    
+
     public LevelInfo() {
         name = StringUtils.EMPTY;
         author = StringUtils.EMPTY;
@@ -88,7 +88,7 @@ public class LevelInfo {
         numDiggers = 0;
         validLevel = false;
     }
-    
+
     public LevelInfo(String fname, String newMusic) {
         Resource resource;
         try {
@@ -98,11 +98,11 @@ public class LevelInfo {
         }
         init(resource, newMusic);
     }
-    
+
     public LevelInfo(Resource resource, String newMusic) {
         init(resource, newMusic);
     }
-    
+
     private void init(Resource resource, String newMusic) {
         levelResource = resource;
         music = newMusic;
@@ -121,7 +121,7 @@ public class LevelInfo {
         numMiners = 0;
         numDiggers = 0;
         validLevel = false;
-        
+
         if (resource != null) {
             try (Reader r = levelResource.getBufferedReader()) {
                 if (ToolBox.checkFileID(r, "# LVL")) {
@@ -189,7 +189,7 @@ public class LevelInfo {
             }
         }
     }
-    
+
     /**
      * Get the level's resource object.
      * @return resource object
@@ -197,7 +197,7 @@ public class LevelInfo {
     public Resource getLevelResource() {
         return levelResource;
     }
-    
+
     /**
      * Set name of music.
      * @param music name of music
@@ -205,7 +205,7 @@ public class LevelInfo {
     public void setMusic(final String music) {
         this.music = music;
     }
-    
+
     /**
      * Get name of music.
      * @return name of music.
@@ -213,7 +213,7 @@ public class LevelInfo {
     public String getMusic() {
         return music;
     }
-    
+
     /**
      * Set level name.
      * @param name level name
@@ -221,7 +221,7 @@ public class LevelInfo {
     public void setName(final String name) {
         this.name = name;
     }
-    
+
     /**
      * Get level name.
      * @return level name
@@ -229,7 +229,7 @@ public class LevelInfo {
     public String getName() {
         return name;
     }
-    
+
     /**
      * Get level author.
      * @return level author
@@ -237,55 +237,55 @@ public class LevelInfo {
     public String getAuthor() {
         return author;
     }
-    
+
     public int getReleaseRate() {
         return releaseRate;
     }
-    
+
     public int getNumLemmings() {
         return numLemmings;
     }
-    
+
     public int getNumToRescue() {
         return numToRescue;
     }
-    
+
     public int getTimeLimit() {
         return timeLimitSeconds;
     }
-    
+
     public int getNumClimbers() {
         return numClimbers;
     }
-    
+
     public int getNumFloaters() {
         return numFloaters;
     }
-    
+
     public int getNumBombers() {
         return numBombers;
     }
-    
+
     public int getNumBlockers() {
         return numBlockers;
     }
-    
+
     public int getNumBuilders() {
         return numBuilders;
     }
-    
+
     public int getNumBashers() {
         return numBashers;
     }
-    
+
     public int getNumMiners() {
         return numMiners;
     }
-    
+
     public int getNumDiggers() {
         return numDiggers;
     }
-    
+
     public boolean isValidLevel() {
         return validLevel && levelResource != null;
     }

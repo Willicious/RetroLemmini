@@ -4,8 +4,8 @@ import org.apache.commons.lang3.ArrayUtils;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +26,7 @@ import org.apache.commons.lang3.ArrayUtils;
  * @author Volker Oth
  */
 public class Stencil {
-    
+
     /** empty space - background is visible */
     public static final int MSK_EMPTY = 0;
     /** brick - Lemmings can walk on it */
@@ -53,7 +53,7 @@ public class Stencil {
     public static final int MSK_ONE_WAY_RIGHT = 1 << 11;
     /** no bashing - either left or right */
     public static final int MSK_ONE_WAY = MSK_ONE_WAY_LEFT | MSK_ONE_WAY_RIGHT;
-    
+
     /** a trap that triggers the drowning animation - i.e. water */
     public static final int MSK_TRAP_LIQUID = 1 << 12;
     /** a trap that removes the Lemming */
@@ -64,15 +64,15 @@ public class Stencil {
     public static final int MSK_TRAP = MSK_TRAP_LIQUID | MSK_TRAP_REMOVE | MSK_TRAP_FIRE;
     /** the level exit */
     public static final int MSK_EXIT = 1 << 15;
-    
+
     /** array which represents the stencil buffer */
     private final StencilPixel[] stencil;
     /** width of stencil (=width of level) */
     private final int width;
     /** height of stencil (=height of level) */
     private final int height;
-    
-    
+
+
     /**
      * Constructor.
      * @param w width in pixels
@@ -86,7 +86,7 @@ public class Stencil {
             stencil[i] = new StencilPixel();
         }
     }
-    
+
     /**
      * Clear stencil (fill with MSK_EMPTY).
      */
@@ -96,7 +96,7 @@ public class Stencil {
             stencil[idx].clear();
         }
     }
-        
+
      /**
      * Set given value at given position.
      * @param x x position in pixels
@@ -110,7 +110,7 @@ public class Stencil {
         int pos = x + y * width;
         stencil[pos].setMask(val);
     }
-    
+
     /**
      * Set given value at given position.
      * @param pos position (x+y*width)
@@ -119,12 +119,12 @@ public class Stencil {
     public void setMask(final int pos, final int val) {
         int y = pos / width;
         int x = pos % width;
-        
+
         //System.out.println("This shouldn't be printed at all");
-        
+
         setMask(x, y, val);
     }
-    
+
     /**
      * AND given value with existing value at given position.
      * @param x x position in pixels
@@ -135,11 +135,11 @@ public class Stencil {
         if (x < 0 || x >= width || y < 0 || y >= height) {
             return;
         }
-        
+
         int pos = x + y * width;
         stencil[pos].andMask(val);
     }
-    
+
     /**
      * AND given value with existing value at given position.
      * @param pos position (x*width+y)
@@ -150,7 +150,7 @@ public class Stencil {
         int x = pos % width;
         andMask(x, y, val);
     }
-    
+
     /**
      * OR given value with existing value at given position.
      * @param x x position in pixels
@@ -161,11 +161,11 @@ public class Stencil {
         if (x < 0 || x >= width || y < 0 || y >= height) {
             return;
         }
-        
+
         int pos = x + y * width;
         stencil[pos].orMask(val);
     }
-    
+
     /**
      * OR given value with existing value at given position - don't call this for gadgets
      * @param pos position (x*width+y)
@@ -176,7 +176,7 @@ public class Stencil {
         int x = pos % width;
         orMask(x, y, val);
     }
-    
+
     /**
      * Sets the mask object ID of this stencil pixel.
      * @param x x position in pixels
@@ -187,11 +187,11 @@ public class Stencil {
         if (x < 0 || x >= width || y < 0 || y >= height) {
             return;
         }
-        
+
         int pos = x + y * width;
         stencil[pos].setMaskObjectID(id);
     }
-    
+
     /**
      * Sets the mask object ID of this stencil pixel.
      * @param pos position (x+y*width)
@@ -200,12 +200,12 @@ public class Stencil {
     public void setMaskObjectID(final int pos, final int id) {
         int y = pos / width;
         int x = pos % width;
-        
+
         //System.out.println("This shouldn't be printed at all");
-        
+
         setMaskObjectID(x, y, id);
     }
-    
+
     /**
      * Get stencil value at given position.
      * @param x x position in pixels
@@ -219,7 +219,7 @@ public class Stencil {
         int pos = x + y * width;
         return stencil[pos].getMask();
     }
-    
+
     /**
      * Get stencil value at given position.
      * @param pos position (x+y*width)
@@ -230,7 +230,7 @@ public class Stencil {
         int x = pos % width;
         return getMask(x, y);
     }
-    
+
     /**
      * Adds a gadget to the stencil
      * @param x x position in pixels
@@ -245,7 +245,7 @@ public class Stencil {
         int pos = x + y * width;
         stencil[pos].addGadget(aMask, aID);
     }
-    
+
     /**
      * Adds an object ID to the stencil.
      * @param x x position in pixels
@@ -256,11 +256,11 @@ public class Stencil {
         if (x < 0 || x >= width || y < 0 || y >= height) {
             return;
         }
-        
+
         int pos = x + y * width;
         stencil[pos].addObjectID(id);
     }
-    
+
     /**
      * Adds an object ID to the stencil.
      * @param pos position (x+y*width)
@@ -271,7 +271,7 @@ public class Stencil {
         int x = pos % width;
         addID(x, y, id);
     }
-    
+
     /**
      * Gets all object IDs from the stencil.
      * @param x x position in pixels
@@ -282,11 +282,11 @@ public class Stencil {
         if (x < 0 || x >= width || y < 0 || y >= height) {
             return ArrayUtils.EMPTY_INT_ARRAY;
         }
-        
+
         int pos = x + y * width;
         return stencil[pos].getObjectIDs();
     }
-    
+
     /**
      * Gets all object IDs from the stencil.
      * @param pos position (x+y*width)
@@ -297,29 +297,29 @@ public class Stencil {
         int x = pos % width;
         return getIDs(x, y);
     }
-    
+
     public int getMaskObjectID(final int x, final int y) {
         if (x < 0 || x >= width || y < 0 || y >= height) {
             return -1;
         }
-        
+
         int pos = x + y * width;
         return stencil[pos].getMaskObjectID();
     }
-    
+
     public int getMaskObjectID(final int pos) {
         int y = pos / width;
         int x = pos % width;
         return getMaskObjectID(x, y);
     }
-    
+
     /** Get width of stencil.
      * @return width of stencil
      */
     public int getWidth() {
         return width;
     }
-    
+
     /**
      * Get height of stencil.
      * @return height of stencil
@@ -336,53 +336,53 @@ class StencilPixel {
     private int maskObjectID;
     /** this stores an array of all available object IDs */ // BOOKMARK TODO: Investigate and decide if we need this
     private int[] objectIDs;
-    
+
     public StencilPixel() {
         mask = 0;
         maskObjectID = -1;
         objectIDs = ArrayUtils.EMPTY_INT_ARRAY;
     }
-    
+
     public void clear() {
         mask = 0;
         maskObjectID = -1;
         objectIDs = ArrayUtils.EMPTY_INT_ARRAY;
     }
-    
+
     public void setMask(int newMask) {
         mask = newMask;
     }
-    
+
     public void andMask(int newMask) {
         mask &= newMask;
     }
-    
+
     public void orMask(int newMask) {
         mask |= newMask;
     }
-    
+
     public void setMaskObjectID(int mo) {
         maskObjectID = mo;
     }
-    
+
     public void addObjectID(int newID) {
         objectIDs = ArrayUtils.add(objectIDs, newID);
     }
-    
+
     public int getMask() {
         return mask;
     }
-    
+
     public int getMaskObjectID() {
         return maskObjectID;
     }
-    
+
     public int[] getObjectIDs() {
         return objectIDs;
     }
-    
+
     public void addGadget(final int aMask, final int aID) {
-        final int existingGadget = mask & ~(Stencil.MSK_BRICK 
+        final int existingGadget = mask & ~(Stencil.MSK_BRICK
                                           | Stencil.MSK_STEEL_BRICK
                                           | Stencil.MSK_NO_ONE_WAY
                                           | Stencil.MSK_NO_ONE_WAY_DRAW);

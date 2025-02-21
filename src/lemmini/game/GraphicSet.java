@@ -36,7 +36,7 @@ import lemmini.tools.ToolBox;
  * @author Ryan Sakowski
  */
 public class GraphicSet {
-    
+
     public enum Orientation {
         NORMAL (false, false, false),
         ROTATED_90 (true, false, false),
@@ -46,29 +46,29 @@ public class GraphicSet {
         ROTATED_90_FLIPPED_VERT (true, false, true),
         ROTATED_180 (false, true, true),
         ROTATED_270 (true, true, true);
-        
+
         private final boolean rotate;
         private final boolean flipHoriz;
         private final boolean flipVert;
-        
+
         private Orientation(boolean rotate, boolean flipHoriz, boolean flipVert) {
             this.rotate = rotate;
             this.flipHoriz = flipHoriz;
             this.flipVert = flipVert;
         }
-        
+
         public boolean rotate() {
             return rotate;
         }
-        
+
         public boolean flipHoriz() {
             return flipHoriz;
         }
-        
+
         public boolean flipVert() {
             return flipVert;
         }
-        
+
         public static Orientation getOrientation(boolean flipHoriz, boolean flipVert, boolean rotate) {
             if (rotate) {
                 if (flipHoriz) {
@@ -101,10 +101,10 @@ public class GraphicSet {
             }
         }
     }
-    
+
     /** array of default ARGB colors for particle effects */
     public static final int[] DEFAULT_PARTICLE_COLORS = {0xff00ff00, 0xff0000ff, 0xffffffff, 0xffffffff, 0xffff0000};
-    
+
     /** list of default styles */
     @SuppressWarnings("unused")
     private static final List<String> DEFAULT_STYLES = Arrays.asList("dirt", "fire", "marble", "pillar", "crystal",
@@ -112,27 +112,27 @@ public class GraphicSet {
     private static final int DEFAULT_ANIMATION_SPEED = 2;
     private static final int[] SPECIAL_STYLE_OBJECT_ORDER = {0, 1, 7};
     private static final String[] SPECIAL_STYLE_NAMES = {"awesome", "beasti", "beastii", "menace"};
-    
+
     private final String name;
     private final Props props;
     private final Color bgColor;
     private final int debrisColor;
     private final int debrisColor2;
     private final int[] particleColor;
-    
+
     private final List<LvlObject> objects;
     private final List<Terrain> terrain;
-    
+
     public GraphicSet(String name) throws LemmException, ResourceException {
         this.name = name;
         props = new Props();
-        
+
         if (name.toLowerCase(Locale.ROOT).equals("special")) {
             Resource resource = Core.findResource("styles/dirt/dirt.ini", true);
             if (!props.load(resource)) {
                 throw new LemmException("Unable to read dirt.ini.");
             }
-            
+
             // first some global settings
             int bgCol = props.getInt("bgColor", props.getInt("bgColor", 0x000000)) | 0xff000000;
             bgColor = new Color(bgCol);
@@ -142,7 +142,7 @@ public class GraphicSet {
             for (int i = 0; i < particleColor.length; i++) {
                 particleColor[i] |= 0xff000000;
             }
-            
+
             // load the object data
             objects = new ArrayList<>(SPECIAL_STYLE_OBJECT_ORDER.length);
             for (int idx : SPECIAL_STYLE_OBJECT_ORDER) {
@@ -152,7 +152,7 @@ public class GraphicSet {
                 }
                 objects.add(obj);
             }
-            
+
             // load the terrain data
             terrain = new ArrayList<>(SPECIAL_STYLE_NAMES.length);
             for (String name2 : SPECIAL_STYLE_NAMES) {
@@ -164,7 +164,7 @@ public class GraphicSet {
             if (!props.load(resource)) {
                 throw new LemmException("Unable to read " + name + ".ini.");
             }
-            
+
             // first some global settings
             int bgCol = props.getInt("bgColor", props.getInt("bgColor", 0x000000)) | 0xff000000;
             bgColor = new Color(bgCol);
@@ -174,7 +174,7 @@ public class GraphicSet {
             for (int i = 0; i < particleColor.length; i++) {
                 particleColor[i] |= 0xff000000;
             }
-            
+
             // load the object data
             objects = new ArrayList<>(64);
             for (int idx = 0; true; idx++) {
@@ -184,7 +184,7 @@ public class GraphicSet {
                 }
                 objects.add(obj);
             }
-            
+
             // load the terrain data
             int tiles = props.getInt("tiles", 0);
             int[] steelTiles = props.getIntArray("steelTiles", ArrayUtils.EMPTY_INT_ARRAY);
@@ -194,7 +194,7 @@ public class GraphicSet {
             }
         }
     }
-    
+
     public void unloadImages() {
         objects.stream().forEach(obj -> {
             obj.images.clear();
@@ -205,37 +205,37 @@ public class GraphicSet {
             ter.mask = null;
         });
     }
-    
+
     public String getName() {
         return name;
     }
-    
+
     public Color getBgColor() {
         return bgColor;
     }
-    
+
     public int getDebrisColor() {
         return debrisColor;
     }
-    
+
     public int getDebrisColor2() {
         return debrisColor2;
     }
-    
+
     public int[] getParticleColor() {
         return particleColor;
     }
-    
+
     public LvlObject getObject(int idx) {
         return objects.get(idx);
     }
-    
+
     public Terrain getTerrain(int idx) {
         return terrain.get(idx);
     }
-    
+
     public class LvlObject {
-        
+
         private final int index;
         private final String pathPrefix;
         private final int numFrames;
@@ -247,7 +247,7 @@ public class GraphicSet {
         private final int[] sound;
         private final Map<Orientation, List<LemmImage>> images = new EnumMap<>(Orientation.class);
         private boolean[][] mask = null;
-        
+
         private LvlObject(Props props, String pathPrefix, int idx) {
             index = idx;
             this.pathPrefix = pathPrefix;
@@ -284,35 +284,35 @@ public class GraphicSet {
                 sound = ArrayUtils.EMPTY_INT_ARRAY;
             }
         }
-        
+
         public int getNumFrames() {
             return numFrames;
         }
-        
+
         public int getSpeed() {
             return speed;
         }
-        
+
         public Sprite.Animation getAnimationMode() {
             return animMode;
         }
-        
+
         public SpriteObject.Type getType() {
             return type;
         }
-        
+
         public int getMaskOffsetX() {
             return maskOffsetX;
         }
-        
+
         public int getMaskOffsetY() {
             return maskOffsetY;
         }
-        
+
         public int[] getSound() {
             return sound;
         }
-        
+
         public List<LemmImage> getImages(Orientation orientation) throws ResourceException {
             if (!images.containsKey(Orientation.NORMAL)) {
                 Resource resource = Core.findResource(
@@ -331,7 +331,7 @@ public class GraphicSet {
             }
             return images.get(orientation);
         }
-        
+
         public boolean[][] getMask() throws ResourceException {
             if (mask == null) {
                 switch (type) {
@@ -363,26 +363,26 @@ public class GraphicSet {
             return mask;
         }
     }
-    
+
     public class Terrain {
-        
+
         private final int index;
         private final String pathPrefix;
         private final boolean steel;
         private LemmImage image = null;
         private boolean[][] mask = null;
         private boolean[][] steelMask = null;
-        
+
         private Terrain(String pathPrefix, int idx, boolean stl) {
             index = idx;
             steel = stl;
             this.pathPrefix = pathPrefix;
         }
-        
+
         public boolean isSteel() {
             return steel;
         }
-        
+
         public LemmImage getImage() throws ResourceException {
             if (image == null) {
                 Resource resource;
@@ -398,7 +398,7 @@ public class GraphicSet {
             }
             return image;
         }
-        
+
         public boolean[][] getMask() throws ResourceException {
             if (mask == null) {
                 LemmImage sourceImage;
@@ -425,7 +425,7 @@ public class GraphicSet {
             }
             return mask;
         }
-        
+
         public boolean[][] getSteelMask() throws ResourceException {
             if (steelMask == null) {
                 if (steel) {

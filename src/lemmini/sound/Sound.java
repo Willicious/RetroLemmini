@@ -37,8 +37,8 @@ import lemmini.tools.ToolBox;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -60,7 +60,7 @@ import lemmini.tools.ToolBox;
  * @author Volker Oth
  */
 public class Sound {
-    
+
     public enum Effect {
         START ("start"),
         CHANGE_RR ("changeRR"),
@@ -75,28 +75,28 @@ public class Sound {
         DIE ("die"),
         STEEL ("steel"),
         STEP_WARNING ("stepWarning");
-        
+
         private final String keyName;
-        
+
         private Effect(String newKeyName) {
             keyName = newKeyName;
         }
-        
+
         public String getKeyName() {
             return keyName;
         }
     }
-    
+
     public enum PitchedEffect {
         RELEASE_RATE (Effect.CHANGE_RR, 2.0, -100.0, 96.0, 269),
         SKILL (Effect.SELECT_SKILL, 2.0, -4.0, 12.0, 13);
-        
+
         private final Effect effect;
         private final double base;
         private final double expNumeratorOffset;
         private final double expDenominator;
         private final int numPitches;
-        
+
         private PitchedEffect(Effect newEffect, double newBase,
                 double newExpNumeratorOffset, double newExpDenominator,
                 int newNumPitches) {
@@ -106,40 +106,40 @@ public class Sound {
             expDenominator = newExpDenominator;
             numPitches = newNumPitches;
         }
-        
+
         private Effect getEffect() {
             return effect;
         }
-        
+
         private double getBase() {
             return base;
         }
-        
+
         private double getExpNumeratorOffset() {
             return expNumeratorOffset;
         }
-        
+
         private double getExpDenominator() {
             return expDenominator;
         }
-        
+
         private int getNumPitches() {
             return numPitches;
         }
     }
-    
+
     public enum Quality {
         NEAREST,
         LINEAR,
         CUBIC;
     }
-    
+
     /** maximum number of sounds played in parallel */
     private static final int MAX_SIMUL_SOUNDS = 7;
     private static final String SOUND_INI_STR = "sound/sound.ini";
-    
+
     private static int lineCounter = 0;
-    
+
     private boolean loaded = false;
     private final Map<Effect, Integer> effects = new EnumMap<>(Effect.class);
     private final List<LineHandler> lineHandlers = new ArrayList<>(MAX_SIMUL_SOUNDS);
@@ -168,7 +168,7 @@ public class Sound {
     private final float sampleRate;
     private final int bufferSize;
     private final Quality resamplingQuality;
-    
+
     /**
      * Constructor.
      * @throws ResourceException
@@ -189,13 +189,13 @@ public class Sound {
         programProps.setDouble("sampleRate", sampleRate);
         programProps.setInt("bufferSize", bufferSize);
         programProps.setInt("resamplingQuality", resamplingQuality.ordinal());
-        
+
         gain = 1.0;
         sampleNames = new ArrayList<>(64);
-        
+
         format = new AudioFormat(sampleRate, 16, 2, true, false);
         info = new DataLine.Info(SourceDataLine.class, format, bufferSize);
-        
+
         PitchedEffect[] peValues = PitchedEffect.values();
         pitchBuffers = new byte[peValues.length][][];
         for (int i = 0; i < peValues.length; i++) {
@@ -205,9 +205,9 @@ public class Sound {
         origPitchBuffers = new byte[peValues.length][];
         origPitchFormats = new AudioFormat[peValues.length];
         pitchedSampleID = new int[peValues.length];
-        
+
         load();
-        
+
         // get all available mixers
         Mixer.Info[] mixInfo = AudioSystem.getMixerInfo();
         mixers = new ArrayList<>(16);
@@ -224,7 +224,7 @@ public class Sound {
             }
         }
         mixerIdx = Math.max(0, mixerIdx);
-        
+
         availableLineHandlers = new LinkedList<>();
         for (int i = 0; i < MAX_SIMUL_SOUNDS; i++) {
             LineHandler lineHandler = new LineHandler((SourceDataLine) getLine(info), availableLineHandlers);
@@ -234,7 +234,7 @@ public class Sound {
             lineHandlers.add(lineHandler);
         }
     }
-    
+
     public final void load() throws ResourceException {
         Resource resource = Core.findResource(SOUND_INI_STR, true);
         Props p = new Props();
@@ -250,13 +250,13 @@ public class Sound {
                 break;
             }
         }
-        
+
         for (Effect e : Effect.values()) {
             effects.put(e, p.getInt(e.getKeyName(), -1));
         }
-        
+
         PitchedEffect[] peValues = PitchedEffect.values();
-        
+
         boolean reloadPitched = false;
         if (!loaded) {
             sampleNum = sampleNames.size();
@@ -272,7 +272,7 @@ public class Sound {
                 resources = Arrays.copyOf(resources, sampleNum);
                 soundBuffers = Arrays.copyOf(soundBuffers, sampleNum);
             }
-            
+
             for (int i = 0; i < peValues.length; i++) {
                 int sampleID = effects.get(peValues[i].getEffect());
                 if (sampleID != pitchedSampleID[i]) {
@@ -281,7 +281,7 @@ public class Sound {
                 }
             }
         }
-        
+
         try {
             for (int i = 0; i < sampleNum; i++) {
                 resource = Core.findResource(
@@ -302,16 +302,16 @@ public class Sound {
                 } else {
                     resources[i] = resource;
                 }
-                
+
                 AudioFormat currentFormat;
-                
+
                 try (InputStream in = new BufferedInputStream(resource.getInputStream());
                         AudioInputStream ais = AudioSystem.getAudioInputStream(in)) {
                     currentFormat = ais.getFormat();
                     soundBuffers[i] = new byte[(int) ais.getFrameLength() * currentFormat.getFrameSize()];
                     ais.read(soundBuffers[i]);
                 }
-                
+
                 soundBuffers[i] = convert(soundBuffers[i], currentFormat, format.getSampleSizeInBits(), format.getFrameSize(),
                         format.getChannels(), format.getEncoding() == AudioFormat.Encoding.PCM_SIGNED, format.isBigEndian());
                 currentFormat = new AudioFormat(currentFormat.getSampleRate(),
@@ -330,7 +330,7 @@ public class Sound {
         } catch (UnsupportedAudioFileException | IOException ex) {
             throw new ResourceException(resource);
         }
-        
+
         if (reloadPitched) {
             for (int i = 0; i < peValues.length; i++) {
                 if (pitchedSampleID[i] >= 0) {
@@ -343,10 +343,10 @@ public class Sound {
                 }
             }
         }
-        
+
         loaded = true;
     }
-    
+
     /**
      * Get an array of available mixer names.
      * @return array of available mixer names
@@ -357,20 +357,20 @@ public class Sound {
         }
         return mixers.stream().map(mixer -> mixer.getMixerInfo().getName()).toArray(String[]::new);
     }
-    
+
     /**
      * Set mixer to be used for sound output.
      * @param idx index of mixer
      */
     public synchronized void setMixerIdx(final int idx) {
         int oldMixerIdx = mixerIdx;
-        
+
         if (idx < 0 || idx >= mixers.size()) {
             mixerIdx = 0;
         } else {
             mixerIdx = idx;
         }
-        
+
         if (oldMixerIdx != mixerIdx) {
             Deque<LineHandler> tempLineHandlers = new LinkedList<>();
             lineHandlers.stream().forEach(LineHandler::close);
@@ -385,7 +385,7 @@ public class Sound {
             availableLineHandlers = tempLineHandlers;
         }
     }
-    
+
     /**
      * Set the current mixer index.
      * @return index of current mixer
@@ -393,7 +393,7 @@ public class Sound {
     public synchronized int getMixerIdx() {
         return mixerIdx;
     }
-    
+
     /**
      * Return a data line to play a sample.
      * @param info line info with requirements
@@ -407,7 +407,7 @@ public class Sound {
             return null;
         }
     }
-    
+
     /**
      * Play a given sound.
      * @param idx index of the sound to be played
@@ -417,7 +417,7 @@ public class Sound {
         if (idx < 0 || !GameController.isOptionEnabled(GameController.Option.SOUND_ON)) {
             return;
         }
-        
+
         Deque<LineHandler> tempLineHandlers = availableLineHandlers;
         LineHandler lh;
         synchronized (tempLineHandlers) {
@@ -430,7 +430,7 @@ public class Sound {
             lh.play(soundBuffers[idx], pan);
         }
     }
-    
+
     /**
      * Play a given sound.
      * @param idx index of the sound to be played
@@ -438,7 +438,7 @@ public class Sound {
     public void play(final int idx) {
         play(idx, 0.0);
     }
-    
+
     /**
      * Play a given sound.
      * @param e
@@ -447,7 +447,7 @@ public class Sound {
     public void play(final Effect e, final double pan) {
         play(effects.get(e), pan);
     }
-    
+
     /**
      * Play a given sound.
      * @param e
@@ -464,7 +464,7 @@ public class Sound {
         //System.out.println(spr.getY());
         play(spr.getSound(), getPan(spr.midX()));
     }
-    
+
     /**
      * Displays the VisualSFX (if it exists, and the setting is turned on)
      * @param idx
@@ -477,7 +477,7 @@ public class Sound {
             GameController.addVsfx(v);
         }
     }
-    
+
     /**
      * Displays the VisualSFX (if it exists, and the setting is turned on)
      * @param e
@@ -487,7 +487,7 @@ public class Sound {
     public void playVisualSFXSilent(final Effect e, final int x, final int y) {
         playVisualSFXSilent(effects.get(e), x, y);
     }
-    
+
     /**
      * Play a given sound, and show the VisualSFX (if it exists)
      * @param idx index of the sound to be played
@@ -500,7 +500,7 @@ public class Sound {
         //then add the visual SFX to the display list (if that option is enabled)
         playVisualSFXSilent(idx, x, y);
     }
-    
+
     /**
      * Play a given sound, and show the VisualSFX (if it exists)
      * @param idx index of the sound to be played
@@ -515,7 +515,7 @@ public class Sound {
         //System.out.println(spr.getY());
         playVisualSFX(spr.getSound(), spr.midX(), spr.midY());
     }
-    
+
     /**
      * Play a given sound, and show the VisualSFX (if it exists)
      * @param e
@@ -525,7 +525,7 @@ public class Sound {
     public void playVisualSFX(final Effect e, int x, int y) {
         playVisualSFX(effects.get(e), x, y);
     }
-    
+
     /**
      * Get the distance off-screen left or right to play the sound effect. (Audio panning)
      * @param x
@@ -536,7 +536,7 @@ public class Sound {
         double retPan = (x - (GameController.getXPos() + Core.getDrawWidth() / 2.0)) / panFactor;
         return retPan;
     }
-    
+
     /**
      * Play a pitched sample.
      * @param pe
@@ -546,7 +546,7 @@ public class Sound {
         if (!GameController.isOptionEnabled(GameController.Option.SOUND_ON)) {
             return;
         }
-        
+
         Deque<LineHandler> tempLineHandlers = availableLineHandlers;
         LineHandler lh;
         synchronized (tempLineHandlers) {
@@ -559,7 +559,7 @@ public class Sound {
             lh.play(pitchBuffers[pe.ordinal()][pitch], 0.0);
         }
     }
-    
+
     /**
      * Convert sound to the specified sample rate.
      * @param buffer byte array containing source sample
@@ -573,7 +573,7 @@ public class Sound {
         if (sampleRate == newSampleRate) {
             return buffer;
         }
-        
+
         int sampleSize = af.getSampleSizeInBits();
         int frameSize = af.getFrameSize();
         int numChannels = af.getChannels();
@@ -592,7 +592,7 @@ public class Sound {
             maxValue = -((-1 << sampleSize) + 1);
             minValue = 0;
         }
-        
+
         // create scaled buffer
         int newNumFrames = (int) (numFrames * scale);
         byte[] newBuffer = new byte[newNumFrames * frameSize];
@@ -673,10 +673,10 @@ public class Sound {
                 }
             }
         }
-        
+
         return newBuffer;
     }
-    
+
     public static byte[] convert(final byte[] buffer, final AudioFormat af,
             final int newSampleSize, final int newFrameSize, final int newNumChannels,
             final boolean newSigned, final boolean newBigEndian) {
@@ -685,7 +685,7 @@ public class Sound {
         int numChannels = af.getChannels();
         boolean signed = af.getEncoding() == AudioFormat.Encoding.PCM_SIGNED;
         boolean bigEndian = af.isBigEndian();
-        
+
         if (signed == newSigned
                 && sampleSize == newSampleSize
                 && frameSize == newFrameSize
@@ -693,19 +693,19 @@ public class Sound {
                 && bigEndian == newBigEndian) {
             return buffer;
         }
-        
+
         int numFrames = buffer.length / frameSize;
         int bytesPerSample = frameSize / numChannels;
-        
+
         int newBytesPerSample = newFrameSize / newNumChannels;
-        
+
         int origin = newSigned ? 0 : (1 << (sampleSize - 1));
         int minChannels = Math.min(numChannels, newNumChannels);
         byte[] newBuffer = new byte[numFrames * newFrameSize];
         int[] oldSamples = new int[numChannels];
         int[] newSamples = new int[newNumChannels];
         Arrays.fill(newSamples, origin);
-        
+
         for (int i = 0; i < numFrames; i++) {
             for (int j = 0; j < numChannels; j++) {
                 oldSamples[j] = 0;
@@ -715,7 +715,7 @@ public class Sound {
                             & (signBit ? ~0 : 0xFF))
                             << (8 * (bigEndian ? (bytesPerSample - 1 - k) : k));
                 }
-                
+
                 if (!signed) {
                     oldSamples[j] += -1 << (sampleSize - 1);
                 }
@@ -725,7 +725,7 @@ public class Sound {
                     oldSamples[j] -= -1 << (sampleSize - 1);
                 }
             }
-            
+
             if (numChannels == 1 && newNumChannels >= 2) {
                 newSamples[0] = oldSamples[0];
                 newSamples[1] = oldSamples[0];
@@ -735,7 +735,7 @@ public class Sound {
             } else {
                 System.arraycopy(oldSamples, 0, newSamples, 0, minChannels);
             }
-            
+
             for (int j = 0; j < newNumChannels; j++) {
                 for (int k = 0; k < newBytesPerSample; k++) {
                     newBuffer[i * newFrameSize + j * newBytesPerSample + k] =
@@ -743,10 +743,10 @@ public class Sound {
                 }
             }
         }
-        
+
         return newBuffer;
     }
-    
+
     /**
      * Create a pitched version of a sample.
      * @param pe
@@ -765,7 +765,7 @@ public class Sound {
             newBuffers[i] = resample(oldBuffer, af, newSpeed, quality);
         }
     }
-    
+
     /**
      * Set gain of a line.
      * @param line line
@@ -788,7 +788,7 @@ public class Sound {
             }
         }
     }
-    
+
     /**
      * Get gain.
      * @return gain (1.0 == 100%)
@@ -796,7 +796,7 @@ public class Sound {
     public double getGain() {
         return gain;
     }
-    
+
     /**
      * Set gain.
      * @param gn gain (1.0 == 100%)
@@ -805,21 +805,21 @@ public class Sound {
         gain = gn;
         lineHandlers.stream().forEach(lh -> lh.setGain(gn));
     }
-    
+
     public float getSampleRate() {
         return sampleRate;
     }
-    
+
     public int getBufferSize() {
         return bufferSize;
     }
-    
+
     public Quality getResamplingQuality() {
         return resamplingQuality;
     }
-    
+
     private class LineHandler implements Runnable, Closeable {
-        
+
         private final SourceDataLine line;
         private final Deque<LineHandler> origDeque;
         private final int lineBufferSize;
@@ -827,9 +827,9 @@ public class Sound {
         private float pan;
         private byte[] nextBuffer;
         private boolean open;
-        
+
         private final Thread lineThread;
-        
+
         LineHandler(SourceDataLine line, Deque<LineHandler> origDeque) {
             this.line = line;
             this.origDeque = origDeque;
@@ -838,10 +838,10 @@ public class Sound {
             pan = 0.0f;
             nextBuffer = null;
             open = false;
-            
+
             lineThread = new Thread(null, this, "LineHandler-" + lineCounter++);
         }
-        
+
         @Override
         public void run() {
             try {
@@ -854,7 +854,7 @@ public class Sound {
                     byte[] currentBuffer = null;
                     float currentPan = 0.0f;
                     int bufferIndex = 0;
-                    
+
                     synchronized (this) {
                         while (nextBuffer == null && open) {
                             try {
@@ -868,7 +868,7 @@ public class Sound {
                             currentPan = pan;
                         }
                     }
-                    
+
                     if (currentBuffer != null && open) {
                         setPan(currentPan);
                         while (bufferIndex < currentBuffer.length) {
@@ -900,36 +900,36 @@ public class Sound {
                 line.close();
             }
         }
-        
+
         void play(byte[] newBuffer, double newPan) {
             if (!open) {
                 return;
             }
-            
+
             synchronized (this) {
                 nextBuffer = newBuffer;
                 pan = (float) ToolBox.cap(-1.0, newPan, 1.0);
                 notifyAll();
             }
         }
-        
+
         void start() {
             lineThread.start();
         }
-        
+
         @Override
         public void close() {
             open = false;
             lineThread.interrupt();
         }
-        
+
         void setGain(double gn) {
             gain = gn;
             if (line.isOpen()) {
                 setLineGain(line, gn);
             }
         }
-        
+
         private void setPan(float pan) {
             try {
                 FloatControl control = (FloatControl) line.getControl(FloatControl.Type.PAN);

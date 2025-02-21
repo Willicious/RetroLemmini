@@ -17,8 +17,8 @@ import lemmini.tools.ToolBox;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -46,17 +46,17 @@ public class ReplayStream {
     static final int SET_RELEASE_RATE = 3;
     static final int NUKE = 4;
     static final int END = 5;
-    
+
     static final int CURRENT_FORMAT = 1;
     static final String CURRENT_REVISION = Core.REVISION;
     static final String SUPERLEMMINI_REVISION = "0.104";
-    
+
     private List<ReplayEvent> events;
     private int replayIndex;
     private int format;
     private String revision;
     private int players;
-    
+
     /**
      * Constructor.
      */
@@ -65,14 +65,14 @@ public class ReplayStream {
         replayIndex = 0;
         format = 0;
     }
-    
+
     /**
      * Rewind replay to start position.
      */
     public void rewind() {
         replayIndex = 0;
     }
-    
+
     /**
      * Get next replay event
      * @param ctr frame counter
@@ -93,14 +93,14 @@ public class ReplayStream {
         }
         return null; /* no more events for this frame */
     }
-    
+
     /**
      * Clear the replay buffer.
      */
     public void clear() {
         events.clear();
     }
-    
+
     /**
      * Clear the replay buffer from a certain frame counter.
      * @param ctr frame counter
@@ -118,7 +118,7 @@ public class ReplayStream {
         }
         replayIndex = 0;
     }
-    
+
     /**
      * Load replay buffer from file.
      * @param fname file name
@@ -141,7 +141,7 @@ public class ReplayStream {
             } else {
                 throw new LemmException("Replay file does not specify a format.");
             }
-            
+
             line = br.readLine();
             if (line.startsWith("#REVISION ")) {
                 revision = line.substring(10).trim();
@@ -189,23 +189,23 @@ public class ReplayStream {
                 if (e.length < 2) {
                     throw new LemmException("Not enough values in replay event.");
                 }
-                
+
                 switch (Integer.parseInt(e[1])) { /* type */
                 case ASSIGN_SKILL:
                         if (e.length < 4) { // 4 values for backwards-compatibility with old replays
                             throw new LemmException("Not enough values in replay event for ASSIGN_SKILL.");
                         }
-                        
+
                         // If 5th value (Timed/Untimed Bomber) is missing, use the current user setting
-                        boolean isTimedBomber = (e.length >= 5) 
-                            ? Boolean.parseBoolean(e[4]) 
+                        boolean isTimedBomber = (e.length >= 5)
+                            ? Boolean.parseBoolean(e[4])
                             : GameController.isOptionEnabled(GameController.SLTooOption.TIMED_BOMBERS);
-    
+
                         ev.add(new ReplayAssignSkillEvent(
-                            Integer.parseInt(e[0]),   
-                            Lemming.Type.valueOf(e[2]),  
-                            Integer.parseInt(e[3]),   
-                            isTimedBomber             
+                            Integer.parseInt(e[0]),
+                            Lemming.Type.valueOf(e[2]),
+                            Integer.parseInt(e[3]),
+                            isTimedBomber
                         ));
                         break;
                     case MOVE_POS:
@@ -255,7 +255,7 @@ public class ReplayStream {
             throw new LemmException("Error reading replay file.");
         }
     }
-    
+
     /**
      * Store replay info.
      * @param w BufferedWriter
@@ -280,13 +280,13 @@ public class ReplayStream {
                 w.write(r.toString()); // will use toString of the correct child object
                 w.newLine();
             }
-            
+
             return true;
         } catch (IOException e) {
             return false;
         }
     }
-    
+
     /**
      * Store replay info in a file.
      * @param fname file name
@@ -299,7 +299,7 @@ public class ReplayStream {
             return false;
         }
     }
-    
+
     /**
      * Store replay info in a file.
      * @param fname file name
@@ -312,7 +312,7 @@ public class ReplayStream {
             return false;
         }
     }
-    
+
     /**
      * Add a NUKE event (all lemmings nuked).
      * @param ctr frame counter
@@ -321,7 +321,7 @@ public class ReplayStream {
         ReplayEvent event = new ReplayEvent(ctr, NUKE);
         events.add(event);
     }
-    
+
     /**
      * Add an END event.
      * @param ctr frame counter
@@ -331,7 +331,7 @@ public class ReplayStream {
         ReplayEvent event = new ReplayEvent(ctr, END);
         events.add(event);
     }
-    
+
     /**
      * Add ASSIGN_SKILL event (one lemming was assigned a skill).
      * @param ctr frame counter
@@ -344,7 +344,7 @@ public class ReplayStream {
         ReplayAssignSkillEvent event = new ReplayAssignSkillEvent(ctr, skill, lemming, isTimedBomber);
         events.add(event);
     }
-    
+
     /**
      * Add SELECT_SKILL event (skill selection button was pressed).
      * @param ctr frame counter
@@ -355,7 +355,7 @@ public class ReplayStream {
         ReplaySelectSkillEvent event = new ReplaySelectSkillEvent(ctr, skill, plr);
         events.add(event);
     }
-    
+
     /**
      * Add MOVE_POS event (screen moved left/right).
      * @param ctr frame counter
@@ -367,7 +367,7 @@ public class ReplayStream {
         ReplayMovePosEvent event = new ReplayMovePosEvent(ctr, xPos, yPos, plr);
         events.add(event);
     }
-    
+
     /**
      * Add SET_RELEASE_RATE event (release rate was changed).
      * @param ctr frame counter
@@ -377,7 +377,7 @@ public class ReplayStream {
         ReplayReleaseRateEvent event = new ReplayReleaseRateEvent(ctr, releaseRate);
         events.add(event);
     }
-    
+
     private void removeEndEvent() {
         for (ListIterator<ReplayEvent> lit = events.listIterator(events.size()); lit.hasPrevious(); ) {
             ReplayEvent r = lit.previous();
@@ -393,12 +393,12 @@ public class ReplayStream {
  * @author Volker Oth
  */
 class ReplayEvent {
-    
+
     /** frame counter */
     int frameCtr;
     /** event type */
     int type;
-    
+
     /**
      * Constructor
      * @param ctr frame counter
@@ -408,7 +408,7 @@ class ReplayEvent {
         frameCtr = ctr;
         type = t;
     }
-    
+
     /* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
@@ -423,16 +423,16 @@ class ReplayEvent {
  * @author Volker Oth
  */
 class ReplayAssignSkillEvent extends ReplayEvent {
-    
+
     /** skill */
     Lemming.Type skill;
-    
+
     /** Lemming */
     int lemming;
-    
+
     /** Timed Bomber state */
     private boolean isTimedBomber;
-    
+
     /**
      * Skill assigned
      * @param ctr Frame counter
@@ -446,7 +446,7 @@ class ReplayAssignSkillEvent extends ReplayEvent {
         lemming = lem;
         this.isTimedBomber = isTimedBomber;
     }
-    
+
     /**
      * Returns whether the Timed Bomber option was enabled at the time of the event.
      * @return true if Timed Bomber was enabled, false otherwise
@@ -454,7 +454,7 @@ class ReplayAssignSkillEvent extends ReplayEvent {
     public boolean isTimedBomber() {
         return isTimedBomber;
     }
-    
+
     /* (non-Javadoc)
      * @see Game.ReplayEvent#toString()
      */
@@ -469,10 +469,10 @@ class ReplayAssignSkillEvent extends ReplayEvent {
  * @author Volker Oth
  */
 class ReplaySelectSkillEvent extends ReplayEvent {
-    
+
     Lemming.Type skill;
     int player;
-    
+
     /**
      * Skill selected
      * @param ctr Frame counter
@@ -484,7 +484,7 @@ class ReplaySelectSkillEvent extends ReplayEvent {
         skill = s;
         player = plr;
     }
-    
+
     /* (non-Javadoc)
      * @see Game.ReplayEvent#toString()
      */
@@ -499,13 +499,13 @@ class ReplaySelectSkillEvent extends ReplayEvent {
  * @author Volker Oth
  */
 class ReplayMovePosEvent extends ReplayEvent {
-    
+
     /** screen X position */
     int xPos;
     /** screen Y position */
     int yPos;
     int player;
-    
+
     /**
      * Screen position changed event
      * @param ctr Frame counter
@@ -519,7 +519,7 @@ class ReplayMovePosEvent extends ReplayEvent {
         yPos = y;
         player = plr;
     }
-    
+
     /* (non-Javadoc)
      * @see Game.ReplayEvent#toString()
      */
@@ -534,9 +534,9 @@ class ReplayMovePosEvent extends ReplayEvent {
  * @author Volker Oth
  */
 class ReplayReleaseRateEvent extends ReplayEvent {
-    
+
     int releaseRate;
-    
+
     /**
      * Release Rate changed event
      * @param ctr Frame counter
@@ -546,7 +546,7 @@ class ReplayReleaseRateEvent extends ReplayEvent {
         super(ctr, ReplayStream.SET_RELEASE_RATE);
         releaseRate = rate;
     }
-    
+
     /* (non-Javadoc)
      * @see Game.ReplayEvent#toString()
      */

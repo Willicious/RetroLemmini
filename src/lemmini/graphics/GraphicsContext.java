@@ -12,8 +12,8 @@ import java.util.Map;
 
 /*
  * FILE MODIFIED BY RYAN SAKOWSKI
- * 
- * 
+ *
+ *
  * Copyright 2010 Arne Limburg
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,42 +30,42 @@ import java.util.Map;
  */
 
 public class GraphicsContext {
-    
+
     private final Graphics2D graphics;
-    
+
     public GraphicsContext(Graphics2D graphics) {
         this.graphics = graphics;
     }
-    
+
     public void setClip(int x, int y, int width, int height) {
         graphics.setClip(x, y, width, height);
     }
-    
+
     public void clearRect(int x, int y, int width, int height) {
         graphics.clearRect(x, y, width, height);
     }
-    
+
     public void drawRect(int x, int y, int width, int height) {
         graphics.drawRect(x, y, width, height);
     }
-    
+
     public void fillRect(int x, int y, int width, int height) {
         graphics.fillRect(x, y, width, height);
     }
-    
+
     public void setBackground(Color bgColor) {
         graphics.setBackground(bgColor);
     }
-    
+
     public void setColor(Color color) {
         graphics.setColor(color);
     }
-    
+
     /**
      * Draws as much of the specified image as is currently available.
-     * The image is drawn with its top-left corner at(x, y) in this graphics context's coordinate 
+     * The image is drawn with its top-left corner at(x, y) in this graphics context's coordinate
      * space. Transparent pixels in the image do not affect whatever
-     * pixels are already there. 
+     * pixels are already there.
      * @param image the specified LemmImage sprite to be drawn
      * @param x the x coordinate of the top-left corner.
      * @param y the y coordinate of the top-left corner.
@@ -73,14 +73,14 @@ public class GraphicsContext {
     public void drawImage(LemmImage image, int x, int y) {
         graphics.drawImage(image.getImage(), x, y, null);
     }
-    
-    
+
+
     public void drawImage(LemmImage image, int x, int y, double scale) {
         BufferedImage origImage = image.getImage();
         BufferedImage newResized = resize(origImage, (int)(image.getWidth() * scale), (int)(image.getHeight() * scale));
         graphics.drawImage(newResized, x, y, null);
     }
-    
+
     public static BufferedImage resize(BufferedImage image, int width, int height) {
         BufferedImage newResizedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = newResizedImage.createGraphics();
@@ -88,7 +88,7 @@ public class GraphicsContext {
         // background transparent
         g.setComposite(AlphaComposite.Src);
         g.fillRect(0, 0, width, height);
-        
+
         Map<RenderingHints.Key,Object> hints = new HashMap<>();
         hints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         hints.put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -98,11 +98,11 @@ public class GraphicsContext {
         // puts the original image into the newResizedImage
         g.drawImage(image, 0, 0, width, height, null);
         g.dispose();
-        
+
         return newResizedImage;
     }
-    
-    
+
+
     /**
      * Draws as much of the specified image as has already been scaled
      * to fit inside the specified rectangle.
@@ -140,7 +140,7 @@ public class GraphicsContext {
     public void drawImage(LemmImage image, int x, int y, int width, int height) {
         graphics.drawImage(image.getImage(), x, y, width, height, null);
     }
-    
+
     /**
      * Draws as much of the specified area of the specified image as is
      * currently available, scaling it on the fly to fit inside the
@@ -192,11 +192,11 @@ public class GraphicsContext {
     public void drawImage(LemmImage image, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2) {
         graphics.drawImage(image.getImage(), dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, null);
     }
-    
+
     public void setRenderingHint(RenderingHints.Key hintKey, Object hintValue) {
         graphics.setRenderingHint(hintKey, hintValue);
     }
-    
+
     public void grabPixels(LemmImage image, int x, int y, int w, int h, int[] pix, int off, int scanSize) {
         PixelGrabber pixelgrabber = new PixelGrabber(image.getImage(), x, y, w, h, pix, off, scanSize);
         try {
@@ -204,12 +204,12 @@ public class GraphicsContext {
         } catch (InterruptedException ex) {
         }
     }
-    
+
     public void copy(LemmImage source, LemmImage target) {
         WritableRaster rImgSpr = target.getImage().getRaster();
         rImgSpr.setRect(source.getImage().getRaster()); // just copy
     }
-    
+
     public void dispose() {
         graphics.dispose();
     }
