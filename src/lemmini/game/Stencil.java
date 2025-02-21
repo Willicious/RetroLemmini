@@ -96,25 +96,6 @@ public class Stencil {
             stencil[idx].clear();
         }
     }
-    
-    /**
-    * Set given value at given position.
-    * @param x x position in pixels
-    * @param y y position in pixels
-    * @param val stencil value
-    */
-//   public void addGadgetMask(final int x, final int y, final int val, final int id) {
-//       if (x < 0 || x >= width || y < 0 || y >= height) {
-//           return;
-//       }
-//       
-//       // BOOKMARK TODO: using the gadget ID, set the mask priority and pass only the highest value mask, regardless of order
-//       
-//       // So, check for existing value at the current pixel, then pass the highest value
-//       
-//       int pos = x + y * width;
-//       stencil[pos].setMask(val);
-//   }
         
      /**
      * Set given value at given position.
@@ -126,20 +107,7 @@ public class Stencil {
         if (x < 0 || x >= width || y < 0 || y >= height) {
             return;
         }
-        
         int pos = x + y * width;
-        
-//        //System.out.println("mask at " + x + ", " + y + " is " + stencil[pos].getMask());
-//        //System.out.println("passed val is " + val);
-//        
-//        if (stencil[pos].getMask() == 32768) {
-//        	stencil[pos].setMask(32768);
-//        	//System.out.println("resulting mask is " + stencil[pos].getMask());
-//        	return;
-//        }
-//        
-//        //System.out.println("This shouldn't be printed if mask has been amended");
-        
         stencil[pos].setMask(val);
     }
     
@@ -199,7 +167,7 @@ public class Stencil {
     }
     
     /**
-     * OR given value with existing value at given position.
+     * OR given value with existing value at given position - don't call this for gadgets
      * @param pos position (x*width+y)
      * @param val stencil value
      */
@@ -221,18 +189,6 @@ public class Stencil {
         }
         
         int pos = x + y * width;
-        
-//        //System.out.println("ID at " + x + ", " + y + " is " + stencil[pos].getMaskObjectID());
-//        //System.out.println("passed ID is " + id);
-//        
-//        if (stencil[pos].getMaskObjectID() == 1) {
-//        	stencil[pos].setMaskObjectID(1);
-//        	//System.out.println("resulting ID is " + stencil[pos].getMaskObjectID());
-//        	return;
-//        }
-//        
-//        //System.out.println("This shouldn't be printed if ID has been amended");
-        
         stencil[pos].setMaskObjectID(id);
     }
     
@@ -260,7 +216,6 @@ public class Stencil {
         if (x < 0 || x >= width || y < 0 || y >= height) {
             return 0;
         }
-        
         int pos = x + y * width;
         return stencil[pos].getMask();
     }
@@ -274,6 +229,21 @@ public class Stencil {
         int y = pos / width;
         int x = pos % width;
         return getMask(x, y);
+    }
+    
+    /**
+     * Adds a gadget to the stencil
+     * @param x x position in pixels
+     * @param y y position in pixels
+     * @param aMask mask type
+     * @param aID object identifier
+     */
+    public void addGadget(final int x, final int y, final int aMask, final int aID) {
+        if (x < 0 || x >= width || y < 0 || y >= height) {
+            return;
+        }
+        int pos = x + y * width;
+        stencil[pos].addGadget(aMask, aID);
     }
     
     /**
@@ -360,9 +330,11 @@ public class Stencil {
 }
 
 class StencilPixel {
-    
-    private int mask;
-    private int maskObjectID;
+   /** this stores at most one gadget (exit / water / fire etc) but any number of terrain, steel, OWW */
+	private int mask;
+	/** this stores the ID of each individual object */
+	private int maskObjectID;
+	/** this stores an array of all available object IDs */ // BOOKMARK TODO: Investigate and decide if we need this
     private int[] objectIDs;
     
     public StencilPixel() {
@@ -407,5 +379,18 @@ class StencilPixel {
     
     public int[] getObjectIDs() {
         return objectIDs;
+    }
+    
+    public void addGadget(final int aMask, final int aID) {
+    	final int existingGadget = mask & ~(Stencil.MSK_BRICK 
+    			                          | Stencil.MSK_STEEL_BRICK
+    			                          | Stencil.MSK_NO_ONE_WAY
+    			                          | Stencil.MSK_NO_ONE_WAY_DRAW);
+    	if (existingGadget > aMask) {
+    		return;
+    	}
+    	mask &= ~existingGadget;
+	    mask |= aMask;
+	    maskObjectID = aID;
     }
 }

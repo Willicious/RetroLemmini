@@ -753,15 +753,8 @@ public class Level {
                             continue;
                         }
                         // manage collision mask
-                        // now read stencil
                         if (spr.getMask(x, y)) { // not transparent
-                            stencilMask &= Stencil.MSK_BRICK
-                                    | Stencil.MSK_STEEL_BRICK
-                                    | Stencil.MSK_NO_ONE_WAY
-                                    | Stencil.MSK_NO_ONE_WAY_DRAW;
-                            stencilMask |= maskType;                                              // BOOKMARK
-                            stencil.setMask(spr.getX() + xDest, yDest + spr.getY(), stencilMask); // TODO: send the object ID through here as well
-                            stencil.setMaskObjectID(spr.getX() + xDest, yDest + spr.getY(), n);   //       decide which to priortise in the stencil class
+                        	stencil.addGadget(spr.getX() + xDest, yDest + spr.getY(), maskType, n);                                   
                         }
                     }
                 }
