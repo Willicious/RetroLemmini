@@ -76,19 +76,19 @@ public class GraphicsContext {
     
     
     public void drawImage(LemmImage image, int x, int y, double scale) {
-    	BufferedImage origImage = image.getImage();
-    	BufferedImage newResized = resize(origImage, (int)(image.getWidth() * scale), (int)(image.getHeight() * scale));
-    	graphics.drawImage(newResized, x, y, null);
+        BufferedImage origImage = image.getImage();
+        BufferedImage newResized = resize(origImage, (int)(image.getWidth() * scale), (int)(image.getHeight() * scale));
+        graphics.drawImage(newResized, x, y, null);
     }
     
     public static BufferedImage resize(BufferedImage image, int width, int height) {
-    	BufferedImage newResizedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-    	Graphics2D g = newResizedImage.createGraphics();
+        BufferedImage newResizedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = newResizedImage.createGraphics();
 
         // background transparent
         g.setComposite(AlphaComposite.Src);
         g.fillRect(0, 0, width, height);
-    	
+        
         Map<RenderingHints.Key,Object> hints = new HashMap<>();
         hints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         hints.put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -99,7 +99,7 @@ public class GraphicsContext {
         g.drawImage(image, 0, 0, width, height, null);
         g.dispose();
         
-    	return newResizedImage;
+        return newResizedImage;
     }
     
     

@@ -188,7 +188,7 @@ public class MiscGfx {
      * @return
      */
     public static LemmImage getVsfxImage(int idx) {
-    	return vsfx_images.get(idx);
+        return vsfx_images.get(idx);
     }
     
     public static LemmImage getMinimapImage() {
@@ -196,7 +196,7 @@ public class MiscGfx {
     }
     
     public static LemmImage getMinimapLargeImage() {
-    	return minimapLarge;
+        return minimapLarge;
     }
     
     public static int getMinimapWidth() {
@@ -215,7 +215,7 @@ public class MiscGfx {
     
     private static LemmImage createMiniMapFrame(int width) {
         final int BORDER = 4;
-    	LemmImage minimapLeft = images.get(Index.MINIMAP_LEFT.ordinal());
+        LemmImage minimapLeft = images.get(Index.MINIMAP_LEFT.ordinal());
         LemmImage minimapCenter = images.get(Index.MINIMAP_CENTER.ordinal());
         LemmImage minimapRight = images.get(Index.MINIMAP_RIGHT.ordinal());
         

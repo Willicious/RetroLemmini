@@ -331,10 +331,10 @@ public class Stencil {
 
 class StencilPixel {
    /** this stores at most one gadget (exit / water / fire etc) but any number of terrain, steel, OWW */
-	private int mask;
-	/** this stores the ID of each individual object */
-	private int maskObjectID;
-	/** this stores an array of all available object IDs */ // BOOKMARK TODO: Investigate and decide if we need this
+    private int mask;
+    /** this stores the ID of each individual object */
+    private int maskObjectID;
+    /** this stores an array of all available object IDs */ // BOOKMARK TODO: Investigate and decide if we need this
     private int[] objectIDs;
     
     public StencilPixel() {
@@ -382,15 +382,15 @@ class StencilPixel {
     }
     
     public void addGadget(final int aMask, final int aID) {
-    	final int existingGadget = mask & ~(Stencil.MSK_BRICK 
-    			                          | Stencil.MSK_STEEL_BRICK
-    			                          | Stencil.MSK_NO_ONE_WAY
-    			                          | Stencil.MSK_NO_ONE_WAY_DRAW);
-    	if (existingGadget > aMask) {
-    		return;
-    	}
-    	mask &= ~existingGadget;
-	    mask |= aMask;
-	    maskObjectID = aID;
+        final int existingGadget = mask & ~(Stencil.MSK_BRICK 
+                                          | Stencil.MSK_STEEL_BRICK
+                                          | Stencil.MSK_NO_ONE_WAY
+                                          | Stencil.MSK_NO_ONE_WAY_DRAW);
+        if (existingGadget > aMask) {
+            return;
+        }
+        mask &= ~existingGadget;
+        mask |= aMask;
+        maskObjectID = aID;
     }
 }

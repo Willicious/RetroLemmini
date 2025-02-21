@@ -30,7 +30,7 @@ public class SpecialGraphicSet {
     
     /** list of default special styles */
     @SuppressWarnings("unused")
-	private static final List<String> DEFAULT_SPECIAL_STYLES = Arrays.asList("awesome", "menace", "beastii", "beasti",
+    private static final List<String> DEFAULT_SPECIAL_STYLES = Arrays.asList("awesome", "menace", "beastii", "beasti",
         "covox", "prima", "apple");
     
     private final String name;
@@ -73,7 +73,7 @@ public class SpecialGraphicSet {
         // load mask
         LemmImage sourceImage;
         try {
-        	resource = Core.findResource(
+            resource = Core.findResource(
                     "styles/special/" + name + "/" + name + "m.png",
                     Core.IMAGE_EXTENSIONS);
             sourceImage = Core.loadLemmImage(resource);
@@ -89,7 +89,7 @@ public class SpecialGraphicSet {
         
         // load steel mask
         try {
-        	resource = Core.findResource(
+            resource = Core.findResource(
                     "styles/special/" + name + "/" + name + "s.png",
                     Core.IMAGE_EXTENSIONS);
             sourceImage = Core.loadLemmImage(resource);

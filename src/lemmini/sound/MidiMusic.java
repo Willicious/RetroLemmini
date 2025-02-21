@@ -83,7 +83,7 @@ public class MidiMusic implements MusicPlayer {
     
     @Override
     public void load(final Resource resource, final boolean loop) throws ResourceException, LemmException {
-	close();
+    close();
         try {
             synthesizer = MidiSystem.getSynthesizer();
             transmitter = sequencer.getTransmitter();

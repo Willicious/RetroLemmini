@@ -523,26 +523,26 @@ public class Props {
      * @return -1 if no matches found, or the highest level number otherwise (starting at 0).
      */
     public int getHighestLevel(int groupNum) {
-    	Set<Object> keys = hash.keySet();
-    	int max = -1;
-    	for(Object k:keys) {
-    		String key = k.toString();
-    		String match = "group" + groupNum + "_level";
-    		if(key.startsWith(match)) {
-    			int idx2 = key.indexOf("_", match.length()-1);
-    			String tmpNum = key.substring(match.length(), idx2);
-    			try {
-    				int num = Integer.parseInt(tmpNum);
-    				if (num > max) {
-    					max = num;
-    				}
-    			} catch (NumberFormatException e) {
-    				//just catching errors because we have no way of trusting the data we're inputting.
-    				//but we don't need to actually do anything with the error... just to prevent it from bringing down the whole system.
-    			}
-    		}
-    	}
-    	return max;
+        Set<Object> keys = hash.keySet();
+        int max = -1;
+        for(Object k:keys) {
+            String key = k.toString();
+            String match = "group" + groupNum + "_level";
+            if(key.startsWith(match)) {
+                int idx2 = key.indexOf("_", match.length()-1);
+                String tmpNum = key.substring(match.length(), idx2);
+                try {
+                    int num = Integer.parseInt(tmpNum);
+                    if (num > max) {
+                        max = num;
+                    }
+                } catch (NumberFormatException e) {
+                    //just catching errors because we have no way of trusting the data we're inputting.
+                    //but we don't need to actually do anything with the error... just to prevent it from bringing down the whole system.
+                }
+            }
+        }
+        return max;
     }
     
 }

@@ -35,10 +35,10 @@ import lemmini.game.GameController;
 public class LevelCodeDialog extends JDialog {
     
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private String[] levelPacks;
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    private String[] levelPacks;
     private int levelPackIndex;
     private String code;
     

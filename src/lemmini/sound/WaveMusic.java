@@ -59,13 +59,13 @@ public class WaveMusic implements Runnable, MusicPlayer {
             in = null;
             format=null;
              
-        	file = resource;
+            file = resource;
             introFile = resource.getSibling(Core.appendBeforeExtension(resource.getFileName(), "_intro"));
             InputStream tempIn = file.getInputStream();
             if (tempIn.markSupported()) {
                 in = AudioSystem.getAudioInputStream(tempIn);
             } else {
-            	
+                
                 in = AudioSystem.getAudioInputStream(new BufferedInputStream(tempIn));
             }
             if (in != null) {
@@ -98,7 +98,7 @@ public class WaveMusic implements Runnable, MusicPlayer {
         } catch (IOException ex) {
             throw new LemmException(resource + " (IO exception)");
         } catch (UnsupportedAudioFileException ex) {
-        	throw new LemmException(resource.getFileName() + " (Unsupported Audio File)");
+            throw new LemmException(resource.getFileName() + " (Unsupported Audio File)");
         }
         waveThread = new Thread(this);
         waveThread.start();

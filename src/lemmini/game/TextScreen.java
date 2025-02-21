@@ -113,7 +113,7 @@ public class TextScreen {
     /** scroll text */
     private static final String SCROLL_TEXT =
         "RetroLemmini - a game engine for Lemmings(tm) in Java. "
-    	+ "Programmed by Will James... "
+        + "Programmed by Will James... "
         + "Based on SuperLemminiToo by Charles... "
         + "SuperLemmini by Ryan Sakowski... "
         + "Original Lemmini by Volker Oth. "
@@ -457,7 +457,7 @@ public class TextScreen {
             textDialog.drawScreen(g, x, y, width, height);
         }
     }
-	
+    
     /**
      * Toggle between regular and classic scroller
      */
@@ -467,14 +467,14 @@ public class TextScreen {
         }
     }
 
-	/**
-	 * Draw the animated scroller
-	 */
-	public static void drawScroller() {
-	    synchronized (getMonitor()) {
-	        LemmImage tempScrollerImg = ToolBox.createLemmImage(
-	                LemmFont.getWidth() * (LemmFont.getCharCount(SCROLL_TEXT) + SCROLL_PADDING * 2) + SCROLL_WIDTH * 2,
-	                LemmFont.getHeight());
+    /**
+     * Draw the animated scroller
+     */
+    public static void drawScroller() {
+        synchronized (getMonitor()) {
+            LemmImage tempScrollerImg = ToolBox.createLemmImage(
+                    LemmFont.getWidth() * (LemmFont.getCharCount(SCROLL_TEXT) + SCROLL_PADDING * 2) + SCROLL_WIDTH * 2,
+                    LemmFont.getHeight());
 
 	        GraphicsContext scrollerGfx = null;
 	        try {
@@ -487,48 +487,48 @@ public class TextScreen {
 	            }
 	        }
 
-	        LemmImage tickerTape = MiscGfx.getImage(MiscGfx.Index.TICKER_TAPE);
+            LemmImage tickerTape = MiscGfx.getImage(MiscGfx.Index.TICKER_TAPE);
 
-	        double scaleHeight = 1;
-	        double scaleWidth = 1;
+            double scaleHeight = 1;
+            double scaleWidth = 1;
 
-	        if (GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_SCROLLER)) {
-	            scaleHeight = 0.8;
-	            scaleWidth = 0.8;
-	        }
+            if (GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_SCROLLER)) {
+                scaleHeight = 0.8;
+                scaleWidth = 0.8;
+            }
 
-	        double padding = 60;
-	        scrollerImg = ToolBox.createLemmImage(
-	                (int) (tempScrollerImg.getWidth() * scaleWidth + padding) + (tickerTape.getWidth() * 2),
-	                Math.max((int) (tempScrollerImg.getHeight() * scaleHeight), tickerTape.getHeight()));
+            double padding = 60;
+            scrollerImg = ToolBox.createLemmImage(
+                    (int) (tempScrollerImg.getWidth() * scaleWidth + padding) + (tickerTape.getWidth() * 2),
+                    Math.max((int) (tempScrollerImg.getHeight() * scaleHeight), tickerTape.getHeight()));
 
-	        try {
-	            scrollerGfx = scrollerImg.createGraphicsContext();
-	            scrollerGfx.setBackground(new Color(0, 0, 0, 0)); // Transparent background.
+            try {
+                scrollerGfx = scrollerImg.createGraphicsContext();
+                scrollerGfx.setBackground(new Color(0, 0, 0, 0)); // Transparent background.
 
-	            if (GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_SCROLLER)) {
-	                int idx = 0;
-	                do {
-	                    scrollerGfx.drawImage(tickerTape, idx, 0);
-	                    idx += tickerTape.getWidth();
-	                } while (idx < scrollerImg.getWidth());
+                if (GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_SCROLLER)) {
+                    int idx = 0;
+                    do {
+                        scrollerGfx.drawImage(tickerTape, idx, 0);
+                        idx += tickerTape.getWidth();
+                    } while (idx < scrollerImg.getWidth());
 
-	                scrollerGfx.drawImage(tempScrollerImg, 0, 6, scaleHeight);
-	            } else {
-	                scrollerGfx.drawImage(tempScrollerImg, 0, 0, scrollerImg.getWidth(), scrollerImg.getHeight());
-	            }
-	        } finally {
-	            if (scrollerGfx != null) {
-	                scrollerGfx.dispose();
-	            }
-	        }
-	    }
-	}
-	
+                    scrollerGfx.drawImage(tempScrollerImg, 0, 6, scaleHeight);
+                } else {
+                    scrollerGfx.drawImage(tempScrollerImg, 0, 0, scrollerImg.getWidth(), scrollerImg.getHeight());
+                }
+            } finally {
+                if (scrollerGfx != null) {
+                    scrollerGfx.dispose();
+                }
+            }
+        }
+    }
+    
     /**
      * Getter method for monitor
      */
-	public static Object getMonitor() {
-		return monitor;
-	}
+    public static Object getMonitor() {
+        return monitor;
+    }
 }

@@ -126,12 +126,12 @@ public class CaseInsensitiveFileTree {
             if (normalizedFileName.equals("/")) {
                 return root;
             } else {
-            	String parent = ToolBox.getParent(fileName);
-            	String file = ToolBox.getFileName(fileName);
-            	Path parentPath = getPath(parent);
-            	Path rootPath = root.resolve(parentPath);
-            	Path filePath = rootPath.resolve(file);
-            	return filePath;
+                String parent = ToolBox.getParent(fileName);
+                String file = ToolBox.getFileName(fileName);
+                Path parentPath = getPath(parent);
+                Path rootPath = root.resolve(parentPath);
+                Path filePath = rootPath.resolve(file);
+                return filePath;
                 //return root.resolve(parentPath).resolve(file);
             }
         } else {

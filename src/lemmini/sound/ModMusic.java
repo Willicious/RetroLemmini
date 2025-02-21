@@ -70,7 +70,7 @@ public class ModMusic implements Runnable, MusicPlayer {
         loopSong = loop;
         Module module;
         try (InputStream songInputStream = resource.getInputStream()) {
-        	module = new Module(songInputStream);
+            module = new Module(songInputStream);
         } catch (FileNotFoundException ex) {
             throw new ResourceException(resource);
         } catch (IOException ex) {

@@ -53,11 +53,11 @@ import lemmini.tools.ToolBox;
 public class LevelDialog extends JDialog {
     
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
-	private static Path lvlPath = Paths.get(".");
+    private static Path lvlPath = Paths.get(".");
     
     private DefaultMutableTreeNode topNode = null;
     private DefaultTreeModel levelModel = null;
@@ -647,7 +647,7 @@ public class LevelDialog extends JDialog {
                     String level = lit2.next();
                     if (lp.getAllLevelsUnlocked() || Core.player.isAvailable(lp.getName(), rating, k)) {
                         LevelItem levelItem = new LevelItem(i, j, k, level, 
-                        									Core.player.getLevelRecord(lp.getName(), rating, k).isCompleted());
+                                                            Core.player.getLevelRecord(lp.getName(), rating, k).isCompleted());
                         DefaultMutableTreeNode levelNode = new DefaultMutableTreeNode(levelItem, false);
                         ratingNode.add(levelNode);
                         levelPositionLookup[i][j][k] = ka++;

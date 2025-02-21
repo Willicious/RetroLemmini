@@ -284,7 +284,7 @@ public class Sound {
         
         try {
             for (int i = 0; i < sampleNum; i++) {
-            	resource = Core.findResource(
+                resource = Core.findResource(
                         "sound/" + sampleNames.get(i),
                         Core.SOUND_EXTENSIONS);
                 if (loaded) {
@@ -461,8 +461,8 @@ public class Sound {
      * @param spr
      */
     public void play(final SpriteObject spr) {
-    	//System.out.println(spr.getY());
-    	play(spr.getSound(), getPan(spr.midX()));
+        //System.out.println(spr.getY());
+        play(spr.getSound(), getPan(spr.midX()));
     }
     
     /**
@@ -472,10 +472,10 @@ public class Sound {
      * @param y
      */
     public void playVisualSFXSilent(final int idx, final int x, final int y) {
-    	if (GameController.isOptionEnabled(GameController.SLTooOption.VISUAL_SFX) && idx >= 0 && idx < Vsfx.VSFX_COUNT) {
-	    	Vsfx v = new Vsfx(x, y, idx);
-	        GameController.addVsfx(v);
-    	}
+        if (GameController.isOptionEnabled(GameController.SLTooOption.VISUAL_SFX) && idx >= 0 && idx < Vsfx.VSFX_COUNT) {
+            Vsfx v = new Vsfx(x, y, idx);
+            GameController.addVsfx(v);
+        }
     }
     
     /**
@@ -485,7 +485,7 @@ public class Sound {
      * @param y
      */
     public void playVisualSFXSilent(final Effect e, final int x, final int y) {
-    	playVisualSFXSilent(effects.get(e), x, y);
+        playVisualSFXSilent(effects.get(e), x, y);
     }
     
     /**
@@ -495,10 +495,10 @@ public class Sound {
      * @param y y-coordinate to display the VFX
      */
     public void playVisualSFX(final int idx, final int x, final int y) {
-    	//first play the sound effect
-    	play(idx, getPan(x));
-    	//then add the visual SFX to the display list (if that option is enabled)
-    	playVisualSFXSilent(idx, x, y);
+        //first play the sound effect
+        play(idx, getPan(x));
+        //then add the visual SFX to the display list (if that option is enabled)
+        playVisualSFXSilent(idx, x, y);
     }
     
     /**
@@ -508,12 +508,12 @@ public class Sound {
      * @param y y-coordinate to display the VFX
      */
     public void playVisualSFX(final int idx, final Point xy) {
-    	playVisualSFX(idx, (int)xy.getX(), (int)xy.getY());
+        playVisualSFX(idx, (int)xy.getX(), (int)xy.getY());
     }
 
     public void playVisualSFX(final SpriteObject spr) {
-    	//System.out.println(spr.getY());
-    	playVisualSFX(spr.getSound(), spr.midX(), spr.midY());
+        //System.out.println(spr.getY());
+        playVisualSFX(spr.getSound(), spr.midX(), spr.midY());
     }
     
     /**
@@ -523,7 +523,7 @@ public class Sound {
      * @param y y-coordinate to display the VFX
      */
     public void playVisualSFX(final Effect e, int x, int y) {
-    	playVisualSFX(effects.get(e), x, y);
+        playVisualSFX(effects.get(e), x, y);
     }
     
     /**

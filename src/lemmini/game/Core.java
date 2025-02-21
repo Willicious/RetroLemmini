@@ -57,8 +57,8 @@ import lemmini.tools.ToolBox;
  */
 public class Core {
 
-	public static final String REVISION = "2.0";
-	public static final String REV_DATE = "Jan 2025";
+    public static final String REVISION = "2.0";
+    public static final String REV_DATE = "Jan 2025";
     
     /** extensions accepted for level files in file dialog */
     public static final String[] LEVEL_EXTENSIONS = {"ini", "lvl", "dat"};
@@ -133,29 +133,29 @@ public class Core {
      * @throws URISyntaxException 
      */
     public static boolean init(String workingFolder) throws LemmException, IOException  {
-    	System.out.println("\ninitializing Core...");
-    	String tmp;// = java.net.URLDecoder.decode(workingFolder, "UTF-8");
-    	tmp = new java.io.File(workingFolder).getPath();
-    	
-    	gamePath = Paths.get(tmp);
+        System.out.println("\ninitializing Core...");
+        String tmp;// = java.net.URLDecoder.decode(workingFolder, "UTF-8");
+        tmp = new java.io.File(workingFolder).getPath();
+        
+        gamePath = Paths.get(tmp);
 
-    	System.out.println("    gamePath detected as: "+ gamePath.toString());
-    	
-    	// Data directory   	
+        System.out.println("    gamePath detected as: "+ gamePath.toString());
+        
+        // Data directory       
         gameDataTree = new CaseInsensitiveFileTree(gamePath);
 
         // Settings directory
         System.out.println("    creating settings folder: " + Paths.get(gameDataTree.getRoot().toString(), "settings/").toString());
-    	try {
-    		gameDataTree.createDirectories("settings/");
-    	} catch (IOException e) {
-    	    System.err.println("Failed to create settings directory: " + e.getMessage());
-    	    e.printStackTrace();
-    	}
-    	if (gamePath.toString().endsWith(".jar"))
-    		programPropsFilePath = Paths.get(gamePath.getParent().toString(), "settings");
-    	else
-    		programPropsFilePath = Paths.get(gamePath.toString(), "settings");
+        try {
+            gameDataTree.createDirectories("settings/");
+        } catch (IOException e) {
+            System.err.println("Failed to create settings directory: " + e.getMessage());
+            e.printStackTrace();
+        }
+        if (gamePath.toString().endsWith(".jar"))
+            programPropsFilePath = Paths.get(gamePath.getParent().toString(), "settings");
+        else
+            programPropsFilePath = Paths.get(gamePath.toString(), "settings");
         programPropsFilePath = programPropsFilePath.resolve(PROGRAM_PROPS_FILE_NAME);
         System.out.println("    game config: " + programPropsFilePath.toString());
         
@@ -163,30 +163,30 @@ public class Core {
         programProps = new Props();
         
         if (!programProps.load(programPropsFilePath)) { 
-        	System.out.println("    unable to read config file... prompting disclaimer agreement ...");
-        	// might exist or not - if not, it's created
-        	// show the Legal Disclaimer. And force the user to choose "I Agree."
-        	// NOTE: the Legal Disclaimer is loaded from "disclaimer.htm"
+            System.out.println("    unable to read config file... prompting disclaimer agreement ...");
+            // might exist or not - if not, it's created
+            // show the Legal Disclaimer. And force the user to choose "I Agree."
+            // NOTE: the Legal Disclaimer is loaded from "disclaimer.htm"
             LegalFrame ld = new LegalFrame();
             ld.setVisible(true);
             ld.waitUntilClosed();
             if (!ld.isOK()) {
-            	// user does not agree, so we exit.
+                // user does not agree, so we exit.
                 System.out.println("    user declined agreement. quitting...");
-            	return false;
+                return false;
             } else {
                 System.out.println("    user agreed");
             }
         } else {
-        	System.out.println("    config file read successfully");
+            System.out.println("    config file read successfully");
         }
         
-    	// Resources directory
+        // Resources directory
         if (gamePath.toString().endsWith(".jar")) {
-    		resourcePath = Paths.get(gamePath.getParent().toString(), "resources");
-    	} else {
-    		resourcePath = Paths.get(gamePath.toString(), "resources");
-    	}
+            resourcePath = Paths.get(gamePath.getParent().toString(), "resources");
+        } else {
+            resourcePath = Paths.get(gamePath.toString(), "resources");
+        }
         System.out.println("      resourcePath: " + resourcePath.toString());
         resourceTree = new CaseInsensitiveFileTree(resourcePath);
         
@@ -229,13 +229,13 @@ public class Core {
         System.out.println("      all settings read from config");
         
       
-    	// Ensure "resources" folder exists
+        // Ensure "resources" folder exists
         if (resourcePath.toString().isEmpty()) {
-        	if (resourcePath.toString().isEmpty()) {
-        		System.out.println("    resourcePath is invalid...");
-        	}
-        	System.out.println("    quitting...");
-        	throw new LemmException(String.format("Resources folder is missing from " + gamePath + ". The program will now quit.", (Object[])null));
+            if (resourcePath.toString().isEmpty()) {
+                System.out.println("    resourcePath is invalid...");
+            }
+            System.out.println("    quitting...");
+            throw new LemmException(String.format("Resources folder is missing from " + gamePath + ". The program will now quit.", (Object[])null));
         }
         
         // Create folders (if they don't already exist)
@@ -299,7 +299,7 @@ public class Core {
      */
     public static void saveSettings() {
         //sound settings
-    	programProps.setBoolean("music", GameController.isOptionEnabled(GameController.Option.MUSIC_ON));
+        programProps.setBoolean("music", GameController.isOptionEnabled(GameController.Option.MUSIC_ON));
         programProps.setBoolean("sound", GameController.isOptionEnabled(GameController.Option.SOUND_ON));
         programProps.set("mixerName", GameController.sound.getMixers()[GameController.sound.getMixerIdx()]);
         //graphic settings
@@ -391,8 +391,8 @@ public class Core {
     public static Resource findResource(String fname, boolean searchMods, boolean searchMain, String... extensions) throws ResourceException {
         Resource rslt = findResourceEx(fname, searchMods, searchMain, extensions);
         if (rslt == null) {
-	        // file still not found, so throw a ResourceException
-	        throw new ResourceException(fname);
+            // file still not found, so throw a ResourceException
+            throw new ResourceException(fname);
         }
         
         return rslt;
@@ -422,12 +422,12 @@ public class Core {
         // file not found in mod folders or mods not searched,
         // so look for it in the main folders, again with each extension
         if (searchMain) {
-	        for (String ext : extensions) {
-	            String resString = fnameNoExt + "." + ext;
-	            if (resourceTree.exists(resString)) {
-	                return new FileResource(fname, resString, resourceTree);
-	            }
-	        }
+            for (String ext : extensions) {
+                String resString = fnameNoExt + "." + ext;
+                if (resourceTree.exists(resString)) {
+                    return new FileResource(fname, resString, resourceTree);
+                }
+            }
         }
         // file still not found, so throw a ResourceException
         return null;

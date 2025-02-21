@@ -272,7 +272,7 @@ public class SpriteObject extends Sprite {
      * @return
      */
     public int midX() {
-    	return x + (width/2);
+        return x + (width/2);
     }
     
     /**
@@ -296,7 +296,7 @@ public class SpriteObject extends Sprite {
      * @return
      */
     public int midY() {
-    	return y + (height/2);
+        return y + (height/2);
     }
     
     public int getMaskOffsetX() {

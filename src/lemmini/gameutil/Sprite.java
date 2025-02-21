@@ -248,7 +248,7 @@ public class Sprite {
                     }
                     if (frameIdx > 0) {
                         if (counter == 0 && lemming != null) {
-                        	GameController.sound.playVisualSFX(sound[frameIdx], lemming.midX(), lemming.midY()); //NOTE: footX() was midX()
+                            GameController.sound.playVisualSFX(sound[frameIdx], lemming.midX(), lemming.midY()); //NOTE: footX() was midX()
                         }
                     } else {
                         frameIdx = 0;
@@ -437,7 +437,7 @@ public class Sprite {
             else
                 sound[0] = s[0];
         } else {
-        	sound = null;
+            sound = null;
         }
     }
     

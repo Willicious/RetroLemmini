@@ -72,13 +72,13 @@ public class Player {
         if (props.load(iniFilePath)) { // might exist or not - if not, it's created
             // file exists, now parse entries
             for (int idx = 0; true; idx++) {
-            	System.out.print("    loading level group " + idx);
-            	// first string is the level group key identifier
+                System.out.print("    loading level group " + idx);
+                // first string is the level group key identifier
                 // second string is a BigInteger used as bitfield to store available levels
                 String[] s = props.getArray("group" + idx, null);
                 if (s == null || s.length < 2 || s[0] == null) {
                     System.out.println(": <no valid group data found. skipping...>");
-                	break;
+                    break;
                 }
                 String s1 = s[s.length-1]; // get the last
                 String groupName = "";
@@ -86,10 +86,10 @@ public class Player {
                 // because the getArray function above trims out any spaces, knowledge if there was or was not a space after a comma is lost
                 // so let's just assume there's always a space after it, because that's better grammar.
                 for (int a = 0; a < s.length-1; a++) {
-                	groupName += s[a];
-                	if (a < s.length-2 ) {
-                		groupName +=", "; //we're assuming there's always a space after any comma
-                	}
+                    groupName += s[a];
+                    if (a < s.length-2 ) {
+                        groupName +=", "; //we're assuming there's always a space after any comma
+                    }
                 }
                 System.out.print(": �" + groupName + "�");
                 
@@ -103,7 +103,7 @@ public class Player {
                 System.out.print("     building level stats map...");
 
                 if (GameController.isOptionEnabled(GameController.SLTooOption.DEBUG_VERBOSE_PLAYER_LOAD))
-                	System.out.println();
+                    System.out.println();
                 
                 int compCount = 0;
                
@@ -111,35 +111,35 @@ public class Player {
                 maxLevel = Math.max(maxLevel, unlockedLevels.bitLength());
                 for (int j = 0; j < maxLevel; j++) {
                     if (GameController.isOptionEnabled(GameController.SLTooOption.DEBUG_VERBOSE_PLAYER_LOAD))
-                    	System.out.print("     level " + j + ": ");
+                        System.out.print("     level " + j + ": ");
 
-                	String levelSetting = "group" + idx + "_level" + j;
-                	String completedKey = levelSetting + "_completed";
-                	// BOOKMARK TODO: check if we're on the last level, and there is no compKey... 
-                	// props.containsKey(completedKey); 
+                    String levelSetting = "group" + idx + "_level" + j;
+                    String completedKey = levelSetting + "_completed";
+                    // BOOKMARK TODO: check if we're on the last level, and there is no compKey... 
+                    // props.containsKey(completedKey); 
                     boolean completed = props.getBoolean(completedKey, false);
                     if (completed) {
-                    	compCount++;
+                        compCount++;
                         int lemmingsSaved = props.getInt(levelSetting + "_lemmingsSaved", -1);
                         int skillsUsed = props.getInt(levelSetting + "_skillsUsed", -1);
                         int timeElapsed = props.getInt(levelSetting + "_timeElapsed", -1);
                         int score = props.getInt(levelSetting + "_score", -1);
                         levelRecords.put(j, new LevelRecord(completed, lemmingsSaved, skillsUsed, timeElapsed, score));
                         if (GameController.isOptionEnabled(GameController.SLTooOption.DEBUG_VERBOSE_PLAYER_LOAD)) {
-                        	// BOOKMARK TODO: ALso show if a level has been attempted?
-	                        System.out.print("[completed]");
-	                        System.out.print(" saved: " + lemmingsSaved);
-	                        System.out.print(" skills: " + skillsUsed);
-	                        System.out.print(" time: " + timeElapsed);
-	                        System.out.print(" score: " + score);
+                            // BOOKMARK TODO: ALso show if a level has been attempted?
+                            System.out.print("[completed]");
+                            System.out.print(" saved: " + lemmingsSaved);
+                            System.out.print(" skills: " + skillsUsed);
+                            System.out.print(" time: " + timeElapsed);
+                            System.out.print(" score: " + score);
                         }
                     } else {
                         levelRecords.put(j, LevelRecord.BLANK_LEVEL_RECORD);
                         if (GameController.isOptionEnabled(GameController.SLTooOption.DEBUG_VERBOSE_PLAYER_LOAD))
-                        	System.out.print("[incomplete] ... creating blank records.");
+                            System.out.print("[incomplete] ... creating blank records.");
                     }
                     if (GameController.isOptionEnabled(GameController.SLTooOption.DEBUG_VERBOSE_PLAYER_LOAD))
-                    	System.out.println();
+                        System.out.println();
                 }
                 lvlGroups.put(groupName, new LevelGroup(levelRecords));
                 //and finally print out the summary of this level.
@@ -147,7 +147,7 @@ public class Player {
                 System.out.println("     Highest recorded level: " + maxLevel + ", Total completed: " + compCount);
             }
         } else {
-        	System.out.println("    ini file not found... new one created.");
+            System.out.println("    ini file not found... new one created.");
         }
         
         // debug mode
@@ -160,7 +160,7 @@ public class Player {
      * Set debug mode for this player.
      */
     public void setDebugMode(final boolean d) {
-    	debugMode = d;
+        debugMode = d;
     }
     
     /**

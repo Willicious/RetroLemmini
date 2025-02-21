@@ -192,22 +192,22 @@ public class ReplayStream {
                 
                 switch (Integer.parseInt(e[1])) { /* type */
                 case ASSIGN_SKILL:
-	                    if (e.length < 4) { // 4 values for backwards-compatibility with old replays
-	                        throw new LemmException("Not enough values in replay event for ASSIGN_SKILL.");
-	                    }
-	                    
-	                    // If 5th value (Timed/Untimed Bomber) is missing, use the current user setting
-	                    boolean isTimedBomber = (e.length >= 5) 
-	                        ? Boolean.parseBoolean(e[4]) 
-	                        : GameController.isOptionEnabled(GameController.SLTooOption.TIMED_BOMBERS);
-	
-	                    ev.add(new ReplayAssignSkillEvent(
-	                        Integer.parseInt(e[0]),   
-	                        Lemming.Type.valueOf(e[2]),  
-	                        Integer.parseInt(e[3]),   
-	                        isTimedBomber             
-	                    ));
-	                    break;
+                        if (e.length < 4) { // 4 values for backwards-compatibility with old replays
+                            throw new LemmException("Not enough values in replay event for ASSIGN_SKILL.");
+                        }
+                        
+                        // If 5th value (Timed/Untimed Bomber) is missing, use the current user setting
+                        boolean isTimedBomber = (e.length >= 5) 
+                            ? Boolean.parseBoolean(e[4]) 
+                            : GameController.isOptionEnabled(GameController.SLTooOption.TIMED_BOMBERS);
+    
+                        ev.add(new ReplayAssignSkillEvent(
+                            Integer.parseInt(e[0]),   
+                            Lemming.Type.valueOf(e[2]),  
+                            Integer.parseInt(e[3]),   
+                            isTimedBomber             
+                        ));
+                        break;
                     case MOVE_POS:
                         if (e.length < 5) {
                             throw new LemmException("Not enough values in replay event.");

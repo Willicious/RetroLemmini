@@ -34,10 +34,10 @@ import lemmini.sound.Music;
 public class OptionsDialog extends JDialog {
     
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	/**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    /**
      * Creates new form OptionsDialog
      * @param parent
      * @param modal
@@ -209,11 +209,11 @@ public class OptionsDialog extends JDialog {
                     .addComponent(jCheckBoxVisualSfx)
                     .addComponent(jLabelExitSound)
                     .addGroup(jPanelSoundLayout.createSequentialGroup()
-                    	    .addComponent(jRadioButtonYippee)
-                    	    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    	    .addComponent(jRadioButtonBoing)
-                    	    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    	    .addComponent(jRadioButtonAuto))
+                            .addComponent(jRadioButtonYippee)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jRadioButtonBoing)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jRadioButtonAuto))
                     )
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -241,10 +241,10 @@ public class OptionsDialog extends JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 20, 20)
                 .addComponent(jLabelExitSound)
                 .addGroup(jPanelSoundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                	    .addComponent(jRadioButtonYippee)
-                	    .addComponent(jRadioButtonBoing)
-                	    .addComponent(jRadioButtonAuto))
-            	)
+                        .addComponent(jRadioButtonYippee)
+                        .addComponent(jRadioButtonBoing)
+                        .addComponent(jRadioButtonAuto))
+                )
         );
 
         jPanelGraphics.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Graphics", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -255,22 +255,22 @@ public class OptionsDialog extends JDialog {
         javax.swing.GroupLayout jPanelGraphicsLayout = new javax.swing.GroupLayout(jPanelGraphics);
         jPanelGraphics.setLayout(jPanelGraphicsLayout);
         jPanelGraphicsLayout.setHorizontalGroup(
-        	    jPanelGraphicsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        	        .addGroup(jPanelGraphicsLayout.createSequentialGroup()
-        	            .addContainerGap()
-        	            .addGroup(jPanelGraphicsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        	            	//.addComponent(jCheckBoxFullScreen) // BOOKMARK TODO: Yet to be implemented
-        	            	.addComponent(jCheckBoxShowMenuBar)
-        	            	.addComponent(jCheckBoxBilinear)
-        	                .addComponent(jCheckBoxClassicCursor)
-        	                .addComponent(jCheckBoxClassicScroller)
-        	                .addComponent(jCheckBoxEnhancedStatus)
-        	                .addComponent(jCheckBoxShowLevelName)
-        	                .addComponent(jCheckBoxEnhancedIconBar)
-        	                .addComponent(jCheckBoxIconLabels)
-        	                )
-        	            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        	);
+                jPanelGraphicsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelGraphicsLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanelGraphicsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            //.addComponent(jCheckBoxFullScreen) // BOOKMARK TODO: Yet to be implemented
+                            .addComponent(jCheckBoxShowMenuBar)
+                            .addComponent(jCheckBoxBilinear)
+                            .addComponent(jCheckBoxClassicCursor)
+                            .addComponent(jCheckBoxClassicScroller)
+                            .addComponent(jCheckBoxEnhancedStatus)
+                            .addComponent(jCheckBoxShowLevelName)
+                            .addComponent(jCheckBoxEnhancedIconBar)
+                            .addComponent(jCheckBoxIconLabels)
+                            )
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            );
         jPanelGraphicsLayout.setVerticalGroup(
             jPanelGraphicsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelGraphicsLayout.createSequentialGroup()
@@ -305,16 +305,16 @@ public class OptionsDialog extends JDialog {
         javax.swing.GroupLayout jPanelReplaysLayout = new javax.swing.GroupLayout(jPanelReplays);
         jPanelReplays.setLayout(jPanelReplaysLayout);
         jPanelReplaysLayout.setHorizontalGroup(
-        		jPanelReplaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                jPanelReplaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelReplaysLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelReplaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jCheckBoxAutoSaveReplays)
-                	)
+                    )
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelReplaysLayout.setVerticalGroup(
-        	    jPanelReplaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                jPanelReplaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelReplaysLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jCheckBoxAutoSaveReplays)
@@ -381,11 +381,11 @@ public class OptionsDialog extends JDialog {
                     .addComponent(jCheckBoxReplayScroll)
                     .addComponent(jCheckBoxPauseStopsFastForward)
                     .addComponent(jCheckBoxUnpauseOnAssignment)
-                	.addComponent(jCheckBoxTimedBombers)
-                	.addComponent(jCheckBoxUnlockAllLevels)
-                	.addComponent(jCheckBoxDisableScrollWheel)
-                	.addComponent(jCheckBoxDisableFrameStepping)
-                	)
+                    .addComponent(jCheckBoxTimedBombers)
+                    .addComponent(jCheckBoxUnlockAllLevels)
+                    .addComponent(jCheckBoxDisableScrollWheel)
+                    .addComponent(jCheckBoxDisableFrameStepping)
+                    )
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelMiscLayout.setVerticalGroup(
@@ -492,8 +492,8 @@ public class OptionsDialog extends JDialog {
     }//GEN-LAST:event_jButtonCancelActionPerformed
     
     private void applyChanges() {
-    	// set all game settings based on GUI options first
-    	// apply sound settings
+        // set all game settings based on GUI options first
+        // apply sound settings
         GameController.setOption(GameController.Option.MUSIC_ON, jCheckBoxEnableMusic.isSelected());
         if (GameController.getLevel() != null) {
             if (GameController.isOptionEnabled(GameController.Option.MUSIC_ON)
@@ -509,10 +509,10 @@ public class OptionsDialog extends JDialog {
         GameController.sound.setMixerIdx(jComboBoxMixer.getSelectedIndex());
         // apply exit sound setting
         GameController.setExitSoundOption(
-        	    jRadioButtonYippee.isSelected() ? GameController.ExitSoundOption.YIPPEE :
-        	    jRadioButtonBoing.isSelected() ? GameController.ExitSoundOption.BOING :
-        	    GameController.ExitSoundOption.AUTO
-        	);
+                jRadioButtonYippee.isSelected() ? GameController.ExitSoundOption.YIPPEE :
+                jRadioButtonBoing.isSelected() ? GameController.ExitSoundOption.BOING :
+                GameController.ExitSoundOption.AUTO
+            );
         // apply graphics settings
         Core.setBilinear(jCheckBoxBilinear.isSelected());
         GameController.setOption(GameController.Option.CLASSIC_CURSOR, jCheckBoxClassicCursor.isSelected());

@@ -92,9 +92,9 @@ public class LevelInfo {
     public LevelInfo(String fname, String newMusic) {
         Resource resource;
         try {
-        	resource = Core.findResource(fname, false);
+            resource = Core.findResource(fname, false);
         } catch (ResourceException ex) {
-        	resource = null;
+            resource = null;
         }
         init(resource, newMusic);
     }
@@ -104,7 +104,7 @@ public class LevelInfo {
     }
     
     private void init(Resource resource, String newMusic) {
-    	levelResource = resource;
+        levelResource = resource;
         music = newMusic;
         name = StringUtils.EMPTY;
         author = StringUtils.EMPTY;
