@@ -157,6 +157,7 @@ public class Lemming {
     private static final int BASHER_CHECK_STEP_STEEL_LOW = 3;
     /** from this on a basher will become a faller */
     private static final int BASHER_FALL_DISTANCE = 6;
+    /** check N pixels above the lemming's feet */
     private static final int MINER_CHECK_STEP_STEEL = 16;
     /** from this on a miner will become a faller */
     private static final int MINER_FALL_DISTANCE = 1;
