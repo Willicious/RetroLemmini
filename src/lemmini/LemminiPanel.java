@@ -1494,12 +1494,96 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
 
     void loadDefaultLevel() {
-        int[] level = {1, 0, 0}; // BOOKMARK TODO: This currently loads pack 1, group 0, level 0 (Just dig!)
-                                 // Ideally, we need a way to get the first unbeaten level relative to the last level played
-        if (level != null) {
+        // Default to the first level of the first rating of the first pack
+        int[] level = {1, 0, 0};
+
+        // Load the last played level
+        String savedLevel = Core.programProps.get("lastLevelPlayed", null);
+
+        if (savedLevel != null && !savedLevel.isEmpty()) {
+            String[] parts = savedLevel.split(",");
+            if (parts.length == 3) {
+                try {
+                    int packIndex = Integer.parseInt(parts[0].trim());
+                    int ratingIndex = Integer.parseInt(parts[1].trim());
+                    int levelIndex = Integer.parseInt(parts[2].trim());
+
+                    if (isValidLevel(packIndex, ratingIndex, levelIndex)) {
+                        LevelPack pack = GameController.getLevelPack(packIndex);
+
+                        boolean unbeatenLevelFound = false;
+
+                        // First, check if the last level played was completed
+                        if (!Core.player.getLevelRecord(pack.getName(), pack.getRatings().get(ratingIndex).toString(), levelIndex).isCompleted()) {
+                            unbeatenLevelFound = true;
+                        } else {
+                            // Next, search for the first unbeaten level within the current pack
+                            for (int r = 0; r < pack.getRatings().size(); r++) {
+                                for (int l = 0; l < pack.getLevelCount(r); l++) {
+                                    if (!Core.player.getLevelRecord(pack.getName(), pack.getRatings().get(r).toString(), l).isCompleted()) {
+                                        ratingIndex = r;
+                                        levelIndex = l;
+                                        unbeatenLevelFound = true;
+                                        break;
+                                    }
+                                }
+                                if (unbeatenLevelFound) break;
+                            }
+
+                            // Then, search all packs for the first unbeaten level
+                            if (!unbeatenLevelFound) {
+                                for (int p = 0; p < GameController.getLevelPackCount(); p++) {
+                                    LevelPack nextPack = GameController.getLevelPack(p);
+                                    for (int r = 0; r < nextPack.getRatings().size(); r++) {
+                                        for (int l = 0; l < nextPack.getLevelCount(r); l++) {
+                                            if (!Core.player.getLevelRecord(nextPack.getName(), nextPack.getRatings().get(r).toString(), l).isCompleted()) {
+                                                packIndex = p;
+                                                ratingIndex = r;
+                                                levelIndex = l;
+                                                unbeatenLevelFound = true;
+                                                break;
+                                            }
+                                        }
+                                        if (unbeatenLevelFound) break;
+                                    }
+                                    if (unbeatenLevelFound) break;
+                                }
+                            }
+                        }
+
+                        // If an unbeaten level was found, that's the one we load
+                        if (unbeatenLevelFound) {
+                            level[0] = packIndex;
+                            level[1] = ratingIndex;
+                            level[2] = levelIndex;
+                        }
+                        // otherwise, use the previously loaded default
+                    }
+                } catch (NumberFormatException e) {
+                    System.err.println("Error parsing lastLevelPlayed: " + savedLevel);
+                }
+            }
+        }
+
+        try {
             GameController.requestChangeLevel(level[0], level[1], level[2], false);
             getParentFrame().setRestartEnabled(true);
+        } catch (Exception e) {
+            handlePlayLevel();
         }
+    }
+    
+    private boolean isValidLevel(int packIndex, int ratingIndex, int levelIndex) {
+        if (packIndex < 0 || packIndex >= GameController.getLevelPackCount())
+            return false;
+
+        if (ratingIndex < 0 || ratingIndex >= GameController.getLevelPack(packIndex).getRatings().size())
+            return false;
+
+        if (levelIndex < 0 || levelIndex >= GameController.getLevelPack(packIndex).getLevels(ratingIndex).size())
+            return false;
+
+        return true;
     }
 
     void startLevel() {
