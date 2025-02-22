@@ -1829,26 +1829,20 @@ public class GameController {
 
     private static void setTitle() {
         int numLemmings = level.getNumLemmings();
+
+        String numToRescue = (isOptionEnabled(Option.NO_PERCENTAGES) || numLemmings > 100) 
+                ? String.valueOf(level.getNumToRescue())
+                : (level.getNumToRescue() * 100 / numLemmings) + "%";
+        
         String lemmingWord = (numLemmings == 1) ? "Lemming" : "Lemmings";
-        if (isOptionEnabled(Option.NO_PERCENTAGES) || numLemmings > 100) {
-            Core.setTitle(String.format("RetroLemmini - %s - %s %d - %s - Save %d of %d %s",
-                    GameController.getCurLevelPack().getName(),
-                    GameController.getCurLevelPack().getRatings().get(GameController.getCurRating()),
-            		GameController.curLevelNumber + 1,
-            		level.getLevelName().trim(),
-                    level.getNumToRescue(),
-                    numLemmings,
-                    lemmingWord));
-        } else {
-            Core.setTitle(String.format("RetroLemmini - %s - %s %d - %s - Save %d%% of %d %s",
-                    GameController.getCurLevelPack().getName(),
-                    GameController.getCurLevelPack().getRatings().get(GameController.getCurRating()),
-            		GameController.curLevelNumber + 1,
-                    level.getLevelName().trim(),
-                    level.getNumToRescue() * 100 / numLemmings,
-                    numLemmings,
-                    lemmingWord));
-        }
+        Core.setTitle(String.format("RetroLemmini - %s - %s %d - %s - Save %s of %d %s",
+                GameController.getCurLevelPack().getName(),
+                GameController.getCurLevelPack().getRatings().get(GameController.getCurRating()),
+                GameController.curLevelNumber + 1,
+                level.getLevelName().trim(),
+                numToRescue,
+                numLemmings,
+                lemmingWord));
     }
 
     /**
