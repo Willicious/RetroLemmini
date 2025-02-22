@@ -1255,7 +1255,7 @@ public class GameController {
             } else {
                 time++;
             }
-            if (Core.player.isDebugMode() && time <= 0 && timed) {
+            if (!Core.player.isDebugMode() && time <= 0 && timed) {
                 // level failed
                 endLevel();
             }
