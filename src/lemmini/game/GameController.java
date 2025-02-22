@@ -1831,13 +1831,19 @@ public class GameController {
         int numLemmings = level.getNumLemmings();
         String lemmingWord = (numLemmings == 1) ? "Lemming" : "Lemmings";
         if (isOptionEnabled(Option.NO_PERCENTAGES) || numLemmings > 100) {
-            Core.setTitle(String.format("RetroLemmini - %s - Save %d of %d %s",
-                    level.getLevelName().trim(),
+            Core.setTitle(String.format("RetroLemmini - %s - %s %d - %s - Save %d of %d %s",
+                    GameController.getCurLevelPack().getName(),
+                    GameController.getCurLevelPack().getRatings().get(GameController.getCurRating()),
+            		GameController.curLevelNumber + 1,
+            		level.getLevelName().trim(),
                     level.getNumToRescue(),
                     numLemmings,
                     lemmingWord));
         } else {
-            Core.setTitle(String.format("RetroLemmini - %s - Save %d%% of %d %s",
+            Core.setTitle(String.format("RetroLemmini - %s - %s %d - %s - Save %d%% of %d %s",
+                    GameController.getCurLevelPack().getName(),
+                    GameController.getCurLevelPack().getRatings().get(GameController.getCurRating()),
+            		GameController.curLevelNumber + 1,
                     level.getLevelName().trim(),
                     level.getNumToRescue() * 100 / numLemmings,
                     numLemmings,
