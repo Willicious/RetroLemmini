@@ -1,4 +1,4 @@
-SuperLemmini INI files use the same format as Java properties files [1]. Files may be encoded in ASCII, UTF-8 (with or without a byte-order mark, or BOM), UTF-16 (with BOM), or UTF-32 (with BOM). UTF-8 is the recommended encoding. Because UTF-32 requires support from the Java runtime environment, and such support is not guaranteed to be present, use of UTF-32 is strongly discouraged. Additionally, all forms of "extended ASCII" or "ANSI" other than UTF-8 are not supported.
+RetroLemmini INI files use the same format as Java properties files [1]. Files may be encoded in ASCII, UTF-8 (with or without a byte-order mark, or BOM), UTF-16 (with BOM), or UTF-32 (with BOM). UTF-8 is the recommended encoding. Because UTF-32 requires support from the Java runtime environment, and such support is not guaranteed to be present, use of UTF-32 is strongly discouraged. Additionally, all forms of "extended ASCII" or "ANSI" other than UTF-8 are not supported.
 
 
 Each property may use either of the following types:
@@ -11,7 +11,7 @@ Integer: An integer value within the range of -2,147,483,648 to 2,147,483,647, a
 
          Numbers may be decimal (base 10), hexadecimal (base 16), or binary (base 2). To indicate a base other than decimal, place one of the following before the number without adding spaces: 0x or 0X for hexadecimal, or 0b or 0B for binary. Non-decimal values must be positive.
 
-         "Infinity" or "-Infinity" (case-insensitive and without quotes) may be used to represent 2,147,483,647 and -2,147,483,648, respectively. These values have special meaning in certain parts of SuperLemmini (for example, to represent an infinite number of a skill).
+         "Infinity" or "-Infinity" (case-insensitive and without quotes) may be used to represent 2,147,483,647 and -2,147,483,648, respectively. These values have special meaning in certain parts of RetroLemmini (for example, to represent an infinite number of a skill).
 
          Some integer parameters accept color values. While any base may be used with these, it's best to use hexadecimal as it's the easiest to work with here. Color values are in RGB or ARGB format using the form 0xAARRGGBB, where RR is the red value, GG is the green value, BB is the blue value, and AA is the alpha value. Most color parameters ignore the alpha part; in such cases, that part can be omitted.
 

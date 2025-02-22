@@ -27,7 +27,7 @@ entranceOrder: (integer list) A comma-separated list that specifies the order in
 
 xPosCenter: (integer) The starting X position of the center of the screen. If this value would cause the blank areas beyond the level edges to be displayed (and the window width is not wider than the level), then the actual starting position is adjusted so that such areas are not displayed. (Default: 0)
 
-xPos: (integer) (Deprecated--please use xPosCenter instead.) In SuperLemmini, this parameter is equivalent to xPosCenter minus 400. For example, setting xPos to 1406 is the same as setting xPosCenter to 1806. Has no effect if xPosCenter is also defined.
+xPos: (integer) (Deprecated--please use xPosCenter instead.) In RetroLemmini, this parameter is equivalent to xPosCenter minus 400. For example, setting xPos to 1406 is the same as setting xPosCenter to 1806. Has no effect if xPosCenter is also defined.
 
 yPosCenter: (integer) The starting Y position of the center of the screen. If this value would cause the blank areas beyond the level edges to be displayed (and the height of the level portion of the window is not taller than the level), then the actual starting position is adjusted so that such areas are not displayed. (Default: 0)
 
@@ -196,6 +196,6 @@ author: (string) The name of the level's author.
 
 Hints (ignored if this level file is being used as the value of a "mainLevel" parameter):
 
-It's possible to add hints to levels. Hints become available once a level has been failed three times, with the first hint becoming available after three failures, the second after four failures, the third after five failures, and so on. Hints do not stay unlocked if the level is changed or SuperLemmini closes.
+It's possible to add hints to levels. Hints become available once a level has been failed three times, with the first hint becoming available after three failures, the second after four failures, the third after five failures, and so on. Hints do not stay unlocked if the level is changed or RetroLemmini closes.
 
 To add hints, add a hint_n parameter for each hint, replacing n with the hint's index, starting at 0. Then, add the hints as the values of those parameters.
