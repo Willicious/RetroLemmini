@@ -1369,8 +1369,14 @@ public class LemminiPanel extends JPanel implements Runnable {
                         // in fast forward or super lemming modes, update the game mechanics
                         // multiple times per (drawn) frame
                         if (GameController.isFastForward()) {
-                            int multiplier = (GameController.isOptionEnabled(GameController.Option.FASTER_FAST_FORWARD) || GameController.isTurbo()
-                                    ? GameController.FASTER_FAST_FWD_MULTI : GameController.FAST_FWD_MULTI);
+                        	int multiplier;
+                        	if (GameController.isTurbo()) {
+                        	    multiplier = GameController.TURBO_MULTI;
+                        	} else if (GameController.isOptionEnabled(GameController.Option.FASTER_FAST_FORWARD)) {
+                        	    multiplier = GameController.FASTER_FAST_FWD_MULTI;
+                        	} else {
+                        	    multiplier = GameController.FAST_FWD_MULTI;
+                        	}
                             for (int f = 1; f < multiplier; f++) {
                                 GameController.update();
                             }

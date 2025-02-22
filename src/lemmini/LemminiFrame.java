@@ -601,6 +601,12 @@ public class LemminiFrame extends JFrame {
                         else
                             togglePause();
                         break;
+                    case KeyEvent.VK_F12:
+                        if (lemminiPanelMain.isControlPressed())
+                            handleAbout();
+                        else
+                            GameController.handleIconButton(Icons.IconType.NUKE);
+                        break;
                     case KeyEvent.VK_L:
                         if (lemminiPanelMain.isControlPressed())
                             lemminiPanelMain.handleLoadReplay();
@@ -614,12 +620,6 @@ public class LemminiFrame extends JFrame {
                             toggleMenuBarVisibility();
                             Core.saveSettings();
                         }
-                        break;
-                    case KeyEvent.VK_F12:
-                        if (lemminiPanelMain.isControlPressed())
-                            handleAbout();
-                        else
-                            GameController.handleIconButton(Icons.IconType.NUKE);
                         break;
                     case KeyEvent.VK_D: //CTRL+ALT+D is to toggle Debug mode. just D (while in Debug mode) is Draw mode
                         if (lemminiPanelMain.isControlPressed() && lemminiPanelMain.isAltPressed()) {

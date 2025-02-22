@@ -167,6 +167,8 @@ public class GameController {
     public static final int FAST_FWD_MULTI = 3;
     /** updates 6 frames instead of 1 in faster fast forward mode */
     public static final int FASTER_FAST_FWD_MULTI = 6;
+    /** updates 9 frames instead of 1 in turbo mode */
+    public static final int TURBO_MULTI = 9;
     /** updates 3 frames instead of 1 in Superlemming mode */
     public static final int SUPERLEMM_MULTI = 3;
     /** time per frame in nanoseconds - this is the timing everything else is based on */
