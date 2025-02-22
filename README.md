@@ -26,6 +26,21 @@ A continuation of the Lemmini family of engines (Lemmini, SuperLemmini, SuperLem
 If you experience any issues, visit the
 [Lemmini board on Lemmings Forums](https://www.lemmingsforums.net/index.php?board=10.0).
 
+### Tips for exporting with libraries (if using Eclipse)
+
+By default, when exporting from Eclipse as a Runnable JAR File and selecting "Copy libraries into a sub-folder", the resulting
+folder will be named "RetroLemmini_lib", which can make the directory look somewhat cluttered. However, if you rename the
+folder to something else, the program won't run.
+
+To bypass this, follow these steps:
+
+1) Export as normal but select "Save as ANT script" and choose a name for the .xml script.
+2) Open the script in a text editor and change all instances of "RetroLemmini_lib" to "lib" (or whatever you'd prefer).
+3) From Eclipse, browse to your .xml script in the project explorer, right-click it, and select "Run As > ANT Build".
+4) The .jar will now be built to look for "lib" as opposed to "RetroLemmini_lib".
+
+You can then use this .xml script to export from now on.
+
 ## Updates
 
 For a full overview of the updates between (Super)Lemmini(Too) and RetroLemmini, and the planned updates for the future,
