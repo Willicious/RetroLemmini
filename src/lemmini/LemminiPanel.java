@@ -346,11 +346,12 @@ public class LemminiPanel extends JPanel implements Runnable {
 
                     switch (button) {
                         case NONE:
+                        case PLAY_LEVEL:
                             loadDefaultLevel();
                             break;
-                        case PLAY_LEVEL:
-                            handlePlayLevel();
-                            break;
+                        case CHOOSE_LEVEL:
+                        	handleChooseLevel();
+                        	break;
                         case LOAD_REPLAY:
                             handleLoadReplay();
                             break;
@@ -1483,7 +1484,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
 
 
-    void handlePlayLevel() {
+    void handleChooseLevel() {
         LevelDialog ld = new LevelDialog(getParentFrame(), true);
         ld.setVisible(true);
         int[] level = ld.getSelectedLevel();
@@ -1569,7 +1570,7 @@ public class LemminiPanel extends JPanel implements Runnable {
             GameController.requestChangeLevel(level[0], level[1], level[2], false);
             getParentFrame().setRestartEnabled(true);
         } catch (Exception e) {
-            handlePlayLevel();
+        	handleChooseLevel();
         }
     }
     

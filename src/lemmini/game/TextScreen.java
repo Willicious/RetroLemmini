@@ -61,6 +61,8 @@ public class TextScreen {
     public static enum Button {
         /** play level */
         PLAY_LEVEL,
+        /** choose level */
+        CHOOSE_LEVEL,
         /** load replay */
         LOAD_REPLAY,
         /** enter code */
@@ -172,12 +174,16 @@ public class TextScreen {
         textDialog.clear();
         textDialog.setBackground(MiscGfx.getImage(MiscGfx.Index.TILE_BROWN), true);
         textDialog.addStringCentered("Version " + Core.REVISION, null, 4, RED);
-        textDialog.addTextButton("Play Level", "Play Level", null, -5, -2, Button.PLAY_LEVEL, GREEN, YELLOW);
-        textDialog.addTextButton("Load Replay", "Load Replay", null, -14, 0, Button.LOAD_REPLAY, BLUE, YELLOW);
-        textDialog.addTextButton("Enter Code", "Enter Code", null, 3, 0, Button.ENTER_CODE, BLUE, YELLOW);
-        textDialog.addTextButton("Players", "Players", null, -12, 1, Button.PLAYERS, BLUE, YELLOW);
-        textDialog.addTextButton("Options", "Options", null, 4, 1, Button.OPTIONS, BLUE, YELLOW);
-        textDialog.addTextButton("Exit", "Exit", null, -2, 2, Button.EXIT, BLUE, YELLOW);
+        
+        textDialog.addTextButton("Choose Level", "Choose Level", null, -15, -2, Button.CHOOSE_LEVEL, GREEN, YELLOW);
+        textDialog.addTextButton("Enter Code", "Enter Code", null, -14, 0, Button.ENTER_CODE, BLUE, YELLOW);
+        textDialog.addTextButton("Options", "Options", null, -13, 1, Button.OPTIONS, BLUE, YELLOW);
+        
+        textDialog.addTextButton("Start Playing", "Start Playing", null, 1, -2, Button.PLAY_LEVEL, GREEN, YELLOW);
+        textDialog.addTextButton("Load Replay", "Load Replay", null, 2, 0, Button.LOAD_REPLAY, BLUE, YELLOW);
+        textDialog.addTextButton("Players", "Players", null, 4, 1, Button.PLAYERS, BLUE, YELLOW);
+        
+        textDialog.addTextButton("Exit", "Exit", null, -3, 2, Button.EXIT, BLUE, YELLOW);
     }
 
     /**

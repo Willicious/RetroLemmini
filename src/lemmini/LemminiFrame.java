@@ -234,7 +234,7 @@ public class LemminiFrame extends JFrame {
         jMenuPlayers = new javax.swing.JMenu();
         jMenuItemManagePlayers = new javax.swing.JMenuItem();
         jMenuLevel = new javax.swing.JMenu();
-        jMenuItemPlayLevel = new javax.swing.JMenuItem();
+        jMenuItemChooseLevel = new javax.swing.JMenuItem();
         jMenuItemRestartLevel = new javax.swing.JMenuItem();
         jMenuItemLoadReplay = new javax.swing.JMenuItem();
         jMenuItemEnterLevelCode = new javax.swing.JMenuItem();
@@ -312,14 +312,14 @@ public class LemminiFrame extends JFrame {
         jMenuBarMain.add(jMenuPlayers);
 
         jMenuLevel.setText("Level");
-
-        jMenuItemPlayLevel.setText("Select Level...");
-        jMenuItemPlayLevel.addActionListener(new java.awt.event.ActionListener() {
+        
+        jMenuItemChooseLevel.setText("Choose Level...");
+        jMenuItemChooseLevel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemPlayLevelActionPerformed(evt);
+                jMenuItemChooseLevelActionPerformed(evt);
             }
         });
-        jMenuLevel.add(jMenuItemPlayLevel);
+        jMenuLevel.add(jMenuItemChooseLevel);
 
         jMenuItemRestartLevel.setText("Restart Level");
         jMenuItemRestartLevel.setEnabled(false);
@@ -572,7 +572,7 @@ public class LemminiFrame extends JFrame {
                     case KeyEvent.VK_7:
                     case KeyEvent.VK_F9:
                         if (lemminiPanelMain.isControlPressed())
-                            lemminiPanelMain.handlePlayLevel();
+                            lemminiPanelMain.handleChooseLevel();
                         else if (lemminiPanelMain.getDebugDraw())
                             lemminiPanelMain.setDrawBrushSize(7);
                         else
@@ -791,7 +791,7 @@ public class LemminiFrame extends JFrame {
                         break;
                     case KeyEvent.VK_F9:
                         if (lemminiPanelMain.isControlPressed())
-                            lemminiPanelMain.handlePlayLevel();
+                            lemminiPanelMain.handleChooseLevel();
                         break;
                     case KeyEvent.VK_F5:
                         if (lemminiPanelMain.isControlPressed())
@@ -934,7 +934,7 @@ public class LemminiFrame extends JFrame {
                     break;
                 case KeyEvent.VK_F9:
                     if (lemminiPanelMain.isControlPressed())
-                        lemminiPanelMain.handlePlayLevel();
+                        lemminiPanelMain.handleChooseLevel();
                     break;
                 case KeyEvent.VK_F5:
                     if (lemminiPanelMain.isControlPressed())
@@ -983,7 +983,7 @@ public class LemminiFrame extends JFrame {
                         break;
                     case KeyEvent.VK_F9:
                         if (lemminiPanelMain.isControlPressed())
-                            lemminiPanelMain.handlePlayLevel();
+                            lemminiPanelMain.handleChooseLevel();
                         break;
                     case KeyEvent.VK_F5:
                         if (lemminiPanelMain.isControlPressed())
@@ -1126,10 +1126,10 @@ public class LemminiFrame extends JFrame {
     private void jMenuItemManagePlayersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemManagePlayersActionPerformed
         lemminiPanelMain.handlePlayers();
     }//GEN-LAST:event_jMenuItemManagePlayersActionPerformed
-
-    private void jMenuItemPlayLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPlayLevelActionPerformed
-        lemminiPanelMain.handlePlayLevel();
-    }//GEN-LAST:event_jMenuItemPlayLevelActionPerformed
+    
+    private void jMenuItemChooseLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemChooseLevelActionPerformed
+        lemminiPanelMain.handleChooseLevel();
+    }//GEN-LAST:event_jMenuItemChooseLevelActionPerformed
 
     private void jMenuItemRestartLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRestartLevelActionPerformed
         if (GameController.getLevel() == null) {
@@ -1372,7 +1372,7 @@ public class LemminiFrame extends JFrame {
     private javax.swing.JMenuItem jMenuItemOptions;
     private javax.swing.JMenuItem jMenuItemHotkeys;
     private javax.swing.JMenuItem jMenuItemAbout;
-    private javax.swing.JMenuItem jMenuItemPlayLevel;
+    private javax.swing.JMenuItem jMenuItemChooseLevel;
     private javax.swing.JMenuItem jMenuItemRestartLevel;
     private javax.swing.JMenu jMenuLevel;
     private javax.swing.JMenu jMenuOptions;
