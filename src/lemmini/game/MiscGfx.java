@@ -102,15 +102,15 @@ public class MiscGfx {
         LemmImage img;
 
         /* 0: MINIMAP_LEFT */
-        resource = Core.findResource("gfx/misc/minimap_left.png", Core.IMAGE_EXTENSIONS);
+        resource = Core.findResource("gfx/icons/minimap_left.png", Core.IMAGE_EXTENSIONS);
         img = Core.loadLemmImage(resource);
         images.add(img);
         /* 1: MINIMAP_CENTER */
-        resource = Core.findResource("gfx/misc/minimap_center.png", Core.IMAGE_EXTENSIONS);
+        resource = Core.findResource("gfx/icons/minimap_center.png", Core.IMAGE_EXTENSIONS);
         img = Core.loadLemmImage(resource);
         images.add(img);
         /* 2: MINIMAP_RIGHT */
-        resource = Core.findResource("gfx/misc/minimap_right.png", Core.IMAGE_EXTENSIONS);
+        resource = Core.findResource("gfx/icons/minimap_right.png", Core.IMAGE_EXTENSIONS);
         img = Core.loadLemmImage(resource);
         images.add(img);
 
