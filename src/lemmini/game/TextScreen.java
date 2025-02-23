@@ -172,18 +172,38 @@ public class TextScreen {
      */
     static void initIntro() {
         textDialog.clear();
-        textDialog.setBackground(MiscGfx.getImage(MiscGfx.Index.TILE_BROWN), true);
+        textDialog.setBackground(MiscGfx.getImage(MiscGfx.Index.BACKGROUND_MAIN), true);
         textDialog.addStringCentered("Version " + Core.REVISION, null, 4, RED);
         
-        textDialog.addTextButton("Choose Level", "Choose Level", null, -15, -2, Button.CHOOSE_LEVEL, GREEN, YELLOW);
-        textDialog.addTextButton("Enter Code", "Enter Code", null, -14, 0, Button.ENTER_CODE, BLUE, YELLOW);
-        textDialog.addTextButton("Options", "Options", null, -13, 1, Button.OPTIONS, BLUE, YELLOW);
+        List<LemmImage> cardChoose = MiscGfx.getAnimation(MiscGfx.Index.CARD_CHOOSE_LEVEL_LEMMING, 2);
+        textDialog.addButton(cardChoose.get(0), cardChoose.get(0), cardChoose.get(1), "Choose Level", -339, -40, Button.CHOOSE_LEVEL);
         
-        textDialog.addTextButton("Start Playing", "Start Playing", null, 1, -2, Button.PLAY_LEVEL, GREEN, YELLOW);
-        textDialog.addTextButton("Load Replay", "Load Replay", null, 2, 0, Button.LOAD_REPLAY, BLUE, YELLOW);
-        textDialog.addTextButton("Players", "Players", null, 4, 1, Button.PLAYERS, BLUE, YELLOW);
+        List<LemmImage> cardPlay = MiscGfx.getAnimation(MiscGfx.Index.CARD_PLAY_LEVEL_LEMMING, 2);
+        textDialog.addButton(cardPlay.get(0), cardPlay.get(0), cardPlay.get(1), "Play Level", 152, -40, Button.PLAY_LEVEL);
         
-        textDialog.addTextButton("Exit", "Exit", null, -3, 2, Button.EXIT, BLUE, YELLOW);
+        List<LemmImage> cardOptions = MiscGfx.getAnimation(MiscGfx.Index.CARD_OPTIONS, 2);
+        textDialog.addButton(cardOptions.get(0), cardOptions.get(0), cardOptions.get(1), "Options", -137, -40, Button.OPTIONS);
+        
+        List<LemmImage> cardReplays = MiscGfx.getAnimation(MiscGfx.Index.CARD_REPLAYS, 2);
+        textDialog.addButton(cardReplays.get(0), cardReplays.get(0), cardReplays.get(1), "Players", 5, -40, Button.LOAD_REPLAY);
+        
+        List<LemmImage> cardPlayers = MiscGfx.getAnimation(MiscGfx.Index.CARD_PLAYERS, 2);
+        textDialog.addButton(cardPlayers.get(0), cardPlayers.get(0), cardPlayers.get(1), "Players", -137, 19, Button.PLAYERS);
+        
+        List<LemmImage> cardCodes = MiscGfx.getAnimation(MiscGfx.Index.CARD_CODES, 2);
+        textDialog.addButton(cardCodes.get(0), cardCodes.get(0), cardCodes.get(1), "Codes", 5, 19, Button.ENTER_CODE);
+        
+        // BOOKMARK TODO: This should be optional so users can set the classic "Lemmini" menu layout if they prefer:
+        
+//        textDialog.addTextButton("Choose Level", "Choose Level", null, -15, -2, Button.CHOOSE_LEVEL, GREEN, YELLOW);
+//        textDialog.addTextButton("Enter Code", "Enter Code", null, -14, 0, Button.ENTER_CODE, BLUE, YELLOW);
+//        textDialog.addTextButton("Options", "Options", null, -13, 1, Button.OPTIONS, BLUE, YELLOW);
+//        
+//        textDialog.addTextButton("Start Playing", "Start Playing", null, 1, -2, Button.PLAY_LEVEL, GREEN, YELLOW);
+//        textDialog.addTextButton("Load Replay", "Load Replay", null, 2, 0, Button.LOAD_REPLAY, BLUE, YELLOW);
+//        textDialog.addTextButton("Players", "Players", null, 4, 1, Button.PLAYERS, BLUE, YELLOW);
+//        
+//        textDialog.addTextButton("Exit", "Exit", null, -3, 2, Button.EXIT, BLUE, YELLOW);
     }
 
     /**
@@ -192,7 +212,7 @@ public class TextScreen {
     static void initBriefing() {
         textDialog.clear();
         hintIndex = 0;
-        textDialog.setBackground(MiscGfx.getImage(MiscGfx.Index.TILE_GREEN), true);
+        textDialog.setBackground(MiscGfx.getImage(MiscGfx.Index.BACKGROUND_LEVEL), true);
         Level level = GameController.getLevel();
         textDialog.addImage(GameController.getMapPreview(), null, -225);
         textDialog.addString(String.format("Level %-3d %s", GameController.getCurLevelNumber() + 1, level.getLevelName()), null, -21, -4, RED);
@@ -206,7 +226,7 @@ public class TextScreen {
      */
     static void initDebriefing() {
         textDialog.clear();
-        textDialog.setBackground(MiscGfx.getImage(MiscGfx.Index.TILE_GREEN), true);
+        textDialog.setBackground(MiscGfx.getImage(MiscGfx.Index.BACKGROUND_LEVEL), true);
         int numLemmings = GameController.getNumLemmingsMax();
         int toRescue = GameController.getNumToRescue();
         int rescued = GameController.getNumExited();
@@ -365,7 +385,7 @@ public class TextScreen {
     public static void init() {
         synchronized (getMonitor()) {
             rotImg = new LemmImage[ROT_ANIM_LENGTH];
-            rotImg[0] = MiscGfx.getImage(MiscGfx.Index.LEMMINI).getScaledInstance(560,  154);
+            rotImg[0] = MiscGfx.getImage(MiscGfx.Index.RETROLEMMINI_LOGO).getScaledInstance(560,  154);
             for (int i = 1; i < rotImg.length; i++) {
                 if (i < ROT_ANIM_LENGTH - (ROT_ANIM_LENGTH / 2)) {
                     rotImg[i] = rotImg[0].getScaledInstance(rotImg[0].getWidth(),
@@ -431,6 +451,10 @@ public class TextScreen {
         // manage scroller
         LemmImage subimage = scrollerImg.getSubimage(scrollPixCtr, 0, SCROLL_WIDTH, scrollerImg.getHeight());
         textDialog.addImage(subimage, "introAnimation", SCROLL_Y);
+        LemmImage lScrollerLem = MiscGfx.getImage(MiscGfx.Index.SCROLLER_LEMMING_LEFT);
+        LemmImage rScrollerLem = MiscGfx.getImage(MiscGfx.Index.SCROLLER_LEMMING_RIGHT);
+        textDialog.addImage(lScrollerLem, "introAnimation", -(SCROLL_WIDTH / 2) - 16, SCROLL_Y - 16);
+        textDialog.addImage(rScrollerLem, "introAnimation", (SCROLL_WIDTH / 2) - 48, SCROLL_Y - 16);
 
         scrollPixCtr += SCROLL_STEP;
         if (scrollPixCtr >= scrollerImg.getWidth() - SCROLL_WIDTH) {

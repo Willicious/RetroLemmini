@@ -351,18 +351,23 @@ public class LemminiPanel extends JPanel implements Runnable {
                             break;
                         case CHOOSE_LEVEL:
                         	handleChooseLevel();
+                        	TextScreen.getDialog().handleMouseReleased();
                         	break;
                         case LOAD_REPLAY:
                             handleLoadReplay();
+                            TextScreen.getDialog().handleMouseReleased();
                             break;
                         case ENTER_CODE:
                             handleEnterCode();
+                            TextScreen.getDialog().handleMouseReleased();
                             break;
                         case PLAYERS:
                             handlePlayers();
+                            TextScreen.getDialog().handleMouseReleased();
                             break;
                         case OPTIONS:
                             handleOptions();
+                            TextScreen.getDialog().handleMouseReleased();
                             break;
                         case EXIT:
                             getParentFrame().exit();
@@ -565,6 +570,9 @@ public class LemminiPanel extends JPanel implements Runnable {
                 }
                 evt.consume();
                 break;
+            case INTRO:
+            	TextScreen.getDialog().handleMouseReleased();
+            	break;
             default:
                 break;
         }

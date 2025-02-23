@@ -48,12 +48,12 @@ public class MiscGfx {
         MINIMAP_ARROW_UP,
         MINIMAP_ARROW_RIGHT,
         MINIMAP_ARROW_DOWN,
-        /** Lemmini logo */
-        LEMMINI,
-        /** green background tile */
-        TILE_GREEN,
-        /** brown background tile */
-        TILE_BROWN,
+        /** RetroLemmini logo */
+        RETROLEMMINI_LOGO,
+        /** level background tile */
+        BACKGROUND_LEVEL,
+        /** menu background tile */
+        BACKGROUND_MAIN,
         /** replay sign 1 */
         REPLAY_1,
         /** replay sign 2 */
@@ -68,9 +68,19 @@ public class MiscGfx {
         STATUS_NEEDED,
         /** status icon 4: time limit */
         STATUS_TIME,
+        /** the red squiggle */
         ICONBAR_FILLER,
         /** the scrolling ticker-tape shown at the start of the game. */
-        TICKER_TAPE
+        TICKER_TAPE,
+        SCROLLER_LEMMING_LEFT,
+        SCROLLER_LEMMING_RIGHT,
+        /** menu cards */
+        CARD_PLAY_LEVEL_LEMMING,
+        CARD_CHOOSE_LEVEL_LEMMING,
+        CARD_CODES,
+        CARD_OPTIONS,
+        CARD_PLAYERS,
+        CARD_REPLAYS
     }
 
 
@@ -116,20 +126,21 @@ public class MiscGfx {
         resource = Core.findResource("gfx/iconbar/large_minimap_right.png", Core.IMAGE_EXTENSIONS);
         img = Core.loadLemmImage(resource);
         images.add(img);
-
         /* 6: MINIMAP_ARROW_LEFT, 7: MINIMAP_ARROW_UP, 8: MINIMAP_ARROW_RIGHT, 9: MINIMAP_ARROW_DOWN */
         resource = Core.findResource("gfx/misc/minimap_arrows.png", Core.IMAGE_EXTENSIONS);
         List<LemmImage> anim = ToolBox.getAnimation(Core.loadLemmImage(resource), 4);
         images.addAll(anim);
-        /* 10: LEMMINI title graphic */
-        img = Core.loadLemmImageJar("retrolemmini_logo.png");
-        images.add(img);
-        /* 11: TILE_GREEN */
-        resource = Core.findResource("gfx/misc/background_level.png", Core.IMAGE_EXTENSIONS);
+        
+        /* 10: RETROLEMMINI title graphic */
+        resource = Core.findResource("gfx/menu/retrolemmini_logo.png", Core.IMAGE_EXTENSIONS);
         img = Core.loadLemmImage(resource);
         images.add(img);
-        /* 12: TILE_BROWN */
-        resource = Core.findResource("gfx/misc/background_main.png", Core.IMAGE_EXTENSIONS);
+        /* 11: BACKGROUND_LEVEL */
+        resource = Core.findResource("gfx/menu/background_level.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
+        images.add(img);
+        /* 12: BACKGROUND_MAIN */
+        resource = Core.findResource("gfx/menu/background_main.png", Core.IMAGE_EXTENSIONS);
         img = Core.loadLemmImage(resource);
         images.add(img);
         /* 13: REPLAY_1, 14: REPLAY_2 */
@@ -149,10 +160,43 @@ public class MiscGfx {
         img = Core.loadLemmImage(resource);
         images.add(img);
         /* 21: TICKER_TAPE */
-        resource = Core.findResource("gfx/misc/ticker-tape.png", Core.IMAGE_EXTENSIONS);
+        resource = Core.findResource("gfx/menu/ticker-tape.png", Core.IMAGE_EXTENSIONS);
         img = Core.loadLemmImage(resource);
         images.add(img);
-
+        /* 22: SCROLLER_LEMMING_LEFT */
+        resource = Core.findResource("gfx/menu/scroller_lemming_left.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
+        images.add(img);
+        /* 23: SCROLLER_LEMMING_RIGHT */
+        resource = Core.findResource("gfx/menu/scroller_lemming_right.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
+        images.add(img);
+        
+        // 2-frame card animations will later be split into frames for use as buttons
+        /* 24: CARD_PLAY_LEVEL_LEMMING */
+        resource = Core.findResource("gfx/menu/card_play_level_lemming.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
+        images.add(img);
+        /* 25: CARD_CHOOSE_LEVEL_LEMMING */
+        resource = Core.findResource("gfx/menu/card_choose_level_lemming.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
+        images.add(img);
+        /* 26: CARD_CODES */
+        resource = Core.findResource("gfx/menu/card_codes.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
+        images.add(img);
+        /* 27: CARD_OPTIONS */
+        resource = Core.findResource("gfx/menu/card_options.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
+        images.add(img);
+        /* 28: CARD_PLAYERS */
+        resource = Core.findResource("gfx/menu/card_players.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
+        images.add(img);
+        /* 29: CARD_REPLAYS */
+        resource = Core.findResource("gfx/menu/card_replays.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
+        images.add(img);
 
         /*add visual sfx images */
         resource = Core.findResource("gfx/misc/vsfxbig.png", Core.IMAGE_EXTENSIONS);
@@ -274,4 +318,9 @@ public class MiscGfx {
         }
         return tempMinimap;
     }
+
+	public static List<LemmImage> getAnimation(Index index, int frameCount) {
+	    LemmImage spriteSheet = getImage(index);
+	    return ToolBox.getAnimation(spriteSheet, frameCount);
+	}
 }

@@ -246,11 +246,12 @@ public class TextDialog {
      * @param y Y position relative to center in pixels
      * @param type Button type
      */
-    public void addButton(final LemmImage img, final LemmImage imgSelected, final String group,
+    public void addButton(final LemmImage img, final LemmImage imgSelected, LemmImage imgPressed, final String group,
             final int x, final int y, final TextScreen.Button type) {
         Button b = new Button(x, y, type);
         b.SetImage(img);
         b.SetImageSelected(imgSelected);
+        b.SetImagePressed(imgPressed);
         synchronized (buttons) {
             addButtonGroup(group);
             buttons.get(group).add(b);
@@ -293,12 +294,23 @@ public class TextDialog {
             for (List<Button> bl : buttons.values()) {
                 for (Button b : bl) {
                     if (b.inside(x, y)) {
+                    	b.pressed = b.inside(x, y);
                         return b.type;
                     }
                 }
             }
         }
         return TextScreen.Button.NONE;
+    }
+    
+    public void handleMouseReleased() {
+        synchronized (buttons) {
+            for (List<Button> bl : buttons.values()) {
+                for (Button b : bl) {
+                    	b.pressed = false;
+                }
+            }
+        }
     }
 
     /**
@@ -347,7 +359,7 @@ public class TextDialog {
  * @author Volker Oth
  */
 class Button {
-    /** x coordinate in pixels */
+	/** x coordinate in pixels */
     private final int x;
     /** y coordinate in pixels */
     private final int y;
@@ -359,10 +371,14 @@ class Button {
     protected TextScreen.Button type;
     /** true if button is selected */
     protected boolean selected;
+    /** true if button is pressed */
+    public boolean pressed;
     /** normal button image */
     protected LemmImage image;
     /** selected button image */
     protected LemmImage imgSelected;
+    /** pressed button image */
+    protected LemmImage imgPressed;
 
     /**
      * Constructor
@@ -377,7 +393,9 @@ class Button {
         width = 0;
         height = 0;
         selected = false;
+        pressed = false;
         image = null;
+        imgSelected = null;
         imgSelected = null;
     }
 
@@ -408,13 +426,29 @@ class Button {
             width = imgSelected.getWidth();
         }
     }
+    
+    /**
+     * Set selected button image.
+     * @param img image
+     */
+    void SetImagePressed(final LemmImage img) {
+        imgPressed = img;
+        if (imgPressed.getHeight() > height) {
+            height = imgPressed.getHeight();
+        }
+        if (imgPressed.getWidth() > width) {
+            width = imgPressed.getWidth();
+        }
+    }
 
     /**
      * Return current button image (normal or selected, depending on state).
      * @return current button image
      */
     LemmImage getImage() {
-        if (selected) {
+    	if (pressed) {
+    		return imgPressed;
+    	} else if (selected) {
             return imgSelected;
         } else {
             return image;
