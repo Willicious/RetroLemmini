@@ -25,6 +25,7 @@ import lemmini.LemminiFrame;
 import lemmini.game.Core;
 import lemmini.game.GameController;
 import lemmini.game.GameController.ExitSoundOption;
+import lemmini.game.GameController.MenuThemeOption;
 import lemmini.sound.Music;
 
 /**
@@ -71,6 +72,11 @@ public class OptionsDialog extends JDialog {
         jRadioButtonBoing = new javax.swing.JRadioButton();
         jRadioButtonAuto = new javax.swing.JRadioButton();
         exitSoundGroup = new javax.swing.ButtonGroup();
+        jLabelMenuTheme = new javax.swing.JLabel();
+        jRadioButtonLemminiTheme = new javax.swing.JRadioButton();
+        jRadioButtonAmigaTheme = new javax.swing.JRadioButton();
+        jRadioButtonWinLemmTheme = new javax.swing.JRadioButton();
+        menuThemeGroup = new javax.swing.ButtonGroup();
         jPanelGraphics = new javax.swing.JPanel();
         jCheckBoxBilinear = new javax.swing.JCheckBox();
         jPanelMisc = new javax.swing.JPanel();
@@ -143,8 +149,8 @@ public class OptionsDialog extends JDialog {
         exitSoundGroup.add(jRadioButtonBoing);
         exitSoundGroup.add(jRadioButtonAuto);
 
-        ExitSoundOption savedOption = GameController.getExitSoundOption();
-        switch (savedOption) {
+        ExitSoundOption exitSoundOption = GameController.getExitSoundOption();
+        switch (exitSoundOption) {
             case YIPPEE:
                 jRadioButtonYippee.setSelected(true);
                 break;
@@ -188,6 +194,30 @@ public class OptionsDialog extends JDialog {
         jCheckBoxShowMenuBar.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
         jCheckBoxShowMenuBar.setText("Show Menu Bar (Ctrl + M)");
         jCheckBoxShowMenuBar.setToolTipText("Show the menu bar at the top of the game window. Use Ctrl + M to toggle visibility at any time");
+        
+        // Radio group for Exit sound
+        jLabelMenuTheme.setText("Menu Theme");
+        jRadioButtonWinLemmTheme.setText("WinLemm");
+        jRadioButtonLemminiTheme.setText("Lemmini");
+        jRadioButtonAmigaTheme.setText("Amiga");
+
+        menuThemeGroup.add(jRadioButtonWinLemmTheme);
+        menuThemeGroup.add(jRadioButtonLemminiTheme);
+        menuThemeGroup.add(jRadioButtonAmigaTheme);
+
+        MenuThemeOption menuThemeOption = GameController.getMenuThemeOption();
+        switch (menuThemeOption) {
+            case LEMMINI:
+            	jRadioButtonLemminiTheme.setSelected(true);
+                break;
+            case AMIGA:
+            	jRadioButtonAmigaTheme.setSelected(true);
+                break;
+            case WINLEMM:
+            default:
+            	jRadioButtonWinLemmTheme.setSelected(true);
+                break;
+        }
 
         jComboBoxMixer.setSelectedIndex(GameController.sound.getMixerIdx());
 
@@ -268,6 +298,13 @@ public class OptionsDialog extends JDialog {
                             .addComponent(jCheckBoxShowLevelName)
                             .addComponent(jCheckBoxEnhancedIconBar)
                             .addComponent(jCheckBoxIconLabels)
+                            .addComponent(jLabelMenuTheme)
+                            .addGroup(jPanelGraphicsLayout.createSequentialGroup()
+                                    .addComponent(jRadioButtonLemminiTheme)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jRadioButtonAmigaTheme)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jRadioButtonWinLemmTheme))
                             )
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             );
@@ -293,7 +330,13 @@ public class OptionsDialog extends JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxIconLabels)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelMenuTheme)
+                .addGroup(jPanelGraphicsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jRadioButtonLemminiTheme)
+                        .addComponent(jRadioButtonAmigaTheme)
+                        .addComponent(jRadioButtonWinLemmTheme))
+                )
         );
 
         jPanelReplays.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Replays", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -522,6 +565,12 @@ public class OptionsDialog extends JDialog {
         GameController.setOption(GameController.SLTooOption.ENHANCED_ICONBAR, jCheckBoxEnhancedIconBar.isSelected());
         GameController.setOption(GameController.SLTooOption.ICON_LABELS, jCheckBoxIconLabels.isSelected());
         GameController.setOption(GameController.SLTooOption.CLASSIC_SCROLLER, jCheckBoxClassicScroller.isSelected());
+        // apply menu theme setting
+        GameController.setMenuThemeOption(
+                jRadioButtonLemminiTheme.isSelected() ? GameController.MenuThemeOption.LEMMINI :
+                jRadioButtonAmigaTheme.isSelected() ? GameController.MenuThemeOption.AMIGA :
+                GameController.MenuThemeOption.WINLEMM
+            );
         // apply replay settings
         GameController.setOption(GameController.RetroLemminiOption.AUTOSAVE_REPLAYS, jCheckBoxAutoSaveReplays.isSelected());
         GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, jCheckBoxShowMenuBar.isSelected());
@@ -579,6 +628,11 @@ public class OptionsDialog extends JDialog {
     private javax.swing.JRadioButton jRadioButtonBoing;
     private javax.swing.JRadioButton jRadioButtonAuto;
     private javax.swing.ButtonGroup exitSoundGroup;
+    private javax.swing.JLabel jLabelMenuTheme;
+    private javax.swing.JRadioButton jRadioButtonLemminiTheme;
+    private javax.swing.JRadioButton jRadioButtonAmigaTheme;
+    private javax.swing.JRadioButton jRadioButtonWinLemmTheme;
+    private javax.swing.ButtonGroup menuThemeGroup;
     private javax.swing.JPanel jPanelGraphics;
     private javax.swing.JPanel jPanelMisc;
     private javax.swing.JPanel jPanelReplays;

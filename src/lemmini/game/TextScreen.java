@@ -15,6 +15,8 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import lemmini.game.GameController.MenuThemeOption;
+import lemmini.game.GameController.SLTooOption;
 import lemmini.graphics.GraphicsContext;
 import lemmini.graphics.LemmImage;
 import lemmini.tools.ToolBox;
@@ -172,9 +174,19 @@ public class TextScreen {
      */
     static void initIntro() {
         textDialog.clear();
-        textDialog.setBackground(MiscGfx.getImage(MiscGfx.Index.BACKGROUND_MAIN), true);
-        textDialog.addStringCentered("Version " + Core.REVISION, null, 4, RED);
         
+        if (GameController.getMenuThemeOption() == GameController.MenuThemeOption.WINLEMM) {
+        	createWinLemmThemeMenu();
+        } else { // BOOKMARK TODO: Add Amiga Theme
+        	createLemminiThemeMenu();
+        }
+        
+        textDialog.addStringCentered("Version " + Core.REVISION, null, 4, RED);
+    }
+    
+    private static void createWinLemmThemeMenu() {
+    	textDialog.setBackground(MiscGfx.getImage(MiscGfx.Index.BACKGROUND_MAIN_WINLEMM), true);
+    	
         List<LemmImage> cardChoose = MiscGfx.getAnimation(MiscGfx.Index.CARD_CHOOSE_LEVEL_LEMMING, 2);
         textDialog.addButton(cardChoose.get(0), cardChoose.get(0), cardChoose.get(1), "Choose Level", -339, -40, Button.CHOOSE_LEVEL);
         
@@ -192,18 +204,20 @@ public class TextScreen {
         
         List<LemmImage> cardCodes = MiscGfx.getAnimation(MiscGfx.Index.CARD_CODES, 2);
         textDialog.addButton(cardCodes.get(0), cardCodes.get(0), cardCodes.get(1), "Codes", 5, 19, Button.ENTER_CODE);
+    }
+    
+    public static void createLemminiThemeMenu() {
+    	textDialog.setBackground(MiscGfx.getImage(MiscGfx.Index.BACKGROUND_MAIN_LEMMINI), true);
+    	
+        textDialog.addTextButton("Choose Level", "Choose Level", null, -15, -2, Button.CHOOSE_LEVEL, GREEN, YELLOW);
+        textDialog.addTextButton("Enter Code", "Enter Code", null, -14, 0, Button.ENTER_CODE, BLUE, YELLOW);
+        textDialog.addTextButton("Options", "Options", null, -13, 1, Button.OPTIONS, BLUE, YELLOW);
         
-        // BOOKMARK TODO: This should be optional so users can set the classic "Lemmini" menu layout if they prefer:
+        textDialog.addTextButton("Start Playing", "Start Playing", null, 1, -2, Button.PLAY_LEVEL, GREEN, YELLOW);
+        textDialog.addTextButton("Load Replay", "Load Replay", null, 2, 0, Button.LOAD_REPLAY, BLUE, YELLOW);
+        textDialog.addTextButton("Players", "Players", null, 4, 1, Button.PLAYERS, BLUE, YELLOW);
         
-//        textDialog.addTextButton("Choose Level", "Choose Level", null, -15, -2, Button.CHOOSE_LEVEL, GREEN, YELLOW);
-//        textDialog.addTextButton("Enter Code", "Enter Code", null, -14, 0, Button.ENTER_CODE, BLUE, YELLOW);
-//        textDialog.addTextButton("Options", "Options", null, -13, 1, Button.OPTIONS, BLUE, YELLOW);
-//        
-//        textDialog.addTextButton("Start Playing", "Start Playing", null, 1, -2, Button.PLAY_LEVEL, GREEN, YELLOW);
-//        textDialog.addTextButton("Load Replay", "Load Replay", null, 2, 0, Button.LOAD_REPLAY, BLUE, YELLOW);
-//        textDialog.addTextButton("Players", "Players", null, 4, 1, Button.PLAYERS, BLUE, YELLOW);
-//        
-//        textDialog.addTextButton("Exit", "Exit", null, -3, 2, Button.EXIT, BLUE, YELLOW);
+        textDialog.addTextButton("Exit", "Exit", null, -3, 2, Button.EXIT, BLUE, YELLOW);
     }
 
     /**
@@ -212,7 +226,7 @@ public class TextScreen {
     static void initBriefing() {
         textDialog.clear();
         hintIndex = 0;
-        textDialog.setBackground(MiscGfx.getImage(MiscGfx.Index.BACKGROUND_LEVEL), true);
+        drawBackground();
         Level level = GameController.getLevel();
         textDialog.addImage(GameController.getMapPreview(), null, -225);
         textDialog.addString(String.format("Level %-3d %s", GameController.getCurLevelNumber() + 1, level.getLevelName()), null, -21, -4, RED);
@@ -226,7 +240,7 @@ public class TextScreen {
      */
     static void initDebriefing() {
         textDialog.clear();
-        textDialog.setBackground(MiscGfx.getImage(MiscGfx.Index.BACKGROUND_LEVEL), true);
+        drawBackground();
         int numLemmings = GameController.getNumLemmingsMax();
         int toRescue = GameController.getNumToRescue();
         int rescued = GameController.getNumExited();
@@ -310,6 +324,18 @@ public class TextScreen {
         
         // store the last level played
         Core.programProps.set("lastLevelPlayed", GameController.getLastLevelPlayedString());
+    }
+    
+    private static void drawBackground() {
+    	LemmImage backgroundImg;
+    	
+        if (GameController.getMenuThemeOption() == GameController.MenuThemeOption.WINLEMM) {
+        	backgroundImg = MiscGfx.getImage(MiscGfx.Index.BACKGROUND_LEVEL_WINLEMM);
+        } else { // BOOKMARK TODO: Add Amiga Theme
+        	backgroundImg = MiscGfx.getImage(MiscGfx.Index.BACKGROUND_LEVEL_LEMMINI);
+        }
+        
+        textDialog.setBackground(backgroundImg, true);
     }
 
     public static void showLevelInfo() {

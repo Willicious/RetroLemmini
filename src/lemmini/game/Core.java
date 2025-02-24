@@ -24,6 +24,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import lemmini.LemminiFrame;
 import lemmini.game.GameController.ExitSoundOption;
+import lemmini.game.GameController.MenuThemeOption;
 import lemmini.graphics.LemmImage;
 import lemmini.gui.LegalFrame;
 import lemmini.tools.CaseInsensitiveFileTree;
@@ -225,6 +226,8 @@ public class Core {
         GameController.setOption(GameController.RetroLemminiOption.FULL_SCREEN, programProps.getBoolean("fullScreen", false));
         // Exit sound settings
         GameController.setExitSoundOption(ExitSoundOption.valueOf(programProps.get("exitSound", "AUTO")));
+        // Menu theme settings
+        GameController.setMenuThemeOption(MenuThemeOption.valueOf(programProps.get("menuTheme", "WINLEMM")));
 
         System.out.println("      all settings read from config");
 
@@ -333,6 +336,8 @@ public class Core {
         programProps.setBoolean("fullScreen", GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_SCREEN));
         // Exit sound
         programProps.set("exitSound", GameController.getExitSoundOption().name());
+        // Menu theme
+        programProps.set("menuTheme", GameController.getMenuThemeOption().name());
     }
 
     public static String appendBeforeExtension(String fname, String suffix) {

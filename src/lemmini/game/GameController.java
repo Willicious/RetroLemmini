@@ -151,6 +151,13 @@ public class GameController {
         BOING,
         AUTO
     }
+    
+    // 3-way option for setting the Menu theme
+    public enum MenuThemeOption {
+        LEMMINI,
+        AMIGA,
+        WINLEMM
+    }
 
     public static enum LevelFormat {
         INI,
@@ -213,6 +220,8 @@ public class GameController {
 
     /** 3-way option for setting the Exit sound */
     private static ExitSoundOption exitSoundOption = ExitSoundOption.AUTO; // Default value
+    /** 3-way option for setting the Menu theme */
+    private static MenuThemeOption menuThemeOption = MenuThemeOption.WINLEMM; // Default value
 
     /** flag: fast forward mode is active */
     private static boolean fastForward;
@@ -2649,6 +2658,14 @@ public class GameController {
     public static ExitSoundOption getExitSoundOption() {
         return exitSoundOption;
     }
+    
+    public static void setMenuThemeOption(MenuThemeOption option) {
+        menuThemeOption = option;
+}
+
+public static MenuThemeOption getMenuThemeOption() {
+    return menuThemeOption;
+}
 
     /**
      * Get foreground image of level.
