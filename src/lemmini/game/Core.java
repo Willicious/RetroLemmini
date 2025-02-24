@@ -191,7 +191,7 @@ public class Core {
         System.out.println("      resourcePath: " + resourcePath.toString());
         resourceTree = new CaseInsensitiveFileTree(resourcePath);
 
-        bilinear = programProps.getBoolean("bilinear", false);
+        bilinear = programProps.getBoolean("bilinear", true);
 
         // Set options
         GameController.setOption(GameController.Option.MUSIC_ON, programProps.getBoolean("music", true));
