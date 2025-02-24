@@ -421,10 +421,12 @@ public class TextScreen {
     }
     
     private static MiscGfx.Index getLogoImageIndex() {
-    	if (GameController.getMenuThemeOption() == GameController.MenuThemeOption.WINLEMM)
-    		return MiscGfx.Index.RETROLEMMINI_LOGO_WINLEMM;
-    	else
+    	if (GameController.getMenuThemeOption() == GameController.MenuThemeOption.LEMMINI)
+    		return MiscGfx.Index.RETROLEMMINI_LOGO_LEMMINI;
+    	else if (GameController.getMenuThemeOption() == GameController.MenuThemeOption.AMIGA)
     		return MiscGfx.Index.RETROLEMMINI_LOGO_AMIGA;
+    	else
+    		return MiscGfx.Index.RETROLEMMINI_LOGO_WINLEMM;
     }
 
     /**

@@ -51,6 +51,7 @@ public class MiscGfx {
         /** RetroLemmini logo */
         RETROLEMMINI_LOGO_AMIGA,
         RETROLEMMINI_LOGO_WINLEMM,
+        RETROLEMMINI_LOGO_LEMMINI,
         /** level background tile */
         BACKGROUND_LEVEL_LEMMINI,
         BACKGROUND_LEVEL_WINLEMM,
@@ -140,6 +141,10 @@ public class MiscGfx {
         images.add(img);
         /* RETROLEMMINI_LOGO_WINLEMM */
         resource = Core.findResource("gfx/menu/retrolemmini_logo_retro.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
+        images.add(img);
+        /* RETROLEMMINI_LOGO_LEMMINI */
+        resource = Core.findResource("gfx/menu/retrolemmini_logo_lemmini.png", Core.IMAGE_EXTENSIONS);
         img = Core.loadLemmImage(resource);
         images.add(img);
         /* BACKGROUND_LEVEL_LEMMINI */
