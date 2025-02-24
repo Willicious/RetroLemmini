@@ -307,6 +307,9 @@ public class TextScreen {
             textDialog.addTextButton("Save Replay", "Save Replay", null, 1, 6, Button.SAVE_REPLAY, BLUE, YELLOW);
         }
         textDialog.addTextButton("Menu", "Menu", null, -9, 6, Button.MENU, BLUE, YELLOW);
+        
+        // store the last level played
+        Core.programProps.set("lastLevelPlayed", GameController.getLastLevelPlayedString());
     }
 
     public static void showLevelInfo() {

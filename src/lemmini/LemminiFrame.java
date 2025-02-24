@@ -1290,19 +1290,11 @@ public class LemminiFrame extends JFrame {
         Core.programProps.setBoolean("maximizedHoriz", BooleanUtils.toBoolean(getExtendedState() & MAXIMIZED_HORIZ));
         Core.programProps.setBoolean("maximizedVert", BooleanUtils.toBoolean(getExtendedState() & MAXIMIZED_VERT));
         // store the last level played
-        Core.programProps.set("lastLevelPlayed", getLastLevelPlayedString());
+        Core.programProps.set("lastLevelPlayed", GameController.getLastLevelPlayedString());
+        
         Core.saveProgramProps();
-
         RepeatingReleasedEventsFixer.remove();
         System.exit(0);
-    }
-
-    String getLastLevelPlayedString() {
-    	int levelPackNumber = GameController.getCurLevelPackIdx();
-        int ratingNumber = GameController.getCurRating();
-        int levelNumber = GameController.getCurLevelNumber();
-
-        return levelPackNumber + "," + ratingNumber + "," + levelNumber;
     }
 
     @Override

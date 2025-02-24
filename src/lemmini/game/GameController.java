@@ -1014,6 +1014,18 @@ public class GameController {
     public static synchronized String getTimeString() {
         return String.format(Locale.ROOT, "%d-%02d", time / 60, time % 60);
     }
+    
+    /**
+     * Get last level played as a string of integer indexes
+     * @return "x,y,z" where x is pack index, y is rating index, z is level index
+     */
+    public static String getLastLevelPlayedString() {
+    	int levelPackIndex = GameController.getCurLevelPackIdx();
+        int ratingIndex = GameController.getCurRating();
+        int levelIndex = GameController.getCurLevelNumber();
+
+        return levelPackIndex + "," + ratingIndex + "," + levelIndex;
+    }
 
     /**
      * Update the whole game state by one frame.
