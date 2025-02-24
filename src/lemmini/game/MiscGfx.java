@@ -51,12 +51,11 @@ public class MiscGfx {
         /** RetroLemmini logo */
         RETROLEMMINI_LOGO_AMIGA,
         RETROLEMMINI_LOGO_WINLEMM,
-        RETROLEMMINI_LOGO_LEMMINI,
         /** level background tile */
-        BACKGROUND_LEVEL_LEMMINI,
+        BACKGROUND_LEVEL_AMIGA,
         BACKGROUND_LEVEL_WINLEMM,
         /** menu background tile */
-        BACKGROUND_MAIN_LEMMINI,
+        BACKGROUND_MAIN_AMIGA,
         BACKGROUND_MAIN_WINLEMM,
         /** replay sign 1 */
         REPLAY_1,
@@ -143,20 +142,16 @@ public class MiscGfx {
         resource = Core.findResource("gfx/menu/retrolemmini_logo_retro.png", Core.IMAGE_EXTENSIONS);
         img = Core.loadLemmImage(resource);
         images.add(img);
-        /* RETROLEMMINI_LOGO_LEMMINI */
-        resource = Core.findResource("gfx/menu/retrolemmini_logo_lemmini.png", Core.IMAGE_EXTENSIONS);
-        img = Core.loadLemmImage(resource);
-        images.add(img);
-        /* BACKGROUND_LEVEL_LEMMINI */
-        resource = Core.findResource("gfx/menu/background_level_lemmini.png", Core.IMAGE_EXTENSIONS);
+        /* BACKGROUND_LEVEL_AMIGA */
+        resource = Core.findResource("gfx/menu/background_level_amiga.png", Core.IMAGE_EXTENSIONS);
         img = Core.loadLemmImage(resource);
         images.add(img);
         /* BACKGROUND_LEVEL_WINLEMM */
         resource = Core.findResource("gfx/menu/background_level_retro.png", Core.IMAGE_EXTENSIONS);
         img = Core.loadLemmImage(resource);
         images.add(img);
-        /* BACKGROUND_MAIN_LEMMINI */
-        resource = Core.findResource("gfx/menu/background_main_lemmini.png", Core.IMAGE_EXTENSIONS);
+        /* BACKGROUND_MAIN_AMIGA */
+        resource = Core.findResource("gfx/menu/background_main_amiga.png", Core.IMAGE_EXTENSIONS);
         img = Core.loadLemmImage(resource);
         images.add(img);
         /* BACKGROUND_MAIN_WINLEMM */

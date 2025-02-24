@@ -73,7 +73,6 @@ public class OptionsDialog extends JDialog {
         jRadioButtonAuto = new javax.swing.JRadioButton();
         exitSoundGroup = new javax.swing.ButtonGroup();
         jLabelMenuTheme = new javax.swing.JLabel();
-        jRadioButtonLemminiTheme = new javax.swing.JRadioButton();
         jRadioButtonAmigaTheme = new javax.swing.JRadioButton();
         jRadioButtonWinLemmTheme = new javax.swing.JRadioButton();
         menuThemeGroup = new javax.swing.ButtonGroup();
@@ -197,19 +196,14 @@ public class OptionsDialog extends JDialog {
         
         // Radio group for Exit sound
         jLabelMenuTheme.setText("Menu Theme");
-        jRadioButtonWinLemmTheme.setText("WinLemm");
-        jRadioButtonLemminiTheme.setText("Lemmini");
         jRadioButtonAmigaTheme.setText("Amiga");
+        jRadioButtonWinLemmTheme.setText("WinLemm");
 
-        menuThemeGroup.add(jRadioButtonWinLemmTheme);
-        menuThemeGroup.add(jRadioButtonLemminiTheme);
         menuThemeGroup.add(jRadioButtonAmigaTheme);
+        menuThemeGroup.add(jRadioButtonWinLemmTheme);
 
         MenuThemeOption menuThemeOption = GameController.getMenuThemeOption();
         switch (menuThemeOption) {
-            case LEMMINI:
-            	jRadioButtonLemminiTheme.setSelected(true);
-                break;
             case AMIGA:
             	jRadioButtonAmigaTheme.setSelected(true);
                 break;
@@ -300,8 +294,6 @@ public class OptionsDialog extends JDialog {
                             .addComponent(jCheckBoxIconLabels)
                             .addComponent(jLabelMenuTheme)
                             .addGroup(jPanelGraphicsLayout.createSequentialGroup()
-                                    .addComponent(jRadioButtonLemminiTheme)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(jRadioButtonAmigaTheme)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(jRadioButtonWinLemmTheme))
@@ -333,7 +325,6 @@ public class OptionsDialog extends JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabelMenuTheme)
                 .addGroup(jPanelGraphicsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jRadioButtonLemminiTheme)
                         .addComponent(jRadioButtonAmigaTheme)
                         .addComponent(jRadioButtonWinLemmTheme))
                 )
@@ -567,7 +558,6 @@ public class OptionsDialog extends JDialog {
         GameController.setOption(GameController.SLTooOption.CLASSIC_SCROLLER, jCheckBoxClassicScroller.isSelected());
         // apply menu theme setting
         GameController.setMenuThemeOption(
-                jRadioButtonLemminiTheme.isSelected() ? GameController.MenuThemeOption.LEMMINI :
                 jRadioButtonAmigaTheme.isSelected() ? GameController.MenuThemeOption.AMIGA :
                 GameController.MenuThemeOption.WINLEMM
             );
@@ -629,7 +619,6 @@ public class OptionsDialog extends JDialog {
     private javax.swing.JRadioButton jRadioButtonAuto;
     private javax.swing.ButtonGroup exitSoundGroup;
     private javax.swing.JLabel jLabelMenuTheme;
-    private javax.swing.JRadioButton jRadioButtonLemminiTheme;
     private javax.swing.JRadioButton jRadioButtonAmigaTheme;
     private javax.swing.JRadioButton jRadioButtonWinLemmTheme;
     private javax.swing.ButtonGroup menuThemeGroup;

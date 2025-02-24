@@ -207,7 +207,7 @@ public class TextScreen {
     }
     
     public static void createLemminiThemeMenu() {
-    	textDialog.setBackground(MiscGfx.getImage(MiscGfx.Index.BACKGROUND_MAIN_LEMMINI), true);
+    	textDialog.setBackground(MiscGfx.getImage(MiscGfx.Index.BACKGROUND_MAIN_AMIGA), true);
     	
         textDialog.addTextButton("Levels", "Levels", null, -15, -1, Button.CHOOSE_LEVEL, GREEN, YELLOW);
         textDialog.addTextButton("Play", "Play", null, -3, -1, Button.PLAY_LEVEL, TURQUOISE, YELLOW);
@@ -329,11 +329,10 @@ public class TextScreen {
     private static void drawBackground() {
     	LemmImage backgroundImg;
     	
-        if (GameController.getMenuThemeOption() == GameController.MenuThemeOption.WINLEMM) {
+        if (GameController.getMenuThemeOption() == GameController.MenuThemeOption.WINLEMM)
         	backgroundImg = MiscGfx.getImage(MiscGfx.Index.BACKGROUND_LEVEL_WINLEMM);
-        } else { // BOOKMARK TODO: Add Amiga Theme
-        	backgroundImg = MiscGfx.getImage(MiscGfx.Index.BACKGROUND_LEVEL_LEMMINI);
-        }
+        else
+        	backgroundImg = MiscGfx.getImage(MiscGfx.Index.BACKGROUND_LEVEL_AMIGA);
         
         textDialog.setBackground(backgroundImg, true);
     }
@@ -421,9 +420,7 @@ public class TextScreen {
     }
     
     private static MiscGfx.Index getLogoImageIndex() {
-    	if (GameController.getMenuThemeOption() == GameController.MenuThemeOption.LEMMINI)
-    		return MiscGfx.Index.RETROLEMMINI_LOGO_LEMMINI;
-    	else if (GameController.getMenuThemeOption() == GameController.MenuThemeOption.AMIGA)
+    	if (GameController.getMenuThemeOption() == GameController.MenuThemeOption.AMIGA)
     		return MiscGfx.Index.RETROLEMMINI_LOGO_AMIGA;
     	else
     		return MiscGfx.Index.RETROLEMMINI_LOGO_WINLEMM;

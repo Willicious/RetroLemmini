@@ -154,7 +154,6 @@ public class GameController {
     
     // 3-way option for setting the Menu theme
     public enum MenuThemeOption {
-        LEMMINI,
         AMIGA,
         WINLEMM
     }
