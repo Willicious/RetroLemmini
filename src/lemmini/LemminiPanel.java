@@ -1849,12 +1849,25 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
 
     void handleOptions() {
+        // Store current settings
+        boolean oldMenuBarVisOption = GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR);
+        boolean oldScrollerOption = GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_SCROLLER);
+        GameController.MenuThemeOption oldMenuThemeOption = GameController.getMenuThemeOption();
+
+        // Show options dialog
         OptionsDialog d = new OptionsDialog(getParentFrame(), true);
         d.setVisible(true);
 
-        // Update UI to process changes
-        getParentFrame().toggleMenuBarVisibility();
-        TextScreen.toggleScrollerType();
+        // Update UI if options have changed
+        if (oldMenuBarVisOption != GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR)) {
+            getParentFrame().toggleMenuBarVisibility();
+        }
+        if (oldScrollerOption != GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_SCROLLER)) {
+            TextScreen.toggleScrollerType();
+        }
+        if (oldMenuThemeOption != GameController.getMenuThemeOption()) {
+            TextScreen.setMenuTheme();
+        }
     }
 
     @Override

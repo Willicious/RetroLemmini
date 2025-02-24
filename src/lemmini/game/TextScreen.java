@@ -516,7 +516,28 @@ public class TextScreen {
             textDialog.drawScreen(g, x, y, width, height);
         }
     }
-
+    
+    /**
+     * Switch between menu themes
+     */
+    public static void setMenuTheme() {
+        synchronized (getMonitor()) {
+            switch (mode) {
+                case INTRO:
+                    initIntro();
+                    break;
+                case BRIEFING:
+                    initBriefing();
+                    break;
+                case DEBRIEFING:
+                    initDebriefing();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    
     /**
      * Toggle between regular and classic scroller
      */
