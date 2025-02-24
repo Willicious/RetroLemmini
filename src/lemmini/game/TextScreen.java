@@ -103,7 +103,7 @@ public class TextScreen {
     /** synchronization monitor */
     private static final Object monitor = new Object();
     /** y position of scroll text - pixels relative to center */
-    private static final int SCROLL_Y = 160;
+    private static final int SCROLL_Y = 164;
     /** width of scroll text in pixels */
     private static final int SCROLL_WIDTH = 750;
     /** amount of extra padding in character widths */
@@ -181,43 +181,43 @@ public class TextScreen {
         	createLemminiThemeMenu();
         }
         
-        textDialog.addStringCentered("Version " + Core.REVISION, null, 4, RED);
+        textDialog.addStringCentered("Version " + Core.REVISION, null, 4, VIOLET);
     }
     
     private static void createWinLemmThemeMenu() {
     	textDialog.setBackground(MiscGfx.getImage(MiscGfx.Index.BACKGROUND_MAIN_WINLEMM), true);
     	
         List<LemmImage> cardChoose = MiscGfx.getAnimation(MiscGfx.Index.CARD_CHOOSE_LEVEL_LEMMING, 2);
-        textDialog.addButton(cardChoose.get(0), cardChoose.get(0), cardChoose.get(1), "Choose Level", -339, -40, Button.CHOOSE_LEVEL);
+        textDialog.addButton(cardChoose.get(0), cardChoose.get(0), cardChoose.get(1), "Choose Level", -339, -24, Button.CHOOSE_LEVEL);
         
         List<LemmImage> cardPlay = MiscGfx.getAnimation(MiscGfx.Index.CARD_PLAY_LEVEL_LEMMING, 2);
-        textDialog.addButton(cardPlay.get(0), cardPlay.get(0), cardPlay.get(1), "Play Level", 152, -40, Button.PLAY_LEVEL);
+        textDialog.addButton(cardPlay.get(0), cardPlay.get(0), cardPlay.get(1), "Play Level", 152, -24, Button.PLAY_LEVEL);
         
         List<LemmImage> cardOptions = MiscGfx.getAnimation(MiscGfx.Index.CARD_OPTIONS, 2);
-        textDialog.addButton(cardOptions.get(0), cardOptions.get(0), cardOptions.get(1), "Options", -137, -40, Button.OPTIONS);
+        textDialog.addButton(cardOptions.get(0), cardOptions.get(0), cardOptions.get(1), "Options", -137, -24, Button.OPTIONS);
         
         List<LemmImage> cardReplays = MiscGfx.getAnimation(MiscGfx.Index.CARD_REPLAYS, 2);
-        textDialog.addButton(cardReplays.get(0), cardReplays.get(0), cardReplays.get(1), "Players", 5, -40, Button.LOAD_REPLAY);
+        textDialog.addButton(cardReplays.get(0), cardReplays.get(0), cardReplays.get(1), "Players", 5, -24, Button.LOAD_REPLAY);
         
         List<LemmImage> cardPlayers = MiscGfx.getAnimation(MiscGfx.Index.CARD_PLAYERS, 2);
-        textDialog.addButton(cardPlayers.get(0), cardPlayers.get(0), cardPlayers.get(1), "Players", -137, 19, Button.PLAYERS);
+        textDialog.addButton(cardPlayers.get(0), cardPlayers.get(0), cardPlayers.get(1), "Players", -137, 35, Button.PLAYERS);
         
         List<LemmImage> cardCodes = MiscGfx.getAnimation(MiscGfx.Index.CARD_CODES, 2);
-        textDialog.addButton(cardCodes.get(0), cardCodes.get(0), cardCodes.get(1), "Codes", 5, 19, Button.ENTER_CODE);
+        textDialog.addButton(cardCodes.get(0), cardCodes.get(0), cardCodes.get(1), "Codes", 5, 35, Button.ENTER_CODE);
     }
     
     public static void createLemminiThemeMenu() {
     	textDialog.setBackground(MiscGfx.getImage(MiscGfx.Index.BACKGROUND_MAIN_LEMMINI), true);
     	
-        textDialog.addTextButton("Choose Level", "Choose Level", null, -15, -2, Button.CHOOSE_LEVEL, GREEN, YELLOW);
-        textDialog.addTextButton("Enter Code", "Enter Code", null, -14, 0, Button.ENTER_CODE, BLUE, YELLOW);
-        textDialog.addTextButton("Options", "Options", null, -13, 1, Button.OPTIONS, BLUE, YELLOW);
-        
-        textDialog.addTextButton("Start Playing", "Start Playing", null, 1, -2, Button.PLAY_LEVEL, GREEN, YELLOW);
-        textDialog.addTextButton("Load Replay", "Load Replay", null, 2, 0, Button.LOAD_REPLAY, BLUE, YELLOW);
-        textDialog.addTextButton("Players", "Players", null, 4, 1, Button.PLAYERS, BLUE, YELLOW);
-        
-        textDialog.addTextButton("Exit", "Exit", null, -3, 2, Button.EXIT, BLUE, YELLOW);
+        textDialog.addTextButton("Levels", "Levels", null, -15, -1, Button.CHOOSE_LEVEL, GREEN, YELLOW);
+        textDialog.addTextButton("Play", "Play", null, -3, -1, Button.PLAY_LEVEL, TURQUOISE, YELLOW);
+        textDialog.addTextButton("Options", "Options", null, 7, -1, Button.OPTIONS, GREEN, YELLOW);
+
+        textDialog.addTextButton("Enter Code", "Enter Code", null, -15, 1, Button.ENTER_CODE, BLUE, YELLOW);
+        textDialog.addTextButton("Load Replay", "Load Replay", null, 3, 1, Button.LOAD_REPLAY, BLUE, YELLOW);
+
+        textDialog.addTextButton("Players", "Players", null, -15, 2, Button.PLAYERS, BLUE, YELLOW);
+        textDialog.addTextButton("Exit", "Exit", null, 10, 2, Button.EXIT, BLUE, YELLOW);
     }
 
     /**
@@ -412,25 +412,19 @@ public class TextScreen {
      * Initialize text screen.
      */
     public static void init() {
-        synchronized (getMonitor()) {
-            rotImg = new LemmImage[ROT_ANIM_LENGTH];
-            rotImg[0] = MiscGfx.getImage(MiscGfx.Index.RETROLEMMINI_LOGO).getScaledInstance(560,  154);
-            for (int i = 1; i < rotImg.length; i++) {
-                if (i < ROT_ANIM_LENGTH - (ROT_ANIM_LENGTH / 2)) {
-                    rotImg[i] = rotImg[0].getScaledInstance(rotImg[0].getWidth(),
-                            Math.max((int) (rotImg[0].getHeight()
-                                    * (((ROT_ANIM_LENGTH - 1.0) - (i * 2.0)) / (ROT_ANIM_LENGTH - 1.0))), 1),
-                            RenderingHints.VALUE_INTERPOLATION_BILINEAR, false);
-                } else {
-                    rotImg[i] = rotImg[ROT_ANIM_LENGTH - 1 - i].transform(false, false, true);
-                }
-            }
-            rotCtr = 0;
-            scrollPixCtr = 0;
-            drawScroller();
+        rotCtr = 0;
+        drawLogo();
+        scrollPixCtr = 0;
+        drawScroller();
 
-            textDialog = new TextDialog();
-        }
+        textDialog = new TextDialog();
+    }
+    
+    private static MiscGfx.Index getLogoImageIndex() {
+    	if (GameController.getMenuThemeOption() == GameController.MenuThemeOption.WINLEMM)
+    		return MiscGfx.Index.RETROLEMMINI_LOGO_WINLEMM;
+    	else
+    		return MiscGfx.Index.RETROLEMMINI_LOGO_AMIGA;
     }
 
     /**
@@ -459,6 +453,11 @@ public class TextScreen {
      */
     private static void update_intro() {
         textDialog.clearGroup("introAnimation");
+        int logoY = -140;
+        
+        if (GameController.getMenuThemeOption() == GameController.MenuThemeOption.WINLEMM)
+        	logoY = -128;
+        
         // manage logo rotation
         if (++rotCtr > MAX_ROT_CTR) {
             // animate
@@ -472,10 +471,10 @@ public class TextScreen {
                 rotCtr = 0;
             }
             LemmImage rotImgFrame = rotImg[rotImgFrameIdx];
-            textDialog.addImage(rotImgFrame, "introAnimation", -150 - (int) (rotImgFrame.getHeight() / 2));
+            textDialog.addImage(rotImgFrame, "introAnimation", logoY - (int) (rotImgFrame.getHeight() / 2));
         } else {
             // display original image
-            textDialog.addImage(rotImg[0], "introAnimation", -150 - rotImg[0].getHeight() / 2);
+            textDialog.addImage(rotImg[0], "introAnimation", logoY - rotImg[0].getHeight() / 2);
         }
         // manage scroller
         LemmImage subimage = scrollerImg.getSubimage(scrollPixCtr, 0, SCROLL_WIDTH, scrollerImg.getHeight());
@@ -525,15 +524,37 @@ public class TextScreen {
             switch (mode) {
                 case INTRO:
                     initIntro();
+                    drawLogo();
                     break;
                 case BRIEFING:
                     initBriefing();
+                    drawLogo();
                     break;
                 case DEBRIEFING:
                     initDebriefing();
+                    drawLogo();
                     break;
                 default:
                     break;
+            }
+        }
+    }
+    
+    private static void drawLogo() {
+        synchronized (getMonitor()) {
+        	MiscGfx.Index img = getLogoImageIndex();
+        	 
+            rotImg = new LemmImage[ROT_ANIM_LENGTH];
+            rotImg[0] = MiscGfx.getImage(img).getScaledInstance(560,  185);
+            for (int i = 1; i < rotImg.length; i++) {
+                if (i < ROT_ANIM_LENGTH - (ROT_ANIM_LENGTH / 2)) {
+                    rotImg[i] = rotImg[0].getScaledInstance(rotImg[0].getWidth(),
+                            Math.max((int) (rotImg[0].getHeight()
+                                    * (((ROT_ANIM_LENGTH - 1.0) - (i * 2.0)) / (ROT_ANIM_LENGTH - 1.0))), 1),
+                            RenderingHints.VALUE_INTERPOLATION_BILINEAR, false);
+                } else {
+                    rotImg[i] = rotImg[ROT_ANIM_LENGTH - 1 - i].transform(false, false, true);
+                }
             }
         }
     }
