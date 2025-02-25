@@ -385,7 +385,8 @@ class StencilPixel {
         final int existingGadget = mask & ~(Stencil.MSK_BRICK
                                           | Stencil.MSK_STEEL_BRICK
                                           | Stencil.MSK_NO_ONE_WAY
-                                          | Stencil.MSK_NO_ONE_WAY_DRAW);
+                                          | Stencil.MSK_NO_ONE_WAY_DRAW
+                                          | Stencil.MSK_ONE_WAY);
         if (existingGadget > aMask) {
             return;
         }
