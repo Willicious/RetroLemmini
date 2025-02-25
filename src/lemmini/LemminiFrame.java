@@ -671,16 +671,12 @@ public class LemminiFrame extends JFrame {
                         break;
                     case KeyEvent.VK_F:
                     case KeyEvent.VK_ENTER: //F or ENTER toggles Fast-Forward
-                        if (lemminiPanelMain.isControlPressed())
-                            GameController.setTurbo(!GameController.isTurbo());
-                        else
-                            GameController.setTurbo(false);
-
+                        GameController.setTurbo(false);
                         GameController.setFastForward(!GameController.isFastForward());
                         GameController.pressIcon(Icons.IconType.FFWD);
                         break;
                     case KeyEvent.VK_G:
-                        GameController.setTurbo(!GameController.isTurbo());
+                        GameController.setTurbo(true);
                         GameController.setFastForward(!GameController.isFastForward());
                         GameController.pressIcon(Icons.IconType.FFWD);
                         break;
