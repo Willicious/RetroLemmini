@@ -1637,10 +1637,11 @@ public class LemminiPanel extends JPanel implements Runnable {
         String levelPackName = levelPack.getName().replaceAll("[^a-zA-Z0-9_\\-]", "_");
         String ratingName = levelPack.getRatings().get(curRating).replaceAll("[^a-zA-Z0-9_\\-]", "_");
 
-        String replayFileName = String.format("%s__%s__%02d__%s__%s.lrb",
+        String replayFileName = String.format("%s__%s__%02d__%s__%s." + Core.REPLAY_EXTENSIONS[0],
             levelPackName, ratingName, curLevelNum + 1, levelName, timestamp);
 
         Path replayPath = Core.resourcePath.resolve(Core.REPLAYS_PATH).resolve(replayFileName);
+        System.out.println("replayPath = " + replayPath);
 
         if (!GameController.saveReplay(replayPath)) {
             JOptionPane.showMessageDialog(getParent(), "Unable to auto-save replay.", "Error", JOptionPane.ERROR_MESSAGE);
