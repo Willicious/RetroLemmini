@@ -229,7 +229,7 @@ public class TextScreen {
         drawBackground();
         Level level = GameController.getLevel();
         textDialog.addImage(GameController.getMapPreview(), null, -225);
-        textDialog.addString(String.format("Level %-3d %s", GameController.getCurLevelNumber() + 1, level.getLevelName()), null, -21, -4, RED);
+        addLevelName(level);
         showLevelInfo();
         textDialog.addTextButton("Start Level", "Start Level", null, -12, 6, Button.START_LEVEL, BLUE, YELLOW);
         textDialog.addTextButton("Menu", "Menu", null, 4, 6, Button.MENU, BLUE, YELLOW);
@@ -335,6 +335,16 @@ public class TextScreen {
         	backgroundImg = MiscGfx.getImage(MiscGfx.Index.BACKGROUND_LEVEL_AMIGA);
         
         textDialog.setBackground(backgroundImg, true);
+    }
+    
+    public static void addLevelName(Level level) {
+    	int levelNumber = GameController.getCurLevelNumber() + 1;
+    	String levelText = String.format("Level %-3d", levelNumber);
+    	textDialog.addString(levelText, null, -21, -4, RED);
+    	
+    	String levelName = level.getLevelName();
+    	int levelNameX = levelName.length() <= 22 ? 0 - levelName.length() / 2 : -11;
+    	textDialog.addString(String.format("%s", levelName), null, levelNameX, -4, RED);
     }
 
     public static void showLevelInfo() {
