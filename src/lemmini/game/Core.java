@@ -1,5 +1,6 @@
 package lemmini.game;
 
+import java.awt.Desktop;
 //import java.awt.Image;
 //import java.awt.MediaTracker;
 import java.awt.image.BufferedImage;
@@ -17,6 +18,7 @@ import java.util.Locale;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
+import javax.swing.JEditorPane;
 import javax.swing.JOptionPane;
 
 import org.apache.commons.io.FilenameUtils;
@@ -25,6 +27,7 @@ import org.apache.commons.lang3.StringUtils;
 import lemmini.LemminiFrame;
 import lemmini.game.GameController.ExitSoundOption;
 import lemmini.game.GameController.MenuThemeOption;
+import lemmini.gameutil.Fader;
 import lemmini.graphics.LemmImage;
 import lemmini.gui.LegalFrame;
 import lemmini.tools.CaseInsensitiveFileTree;
@@ -477,14 +480,31 @@ public class Core {
         player.store();
     }
 
-    /**
-     * Output error message box in case of a missing resource.
-     * @param rsrc name of missing resource.
-     */
     public static void resourceError(final String rsrc) {
-        String out = String.format("The resource %s is missing.%n", rsrc);
-        JOptionPane.showMessageDialog(null, out, "Error", JOptionPane.ERROR_MESSAGE);
-        System.exit(1);
+        String message = String.format("Missing resource:<br><br>"
+        		+ "resources/%s<br><br>"             // BOOKMARK TODO: add link to missing resources topic when done
+                + "Please visit <a href='https://www.lemmingsforums.net/index.php?board=10.0'>the Lemmini board</a> on the Lemmings Forums for help.", rsrc);
+
+        JEditorPane pane = new JEditorPane("text/html", "<html><body style='font-family:sans-serif;'>" + message + "</body></html>");
+        pane.setEditable(false);
+        pane.setOpaque(false);
+        pane.addHyperlinkListener(e -> {
+            if (e.getEventType() == javax.swing.event.HyperlinkEvent.EventType.ACTIVATED) {
+                try {
+                    Desktop.getDesktop().browse(e.getURL().toURI());
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        JOptionPane.showMessageDialog(null, pane, "Error", JOptionPane.ERROR_MESSAGE);
+        returnToMainMenu();
+    }
+    
+    public static void returnToMainMenu() {
+        GameController.setTransition(GameController.TransitionState.TO_INTRO);
+        Fader.setState(Fader.State.OUT);
     }
 
     /**

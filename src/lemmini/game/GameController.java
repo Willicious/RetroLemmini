@@ -702,7 +702,7 @@ public class GameController {
         } catch (ResourceException ex) {
         	JOptionPane.showMessageDialog(null, "Unable to find music resource:\n\nresources/" + ex.getMessage()
         	                                  + "\n\nNo music will play for this level."
-        	                                  + "\n\nVisit the Lemmini board on www.lemmingsforums.net for help.",
+        	                                  + "\n\nVisit the Lemmini board on www.lemmingsforums.net for help.", // BOOKMARK TODO: add link to missing resources topic when done
         	                                  "Error Loading Music", JOptionPane.ERROR_MESSAGE);
             music = "";
         } catch (LemmException ex) {
@@ -723,6 +723,7 @@ public class GameController {
                 Music.load("music/" + music);
             } catch (ResourceException ex2) {
                 Core.resourceError(ex2.getMessage());
+                return;
             } catch (LemmException ex2) {
                 JOptionPane.showMessageDialog(null, "Unable to load music resource:\n" + ex2.getMessage() + "\n\nNo music will play for this level.", "Error Loading Music", JOptionPane.ERROR_MESSAGE);
             }
@@ -1814,6 +1815,7 @@ public class GameController {
                         restartLevel(doReplay, showBriefing);
                     } catch (ResourceException ex) {
                         Core.resourceError(ex.getMessage());
+                        return;
                     } catch (LemmException ex) {
                         JOptionPane.showMessageDialog(LemminiFrame.getFrame(), ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         System.exit(1);
@@ -1827,6 +1829,7 @@ public class GameController {
                         changeLevel(nextLevelPack, nextRating, nextLevelNumber, transitionState == TransitionState.LOAD_REPLAY);
                     } catch (ResourceException ex) {
                         Core.resourceError(ex.getMessage());
+                        return;
                     } catch (LemmException ex) {
                         JOptionPane.showMessageDialog(LemminiFrame.getFrame(), ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         System.exit(1);
@@ -1854,6 +1857,11 @@ public class GameController {
     }
 
     private static void setTitle() {
+    	if (gameState == State.INTRO) {
+    		Core.setTitle("RetroLemmini");
+    		return;
+    	}
+    	
         int numLemmings = level.getNumLemmings();
 
         String numToRescue = (isOptionEnabled(Option.NO_PERCENTAGES) || numLemmings > 100) 

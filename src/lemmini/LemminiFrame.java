@@ -192,6 +192,7 @@ public class LemminiFrame extends JFrame {
             setVisible(true);
         } catch (ResourceException ex) {
             Core.resourceError(ex.getMessage());
+            return;
         } catch (Throwable ex) {
             ToolBox.showException(ex);
             System.exit(1);
