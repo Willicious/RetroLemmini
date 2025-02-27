@@ -206,10 +206,14 @@ public class ToolBox {
      * @param ext allowed extensions
      * @return absolute file name of selected file or null
      */
-    public static Path getFileName(final Component parent, final Path path,
+    public static Path getFileName(final Component parent, final Path path, String title,
             final boolean load, final boolean allowDirectories,
             final String... ext) {
         JFileChooser jf = new JFileChooser(path.toFile());
+        
+        if (title != null) { // Set title if provided
+            jf.setDialogTitle(title);
+        }
         if (ext != null) {
             StringBuilder sb = new StringBuilder(32);
             for (int i = 0; i < ext.length; i++) {

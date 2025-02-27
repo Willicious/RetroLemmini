@@ -1651,7 +1651,8 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
 
     void handleSaveReplay() {
-        Path replayPath = ToolBox.getFileName(getParent(), Core.resourcePath, false, false, Core.REPLAY_EXTENSIONS);
+        Path replayPath = ToolBox.getFileName(getParent(), Core.resourcePath.resolve(Core.REPLAYS_PATH),
+        		"Save Replay", false, false, Core.REPLAY_EXTENSIONS);
         if (replayPath != null) {
             try {
                 String ext = FilenameUtils.getExtension(replayPath.getFileName().toString());
@@ -1685,7 +1686,8 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
 
     void handleLoadReplay() {
-        Path replayPath = ToolBox.getFileName(getParentFrame(), Core.resourcePath, true, false, Core.REPLAY_EXTENSIONS);
+        Path replayPath = ToolBox.getFileName(getParent(), Core.resourcePath.resolve(Core.REPLAYS_PATH),
+        		"Load Replay", true, false, Core.REPLAY_EXTENSIONS);
         if (replayPath != null) {
             try {
                 if (FilenameUtils.getExtension(replayPath.getFileName().toString()).equalsIgnoreCase("rpl")) {
