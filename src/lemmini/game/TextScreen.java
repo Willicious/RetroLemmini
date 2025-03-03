@@ -482,13 +482,6 @@ public class TextScreen {
 
         textDialog = new TextDialog();
     }
-    
-    private static MiscGfx.Index getLogoImageIndex() {
-    	if (GameController.getMenuThemeOption() == GameController.MenuThemeOption.AMIGA)
-    		return MiscGfx.Index.RETROLEMMINI_LOGO_AMIGA;
-    	else
-    		return MiscGfx.Index.RETROLEMMINI_LOGO_WINLEMM;
-    }
 
     /**
      * Update the text screen (for animations)
@@ -603,12 +596,22 @@ public class TextScreen {
         }
     }
     
+    private static MiscGfx.Index getLogoImageIndex() {
+    	if (GameController.getMenuThemeOption() == GameController.MenuThemeOption.AMIGA)
+    		return MiscGfx.Index.RETROLEMMINI_LOGO_AMIGA;
+    	else
+    		return MiscGfx.Index.RETROLEMMINI_LOGO_WINLEMM;
+    }
+    
     private static void drawLogo() {
         synchronized (getMonitor()) {
         	MiscGfx.Index img = getLogoImageIndex();
+        	
+        	int width = GameController.getMenuThemeOption() == GameController.MenuThemeOption.WINLEMM ? 480 : 560;
+        	int height = GameController.getMenuThemeOption() == GameController.MenuThemeOption.WINLEMM ? 140 : 185;
         	 
             rotImg = new LemmImage[ROT_ANIM_LENGTH];
-            rotImg[0] = MiscGfx.getImage(img).getScaledInstance(560,  185);
+            rotImg[0] = MiscGfx.getImage(img).getScaledInstance(width,  height);
             for (int i = 1; i < rotImg.length; i++) {
                 if (i < ROT_ANIM_LENGTH - (ROT_ANIM_LENGTH / 2)) {
                     rotImg[i] = rotImg[0].getScaledInstance(rotImg[0].getWidth(),
