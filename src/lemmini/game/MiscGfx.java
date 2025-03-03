@@ -78,6 +78,7 @@ public class MiscGfx {
         SCROLLER_LEMMING_LEFT,
         SCROLLER_LEMMING_RIGHT,
         /** menu cards */
+        MENU_LEMMING,
         CARD_PLAY_LEVEL_LEMMING,
         CARD_CHOOSE_LEVEL_LEMMING,
         CARD_CODES,
@@ -188,6 +189,10 @@ public class MiscGfx {
         images.add(img);
         
         // 2-frame card animations will later be split into frames for use as buttons
+        /* MENU_LEMMING */
+        resource = Core.findResource("gfx/menu/menu_lemming.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
+        images.add(img);
         /* CARD_PLAY_LEVEL_LEMMING */
         resource = Core.findResource("gfx/menu/card_play_level_lemming.png", Core.IMAGE_EXTENSIONS);
         img = Core.loadLemmImage(resource);
