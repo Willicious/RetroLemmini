@@ -226,7 +226,7 @@ public class TextScreen {
     }
     
     private static void addWinLemmThemeVersionNumber() {
-        String revision = " " + Core.REVISION;
+        String revision = " " + Core.REVISION + " @";
         int yPosition = 116;
         int charWidth = 26;
         int totalWidth = revision.length() * charWidth;
@@ -235,18 +235,38 @@ public class TextScreen {
         int versionImgX = -(versionImg.getWidth() / 2) - (totalWidth / 2);
         textDialog.addImage(versionImg, "versionImages", versionImgX, yPosition);
 
-        List<LemmImage> versionNum = MiscGfx.getAnimation(MiscGfx.Index.VERSION_NUMS_WINLEMM, 12);
+        List<LemmImage> versionNum = MiscGfx.getAnimation(MiscGfx.Index.VERSION_NUMS_WINLEMM, 17);
         int startX = versionImgX + versionImg.getWidth() - 2; // Start number directly to the right of "version" image
 
         for (char c : revision.toCharArray()) {
             int frameIndex;
 
-            if (c >= '0' && c <= '9') {
-                frameIndex = c - '0'; // Numbers
-            } else if (c == '.') {
-                frameIndex = 10; // Dot
-            } else {
-                frameIndex = 11; // Blank character for everything else
+            switch (c) {
+                case '0': case '1': case '2': case '3': case '4':
+                case '5': case '6': case '7': case '8': case '9':
+                    frameIndex = c - '0'; // Numbers
+                    break;
+                case '.':
+                    frameIndex = 10; // Dot
+                    break;
+                case '-':
+                    frameIndex = 11; // Dash
+                    break;
+                case 'A':
+                    frameIndex = 13; // A
+                    break;
+                case 'B':
+                    frameIndex = 14; // B
+                    break;
+                case '*':
+                    frameIndex = 15; // Star
+                    break;
+                case '@':
+                    frameIndex = 16; // Sunshine
+                    break;
+                default:
+                    frameIndex = 12; // Blank character for everything else
+                    break;
             }
 
             textDialog.addImage(versionNum.get(frameIndex), "versionImages", startX, yPosition);
