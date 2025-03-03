@@ -588,20 +588,30 @@ public class TextScreen {
             LemmImage tempScrollerImg = ToolBox.createLemmImage(
                     LemmFont.getWidth() * (LemmFont.getCharCount(SCROLL_TEXT) + SCROLL_PADDING * 2) + SCROLL_WIDTH * 2,
                     LemmFont.getHeight());
+            
+            LemmFont.LemmColor textColor = //(GameController.getMenuThemeOption() == GameController.MenuThemeOption.AMIGA)
+			            		           //? 
+			            		           YELLOW
+			            		           //: BLUE
+			            		           ;
 
 	        GraphicsContext scrollerGfx = null;
 	        try {
 	            scrollerGfx = tempScrollerImg.createGraphicsContext();
 	            scrollerGfx.setBackground(new Color(0, 0, 0, 0));
-	            LemmFont.strImage(scrollerGfx, SCROLL_TEXT, SCROLL_WIDTH + LemmFont.getWidth() * SCROLL_PADDING, 0, YELLOW);
+	            LemmFont.strImage(scrollerGfx, SCROLL_TEXT, SCROLL_WIDTH + LemmFont.getWidth() * SCROLL_PADDING, 0, textColor);
 	        } finally {
 	            if (scrollerGfx != null) {
 	                scrollerGfx.dispose();
 	            }
 	        }
 
-            LemmImage tickerTape = MiscGfx.getImage(MiscGfx.Index.TICKER_TAPE);
-
+            LemmImage tickerTape = //(GameController.getMenuThemeOption() == GameController.MenuThemeOption.AMIGA)
+            		               //? 
+            		               MiscGfx.getImage(MiscGfx.Index.TICKER_TAPE_BLUE)
+            		               //: MiscGfx.getImage(MiscGfx.Index.TICKER_TAPE_PINK)
+            		               ;
+            	
             double scaleHeight = 1;
             double scaleWidth = 1;
 

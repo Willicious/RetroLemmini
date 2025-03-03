@@ -74,7 +74,9 @@ public class MiscGfx {
         /** the red squiggle */
         ICONBAR_FILLER,
         /** the scrolling ticker-tape shown at the start of the game. */
-        TICKER_TAPE,
+        TICKER_TAPE_BLUE,
+        TICKER_TAPE_PINK,
+        TICKER_TAPE_YELLOW,
         SCROLLER_LEMMING_LEFT,
         SCROLLER_LEMMING_RIGHT,
         /** menu cards */
@@ -176,7 +178,13 @@ public class MiscGfx {
         img = Core.loadLemmImage(resource);
         images.add(img);
         /* TICKER_TAPE */
-        resource = Core.findResource("gfx/menu/ticker-tape.png", Core.IMAGE_EXTENSIONS);
+        resource = Core.findResource("gfx/menu/ticker_tape_blue.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
+        images.add(img);
+        resource = Core.findResource("gfx/menu/ticker_tape_pink.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
+        images.add(img);
+        resource = Core.findResource("gfx/menu/ticker_tape_yellow.png", Core.IMAGE_EXTENSIONS);
         img = Core.loadLemmImage(resource);
         images.add(img);
         /* SCROLLER_LEMMING_LEFT */
