@@ -188,22 +188,25 @@ public class TextScreen {
     	textDialog.setBackground(MiscGfx.getImage(MiscGfx.Index.BACKGROUND_MAIN_WINLEMM), true);
     	
         List<LemmImage> cardChoose = MiscGfx.getAnimation(MiscGfx.Index.CARD_CHOOSE_LEVEL_LEMMING, 2);
-        textDialog.addButton(cardChoose.get(0), cardChoose.get(0), cardChoose.get(1), "Choose Level", -339, -24, Button.CHOOSE_LEVEL);
+        textDialog.addButton(cardChoose.get(0), cardChoose.get(0), cardChoose.get(1), "Menu Cards", -339, -24, Button.CHOOSE_LEVEL);
         
         List<LemmImage> cardPlay = MiscGfx.getAnimation(MiscGfx.Index.CARD_PLAY_LEVEL_LEMMING, 2);
-        textDialog.addButton(cardPlay.get(0), cardPlay.get(0), cardPlay.get(1), "Play Level", 152, -24, Button.PLAY_LEVEL);
+        textDialog.addButton(cardPlay.get(0), cardPlay.get(0), cardPlay.get(1), "Menu Cards", 152, -24, Button.PLAY_LEVEL);
         
         List<LemmImage> cardOptions = MiscGfx.getAnimation(MiscGfx.Index.CARD_OPTIONS, 2);
-        textDialog.addButton(cardOptions.get(0), cardOptions.get(0), cardOptions.get(1), "Options", -137, -24, Button.OPTIONS);
+        textDialog.addButton(cardOptions.get(0), cardOptions.get(0), cardOptions.get(1), "Menu Cards", -132, -24, Button.OPTIONS);
         
         List<LemmImage> cardReplays = MiscGfx.getAnimation(MiscGfx.Index.CARD_REPLAYS, 2);
-        textDialog.addButton(cardReplays.get(0), cardReplays.get(0), cardReplays.get(1), "Players", 5, -24, Button.LOAD_REPLAY);
+        textDialog.addButton(cardReplays.get(0), cardReplays.get(0), cardReplays.get(1), "Menu Cards", 0, -24, Button.LOAD_REPLAY);
         
         List<LemmImage> cardPlayers = MiscGfx.getAnimation(MiscGfx.Index.CARD_PLAYERS, 2);
-        textDialog.addButton(cardPlayers.get(0), cardPlayers.get(0), cardPlayers.get(1), "Players", -137, 35, Button.PLAYERS);
+        textDialog.addButton(cardPlayers.get(0), cardPlayers.get(0), cardPlayers.get(1), "Menu Cards", -132, 35, Button.PLAYERS);
         
         List<LemmImage> cardCodes = MiscGfx.getAnimation(MiscGfx.Index.CARD_CODES, 2);
-        textDialog.addButton(cardCodes.get(0), cardCodes.get(0), cardCodes.get(1), "Codes", 5, 35, Button.ENTER_CODE);
+        textDialog.addButton(cardCodes.get(0), cardCodes.get(0), cardCodes.get(1), "Menu Cards", 0, 35, Button.ENTER_CODE);
+        
+    	LemmImage menuLemming = MiscGfx.getImage(MiscGfx.Index.MENU_LEMMING);
+    	textDialog.addButton(menuLemming, menuLemming, menuLemming, "Menu Cards", -70, -92, Button.NONE);
     }
     
     public static void createLemminiThemeMenu() {
