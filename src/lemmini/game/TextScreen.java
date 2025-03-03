@@ -180,8 +180,6 @@ public class TextScreen {
         } else { // BOOKMARK TODO: Add Amiga Theme
         	createLemminiThemeMenu();
         }
-        
-        textDialog.addStringCentered("Version " + Core.REVISION, null, 4, VIOLET);
     }
     
     private static void createWinLemmThemeMenu() {
@@ -207,6 +205,8 @@ public class TextScreen {
         
     	LemmImage menuLemming = MiscGfx.getImage(MiscGfx.Index.MENU_LEMMING);
     	textDialog.addButton(menuLemming, menuLemming, menuLemming, "Menu Cards", -70, -92, Button.NONE);
+    	
+    	addWinLemmThemeVersionNumber();
     }
     
     public static void createLemminiThemeMenu() {
@@ -221,6 +221,37 @@ public class TextScreen {
 
         textDialog.addTextButton("Players", "Players", null, -15, 2, Button.PLAYERS, BLUE, YELLOW);
         textDialog.addTextButton("Exit", "Exit", null, 10, 2, Button.EXIT, BLUE, YELLOW);
+        
+        textDialog.addStringCentered("Version " + Core.REVISION, null, 4, VIOLET);
+    }
+    
+    private static void addWinLemmThemeVersionNumber() {
+        String revision = " " + Core.REVISION;
+        int yPosition = 116;
+        int charWidth = 26;
+        int totalWidth = revision.length() * charWidth;
+
+        LemmImage versionImg = MiscGfx.getImage(MiscGfx.Index.VERSION_WINLEMM);
+        int versionImgX = -(versionImg.getWidth() / 2) - (totalWidth / 2);
+        textDialog.addImage(versionImg, "versionImages", versionImgX, yPosition);
+
+        List<LemmImage> versionNum = MiscGfx.getAnimation(MiscGfx.Index.VERSION_NUMS_WINLEMM, 12);
+        int startX = versionImgX + versionImg.getWidth() - 2; // Start number directly to the right of "version" image
+
+        for (char c : revision.toCharArray()) {
+            int frameIndex;
+
+            if (c >= '0' && c <= '9') {
+                frameIndex = c - '0'; // Numbers
+            } else if (c == '.') {
+                frameIndex = 10; // Dot
+            } else {
+                frameIndex = 11; // Blank character for everything else
+            }
+
+            textDialog.addImage(versionNum.get(frameIndex), "versionImages", startX, yPosition);
+            startX += charWidth; // Move to the next character
+        }
     }
 
     /**

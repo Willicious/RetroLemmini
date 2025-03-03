@@ -86,7 +86,10 @@ public class MiscGfx {
         CARD_CODES,
         CARD_OPTIONS,
         CARD_PLAYERS,
-        CARD_REPLAYS
+        CARD_REPLAYS,
+        /** version number font */
+        VERSION_WINLEMM,
+        VERSION_NUMS_WINLEMM
     }
 
 
@@ -225,6 +228,14 @@ public class MiscGfx {
         resource = Core.findResource("gfx/menu/card_replays.png", Core.IMAGE_EXTENSIONS);
         img = Core.loadLemmImage(resource);
         images.add(img);
+        /* VERSION_WINLEMM */
+        resource = Core.findResource("gfx/menu/version_retro.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
+        images.add(img);
+        resource = Core.findResource("gfx/menu/version_numbers_retro.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
+        images.add(img);
+        
 
         /*add visual sfx images */
         resource = Core.findResource("gfx/misc/vsfxbig.png", Core.IMAGE_EXTENSIONS);
