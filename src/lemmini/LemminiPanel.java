@@ -1706,6 +1706,13 @@ public class LemminiPanel extends JPanel implements Runnable {
                                 lp = lpTemp;
                             }
                         }
+                        
+                        // check external levels if no match is found
+                        if (lpn < 0) { 
+                        	lp = GameController.getLevelPack(0);
+                        	lpn = 0;
+                        }
+                        
                         if (lp != null && lpn >= 0) {
                             java.util.List<String> ratings = lp.getRatings();
                             int rnTemp = rli.getRatingNumber();
@@ -1719,6 +1726,12 @@ public class LemminiPanel extends JPanel implements Runnable {
                                     }
                                 }
                             }
+                            
+                            // check external levels if no match is found
+                            if (rn < 0) { 
+                            	rn = 0;
+                            }
+                            
                             if (rn >= 0) {
                                 java.util.List<String> levels = lp.getLevels(rn);
                                 int lnTemp = rli.getLvlNumber();
