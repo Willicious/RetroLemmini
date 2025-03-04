@@ -482,8 +482,8 @@ public class Core {
 
     public static void resourceError(final String rsrc) {
         String message = String.format("Missing resource:<br><br>"
-        		+ "resources/%s<br><br>"             // BOOKMARK TODO: add link to missing resources topic when done
-                + "Please visit <a href='https://www.lemmingsforums.net/index.php?board=10.0'>the Lemmini board</a> on the Lemmings Forums for help.", rsrc);
+        		+ "resources/%s<br><br>"
+                + "Please visit <a href='https://www.lemmingsforums.net/index.php?msg=105737'>this help topic</a> on the Lemmings Forums for help.", rsrc);
 
         JEditorPane pane = new JEditorPane("text/html", "<html><body style='font-family:sans-serif;'>" + message + "</body></html>");
         pane.setEditable(false);
@@ -500,6 +500,28 @@ public class Core {
 
         JOptionPane.showMessageDialog(null, pane, "Error", JOptionPane.ERROR_MESSAGE);
         returnToMainMenu();
+    }
+    
+    public static void musicResourceError(final String rsrc) {
+        String message = String.format("Missing music resource:<br><br>"
+        		+ "resources/music/%s<br><br>"
+        		+ "No music will play for this level.<br><br>"
+                + "Please visit <a href='https://www.lemmingsforums.net/index.php?msg=105737'>this help topic</a> on the Lemmings Forums for help.", rsrc);
+
+        JEditorPane pane = new JEditorPane("text/html", "<html><body style='font-family:sans-serif;'>" + message + "</body></html>");
+        pane.setEditable(false);
+        pane.setOpaque(false);
+        pane.addHyperlinkListener(e -> {
+            if (e.getEventType() == javax.swing.event.HyperlinkEvent.EventType.ACTIVATED) {
+                try {
+                    Desktop.getDesktop().browse(e.getURL().toURI());
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        JOptionPane.showMessageDialog(null, pane, "Error", JOptionPane.ERROR_MESSAGE);
     }
     
     public static void returnToMainMenu() {

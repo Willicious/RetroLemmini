@@ -700,10 +700,7 @@ public class GameController {
             }
             Music.load("music/" + music);
         } catch (ResourceException ex) {
-        	JOptionPane.showMessageDialog(null, "Unable to find music resource:\n\nresources/" + ex.getMessage()
-        	                                  + "\n\nNo music will play for this level."
-        	                                  + "\n\nVisit the Lemmini board on www.lemmingsforums.net for help.", // BOOKMARK TODO: add link to missing resources topic when done
-        	                                  "Error Loading Music", JOptionPane.ERROR_MESSAGE);
+        	Core.musicResourceError(music);
             music = "";
         } catch (LemmException ex) {
             if (music==null) {
