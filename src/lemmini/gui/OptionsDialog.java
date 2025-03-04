@@ -78,6 +78,8 @@ public class OptionsDialog extends JDialog {
         menuThemeGroup = new javax.swing.ButtonGroup();
         jPanelGraphics = new javax.swing.JPanel();
         jCheckBoxBilinear = new javax.swing.JCheckBox();
+        jPanelClassicMode = new javax.swing.JPanel();
+        jPanelControlScheme = new javax.swing.JPanel();
         jPanelMisc = new javax.swing.JPanel();
         jPanelReplays = new javax.swing.JPanel();
         jCheckBoxAdvanced = new javax.swing.JCheckBox();
@@ -267,7 +269,9 @@ public class OptionsDialog extends JDialog {
                 .addGroup(jPanelSoundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jRadioButtonYippee)
                         .addComponent(jRadioButtonBoing)
-                        .addComponent(jRadioButtonAuto))
+                        .addComponent(jRadioButtonAuto)
+                        )
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 )
         );
 
@@ -286,7 +290,6 @@ public class OptionsDialog extends JDialog {
                             //.addComponent(jCheckBoxFullScreen) // BOOKMARK TODO: Yet to be implemented
                             .addComponent(jCheckBoxShowMenuBar)
                             .addComponent(jCheckBoxBilinear)
-                            .addComponent(jCheckBoxClassicCursor)
                             .addComponent(jCheckBoxClassicScroller)
                             .addComponent(jCheckBoxEnhancedStatus)
                             .addComponent(jCheckBoxShowLevelName)
@@ -296,9 +299,10 @@ public class OptionsDialog extends JDialog {
                             .addGroup(jPanelGraphicsLayout.createSequentialGroup()
                                     .addComponent(jRadioButtonAmigaTheme)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jRadioButtonWinLemmTheme))
+                                    .addComponent(jRadioButtonWinLemmTheme)
+                                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             )
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        )
             );
         jPanelGraphicsLayout.setVerticalGroup(
             jPanelGraphicsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -310,8 +314,6 @@ public class OptionsDialog extends JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxBilinear)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxClassicCursor)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxClassicScroller)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxEnhancedStatus)
@@ -321,12 +323,13 @@ public class OptionsDialog extends JDialog {
                 .addComponent(jCheckBoxEnhancedIconBar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxIconLabels)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelMenuTheme)
                 .addGroup(jPanelGraphicsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jRadioButtonAmigaTheme)
-                        .addComponent(jRadioButtonWinLemmTheme))
+                        .addComponent(jRadioButtonWinLemmTheme)
+                        )
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 )
         );
 
@@ -352,20 +355,54 @@ public class OptionsDialog extends JDialog {
             .addGroup(jPanelReplaysLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jCheckBoxAutoSaveReplays)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                )
         );
 
-        jPanelMisc.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Miscellaneous", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-
+        jPanelClassicMode.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Classic Mode", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        
         jCheckBoxAdvanced.setSelected(GameController.isOptionEnabled(GameController.Option.ADVANCED_SELECT));
         jCheckBoxAdvanced.setText("Advanced Select");
         jCheckBoxAdvanced.setToolTipText("Hold directional keys to select only Lemmings going in that same direction. Hold Up to select only Walkers.");
+        
+        jCheckBoxTimedBombers.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.TIMED_BOMBERS));
+        jCheckBoxTimedBombers.setText("Enable 5 second timed bombers");
+        
+        jCheckBoxDisableFrameStepping.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.DISABLE_FRAME_STEPPING));
+        jCheckBoxDisableFrameStepping.setText("Disable Frame Stepping");
+        jCheckBoxDisableFrameStepping.setToolTipText("Disable advancing the game by single frames when paused.");
+        
+        javax.swing.GroupLayout jPanelClassicModeLayout = new javax.swing.GroupLayout(jPanelClassicMode);
+        jPanelClassicMode.setLayout(jPanelClassicModeLayout);
+        jPanelClassicModeLayout.setHorizontalGroup(
+        		jPanelClassicModeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelClassicModeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelClassicModeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBoxAdvanced)
+                    .addComponent(jCheckBoxTimedBombers)
+                    .addComponent(jCheckBoxDisableFrameStepping)
+                    )
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanelClassicModeLayout.setVerticalGroup(
+        		jPanelClassicModeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelClassicModeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jCheckBoxAdvanced)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBoxTimedBombers)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBoxDisableFrameStepping)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        
+        jPanelControlScheme.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Control Scheme", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         jCheckBoxClassicCursor.setSelected(GameController.isOptionEnabled(GameController.Option.CLASSIC_CURSOR));
         jCheckBoxClassicCursor.setText("Classic Cursor");
         jCheckBoxClassicCursor.setToolTipText("The Standard Cursor centers around the selected lemming. The Classic Cursor follows the mouse.");
-
+        
         jCheckBoxSwap.setSelected(GameController.isOptionEnabled(GameController.Option.SWAP_BUTTONS));
         jCheckBoxSwap.setText("Swap Middle/Right Mouse Buttons");
         jCheckBoxSwap.setToolTipText("When disabled: Middle button drags the viewport, Right button only selects Walkers.");
@@ -376,30 +413,62 @@ public class OptionsDialog extends JDialog {
 
         jCheckBoxPauseStopsFastForward.setSelected(GameController.isOptionEnabled(GameController.Option.PAUSE_STOPS_FAST_FORWARD));
         jCheckBoxPauseStopsFastForward.setText("Stop Fast-Forward When Pausing");
-
-        jCheckBoxNoPercentages.setSelected(!GameController.isOptionEnabled(GameController.Option.NO_PERCENTAGES));
-        jCheckBoxNoPercentages.setText("Show Percentages");
-
+        
         jCheckBoxReplayScroll.setSelected(GameController.isOptionEnabled(GameController.Option.REPLAY_SCROLL));
         jCheckBoxReplayScroll.setText("Scroll Level During Replay");
 
         jCheckBoxUnpauseOnAssignment.setSelected(GameController.isOptionEnabled(GameController.Option.UNPAUSE_ON_ASSIGNMENT));
         jCheckBoxUnpauseOnAssignment.setText("Unpause After Assigning Skill");
+        
+        jCheckBoxDisableScrollWheel.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.DISABLE_SCROLL_WHEEL));
+        jCheckBoxDisableScrollWheel.setText("Disable Scroll Wheel");
+        jCheckBoxDisableScrollWheel.setToolTipText("Prevent the scroll wheel from changing the selected skill.");
+        
+        javax.swing.GroupLayout jPanelControlSchemeLayout = new javax.swing.GroupLayout(jPanelControlScheme);
+        jPanelControlScheme.setLayout(jPanelControlSchemeLayout);
+        jPanelControlSchemeLayout.setHorizontalGroup(
+        		jPanelControlSchemeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelControlSchemeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelControlSchemeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                	.addComponent(jCheckBoxClassicCursor)
+                    .addComponent(jCheckBoxSwap)
+                    .addComponent(jCheckBoxDisableScrollWheel)
+                    .addComponent(jCheckBoxFaster)
+                    .addComponent(jCheckBoxPauseStopsFastForward)
+                    .addComponent(jCheckBoxUnpauseOnAssignment)
+                    .addComponent(jCheckBoxReplayScroll)
+                    )
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanelControlSchemeLayout.setVerticalGroup(
+        		jPanelControlSchemeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelControlSchemeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jCheckBoxClassicCursor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBoxSwap)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBoxDisableScrollWheel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBoxFaster)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBoxPauseStopsFastForward)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBoxUnpauseOnAssignment)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBoxReplayScroll)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        
+        jPanelMisc.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Miscellaneous", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        jCheckBoxTimedBombers.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.TIMED_BOMBERS));
-        jCheckBoxTimedBombers.setText("Enable 5 second timed bombers");
+        jCheckBoxNoPercentages.setSelected(!GameController.isOptionEnabled(GameController.Option.NO_PERCENTAGES));
+        jCheckBoxNoPercentages.setText("Use Percentage For Rescue Count");
 
         jCheckBoxUnlockAllLevels.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.UNLOCK_ALL_LEVELS));
         jCheckBoxUnlockAllLevels.setText("Unlock all levels");
         jCheckBoxUnlockAllLevels.setToolTipText("All access to all levels, without having to complete previous ones.");
-
-        jCheckBoxDisableScrollWheel.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.DISABLE_SCROLL_WHEEL));
-        jCheckBoxDisableScrollWheel.setText("Disable Scroll Wheel");
-        jCheckBoxDisableScrollWheel.setToolTipText("Prevent the scroll wheel from changing the selected skill.");
-
-        jCheckBoxDisableFrameStepping.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.DISABLE_FRAME_STEPPING));
-        jCheckBoxDisableFrameStepping.setText("Disable Frame Stepping");
-        jCheckBoxDisableFrameStepping.setToolTipText("Disable advancing the game by single frames when paused.");
 
         javax.swing.GroupLayout jPanelMiscLayout = new javax.swing.GroupLayout(jPanelMisc);
         jPanelMisc.setLayout(jPanelMiscLayout);
@@ -408,17 +477,8 @@ public class OptionsDialog extends JDialog {
             .addGroup(jPanelMiscLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelMiscLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBoxAdvanced)
-                    .addComponent(jCheckBoxSwap)
-                    .addComponent(jCheckBoxFaster)
                     .addComponent(jCheckBoxNoPercentages)
-                    .addComponent(jCheckBoxReplayScroll)
-                    .addComponent(jCheckBoxPauseStopsFastForward)
-                    .addComponent(jCheckBoxUnpauseOnAssignment)
-                    .addComponent(jCheckBoxTimedBombers)
                     .addComponent(jCheckBoxUnlockAllLevels)
-                    .addComponent(jCheckBoxDisableScrollWheel)
-                    .addComponent(jCheckBoxDisableFrameStepping)
                     )
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -426,28 +486,9 @@ public class OptionsDialog extends JDialog {
             jPanelMiscLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMiscLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jCheckBoxAdvanced)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxSwap)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxFaster)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxPauseStopsFastForward)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxNoPercentages)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxReplayScroll)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxUnpauseOnAssignment)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxTimedBombers)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxUnlockAllLevels)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxDisableScrollWheel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxDisableFrameStepping)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -485,7 +526,10 @@ public class OptionsDialog extends JDialog {
                             .addComponent(jPanelGraphics, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanelReplays, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanelMisc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        	.addComponent(jPanelClassicMode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        	.addComponent(jPanelControlScheme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        	.addComponent(jPanelMisc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     )
                 )
                 .addContainerGap()
@@ -502,7 +546,13 @@ public class OptionsDialog extends JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanelReplays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     )
-                    .addComponent(jPanelMisc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanelClassicMode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanelControlScheme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanelMisc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    )
                 )
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -623,6 +673,8 @@ public class OptionsDialog extends JDialog {
     private javax.swing.JRadioButton jRadioButtonWinLemmTheme;
     private javax.swing.ButtonGroup menuThemeGroup;
     private javax.swing.JPanel jPanelGraphics;
+    private javax.swing.JPanel jPanelClassicMode;
+    private javax.swing.JPanel jPanelControlScheme;
     private javax.swing.JPanel jPanelMisc;
     private javax.swing.JPanel jPanelReplays;
     private javax.swing.JPanel jPanelSound;
