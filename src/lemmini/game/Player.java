@@ -247,9 +247,11 @@ public class Player {
             lg = new LevelGroup(records);
             lvlGroups.put(id, lg);
         }
-        LevelRecord oldRecord = lg.levelRecords.get(num);
-        if (oldRecord != null && record.isCompleted()) {
-            if (oldRecord.isCompleted()) {
+        // Only store the record if the level is completed
+        if (record.isCompleted()) {
+            LevelRecord oldRecord = lg.levelRecords.get(num);
+            // If there's an old record, merge the new record keeping the best result for each value
+            if (oldRecord != null) {
                 lg.levelRecords.put(num, new LevelRecord(
                         true,
                         Math.max(oldRecord.getLemmingsSaved(), record.getLemmingsSaved()),
@@ -257,6 +259,7 @@ public class Player {
                         Math.min(oldRecord.getTimeElapsed(), record.getTimeElapsed()),
                         Math.max(oldRecord.getScore(), record.getScore())));
             } else {
+                // If no old record exists, store the new one
                 lg.levelRecords.put(num, record);
             }
         }
