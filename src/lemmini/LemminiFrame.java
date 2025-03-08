@@ -83,15 +83,10 @@ public class LemminiFrame extends JFrame {
     /** self reference */
     static LemminiFrame thisFrame;
 
-//    /** full screen version */
-//    static LemminiFrame fullscreenFrame;
-//    private static boolean isFullScreen;
-
     /**
      * Creates new form LemminiFrame
      */
-    public LemminiFrame(//LemminiFrame frame // BOOKMARK TODO: (Fullscreen attempted implementation) Passing values here might be causing issues
-            ) {
+    public LemminiFrame() {
         try {
             //found at: https://stackoverflow.com/questions/2837263/how-do-i-get-the-directory-that-the-currently-executing-jar-file-is-in
             String currentFolderStr = URLDecoder.decode(getClass().getProtectionDomain().getCodeSource().getLocation().getFile(), "UTF-8");
@@ -137,8 +132,7 @@ public class LemminiFrame extends JFrame {
         System.out.println("");
          };
 
-    void init(//LemminiFrame frame // BOOKMARK TODO: (Fullscreen attempted implementation) Passing values here might be causing issues
-            ) {
+    void init() {
         System.out.println("\ninitializing LemminiFrame...");
         try {
             // initialize the game controller and main panel
@@ -152,35 +146,27 @@ public class LemminiFrame extends JFrame {
 
             toggleMenuBarVisibility();
 
-            // load the panel size
-//            if (frame == fullscreenFrame || isFullScreen) {
-//                //setFullScreen();
-//            } else {
-                int w = Math.max(lemminiPanelMain.getWidth(), Core.programProps.getInt("frameWidth", lemminiPanelMain.getWidth()));
-                int h = Math.max(lemminiPanelMain.getHeight(), Core.programProps.getInt("frameHeight", lemminiPanelMain.getHeight()));
-                lemminiPanelMain.setSize(w, h);
-                lemminiPanelMain.setPreferredSize(lemminiPanelMain.getSize()); // needed for pack() to keep this size
-//            }
+            int w = Math.max(lemminiPanelMain.getWidth(), Core.programProps.getInt("frameWidth", lemminiPanelMain.getWidth()));
+            int h = Math.max(lemminiPanelMain.getHeight(), Core.programProps.getInt("frameHeight", lemminiPanelMain.getHeight()));
+            lemminiPanelMain.setSize(w, h);
+            lemminiPanelMain.setPreferredSize(lemminiPanelMain.getSize()); // needed for pack() to keep this size
 
             pack();
 
-//            if (frame == thisFrame && !isFullScreen) {
-                // center the window, then load the window position
-                setLocationRelativeTo(null);
-                int posX = Core.programProps.getInt("framePosX", getX());
-                int posY = Core.programProps.getInt("framePosY", getY());
-                setLocation(posX, posY);
+            setLocationRelativeTo(null);
+            int posX = Core.programProps.getInt("framePosX", getX());
+            int posY = Core.programProps.getInt("framePosY", getY());
+            setLocation(posX, posY);
 
-                // load the maximized state
-                int maximizedState = 0;
-                if (Core.programProps.getBoolean("maximizedHoriz", false)) {
-                    maximizedState |= MAXIMIZED_HORIZ;
-                }
-                if (Core.programProps.getBoolean("maximizedVert", false)) {
-                    maximizedState |= MAXIMIZED_VERT;
-                }
-                setExtendedState(getExtendedState() | maximizedState);
-//            }
+            // load the maximized state
+            int maximizedState = 0;
+            if (Core.programProps.getBoolean("maximizedHoriz", false)) {
+                maximizedState |= MAXIMIZED_HORIZ;
+            }
+            if (Core.programProps.getBoolean("maximizedVert", false)) {
+                maximizedState |= MAXIMIZED_VERT;
+            }
+            setExtendedState(getExtendedState() | maximizedState);
 
             GameController.setGameState(GameController.State.INTRO);
             GameController.setTransition(GameController.TransitionState.NONE);
@@ -189,8 +175,6 @@ public class LemminiFrame extends JFrame {
             Thread t = new Thread(lemminiPanelMain);
             t.start();
 
-//            if (fullscreenFrame != null) fullscreenFrame.setVisible(isFullScreen);
-//            if (thisFrame != null) thisFrame.setVisible(!isFullScreen);
             setVisible(true);
         } catch (ResourceException ex) {
             Core.resourceError(ex.getMessage());
@@ -201,25 +185,6 @@ public class LemminiFrame extends JFrame {
         }
         System.out.println("LemminiFrame initialization complete.");
     }
-
-//    public void setFullScreen() { // BOOKMARK TODO: This works well enough to set the window to fill the screen
-                                    // but we can't use setUndecorated (not sure why)
-                                    // and, the panel content doesn't get loaded properly (again, not sure why)
-//        System.out.println("setting full screen........................");
-//
-//        setExtendedState(MAXIMIZED_BOTH);
-//        setResizable(false);
-//
-//        Point l = getLocation();
-//
-//        // Disable window movement
-//        addComponentListener(new java.awt.event.ComponentAdapter() {
-//            @Override
-//            public void componentMoved(java.awt.event.ComponentEvent e) {
-//                setLocation(l.x - 7, l.y);
-//            }
-//        });
-//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -433,10 +398,7 @@ public class LemminiFrame extends JFrame {
                 + "</table>"
                 + "</body></html>";
 
-        LemminiFrame frame = thisFrame;
-//        if (isFullScreen) frame = fullscreenFrame; else frame = thisFrame; // BOOKMARK TODO: Not sure if this actually works
-
-        JOptionPane.showMessageDialog(frame, hotkeyList, "Hotkeys", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(thisFrame, hotkeyList, "Hotkeys", JOptionPane.PLAIN_MESSAGE);
     }
 
     void handleAbout() {
@@ -475,11 +437,8 @@ public class LemminiFrame extends JFrame {
             }
         });
 
-        LemminiFrame frame = thisFrame;
-//        if (isFullScreen) frame = fullscreenFrame; else frame = thisFrame; // BOOKMARK TODO: Not sure if this actually works
-
         JOptionPane.showConfirmDialog(
-                frame,
+                thisFrame,
                 new JScrollPane(editorPane),
                 "About",
                 JOptionPane.DEFAULT_OPTION,
@@ -1332,10 +1291,7 @@ public class LemminiFrame extends JFrame {
     }
 
     public static LemminiFrame getFrame() {
-//        if (isFullScreen)
-//            return fullscreenFrame; // BOOKMARK TODO: More stuff for attempted fullscreen mode
-//        else
-            return thisFrame;
+        return thisFrame;
     }
 
     private void saveLevelAsImage() {

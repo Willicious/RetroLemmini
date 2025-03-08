@@ -95,7 +95,7 @@ public class OptionsDialog extends JDialog {
         jCheckBoxDisableScrollWheel = new javax.swing.JCheckBox();
         jCheckBoxDisableFrameStepping = new javax.swing.JCheckBox();
         jCheckBoxVisualSfx = new javax.swing.JCheckBox();
-        jCheckBoxFullScreen = new javax.swing.JCheckBox();
+        //jCheckBoxFullScreen = new javax.swing.JCheckBox();
         jCheckBoxEnhancedStatus = new javax.swing.JCheckBox();
         jCheckBoxShowLevelName = new javax.swing.JCheckBox();
         jCheckBoxEnhancedIconBar = new javax.swing.JCheckBox();
@@ -164,8 +164,8 @@ public class OptionsDialog extends JDialog {
                 break;
         }
 
-        jCheckBoxFullScreen.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_SCREEN));
-        jCheckBoxFullScreen.setText("Full Screen");
+//        jCheckBoxFullScreen.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_SCREEN));
+//        jCheckBoxFullScreen.setText("Full Screen");
 
         jCheckBoxEnhancedStatus.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_STATUS));
         jCheckBoxEnhancedStatus.setText("Enhanced Status Bar");
@@ -600,7 +600,7 @@ public class OptionsDialog extends JDialog {
         // apply graphics settings
         Core.setBilinear(jCheckBoxBilinear.isSelected());
         GameController.setOption(GameController.Option.CLASSIC_CURSOR, jCheckBoxClassicCursor.isSelected());
-        GameController.setOption(GameController.RetroLemminiOption.FULL_SCREEN, jCheckBoxFullScreen.isSelected());
+        //GameController.setOption(GameController.RetroLemminiOption.FULL_SCREEN, jCheckBoxFullScreen.isSelected());
         GameController.setOption(GameController.SLTooOption.ENHANCED_STATUS, jCheckBoxEnhancedStatus.isSelected());
         GameController.setOption(GameController.SLTooOption.SHOW_LEVEL_NAME, jCheckBoxShowLevelName.isSelected());
         GameController.setOption(GameController.SLTooOption.ENHANCED_ICONBAR, jCheckBoxEnhancedIconBar.isSelected());
@@ -651,7 +651,7 @@ public class OptionsDialog extends JDialog {
     private javax.swing.JCheckBox jCheckBoxDisableScrollWheel;
     private javax.swing.JCheckBox jCheckBoxDisableFrameStepping;
     private javax.swing.JCheckBox jCheckBoxVisualSfx;
-    private javax.swing.JCheckBox jCheckBoxFullScreen;
+    //private javax.swing.JCheckBox jCheckBoxFullScreen;
     private javax.swing.JCheckBox jCheckBoxEnhancedStatus;
     private javax.swing.JCheckBox jCheckBoxShowLevelName;
     private javax.swing.JCheckBox jCheckBoxEnhancedIconBar;
