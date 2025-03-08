@@ -20,7 +20,6 @@ package lemmini;
 
 import java.awt.Desktop;
 import java.awt.Insets;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.io.File;

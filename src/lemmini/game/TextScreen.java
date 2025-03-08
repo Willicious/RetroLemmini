@@ -15,8 +15,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
-import lemmini.game.GameController.MenuThemeOption;
-import lemmini.game.GameController.SLTooOption;
 import lemmini.graphics.GraphicsContext;
 import lemmini.graphics.LemmImage;
 import lemmini.tools.ToolBox;
