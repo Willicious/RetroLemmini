@@ -421,10 +421,8 @@ public class LemminiPanel extends JPanel implements Runnable {
 
                     switch (button) {
 	                    case NONE:
-	                    	findBestLevelToLoad();
-	                        break;
                         case CONTINUE:
-                            continueToNextLevel();
+                        	findBestLevelToLoad();
                             break;
                         case RESTART:
                             GameController.requestRestartLevel(false, true);
@@ -439,11 +437,6 @@ public class LemminiPanel extends JPanel implements Runnable {
                             break;
                         case SAVE_REPLAY:
                             handleSaveReplay();
-                            break;
-                        case NEXT_RATING:
-                            GameController.nextRating();
-                            GameController.requestChangeLevel(GameController.getCurLevelPackIdx(), GameController.getCurRating(),
-                                    GameController.getCurLevelNumber(), false);
                             break;
                         default:
                             break;
