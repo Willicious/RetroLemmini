@@ -958,10 +958,7 @@ public class LemminiFrame extends JFrame {
                 switch (code) {
                     case KeyEvent.VK_ENTER:
                     case KeyEvent.VK_SPACE:
-                        if (GameController.wasLost())
-                            GameController.requestRestartLevel(false, true);
-                        else
-                            lemminiPanelMain.continueToNextLevel();
+                    	lemminiPanelMain.findBestLevelToLoad();
                         break;
                     case KeyEvent.VK_L:
                         if (lemminiPanelMain.isControlPressed())

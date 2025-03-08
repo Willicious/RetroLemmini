@@ -420,12 +420,9 @@ public class LemminiPanel extends JPanel implements Runnable {
                             x - Core.getDrawWidth() / 2, y - Core.getDrawHeight() / 2);
 
                     switch (button) {
-                        case NONE:
-                            if (GameController.wasLost())
-                                GameController.requestRestartLevel(false, true);
-                            else
-                                continueToNextLevel();
-                            break;
+	                    case NONE:
+	                    	findBestLevelToLoad();
+	                        break;
                         case CONTINUE:
                             continueToNextLevel();
                             break;
@@ -1606,6 +1603,25 @@ public class LemminiPanel extends JPanel implements Runnable {
         GameController.nextLevel(); // continue to next level
         GameController.requestChangeLevel(GameController.getCurLevelPackIdx(), GameController.getCurRating(),
                 GameController.getCurLevelNumber(), false);
+    }
+    
+    public void findBestLevelToLoad() {
+        if (GameController.wasLost()) {
+            GameController.requestRestartLevel(false, true);
+        } else {
+            // Check if there is a next level in the current rating
+            if (!GameController.nextLevel()) {
+                // Check if there is a next rating in the current pack
+                if (!GameController.nextRating()) {
+                    // No more levels or ratings, load the default level
+                    loadDefaultLevel();; 
+                    return;
+                }
+            }
+            // Otherwise, proceed to the next level as determined by the "nextLevel" and "nextRating" checks
+            GameController.requestChangeLevel(GameController.getCurLevelPackIdx(), GameController.getCurRating(),
+                    GameController.getCurLevelNumber(), false);
+        }
     }
 
     void exitToMenu() {

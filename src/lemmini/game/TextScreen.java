@@ -363,8 +363,10 @@ public class TextScreen {
                 textDialog.addTextButton("Continue", "Continue", null, -11, 5, Button.CONTINUE, BLUE, YELLOW);
             } else if (!(lpn == 0 && r == 0)) {
                 List<String> ratings = lp.getRatings();
+                // BOOKMARK TODO: This shouldn't be shown if *only* the last level of the rating is completed
                 textDialog.addStringCentered("Congratulations!", null, 2, YELLOW);
                 textDialog.addStringCentered(String.format("You finished all the %s levels!", ratings.get(GameController.getCurRating())), null, 3, GREEN);
+                // BOOKMARK TODO: We probably don't need a NEXT_RATING button; instead, the CONTINUE button should call findBestLevelToLoad()
                 if (lpn != 0 && lp.getLevelCount(r) <= ln + 1 && ratings.size() > r + 1) {
                     textDialog.addTextButton("Continue", "Continue", null, -11, 5, Button.NEXT_RATING, BLUE, YELLOW);
                 }
