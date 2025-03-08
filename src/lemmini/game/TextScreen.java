@@ -356,14 +356,16 @@ public class TextScreen {
                 int absLevel = GameController.absLevelNum(lpn, r, ln + 1);
                 String code = LevelCode.create(lp.getCodeSeed(), absLevel, rescuedPercent,
                         GameController.getTimesFailed(), 0, lp.getCodeOffset());
-                if (code != null) {
-                    textDialog.addStringCentered(String.format("Your access code for level %d%nis %s", ln + 2, code), null, 2, YELLOW);
+                if (!(lpn == 0 && r == 0)) {
+	                List<String> ratings = lp.getRatings();
+	                // Only show the "Congratulations!" message if ALL levels in this rating are completed
+	                if (allLevelsCompleted(lp, r)) {
+	                    textDialog.addStringCentered("Congratulations!", null, 2, YELLOW);
+	                    textDialog.addStringCentered(String.format("You finished all the %s levels!", ratings.get(GameController.getCurRating())), null, 3, GREEN);
+	                } else if (code != null) {
+	                    textDialog.addStringCentered(String.format("Your access code for level %d%nis %s", ln + 2, code), null, 2, YELLOW);
+	                }
                 }
-            } else if (!(lpn == 0 && r == 0)) {
-                List<String> ratings = lp.getRatings();
-                // BOOKMARK TODO: This shouldn't be shown if *only* the last level of the rating is completed
-                textDialog.addStringCentered("Congratulations!", null, 2, YELLOW);
-                textDialog.addStringCentered(String.format("You finished all the %s levels!", ratings.get(GameController.getCurRating())), null, 3, GREEN);
             }
             if ((r < lp.getRatings().size() - 1) || (lp.getLevelCount(r) > ln + 1)) {
             	textDialog.addTextButton("Continue", "Continue", null, -11, 5, Button.CONTINUE, BLUE, YELLOW);
@@ -377,6 +379,15 @@ public class TextScreen {
         
         // store the last level played
         Core.programProps.set("lastLevelPlayed", GameController.getLastLevelPlayedString());
+    }
+    
+    public static boolean allLevelsCompleted(LevelPack pack, int rating) {
+        for (int l = 0; l < pack.getLevelCount(rating); l++) {
+            if (!Core.player.getLevelRecord(pack.getName(), pack.getRatings().get(rating), l).isCompleted()) {
+                return false; // Found an incomplete level
+            }
+        }
+        return true; // All levels are completed
     }
     
     private static void drawBackground() {
