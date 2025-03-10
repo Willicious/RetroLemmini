@@ -242,8 +242,9 @@ public class GameController {
     private static boolean nuke;
     /** flag: game is paused */
     private static boolean paused;
-    /** flag: debug mode was activated during play */
-    private static boolean debugWasActivated = false;
+    /** flag: debug or max exit physics mode was activated during play */
+    private static boolean cheatWasActivated = false;
+    /** flag: force physics update */
     private static boolean forceAdvanceFrame = false;
     /** frame counter for handling opening of entrances */
     private static int entranceOpenCtr;
@@ -448,7 +449,7 @@ public class GameController {
         replayMode = false;
         stopReplayMode = false;
 
-        debugWasActivated = Core.player.isDebugMode();
+        cheatWasActivated = Core.player.isDebugMode() || Core.player.isMaximumExitPhysics();
 
         System.out.println("GameController initialization complete.");
     }
@@ -537,7 +538,7 @@ public class GameController {
      * Fade out at end of level.
      */
     public static synchronized void endLevel() {
-        if (!replayMode && !debugWasActivated) {
+        if (!replayMode && !cheatWasActivated) {
             replay.addEndEvent(replayFrame);
         }
         transitionState = TransitionState.END_LEVEL;
@@ -737,7 +738,7 @@ public class GameController {
             transitionState = TransitionState.TO_LEVEL;
         }
 
-        debugWasActivated = Core.player.isDebugMode();
+        cheatWasActivated = Core.player.isDebugMode() || Core.player.isMaximumExitPhysics();
     }
 
     /**
@@ -1097,7 +1098,7 @@ public class GameController {
         }
 
         if (!replayMode) {
-            if (!debugWasActivated) {
+            if (!cheatWasActivated) {
                 // replay: release rate changed?
                 if (releaseRate != releaseRateOld) {
                     replay.addReleaseRateEvent(replayFrame, releaseRate);
@@ -1556,7 +1557,7 @@ public class GameController {
                 pressIcon(Icons.IconType.PAUSE);
             }
             // add to replay stream
-            if (!debugWasActivated) {
+            if (!cheatWasActivated) {
                 int idx = lemmings.indexOf(lemm);
                 if (idx != StringUtils.INDEX_NOT_FOUND) {
                     // if 2nd try (delete == true) assign to next frame
@@ -2324,11 +2325,11 @@ public class GameController {
      * @param c true: debug mode was activated at any time during gameplay, false otherwise
      */
     public static void setWasCheated(final boolean c) {
-        debugWasActivated = c;
+    	cheatWasActivated = c;
     }
 
     public static boolean getWasCheated() {
-        return debugWasActivated;
+        return cheatWasActivated;
     }
 
     /**
@@ -2730,7 +2731,7 @@ public static MenuThemeOption getMenuThemeOption() {
     }
 
     public static LevelRecord getLevelRecord() {
-        if (!wasLost() && !debugWasActivated) {
+        if (!wasLost() && !cheatWasActivated) {
             return new LevelRecord(true, numExited, numSkillsUsed,
                     timed ? (timeLimit - timeElapsedTillLastExited) : time, getScore());
         } else {
