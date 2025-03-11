@@ -851,13 +851,20 @@ public class Lemming {
                 break;
             case FRIER:
                 {
+                	// special case: bubble water is a fire object that makes lems instantly explode (without leaving a crater)
+                	if (GameController.getLevel().getStyleName().equals("bubble")) {
+                		playVisualSFX(Sound.Effect.EXPLODE);
+                		addExplosion();
+                		hasDied = true;
+                		break;
+                	}
+                	
                     if (explode) {
                         newType = getExploderType();
                         break;
                     }
-                    int idx = frameIdx + 1;
-                    break;
                 }
+                break;
             case EXPLODER:
                 counter++;
                 if (counter == 1 * TIME_SCALE) {
