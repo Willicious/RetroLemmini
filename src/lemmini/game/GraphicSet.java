@@ -268,6 +268,7 @@ public class GraphicSet {
             maskOffsetX = props.getInt("maskOffsetX_" + index, 0);
             maskOffsetY = props.getInt("maskOffsetY_" + index, 0);
             // get sound - this parses the sound from the style .ini file on a per-object basis
+            // if there are 2 numbers, the second is what frame the sound should be triggered on
             int[] soundTemp = props.getIntArray("sound_" + index, ArrayUtils.EMPTY_INT_ARRAY);
             if (soundTemp.length >= 2 && numFrames > 0) {
                 sound = new int[numFrames];

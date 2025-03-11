@@ -350,6 +350,9 @@ public class Core {
         programProps.set("menuTheme", GameController.getMenuThemeOption().name());
     }
     
+    /***
+     * Makes sure default styles are up to date
+     */
     public static void validateDefaultStyles() {
         List<String> outdatedStyles = new ArrayList<>();
         for (String style : OG_STYLES) {

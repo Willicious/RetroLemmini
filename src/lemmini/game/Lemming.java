@@ -856,9 +856,6 @@ public class Lemming {
                         break;
                     }
                     int idx = frameIdx + 1;
-                    if (idx == 3 * TIME_SCALE) {
-                        playVisualSFX(Sound.Effect.DIE);
-                    }
                     break;
                 }
             case EXPLODER:
@@ -882,7 +879,7 @@ public class Lemming {
                 }
                 break;
             default:
-                // all cases not explicitly checked above should at least explode (inlucdes HOMER)
+                // all cases not explicitly checked above should at least explode (includes HOMER)
                 if (explode) {
                     newType = getExploderType();
                     break;
