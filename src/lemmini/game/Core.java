@@ -4,6 +4,9 @@ import java.awt.Desktop;
 //import java.awt.Image;
 //import java.awt.MediaTracker;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
@@ -63,6 +66,7 @@ public class Core {
 
     public static final String REVISION = "2.1";
     public static final String REV_DATE = "Jan 2025";
+    public static final String STYLES_REVISION = "2.0";
 
     /** extensions accepted for level files in file dialog */
     public static final String[] LEVEL_EXTENSIONS = {"ini", "lvl", "dat"};
@@ -271,6 +275,9 @@ public class Core {
 
         System.out.println("    loading player settings...");
         loadPlayerSettings();
+        
+        System.out.println("    validating default styles...");
+        validateDefaultStyles();
 
         System.out.println("Core initialization complete.");
         return true;
@@ -341,6 +348,49 @@ public class Core {
         programProps.set("exitSound", GameController.getExitSoundOption().name());
         // Menu theme
         programProps.set("menuTheme", GameController.getMenuThemeOption().name());
+    }
+    
+    public static void validateDefaultStyles() {
+        List<String> outdatedStyles = new ArrayList<>();
+        for (String style : OG_STYLES) {
+            File iniFile = new File(resourcePath + "/styles/" + style + "/" + style + ".ini");
+            if (!iniFile.exists()) {
+                outdatedStyles.add(style + " (missing .ini file)");
+                continue;
+            }
+            String version = null;
+            boolean foundRevision = false;
+            try (BufferedReader reader = new BufferedReader(new FileReader(iniFile))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    if (line.startsWith("revision = ")) {
+                        version = line.split("=")[1].trim();
+                        foundRevision = true;
+                        break;
+                    }
+                }
+            } catch (IOException e) {
+                System.err.println("Error reading file: " + iniFile.getAbsolutePath());
+                outdatedStyles.add(style + " (error reading file)");
+                continue;
+            }
+            if (version == null || !foundRevision || !version.equals(STYLES_REVISION)) {
+                outdatedStyles.add(style);
+            }
+        }
+        if (!outdatedStyles.isEmpty()) {
+            StringBuilder message = new StringBuilder("Warning: The following styles are out of date:\n\n");
+            for (String outdatedStyle : outdatedStyles) {
+                message.append(" • ").append(outdatedStyle).append("\n");
+            }
+            message.append("\nRetroLemmini will run, but there may be some compatibility issues with these styles.\n\n"
+                         + "To get the latest version of these styles, please download RetroLemmini " + REVISION + "\n"
+            		     + "and replace each outdated style with the updated version.\n");
+            JOptionPane.showMessageDialog(null, message.toString(), "Outdated Styles", JOptionPane.WARNING_MESSAGE);
+            System.out.println("Validation complete. The following styles are out of date: " + outdatedStyles);
+        } else {
+            System.out.println("Validation complete. All styles are up to date.");
+        }
     }
 
     public static String appendBeforeExtension(String fname, String suffix) {
