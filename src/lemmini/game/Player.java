@@ -95,7 +95,7 @@ public class Player {
                 Map<Integer, LevelRecord> levelRecords = new LinkedHashMap<>();
 
 
-                System.out.print("     building level stats map...");
+                System.out.print("    building level stats map...");
 
                 if (GameController.isOptionEnabled(GameController.SLTooOption.DEBUG_VERBOSE_PLAYER_LOAD))
                     System.out.println();

@@ -391,9 +391,10 @@ public class Core {
                          + "To get the latest version of these styles, please download RetroLemmini " + REVISION + "\n"
             		     + "and replace each outdated style with the updated version.\n");
             JOptionPane.showMessageDialog(null, message.toString(), "Outdated Styles", JOptionPane.WARNING_MESSAGE);
-            System.out.println("Validation complete. The following styles are out of date: " + outdatedStyles);
+            System.out.println("    validation complete. The following styles are out of date:\n"
+                              +"     " + outdatedStyles);
         } else {
-            System.out.println("Validation complete. All styles are up to date.");
+            System.out.println("    validation complete. All styles are up to date.");
         }
     }
 
