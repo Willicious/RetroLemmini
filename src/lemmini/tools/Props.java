@@ -462,20 +462,6 @@ public class Props {
 
     /**
      * Load property file
-     * @param fname Name of property file
-     * @return True if OK, false if exception occurred
-     */
-    public boolean load(final String fname) {
-        try (Reader r = ToolBox.getBufferedReader(Core.resourceTree.getPath(fname))) {
-            hash.load(r);
-            return true;
-        } catch (IOException | NullPointerException e) {
-            return false;
-        }
-    }
-
-    /**
-     * Load property file
      * @param file URL of property file
      * @return True if OK, false if exception occurred
      */

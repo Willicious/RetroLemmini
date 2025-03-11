@@ -95,7 +95,7 @@ public class Core {
 
     public static final Path[] EMPTY_PATH_ARRAY = {};
 
-    /** name of the INI file */
+    /** name program properties file */
     private static final String PROGRAM_PROPS_FILE_NAME = "retrolemmini_settings.ini";
     /** name of player properties file */
     private static final String PLAYER_PROPS_FILE_NAME = "players.ini";
@@ -107,18 +107,22 @@ public class Core {
 
     /** program properties */
     public static Props programProps;
+    /** path of program properties file */
+    private static Path programPropsFilePath;
+    /** path of player properties file */
+    private static Path playerPropsFilePath;
+    /** path of settings */
+    public static Path settingsPath;
     /** path of resources */
     public static Path resourcePath;
     /** path of currently run RetroLemmini instance */
     public static Path gamePath;
-    /** list of all the game resources in an lzp file. */
+    /** settings directory */
+    public static CaseInsensitiveFileTree settingsTree;
+    /** resource directory */
     public static CaseInsensitiveFileTree resourceTree;
-    public static CaseInsensitiveFileTree gameDataTree;
     /** current player */
     public static Player player;
-
-    /** name of program properties file */
-    private static Path programPropsFilePath;
     /** player properties */
     private static Props playerProps;
     /** list of all players */
@@ -149,23 +153,20 @@ public class Core {
 
         System.out.println("    gamePath detected as: "+ gamePath.toString());
 
-        // Data directory
-        gameDataTree = new CaseInsensitiveFileTree(gamePath);
-
         // Settings directory
-        System.out.println("    creating settings folder: " + Paths.get(gameDataTree.getRoot().toString(), "settings/").toString());
-        try {
-            gameDataTree.createDirectories("settings/");
-        } catch (IOException e) {
-            System.err.println("Failed to create settings directory: " + e.getMessage());
-            e.printStackTrace();
+        if (gamePath.toString().endsWith(".jar")) {
+            settingsPath = Paths.get(gamePath.getParent().toString(), "settings");
+        } else {
+        	settingsPath = Paths.get(gamePath.toString(), "settings");
         }
-        if (gamePath.toString().endsWith(".jar"))
-            programPropsFilePath = Paths.get(gamePath.getParent().toString(), "settings");
-        else
-            programPropsFilePath = Paths.get(gamePath.toString(), "settings");
-        programPropsFilePath = programPropsFilePath.resolve(PROGRAM_PROPS_FILE_NAME);
+        System.out.println("      settingsPath: " + settingsPath.toString());
+        settingsTree = new CaseInsensitiveFileTree(settingsPath);
+        System.out.println("    creating players folder: " + Paths.get(settingsTree.getRoot().toString(), "players/").toString());
+        settingsTree.createDirectories("players/");
+        programPropsFilePath = settingsPath.resolve(PROGRAM_PROPS_FILE_NAME);
+        playerPropsFilePath = settingsPath.resolve(PLAYER_PROPS_FILE_NAME);
         System.out.println("    game config: " + programPropsFilePath.toString());
+        System.out.println("    player data: " + playerPropsFilePath.toString());
 
         // read main ini file
         programProps = new Props();
@@ -289,7 +290,7 @@ public class Core {
     private static void loadPlayerSettings() {
         // read player names
         playerProps = new Props();
-        playerProps.load(PLAYER_PROPS_FILE_NAME);
+        playerProps.load(playerPropsFilePath);
         String defaultPlayer = playerProps.get("defaultPlayer", "default");
         players = new ArrayList<>(16);
         for (int idx = 0; true; idx++) {
@@ -529,7 +530,7 @@ public class Core {
     public static void saveProgramProps() {
         programProps.save(programPropsFilePath);
         playerProps.set("defaultPlayer", player.getName());
-        playerProps.save(PLAYER_PROPS_FILE_NAME);
+        playerProps.save(playerPropsFilePath);
         player.store();
     }
 

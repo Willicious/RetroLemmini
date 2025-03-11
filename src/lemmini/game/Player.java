@@ -61,11 +61,6 @@ public class Player {
         lvlGroups = new LinkedHashMap<>();
         // read main ini file
         props = new Props();
-        // create players directory if it doesn't exist
-        try {
-            Core.resourceTree.createDirectories("players/");
-        } catch (IOException ex) {
-        }
         Path iniFilePath = getPlayerINIFilePath(name);
         System.out.println("    loading player level stats: " + iniFilePath);
 
@@ -300,9 +295,9 @@ public class Player {
     }
 
     public static Path getPlayerINIFilePath(final String name) {
-        Path retFile = Core.resourceTree.getPath("players/" + addEscapes(name) + ".ini");
+        Path retFile = Core.settingsTree.getPath("players/" + addEscapes(name) + ".ini");
         if (Files.notExists(retFile)) {
-            for (Path file : Core.resourceTree.getAllPathsRegex("players/[^/]+\\.ini")) {
+            for (Path file : Core.settingsTree.getAllPathsRegex("players/[^/]+\\.ini")) {
                 String fileName = FilenameUtils.removeExtension(file.getFileName().toString());
                 String convertedFileName = Player.convertEscapes(fileName);
                 if (convertedFileName.equals(name)) {
