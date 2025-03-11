@@ -595,7 +595,9 @@ public class GameController {
      * Initialize a level after it was loaded.
      */
     private static synchronized void initLevel(boolean showBriefing) throws LemmException, ResourceException {
-        Music.stop();
+        if (showBriefing) {
+        	Music.stop();
+        }
 
         setFastForward(false);
         setVerticalLock(false);
@@ -692,44 +694,45 @@ public class GameController {
         lemmSkillOld = lemmSkill;
         nukeOld = false;
 
-        String music = level.getMusic();
-        try {
-            if (music == null) {
-                music = levelPacks.get(curLevelPack).getInfo(curRating, curLevelNumber).getMusic();
-            }
-            if (music == null) {
-                music = Music.getRandomTrack(level.getStyleName(), level.getSpecialStyleName());
-            }
-            Music.load("music/" + music);
-        } catch (ResourceException ex) {
-        	Core.musicResourceError(music);
-            music = "";
-        } catch (LemmException ex) {
-            if (music==null) {
-                music="";
-            }
-            //get the "real" file, from the requested resource:
-            Resource resource = Core.findResource("music/" + music, Core.MUSIC_EXTENSIONS);
-            String ext = FilenameUtils.getExtension(resource.getFileName()).toLowerCase(Locale.ROOT);
-            //only show the error if it's not an .ogg file
-            // .ogg files not playing properly is the result of missing dependencies.
-            if(!ext.equals("ogg")) {
-                JOptionPane.showMessageDialog(null, "Unable to load music resource:\n" + ex.getMessage() + "\n\nAttempting midi fallback.", "Error Loading Music", JOptionPane.ERROR_MESSAGE);
-            }
-
-            try {
-                music = Music.getRandomTrack(level.getStyleName(), level.getSpecialStyleName());
-                Music.load("music/" + music);
-            } catch (ResourceException ex2) {
-                Core.resourceError(ex2.getMessage());
-                return;
-            } catch (LemmException ex2) {
-                JOptionPane.showMessageDialog(null, "Unable to load music resource:\n" + ex2.getMessage() + "\n\nNo music will play for this level.", "Error Loading Music", JOptionPane.ERROR_MESSAGE);
-            }
+        if (showBriefing) {
+	        String music = level.getMusic();
+	        try {
+	            if (music == null) {
+	                music = levelPacks.get(curLevelPack).getInfo(curRating, curLevelNumber).getMusic();
+	            }
+	            if (music == null) {
+	                music = Music.getRandomTrack(level.getStyleName(), level.getSpecialStyleName());
+	            }
+	            Music.load("music/" + music);
+	        } catch (ResourceException ex) {
+	        	Core.musicResourceError(music);
+	            music = "";
+	        } catch (LemmException ex) {
+	            if (music==null) {
+	                music="";
+	            }
+	            //get the "real" file, from the requested resource:
+	            Resource resource = Core.findResource("music/" + music, Core.MUSIC_EXTENSIONS);
+	            String ext = FilenameUtils.getExtension(resource.getFileName()).toLowerCase(Locale.ROOT);
+	            //only show the error if it's not an .ogg file
+	            // .ogg files not playing properly is the result of missing dependencies.
+	            if(!ext.equals("ogg")) {
+	                JOptionPane.showMessageDialog(null, "Unable to load music resource:\n" + ex.getMessage() + "\n\nAttempting midi fallback.", "Error Loading Music", JOptionPane.ERROR_MESSAGE);
+	            }
+	
+	            try {
+	                music = Music.getRandomTrack(level.getStyleName(), level.getSpecialStyleName());
+	                Music.load("music/" + music);
+	            } catch (ResourceException ex2) {
+	                Core.resourceError(ex2.getMessage());
+	                return;
+	            } catch (LemmException ex2) {
+	                JOptionPane.showMessageDialog(null, "Unable to load music resource:\n" + ex2.getMessage() + "\n\nNo music will play for this level.", "Error Loading Music", JOptionPane.ERROR_MESSAGE);
+	            }
+	        }
+	        Music.setGain(musicGain);
         }
-
         sound.setGain(soundGain);
-        Music.setGain(musicGain);
 
         if (showBriefing) {
             gameState = State.BRIEFING;
@@ -1778,6 +1781,10 @@ public class GameController {
      * Fade in/out.
      */
     public static void fade() {
+        boolean doReplay = transitionState == TransitionState.REPLAY_LEVEL
+                || transitionState == TransitionState.REPLAY_LEVEL_NO_BRIEFING;
+        boolean showBriefing = transitionState != TransitionState.REPLAY_LEVEL_NO_BRIEFING;
+    	
         if (Fader.getState() == Fader.State.BLACK && transitionState != TransitionState.NONE) {
             switch (transitionState) {
                 case END_LEVEL:
@@ -1808,9 +1815,6 @@ public class GameController {
                 case RESTART_LEVEL:
                 case REPLAY_LEVEL:
                     try {
-                        boolean doReplay = transitionState == TransitionState.REPLAY_LEVEL
-                                || transitionState == TransitionState.REPLAY_LEVEL_NO_BRIEFING;
-                        boolean showBriefing = transitionState != TransitionState.REPLAY_LEVEL_NO_BRIEFING;
                         restartLevel(doReplay, showBriefing);
                     } catch (ResourceException ex) {
                         Core.resourceError(ex.getMessage());
@@ -1851,7 +1855,7 @@ public class GameController {
         }
         if (gameState == State.LEVEL_END
                 || (gameState == State.LEVEL && transitionState != TransitionState.NONE)) {
-            fadeSound();
+            fadeSound(showBriefing);
         }
     }
 
@@ -2593,11 +2597,11 @@ public class GameController {
         }
     }
 
-    private static void fadeSound() {
+    private static void fadeSound(boolean shouldFadeMusic) {
         if (sound != null) {
             sound.setGain(sound.getGain() - Fader.getStep() / 255.0 * soundGain * 1.5);
         }
-        if (Music.getType() != null) {
+        if (Music.getType() != null && shouldFadeMusic) {
             Music.setGain(Music.getGain() - Fader.getStep() / 255.0 * musicGain * 1.5);
         }
     }
