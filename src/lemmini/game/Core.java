@@ -229,6 +229,7 @@ public class Core {
         // Settings added in RetroLemmini
         GameController.setOption(GameController.RetroLemminiOption.AUTOSAVE_REPLAYS, programProps.getBoolean("autoSaveReplays", false));
         GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, programProps.getBoolean("showMenuBar", true));
+        GameController.setOption(GameController.RetroLemminiOption.FULL_COLOR_MINIMAP, programProps.getBoolean("fullColorMinimap", true));
         //GameController.setOption(GameController.RetroLemminiOption.FULL_SCREEN, programProps.getBoolean("fullScreen", false));
         // Exit sound settings
         GameController.setExitSoundOption(ExitSoundOption.valueOf(programProps.get("exitSound", "AUTO")));
@@ -341,6 +342,7 @@ public class Core {
         // Settings added in RetroLemmini
         programProps.setBoolean("autoSaveReplays", GameController.isOptionEnabled(GameController.RetroLemminiOption.AUTOSAVE_REPLAYS));
         programProps.setBoolean("showMenuBar", GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
+        programProps.setBoolean("fullColorMinimap", GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_COLOR_MINIMAP));
         //programProps.setBoolean("fullScreen", GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_SCREEN));
         // Exit sound
         programProps.set("exitSound", GameController.getExitSoundOption().name());

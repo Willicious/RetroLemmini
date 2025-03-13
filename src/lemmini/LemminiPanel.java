@@ -1544,7 +1544,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
 
     void startLevel() {
-        Minimap.init(1.0 / 16.0, 1.0 / 8.0, true);
+        Minimap.init(1.0 / 16.0, 1.0 / 8.0, !GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_COLOR_MINIMAP));
         GameController.setTransition(GameController.TransitionState.TO_LEVEL);
         Fader.setState(Fader.State.OUT);
         GameController.resetGain();
@@ -1833,6 +1833,7 @@ public class LemminiPanel extends JPanel implements Runnable {
 
     void handleOptions() {
         // Store current settings
+    	boolean oldMinimapOption = GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_COLOR_MINIMAP);
         boolean oldMenuBarVisOption = GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR);
         boolean oldScrollerOption = GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_SCROLLER);
         GameController.MenuThemeOption oldMenuThemeOption = GameController.getMenuThemeOption();
@@ -1842,6 +1843,11 @@ public class LemminiPanel extends JPanel implements Runnable {
         d.setVisible(true);
 
         // Update UI if options have changed
+        if (oldMinimapOption != GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_COLOR_MINIMAP)) {
+        	if (GameController.getGameState() == GameController.State.LEVEL) {
+        		Minimap.init(1.0 / 16.0, 1.0 / 8.0, oldMinimapOption);
+        	}
+        }
         if (oldMenuBarVisOption != GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR)) {
             getParentFrame().toggleMenuBarVisibility();
         }
@@ -1851,6 +1857,8 @@ public class LemminiPanel extends JPanel implements Runnable {
         if (oldMenuThemeOption != GameController.getMenuThemeOption()) {
             TextScreen.setMenuTheme();
         }
+        
+        d.dispose();
     }
 
     @Override

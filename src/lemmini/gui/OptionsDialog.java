@@ -100,6 +100,7 @@ public class OptionsDialog extends JDialog {
         jCheckBoxShowLevelName = new javax.swing.JCheckBox();
         jCheckBoxEnhancedIconBar = new javax.swing.JCheckBox();
         jCheckBoxIconLabels = new javax.swing.JCheckBox();
+        jCheckBoxFullColorMinimap = new javax.swing.JCheckBox();
         jCheckBoxClassicScroller = new javax.swing.JCheckBox();
         jCheckBoxShowMenuBar = new javax.swing.JCheckBox();
         jCheckBoxAutoSaveReplays = new javax.swing.JCheckBox();
@@ -187,6 +188,9 @@ public class OptionsDialog extends JDialog {
 
         jCheckBoxIconLabels.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.ICON_LABELS));
         jCheckBoxIconLabels.setText("Show Labels on the Icon Bar");
+        
+        jCheckBoxFullColorMinimap.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_COLOR_MINIMAP));
+        jCheckBoxFullColorMinimap.setText("Full Color Minimap");
 
         jCheckBoxClassicScroller.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_SCROLLER));
         jCheckBoxClassicScroller.setText("Classic Scroller");
@@ -295,6 +299,7 @@ public class OptionsDialog extends JDialog {
                             .addComponent(jCheckBoxShowLevelName)
                             .addComponent(jCheckBoxEnhancedIconBar)
                             .addComponent(jCheckBoxIconLabels)
+                            .addComponent(jCheckBoxFullColorMinimap)
                             .addComponent(jLabelMenuTheme)
                             .addGroup(jPanelGraphicsLayout.createSequentialGroup()
                                     .addComponent(jRadioButtonAmigaTheme)
@@ -323,6 +328,8 @@ public class OptionsDialog extends JDialog {
                 .addComponent(jCheckBoxEnhancedIconBar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxIconLabels)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCheckBoxFullColorMinimap)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelMenuTheme)
                 .addGroup(jPanelGraphicsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -605,6 +612,7 @@ public class OptionsDialog extends JDialog {
         GameController.setOption(GameController.SLTooOption.SHOW_LEVEL_NAME, jCheckBoxShowLevelName.isSelected());
         GameController.setOption(GameController.SLTooOption.ENHANCED_ICONBAR, jCheckBoxEnhancedIconBar.isSelected());
         GameController.setOption(GameController.SLTooOption.ICON_LABELS, jCheckBoxIconLabels.isSelected());
+        GameController.setOption(GameController.RetroLemminiOption.FULL_COLOR_MINIMAP, jCheckBoxFullColorMinimap.isSelected());
         GameController.setOption(GameController.SLTooOption.CLASSIC_SCROLLER, jCheckBoxClassicScroller.isSelected());
         // apply menu theme setting
         GameController.setMenuThemeOption(
@@ -656,6 +664,7 @@ public class OptionsDialog extends JDialog {
     private javax.swing.JCheckBox jCheckBoxShowLevelName;
     private javax.swing.JCheckBox jCheckBoxEnhancedIconBar;
     private javax.swing.JCheckBox jCheckBoxIconLabels;
+    private javax.swing.JCheckBox jCheckBoxFullColorMinimap;
     private javax.swing.JCheckBox jCheckBoxClassicScroller;
     private javax.swing.JCheckBox jCheckBoxShowMenuBar;
     private javax.swing.JCheckBox jCheckBoxAutoSaveReplays;
