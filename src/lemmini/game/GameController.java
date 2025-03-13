@@ -120,8 +120,6 @@ public class GameController {
         VISUAL_SFX,
         /** flag: use new status with icons */
         ENHANCED_STATUS,
-        /** flag: on enhanced status bar, show the totals in smaller print. */
-        SHOW_STATUS_TOTALS,
         /** flag: show the level title (and rating) in the level */
         SHOW_LEVEL_NAME,
         /** flag: use new icon bar. Has better spacing, and supports animated icons. */
@@ -875,7 +873,7 @@ public class GameController {
                 }
                 switch (l.getSkill()) {
                     case BLOCKER:
-                        if (l.getSkill() != lemmSkill && !l.getName().isEmpty()) {
+                        if (l.getSkill() != lemmSkill && !l.getLemmingInfo().isEmpty()) {
                             switch (lemmSkill) {
                                 case FLAPPER:
                                     if (!l.hasTimer()) {
@@ -892,7 +890,7 @@ public class GameController {
                     case BASHER:
                     case MINER:
                     case DIGGER:
-                        if (l.getSkill() != lemmSkill && !l.getName().isEmpty()) {
+                        if (l.getSkill() != lemmSkill && !l.getLemmingInfo().isEmpty()) {
                             switch (lemmSkill) {
                                 case CLIMBER:
                                     if (!l.canClimb()) {
@@ -932,7 +930,7 @@ public class GameController {
             }
             switch (l.getSkill()) {
                 case WALKER:
-                    if (l.getSkill() != lemmSkill && !l.getName().isEmpty()) {
+                    if (l.getSkill() != lemmSkill && !l.getLemmingInfo().isEmpty()) {
                         if (lemmSkill == null) {
                             return l;
                         } else {
@@ -963,7 +961,7 @@ public class GameController {
                 case FLIPPER:
                 case FLOATER:
                 case JUMPER:
-                    if (lemmSkill != null && l.getSkill() != lemmSkill && !l.getName().isEmpty()) {
+                    if (lemmSkill != null && l.getSkill() != lemmSkill && !l.getLemmingInfo().isEmpty()) {
                         if (lemmSkill == null) {
                             return l;
                         } else {
@@ -995,7 +993,7 @@ public class GameController {
         }
         if (type == LemmCursor.CursorType.NORMAL) {
             for (Lemming l : lemmsUnderCursor) {
-                if (!l.getName().isEmpty()) {
+                if (!l.getLemmingInfo().isEmpty()) {
                     return l;
                 }
             }

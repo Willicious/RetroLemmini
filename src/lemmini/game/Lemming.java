@@ -1725,10 +1725,10 @@ public class Lemming {
     }
 
     /**
-     * Get display name of this Lemming.
+     * Get display info for this Lemming.
      * @return display name of this Lemming
      */
-    public String getName() {
+    public String getLemmingInfo() {
         String n = type.name;
         if (!n.isEmpty()) {
             if (canClimb && canFloat) {

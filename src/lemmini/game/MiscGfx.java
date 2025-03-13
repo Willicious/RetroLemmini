@@ -63,13 +63,13 @@ public class MiscGfx {
         REPLAY_2,
         /** selection marker for replay */
         SELECT,
-        /** status icon 1: lemmings out */
-        STATUS_OUT,
-        /** status icon 2: lemmings in */
-        STATUS_IN,
-        /** status icon 3: lemmings needed */
-        STATUS_NEEDED,
-        /** status icon 4: time limit */
+        /** status icon 1: hatch (lemmings to spawn) */
+        STATUS_HATCH,
+        /** status icon 2: exit (lemmings in) */
+        STATUS_HOME,
+        /** status icon 3: lemming face (lemmings active) */
+        STATUS_ACTIVE,
+        /** status icon 4: clock (time limit) */
         STATUS_TIME,
         /** the red squiggle */
         ICONBAR_FILLER,
@@ -172,7 +172,7 @@ public class MiscGfx {
         resource = Core.findResource("gfx/misc/select.png", Core.IMAGE_EXTENSIONS);
         img = Core.loadLemmImage(resource);
         images.add(img);
-        /* STATUS_OUT, STATUS_IN, STATUS_NEEDED, STATUS_TIME */
+        /* STATUS_HATCH, STATUS_HOME, STATUS_ACTIVE, STATUS_TIME */
         resource = Core.findResource("gfx/misc/status-icons.png", Core.IMAGE_EXTENSIONS);
         anim = ToolBox.getAnimation(Core.loadLemmImage(resource), 4);
         images.addAll(anim);

@@ -135,7 +135,6 @@ public class Core {
     /** draw height */
     private static int drawHeight;
 
-
     /**
      * Initialize some core elements.
      * Loads settings from ini file.
@@ -221,7 +220,6 @@ public class Core {
         GameController.setOption(GameController.SLTooOption.DISABLE_FRAME_STEPPING, programProps.getBoolean("disableFrameStepping", true));
         GameController.setOption(GameController.SLTooOption.VISUAL_SFX, programProps.getBoolean("visualSFX", true));
         GameController.setOption(GameController.SLTooOption.ENHANCED_STATUS, programProps.getBoolean("enhancedStatus", true));
-        GameController.setOption(GameController.SLTooOption.SHOW_STATUS_TOTALS, programProps.getBoolean("showStatusTotals", true));
         GameController.setOption(GameController.SLTooOption.SHOW_LEVEL_NAME, programProps.getBoolean("showLevelName", true));
         GameController.setOption(GameController.SLTooOption.ENHANCED_ICONBAR, programProps.getBoolean("enhancedIconBar", true));
         GameController.setOption(GameController.SLTooOption.ICON_LABELS, programProps.getBoolean("iconLabels", false));
@@ -334,7 +332,6 @@ public class Core {
         programProps.setBoolean("disableFrameStepping", GameController.isOptionEnabled(GameController.SLTooOption.DISABLE_FRAME_STEPPING));
         programProps.setBoolean("visualSFX", GameController.isOptionEnabled(GameController.SLTooOption.VISUAL_SFX));
         programProps.setBoolean("enhancedStatus", GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_STATUS));
-        programProps.setBoolean("showStatusTotals", GameController.isOptionEnabled(GameController.SLTooOption.SHOW_STATUS_TOTALS));
         programProps.setBoolean("showLevelName", GameController.isOptionEnabled(GameController.SLTooOption.SHOW_LEVEL_NAME));
         programProps.setBoolean("enhancedIconBar", GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_ICONBAR));
         programProps.setBoolean("iconLabels", GameController.isOptionEnabled(GameController.SLTooOption.ICON_LABELS));
