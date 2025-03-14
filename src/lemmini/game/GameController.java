@@ -1067,9 +1067,6 @@ public class GameController {
                 }
                 calcReleaseBase();
                 sound.playPitched(Sound.PitchedEffect.RELEASE_RATE, (int) Math.round(releaseRate * 2.69));
-
-            } else {
-                sound.play(Sound.Effect.INVALID);
             }
         }
 
@@ -1083,8 +1080,6 @@ public class GameController {
                 }
                 calcReleaseBase();
                 sound.playPitched(Sound.PitchedEffect.RELEASE_RATE, (int) Math.round(releaseRate * 2.69));
-            } else {
-                sound.play(Sound.Effect.INVALID);
             }
         }
 
