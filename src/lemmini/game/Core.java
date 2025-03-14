@@ -349,6 +349,9 @@ public class Core {
         programProps.set("exitSound", GameController.getExitSoundOption().name());
         // Menu theme
         programProps.set("menuTheme", GameController.getMenuThemeOption().name());
+        
+        // Update file
+        programProps.save(programPropsFilePath, false);
     }
     
     /***
@@ -559,9 +562,8 @@ public class Core {
      * Store program properties.
      */
     public static void saveProgramProps() {
-        programProps.save(programPropsFilePath);
+        programProps.save(programPropsFilePath, true);
         playerProps.set("defaultPlayer", player.getName());
-        playerProps.save(playerPropsFilePath);
         player.store();
     }
 
@@ -791,4 +793,12 @@ public class Core {
     public static void setBilinear(final boolean b) {
         bilinear = b;
     }
+
+	public static Path getProgramPropsFilePath() {
+		return programPropsFilePath;
+	}
+
+	public static void setProgramPropsFilePath(Path programPropsFilePath) {
+		Core.programPropsFilePath = programPropsFilePath;
+	}
 }

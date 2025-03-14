@@ -188,7 +188,7 @@ public class Player {
             }
             idx++;
         }
-        props.save(getPlayerINIFilePath(name));
+        props.save(getPlayerINIFilePath(name), true);
     }
 
     /**

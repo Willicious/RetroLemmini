@@ -375,6 +375,7 @@ public class TextScreen {
         
         // store the last level played
         Core.programProps.set("lastLevelPlayed", GameController.getLastLevelPlayedString());
+        Core.programProps.save(Core.getProgramPropsFilePath(), false);
     }
     
     public static boolean allLevelsCompleted(LevelPack pack, int rating) {

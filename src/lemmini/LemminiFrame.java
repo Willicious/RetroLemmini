@@ -22,7 +22,6 @@ import java.awt.Desktop;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLDecoder;
@@ -71,8 +70,6 @@ import lemmini.tools.ToolBox;
  * @author Volker Oth
  */
 public class LemminiFrame extends JFrame {
-	
-    private static final String LOCK_FILE = "RetroLemmini.lock";
 
     public static final int LEVEL_HEIGHT = 320;
     private static final long serialVersionUID = 0x01L;
@@ -1114,28 +1111,6 @@ public class LemminiFrame extends JFrame {
     public static void main(String[] args) throws IOException {
         //write opening console log
         consoleInit();
-        
-        /*
-         * Check for an existing instance using a lock file
-         */
-        File lock = new File(LOCK_FILE);
-        if (lock.exists()) {
-            System.out.println("RetroLemmini is already running. Exiting.");
-            JOptionPane.showMessageDialog(null,
-                    "RetroLemmini is already running.\nPlease use the existing instance to prevent data loss.",
-                    "RetroLemmini Already Running",
-                    JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        // Create the lock file
-        try {
-            lock.createNewFile();
-            lock.deleteOnExit(); // Ensure the lock file is deleted when RetroLemmini exits
-        } catch (IOException e) {
-            System.err.println("Error creating lock file.");
-            return;
-        }
 
         /*
          * Check JVM version
@@ -1249,6 +1224,8 @@ public class LemminiFrame extends JFrame {
     void exit() {
         // stop the music
         Music.close();
+        Core.saveProgramProps(); // to ensure the latest version is used
+        
         // store width and height
         Core.programProps.setInt("frameWidth", lemminiPanelMain.getUnmaximizedWidth());
         Core.programProps.setInt("frameHeight", lemminiPanelMain.getUnmaximizedHeight());
@@ -1258,10 +1235,9 @@ public class LemminiFrame extends JFrame {
         // store maximized state
         Core.programProps.setBoolean("maximizedHoriz", BooleanUtils.toBoolean(getExtendedState() & MAXIMIZED_HORIZ));
         Core.programProps.setBoolean("maximizedVert", BooleanUtils.toBoolean(getExtendedState() & MAXIMIZED_VERT));
-        // store the last level played
-        Core.programProps.set("lastLevelPlayed", GameController.getLastLevelPlayedString());
         
-        Core.saveProgramProps();
+        Core.programProps.save(Core.getProgramPropsFilePath(), false); // to store the above settings
+        
         RepeatingReleasedEventsFixer.remove();
         System.exit(0);
     }

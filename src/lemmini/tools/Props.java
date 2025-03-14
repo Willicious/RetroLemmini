@@ -405,11 +405,18 @@ public class Props {
      * @param fname File name of property file
      * @return True if OK, false if exception occurred
      */
-    public boolean save(final Path fname) {
-        try (Writer w = Files.newBufferedWriter(fname)) {
-            return save(w);
+    public boolean save(final Path fname, boolean reload) {
+        try {
+        	// Reload the latest version before saving
+            if (Files.exists(fname) && reload) {
+                load(fname);
+            }
+            // Proceed with saving
+            try (Writer w = Files.newBufferedWriter(fname)) {
+                return save(w);
+            }
         } catch (FileNotFoundException e) {
-            return false;
+        	return false;
         } catch (IOException e) {
             return false;
         }
