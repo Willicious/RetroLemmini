@@ -14,10 +14,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
@@ -470,13 +472,43 @@ public class Core {
      */
     public static Resource findResourceEx(String fname, boolean searchMods, boolean searchMain, String... extensions) throws ResourceException {
         String fnameNoExt = FilenameUtils.removeExtension(fname);
-        if (searchMods) {
-            // try to load the file from the mod paths with each extension
+        if (searchMods) {        	
+            // Backwards compatibility
+            Map<String, String> legacyFileMap = new HashMap<>();
+            legacyFileMap.put("gfx/menu/background_main_amiga", "gfx/misc/background_main");
+            legacyFileMap.put("gfx/menu/background_main_retro", "gfx/misc/background_main");
+            legacyFileMap.put("gfx/menu/background_level_amiga", "gfx/misc/background_level");
+            legacyFileMap.put("gfx/menu/background_level_retro", "gfx/misc/background_level");
+            
+            // Override: If "gfx/menu/background_main" exists, use it instead of "_amiga"/"_winlemm"
+            Map<String, String> overrideFileMap = new HashMap<>();
+            overrideFileMap.put("gfx/menu/background_main_amiga", "gfx/menu/background_main");
+            overrideFileMap.put("gfx/menu/background_main_retro", "gfx/menu/background_main");
+            overrideFileMap.put("gfx/menu/background_level_amiga", "gfx/menu/background_level");
+            overrideFileMap.put("gfx/menu/background_level_retro", "gfx/menu/background_level");
+        	
+            // Try to load the file from the mod paths with each extension
             for (String mod : GameController.getModPaths()) {
                 for (String ext : extensions) {
                     String resString = mod + "/" + fnameNoExt + "." + ext;
+
+                    // Check if the requested file exists
                     if (resourceTree.exists(resString)) {
                         return new FileResource(fname, resString, resourceTree);
+                    }
+                    // Check if an override version exists
+                    if (overrideFileMap.containsKey(fnameNoExt)) {
+                        String overrideResString = mod + "/" + overrideFileMap.get(fnameNoExt) + "." + ext;
+                        if (resourceTree.exists(overrideResString)) {
+                            return new FileResource(fname, overrideResString, resourceTree);
+                        }
+                    }
+                    // Check if a legacy version exists
+                    if (legacyFileMap.containsKey(fnameNoExt)) {
+                        String legacyResString = mod + "/" + legacyFileMap.get(fnameNoExt) + "." + ext;
+                        if (resourceTree.exists(legacyResString)) {
+                            return new FileResource(fname, legacyResString, resourceTree);
+                        }
                     }
                 }
             }
