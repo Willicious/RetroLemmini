@@ -76,6 +76,9 @@ public class LemminiFrame extends JFrame {
 
     private int unmaximizedPosX;
     private int unmaximizedPosY;
+    
+    private double userMusicVolume;
+    private double userSoundVolume;
 
     /** self reference */
     static LemminiFrame thisFrame;
@@ -578,8 +581,13 @@ public class LemminiFrame extends JFrame {
                             GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, !GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
                             toggleMenuBarVisibility();
                             Core.saveSettings();
+                        } else {
+                        	toggleMusic();
                         }
                         break;
+                    case KeyEvent.VK_Z:
+                    	toggleSound();
+                    	break;
                     case KeyEvent.VK_D: //CTRL+ALT+D is to toggle Debug mode. just D (while in Debug mode) is Draw mode
                         if (lemminiPanelMain.isControlPressed() && lemminiPanelMain.isAltPressed()) {
                             // Toggle Debug mode
@@ -1216,6 +1224,40 @@ public class LemminiFrame extends JFrame {
         int contentWidth = getWidth() - insets.left - insets.right;
         int contentHeight = getHeight() - insets.top - insets.bottom;
         setSize(contentWidth + insets.left + insets.right, contentHeight + insets.top + insets.bottom);
+    }
+    
+    /**
+     * Toggle music volume between user setting & mute.
+     */
+    void toggleMusic() {
+    	double musicVol = GameController.getMusicGain();
+    	
+    	if (musicVol > 0) {
+    		userMusicVolume = musicVol;
+    	}
+    	
+    	if (musicVol == 0) {
+    		GameController.setMusicGain(userMusicVolume > 0 ? userMusicVolume : 0.5);
+    	} else {
+    		GameController.setMusicGain(0);
+    	}
+    }
+    
+    /**
+     * Toggle sound volume between user setting & mute.
+     */
+    void toggleSound() {
+    	double soundVol = GameController.getSoundGain();
+    	
+    	if (soundVol > 0) {
+    		userSoundVolume = soundVol;
+    	}
+    	
+    	if (soundVol == 0) {
+    		GameController.setSoundGain(userSoundVolume > 0 ? userSoundVolume : 0.5);
+    	} else {
+    		GameController.setSoundGain(0);
+    	}    	
     }
 
     /**
