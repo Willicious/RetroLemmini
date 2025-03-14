@@ -32,7 +32,6 @@ import org.apache.commons.lang3.StringUtils;
 import lemmini.LemminiFrame;
 import lemmini.game.GameController.ExitSoundOption;
 import lemmini.game.GameController.MenuThemeOption;
-import lemmini.gameutil.Fader;
 import lemmini.graphics.LemmImage;
 import lemmini.gui.LegalFrame;
 import lemmini.tools.CaseInsensitiveFileTree;

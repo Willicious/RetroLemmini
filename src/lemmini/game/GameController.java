@@ -1083,7 +1083,6 @@ public class GameController {
             }
         }
 
-
         if (forceAdvanceFrame) {
             forceAdvanceFrame = false;
         } else if (isPaused()) {
@@ -1680,7 +1679,7 @@ public class GameController {
                     break;
                 }
                 default:
-                    break; // supress sound
+                    break; // suppress sound
             }
             pressIcon(type);
         } else {

@@ -1,13 +1,11 @@
 package lemmini.game;
 
-import static lemmini.game.LemmFont.LemmColor.HOT_RED;
-import static lemmini.game.LemmFont.LemmColor.RED;
-import static lemmini.game.LemmFont.LemmColor.ORANGE;
-import static lemmini.game.LemmFont.LemmColor.YELLOW;
-import static lemmini.game.LemmFont.LemmColor.GREEN;
-import static lemmini.game.LemmFont.LemmColor.TURQUOISE;
 import static lemmini.game.LemmFont.LemmColor.BLUE;
+import static lemmini.game.LemmFont.LemmColor.GREEN;
+import static lemmini.game.LemmFont.LemmColor.RED;
+import static lemmini.game.LemmFont.LemmColor.TURQUOISE;
 import static lemmini.game.LemmFont.LemmColor.VIOLET;
+import static lemmini.game.LemmFont.LemmColor.YELLOW;
 
 import java.awt.Color;
 import java.awt.RenderingHints;
