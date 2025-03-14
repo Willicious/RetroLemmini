@@ -580,7 +580,7 @@ public class Core {
     
     public static void returnToMainMenu() {
         GameController.setTransition(GameController.TransitionState.TO_INTRO);
-        Fader.setState(Fader.State.OUT);
+    	TextScreen.initIntro();
     }
 
     /**
