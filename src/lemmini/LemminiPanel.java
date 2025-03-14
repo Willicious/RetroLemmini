@@ -662,6 +662,29 @@ public class LemminiPanel extends JPanel implements Runnable {
             }
         }
     }//GEN-LAST:event_formMouseWheelMoved
+    
+    /**
+     * Replaces transparent pixels with black
+     * @param img
+     * @return
+     */
+    private static LemmImage setFullyOpaque(LemmImage img) {
+        int width = img.getWidth();
+        int height = img.getHeight();
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int pixel = img.getRGB(x, y);
+                int alpha = (pixel >> 24) & 0xFF;
+
+                if (alpha < 255) {
+                    img.setRGB(x, y, 0xFF000000);
+                }
+            }
+        }
+
+        return img;
+    }
 
     /**
      * Set cursor type.
@@ -826,6 +849,7 @@ public class LemminiPanel extends JPanel implements Runnable {
 
                         if (XOffset > 0) {
                             LemmImage filler = MiscGfx.getImage(MiscGfx.Index.ICONBAR_FILLER);
+                            filler = setFullyOpaque(filler); // Overwrite transparency to ensure that vlock icon is hidden when not needed
                             offGfx.drawImage(filler, menuOffsetX + SMALL_X - XOffset, getIconBarY() - YOffset);
                             filler = null;
                         }
