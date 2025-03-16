@@ -684,6 +684,7 @@ public class GameController {
         }
         int scaleFactor = NumberUtils.max(4, scaleFactorWidth, scaleFactorHeight);
         mapPreview = level.createMinimap(fgImage, 1.0 / scaleFactor, 1.0 / scaleFactor, true, false, true);
+        Minimap.init(1.0 / 16.0, 1.0 / 8.0, !GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_COLOR_MINIMAP));
 
         setSuperLemming(level.isSuperLemming());
         forceNormalTimerSpeed = level.getForceNormalTimerSpeed();

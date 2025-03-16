@@ -1568,7 +1568,6 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
 
     void startLevel() {
-        Minimap.init(1.0 / 16.0, 1.0 / 8.0, !GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_COLOR_MINIMAP));
         GameController.setTransition(GameController.TransitionState.TO_LEVEL);
         Fader.setState(Fader.State.OUT);
         GameController.resetGain();
