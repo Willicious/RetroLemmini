@@ -459,7 +459,7 @@ public class LemminiFrame extends JFrame {
             if (headRef.startsWith("ref: ")) {
                 String refPath = ".git/" + headRef.substring(5);
                 List<String> refLines = Files.readAllLines(Paths.get(refPath));
-                commitSHA = refLines.isEmpty() ? "Unknown Commit SHA" : refLines.get(0).trim();
+                commitSHA = refLines.isEmpty() ? Core.COMMIT_ID : refLines.get(0).trim();
             } else {
                 commitSHA = headRef;
             }
@@ -471,7 +471,7 @@ public class LemminiFrame extends JFrame {
             return commitSHA.length() > length ? commitSHA.substring(0, length) : commitSHA;
         } catch (IOException e) {
             e.printStackTrace();
-            return "Unknown Commit SHA";
+            return Core.COMMIT_ID;
         }
     }
 
