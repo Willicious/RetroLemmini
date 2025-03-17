@@ -369,6 +369,10 @@ public class LemminiPanel extends JPanel implements Runnable {
                             handleOptions();
                             TextScreen.getDialog().handleMouseReleased();
                             break;
+                        case ABOUT:
+                            getParentFrame().handleAbout();
+                            TextScreen.getDialog().handleMouseReleased();
+                            break;
                         case EXIT:
                             getParentFrame().exit();
                             break;

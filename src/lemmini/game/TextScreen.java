@@ -69,6 +69,8 @@ public class TextScreen {
         PLAYERS,
         /** options */
         OPTIONS,
+        /** options */
+        ABOUT,
         /** exit */
         EXIT,
         /** start level */
@@ -172,7 +174,7 @@ public class TextScreen {
         
         if (GameController.getMenuThemeOption() == GameController.MenuThemeOption.WINLEMM) {
         	createWinLemmThemeMenu();
-        } else { // BOOKMARK TODO: Add Amiga Theme
+        } else {
         	createLemminiThemeMenu();
         }
     }
@@ -217,7 +219,9 @@ public class TextScreen {
         textDialog.addTextButton("Players", "Players", null, -15, 2, Button.PLAYERS, BLUE, YELLOW);
         textDialog.addTextButton("Exit", "Exit", null, 10, 2, Button.EXIT, BLUE, YELLOW);
         
-        textDialog.addStringCentered("Version " + Core.REVISION, null, 4, VIOLET);
+        String revision = "Version " + Core.REVISION;
+        int revisionX = (revision.length() / 2) + 1;
+        textDialog.addTextButton(revision, revision, null, -revisionX, 4, Button.ABOUT, VIOLET, YELLOW);
     }
     
     private static void addWinLemmThemeVersionNumber() {
@@ -228,7 +232,7 @@ public class TextScreen {
 
         LemmImage versionImg = MiscGfx.getImage(MiscGfx.Index.VERSION_WINLEMM);
         int versionImgX = -(versionImg.getWidth() / 2) - (totalWidth / 2);
-        textDialog.addImage(versionImg, "versionImages", versionImgX, yPosition);
+        textDialog.addButton(versionImg, versionImg, versionImg, "versionImages", versionImgX, yPosition, Button.ABOUT);
 
         List<LemmImage> versionNum = MiscGfx.getAnimation(MiscGfx.Index.VERSION_NUMS_WINLEMM, 17);
         int startX = versionImgX + versionImg.getWidth() - 2; // Start number directly to the right of "version" image
@@ -264,7 +268,8 @@ public class TextScreen {
                     break;
             }
 
-            textDialog.addImage(versionNum.get(frameIndex), "versionImages", startX, yPosition);
+            LemmImage img = versionNum.get(frameIndex);
+            textDialog.addButton(img, img, img, "versionImages", startX, yPosition, Button.ABOUT);
             startX += charWidth; // Move to the next character
         }
     }
