@@ -120,7 +120,7 @@ public class LemminiFrame extends JFrame {
               + "    \\|__|\\|__|\\|_______|   \\|__|  \\|__|\\|__|\\|_______|\\|_______|\\|_______|\\|__|     \\|__|\\|__|     \\|__|\\|__|\\|__| \\|__|\\|__|\n";
         System.out.println(logo);
         System.out.println("===================================================================================================================");
-        System.out.println("      Version " + Core.REVISION + "         Date: " + Core.REV_DATE);
+        System.out.println("      Version " + Core.REVISION + "      Commit " + getGitCommitSHA(7) + "      Date: " + Core.REV_DATE);
         System.out.println("===================================================================================================================");
         System.out.println("");
         java.time.format.DateTimeFormatter dtf = java.time.format.DateTimeFormatter.ofPattern("yyyy MMMM d  HH:mm:ss");
@@ -418,7 +418,8 @@ public class LemminiFrame extends JFrame {
                 + "Get the latest version of RetroLemmini here: <a href='" + urlRetroLemmini + "'>" + "RetroLemmini on LemmingsForums.net" + "</a><br>"
                 + "Join the Forum discussion here: <a href='" + urlForumBoard + "'>" + "Discussion board on LemmingsForums.net" + "</a><br>"
                 + "Lemmini website: <a href='" + urlLemmini + "'>" + urlLemmini + "</a><br><br>"
-                + "Java version: " + System.getProperty("java.version")
+                + "Revision Commit ID: " + getGitCommitSHA(7) + "</a><br>"
+                + "Java Version: " + System.getProperty("java.version")
                 + "</html>");
 
         editorPane.setEditable(false);
@@ -444,6 +445,34 @@ public class LemminiFrame extends JFrame {
                 JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE
             );
+    }
+    
+    public static String getGitCommitSHA(Integer length) {
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(".git/HEAD"));
+            if (lines.isEmpty()) {
+                return "Unknown Commit SHA";
+            }
+            String headRef = lines.get(0).trim();
+            String commitSHA;
+            
+            if (headRef.startsWith("ref: ")) {
+                String refPath = ".git/" + headRef.substring(5);
+                List<String> refLines = Files.readAllLines(Paths.get(refPath));
+                commitSHA = refLines.isEmpty() ? "Unknown Commit SHA" : refLines.get(0).trim();
+            } else {
+                commitSHA = headRef;
+            }
+            // If length is null, < 0 or > 40, return full SHA
+            if (length == null || length <= 0 || length >= 40) {
+                return commitSHA;
+            }
+            // Otherwise, trim SHA to requested length
+            return commitSHA.length() > length ? commitSHA.substring(0, length) : commitSHA;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "Unknown Commit SHA";
+        }
     }
 
     private void formComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentMoved
