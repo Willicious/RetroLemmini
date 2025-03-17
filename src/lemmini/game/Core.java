@@ -65,8 +65,8 @@ import lemmini.tools.ToolBox;
  */
 public class Core {
 
-    public static final String REVISION = "2.1";
-    public static final String REV_DATE = "Jan 2025";
+    public static final String REVISION = "2.2";
+    public static final String REV_DATE = "March 2025";
     public static final String STYLES_REVISION = "2.0";
 
     /** extensions accepted for level files in file dialog */
