@@ -353,19 +353,18 @@ public class TextScreen {
             int lpn = GameController.getCurLevelPackIdx();
             int r = GameController.getCurRating();
             int ln = GameController.getCurLevelNumber();
-            if (lp.getLevelCount(r) > ln + 1) {
+            // Check if ALL levels in this rating are completed
+            if (allLevelsCompleted(lp, r)) {
+                List<String> ratings = lp.getRatings();
+                textDialog.addStringCentered("Congratulations!", null, 2, YELLOW);
+                textDialog.addStringCentered(String.format("You finished all the %s levels!", ratings.get(GameController.getCurRating())), null, 3, GREEN);
+            // Now check if there's a next level to display the access code
+            } else if (lp.getLevelCount(r) > ln + 1) {
                 int absLevel = GameController.absLevelNum(lpn, r, ln + 1);
                 String code = LevelCode.create(lp.getCodeSeed(), absLevel, rescuedPercent,
                         GameController.getTimesFailed(), 0, lp.getCodeOffset());
-                if (!(lpn == 0 && r == 0)) {
-	                List<String> ratings = lp.getRatings();
-	                // Only show the "Congratulations!" message if ALL levels in this rating are completed
-	                if (allLevelsCompleted(lp, r)) {
-	                    textDialog.addStringCentered("Congratulations!", null, 2, YELLOW);
-	                    textDialog.addStringCentered(String.format("You finished all the %s levels!", ratings.get(GameController.getCurRating())), null, 3, GREEN);
-	                } else if (code != null) {
-	                    textDialog.addStringCentered(String.format("Your access code for level %d%nis %s", ln + 2, code), null, 2, YELLOW);
-	                }
+                if (!(lpn == 0 && r == 0) && code != null) {
+                    textDialog.addStringCentered(String.format("Your access code for level %d%nis %s", ln + 2, code), null, 2, YELLOW);
                 }
             }
             if ((r < lp.getRatings().size() - 1) || (lp.getLevelCount(r) > ln + 1)) {
