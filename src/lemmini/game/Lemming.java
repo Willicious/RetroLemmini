@@ -1239,7 +1239,6 @@ public class Lemming {
             case FLIPPER:
             case JUMPER:
             case WALKER:
-            case CLIMBER:
             case DIGGER:
             case BASHER:
             case MINER:
@@ -1252,7 +1251,7 @@ public class Lemming {
             case FLAPPER_BLOCKER:
                 // don't erase blocker mask!
                 return Type.FLAPPER_BLOCKER;
-            default: //FALLER, FLOATER, FLOATER_START, DROWNER, FRIER, SHRUGGER
+            default: // CLIMBER, DROWNER, FALLER, FLOATER, FLOATER_START, FRIER, SHRUGGER
                 return Type.EXPLODER;
         }
     }
