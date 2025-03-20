@@ -2428,6 +2428,14 @@ public class GameController {
     public static int getNumLemmingsMax() {
         return numLemmingsMax;
     }
+    
+    /**
+     * Get maximum possible number of Lemmings that can still be saved.
+     * @return maximum possible number of Lemmings that can still be saved
+     */
+    public static int getNumLemmingsPossibleMax() {
+        return getNumLemmingsUnreleased() + getNumLemmings() + numExited;
+    }
 
     /**
      * Get the number of lemmings still in the entrance gate.
