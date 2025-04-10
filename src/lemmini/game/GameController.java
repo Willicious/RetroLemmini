@@ -2678,11 +2678,11 @@ public class GameController {
     
     public static void setMenuThemeOption(MenuThemeOption option) {
         menuThemeOption = option;
-}
+    }
 
-public static MenuThemeOption getMenuThemeOption() {
-    return menuThemeOption;
-}
+    public static MenuThemeOption getMenuThemeOption() {
+    	return menuThemeOption;
+    }
 
     /**
      * Get foreground image of level.
