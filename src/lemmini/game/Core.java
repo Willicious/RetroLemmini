@@ -66,7 +66,7 @@ import lemmini.tools.ToolBox;
  */
 public class Core {
 
-    public static final String REVISION = "2.3-B";
+    public static final String REVISION = "2.3";
     public static final String COMMIT_ID = CommitID.ID;
     public static final String REV_DATE = "March 2025";
     public static final String STYLES_REVISION = "2.1";
