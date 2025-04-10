@@ -1146,7 +1146,16 @@ public class LemminiFrame extends JFrame {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-        //write opening console log
+    	// get the current commit ID
+	    try {
+	        ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "getcommitID.bat");
+	        pb.start().waitFor();
+	    } catch (IOException | InterruptedException e) {
+	        System.err.println("Failed to run getcommitID.bat: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+    	
+        // write opening console log
         consoleInit();
 
         /*
