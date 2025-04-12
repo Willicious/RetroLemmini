@@ -306,6 +306,8 @@ public class TextScreen {
         } else {
             rescuedOfToRescue = rescued * 100 / toRescue;
         }
+        int timeElapsed = GameController.getLevelRecord().getTimeElapsed();
+        int skillsUsed = GameController.getLevelRecord().getSkillsUsed();
         int score = GameController.getScore();
         if (GameController.getTime() == 0 && GameController.isTimed()) {
             textDialog.addStringCentered("Time is up.", null, -7, TURQUOISE);
@@ -313,14 +315,14 @@ public class TextScreen {
             textDialog.addStringCentered("All lemmings accounted for.", null, -7, TURQUOISE);
         }
         if (GameController.isOptionEnabled(GameController.Option.NO_PERCENTAGES) || numLemmings > 100) {
-            textDialog.addString(String.format("You needed:  %d", toRescue), null, -7, -5, VIOLET);
-            textDialog.addString(String.format("You rescued: %d", rescued), null, -7, -4, VIOLET);
+            textDialog.addStringCentered(String.format("You needed %d | You rescued %d", toRescue, rescued), null, -5, VIOLET);
         } else {
-            textDialog.addString(String.format("You needed:  %d%%", toRescuePercent), null, -7, -5, VIOLET);
-            textDialog.addString(String.format("You rescued: %d%%", rescuedPercent), null, -7, -4, VIOLET);
+            textDialog.addStringCentered(String.format("You needed %d%% | You rescued %d%%", toRescuePercent, rescuedPercent), null, -5, VIOLET);
         }
+        String timeTaken = String.format("%d:%02d", timeElapsed / 60, timeElapsed % 60);
+        textDialog.addStringCentered(String.format("Time taken %s | Skills used %d", timeTaken, skillsUsed), null, -4, VIOLET);
         String pointWord = (score == 1) ? "point" : "points";
-        textDialog.addString(String.format("Your score: %d %s", score, pointWord), null, -10, -3, VIOLET);
+        textDialog.addStringCentered(String.format("Your score is %d %s", score, pointWord), null, -3, GREEN);
         LevelPack lp = GameController.getCurLevelPack();
         List<String> debriefings = lp.getDebriefings();
         if (GameController.wasLost()) {
