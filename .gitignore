@@ -1,10 +1,13 @@
 # Compiled class file
 *.class
 
-#Eclipse bin folder
+# Eclipse bin folder
 bin/
 release/
 releaseHistory/
+
+# Commit ID class
+/src/lemmini/tools/CommitID.java
 
 # Log file
 *.log
