@@ -87,6 +87,7 @@ public class MiscGfx {
         CARD_OPTIONS,
         CARD_PLAYERS,
         CARD_REPLAYS,
+        FLOATER_LEMMING,
         /** version number font */
         VERSION_WINLEMM,
         VERSION_NUMS_WINLEMM
@@ -226,6 +227,10 @@ public class MiscGfx {
         images.add(img);
         /* CARD_REPLAYS */
         resource = Core.findResource("gfx/menu/card_replays.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
+        images.add(img);
+        /* FLOATER_LEMMING */
+        resource = Core.findResource("gfx/menu/floater_lemming.png", Core.IMAGE_EXTENSIONS);
         img = Core.loadLemmImage(resource);
         images.add(img);
         /* VERSION_WINLEMM */
