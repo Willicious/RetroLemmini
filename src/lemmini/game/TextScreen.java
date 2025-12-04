@@ -315,14 +315,16 @@ public class TextScreen {
             textDialog.addStringCentered("All lemmings accounted for.", null, -7, TURQUOISE);
         }
         if (GameController.isOptionEnabled(GameController.Option.NO_PERCENTAGES) || numLemmings > 100) {
-            textDialog.addStringCentered(String.format("You needed %d | You rescued %d", toRescue, rescued), null, -5, VIOLET);
+            textDialog.addStringCentered(String.format("You needed %d - You rescued %d", toRescue, rescued), null, -5, VIOLET);
         } else {
-            textDialog.addStringCentered(String.format("You needed %d%% | You rescued %d%%", toRescuePercent, rescuedPercent), null, -5, VIOLET);
+            textDialog.addStringCentered(String.format("You needed %d%% - You rescued %d%%", toRescuePercent, rescuedPercent), null, -5, VIOLET);
         }
-        String timeTaken = String.format("%d:%02d", timeElapsed / 60, timeElapsed % 60);
-        textDialog.addStringCentered(String.format("Time taken %s | Skills used %d", timeTaken, skillsUsed), null, -4, VIOLET);
-        String pointWord = (score == 1) ? "point" : "points";
-        textDialog.addStringCentered(String.format("Your score is %d %s", score, pointWord), null, -3, GREEN);
+        if (!GameController.wasLost()) {
+            String timeTaken = String.format("%d:%02d", timeElapsed / 60, timeElapsed % 60);
+            textDialog.addStringCentered(String.format("Time taken %s - Skills used %d", timeTaken, skillsUsed), null, -4, VIOLET);
+            String pointWord = (score == 1) ? "point" : "points";
+            textDialog.addStringCentered(String.format("Your score is %d %s", score, pointWord), null, -3, GREEN);
+        }
         LevelPack lp = GameController.getCurLevelPack();
         List<String> debriefings = lp.getDebriefings();
         if (GameController.wasLost()) {
