@@ -66,10 +66,10 @@ import lemmini.tools.ToolBox;
  */
 public class Core {
 
-    public static final String REVISION = "2.3";
+    public static final String REVISION = "2.4";
     public static final String COMMIT_ID = CommitID.ID;
-    public static final String REV_DATE = "March 2025";
-    public static final String STYLES_REVISION = "2.1";
+    public static final String REV_DATE = "Dec 2025";
+    public static final String STYLES_REVISION = "2.2";
 
     /** extensions accepted for level files in file dialog */
     public static final String[] LEVEL_EXTENSIONS = {"ini", "lvl", "dat"};
