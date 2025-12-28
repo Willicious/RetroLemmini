@@ -566,6 +566,7 @@ public class Core {
     public static void saveProgramProps() {
         programProps.save(programPropsFilePath, true);
         playerProps.set("defaultPlayer", player.getName());
+        playerProps.save(playerPropsFilePath, true);
         player.store();
     }
 
@@ -703,6 +704,7 @@ public class Core {
     public static void deletePlayer(final int idx) {
         Player.deletePlayerINIFile(players.get(idx));
         players.remove(idx);
+        playerProps.save(playerPropsFilePath, false);
     }
 
     /**
@@ -720,6 +722,7 @@ public class Core {
     public static void addPlayer(final String name) {
         players.add(name);
         playerProps.set("player_" + (players.size() - 1), name);
+        playerProps.save(playerPropsFilePath, false);
     }
 
     /**
