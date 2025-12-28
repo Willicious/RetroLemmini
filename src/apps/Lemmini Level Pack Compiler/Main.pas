@@ -55,10 +55,10 @@ type
     RootPath: String;
 
     procedure PopulateModsDropdownList(Path: String);
-    procedure GenerateRandomCodeSeed;
     procedure GenerateLevelPackINI(const FileName: string);
     procedure MoveListItemsUp(List: TListBox);
     procedure MoveListItemsDown(List: TListBox);
+    function GenerateRandomCodeSeed: String;
     function GetPath(const BasePath, FullPath: string): string;
     function GetActiveGroupList: TListBox;
     function GetVersion: String;
@@ -68,6 +68,9 @@ type
 
 var
   MainForm: TMainForm;
+
+const
+  NO_MODS_TEXT = '< No Mods >';
 
 implementation
 
@@ -119,17 +122,17 @@ end;
 procedure TMainForm.btnAddLevelClick(Sender: TObject);
 var
   OpenDlg: TOpenDialog;
-  LevelPath: string;
+  LevelFileName: string;
   List: TListBox;
   I: Integer;
 begin
   List := GetActiveGroupList;
+  if List = nil then Exit;
 
   OpenDlg := TOpenDialog.Create(Self);
   try
     OpenDlg.Title := 'Select Level(s)';
     OpenDlg.InitialDir := TPath.Combine(RootPath, 'levels');
-
     OpenDlg.Filter := 'Level Files (*.ini)|*.ini|All Files (*.*)|*.*';
     OpenDlg.DefaultExt := 'ini';
     OpenDlg.FilterIndex := 1;
@@ -139,10 +142,12 @@ begin
     begin
       for I := 0 to OpenDlg.Files.Count - 1 do
       begin
-        LevelPath := GetPath(OpenDlg.InitialDir, OpenDlg.Files[I]);
+        // Extract just the file name, without folders
+        LevelFileName := TPath.GetFileName(OpenDlg.Files[I]);
 
-        if List.Items.IndexOf(LevelPath) = -1 then
-          List.Items.Add(LevelPath);
+        // Add to list if not already present
+        if List.Items.IndexOf(LevelFileName) = -1 then
+          List.Items.Add(LevelFileName);
       end;
     end;
 
@@ -157,6 +162,7 @@ var
   List: TListBox;
 begin
   List := GetActiveGroupList;
+  if List = nil then Exit;
 
   for i := List.Items.Count - 1 downto 0 do
     if List.Selected[i] then
@@ -225,7 +231,7 @@ end;
 
 procedure TMainForm.btnGenerateSeedClick(Sender: TObject);
 begin
-  GenerateRandomCodeSeed;
+  edCodeSeed.Text := GenerateRandomCodeSeed;
 end;
 
 procedure TMainForm.btnGenerateLevelPackINIClick(Sender: TObject);
@@ -255,9 +261,9 @@ begin
 
   Caption := 'Lemmini Level Pack Compiler ' + Version;
 
-  PopulateModsDropdownList(RootPath);
-  GenerateRandomCodeSeed;
   edPackTitle.Text := '';
+  edCodeSeed.Text := GenerateRandomCodeSeed;
+  PopulateModsDropdownList(RootPath);
 end;
 
 procedure TMainForm.TextInputClick(Sender: TObject);
@@ -295,7 +301,7 @@ begin
       Exit(TListBox(pcLevels.ActivePage.Controls[i]));
 end;
 
-procedure TMainForm.GenerateRandomCodeSeed;
+function TMainForm.GenerateRandomCodeSeed: String;
 const
   Chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 var
@@ -306,7 +312,7 @@ begin
   s := '';
   for i := 1 to 10 do
     s := s + Chars[Random(Length(Chars)) + 1];
-  edCodeSeed.Text := s;
+  Result := s;
 end;
 
 function TMainForm.GetVersion: String;
@@ -342,7 +348,7 @@ var
   Folder: string;
 begin
   cbMods.Items.Clear;
-  cbMods.Items.Add('< No Mods >');
+  cbMods.Items.Add(NO_MODS_TEXT);
 
   ModsPath := TPath.Combine(Path, 'mods');
 
@@ -444,6 +450,45 @@ procedure TMainForm.GenerateLevelPackINI(const FileName: string);
     Result := ChangeFileExt(S, '');
   end;
 
+  function ValidateName: String;
+  begin
+    if (edPackTitle.Text = '') then
+      Result := 'Untitled' + #13#10
+    else
+      Result := edPackTitle.Text + #13#10;
+  end;
+
+  function ValidateCodeSeed: string;
+  var
+    i: Integer;
+    S: String;
+    IsValidCodeSeed: Boolean;
+  begin
+    IsValidCodeSeed := True;
+
+    if (edCodeSeed.Text = '') then
+      IsValidCodeSeed := False
+    else for i := 1 to Length(edCodeSeed.Text) do
+      if not (UpCase(edCodeSeed.Text[i]) in ['A'..'Z']) then
+      begin
+        IsValidCodeSeed := False;
+        Break;
+      end;
+
+    if not IsValidCodeSeed then
+      Result := GenerateRandomCodeSeed
+    else
+      Result := edCodeSeed.Text + #13#10;
+  end;
+
+  function ValidateMods: string;
+  begin
+    if (cbMods.Text = '') or (cbMods.Text = NO_MODS_TEXT) then
+      Result := ''
+    else
+      Result := cbMods.Text + #13#10;
+  end;
+
 var
   SL: TStringList;
   i, j: Integer;
@@ -452,41 +497,28 @@ var
 begin
   SL := TStringList.Create;
   try
-    //
-    // Header
-    //
-    SL.Add('name = ' + edPackTitle.Text);
-    SL.Add('');
-    SL.Add('codeSeed = ' + edCodeSeed.Text);
-    SL.Add('');
-    SL.Add('mods = ' + cbMods.Text);
-    SL.Add('');
+    // General Info
+    SL.Add('name = ' + ValidateName);
+    SL.Add('codeSeed = ' + ValidateCodeSeed);
+    SL.Add(ValidateMods);
 
-    //
     // Music
-    //
     SL.Add('# Music selection');
     for i := 0 to lbMusic.Items.Count - 1 do
       SL.Add(Format('music_%d = %s', [i, lbMusic.Items[i]]));
     SL.Add('');
 
-    //
     // Groups
-    //
     SL.Add('# Groups');
     for i := 0 to pcLevels.PageCount - 1 do
       SL.Add(Format('level_%d = %s', [i, pcLevels.Pages[i].Caption]));
     SL.Add('');
 
-    //
-    // Levels section header
-    //
+    // Levels
     SL.Add('# Levels: name, music ID');
     SL.Add('');
 
-    //
     // Levels in each group
-    //
     for i := 0 to pcLevels.PageCount - 1 do
     begin
       Tab := pcLevels.Pages[i];
@@ -504,15 +536,11 @@ begin
 
         SL.Add(Format('level_%d_%d = %s,%d',
           [i, j, List.Items[j], j]));
-
       end;
 
       SL.Add('');
     end;
 
-    //
-    // Write file
-    //
     SL.SaveToFile(FileName, TEncoding.UTF8);
 
   finally

@@ -3,7 +3,7 @@ object MainForm: TMainForm
   Top = 0
   Caption = 'Lemmini Level Pack Compiler'
   ClientHeight = 520
-  ClientWidth = 710
+  ClientWidth = 718
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -23,8 +23,8 @@ object MainForm: TMainForm
     Caption = 'Music'
     TabOrder = 0
     object lbMusic: TListBox
-      Left = 25
-      Top = 24
+      Left = 16
+      Top = 22
       Width = 177
       Height = 270
       ItemHeight = 13
@@ -32,36 +32,36 @@ object MainForm: TMainForm
       TabOrder = 0
     end
     object btnAddMusicTrack: TButton
-      Left = 208
+      Left = 202
       Top = 24
-      Width = 81
+      Width = 90
       Height = 25
-      Caption = 'Add Track'
+      Caption = 'Add Track(s)'
       TabOrder = 1
       OnClick = btnAddMusicTrackClick
     end
     object btnDeleteSelectedMusicTrack: TButton
-      Left = 208
+      Left = 202
       Top = 55
-      Width = 81
+      Width = 87
       Height = 25
-      Caption = 'Delete Track'
+      Caption = 'Delete Track(s)'
       TabOrder = 2
       OnClick = btnDeleteSelectedMusicTrackClick
     end
     object btnMoveMusicTrackUp: TButton
-      Left = 208
+      Left = 202
       Top = 86
-      Width = 81
+      Width = 87
       Height = 25
       Caption = 'Move Up'
       TabOrder = 3
       OnClick = btnMoveMusicTrackUpClick
     end
     object btnMoveMusicTrackDown: TButton
-      Left = 208
+      Left = 202
       Top = 117
-      Width = 81
+      Width = 87
       Height = 25
       Caption = 'Move Down'
       TabOrder = 4
@@ -105,11 +105,12 @@ object MainForm: TMainForm
       OnClick = TextInputClick
     end
     object edCodeSeed: TEdit
-      Left = 87
+      Left = 88
       Top = 64
       Width = 106
       Height = 21
       CharCase = ecUpperCase
+      MaxLength = 10
       TabOrder = 1
       Text = 'ABCDEFGHIJ'
       OnClick = TextInputClick
@@ -123,7 +124,7 @@ object MainForm: TMainForm
       TabOrder = 2
     end
     object btnGenerateSeed: TButton
-      Left = 199
+      Left = 202
       Top = 62
       Width = 87
       Height = 25
@@ -134,8 +135,8 @@ object MainForm: TMainForm
   end
   object gbLevels: TGroupBox
     Left = 319
-    Top = 10
-    Width = 383
+    Top = 8
+    Width = 394
     Height = 487
     Caption = 'Levels'
     TabOrder = 2
@@ -162,8 +163,8 @@ object MainForm: TMainForm
     end
     object btnAddGroup: TButton
       Left = 294
-      Top = 52
-      Width = 81
+      Top = 49
+      Width = 91
       Height = 25
       Caption = 'Add Group'
       TabOrder = 1
@@ -171,8 +172,8 @@ object MainForm: TMainForm
     end
     object btnDeleteGroup: TButton
       Left = 294
-      Top = 114
-      Width = 81
+      Top = 111
+      Width = 91
       Height = 25
       Caption = 'Delete Group'
       TabOrder = 2
@@ -181,7 +182,7 @@ object MainForm: TMainForm
     object btnMoveLevelDown: TButton
       Left = 294
       Top = 277
-      Width = 81
+      Width = 91
       Height = 25
       Caption = 'Move Down'
       TabOrder = 3
@@ -190,7 +191,7 @@ object MainForm: TMainForm
     object btnMoveLevelUp: TButton
       Left = 294
       Top = 246
-      Width = 81
+      Width = 91
       Height = 25
       Caption = 'Move Up'
       TabOrder = 4
@@ -199,25 +200,25 @@ object MainForm: TMainForm
     object btnDeleteLevel: TButton
       Left = 294
       Top = 215
-      Width = 81
+      Width = 91
       Height = 25
-      Caption = 'Delete Level'
+      Caption = 'Delete Level(s)'
       TabOrder = 5
       OnClick = btnDeleteLevelClick
     end
     object btnAddLevel: TButton
       Left = 294
       Top = 184
-      Width = 81
+      Width = 91
       Height = 25
-      Caption = 'Add Level'
+      Caption = 'Add Level(s)'
       TabOrder = 6
       OnClick = btnAddLevelClick
     end
     object btnRenameGroup: TButton
       Left = 294
-      Top = 83
-      Width = 81
+      Top = 80
+      Width = 91
       Height = 25
       Caption = 'Name Group'
       TabOrder = 7
