@@ -35,3 +35,9 @@ hs_err_pid*
 
 # ANT scripts #
 *.xml
+
+# Additional app binaries/hidden folders
+src/apps/*/Win32/
+src/apps/*/_*/
+src/apps/*/*.identcache
+src/apps/*/*.dproj.local
