@@ -128,7 +128,8 @@ begin
     OpenDlg.Title := 'Select Level(s)';
     OpenDlg.InitialDir := TPath.Combine(RootPath, 'levels');
 
-    OpenDlg.Filter := 'Level Files|*.ini;*.lvl;|All Files|*.*';
+    OpenDlg.Filter := 'Level Files (*.ini)|*.ini|All Files (*.*)|*.*';
+    OpenDlg.DefaultExt := 'ini';
     OpenDlg.FilterIndex := 1;
     OpenDlg.Options := [ofFileMustExist, ofHideReadOnly, ofAllowMultiSelect];
 
