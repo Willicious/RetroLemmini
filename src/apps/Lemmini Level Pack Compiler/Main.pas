@@ -49,12 +49,14 @@ type
     procedure btnDeleteLevelClick(Sender: TObject);
     procedure btnMoveLevelUpClick(Sender: TObject);
     procedure btnMoveLevelDownClick(Sender: TObject);
+    procedure btnGenerateLevelPackINIClick(Sender: TObject);
   private
     Version: String;
     RootPath: String;
 
     procedure PopulateModsDropdownList(Path: String);
     procedure GenerateRandomCodeSeed;
+    procedure GenerateLevelPackINI(const FileName: string);
     procedure MoveListItemsUp(List: TListBox);
     procedure MoveListItemsDown(List: TListBox);
     function GetPath(const BasePath, FullPath: string): string;
@@ -224,6 +226,26 @@ end;
 procedure TMainForm.btnGenerateSeedClick(Sender: TObject);
 begin
   GenerateRandomCodeSeed;
+end;
+
+procedure TMainForm.btnGenerateLevelPackINIClick(Sender: TObject);
+var
+  SaveDlg: TSaveDialog;
+begin
+  SaveDlg := TSaveDialog.Create(Self);
+  try
+    SaveDlg.Title := 'Save Level Pack INI';
+    SaveDlg.Filter := 'Level Files (*.ini)|*.ini|All Files (*.*)|*.*';
+    SaveDlg.DefaultExt := 'ini';
+    SaveDlg.FileName := 'levelpack.ini';
+    SaveDlg.Options := [ofOverwritePrompt];
+
+    if SaveDlg.Execute then
+      GenerateLevelPackINI(SaveDlg.FileName);
+
+  finally
+    SaveDlg.Free;
+  end;
 end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
@@ -402,6 +424,99 @@ begin
       List.Selected[LastIndex - SelectedItems.Count + 2 + i] := True;
   finally
     SelectedItems.Free;
+  end;
+end;
+
+procedure TMainForm.GenerateLevelPackINI(const FileName: string);
+
+  function GetListBoxFromTab(Tab: TTabSheet): TListBox;
+  var
+    i: Integer;
+  begin
+    Result := nil;
+    for i := 0 to Tab.ControlCount - 1 do
+      if Tab.Controls[i] is TListBox then
+        Exit(TListBox(Tab.Controls[i]));
+  end;
+
+  function StripExtension(const S: string): string;
+  begin
+    Result := ChangeFileExt(S, '');
+  end;
+
+var
+  SL: TStringList;
+  i, j: Integer;
+  Tab: TTabSheet;
+  List: TListBox;
+begin
+  SL := TStringList.Create;
+  try
+    //
+    // Header
+    //
+    SL.Add('name = ' + edPackTitle.Text);
+    SL.Add('');
+    SL.Add('codeSeed = ' + edCodeSeed.Text);
+    SL.Add('');
+    SL.Add('mods = ' + cbMods.Text);
+    SL.Add('');
+
+    //
+    // Music
+    //
+    SL.Add('# Music selection');
+    for i := 0 to lbMusic.Items.Count - 1 do
+      SL.Add(Format('music_%d = %s', [i, lbMusic.Items[i]]));
+    SL.Add('');
+
+    //
+    // Groups
+    //
+    SL.Add('# Groups');
+    for i := 0 to pcLevels.PageCount - 1 do
+      SL.Add(Format('level_%d = %s', [i, pcLevels.Pages[i].Caption]));
+    SL.Add('');
+
+    //
+    // Levels section header
+    //
+    SL.Add('# Levels: name, music ID');
+    SL.Add('');
+
+    //
+    // Levels in each group
+    //
+    for i := 0 to pcLevels.PageCount - 1 do
+    begin
+      Tab := pcLevels.Pages[i];
+      List := GetListBoxFromTab(Tab);
+      if List = nil then
+        Continue;
+
+      SL.Add(Format('# Rating %d - %s', [i, Tab.Caption]));
+      SL.Add('');
+
+      for j := 0 to List.Items.Count - 1 do
+      begin
+        SL.Add(Format('# %s %d - %s',
+          [Tab.Caption, j + 1, StripExtension(List.Items[j])]));
+
+        SL.Add(Format('level_%d_%d = %s,%d',
+          [i, j, List.Items[j], j]));
+
+      end;
+
+      SL.Add('');
+    end;
+
+    //
+    // Write file
+    //
+    SL.SaveToFile(FileName, TEncoding.UTF8);
+
+  finally
+    SL.Free;
   end;
 end;
 

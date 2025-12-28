@@ -11,6 +11,7 @@ object MainForm: TMainForm
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poScreenCenter
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
@@ -156,10 +157,6 @@ object MainForm: TMainForm
           ItemHeight = 13
           MultiSelect = True
           TabOrder = 0
-          ExplicitLeft = 4
-          ExplicitTop = 4
-          ExplicitWidth = 260
-          ExplicitHeight = 396
         end
       end
     end
@@ -229,10 +226,11 @@ object MainForm: TMainForm
   end
   object btnGenerateLevelPackINI: TButton
     Left = 33
-    Top = 478
+    Top = 477
     Width = 669
     Height = 35
     Caption = 'Generate levelpack.ini'
     TabOrder = 3
+    OnClick = btnGenerateLevelPackINIClick
   end
 end
