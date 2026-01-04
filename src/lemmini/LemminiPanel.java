@@ -1616,12 +1616,13 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
 
     private void maybeAutoSaveReplay() {
-        if (!GameController.isOptionEnabled(GameController.RetroLemminiOption.AUTOSAVE_REPLAYS))
-            return;
+        if (!GameController.isOptionEnabled(GameController.RetroLemminiOption.AUTOSAVE_REPLAYS)) return;
 
         if (replaySaved) return;
 
         if (GameController.getWasCheated() || GameController.wasLost()) return;
+        
+        if (GameController.cancelAutosave) return;
 
         Level level = GameController.getLevel();
         LevelPack levelPack = GameController.getCurLevelPack();

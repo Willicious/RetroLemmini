@@ -319,6 +319,8 @@ public class GameController {
     private static boolean replayMode;
     /** flag: replay mode should be stopped */
     private static boolean stopReplayMode;
+    /** flag: cancel autosave if replay mode is active at the end of the level*/
+    public static boolean cancelAutosave;
     /** number of Lemmings which exited the level */
     private static int numExited;
     /** release rate */
@@ -448,6 +450,7 @@ public class GameController {
         replay = new ReplayStream();
         replayMode = false;
         stopReplayMode = false;
+        cancelAutosave = false;
 
         cheatWasActivated = Core.player.isDebugMode() || Core.player.isMaximumExitPhysics();
 
@@ -538,9 +541,12 @@ public class GameController {
      * Fade out at end of level.
      */
     public static synchronized void endLevel() {
-        if (!replayMode && !cheatWasActivated) {
+        if (!replayMode && !cheatWasActivated)
             replay.addEndEvent(replayFrame);
-        }
+        
+        if (replayMode)
+        	cancelAutosave = true;
+        
         transitionState = TransitionState.END_LEVEL;
         gameState = State.LEVEL_END;
         Fader.setState(Fader.State.OUT);
