@@ -53,6 +53,7 @@ import lemmini.game.Lemming;
 import lemmini.game.Level;
 import lemmini.game.LevelCode;
 import lemmini.game.LevelPack;
+import lemmini.game.LevelRecord;
 import lemmini.game.Minimap;
 import lemmini.game.MiscGfx;
 //import lemmini.game.LemmFont.Color;
@@ -1593,19 +1594,36 @@ public class LemminiPanel extends JPanel implements Runnable {
     public void findBestLevelToLoad() {
         if (GameController.wasLost()) {
             GameController.requestRestartLevel(false, true);
-        } else {
-            // Check if there is a next level in the current rating
-            if (!GameController.nextLevel()) {
-                // Check if there is a next rating in the current pack
-                if (!GameController.nextRating()) {
-                    // No more levels or ratings, load the default level
-                    loadDefaultLevel();; 
+            return;
+        }
+
+        int packIndex = GameController.getCurLevelPackIdx();
+        LevelPack pack = GameController.getLevelPack(packIndex);
+        int rating = GameController.getCurRating();
+        int level = GameController.getCurLevelNumber();
+
+        while (true) {
+            // Try to advance to next level
+            level++;
+
+            // Advance to next rating
+            if (level >= pack.getLevelCount(rating)) {
+                rating++;
+                level = 0;
+
+                // Load default level if there are no more levels in the current pack
+                if (rating >= pack.getRatings().size()) {
+                    loadDefaultLevel();
                     return;
                 }
             }
-            // Otherwise, proceed to the next level as determined by the "nextLevel" and "nextRating" checks
-            GameController.requestChangeLevel(GameController.getCurLevelPackIdx(), GameController.getCurRating(),
-                    GameController.getCurLevelNumber(), false);
+
+            // Stop looping when the next unsolved level is found
+            LevelRecord record = Core.player.getLevelRecord(pack.getName(), pack.getRatings().get(rating), level);
+            if (!record.isCompleted()) {
+                GameController.requestChangeLevel(packIndex, rating, level, false);
+                return;
+            }
         }
     }
 
