@@ -1510,9 +1510,11 @@ public class LemminiPanel extends JPanel implements Runnable {
                         if (!Core.player.getLevelRecord(pack.getName(), pack.getRatings().get(ratingIndex).toString(), levelIndex).isCompleted()) {
                             unbeatenLevelFound = true;
                         } else {
-                            // Next, search for the first unbeaten level within the current pack
-                            for (int r = 0; r < pack.getRatings().size(); r++) {
-                                for (int l = 0; l < pack.getLevelCount(r); l++) {
+                            // Then, search for the next unbeaten level in the current pack
+                            for (int r = ratingIndex; r < pack.getRatings().size(); r++) {
+                                int lStart = (r == ratingIndex) ? levelIndex + 1 : 0;
+
+                                for (int l = lStart; l < pack.getLevelCount(r); l++) {
                                     if (!Core.player.getLevelRecord(pack.getName(), pack.getRatings().get(r).toString(), l).isCompleted()) {
                                         ratingIndex = r;
                                         levelIndex = l;
@@ -1523,7 +1525,24 @@ public class LemminiPanel extends JPanel implements Runnable {
                                 if (unbeatenLevelFound) break;
                             }
 
-                            // Then, search all packs for the first unbeaten level
+                            // Then, wrap around to start of the same pack
+                            if (!unbeatenLevelFound) {
+                                for (int r = 0; r <= ratingIndex; r++) {
+                                    int lEnd = (r == ratingIndex) ? levelIndex : pack.getLevelCount(r);
+
+                                    for (int l = 0; l < lEnd; l++) {
+                                        if (!Core.player.getLevelRecord(pack.getName(), pack.getRatings().get(r).toString(), l).isCompleted()) {
+                                            ratingIndex = r;
+                                            levelIndex = l;
+                                            unbeatenLevelFound = true;
+                                            break;
+                                        }
+                                    }
+                                    if (unbeatenLevelFound) break;
+                                }
+                            }
+
+                            // Finally, search all packs for the first unbeaten level
                             if (!unbeatenLevelFound) {
                                 for (int p = 0; p < GameController.getLevelPackCount(); p++) {
                                     LevelPack nextPack = GameController.getLevelPack(p);
