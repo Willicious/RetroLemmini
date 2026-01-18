@@ -4,8 +4,10 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages,
-  System.SysUtils, System.Variants, System.Classes, System.IOUtils, System.Types,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls;
+  System.SysUtils, System.Variants, System.Classes, System.IOUtils,
+  System.Types, System.UITypes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
+  Vcl.ComCtrls;
 
 type
   TMainForm = class(TForm)
@@ -122,7 +124,7 @@ end;
 procedure TMainForm.btnAddLevelClick(Sender: TObject);
 var
   OpenDlg: TOpenDialog;
-  LevelFileName: string;
+  LevelFileName, LevelsPath: string;
   List: TListBox;
   I: Integer;
 begin
@@ -131,8 +133,19 @@ begin
 
   OpenDlg := TOpenDialog.Create(Self);
   try
+    LevelsPath := TPath.Combine(RootPath, 'levels');
+
+    if not TDirectory.Exists(LevelsPath) then
+    begin
+      LevelsPath := TPath.Combine(RootPath, 'resources');
+      LevelsPath := TPath.Combine(LevelsPath, 'levels');
+    end;
+
+    if not TDirectory.Exists(LevelsPath) then
+      LevelsPath := RootPath;
+
     OpenDlg.Title := 'Select Level(s)';
-    OpenDlg.InitialDir := TPath.Combine(RootPath, 'levels');
+    OpenDlg.InitialDir := LevelsPath;
     OpenDlg.Filter := 'Level Files (*.ini)|*.ini|All Files (*.*)|*.*';
     OpenDlg.DefaultExt := 'ini';
     OpenDlg.FilterIndex := 1;
@@ -182,14 +195,24 @@ end;
 procedure TMainForm.btnAddMusicTrackClick(Sender: TObject);
 var
   OpenDlg: TOpenDialog;
-  MusicPath: string;
+  MusicPath, MusicFile: string;
   I: Integer;
 begin
   OpenDlg := TOpenDialog.Create(Self);
   try
-    OpenDlg.Title := 'Select Music Track(s)';
-    OpenDlg.InitialDir := TPath.Combine(RootPath, 'music');
+    MusicPath := TPath.Combine(RootPath, 'music');
 
+    if not TDirectory.Exists(MusicPath) then
+    begin
+      MusicPath := TPath.Combine(RootPath, 'resources');
+      MusicPath := TPath.Combine(MusicPath, 'music');
+    end;
+
+    if not TDirectory.Exists(MusicPath) then
+      MusicPath := RootPath;
+
+    OpenDlg.Title := 'Select Music Track(s)';
+    OpenDlg.InitialDir := MusicPath;
     OpenDlg.Filter := 'Music Files|*.mp3;*.wav;*.ogg;*.mod|All Files|*.*';
     OpenDlg.FilterIndex := 1;
     OpenDlg.Options := [ofFileMustExist, ofHideReadOnly, ofAllowMultiSelect];
@@ -198,10 +221,10 @@ begin
     begin
       for I := 0 to OpenDlg.Files.Count - 1 do
       begin
-        MusicPath := GetPath(OpenDlg.InitialDir, OpenDlg.Files[I]);
+        MusicFile := GetPath(OpenDlg.InitialDir, OpenDlg.Files[I]);
 
-        if lbMusic.Items.IndexOf(MusicPath) = -1 then
-          lbMusic.Items.Add(MusicPath);
+        if lbMusic.Items.IndexOf(MusicFile) = -1 then
+          lbMusic.Items.Add(MusicFile);
       end;
     end;
 
@@ -353,6 +376,12 @@ begin
   ModsPath := TPath.Combine(Path, 'mods');
 
   if not TDirectory.Exists(ModsPath) then
+  begin
+    ModsPath := TPath.Combine(Path, 'resources');
+    ModsPath := TPath.Combine(ModsPath, 'mods');
+  end;
+
+  if not TDirectory.Exists(ModsPath) then
     Exit;
 
   Folders := TDirectory.GetDirectories(ModsPath);
@@ -461,7 +490,6 @@ procedure TMainForm.GenerateLevelPackINI(const FileName: string);
   function ValidateCodeSeed: string;
   var
     i: Integer;
-    S: String;
     IsValidCodeSeed: Boolean;
   begin
     IsValidCodeSeed := True;
@@ -469,7 +497,7 @@ procedure TMainForm.GenerateLevelPackINI(const FileName: string);
     if (edCodeSeed.Text = '') then
       IsValidCodeSeed := False
     else for i := 1 to Length(edCodeSeed.Text) do
-      if not (UpCase(edCodeSeed.Text[i]) in ['A'..'Z']) then
+      if not CharInSet(UpCase(edCodeSeed.Text[i]), ['A'..'Z']) then
       begin
         IsValidCodeSeed := False;
         Break;
