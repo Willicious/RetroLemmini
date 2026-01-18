@@ -159,6 +159,9 @@ public class GraphicSet {
                 terrain.add(new Terrain("styles/special/" + name2 + "/" + name2, -1, false));
             }
         } else {
+            if (name.toLowerCase(Locale.ROOT).equals("christmas"))
+            	name = "xmas";
+        	
             String pathPrefix = "styles/" + name + "/" + name;
             Resource resource = Core.findResource(pathPrefix + ".ini", true);
             if (!props.load(resource)) {
