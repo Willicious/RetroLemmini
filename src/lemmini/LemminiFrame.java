@@ -60,6 +60,7 @@ import lemmini.game.Vsfx;
 import lemmini.gameutil.Fader;
 import lemmini.graphics.LemmImage;
 import lemmini.sound.Music;
+import lemmini.tools.EditorTestMode;
 import lemmini.tools.ToolBox;
 
 /**
@@ -167,10 +168,30 @@ public class LemminiFrame extends JFrame {
                 maximizedState |= MAXIMIZED_VERT;
             }
             setExtendedState(getExtendedState() | maximizedState);
-
-            GameController.setGameState(GameController.State.INTRO);
-            GameController.setTransition(GameController.TransitionState.NONE);
-            Fader.setState(Fader.State.IN);
+            
+            if (EditorTestMode.enabled) {
+                try {
+                    int levelIndex = GameController.addExternalTestLevel(
+                        Paths.get(EditorTestMode.testLevelPath)
+                    );
+                    GameController.requestChangeLevel(
+                        0,          // pack
+                        0,          // rating
+                        levelIndex, // newly added level
+                        false
+                    );
+                    GameController.setGameState(GameController.State.INTRO);
+                    GameController.setTransition(GameController.TransitionState.LOAD_LEVEL);
+                    Fader.setState(Fader.State.OUT);
+                } catch (Exception ex) {
+                    ToolBox.showException(ex);
+                    System.exit(1);
+                }
+            } else {
+                GameController.setGameState(GameController.State.INTRO);
+                GameController.setTransition(GameController.TransitionState.NONE);
+                Fader.setState(Fader.State.IN);
+            }
 
             Thread t = new Thread(lemminiPanelMain);
             t.start();
@@ -1183,6 +1204,15 @@ public class LemminiFrame extends JFrame {
         Path level = null;
         for (int i = 0; i < args.length; i++) {
             switch (args[i].toLowerCase(Locale.ROOT)) {
+                case "test":
+                    if (i + 1 < args.length) {
+                        EditorTestMode.enabled = true;
+                        EditorTestMode.testLevelPath = args[++i];
+                        System.out.println("editor test mode enabled: " + EditorTestMode.testLevelPath);
+                    } else {
+                        System.err.println("test argument supplied but no level path given");
+                    }
+                    break;
                 case "-l":
                     i++;
                     if (i < args.length) {
@@ -1196,7 +1226,6 @@ public class LemminiFrame extends JFrame {
                     break;
             }
         }
-
 
         System.out.println("applying system \"Look and Feel\" and system specific settings...");
         /*
@@ -1236,7 +1265,7 @@ public class LemminiFrame extends JFrame {
         thisFrame = new LemminiFrame();
         thisFrame.init();
 
-        if (level != null) {
+        if (!EditorTestMode.enabled && level != null) {
             System.out.println("external level loaded. starting up inside level...");
             int[] levelPosition = GameController.addExternalLevel(level, null, true);
             GameController.requestChangeLevel(levelPosition[0], levelPosition[1], levelPosition[2], false);

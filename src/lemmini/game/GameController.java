@@ -2767,6 +2767,25 @@ public class GameController {
     public static List<String> getModPaths() {
         return modPaths;
     }
+
+    /**
+     * Adds an external test level to pack 0 / rating 0 and returns its index.
+     * This is intended for playtesting from the editor.
+     */
+    public static int addExternalTestLevel(Path path) throws Exception {
+        if (path == null) {
+            throw new IllegalArgumentException("Test level path cannot be null");
+        }
+        LevelPack lp = getLevelPack(0);
+        if (lp == null) {
+            throw new Exception("Level pack 0 not found.");
+        }
+        int[] result = addExternalLevel(path, lp, true);
+        if (result == null) {
+            throw new Exception("Failed to load external test level: " + path.toString());
+        }
+        return result[2];
+    }
 }
 
 
