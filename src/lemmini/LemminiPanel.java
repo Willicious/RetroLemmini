@@ -31,6 +31,7 @@ import java.awt.event.MouseEvent;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -64,9 +65,12 @@ import lemmini.game.SpriteObject;
 import lemmini.game.Stencil;
 import lemmini.game.TextScreen;
 import lemmini.gameutil.Fader;
+import lemmini.gameutil.Hotkey;
+import lemmini.gameutil.RetroLemminiHotkeys;
 import lemmini.graphics.GraphicsBuffer;
 import lemmini.graphics.GraphicsContext;
 import lemmini.graphics.LemmImage;
+import lemmini.gui.HotkeyConfig;
 import lemmini.gui.LevelCodeDialog;
 import lemmini.gui.LevelDialog;
 import lemmini.gui.OptionsDialog;
@@ -1475,7 +1479,6 @@ public class LemminiPanel extends JPanel implements Runnable {
         }
     }
 
-
     void handleChooseLevel() {
         LevelDialog ld = new LevelDialog(getParentFrame(), true);
         ld.setVisible(true);
@@ -1484,6 +1487,13 @@ public class LemminiPanel extends JPanel implements Runnable {
             GameController.requestChangeLevel(level[0], level[1], level[2], false);
             getParentFrame().setRestartEnabled(true);
         }
+    }
+    
+    void handleHotkeyConfig() {
+        List<Hotkey> defaultHotkeys = RetroLemminiHotkeys.getDefaultHotkeys();
+        HotkeyConfig hc = new HotkeyConfig(defaultHotkeys);
+        hc.setVisible(true);
+        GameController.activeHotkeys = hc.getAllHotkeys(); 
     }
 
     void loadDefaultLevel() {

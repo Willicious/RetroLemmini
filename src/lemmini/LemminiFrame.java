@@ -58,6 +58,9 @@ import lemmini.game.LevelPack;
 import lemmini.game.ResourceException;
 import lemmini.game.Vsfx;
 import lemmini.gameutil.Fader;
+import lemmini.gameutil.Hotkey;
+import lemmini.gameutil.RetroLemminiHotkeys;
+import lemmini.gameutil.RetroLemminiHotkeys.HotkeyAction;
 import lemmini.graphics.LemmImage;
 import lemmini.sound.Music;
 import lemmini.tools.EditorTestMode;
@@ -349,7 +352,7 @@ public class LemminiFrame extends JFrame {
         jMenuItemHotkeys.setText("Hotkeys...");
         jMenuItemHotkeys.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                handleHotkeys();
+            	lemminiPanelMain.handleHotkeyConfig();
             }
         });
 
@@ -519,520 +522,583 @@ public class LemminiFrame extends JFrame {
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         int code = evt.getKeyCode();
 
-        // Handle modifiers
-        switch (code) {
-            case KeyEvent.VK_SHIFT:
-                lemminiPanelMain.setShiftPressed(true);
-                break;
-            case KeyEvent.VK_CONTROL:
-                lemminiPanelMain.setControlPressed(true);
-                break;
-            case KeyEvent.VK_ALT:
-                lemminiPanelMain.setAltPressed(true);
-                break;
+        RetroLemminiHotkeys.HotkeyAction action = 
+                RetroLemminiHotkeys.getHotkeyActionForEvent(evt, GameController.activeHotkeys);
+        
+        if (action != null) {
+            switch (action) {
+                case HotkeyToggleMusic:
+                	// mute unmute music
+                	break;
+                case HotkeyToggleSound:
+                	break;
+                case HotkeyPause:
+                    togglePause();
+                    break;
+                	
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyRestart, KeyEvent.VK_R, "Ctrl"));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNuke, KeyEvent.VK_N));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDecreaseRR, KeyEvent.VK_MINUS));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyIncreaseRR, KeyEvent.VK_EQUALS));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectClimber, KeyEvent.VK_1));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectFloater, KeyEvent.VK_2));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectBomber, KeyEvent.VK_3));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectBlocker, KeyEvent.VK_4));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectBuilder, KeyEvent.VK_5));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectBasher, KeyEvent.VK_6));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectMiner, KeyEvent.VK_7));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectDigger, KeyEvent.VK_8));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyToggleVerticalLock, KeyEvent.VK_V));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyFastForward, KeyEvent.VK_F));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyTurboForward, KeyEvent.VK_T));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectLeft, KeyEvent.VK_LEFT));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectRight, KeyEvent.VK_RIGHT));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectWalker, KeyEvent.VK_W));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNudgeViewLeft, KeyEvent.VK_LEFT, "Ctrl"));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNudgeViewRight, KeyEvent.VK_RIGHT, "Ctrl"));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNudgeViewUp, KeyEvent.VK_UP, "Ctrl"));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNudgeViewDown, KeyEvent.VK_DOWN, "Ctrl"));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyEndLevel, KeyEvent.VK_ESCAPE));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySaveReplay, KeyEvent.VK_S, "Ctrl"));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyLoadReplay, KeyEvent.VK_L, "Ctrl"));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyCancelReplay, KeyEvent.VK_C));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySaveAsImage, KeyEvent.VK_I));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNextLevel, KeyEvent.VK_RIGHT));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyPreviousLevel, KeyEvent.VK_LEFT));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNextGroup, KeyEvent.VK_UP));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyPreviousGroup, KeyEvent.VK_DOWN));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugSaveAll, KeyEvent.VK_NUMPAD1));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugInvertTimer, KeyEvent.VK_NUMPAD2));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleSuperLemming, KeyEvent.VK_NUMPAD3));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleDrawMode, KeyEvent.VK_D));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleDebug, KeyEvent.VK_D, "Ctrl"));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugPrintLevelName, KeyEvent.VK_NUMPAD4));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugAddLemAtCursor, KeyEvent.VK_L));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyToggleMenuBar, KeyEvent.VK_F1));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyManagePlayers, KeyEvent.VK_F2));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyLevelSelect, KeyEvent.VK_F3));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyEnterCode, KeyEvent.VK_F4));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyOpenSettings, KeyEvent.VK_F5));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyManageHotkeys, KeyEvent.VK_F6));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyAbout, KeyEvent.VK_F7));
+//        	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyCloseApp, KeyEvent.VK_F8, "Alt"));
+            }
         }
-
-        switch (GameController.getGameState()) {
-            case LEVEL:
-                switch (code) {
-                    case KeyEvent.VK_1:
-                    case KeyEvent.VK_F3:
-                        if (lemminiPanelMain.getDebugDraw())
-                            lemminiPanelMain.setDrawBrushSize(1);
-                        else
-                            GameController.handleIconButton(Icons.IconType.CLIMB);
-                        break;
-                    case KeyEvent.VK_2:
-                    case KeyEvent.VK_F4:
-                        if (lemminiPanelMain.isControlPressed())
-                            lemminiPanelMain.handlePlayers();
-                        else if (lemminiPanelMain.getDebugDraw())
-                            lemminiPanelMain.setDrawBrushSize(2);
-                        else
-                            GameController.handleIconButton(Icons.IconType.FLOAT);
-                        break;
-                    case KeyEvent.VK_3:
-                    case KeyEvent.VK_F5:
-                        if (lemminiPanelMain.isControlPressed())
-                            lemminiPanelMain.handleEnterCode();
-                        else if (lemminiPanelMain.getDebugDraw())
-                            lemminiPanelMain.setDrawBrushSize(3);
-                        else
-                            GameController.handleIconButton(Icons.IconType.BOMB);
-                        break;
-                    case KeyEvent.VK_4:
-                    case KeyEvent.VK_F6:
-                        if (lemminiPanelMain.getDebugDraw())
-                            lemminiPanelMain.setDrawBrushSize(4);
-                        else
-                            GameController.handleIconButton(Icons.IconType.BLOCK);
-                        break;
-                    case KeyEvent.VK_5:
-                    case KeyEvent.VK_F7:
-                        if (lemminiPanelMain.getDebugDraw())
-                            lemminiPanelMain.setDrawBrushSize(5);
-                        else
-                            GameController.handleIconButton(Icons.IconType.BUILD);
-                        break;
-                    case KeyEvent.VK_6:
-                    case KeyEvent.VK_F8:
-                        if (lemminiPanelMain.getDebugDraw())
-                            lemminiPanelMain.setDrawBrushSize(6);
-                        else
-                            GameController.handleIconButton(Icons.IconType.BASH);
-                        break;
-                    case KeyEvent.VK_7:
-                    case KeyEvent.VK_F9:
-                        if (lemminiPanelMain.isControlPressed())
-                            lemminiPanelMain.handleChooseLevel();
-                        else if (lemminiPanelMain.getDebugDraw())
-                            lemminiPanelMain.setDrawBrushSize(7);
-                        else
-                            GameController.handleIconButton(Icons.IconType.MINE);
-                        break;
-                    case KeyEvent.VK_8:
-                    case KeyEvent.VK_F10:
-                        if (lemminiPanelMain.isControlPressed())
-                            lemminiPanelMain.handleOptions();
-                        else if (lemminiPanelMain.getDebugDraw())
-                            lemminiPanelMain.setDrawBrushSize(8);
-                        else
-                            GameController.handleIconButton(Icons.IconType.DIG);
-                        break;
-                    case KeyEvent.VK_9:
-                        if (lemminiPanelMain.getDebugDraw())
-                            lemminiPanelMain.setDrawBrushSize(9);
-                        break;
-                    case KeyEvent.VK_0:
-                        if (lemminiPanelMain.getDebugDraw())
-                            lemminiPanelMain.setDrawBrushSize(10);
-                        break;
-                    case KeyEvent.VK_F11:
-                        if (lemminiPanelMain.isControlPressed())
-                            handleHotkeys();
-                        else
-                            togglePause();
-                        break;
-                    case KeyEvent.VK_F12:
-                        if (lemminiPanelMain.isControlPressed())
-                            handleAbout();
-                        else
-                            GameController.handleIconButton(Icons.IconType.NUKE);
-                        break;
-                    case KeyEvent.VK_L:
-                        if (lemminiPanelMain.isControlPressed())
-                            lemminiPanelMain.handleLoadReplay();
-                        else if (Core.player.isDebugMode()) {
-                            printLevelNameToConsole();
-                        }
-                        break;
-                    case KeyEvent.VK_M:
-                        if (lemminiPanelMain.isControlPressed()) {
-                            GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, !GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
-                            toggleMenuBarVisibility();
-                            Core.saveSettings();
-                        } else {
-                        	toggleMusic();
-                        }
-                        break;
-                    case KeyEvent.VK_Z:
-                    	toggleSound();
-                    	break;
-                    case KeyEvent.VK_D: //CTRL+ALT+D is to toggle Debug mode. just D (while in Debug mode) is Draw mode
-                        if (lemminiPanelMain.isControlPressed() && lemminiPanelMain.isAltPressed()) {
-                            // Toggle Debug mode
-                            Core.player.setDebugMode(!Core.player.isDebugMode());
-                            // 'Cheated' flag remains true if debug mode is entered
-                            GameController.setWasCheated(true);
-                        } else if (!lemminiPanelMain.isControlPressed() && !lemminiPanelMain.isShiftPressed() && !lemminiPanelMain.isAltPressed() && Core.player.isDebugMode()) {
-                            lemminiPanelMain.setDebugDraw(!lemminiPanelMain.getDebugDraw());
-                        }
-                        break;
-                    case KeyEvent.VK_E:
-                        if (lemminiPanelMain.isControlPressed() && lemminiPanelMain.isAltPressed()) {
-                            // Toggle maximum exit physics
-                            Core.player.setMaximumExitPhysics(!Core.player.isMaximumExitPhysics());
-                            // 'Cheated' flag remains true if maximum exit physics is activated
-                            GameController.setWasCheated(true);
-                        }
-                        break;
-                    case KeyEvent.VK_W:
-                        if (Core.player.isDebugMode()) {
-                            GameController.setNumExited(GameController.getNumLemmingsMax());
-                            GameController.endLevel();
-                        }
-                        break;
-                    case KeyEvent.VK_I: // show/hide debug cursor info
-                        lemminiPanelMain.setDebugCursorInfo(!lemminiPanelMain.debugCursorInfoVisible());
-                    case KeyEvent.VK_S:
-                        if (lemminiPanelMain.isControlPressed()) {
-                            lemminiPanelMain.handleSaveReplay();
-                        }
-                        GameController.setVerticalLock(!GameController.isVerticalLock());
-                        GameController.pressIcon(Icons.IconType.VLOCK);
-                        break;
-                    case KeyEvent.VK_V:
-                        saveLevelAsImage();
-                        break;
-                    case KeyEvent.VK_U: // superlemming on/off
-                        if (Core.player.isDebugMode()) {
-                            GameController.setSuperLemming(!GameController.isSuperLemming());
-                        }
-                        break;
-                    case KeyEvent.VK_X:
-                        GameController.stopReplayMode();
-                        break;
-                    case KeyEvent.VK_SPACE:
-                    case KeyEvent.VK_P:
-                        togglePause();
-                        break;
-                    case KeyEvent.VK_F:
-                    case KeyEvent.VK_ENTER: //F or ENTER toggles Fast-Forward
-                        GameController.setTurbo(false);
-                        GameController.setFastForward(!GameController.isFastForward());
-                        GameController.pressIcon(Icons.IconType.FFWD);
-                        break;
-                    case KeyEvent.VK_G:
-                        GameController.setTurbo(true);
-                        GameController.setFastForward(!GameController.isFastForward());
-                        GameController.pressIcon(Icons.IconType.FFWD);
-                        break;
-                    case KeyEvent.VK_T:
-                        if (Core.player.isDebugMode()) {
-                            GameController.setTimed(!GameController.isTimed());
-                        }
-                        break;
-                    case KeyEvent.VK_R: //CTRL-R restarts the level.
-                        if (lemminiPanelMain.isControlPressed() && !lemminiPanelMain.isShiftPressed()) {
-                            GameController.requestRestartLevel(true, false);
-                        }
-                        break;
-                    case KeyEvent.VK_RIGHT /*39*/:
-                        if (GameController.isOptionEnabled(GameController.Option.ADVANCED_SELECT)) {
-                            if (LemmCursor.getType().isWalkerOnly()) {
-                                lemminiPanelMain.setCursor(LemmCursor.CursorType.WALKER_RIGHT);
-                            } else {
-                                lemminiPanelMain.setCursor(LemmCursor.CursorType.RIGHT);
-                            }
-                        } else {
-                            lemminiPanelMain.setRightPressed(true);
-                        }
-                        break;
-                    case KeyEvent.VK_LEFT /*37*/:
-                        if (GameController.isOptionEnabled(GameController.Option.ADVANCED_SELECT)) {
-                            if (LemmCursor.getType().isWalkerOnly()) {
-                                lemminiPanelMain.setCursor(LemmCursor.CursorType.WALKER_LEFT);
-                            } else {
-                                lemminiPanelMain.setCursor(LemmCursor.CursorType.LEFT);
-                            }
-                        } else {
-                            lemminiPanelMain.setLeftPressed(true);
-                        }
-                        break;
-                    case KeyEvent.VK_UP:
-                        if (GameController.isOptionEnabled(GameController.Option.ADVANCED_SELECT)) {
-                            switch (LemmCursor.getType()) {
-                                case NORMAL:
-                                    lemminiPanelMain.setCursor(LemmCursor.CursorType.WALKER);
-                                    break;
-                                case LEFT:
-                                    lemminiPanelMain.setCursor(LemmCursor.CursorType.WALKER_LEFT);
-                                    break;
-                                case RIGHT:
-                                    lemminiPanelMain.setCursor(LemmCursor.CursorType.WALKER_RIGHT);
-                                    break;
-                                default:
-                                    break;
-                            }
-                        } else {
-                            lemminiPanelMain.setUpPressed(true);
-                        }
-                        break;
-                    case KeyEvent.VK_DOWN:
-                        if (!GameController.isOptionEnabled(GameController.Option.ADVANCED_SELECT)) {
-                            lemminiPanelMain.setDownPressed(true);
-                        }
-                        break;
-                    case KeyEvent.VK_N:
-                        if (Core.player.isDebugMode()) {
-                            Lemming l = new Lemming(lemminiPanelMain.getCursorX(), lemminiPanelMain.getCursorY(), Lemming.Direction.RIGHT);
-                            GameController.addLemming(l);
-                            Vsfx v = new Vsfx(lemminiPanelMain.getCursorX(), lemminiPanelMain.getCursorY(), Vsfx.Vsfx_Index.YIPPEE);
-                            GameController.addVsfx(v);
-                        }
-                        break;
-                    case KeyEvent.VK_PLUS:
-                    case KeyEvent.VK_ADD:
-                    case KeyEvent.VK_EQUALS:
-                    case KeyEvent.VK_F2:
-                        GameController.pressPlus(GameController.KEYREPEAT_KEY);
-                        break;
-                    case KeyEvent.VK_MINUS:
-                    case KeyEvent.VK_SUBTRACT:
-                    case KeyEvent.VK_F1:
-                        GameController.pressMinus(GameController.KEYREPEAT_KEY);
-                        break;
-                    case KeyEvent.VK_ESCAPE:
-                        GameController.endLevel();
-                        break;
-                    default:
-                        break;
-                }
-                evt.consume();
-                break;
-            case BRIEFING:
-                key:
-                switch (code) {
-                    case KeyEvent.VK_ENTER:
-                    case KeyEvent.VK_SPACE:
-                        lemminiPanelMain.startLevel();
-                        break;
-                    case KeyEvent.VK_L:
-                        if (lemminiPanelMain.isControlPressed())
-                            lemminiPanelMain.handleLoadReplay();
-                        break;
-                    case KeyEvent.VK_M:
-                        if (lemminiPanelMain.isControlPressed()) {
-                            GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, !GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
-                            toggleMenuBarVisibility();
-                            Core.saveSettings();
-                        }
-                        break;
-                    case KeyEvent.VK_F4:
-                        if (lemminiPanelMain.isControlPressed())
-                            lemminiPanelMain.handlePlayers();
-                        break;
-                    case KeyEvent.VK_F9:
-                        if (lemminiPanelMain.isControlPressed())
-                            lemminiPanelMain.handleChooseLevel();
-                        break;
-                    case KeyEvent.VK_F5:
-                        if (lemminiPanelMain.isControlPressed())
-                            lemminiPanelMain.handleEnterCode();
-                        break;
-                    case KeyEvent.VK_F10:
-                        if (lemminiPanelMain.isControlPressed())
-                            lemminiPanelMain.handleOptions();
-                        break;
-                    case KeyEvent.VK_F11:
-                        if (lemminiPanelMain.isControlPressed())
-                            handleHotkeys();
-                        break;
-                    case KeyEvent.VK_F12:
-                        if (lemminiPanelMain.isControlPressed())
-                            handleAbout();
-                        break;
-                    case KeyEvent.VK_LEFT:
-                        if (Fader.getState() == Fader.State.OFF) {
-                            LevelPack pack = GameController.getCurLevelPack();
-                            String packName = pack.getName();
-                            int packIdx = GameController.getCurLevelPackIdx();
-                            List<String> ratings = pack.getRatings();
-                            int rating = GameController.getCurRating();
-                            int lvlNum = GameController.getCurLevelNumber() - 1;
-                            while (rating >= 0) {
-                                while (lvlNum >= 0) {
-                                    if (Core.player.isAvailable(packName, ratings.get(rating), lvlNum)) {
-                                        GameController.requestChangeLevel(packIdx, rating, lvlNum, false);
-                                        break key;
-                                    }
-                                    lvlNum--;
-                                }
-                                rating--;
-                                if (rating >= 0) {
-                                    lvlNum = pack.getLevelCount(rating) - 1;
-                                }
-                            }
-                        }
-                        break;
-                    case KeyEvent.VK_RIGHT:
-                        if (Fader.getState() == Fader.State.OFF) {
-                            LevelPack pack = GameController.getCurLevelPack();
-                            String packName = pack.getName();
-                            int packIdx = GameController.getCurLevelPackIdx();
-                            List<String> ratings = pack.getRatings();
-                            int rating = GameController.getCurRating();
-                            int lvlCount = pack.getLevelCount(rating);
-                            int lvlNum = GameController.getCurLevelNumber() + 1;
-                            while (rating < ratings.size()) {
-                                while (lvlNum < lvlCount) {
-                                    if (Core.player.isAvailable(packName, ratings.get(rating), lvlNum)) {
-                                        GameController.requestChangeLevel(packIdx, rating, lvlNum, false);
-                                        break key;
-                                    }
-                                    lvlNum++;
-                                }
-                                rating++;
-                                if (rating < ratings.size()) {
-                                    lvlNum = 0;
-                                }
-                            }
-                        }
-                        break;
-                    case KeyEvent.VK_UP:
-                        if (Fader.getState() == Fader.State.OFF) {
-                            LevelPack pack = GameController.getCurLevelPack();
-                            String packName = pack.getName();
-                            int packIdx = GameController.getCurLevelPackIdx();
-                            List<String> ratings = pack.getRatings();
-                            int rating = GameController.getCurRating() - 1;
-                            int lvlNum = GameController.getCurLevelNumber();
-                            while (rating >= 0) {
-                                while (lvlNum >= 0) {
-                                    if (Core.player.isAvailable(packName, ratings.get(rating), lvlNum)) {
-                                        GameController.requestChangeLevel(packIdx, rating, lvlNum, false);
-                                        break key;
-                                    }
-                                    lvlNum--;
-                                }
-                                rating--;
-                                if (rating >= 0) {
-                                    lvlNum = Math.min(pack.getLevelCount(rating), GameController.getCurLevelNumber());
-                                }
-                            }
-                        }
-                        break;
-                    case KeyEvent.VK_DOWN:
-                        if (Fader.getState() == Fader.State.OFF) {
-                            LevelPack pack = GameController.getCurLevelPack();
-                            String packName = pack.getName();
-                            int packIdx = GameController.getCurLevelPackIdx();
-                            List<String> ratings = pack.getRatings();
-                            int rating = GameController.getCurRating() + 1;
-                            int lvlNum = GameController.getCurLevelNumber();
-                            while (rating < ratings.size()) {
-                                while (lvlNum >= 0) {
-                                    if (Core.player.isAvailable(packName, ratings.get(rating), lvlNum)) {
-                                        GameController.requestChangeLevel(packIdx, rating, lvlNum, false);
-                                        break key;
-                                    }
-                                    lvlNum--;
-                                }
-                                rating++;
-                                if (rating < ratings.size()) {
-                                    lvlNum = Math.min(pack.getLevelCount(rating), GameController.getCurLevelNumber());
-                                }
-                            }
-                        }
-                    case KeyEvent.VK_ESCAPE:
-                        lemminiPanelMain.exitToMenu();
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            case INTRO:
-                switch (code) {
-                case KeyEvent.VK_ESCAPE:
-                    exit();
-                    break;
-                case KeyEvent.VK_ENTER:
-                case KeyEvent.VK_SPACE:
-                        lemminiPanelMain.loadDefaultLevel();
-                    break;
-                case KeyEvent.VK_L:
-                    if (lemminiPanelMain.isControlPressed())
-                        lemminiPanelMain.handleLoadReplay();
-                    break;
-                case KeyEvent.VK_M:
-                    if (lemminiPanelMain.isControlPressed()) {
-                        GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, !GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
-                        toggleMenuBarVisibility();
-                        Core.saveSettings();
-                    }
-                    break;
-                case KeyEvent.VK_F4:
-                    if (lemminiPanelMain.isControlPressed())
-                        lemminiPanelMain.handlePlayers();
-                    break;
-                case KeyEvent.VK_F9:
-                    if (lemminiPanelMain.isControlPressed())
-                        lemminiPanelMain.handleChooseLevel();
-                    break;
-                case KeyEvent.VK_F5:
-                    if (lemminiPanelMain.isControlPressed())
-                        lemminiPanelMain.handleEnterCode();
-                    break;
-                case KeyEvent.VK_F10:
-                    if (lemminiPanelMain.isControlPressed())
-                        lemminiPanelMain.handleOptions();
-                    break;
-                case KeyEvent.VK_F11:
-                    if (lemminiPanelMain.isControlPressed())
-                        handleHotkeys();
-                    break;
-                case KeyEvent.VK_F12:
-                    if (lemminiPanelMain.isControlPressed())
-                        handleAbout();
-                    break;
-                default:
-                    break;
-                }
-                break;
-            case DEBRIEFING:
-            case LEVEL_END:
-                switch (code) {
-                    case KeyEvent.VK_ENTER:
-                    case KeyEvent.VK_SPACE:
-                    	lemminiPanelMain.findBestLevelToLoad();
-                        break;
-                    case KeyEvent.VK_L:
-                        if (lemminiPanelMain.isControlPressed())
-                            lemminiPanelMain.handleLoadReplay();
-                        break;
-                    case KeyEvent.VK_M:
-                        if (lemminiPanelMain.isControlPressed()) {
-                            GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, !GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
-                            toggleMenuBarVisibility();
-                            Core.saveSettings();
-                        }
-                        break;
-                    case KeyEvent.VK_F4:
-                        if (lemminiPanelMain.isControlPressed())
-                            lemminiPanelMain.handlePlayers();
-                        break;
-                    case KeyEvent.VK_F9:
-                        if (lemminiPanelMain.isControlPressed())
-                            lemminiPanelMain.handleChooseLevel();
-                        break;
-                    case KeyEvent.VK_F5:
-                        if (lemminiPanelMain.isControlPressed())
-                            lemminiPanelMain.handleEnterCode();
-                        break;
-                    case KeyEvent.VK_F10:
-                        if (lemminiPanelMain.isControlPressed())
-                            lemminiPanelMain.handleOptions();
-                        break;
-                    case KeyEvent.VK_F11:
-                        if (lemminiPanelMain.isControlPressed())
-                            handleHotkeys();
-                        break;
-                    case KeyEvent.VK_F12:
-                        if (lemminiPanelMain.isControlPressed())
-                            handleAbout();
-                        break;
-                    case KeyEvent.VK_V:
-                        LemmImage tmp = GameController.getLevel().createMinimap(GameController.getFgImage(), 1.0, 1.0, true, false, true);
-                        try (OutputStream out = Core.resourceTree.newOutputStream("level.png")) {
-                            ImageIO.write(tmp.getImage(), "png", out);
-                        } catch (IOException ex) {
-                        }
-                        break;
-                    case KeyEvent.VK_S:
-                        if (lemminiPanelMain.isControlPressed()) {
-                            lemminiPanelMain.handleSaveReplay();
-                        }
-                    case KeyEvent.VK_ESCAPE:
-                        lemminiPanelMain.exitToMenu();
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            default:
-                break;
-        }
-    }//GEN-LAST:event_formKeyPressed
+    }
+//        // Handle modifiers
+//        switch (code) {
+//            case KeyEvent.VK_SHIFT:
+//                lemminiPanelMain.setShiftPressed(true);
+//                break;
+//            case KeyEvent.VK_CONTROL:
+//                lemminiPanelMain.setControlPressed(true);
+//                break;
+//            case KeyEvent.VK_ALT:
+//                lemminiPanelMain.setAltPressed(true);
+//                break;
+//        }
+//
+//        switch (GameController.getGameState()) {
+//            case LEVEL:
+//                switch (code) {
+//                    case KeyEvent.VK_1:
+//                    case KeyEvent.VK_F3:
+//                        if (lemminiPanelMain.getDebugDraw())
+//                            lemminiPanelMain.setDrawBrushSize(1);
+//                        else
+//                            GameController.handleIconButton(Icons.IconType.CLIMB);
+//                        break;
+//                    case KeyEvent.VK_2:
+//                    case KeyEvent.VK_F4:
+//                        if (lemminiPanelMain.isControlPressed())
+//                            lemminiPanelMain.handlePlayers();
+//                        else if (lemminiPanelMain.getDebugDraw())
+//                            lemminiPanelMain.setDrawBrushSize(2);
+//                        else
+//                            GameController.handleIconButton(Icons.IconType.FLOAT);
+//                        break;
+//                    case KeyEvent.VK_3:
+//                    case KeyEvent.VK_F5:
+//                        if (lemminiPanelMain.isControlPressed())
+//                            lemminiPanelMain.handleEnterCode();
+//                        else if (lemminiPanelMain.getDebugDraw())
+//                            lemminiPanelMain.setDrawBrushSize(3);
+//                        else
+//                            GameController.handleIconButton(Icons.IconType.BOMB);
+//                        break;
+//                    case KeyEvent.VK_4:
+//                    case KeyEvent.VK_F6:
+//                        if (lemminiPanelMain.getDebugDraw())
+//                            lemminiPanelMain.setDrawBrushSize(4);
+//                        else
+//                            GameController.handleIconButton(Icons.IconType.BLOCK);
+//                        break;
+//                    case KeyEvent.VK_5:
+//                    case KeyEvent.VK_F7:
+//                        if (lemminiPanelMain.getDebugDraw())
+//                            lemminiPanelMain.setDrawBrushSize(5);
+//                        else
+//                            GameController.handleIconButton(Icons.IconType.BUILD);
+//                        break;
+//                    case KeyEvent.VK_6:
+//                    case KeyEvent.VK_F8:
+//                        if (lemminiPanelMain.getDebugDraw())
+//                            lemminiPanelMain.setDrawBrushSize(6);
+//                        else
+//                            GameController.handleIconButton(Icons.IconType.BASH);
+//                        break;
+//                    case KeyEvent.VK_7:
+//                    case KeyEvent.VK_F9:
+//                        if (lemminiPanelMain.isControlPressed())
+//                            lemminiPanelMain.handleChooseLevel();
+//                        else if (lemminiPanelMain.getDebugDraw())
+//                            lemminiPanelMain.setDrawBrushSize(7);
+//                        else
+//                            GameController.handleIconButton(Icons.IconType.MINE);
+//                        break;
+//                    case KeyEvent.VK_8:
+//                    case KeyEvent.VK_F10:
+//                        if (lemminiPanelMain.isControlPressed())
+//                            lemminiPanelMain.handleOptions();
+//                        else if (lemminiPanelMain.getDebugDraw())
+//                            lemminiPanelMain.setDrawBrushSize(8);
+//                        else
+//                            GameController.handleIconButton(Icons.IconType.DIG);
+//                        break;
+//                    case KeyEvent.VK_9:
+//                        if (lemminiPanelMain.getDebugDraw())
+//                            lemminiPanelMain.setDrawBrushSize(9);
+//                        break;
+//                    case KeyEvent.VK_0:
+//                        if (lemminiPanelMain.getDebugDraw())
+//                            lemminiPanelMain.setDrawBrushSize(10);
+//                        break;
+//                    case KeyEvent.VK_F11:
+//                        if (lemminiPanelMain.isControlPressed())
+//                        	lemminiPanelMain.handleHotkeyConfig();
+//                        else
+//                            togglePause();
+//                        break;
+//                    case KeyEvent.VK_F12:
+//                        if (lemminiPanelMain.isControlPressed())
+//                            handleAbout();
+//                        else
+//                            GameController.handleIconButton(Icons.IconType.NUKE);
+//                        break;
+//                    case KeyEvent.VK_L:
+//                        if (lemminiPanelMain.isControlPressed())
+//                            lemminiPanelMain.handleLoadReplay();
+//                        else if (Core.player.isDebugMode()) {
+//                            printLevelNameToConsole();
+//                        }
+//                        break;
+//                    case KeyEvent.VK_M:
+//                        if (lemminiPanelMain.isControlPressed()) {
+//                            GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, !GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
+//                            toggleMenuBarVisibility();
+//                            Core.saveSettings();
+//                        } else {
+//                        	toggleMusic();
+//                        }
+//                        break;
+//                    case KeyEvent.VK_Z:
+//                    	toggleSound();
+//                    	break;
+//                    case KeyEvent.VK_D: //CTRL+ALT+D is to toggle Debug mode. just D (while in Debug mode) is Draw mode
+//                        if (lemminiPanelMain.isControlPressed() && lemminiPanelMain.isAltPressed()) {
+//                            // Toggle Debug mode
+//                            Core.player.setDebugMode(!Core.player.isDebugMode());
+//                            // 'Cheated' flag remains true if debug mode is entered
+//                            GameController.setWasCheated(true);
+//                        } else if (!lemminiPanelMain.isControlPressed() && !lemminiPanelMain.isShiftPressed() && !lemminiPanelMain.isAltPressed() && Core.player.isDebugMode()) {
+//                            lemminiPanelMain.setDebugDraw(!lemminiPanelMain.getDebugDraw());
+//                        }
+//                        break;
+//                    case KeyEvent.VK_E:
+//                        if (lemminiPanelMain.isControlPressed() && lemminiPanelMain.isAltPressed()) {
+//                            // Toggle maximum exit physics
+//                            Core.player.setMaximumExitPhysics(!Core.player.isMaximumExitPhysics());
+//                            // 'Cheated' flag remains true if maximum exit physics is activated
+//                            GameController.setWasCheated(true);
+//                        }
+//                        break;
+//                    case KeyEvent.VK_W:
+//                        if (Core.player.isDebugMode()) {
+//                            GameController.setNumExited(GameController.getNumLemmingsMax());
+//                            GameController.endLevel();
+//                        }
+//                        break;
+//                    case KeyEvent.VK_I: // show/hide debug cursor info
+//                        lemminiPanelMain.setDebugCursorInfo(!lemminiPanelMain.debugCursorInfoVisible());
+//                    case KeyEvent.VK_S:
+//                        if (lemminiPanelMain.isControlPressed()) {
+//                            lemminiPanelMain.handleSaveReplay();
+//                        }
+//                        GameController.setVerticalLock(!GameController.isVerticalLock());
+//                        GameController.pressIcon(Icons.IconType.VLOCK);
+//                        break;
+//                    case KeyEvent.VK_V:
+//                        saveLevelAsImage();
+//                        break;
+//                    case KeyEvent.VK_U: // superlemming on/off
+//                        if (Core.player.isDebugMode()) {
+//                            GameController.setSuperLemming(!GameController.isSuperLemming());
+//                        }
+//                        break;
+//                    case KeyEvent.VK_X:
+//                        GameController.stopReplayMode();
+//                        break;
+//                    case KeyEvent.VK_SPACE:
+//                    case KeyEvent.VK_P:
+//                        togglePause();
+//                        break;
+//                    case KeyEvent.VK_F:
+//                    case KeyEvent.VK_ENTER: //F or ENTER toggles Fast-Forward
+//                        GameController.setTurbo(false);
+//                        GameController.setFastForward(!GameController.isFastForward());
+//                        GameController.pressIcon(Icons.IconType.FFWD);
+//                        break;
+//                    case KeyEvent.VK_G:
+//                        GameController.setTurbo(true);
+//                        GameController.setFastForward(!GameController.isFastForward());
+//                        GameController.pressIcon(Icons.IconType.FFWD);
+//                        break;
+//                    case KeyEvent.VK_T:
+//                        if (Core.player.isDebugMode()) {
+//                            GameController.setTimed(!GameController.isTimed());
+//                        }
+//                        break;
+//                    case KeyEvent.VK_R: //CTRL-R restarts the level.
+//                        if (lemminiPanelMain.isControlPressed() && !lemminiPanelMain.isShiftPressed()) {
+//                            GameController.requestRestartLevel(true, false);
+//                        }
+//                        break;
+//                    case KeyEvent.VK_RIGHT /*39*/:
+//                        if (GameController.isOptionEnabled(GameController.Option.ADVANCED_SELECT)) {
+//                            if (LemmCursor.getType().isWalkerOnly()) {
+//                                lemminiPanelMain.setCursor(LemmCursor.CursorType.WALKER_RIGHT);
+//                            } else {
+//                                lemminiPanelMain.setCursor(LemmCursor.CursorType.RIGHT);
+//                            }
+//                        } else {
+//                            lemminiPanelMain.setRightPressed(true);
+//                        }
+//                        break;
+//                    case KeyEvent.VK_LEFT /*37*/:
+//                        if (GameController.isOptionEnabled(GameController.Option.ADVANCED_SELECT)) {
+//                            if (LemmCursor.getType().isWalkerOnly()) {
+//                                lemminiPanelMain.setCursor(LemmCursor.CursorType.WALKER_LEFT);
+//                            } else {
+//                                lemminiPanelMain.setCursor(LemmCursor.CursorType.LEFT);
+//                            }
+//                        } else {
+//                            lemminiPanelMain.setLeftPressed(true);
+//                        }
+//                        break;
+//                    case KeyEvent.VK_UP:
+//                        if (GameController.isOptionEnabled(GameController.Option.ADVANCED_SELECT)) {
+//                            switch (LemmCursor.getType()) {
+//                                case NORMAL:
+//                                    lemminiPanelMain.setCursor(LemmCursor.CursorType.WALKER);
+//                                    break;
+//                                case LEFT:
+//                                    lemminiPanelMain.setCursor(LemmCursor.CursorType.WALKER_LEFT);
+//                                    break;
+//                                case RIGHT:
+//                                    lemminiPanelMain.setCursor(LemmCursor.CursorType.WALKER_RIGHT);
+//                                    break;
+//                                default:
+//                                    break;
+//                            }
+//                        } else {
+//                            lemminiPanelMain.setUpPressed(true);
+//                        }
+//                        break;
+//                    case KeyEvent.VK_DOWN:
+//                        if (!GameController.isOptionEnabled(GameController.Option.ADVANCED_SELECT)) {
+//                            lemminiPanelMain.setDownPressed(true);
+//                        }
+//                        break;
+//                    case KeyEvent.VK_N:
+//                        if (Core.player.isDebugMode()) {
+//                            Lemming l = new Lemming(lemminiPanelMain.getCursorX(), lemminiPanelMain.getCursorY(), Lemming.Direction.RIGHT);
+//                            GameController.addLemming(l);
+//                            Vsfx v = new Vsfx(lemminiPanelMain.getCursorX(), lemminiPanelMain.getCursorY(), Vsfx.Vsfx_Index.YIPPEE);
+//                            GameController.addVsfx(v);
+//                        }
+//                        break;
+//                    case KeyEvent.VK_PLUS:
+//                    case KeyEvent.VK_ADD:
+//                    case KeyEvent.VK_EQUALS:
+//                    case KeyEvent.VK_F2:
+//                        GameController.pressPlus(GameController.KEYREPEAT_KEY);
+//                        break;
+//                    case KeyEvent.VK_MINUS:
+//                    case KeyEvent.VK_SUBTRACT:
+//                    case KeyEvent.VK_F1:
+//                        GameController.pressMinus(GameController.KEYREPEAT_KEY);
+//                        break;
+//                    case KeyEvent.VK_ESCAPE:
+//                        GameController.endLevel();
+//                        break;
+//                    default:
+//                        break;
+//                }
+//                evt.consume();
+//                break;
+//            case BRIEFING:
+//                key:
+//                switch (code) {
+//                    case KeyEvent.VK_ENTER:
+//                    case KeyEvent.VK_SPACE:
+//                        lemminiPanelMain.startLevel();
+//                        break;
+//                    case KeyEvent.VK_L:
+//                        if (lemminiPanelMain.isControlPressed())
+//                            lemminiPanelMain.handleLoadReplay();
+//                        break;
+//                    case KeyEvent.VK_M:
+//                        if (lemminiPanelMain.isControlPressed()) {
+//                            GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, !GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
+//                            toggleMenuBarVisibility();
+//                            Core.saveSettings();
+//                        }
+//                        break;
+//                    case KeyEvent.VK_F4:
+//                        if (lemminiPanelMain.isControlPressed())
+//                            lemminiPanelMain.handlePlayers();
+//                        break;
+//                    case KeyEvent.VK_F9:
+//                        if (lemminiPanelMain.isControlPressed())
+//                            lemminiPanelMain.handleChooseLevel();
+//                        break;
+//                    case KeyEvent.VK_F5:
+//                        if (lemminiPanelMain.isControlPressed())
+//                            lemminiPanelMain.handleEnterCode();
+//                        break;
+//                    case KeyEvent.VK_F10:
+//                        if (lemminiPanelMain.isControlPressed())
+//                            lemminiPanelMain.handleOptions();
+//                        break;
+//                    case KeyEvent.VK_F11:
+//                        if (lemminiPanelMain.isControlPressed())
+//                        	lemminiPanelMain.handleHotkeyConfig();
+//                        break;
+//                    case KeyEvent.VK_F12:
+//                        if (lemminiPanelMain.isControlPressed())
+//                            handleAbout();
+//                        break;
+//                    case KeyEvent.VK_LEFT:
+//                        if (Fader.getState() == Fader.State.OFF) {
+//                            LevelPack pack = GameController.getCurLevelPack();
+//                            String packName = pack.getName();
+//                            int packIdx = GameController.getCurLevelPackIdx();
+//                            List<String> ratings = pack.getRatings();
+//                            int rating = GameController.getCurRating();
+//                            int lvlNum = GameController.getCurLevelNumber() - 1;
+//                            while (rating >= 0) {
+//                                while (lvlNum >= 0) {
+//                                    if (Core.player.isAvailable(packName, ratings.get(rating), lvlNum)) {
+//                                        GameController.requestChangeLevel(packIdx, rating, lvlNum, false);
+//                                        break key;
+//                                    }
+//                                    lvlNum--;
+//                                }
+//                                rating--;
+//                                if (rating >= 0) {
+//                                    lvlNum = pack.getLevelCount(rating) - 1;
+//                                }
+//                            }
+//                        }
+//                        break;
+//                    case KeyEvent.VK_RIGHT:
+//                        if (Fader.getState() == Fader.State.OFF) {
+//                            LevelPack pack = GameController.getCurLevelPack();
+//                            String packName = pack.getName();
+//                            int packIdx = GameController.getCurLevelPackIdx();
+//                            List<String> ratings = pack.getRatings();
+//                            int rating = GameController.getCurRating();
+//                            int lvlCount = pack.getLevelCount(rating);
+//                            int lvlNum = GameController.getCurLevelNumber() + 1;
+//                            while (rating < ratings.size()) {
+//                                while (lvlNum < lvlCount) {
+//                                    if (Core.player.isAvailable(packName, ratings.get(rating), lvlNum)) {
+//                                        GameController.requestChangeLevel(packIdx, rating, lvlNum, false);
+//                                        break key;
+//                                    }
+//                                    lvlNum++;
+//                                }
+//                                rating++;
+//                                if (rating < ratings.size()) {
+//                                    lvlNum = 0;
+//                                }
+//                            }
+//                        }
+//                        break;
+//                    case KeyEvent.VK_UP:
+//                        if (Fader.getState() == Fader.State.OFF) {
+//                            LevelPack pack = GameController.getCurLevelPack();
+//                            String packName = pack.getName();
+//                            int packIdx = GameController.getCurLevelPackIdx();
+//                            List<String> ratings = pack.getRatings();
+//                            int rating = GameController.getCurRating() - 1;
+//                            int lvlNum = GameController.getCurLevelNumber();
+//                            while (rating >= 0) {
+//                                while (lvlNum >= 0) {
+//                                    if (Core.player.isAvailable(packName, ratings.get(rating), lvlNum)) {
+//                                        GameController.requestChangeLevel(packIdx, rating, lvlNum, false);
+//                                        break key;
+//                                    }
+//                                    lvlNum--;
+//                                }
+//                                rating--;
+//                                if (rating >= 0) {
+//                                    lvlNum = Math.min(pack.getLevelCount(rating), GameController.getCurLevelNumber());
+//                                }
+//                            }
+//                        }
+//                        break;
+//                    case KeyEvent.VK_DOWN:
+//                        if (Fader.getState() == Fader.State.OFF) {
+//                            LevelPack pack = GameController.getCurLevelPack();
+//                            String packName = pack.getName();
+//                            int packIdx = GameController.getCurLevelPackIdx();
+//                            List<String> ratings = pack.getRatings();
+//                            int rating = GameController.getCurRating() + 1;
+//                            int lvlNum = GameController.getCurLevelNumber();
+//                            while (rating < ratings.size()) {
+//                                while (lvlNum >= 0) {
+//                                    if (Core.player.isAvailable(packName, ratings.get(rating), lvlNum)) {
+//                                        GameController.requestChangeLevel(packIdx, rating, lvlNum, false);
+//                                        break key;
+//                                    }
+//                                    lvlNum--;
+//                                }
+//                                rating++;
+//                                if (rating < ratings.size()) {
+//                                    lvlNum = Math.min(pack.getLevelCount(rating), GameController.getCurLevelNumber());
+//                                }
+//                            }
+//                        }
+//                    case KeyEvent.VK_ESCAPE:
+//                        lemminiPanelMain.exitToMenu();
+//                        break;
+//                    default:
+//                        break;
+//                }
+//                break;
+//            case INTRO:
+//                switch (code) {
+//                case KeyEvent.VK_ESCAPE:
+//                    exit();
+//                    break;
+//                case KeyEvent.VK_ENTER:
+//                case KeyEvent.VK_SPACE:
+//                        lemminiPanelMain.loadDefaultLevel();
+//                    break;
+//                case KeyEvent.VK_L:
+//                    if (lemminiPanelMain.isControlPressed())
+//                        lemminiPanelMain.handleLoadReplay();
+//                    break;
+//                case KeyEvent.VK_M:
+//                    if (lemminiPanelMain.isControlPressed()) {
+//                        GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, !GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
+//                        toggleMenuBarVisibility();
+//                        Core.saveSettings();
+//                    }
+//                    break;
+//                case KeyEvent.VK_F4:
+//                    if (lemminiPanelMain.isControlPressed())
+//                        lemminiPanelMain.handlePlayers();
+//                    break;
+//                case KeyEvent.VK_F9:
+//                    if (lemminiPanelMain.isControlPressed())
+//                        lemminiPanelMain.handleChooseLevel();
+//                    break;
+//                case KeyEvent.VK_F5:
+//                    if (lemminiPanelMain.isControlPressed())
+//                        lemminiPanelMain.handleEnterCode();
+//                    break;
+//                case KeyEvent.VK_F10:
+//                    if (lemminiPanelMain.isControlPressed())
+//                        lemminiPanelMain.handleOptions();
+//                    break;
+//                case KeyEvent.VK_F11:
+//                    if (lemminiPanelMain.isControlPressed())
+//                    	lemminiPanelMain.handleHotkeyConfig();
+//                    break;
+//                case KeyEvent.VK_F12:
+//                    if (lemminiPanelMain.isControlPressed())
+//                        handleAbout();
+//                    break;
+//                default:
+//                    break;
+//                }
+//                break;
+//            case DEBRIEFING:
+//            case LEVEL_END:
+//                switch (code) {
+//                    case KeyEvent.VK_ENTER:
+//                    case KeyEvent.VK_SPACE:
+//                    	lemminiPanelMain.findBestLevelToLoad();
+//                        break;
+//                    case KeyEvent.VK_L:
+//                        if (lemminiPanelMain.isControlPressed())
+//                            lemminiPanelMain.handleLoadReplay();
+//                        break;
+//                    case KeyEvent.VK_M:
+//                        if (lemminiPanelMain.isControlPressed()) {
+//                            GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, !GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
+//                            toggleMenuBarVisibility();
+//                            Core.saveSettings();
+//                        }
+//                        break;
+//                    case KeyEvent.VK_F4:
+//                        if (lemminiPanelMain.isControlPressed())
+//                            lemminiPanelMain.handlePlayers();
+//                        break;
+//                    case KeyEvent.VK_F9:
+//                        if (lemminiPanelMain.isControlPressed())
+//                            lemminiPanelMain.handleChooseLevel();
+//                        break;
+//                    case KeyEvent.VK_F5:
+//                        if (lemminiPanelMain.isControlPressed())
+//                            lemminiPanelMain.handleEnterCode();
+//                        break;
+//                    case KeyEvent.VK_F10:
+//                        if (lemminiPanelMain.isControlPressed())
+//                            lemminiPanelMain.handleOptions();
+//                        break;
+//                    case KeyEvent.VK_F11:
+//                        if (lemminiPanelMain.isControlPressed())
+//                        	lemminiPanelMain.handleHotkeyConfig();
+//                        break;
+//                    case KeyEvent.VK_F12:
+//                        if (lemminiPanelMain.isControlPressed())
+//                            handleAbout();
+//                        break;
+//                    case KeyEvent.VK_V:
+//                        LemmImage tmp = GameController.getLevel().createMinimap(GameController.getFgImage(), 1.0, 1.0, true, false, true);
+//                        try (OutputStream out = Core.resourceTree.newOutputStream("level.png")) {
+//                            ImageIO.write(tmp.getImage(), "png", out);
+//                        } catch (IOException ex) {
+//                        }
+//                        break;
+//                    case KeyEvent.VK_S:
+//                        if (lemminiPanelMain.isControlPressed()) {
+//                            lemminiPanelMain.handleSaveReplay();
+//                        }
+//                    case KeyEvent.VK_ESCAPE:
+//                        lemminiPanelMain.exitToMenu();
+//                        break;
+//                    default:
+//                        break;
+//                }
+//                break;
+//            default:
+//                break;
+//        }
+//    }//GEN-LAST:event_formKeyPressed
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
         int code = evt.getKeyCode();

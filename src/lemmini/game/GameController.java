@@ -32,6 +32,7 @@ import lemmini.LemminiFrame;
 import lemmini.extract.ExtractDAT;
 import lemmini.extract.ExtractLevel;
 import lemmini.gameutil.Fader;
+import lemmini.gameutil.Hotkey;
 import lemmini.gameutil.KeyRepeat;
 import lemmini.gameutil.Sprite;
 import lemmini.graphics.GraphicsContext;
@@ -164,6 +165,9 @@ public class GameController {
         LVL,
         DAT
     }
+    
+    /** list of currently-active hotkeys */
+    public static List<Hotkey> activeHotkeys;
 
     /** key repeat bitmask for icons */
     public static final int KEYREPEAT_ICON = 1;
