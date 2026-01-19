@@ -96,13 +96,13 @@ public class HotkeyConfig extends JDialog {
 
         int row = 0;
         int col = 0;
-        final int maxRows = 15;
+        final int maxRows = 17;
         final int columnPadding = 20; // extra space between columns
 
         for (Hotkey hk : hotkeys) {
         	// Button
         	JButton btn = new JButton(hk.getKeyDescription());
-        	btn.setPreferredSize(new Dimension(70, 25));
+        	btn.setPreferredSize(new Dimension(80, 25));
         	gbc.gridx = col * 2;
         	gbc.gridy = row;
         	gbc.anchor = GridBagConstraints.LINE_START;
@@ -156,7 +156,7 @@ public class HotkeyConfig extends JDialog {
             }
             totalWidth += maxLabel + 70 + columnPadding;
         }
-        totalWidth += 100; // margin
+        totalWidth += 160; // margin
         int totalHeight = Math.min(maxRows * 30 + 100, 800);
 
         setPreferredSize(new Dimension(totalWidth, totalHeight));
@@ -194,13 +194,22 @@ public class HotkeyConfig extends JDialog {
             if (isModifierKey(code)) return true;
 
             // Duplicate detection
+            String modifier = pendingModifier;
+            int newKeyCode = code;
+
             for (Hotkey other : hotkeys) {
-                if (other != hotkey && Objects.equals(other.getModifier(), pendingModifier)
-                        && other.getKeyCode() == code) {
-                    other.setKey(KeyEvent.VK_UNDEFINED, "Unassigned");
+                if (RetroLemminiHotkeys.conflicts(
+                        hotkey,
+                        other,
+                        newKeyCode,
+                        modifier)) {
+
+                    other.clearKey();
+
                     JButton otherBtn = actionButtons.get(other.getAction());
-                    if (otherBtn != null) otherBtn.setText("Unassigned");
-                    currentKeys.put(other.getAction(), "Unassigned");
+                    if (otherBtn != null) {
+                        otherBtn.setText("Unassigned");
+                    }
                 }
             }
 

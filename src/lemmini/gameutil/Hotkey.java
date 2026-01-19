@@ -1,5 +1,6 @@
 package lemmini.gameutil;
 
+import java.awt.event.KeyEvent;
 import java.util.Objects;
 
 /**
@@ -24,10 +25,11 @@ public class Hotkey {
     }
 
     /** Constructor with modifier */
-    public Hotkey(RetroLemminiHotkeys.HotkeyAction action, String modifier, int keyCode, String keyDescription) {
+    public Hotkey(RetroLemminiHotkeys.HotkeyAction action, int keyCode, String modifier) {
         this(action, keyCode);
         this.modifier = modifier;
     }
+
 
     // Getters
     public RetroLemminiHotkeys.HotkeyAction getAction() { return action; }
@@ -48,6 +50,11 @@ public class Hotkey {
     public void setKey(int keyCode, String keyDescription) {
         this.keyCode = keyCode;
         this.keyDescription = keyDescription;
+    }
+    
+    public void clearKey() {
+        this.keyCode = KeyEvent.VK_UNDEFINED;
+        this.modifier = null;
     }
 
     public void setModifier(String modifier) {

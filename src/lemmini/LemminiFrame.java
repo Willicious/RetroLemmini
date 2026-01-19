@@ -585,6 +585,9 @@ public class LemminiFrame extends JFrame {
             }
         }
     }
+    
+ // TODO - Match all hotkeys to their relevant program event
+    
 //        // Handle modifiers
 //        switch (code) {
 //            case KeyEvent.VK_SHIFT:

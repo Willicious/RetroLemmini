@@ -2,66 +2,97 @@ package lemmini.gameutil;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Default hotkeys and key factory for RetroLemmini.
  */
 public class RetroLemminiHotkeys {
+	
+	/** Hotkey-specific scope */
+	public enum HotkeyScope {
+	    ANYWHERE,
+	    IN_GAME,
+	    PREVIEW,
+	    POSTVIEW,
+	    DEBUG
+	}
 
     /** Enum for all actions */
 	public enum HotkeyAction {
-	    HotkeyPause("Pause the game"),
-	    HotkeyExample2("Hotkey example 5"),
-	    HotkeyExample3("Hotkey example 5"),
-	    HotkeyExample4("Hotkey example 5"),
-	    HotkeyExample5("Hotkey example 5"),
-	    HotkeyExample6("Hotkey example 6"),
-	    HotkeyExample7("Hotkey example 7"),
-	    HotkeyExample8("Hotkey example 8"),
-	    HotkeyExample9("Hotkey example 9"),
-	    HotkeyExample10("An example of a very long hotkey in the first column"),
-	    HotkeyExample11("Hotkey example 11"),
-	    HotkeyExample12("Hotkey example 12"),
-	    HotkeyExample13("Hotkey example 13"),
-	    HotkeyExample14("Hotkey example 14"),
-	    HotkeyExample15("Hotkey example 15"),
-	    HotkeyExample16("Hotkey example 16"),
-	    HotkeyExample17("Hotkey example 17"),
-	    HotkeyExample18("Hotkey example 18"),
-	    HotkeyExample19("Hotkey example 19"),
-	    HotkeyExample20("An example of a very long hotkey in the second column"),
-	    HotkeyExample21("Hotkey example 21"),
-	    HotkeyExample22("Hotkey example 22"),
-	    HotkeyExample23("Hotkey example 23"),
-	    HotkeyExample24("Hotkey example 24"),
-	    HotkeyExample25("Hotkey example 25"),
-	    HotkeyExample26("Hotkey example 26"),
-	    HotkeyExample27("Hotkey example 27"),
-	    HotkeyExample28("Hotkey example 28"),
-	    HotkeyExample29("Hotkey example 29"),
-	    HotkeyExample30("Blibbidy blobbidy bloop"),
-	    HotkeyExample31("Hotkey example 31"),
-	    HotkeyExample32("Hotkey example 32"),
-	    HotkeyExample33("Hotkey example 33"),
-	    HotkeyExample34("An example of an even longer hotkey in the third column."),
-	    HotkeyExample35("Hotkey example 35"),
-	    HotkeyExample36("Hotkey example 36"),
-	    HotkeyExample37("Hotkey example 37"),
-	    HotkeyExample38("Hotkey example 38"),
-	    HotkeyExample39("Hotkey example 39"),
-	    HotkeyExample40("Hotkey example 40");
+		HotkeyToggleMusic("(In-Game) Mute/unmute music", HotkeyScope.IN_GAME),
+		HotkeyToggleSound("(In-Game) Mute/unmute sound", HotkeyScope.IN_GAME),
+	    HotkeyPause("(In-Game) Pause the game", HotkeyScope.IN_GAME),
+	    HotkeyRestart("(In-Game) Restart the game", HotkeyScope.IN_GAME),
+	    HotkeyNuke("(In-Game) Nuke the level", HotkeyScope.IN_GAME),
+	    HotkeyDecreaseRR("(In-Game) Decrease release rate", HotkeyScope.IN_GAME),
+	    HotkeyIncreaseRR("(In-Game) Increase release rate", HotkeyScope.IN_GAME),
+	    HotkeySelectClimber("(In-Game) Select Climber skill", HotkeyScope.IN_GAME),
+	    HotkeySelectFloater("(In-Game) Select Floater skill", HotkeyScope.IN_GAME),
+	    HotkeySelectBomber("(In-Game) Select Bomber skill", HotkeyScope.IN_GAME),
+	    HotkeySelectBlocker("(In-Game) Select Blocker skill", HotkeyScope.IN_GAME),
+	    HotkeySelectBuilder("(In-Game) Select Builder skill", HotkeyScope.IN_GAME),
+	    HotkeySelectBasher("(In-Game) Select Basher skill", HotkeyScope.IN_GAME),
+	    HotkeySelectMiner("(In-Game) Select Miner skill", HotkeyScope.IN_GAME),
+	    HotkeySelectDigger("(In-Game) Select Digger skill", HotkeyScope.IN_GAME),
+	    HotkeyToggleVerticalLock("(In-Game) Toggle Vertical Lock", HotkeyScope.IN_GAME),
+	    HotkeyFastForward("(In-Game) Fast-Forward", HotkeyScope.IN_GAME),
+	    HotkeyTurboForward("(In-Game) Turbo Fast-Forward", HotkeyScope.IN_GAME),
+	    HotkeySaveAsImage("(In-Game + Preview) Save level as image", HotkeyScope.IN_GAME, HotkeyScope.PREVIEW),
+	    HotkeySelectLeft("(In-Game) Select left-facing lemming", HotkeyScope.IN_GAME),
+	    HotkeySelectRight("(In-Game) Select right-facing lemming", HotkeyScope.IN_GAME),
+	    HotkeySelectWalker("(In-Game) Select walking lemming", HotkeyScope.IN_GAME),
+	    HotkeyNudgeViewLeft("(In-Game) Nudge viewport left", HotkeyScope.IN_GAME),
+	    HotkeyNudgeViewRight("(In-Game) Nudge viewport right", HotkeyScope.IN_GAME),
+	    HotkeyNudgeViewUp("(In-Game) Nudge viewport up", HotkeyScope.IN_GAME),
+	    HotkeyNudgeViewDown("(In-Game) Nudge viewport down", HotkeyScope.IN_GAME),
+	    HotkeyEndLevel("(In-Game) End gameplay", HotkeyScope.IN_GAME),
+	    HotkeySaveReplay("(In-Game + Postview) Save replay", HotkeyScope.IN_GAME, HotkeyScope.POSTVIEW),
+	    HotkeyLoadReplay("(Anywhere) Load replay", HotkeyScope.ANYWHERE),
+	    HotkeyCancelReplay("(In-Game) Cancel replay", HotkeyScope.IN_GAME),
+	    HotkeyNextLevel("(Preview) Next level", HotkeyScope.PREVIEW),
+	    HotkeyPreviousLevel("(Preview) Previous level", HotkeyScope.PREVIEW),
+	    HotkeyNextGroup("(Preview) Next group", HotkeyScope.PREVIEW),
+	    HotkeyPreviousGroup("(Preview) Previous group", HotkeyScope.PREVIEW),
+	    HotkeyDebugSaveAll("(Debug) Set saved lems to maximum", HotkeyScope.DEBUG),
+	    HotkeyDebugInvertTimer("(Debug) Invert timer direction", HotkeyScope.DEBUG),
+	    HotkeyDebugToggleSuperLemming("(Debug) Toggle superlemming mode", HotkeyScope.DEBUG),
+	    HotkeyDebugToggleDrawMode("(Debug) Toggle draw mode", HotkeyScope.DEBUG),
+	    HotkeyDebugToggleDebug("(Debug) Toggle debug mode", HotkeyScope.DEBUG),
+	    HotkeyDebugPrintLevelName("(Debug) Print level name to console", HotkeyScope.DEBUG),
+	    HotkeyDebugAddLemAtCursor("(Debug) Add lemming at cursor", HotkeyScope.DEBUG),
+	    HotkeyToggleMenuBar("(Anywhere) Toggle menu bar", HotkeyScope.ANYWHERE),
+		HotkeyManagePlayers("(Anywhere) Manage players", HotkeyScope.ANYWHERE),
+		HotkeyLevelSelect("(Anywhere) Select level", HotkeyScope.ANYWHERE),
+		HotkeyEnterCode("(Anywhere) Enter code", HotkeyScope.ANYWHERE),
+		HotkeyOpenSettings("(Anywhere) Options", HotkeyScope.ANYWHERE),
+		HotkeyManageHotkeys("(Anywhere) Hotkeys", HotkeyScope.ANYWHERE),
+		HotkeyAbout("(Anywhere) About RetroLemmini", HotkeyScope.ANYWHERE),
+		HotkeyCloseApp("(Anywhere) Close RetroLemmini", HotkeyScope.ANYWHERE);
 
 	    private final String description;
+	    private final EnumSet<HotkeyScope> scopes;
 
-	    HotkeyAction(String description) {
+	    HotkeyAction(String description, HotkeyScope... scopes) {
 	        this.description = description;
+	        this.scopes = EnumSet.copyOf(Arrays.asList(scopes));
 	    }
 
 	    public String getDescription() {
 	        return description;
+	    }
+
+	    public EnumSet<HotkeyScope> getScopes() {
+	        return scopes;
+	    }
+
+	    public boolean isAnywhere() {
+	        return scopes.contains(HotkeyScope.ANYWHERE);
 	    }
 	}
 
@@ -70,46 +101,57 @@ public class RetroLemminiHotkeys {
      */
 	public static List<Hotkey> getDefaultHotkeys() {
 	    List<Hotkey> hotkeys = new ArrayList<>();
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyToggleMusic, KeyEvent.VK_M));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyToggleSound, KeyEvent.VK_Z));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyPause, KeyEvent.VK_P));
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyPause, KeyEvent.VK_SPACE));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample2, KeyEvent.VK_A));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample3, KeyEvent.VK_B));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample4, KeyEvent.VK_C));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample5, KeyEvent.VK_D));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample6, KeyEvent.VK_E));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample7, KeyEvent.VK_F));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample8, KeyEvent.VK_G));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample9, KeyEvent.VK_H));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample10, KeyEvent.VK_I));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample11, KeyEvent.VK_J));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample12, KeyEvent.VK_K));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample13, KeyEvent.VK_L));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample14, KeyEvent.VK_M));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample15, KeyEvent.VK_N));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample16, KeyEvent.VK_O));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample17, KeyEvent.VK_P));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample18, KeyEvent.VK_Q));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample19, KeyEvent.VK_R));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample20, KeyEvent.VK_S));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample21, KeyEvent.VK_T));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample22, KeyEvent.VK_U));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample23, KeyEvent.VK_V));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample24, KeyEvent.VK_W));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample25, KeyEvent.VK_X));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample26, KeyEvent.VK_Y));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample27, KeyEvent.VK_Z));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample28, KeyEvent.VK_1));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample29, KeyEvent.VK_2));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample30, KeyEvent.VK_3));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample31, KeyEvent.VK_F1));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample32, KeyEvent.VK_F2));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample33, KeyEvent.VK_F3));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample34, KeyEvent.VK_F4));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample35, KeyEvent.VK_F5));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample36, KeyEvent.VK_F6));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample37, KeyEvent.VK_F7));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample38, KeyEvent.VK_F8));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample39, KeyEvent.VK_F9));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyExample40, KeyEvent.VK_F10));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyRestart, KeyEvent.VK_R, "Ctrl"));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNuke, KeyEvent.VK_N));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDecreaseRR, KeyEvent.VK_MINUS));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyIncreaseRR, KeyEvent.VK_EQUALS));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectClimber, KeyEvent.VK_1));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectFloater, KeyEvent.VK_2));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectBomber, KeyEvent.VK_3));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectBlocker, KeyEvent.VK_4));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectBuilder, KeyEvent.VK_5));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectBasher, KeyEvent.VK_6));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectMiner, KeyEvent.VK_7));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectDigger, KeyEvent.VK_8));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyToggleVerticalLock, KeyEvent.VK_V));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyFastForward, KeyEvent.VK_F));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyTurboForward, KeyEvent.VK_T));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectLeft, KeyEvent.VK_LEFT));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectRight, KeyEvent.VK_RIGHT));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectWalker, KeyEvent.VK_W));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectWalker, KeyEvent.VK_UP));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNudgeViewLeft, KeyEvent.VK_LEFT, "Ctrl"));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNudgeViewRight, KeyEvent.VK_RIGHT, "Ctrl"));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNudgeViewUp, KeyEvent.VK_UP, "Ctrl"));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNudgeViewDown, KeyEvent.VK_DOWN, "Ctrl"));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyEndLevel, KeyEvent.VK_ESCAPE));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySaveReplay, KeyEvent.VK_S, "Ctrl"));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyLoadReplay, KeyEvent.VK_L, "Ctrl"));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyCancelReplay, KeyEvent.VK_C));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySaveAsImage, KeyEvent.VK_I));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNextLevel, KeyEvent.VK_RIGHT));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyPreviousLevel, KeyEvent.VK_LEFT));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNextGroup, KeyEvent.VK_UP));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyPreviousGroup, KeyEvent.VK_DOWN));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugSaveAll, KeyEvent.VK_NUMPAD1));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugInvertTimer, KeyEvent.VK_NUMPAD2));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleSuperLemming, KeyEvent.VK_NUMPAD3));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleDrawMode, KeyEvent.VK_D));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleDebug, KeyEvent.VK_D, "Ctrl"));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugPrintLevelName, KeyEvent.VK_NUMPAD4));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugAddLemAtCursor, KeyEvent.VK_L));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyToggleMenuBar, KeyEvent.VK_F1));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyManagePlayers, KeyEvent.VK_F2));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyLevelSelect, KeyEvent.VK_F3));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyEnterCode, KeyEvent.VK_F4));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyOpenSettings, KeyEvent.VK_F5));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyManageHotkeys, KeyEvent.VK_F6));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyAbout, KeyEvent.VK_F7));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyCloseApp, KeyEvent.VK_F8, "Alt"));
 
 	    return hotkeys;
 	}
@@ -144,6 +186,8 @@ public class RetroLemminiHotkeys {
         addKey("End", KeyEvent.VK_END);
         addKey("PgUp", KeyEvent.VK_PAGE_UP);
         addKey("PgDown", KeyEvent.VK_PAGE_DOWN);
+        addKey("Minus", KeyEvent.VK_MINUS);
+        addKey("Equals", KeyEvent.VK_EQUALS);
     }
 
     private static void addKey(String name, int code) {
@@ -188,6 +232,44 @@ public class RetroLemminiHotkeys {
         }
     }
     
+    /** Detect scope conflicts to be resolved */
+    public static boolean conflicts(
+            Hotkey target,
+            Hotkey other,
+            int proposedKeyCode,
+            String proposedModifier) {
+
+        if (target == other) return false;
+
+        // Unassigned keys never conflict
+        if (proposedKeyCode == KeyEvent.VK_UNDEFINED
+         || other.getKeyCode() == KeyEvent.VK_UNDEFINED) {
+            return false;
+        }
+
+        // Different key or modifier → no conflict
+        if (proposedKeyCode != other.getKeyCode()) return false;
+        if (!Objects.equals(proposedModifier, other.getModifier())) return false;
+
+        EnumSet<HotkeyScope> scopesA = target.getAction().getScopes();
+        EnumSet<HotkeyScope> scopesB = other.getAction().getScopes();
+
+        // ANYWHERE must be globally unique
+        if (scopesA.contains(HotkeyScope.ANYWHERE)
+         || scopesB.contains(HotkeyScope.ANYWHERE)) {
+            return true;
+        }
+
+        // Same scope = conflict
+        for (HotkeyScope scope : scopesA) {
+            if (scopesB.contains(scope)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * Returns the HotkeyAction corresponding to the given KeyEvent, or null if none matches.
      * @param e the KeyEvent
