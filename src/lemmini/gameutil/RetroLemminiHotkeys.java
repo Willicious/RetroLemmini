@@ -104,7 +104,6 @@ public class RetroLemminiHotkeys {
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyToggleMusic, KeyEvent.VK_M));
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyToggleSound, KeyEvent.VK_Z));
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyPause, KeyEvent.VK_P));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyPause, KeyEvent.VK_SPACE));
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyRestart, KeyEvent.VK_R, "Ctrl"));
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNuke, KeyEvent.VK_N));
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDecreaseRR, KeyEvent.VK_MINUS));
@@ -123,7 +122,6 @@ public class RetroLemminiHotkeys {
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectLeft, KeyEvent.VK_LEFT));
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectRight, KeyEvent.VK_RIGHT));
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectWalker, KeyEvent.VK_W));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectWalker, KeyEvent.VK_UP));
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNudgeViewLeft, KeyEvent.VK_LEFT, "Ctrl"));
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNudgeViewRight, KeyEvent.VK_RIGHT, "Ctrl"));
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNudgeViewUp, KeyEvent.VK_UP, "Ctrl"));

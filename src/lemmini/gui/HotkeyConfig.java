@@ -90,29 +90,51 @@ public class HotkeyConfig extends JDialog {
         mainPanel.add(scrollPane, BorderLayout.CENTER);
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(2, 5, 2, 5);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weightx = 0;
 
         int row = 0;
         int col = 0;
         final int maxRows = 17;
-        final int columnPadding = 20; // extra space between columns
+        final int columnPadding = 35;
+        final int buttonWidth = 90;
+        final int buttonHeight = 25;
+
+        // Insets
+        Insets buttonInsets       = new Insets(2, 8, 2, 6);   // button → label gap
+        Insets labelInsets        = new Insets(2, 6, 2, 12);  // label → next column
+        Insets columnButtonInsets = new Insets(2, columnPadding, 2, 6); // first button in column
 
         for (Hotkey hk : hotkeys) {
-        	// Button
-        	JButton btn = new JButton(hk.getKeyDescription());
-        	btn.setPreferredSize(new Dimension(80, 25));
-        	gbc.gridx = col * 2;
-        	gbc.gridy = row;
-        	gbc.anchor = GridBagConstraints.LINE_START;
-        	hotkeysPanel.add(btn, gbc);
 
-        	// Label
-        	JLabel lbl = new JLabel(hk.getDescription());
-        	gbc.gridx = col * 2 + 1;
-        	gbc.anchor = GridBagConstraints.LINE_START;
-        	hotkeysPanel.add(lbl, gbc);
+            boolean firstRowInColumn = (row == 0);
+
+            // ---------- Button ----------
+            JButton btn = new JButton(hk.getKeyDescription());
+            btn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+            btn.setMinimumSize(new Dimension(buttonWidth, buttonHeight));
+
+            gbc.gridx = col * 2;
+            gbc.gridy = row;
+            gbc.anchor = GridBagConstraints.LINE_START;
+            gbc.weightx = 0;
+            gbc.fill = GridBagConstraints.NONE;
+
+            if (col > 0) {
+                gbc.insets = new Insets(2, columnPadding, 2, 6);
+            } else {
+                gbc.insets = buttonInsets;
+            }
+
+            hotkeysPanel.add(btn, gbc);
+
+            // ---------- Label ----------
+            JLabel lbl = new JLabel(hk.getDescription());
+
+            gbc.gridx = col * 2 + 1;
+            gbc.weightx = 1.0;               // label expands
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            gbc.insets = labelInsets;
+
+            hotkeysPanel.add(lbl, gbc);
 
             // Store references
             actionButtons.put(hk.getAction(), btn);
@@ -123,26 +145,34 @@ public class HotkeyConfig extends JDialog {
             if (row >= maxRows) {
                 row = 0;
                 col++;
-
-                // Add horizontal padding between columns
-                gbc.insets = new Insets(2, columnPadding, 2, 5);
             }
         }
 
-        // Bottom panel
-        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        // Bottom panel with Save / Cancel
+     // Bottom panel
+        JPanel bottomPanel = new JPanel(new BorderLayout());
+        JPanel tipPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
+        JLabel tipLabel = new JLabel("TIP: When assigning a modifier key (Ctrl, Shift, Alt), press the modifier first, then the main key");
+        tipLabel.setFont(tipLabel.getFont().deriveFont(Font.PLAIN, 11f)); // smaller font
+        tipLabel.setForeground(Color.DARK_GRAY);                           // subtle gray color
+        tipPanel.add(tipLabel);
+        bottomPanel.add(tipPanel, BorderLayout.WEST);
+        
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton saveBtn = new JButton("Save");
         JButton cancelBtn = new JButton("Cancel");
         saveBtn.addActionListener(e -> saveHotkeys());
         cancelBtn.addActionListener(e -> dispose());
-        bottomPanel.add(saveBtn);
-        bottomPanel.add(cancelBtn);
+        buttonPanel.add(saveBtn);
+        buttonPanel.add(cancelBtn);
+        bottomPanel.add(buttonPanel, BorderLayout.EAST);
+
         mainPanel.add(bottomPanel, BorderLayout.SOUTH);
 
         setContentPane(mainPanel);
 
-        // Dynamically calculate dialog width based on components
-        hotkeysPanel.doLayout(); // make sure components have calculated their preferred sizes
+        // Dynamically calculate dialog width based on content
+        hotkeysPanel.doLayout(); // ensure component sizes are calculated
         int columns = (int) Math.ceil(hotkeys.size() / (double) maxRows);
         int totalWidth = 0;
         for (int c = 0; c < columns; c++) {
@@ -154,9 +184,9 @@ public class HotkeyConfig extends JDialog {
                     maxLabel = Math.max(maxLabel, comp.getPreferredSize().width);
                 }
             }
-            totalWidth += maxLabel + 70 + columnPadding;
+            totalWidth += maxLabel + buttonHeight + columnPadding;
         }
-        totalWidth += 160; // margin
+        totalWidth += 260; // extra margin
         int totalHeight = Math.min(maxRows * 30 + 100, 800);
 
         setPreferredSize(new Dimension(totalWidth, totalHeight));
