@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.BooleanUtils;
@@ -156,6 +157,7 @@ public class Level {
     private final List<Steel> steel;
     private final Background[] backgrounds;
     private final GraphicsBuffer[][] bgBuffers;
+    private final List<String> levelMods; // per-level mods
     /** level name - originally 32 bytes ASCII filled with whitespace */
     private final String lvlName;
     private final String author;
@@ -195,6 +197,13 @@ public class Level {
             levelProps.add(p);
             mainLevel = p.get("mainLevel", StringUtils.EMPTY);
         }
+        
+        // read per-level mods
+        String[] modsStr = Props.getArray(levelProps, "mods", null);
+        if (modsStr != null && modsStr.length > 0)
+            levelMods = Arrays.stream(modsStr).map(mod -> "mods/" + mod).collect(Collectors.toList());
+        else
+        	levelMods = GameController.getCurLevelPack().getModPaths(); // fallback to level pack mods
 
         // read name and author
         lvlName = Props.get(levelProps, "name", StringUtils.EMPTY);
@@ -1722,4 +1731,8 @@ public class Level {
             this.scale = scale;
         }
     }
+
+	public List<String> getMods() {
+		return levelMods;
+	}
 }

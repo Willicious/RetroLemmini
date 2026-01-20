@@ -77,7 +77,7 @@ public class LevelPack {
     private int codeOffset;
 
     private final List<String> debriefings = new ArrayList<>(9);
-    private final List<String> mods;
+    private final List<String> packMods; // per-pack mods
 
     /**
      * Constructor for dummy level pack. Needed for loading single levels.
@@ -89,7 +89,7 @@ public class LevelPack {
         codeSeed = StringUtils.EMPTY;
         maxFallDistance = 126;
         codeOffset = 0;
-        mods = Collections.emptyList();
+        packMods = Collections.emptyList();
 
         ratings.add("Single Levels");
 
@@ -124,7 +124,7 @@ public class LevelPack {
         allLevelsUnlocked = props.getBoolean("allLevelsUnlocked", false);
         // read mods
         String[] modsStr = props.getArray("mods", ArrayUtils.EMPTY_STRING_ARRAY);
-        mods = Arrays.stream(modsStr).map(modStr -> "mods/" + modStr).collect(Collectors.toList());
+        packMods = Arrays.stream(modsStr).map(modStr -> "mods/" + modStr).collect(Collectors.toList());
         // read code seed
         codeSeed = props.get("codeSeed", StringUtils.EMPTY).trim().toUpperCase(Locale.ROOT);
         // read code level offset
@@ -321,6 +321,6 @@ public class LevelPack {
     }
 
     public List<String> getModPaths() {
-        return Collections.unmodifiableList(mods);
+        return Collections.unmodifiableList(packMods);
     }
 }

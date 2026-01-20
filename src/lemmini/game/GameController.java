@@ -812,8 +812,12 @@ public class GameController {
         curRating = rating;
         curLevelNumber = lNum;
 
+        Resource lvlRes = levelPacks.get(curLevelPack).getInfo(curRating, curLevelNumber).getLevelResource();
+        // loading the level will swap appropriate lemmings pixels to the correct colors
+        level = new Level(lvlRes, level);
+        
         List<String> oldMods = modPaths;
-        modPaths = levelPacks.get(curLevelPack).getModPaths();
+        modPaths = level.getMods(); // per-level mods override per-pack mods
         if (!modPaths.equals(oldMods)) {
             sound.load();
             MiscGfx.init(ToolBox.scale(width, 1.0 / 16.0));
@@ -825,10 +829,6 @@ public class GameController {
             LemmCursor.init();
             Lemming.loadLemmings();
         }
-
-        Resource lvlRes = levelPacks.get(curLevelPack).getInfo(curRating, curLevelNumber).getLevelResource();
-        // loading the level will swap appropriate lemmings pixels to the correct colors
-        level = new Level(lvlRes, level);
 
         initLevel(true);
 
