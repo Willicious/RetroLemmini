@@ -92,8 +92,8 @@ public class OptionsDialog extends JDialog {
         jCheckBoxUnpauseOnAssignment = new javax.swing.JCheckBox();
         jCheckBoxTimedBombers = new javax.swing.JCheckBox();
         jCheckBoxUnlockAllLevels = new javax.swing.JCheckBox();
-        jCheckBoxDisableScrollWheel = new javax.swing.JCheckBox();
-        jCheckBoxDisableFrameStepping = new javax.swing.JCheckBox();
+        jCheckBoxEnableScrollWheel = new javax.swing.JCheckBox();
+        jCheckBoxEnableFrameStepping = new javax.swing.JCheckBox();
         jCheckBoxVisualSfx = new javax.swing.JCheckBox();
         //jCheckBoxFullScreen = new javax.swing.JCheckBox();
         jCheckBoxEnhancedStatus = new javax.swing.JCheckBox();
@@ -375,9 +375,9 @@ public class OptionsDialog extends JDialog {
         jCheckBoxTimedBombers.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.TIMED_BOMBERS));
         jCheckBoxTimedBombers.setText("Enable 5 second timed bombers");
         
-        jCheckBoxDisableFrameStepping.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.DISABLE_FRAME_STEPPING));
-        jCheckBoxDisableFrameStepping.setText("Disable Frame Stepping");
-        jCheckBoxDisableFrameStepping.setToolTipText("Disable advancing the game by single frames when paused.");
+        jCheckBoxEnableFrameStepping.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.ENABLE_FRAME_STEPPING));
+        jCheckBoxEnableFrameStepping.setText("Enable Frame Stepping");
+        jCheckBoxEnableFrameStepping.setToolTipText("Enable advancing the game by a single frame when paused.");
         
         javax.swing.GroupLayout jPanelClassicModeLayout = new javax.swing.GroupLayout(jPanelClassicMode);
         jPanelClassicMode.setLayout(jPanelClassicModeLayout);
@@ -388,7 +388,7 @@ public class OptionsDialog extends JDialog {
                 .addGroup(jPanelClassicModeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jCheckBoxAdvanced)
                     .addComponent(jCheckBoxTimedBombers)
-                    .addComponent(jCheckBoxDisableFrameStepping)
+                    .addComponent(jCheckBoxEnableFrameStepping)
                     )
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -400,7 +400,7 @@ public class OptionsDialog extends JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxTimedBombers)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxDisableFrameStepping)
+                .addComponent(jCheckBoxEnableFrameStepping)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         
@@ -412,7 +412,7 @@ public class OptionsDialog extends JDialog {
         
         jCheckBoxSwap.setSelected(GameController.isOptionEnabled(GameController.Option.SWAP_BUTTONS));
         jCheckBoxSwap.setText("Swap Middle/Right Mouse Buttons");
-        jCheckBoxSwap.setToolTipText("When disabled: Middle button drags the viewport, Right button only selects Walkers.");
+        jCheckBoxSwap.setToolTipText("Swap which button pauses the game and which increases the scroll speed of the viewport.");
 
         jCheckBoxFaster.setSelected(GameController.isOptionEnabled(GameController.Option.FASTER_FAST_FORWARD));
         jCheckBoxFaster.setText("Double Fast-Forward Speed");
@@ -427,9 +427,9 @@ public class OptionsDialog extends JDialog {
         jCheckBoxUnpauseOnAssignment.setSelected(GameController.isOptionEnabled(GameController.Option.UNPAUSE_ON_ASSIGNMENT));
         jCheckBoxUnpauseOnAssignment.setText("Unpause After Assigning Skill");
         
-        jCheckBoxDisableScrollWheel.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.DISABLE_SCROLL_WHEEL));
-        jCheckBoxDisableScrollWheel.setText("Disable Scroll Wheel");
-        jCheckBoxDisableScrollWheel.setToolTipText("Prevent the scroll wheel from changing the selected skill.");
+        jCheckBoxEnableScrollWheel.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.ENABLE_SCROLL_WHEEL));
+        jCheckBoxEnableScrollWheel.setText("Enable Scroll Wheel");
+        jCheckBoxEnableScrollWheel.setToolTipText("Use the mouse scroll wheel to change the selected skill.");
         
         javax.swing.GroupLayout jPanelControlSchemeLayout = new javax.swing.GroupLayout(jPanelControlScheme);
         jPanelControlScheme.setLayout(jPanelControlSchemeLayout);
@@ -440,7 +440,7 @@ public class OptionsDialog extends JDialog {
                 .addGroup(jPanelControlSchemeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 	.addComponent(jCheckBoxClassicCursor)
                     .addComponent(jCheckBoxSwap)
-                    .addComponent(jCheckBoxDisableScrollWheel)
+                    .addComponent(jCheckBoxEnableScrollWheel)
                     .addComponent(jCheckBoxFaster)
                     .addComponent(jCheckBoxPauseStopsFastForward)
                     .addComponent(jCheckBoxUnpauseOnAssignment)
@@ -456,7 +456,7 @@ public class OptionsDialog extends JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxSwap)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxDisableScrollWheel)
+                .addComponent(jCheckBoxEnableScrollWheel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxFaster)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -632,8 +632,8 @@ public class OptionsDialog extends JDialog {
         GameController.setOption(GameController.Option.UNPAUSE_ON_ASSIGNMENT, jCheckBoxUnpauseOnAssignment.isSelected());
         GameController.setOption(GameController.SLTooOption.TIMED_BOMBERS, jCheckBoxTimedBombers.isSelected());
         GameController.setOption(GameController.SLTooOption.UNLOCK_ALL_LEVELS, jCheckBoxUnlockAllLevels.isSelected());
-        GameController.setOption(GameController.SLTooOption.DISABLE_SCROLL_WHEEL, jCheckBoxDisableScrollWheel.isSelected());
-        GameController.setOption(GameController.SLTooOption.DISABLE_FRAME_STEPPING, jCheckBoxDisableFrameStepping.isSelected());
+        GameController.setOption(GameController.SLTooOption.ENABLE_SCROLL_WHEEL, jCheckBoxEnableScrollWheel.isSelected());
+        GameController.setOption(GameController.SLTooOption.ENABLE_FRAME_STEPPING, jCheckBoxEnableFrameStepping.isSelected());
         GameController.setOption(GameController.SLTooOption.VISUAL_SFX, jCheckBoxVisualSfx.isSelected());
 
         //then commit all those settings to disk
@@ -656,8 +656,8 @@ public class OptionsDialog extends JDialog {
     private javax.swing.JCheckBox jCheckBoxUnpauseOnAssignment;
     private javax.swing.JCheckBox jCheckBoxTimedBombers;
     private javax.swing.JCheckBox jCheckBoxUnlockAllLevels;
-    private javax.swing.JCheckBox jCheckBoxDisableScrollWheel;
-    private javax.swing.JCheckBox jCheckBoxDisableFrameStepping;
+    private javax.swing.JCheckBox jCheckBoxEnableScrollWheel;
+    private javax.swing.JCheckBox jCheckBoxEnableFrameStepping;
     private javax.swing.JCheckBox jCheckBoxVisualSfx;
     //private javax.swing.JCheckBox jCheckBoxFullScreen;
     private javax.swing.JCheckBox jCheckBoxEnhancedStatus;

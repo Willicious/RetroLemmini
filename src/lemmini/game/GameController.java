@@ -115,8 +115,8 @@ public class GameController {
     public static enum SLTooOption {
         TIMED_BOMBERS,
         UNLOCK_ALL_LEVELS,
-        DISABLE_SCROLL_WHEEL,
-        DISABLE_FRAME_STEPPING,
+        ENABLE_SCROLL_WHEEL,
+        ENABLE_FRAME_STEPPING,
         /** flag: show Visual SFX */
         VISUAL_SFX,
         /** flag: use new status with icons */
@@ -1420,7 +1420,7 @@ public class GameController {
             lemmSkillRequest = lemm;
         }
         stopReplayMode();
-        if (!isOptionEnabled(SLTooOption.DISABLE_FRAME_STEPPING)) {
+        if (isOptionEnabled(SLTooOption.ENABLE_FRAME_STEPPING)) {
             advanceFrame();
         }
     }

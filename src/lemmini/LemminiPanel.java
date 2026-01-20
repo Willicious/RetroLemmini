@@ -480,7 +480,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                             GameController.requestSkill(l);
                         } else if (y < LemminiFrame.LEVEL_HEIGHT) {
                             GameController.stopReplayMode();
-                            if (!GameController.isOptionEnabled(GameController.SLTooOption.DISABLE_FRAME_STEPPING)) {
+                            if (GameController.isOptionEnabled(GameController.SLTooOption.ENABLE_FRAME_STEPPING)) {
                                 GameController.advanceFrame();
                             }
                         }
@@ -664,7 +664,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     }//GEN-LAST:event_formMouseMoved
 
     private void formMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_formMouseWheelMoved
-        if (GameController.getGameState() == GameController.State.LEVEL && !GameController.isOptionEnabled(GameController.SLTooOption.DISABLE_SCROLL_WHEEL)) {
+        if (GameController.getGameState() == GameController.State.LEVEL && GameController.isOptionEnabled(GameController.SLTooOption.ENABLE_SCROLL_WHEEL)) {
             int wheelRotation = evt.getWheelRotation();
             if (wheelRotation > 0) {
                 for (int i = 0; i < wheelRotation; i++) {

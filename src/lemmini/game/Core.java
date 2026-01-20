@@ -232,8 +232,8 @@ public class Core {
         // Settings added in SuperLemminiToo
         GameController.setOption(GameController.SLTooOption.TIMED_BOMBERS, programProps.getBoolean("timedBombers", true));
         GameController.setOption(GameController.SLTooOption.UNLOCK_ALL_LEVELS, programProps.getBoolean("unlockAllLevels", true));
-        GameController.setOption(GameController.SLTooOption.DISABLE_SCROLL_WHEEL, programProps.getBoolean("disableScrollWheel", true));
-        GameController.setOption(GameController.SLTooOption.DISABLE_FRAME_STEPPING, programProps.getBoolean("disableFrameStepping", true));
+        GameController.setOption(GameController.SLTooOption.ENABLE_SCROLL_WHEEL, programProps.getBoolean("enableScrollWheel", false));
+        GameController.setOption(GameController.SLTooOption.ENABLE_FRAME_STEPPING, programProps.getBoolean("enableFrameStepping", false));
         GameController.setOption(GameController.SLTooOption.VISUAL_SFX, programProps.getBoolean("visualSFX", true));
         GameController.setOption(GameController.SLTooOption.ENHANCED_STATUS, programProps.getBoolean("enhancedStatus", true));
         GameController.setOption(GameController.SLTooOption.SHOW_LEVEL_NAME, programProps.getBoolean("showLevelName", true));
@@ -390,8 +390,8 @@ public class Core {
         // Settings added in SuperLemminiToo
         programProps.setBoolean("timedBombers", GameController.isOptionEnabled(GameController.SLTooOption.TIMED_BOMBERS));
         programProps.setBoolean("unlockAllLevels", GameController.isOptionEnabled(GameController.SLTooOption.UNLOCK_ALL_LEVELS));
-        programProps.setBoolean("disableScrollWheel", GameController.isOptionEnabled(GameController.SLTooOption.DISABLE_SCROLL_WHEEL));
-        programProps.setBoolean("disableFrameStepping", GameController.isOptionEnabled(GameController.SLTooOption.DISABLE_FRAME_STEPPING));
+        programProps.setBoolean("enableScrollWheel", GameController.isOptionEnabled(GameController.SLTooOption.ENABLE_SCROLL_WHEEL));
+        programProps.setBoolean("enableFrameStepping", GameController.isOptionEnabled(GameController.SLTooOption.ENABLE_FRAME_STEPPING));
         programProps.setBoolean("visualSFX", GameController.isOptionEnabled(GameController.SLTooOption.VISUAL_SFX));
         programProps.setBoolean("enhancedStatus", GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_STATUS));
         programProps.setBoolean("showLevelName", GameController.isOptionEnabled(GameController.SLTooOption.SHOW_LEVEL_NAME));
