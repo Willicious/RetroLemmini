@@ -59,12 +59,16 @@ public class RetroLemminiHotkeys {
 	    HotkeyPreviousLevel("(Preview) Previous level", HotkeyScope.PREVIEW),
 	    HotkeyNextGroup("(Preview) Next group", HotkeyScope.PREVIEW),
 	    HotkeyPreviousGroup("(Preview) Previous group", HotkeyScope.PREVIEW),
+	    HotkeyDebugToggleDebug("(Debug) Toggle debug mode", HotkeyScope.DEBUG),
+	    HotkeyDebugMaxExitPhysics("(Debug) Maximum exit physics", HotkeyScope.DEBUG),
 	    HotkeyDebugSaveAll("(Debug) Set saved lems to maximum", HotkeyScope.DEBUG),
 	    HotkeyDebugInvertTimer("(Debug) Invert timer direction", HotkeyScope.DEBUG),
 	    HotkeyDebugToggleSuperLemming("(Debug) Toggle superlemming mode", HotkeyScope.DEBUG),
 	    HotkeyDebugToggleDrawMode("(Debug) Toggle draw mode", HotkeyScope.DEBUG),
-	    HotkeyDebugToggleDebug("(Debug) Toggle debug mode", HotkeyScope.DEBUG),
+	    HotkeyDebugDrawBrushSizeUp("(Debug) Increase draw brush size", HotkeyScope.DEBUG),
+	    HotkeyDebugDrawBrushSizeDown("(Debug) Decrease draw brush size", HotkeyScope.DEBUG),
 	    HotkeyDebugPrintLevelName("(Debug) Print level name to console", HotkeyScope.DEBUG),
+	    HotkeyDebugToggleCursorInfo("(Debug) Toggle debug cursor info", HotkeyScope.DEBUG),
 	    HotkeyDebugAddLemAtCursor("(Debug) Add lemming at cursor", HotkeyScope.DEBUG),
 	    HotkeyToggleMenuBar("(Anywhere) Toggle menu bar", HotkeyScope.ANYWHERE),
 		HotkeyManagePlayers("(Anywhere) Manage players", HotkeyScope.ANYWHERE),
@@ -135,12 +139,16 @@ public class RetroLemminiHotkeys {
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyPreviousLevel, KeyEvent.VK_LEFT));
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNextGroup, KeyEvent.VK_UP));
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyPreviousGroup, KeyEvent.VK_DOWN));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleDebug, KeyEvent.VK_D, "Ctrl"));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugMaxExitPhysics, KeyEvent.VK_E, "Ctrl"));
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugSaveAll, KeyEvent.VK_NUMPAD1));
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugInvertTimer, KeyEvent.VK_NUMPAD2));
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleSuperLemming, KeyEvent.VK_NUMPAD3));
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleDrawMode, KeyEvent.VK_D));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleDebug, KeyEvent.VK_D, "Ctrl"));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugDrawBrushSizeUp, KeyEvent.VK_0));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugDrawBrushSizeDown, KeyEvent.VK_9));
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugPrintLevelName, KeyEvent.VK_NUMPAD4));
+	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleCursorInfo, KeyEvent.VK_NUMPAD5));
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugAddLemAtCursor, KeyEvent.VK_L));
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyToggleMenuBar, KeyEvent.VK_F1));
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyManagePlayers, KeyEvent.VK_F2));

@@ -168,14 +168,14 @@ public class LemminiPanel extends JPanel implements Runnable {
     /** flag: alt key is pressed */
     private boolean altPressed;
     // BOOKMARK TODO: create a combined modifier flag: SHIFT, CONTROL, ALT to more easily detect when *only* one modifier is pressed.
-    /** flag: left key is pressed */
-    private boolean leftPressed;
-    /** flag: right key is pressed */
-    private boolean rightPressed;
-    /** flag: up key is pressed */
-    private boolean upPressed;
-    /** flag: down key is pressed */
-    private boolean downPressed;
+    /** flag: nudge view left hotkey is pressed */
+    private boolean nudgeViewLeftPressed;
+    /** flag: nudge view right hotkey is pressed */
+    private boolean nudgeViewRightPressed;
+    /** flag: nudge view up hotkey is pressed */
+    private boolean nudgeViewUpPressed;
+    /** flag: nudge view down hotkey is pressed */
+    private boolean nudgeViewDownPressed;
     /** flag: debug draw is active */
     private boolean draw;
     private boolean isFocused;
@@ -183,6 +183,9 @@ public class LemminiPanel extends JPanel implements Runnable {
     private boolean holdingMinimap;
     private boolean showDebugCursorInfo;
     private int drawBrushSize;
+    private static final int MIN_DRAW_BRUSH_SIZE = 1;
+    private static final int MAX_DRAW_BRUSH_SIZE = 10;
+
     /** graphics buffer for information string display */
     private GraphicsBuffer outStrBuffer;
     /** offscreen image */
@@ -727,10 +730,10 @@ public class LemminiPanel extends JPanel implements Runnable {
     void focusLost() {
         shiftPressed = false;
         controlPressed = false;
-        leftPressed = false;
-        rightPressed = false;
-        upPressed = false;
-        downPressed = false;
+        nudgeViewLeftPressed = false;
+        nudgeViewRightPressed = false;
+        nudgeViewUpPressed = false;
+        nudgeViewDownPressed = false;
         GameController.releasePlus(GameController.KEYREPEAT_ICON | GameController.KEYREPEAT_KEY);
         GameController.releaseMinus(GameController.KEYREPEAT_ICON | GameController.KEYREPEAT_KEY);
         GameController.releaseIcon(Icons.IconType.MINUS);
@@ -1304,18 +1307,18 @@ public class LemminiPanel extends JPanel implements Runnable {
                             }
                         }
                     }
-                    if (rightPressed && !leftPressed) {
+                    if (nudgeViewRightPressed && !nudgeViewLeftPressed) {
                         xOfsTemp += getStepSize();
                         GameController.setXPos(xOfsTemp);
-                    } else if (leftPressed && !rightPressed) {
+                    } else if (nudgeViewLeftPressed && !nudgeViewRightPressed) {
                         xOfsTemp -= getStepSize();
                         GameController.setXPos(xOfsTemp);
                     }
                     if (!GameController.isVerticalLock()) {
-                        if (downPressed && !upPressed) {
+                        if (nudgeViewDownPressed && !nudgeViewUpPressed) {
                             yOfsTemp += getStepSize();
                             GameController.setYPos(yOfsTemp);
-                        } else if (upPressed && !downPressed) {
+                        } else if (nudgeViewUpPressed && !nudgeViewDownPressed) {
                             yOfsTemp -= getStepSize();
                             GameController.setYPos(yOfsTemp);
                         }
@@ -2082,67 +2085,38 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
 
     /**
-     * Get flag: Left key is pressed?
-     * @return true if left key is pressed, false otherwise
+     * Get/set nudge view flags:
      */
-    boolean isLeftPressed() {
-        return leftPressed;
+    boolean isNudgeViewLeftPressed() {
+        return nudgeViewLeftPressed;
     }
 
-    /**
-     * Set flag: Left key is pressed.
-     * @param p true: Left key is pressed, false otherwise
-     */
-    void setLeftPressed(final boolean p) {
-        leftPressed = p;
+    void setNudgeViewLeftPressed(final boolean p) {
+    	nudgeViewLeftPressed = p;
     }
 
-    /**
-     * Get flag: Right key is pressed?
-     * @return true if right key is pressed, false otherwise
-     */
-    boolean isRightPressed() {
-        return rightPressed;
+    boolean isNudgeViewRightPressed() {
+        return nudgeViewRightPressed;
     }
 
-    /**
-     * Set flag: Right key is pressed.
-     * @param p true: Right key is pressed, false otherwise
-     */
-    void setRightPressed(final boolean p) {
-        rightPressed = p;
+    void setNudgeViewRightPressed(final boolean p) {
+    	nudgeViewRightPressed = p;
     }
 
-    /**
-     * Get flag: Up key is pressed?
-     * @return true if up key is pressed, false otherwise
-     */
-    boolean isUpPressed() {
-        return upPressed;
+    boolean isNudgeViewUpPressed() {
+        return nudgeViewUpPressed;
     }
 
-    /**
-     * Set flag: Up key is pressed.
-     * @param p true: Up key is pressed, false otherwise
-     */
-    void setUpPressed(final boolean p) {
-        upPressed = p;
+    void setNudgeViewUpPressed(final boolean p) {
+    	nudgeViewUpPressed = p;
     }
 
-    /**
-     * Get flag: Down key is pressed?
-     * @return true if down key is pressed, false otherwise
-     */
-    boolean isDownPressed() {
-        return downPressed;
+    boolean isNudgeViewDownPressed() {
+        return nudgeViewDownPressed;
     }
 
-    /**
-     * Set flag: Down key is pressed.
-     * @param p true: Down key is pressed, false otherwise
-     */
-    void setDownPressed(final boolean p) {
-        downPressed = p;
+    void setNudgeViewDownPressed(final boolean p) {
+    	nudgeViewDownPressed = p;
     }
 
     /**
@@ -2185,8 +2159,18 @@ public class LemminiPanel extends JPanel implements Runnable {
         return drawBrushSize;
     }
 
-    public void setDrawBrushSize(int drawBrushSize) {
-        this.drawBrushSize = drawBrushSize;
+    public void setDrawBrushSize(int size) {
+        if (size < MIN_DRAW_BRUSH_SIZE || size > MAX_DRAW_BRUSH_SIZE)
+            return;
+        this.drawBrushSize = size;
+    }
+    
+    public void increaseDrawBrushSize() {
+        setDrawBrushSize(drawBrushSize + 1);
+    }
+
+    public void decreaseDrawBrushSize() {
+        setDrawBrushSize(drawBrushSize - 1);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
