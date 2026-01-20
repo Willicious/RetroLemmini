@@ -23,7 +23,7 @@ public class HotkeyConfig extends JDialog {
     private final List<Hotkey> hotkeys = new ArrayList<>();
     private final Map<RetroLemminiHotkeys.HotkeyAction, JButton> actionButtons = new HashMap<>();
     private final Map<RetroLemminiHotkeys.HotkeyAction, String> currentKeys = new HashMap<>();
-    private final Path hotkeysIniPath = Core.settingsPath.resolve("retrolemmini_hotkeys.ini");
+    private final Path hotkeysIniPath = Core.getProgramHotkeysFilePath();
 
     private String pendingModifier = null;
     private KeyEventDispatcher activeDispatcher = null;

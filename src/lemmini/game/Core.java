@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -32,6 +33,8 @@ import org.apache.commons.lang3.StringUtils;
 import lemmini.LemminiFrame;
 import lemmini.game.GameController.ExitSoundOption;
 import lemmini.game.GameController.MenuThemeOption;
+import lemmini.gameutil.Hotkey;
+import lemmini.gameutil.RetroLemminiHotkeys;
 import lemmini.graphics.LemmImage;
 import lemmini.gui.LegalFrame;
 import lemmini.tools.CaseInsensitiveFileTree;
@@ -98,6 +101,8 @@ public class Core {
 
     public static final Path[] EMPTY_PATH_ARRAY = {};
 
+    /** name program hotkeys file */
+    private static final String PROGRAM_HOTKEYS_FILE_NAME = "retrolemmini_hotkeys.ini";
     /** name program properties file */
     private static final String PROGRAM_PROPS_FILE_NAME = "retrolemmini_settings.ini";
     /** name of player properties file */
@@ -110,6 +115,8 @@ public class Core {
 
     /** program properties */
     public static Props programProps;
+    /** path of program hotkeys file */
+    private static Path programHotkeysFilePath;
     /** path of program properties file */
     private static Path programPropsFilePath;
     /** path of player properties file */
@@ -191,6 +198,12 @@ public class Core {
         } else {
             System.out.println("    config file read successfully");
         }
+        
+        // Hotkeys
+        setProgramHotkeysFilePath(settingsPath.resolve(PROGRAM_HOTKEYS_FILE_NAME));
+        System.out.println("\n    hotkey config: " + getProgramHotkeysFilePath().toString());
+        loadHotkeys(getProgramHotkeysFilePath());
+        System.out.println("    hotkey config read successfully");
 
         // Resources directory
         if (gamePath.toString().endsWith(".jar")) {
@@ -286,7 +299,52 @@ public class Core {
         return true;
     }
 
-    /***
+    public static void loadHotkeys(Path path) {
+        List<Hotkey> hotkeys = RetroLemminiHotkeys.getDefaultHotkeys();
+        Path iniPath = path;
+
+        if (Files.exists(iniPath)) {
+            try (BufferedReader reader = Files.newBufferedReader(iniPath)) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    line = line.trim();
+                    if (line.isEmpty() || line.startsWith("#")) continue;
+
+                    String[] parts = line.split("=", 2);
+                    if (parts.length != 2) continue;
+
+                    String actionName = parts[0].trim();
+                    String keyString = parts[1].trim();
+
+                    try {
+                        RetroLemminiHotkeys.HotkeyAction action = RetroLemminiHotkeys.HotkeyAction.valueOf(actionName);
+                        Hotkey hk = hotkeys.stream()
+                                            .filter(h -> h.getAction() == action)
+                                            .findFirst()
+                                            .orElse(null);
+
+                        if (hk != null) {
+                            String[] keyParts = keyString.split("\\+");
+                            if (keyParts.length == 2) {
+                                hk.setModifier(keyParts[0]);
+                                hk.setKey(RetroLemminiHotkeys.getKeyCode(keyParts[1]), keyParts[1]);
+                            } else {
+                                hk.setModifier(null);
+                                hk.setKey(RetroLemminiHotkeys.getKeyCode(keyString), keyString);
+                            }
+                        }
+                    } catch (IllegalArgumentException ex) {
+                        // unknown action, skip
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        GameController.activeHotkeys = hotkeys;
+    }
+
+	/***
      *  Reads all player settings from the players.ini file
      */
     private static void loadPlayerSettings() {
@@ -805,5 +863,13 @@ public class Core {
 
 	public static void setProgramPropsFilePath(Path programPropsFilePath) {
 		Core.programPropsFilePath = programPropsFilePath;
+	}
+
+	public static Path getProgramHotkeysFilePath() {
+		return programHotkeysFilePath;
+	}
+
+	public static void setProgramHotkeysFilePath(Path programHotkeysFilePath) {
+		Core.programHotkeysFilePath = programHotkeysFilePath;
 	}
 }
