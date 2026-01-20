@@ -701,9 +701,11 @@ public class Level {
                 e.id = oCombined.size();
                 entrances.add(e);
             }
+            // check for one-way arrows (these should only ever be drawn on terrain, regardless of any other flags)
+            boolean isOneWay = (spr.getType() == SpriteObject.Type.ONE_WAY_LEFT) || (spr.getType() == SpriteObject.Type.ONE_WAY_RIGHT);
             // animated
             boolean invisible = BooleanUtils.toBoolean(o.paintMode & LvlObject.MODE_INVISIBLE);
-            boolean drawOnVis = !invisible && BooleanUtils.toBoolean(o.paintMode & LvlObject.MODE_VIS_ON_TERRAIN);
+            boolean drawOnVis = !invisible && (isOneWay || BooleanUtils.toBoolean(o.paintMode & LvlObject.MODE_VIS_ON_TERRAIN));
             boolean noOverwrite = !drawOnVis && BooleanUtils.toBoolean(o.paintMode & LvlObject.MODE_NO_OVERWRITE);
             boolean inFront = !invisible && !noOverwrite;
             boolean drawFull = inFront && !drawOnVis;
@@ -1687,9 +1689,6 @@ public class Level {
 
         /**
          * Constructor.
-         * @param x x position in pixels
-         * @param y y position in pixels
-         * @param left
          */
         Entrance(final int x, final int y, final boolean left) {
             xPos = x;
