@@ -508,6 +508,9 @@ public class LemminiPanel extends JPanel implements Runnable {
                     }
                     shiftPressed = true;
                 }
+                if (buttonPressed == (swapButtons ? MouseEvent.BUTTON3 : MouseEvent.BUTTON2)) {
+                	GameController.togglePause();
+                }
                 if (buttonPressed == 4) {
                     GameController.pressMinus(GameController.KEYREPEAT_KEY);
                 }

@@ -462,18 +462,6 @@ public class LemminiFrame extends JFrame {
     private void formComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentMoved
         storeUnmaximizedPos();
     }//GEN-LAST:event_formComponentMoved
-
-    private void togglePause() {
-        boolean isPaused = GameController.isPaused();
-        if (GameController.isOptionEnabled(GameController.Option.PAUSE_STOPS_FAST_FORWARD)
-                && !isPaused && GameController.isFastForward()) {
-            GameController.setFastForward(false);
-            GameController.pressIcon(Icons.IconType.FFWD);
-        }
-        GameController.setPaused(!isPaused);
-        GameController.pressIcon(Icons.IconType.PAUSE);
-    }
-
     private void printLevelNameToConsole() {
         System.out.println(GameController.getLevelPack(GameController.getCurLevelPackIdx()).getInfo(GameController.getCurRating(),
                                                        GameController.getCurLevelNumber()).getLevelResource());
@@ -657,7 +645,7 @@ public class LemminiFrame extends JFrame {
                     toggleSound();
                     break;
                 case HotkeyPause:
-                    togglePause();
+                    GameController.togglePause();
                     break;
                 case HotkeyRestart:
                     GameController.requestRestartLevel(true, false);

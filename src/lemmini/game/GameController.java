@@ -1576,6 +1576,17 @@ public class GameController {
             lemmSkillRequest = null;
         }
     }
+    
+    public static void togglePause() {
+        boolean isPaused = isPaused();
+        if (isOptionEnabled(Option.PAUSE_STOPS_FAST_FORWARD)
+                && !isPaused && isFastForward()) {
+            setFastForward(false);
+            pressIcon(Icons.IconType.FFWD);
+        }
+        setPaused(!isPaused);
+        pressIcon(Icons.IconType.PAUSE);
+    }
 
     /**
      * Calculate the counter threshold for releasing a new Lemmings.
