@@ -542,6 +542,18 @@ public class LemminiFrame extends JFrame {
                 case KeyEvent.VK_ESCAPE:
                     lemminiPanelMain.exitToMenu();
                     break;
+                case KeyEvent.VK_RIGHT:
+                    goToNextAvailableLevel();
+                    break;
+                case KeyEvent.VK_LEFT:
+                    goToPreviousAvailableLevel();
+                    break;
+                case KeyEvent.VK_UP:
+                    goToNextAvailableGroup();
+                    break;
+                case KeyEvent.VK_DOWN:
+                    goToPreviousAvailableGroup();
+                    break;
                 default:
                     break;
             }
