@@ -25,11 +25,15 @@ public class HotkeyConfig extends JDialog {
     private final Map<RetroLemminiHotkeys.HotkeyAction, String> currentKeys = new HashMap<>();
     private final Path hotkeysIniPath = Core.getProgramHotkeysFilePath();
 
+    private List<Hotkey> defaultHotkeys = new ArrayList<>();
     private String pendingModifier = null;
     private KeyEventDispatcher activeDispatcher = null;
 
-    public HotkeyConfig(List<Hotkey> defaultHotkeys) {
-        this.hotkeys.addAll(defaultHotkeys);
+    public HotkeyConfig(List<Hotkey> keys) {
+    	defaultHotkeys = RetroLemminiHotkeys.getDefaultHotkeys();
+    	hotkeys.clear();
+    	for (Hotkey hk : defaultHotkeys) hotkeys.add(new Hotkey(hk));
+
         setTitle("Hotkey Configuration");
         setModal(true);
         setResizable(false);
@@ -101,11 +105,8 @@ public class HotkeyConfig extends JDialog {
         // Insets
         Insets buttonInsets       = new Insets(2, 8, 2, 6);   // button → label gap
         Insets labelInsets        = new Insets(2, 6, 2, 12);  // label → next column
-        Insets columnButtonInsets = new Insets(2, columnPadding, 2, 6); // first button in column
 
         for (Hotkey hk : hotkeys) {
-
-            boolean firstRowInColumn = (row == 0);
 
             // ---------- Button ----------
             JButton btn = new JButton(hk.getKeyDescription());
@@ -159,12 +160,15 @@ public class HotkeyConfig extends JDialog {
         bottomPanel.add(tipPanel, BorderLayout.WEST);
         
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        JButton saveBtn = new JButton("Save");
-        JButton cancelBtn = new JButton("Cancel");
-        saveBtn.addActionListener(e -> saveHotkeys());
-        cancelBtn.addActionListener(e -> dispose());
-        buttonPanel.add(saveBtn);
-        buttonPanel.add(cancelBtn);
+        JButton btnLoadDefaults = new JButton("Load Defaults");
+        JButton btnSave = new JButton("Save");
+        JButton btnCancel = new JButton("Cancel");
+        btnLoadDefaults.addActionListener(e -> loadDefaultHotkeys());
+        btnSave.addActionListener(e -> saveHotkeys());
+        btnCancel.addActionListener(e -> dispose());
+        buttonPanel.add(btnLoadDefaults);
+        buttonPanel.add(btnSave);
+        buttonPanel.add(btnCancel);
         bottomPanel.add(buttonPanel, BorderLayout.EAST);
 
         mainPanel.add(bottomPanel, BorderLayout.SOUTH);
@@ -271,6 +275,26 @@ public class HotkeyConfig extends JDialog {
             JButton btn = entry.getValue();
             if (btn != currentBtn && "Press key...".equals(btn.getText())) {
                 btn.setText(getKeyForAction(entry.getKey()));
+            }
+        }
+    }
+    
+    /** Reload the defaults */
+    private void loadDefaultHotkeys() {
+        currentKeys.clear();
+        for (Hotkey defaultHk : defaultHotkeys) {
+            Hotkey hk = getHotkey(defaultHk.getAction());
+            if (hk != null) {
+                hk.setKey(defaultHk.getKeyCode(), RetroLemminiHotkeys.getKeyName(defaultHk.getKeyCode()));
+                hk.setModifier(defaultHk.getModifier());
+                
+                String keyText = hk.getKeyDescription();
+                currentKeys.put(hk.getAction(), keyText);
+
+                JButton btn = actionButtons.get(hk.getAction());
+                if (btn != null) {
+                    btn.setText(keyText);
+                }
             }
         }
     }

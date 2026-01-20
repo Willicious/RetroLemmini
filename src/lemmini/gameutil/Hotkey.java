@@ -39,17 +39,21 @@ public class Hotkey {
     /** Returns key string, including modifier if present */
     public String getKeyDescription() {
         if (modifier != null && !modifier.isEmpty()) {
-            return modifier + "+" + RetroLemminiHotkeys.getKeyName(keyCode);
+            return modifier + "+" + keyDescription;
         }
-        return RetroLemminiHotkeys.getKeyName(keyCode);
+        return keyDescription;
     }
+    
+	public void setKeyDescription(String keyDescription) {
+		this.keyDescription = keyDescription;
+	}
 
     public String getModifier() { return modifier; }
 
     // Setters
     public void setKey(int keyCode, String keyDescription) {
         this.keyCode = keyCode;
-        this.keyDescription = keyDescription;
+        this.setKeyDescription(keyDescription);
     }
     
     public void clearKey() {
@@ -69,5 +73,10 @@ public class Hotkey {
     @Override
     public String toString() {
         return getKeyDescription();
+    }
+    
+    /** copy constructor */
+    public Hotkey(Hotkey other) {
+        this(other.getAction(), other.getKeyCode(), other.getModifier());
     }
 }
