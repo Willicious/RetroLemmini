@@ -28,6 +28,8 @@ public class HotkeyConfig extends JDialog {
     private List<Hotkey> defaultHotkeys = new ArrayList<>();
     private String pendingModifier = null;
     private KeyEventDispatcher activeDispatcher = null;
+    
+    private static final Color TRANSPARENT  = new Color(0, 0, 0, 0);
 
     public HotkeyConfig(List<Hotkey> keys) {
     	defaultHotkeys = RetroLemminiHotkeys.getDefaultHotkeys();
@@ -42,6 +44,7 @@ public class HotkeyConfig extends JDialog {
 
         loadHotkeysFromIni();
         initComponents();
+        updateButtonColors();
 
         pack();
         setLocationRelativeTo(null);
@@ -67,14 +70,18 @@ public class HotkeyConfig extends JDialog {
                     RetroLemminiHotkeys.HotkeyAction action = RetroLemminiHotkeys.HotkeyAction.valueOf(actionName);
                     Hotkey hk = getHotkey(action);
                     if (hk != null) {
-                    	String[] keyParts = keyString.split("\\+");
-                    	if (keyParts.length == 2) {
-                    	    hk.setModifier(keyParts[0]);
-                    	    hk.setKey(RetroLemminiHotkeys.getKeyCode(keyParts[1]), keyParts[1]);
-                    	} else {
-                    	    hk.setModifier(null);
-                    	    hk.setKey(RetroLemminiHotkeys.getKeyCode(keyString), keyString);
-                    	}
+                        if (RetroLemminiHotkeys.UNDEFINED.equalsIgnoreCase(keyString)) {
+                            hk.clearKey(); // sets keyCode = VK_UNDEFINED, modifier = null
+                        } else {
+                            String[] keyParts = keyString.split("\\+");
+                            if (keyParts.length == 2) {
+                                hk.setModifier(keyParts[0]);
+                                hk.setKey(RetroLemminiHotkeys.getKeyCode(keyParts[1]), keyParts[1]);
+                            } else {
+                                hk.setModifier(null);
+                                hk.setKey(RetroLemminiHotkeys.getKeyCode(keyString), keyString);
+                            }
+                        }
                         currentKeys.put(action, hk.getKeyDescription());
                     }
                 } catch (IllegalArgumentException ex) {
@@ -155,17 +162,20 @@ public class HotkeyConfig extends JDialog {
         JPanel tipPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
         JLabel tipLabel = new JLabel("TIP: When assigning a modifier key (Ctrl, Shift, Alt), press the modifier first, then the main key");
         tipLabel.setFont(tipLabel.getFont().deriveFont(Font.PLAIN, 11f)); // smaller font
-        tipLabel.setForeground(Color.DARK_GRAY);                           // subtle gray color
+        tipLabel.setForeground(Color.GRAY);
         tipPanel.add(tipLabel);
         bottomPanel.add(tipPanel, BorderLayout.WEST);
         
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JButton btnClearAll = new JButton("Clear All");
         JButton btnLoadDefaults = new JButton("Load Defaults");
-        JButton btnSave = new JButton("Save");
+        JButton btnSave = new JButton("Save Current Configuration");
         JButton btnCancel = new JButton("Cancel");
-        btnLoadDefaults.addActionListener(e -> loadDefaultHotkeys());
+        btnClearAll.addActionListener(e -> { clearAllHotkeys(); updateButtonColors(); });
+        btnLoadDefaults.addActionListener(e -> { loadDefaultHotkeys(); updateButtonColors(); });
         btnSave.addActionListener(e -> saveHotkeys());
         btnCancel.addActionListener(e -> dispose());
+        buttonPanel.add(btnClearAll);
         buttonPanel.add(btnLoadDefaults);
         buttonPanel.add(btnSave);
         buttonPanel.add(btnCancel);
@@ -242,7 +252,7 @@ public class HotkeyConfig extends JDialog {
 
                     JButton otherBtn = actionButtons.get(other.getAction());
                     if (otherBtn != null) {
-                        otherBtn.setText("Unassigned");
+                        otherBtn.setText(RetroLemminiHotkeys.UNDEFINED);
                     }
                 }
             }
@@ -252,6 +262,7 @@ public class HotkeyConfig extends JDialog {
             hotkey.setKey(code, keyName);
             hotkey.setModifier(pendingModifier);
             btn.setText(hotkey.getKeyDescription());
+            updateButtonColors();
             currentKeys.put(hotkey.getAction(), hotkey.getKeyDescription());
 
             pendingModifier = null;
@@ -265,9 +276,9 @@ public class HotkeyConfig extends JDialog {
         KeyboardFocusManager.getCurrentKeyboardFocusManager()
                 .addKeyEventDispatcher(activeDispatcher);
     }
-    
-    private String getKeyForAction(RetroLemminiHotkeys.HotkeyAction action) {
-        return currentKeys.getOrDefault(action, "Unassigned");
+
+	private String getKeyForAction(RetroLemminiHotkeys.HotkeyAction action) {
+        return currentKeys.getOrDefault(action, RetroLemminiHotkeys.UNDEFINED);
     }
 
     private void restoreOtherListeningButtons(JButton currentBtn) {
@@ -276,6 +287,26 @@ public class HotkeyConfig extends JDialog {
             if (btn != currentBtn && "Press key...".equals(btn.getText())) {
                 btn.setText(getKeyForAction(entry.getKey()));
             }
+        }
+    }
+    
+    private void updateButtonColors() {
+    	for (JButton btn : actionButtons.values()) {
+    		if (btn.getText() == RetroLemminiHotkeys.UNDEFINED)
+    			btn.setForeground(TRANSPARENT);
+    		else
+    			btn.setForeground(Color.BLACK);
+    	}
+    }
+    
+    /** Clear all hotkeys */
+    private void clearAllHotkeys() {
+        currentKeys.clear();
+        for (Hotkey hk : hotkeys) {
+            hk.clearKey();
+            JButton btn = actionButtons.get(hk.getAction());
+            if (btn != null)
+                btn.setText(RetroLemminiHotkeys.UNDEFINED);
         }
     }
     
@@ -303,7 +334,10 @@ public class HotkeyConfig extends JDialog {
     private void saveHotkeys() {
         try (BufferedWriter writer = Files.newBufferedWriter(hotkeysIniPath)) {
             for (Hotkey hk : hotkeys) {
-                writer.write(hk.getAction().name() + "=" + hk.getKeyDescription());
+                String keyString = hk.getKeyCode() == KeyEvent.VK_UNDEFINED
+                                   ? RetroLemminiHotkeys.UNDEFINED
+                                   : hk.getKeyDescription();
+                writer.write(hk.getAction().name() + "=" + keyString);
                 writer.newLine();
             }
         } catch (IOException e) {

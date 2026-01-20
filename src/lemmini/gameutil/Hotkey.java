@@ -59,6 +59,7 @@ public class Hotkey {
     public void clearKey() {
         this.keyCode = KeyEvent.VK_UNDEFINED;
         this.modifier = null;
+        this.keyDescription = RetroLemminiHotkeys.UNDEFINED;
     }
 
     public void setModifier(String modifier) {

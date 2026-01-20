@@ -164,6 +164,7 @@ public class RetroLemminiHotkeys {
 	
     private static final Map<String, Integer> nameToCode = new HashMap<>();
     private static final Map<Integer, String> codeToName = new HashMap<>();
+	public static final String UNDEFINED = "Undefined";
 
     static {
         // Letters
