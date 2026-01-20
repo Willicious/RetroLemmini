@@ -93,7 +93,7 @@ public class HotkeyConfig extends JDialog {
 
         int row = 0;
         int col = 0;
-        final int maxRows = 17;
+        final int maxRows = 18;
         final int columnPadding = 35;
         final int buttonWidth = 90;
         final int buttonHeight = 25;
