@@ -711,8 +711,8 @@ public class LevelDialog extends JDialog {
 
     private void selectCurrentLevel() {
         GameController.State state = GameController.getGameState();
-        if (state == GameController.State.BRIEFING || state == GameController.State.LEVEL
-                || state == GameController.State.LEVEL_END || state == GameController.State.DEBRIEFING) {
+        if (state == GameController.State.PREVIEW || state == GameController.State.LEVEL
+                || state == GameController.State.LEVEL_END || state == GameController.State.POSTVIEW) {
             selectLevel(GameController.getCurLevelPackIdx(), GameController.getCurRating(), GameController.getCurLevelNumber());
             jButtonOK.setEnabled(true);
         }

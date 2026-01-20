@@ -55,12 +55,12 @@ public class GameController {
         INIT,
         /** display intro screen */
         INTRO,
-        /** display level briefing screen */
-        BRIEFING,
+        /** display level preview screen */
+        PREVIEW,
         /** display level */
         LEVEL,
-        /** display debriefing screen */
-        DEBRIEFING,
+        /** display postview screen */
+        POSTVIEW,
         /** fade out after level was finished */
         LEVEL_END
     }
@@ -69,24 +69,24 @@ public class GameController {
     public static enum TransitionState {
         /** no fading */
         NONE,
-        /** restart level: fade out, fade in briefing */
+        /** restart level: fade out, fade in preview */
         RESTART_LEVEL,
-        /** replay level: fade out, fade in briefing */
+        /** replay level: fade out, fade in preview */
         REPLAY_LEVEL,
         /** replay level: fade out, fade in level */
-        REPLAY_LEVEL_NO_BRIEFING,
-        /** load level: fade out, fade in briefing */
+        REPLAY_LEVEL_NO_PREVIEW,
+        /** load level: fade out, fade in preview */
         LOAD_LEVEL,
-        /** load replay: fade out, fade in briefing */
+        /** load replay: fade out, fade in preview */
         LOAD_REPLAY,
         /** level finished: fade out */
         END_LEVEL,
         /** go to intro: fade in intro */
         TO_INTRO,
-        /** go to briefing: fade in briefing */
-        TO_BRIEFING,
-        /** go to debriefing: fade in debriefing */
-        TO_DEBRIEFING,
+        /** go to preview: fade in preview */
+        TO_PREVIEW,
+        /** go to postview: fade in postview */
+        TO_POSTVIEW,
         /** go to level: fade in level */
         TO_LEVEL
     }
@@ -136,7 +136,7 @@ public class GameController {
     }
 
     public static enum RetroLemminiOption {
-        //** flag: automatically save successful replays from debriefing screen
+        //** flag: automatically save successful replays from postview screen
         AUTOSAVE_REPLAYS,
         //** flag: show/hide the top menu bar
         SHOW_MENU_BAR,
@@ -287,7 +287,7 @@ public class GameController {
     /** array of available level packs */
     private static List<LevelPack> levelPacks;
     private static Set<ExternalLevelEntry> externalLevelList;
-    /** small preview version of level used in briefing screen */
+    /** small preview version of level used in preview screen */
     private static LemmImage mapPreview;
     /** timer used for nuking */
     private static NanosecondTimer timerNuke;
@@ -557,7 +557,7 @@ public class GameController {
     }
 
     /**
-     * Level successfully finished, enter debriefing and enable next level.
+     * Level successfully finished, enter postview and enable next level.
      */
     static synchronized void finishLevel() {
         Music.close();
@@ -576,21 +576,19 @@ public class GameController {
         }
 
         replayMode = false;
-        gameState = State.DEBRIEFING;
+        gameState = State.POSTVIEW;
     }
 
     /**
      * Restart level.
-     * @param doReplay true: replay, false: play
-     * @param showBriefing
      */
-    private static synchronized void restartLevel(final boolean doReplay, final boolean showBriefing) throws LemmException, ResourceException {
+    private static synchronized void restartLevel(final boolean doReplay, final boolean showPreview) throws LemmException, ResourceException {
         if (!replayMode && wasLost() && (gameState == State.LEVEL
                 || gameState == State.LEVEL_END
-                || gameState == State.DEBRIEFING)) {
+                || gameState == State.POSTVIEW)) {
             timesFailed++;
         }
-        initLevel(showBriefing);
+        initLevel(showPreview);
         if (doReplay) {
             replayMode = true;
             replay.save(Core.TEMP_PATH + "/replay.rpl");
@@ -604,8 +602,8 @@ public class GameController {
     /**
      * Initialize a level after it was loaded.
      */
-    private static synchronized void initLevel(boolean showBriefing) throws LemmException, ResourceException {
-        if (showBriefing) {
+    private static synchronized void initLevel(boolean showPreview) throws LemmException, ResourceException {
+        if (showPreview) {
         	Music.stop();
         }
 
@@ -705,7 +703,7 @@ public class GameController {
         lemmSkillOld = lemmSkill;
         nukeOld = false;
 
-        if (showBriefing) {
+        if (showPreview) {
 	        String music = level.getMusic();
 	        try {
 	            if (music == null) {
@@ -745,8 +743,8 @@ public class GameController {
         }
         sound.setGain(soundGain);
 
-        if (showBriefing) {
-            gameState = State.BRIEFING;
+        if (showPreview) {
+            gameState = State.PREVIEW;
         } else {
             gameState = State.LEVEL;
             transitionState = TransitionState.TO_LEVEL;
@@ -757,18 +755,16 @@ public class GameController {
 
     /**
      * Request the restart of this level.
-     * @param doReplay
-     * @param showBriefing
      */
-    public static synchronized void requestRestartLevel(final boolean doReplay, final boolean showBriefing) {
+    public static synchronized void requestRestartLevel(final boolean doReplay, final boolean showPreview) {
         if (doReplay && !replayMode) {
             replay.addEndEvent(replayFrame);
         }
         if (doReplay || replayMode) {
-            if (showBriefing) {
+            if (showPreview) {
                 transitionState = TransitionState.REPLAY_LEVEL;
             } else {
-                transitionState = TransitionState.REPLAY_LEVEL_NO_BRIEFING;
+                transitionState = TransitionState.REPLAY_LEVEL_NO_PREVIEW;
             }
         } else {
             transitionState = TransitionState.RESTART_LEVEL;
@@ -1798,8 +1794,8 @@ public class GameController {
      */
     public static void fade() {
         boolean doReplay = transitionState == TransitionState.REPLAY_LEVEL
-                || transitionState == TransitionState.REPLAY_LEVEL_NO_BRIEFING;
-        boolean showBriefing = transitionState != TransitionState.REPLAY_LEVEL_NO_BRIEFING;
+                || transitionState == TransitionState.REPLAY_LEVEL_NO_PREVIEW;
+        boolean showPreview = transitionState != TransitionState.REPLAY_LEVEL_NO_PREVIEW;
     	
         if (Fader.getState() == Fader.State.BLACK && transitionState != TransitionState.NONE) {
             switch (transitionState) {
@@ -1808,30 +1804,30 @@ public class GameController {
                     LemmCursor.setBox(false);
                     LemminiFrame.getFrame().setCursor(LemmCursor.CursorType.NORMAL);
                     break;
-                case TO_BRIEFING:
-                    gameState = State.BRIEFING;
+                case TO_PREVIEW:
+                    gameState = State.PREVIEW;
                     break;
-                case TO_DEBRIEFING:
-                    gameState = State.DEBRIEFING;
+                case TO_POSTVIEW:
+                    gameState = State.POSTVIEW;
                     break;
                 case TO_INTRO:
                     gameState = State.INTRO;
                     break;
                 case TO_LEVEL:
-                case REPLAY_LEVEL_NO_BRIEFING:
+                case REPLAY_LEVEL_NO_PREVIEW:
                     setXPos(xPosCenter - Core.getDrawWidth() / 2);
                     setYPos(yPosCenter - LemminiFrame.LEVEL_HEIGHT / 2);
                     xPosOld = xPos;
                     yPosOld = yPos;
                     gameState = State.LEVEL;
-                    if (transitionState != TransitionState.REPLAY_LEVEL_NO_BRIEFING) {
+                    if (transitionState != TransitionState.REPLAY_LEVEL_NO_PREVIEW) {
                         break;
                     }
                     /* falls through */
                 case RESTART_LEVEL:
                 case REPLAY_LEVEL:
                     try {
-                        restartLevel(doReplay, showBriefing);
+                        restartLevel(doReplay, showPreview);
                     } catch (ResourceException ex) {
                         Core.resourceError(ex.getMessage());
                         return;
@@ -1871,7 +1867,7 @@ public class GameController {
         }
         if (gameState == State.LEVEL_END
                 || (gameState == State.LEVEL && transitionState != TransitionState.NONE)) {
-            fadeSound(showBriefing);
+            fadeSound(showPreview);
         }
     }
 
@@ -2638,9 +2634,9 @@ public class GameController {
         }
         if (option == Option.NO_PERCENTAGES && gameState != null) {
             switch (gameState) {
-                case BRIEFING:
+                case PREVIEW:
                 case LEVEL:
-                case DEBRIEFING:
+                case POSTVIEW:
                 case LEVEL_END:
                     setTitle();
                     break;

@@ -479,10 +479,10 @@ public class LemminiFrame extends JFrame {
         RetroLemminiHotkeys.HotkeyAction action = RetroLemminiHotkeys.getHotkeyActionForEvent(evt, GameController.activeHotkeys);
 
         boolean isIntro = (GameController.getGameState() == GameController.State.INTRO);
-        boolean isPreview = (GameController.getGameState() == GameController.State.BRIEFING);
+        boolean isPreview = (GameController.getGameState() == GameController.State.PREVIEW);
         boolean isLevel = (GameController.getGameState() == GameController.State.LEVEL);
         boolean isLevelEnd = (GameController.getGameState() == GameController.State.LEVEL_END);
-        boolean isPostview = (GameController.getGameState() == GameController.State.DEBRIEFING);
+        boolean isPostview = (GameController.getGameState() == GameController.State.POSTVIEW);
         
         // Hard-coded keys
         // --- In-game modifier handling --- //

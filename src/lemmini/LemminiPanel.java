@@ -293,8 +293,8 @@ public class LemminiPanel extends JPanel implements Runnable {
 
     private void formMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseExited
         switch (GameController.getGameState()) {
-            case BRIEFING:
-            case DEBRIEFING:
+            case PREVIEW:
+            case POSTVIEW:
             case LEVEL:
                 int x = xMouseScreen + Core.scale(mouseDx);
                 if (x >= getWidth()) {
@@ -391,7 +391,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                     evt.consume();
                 }
                 break;
-            case BRIEFING:
+            case PREVIEW:
                 if (buttonPressed == MouseEvent.BUTTON1) {
                     TextScreen.Button button = TextScreen.getDialog().handleLeftClick(
                             x - Core.getDrawWidth() / 2, y - Core.getDrawHeight() / 2);
@@ -426,7 +426,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                     evt.consume();
                 }
                 break;
-            case DEBRIEFING:
+            case POSTVIEW:
                 if (buttonPressed == MouseEvent.BUTTON1) {
                     TextScreen.Button button = TextScreen.getDialog().handleLeftClick(
                             x - Core.getDrawWidth() / 2, y - Core.getDrawHeight() / 2);
@@ -645,8 +645,8 @@ public class LemminiPanel extends JPanel implements Runnable {
 
         switch (GameController.getGameState()) {
             case INTRO:
-            case BRIEFING:
-            case DEBRIEFING:
+            case PREVIEW:
+            case POSTVIEW:
                 TextScreen.getDialog().handleMouseMove(
                         Core.unscale(xMouseScreen) - Core.getDrawWidth() / 2,
                         Core.unscale(yMouseScreen) - Core.getDrawHeight() / 2);
@@ -783,8 +783,8 @@ public class LemminiPanel extends JPanel implements Runnable {
 
             switch (GameController.getGameState()) {
                 case INTRO:
-                case BRIEFING:
-                case DEBRIEFING:
+                case PREVIEW:
+                case POSTVIEW:
                     offGfx.setClip(0, 0, Core.getDrawWidth(), Core.getDrawHeight());
                     TextScreen.drawScreen(offGfx, 0, 0, Core.getDrawWidth(), Core.getDrawHeight());
                     break;
@@ -1233,16 +1233,16 @@ public class LemminiPanel extends JPanel implements Runnable {
                         Core.unscale(xMouseScreen) - Core.getDrawWidth() / 2,
                         Core.unscale(yMouseScreen) - Core.getDrawHeight() / 2);
                 break;
-            case BRIEFING:
-                TextScreen.setMode(TextScreen.Mode.BRIEFING);
+            case PREVIEW:
+                TextScreen.setMode(TextScreen.Mode.PREVIEW);
                 TextScreen.update();
                 TextScreen.getDialog().handleMouseMove(
                         Core.unscale(xMouseScreen) - Core.getDrawWidth() / 2,
                         Core.unscale(yMouseScreen) - Core.getDrawHeight() / 2);
                 replaySaved = false;
                 break;
-            case DEBRIEFING:
-                TextScreen.setMode(TextScreen.Mode.DEBRIEFING);
+            case POSTVIEW:
+                TextScreen.setMode(TextScreen.Mode.POSTVIEW);
                 TextScreen.update();
                 TextScreen.getDialog().handleMouseMove(
                         Core.unscale(xMouseScreen) - Core.getDrawWidth() / 2,

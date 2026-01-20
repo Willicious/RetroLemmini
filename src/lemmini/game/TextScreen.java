@@ -50,10 +50,10 @@ public class TextScreen {
         INIT,
         /** main introduction screen */
         INTRO,
-        /** level briefing screen */
-        BRIEFING,
-        /** level debriefing screen */
-        DEBRIEFING
+        /** level preview screen */
+        PREVIEW,
+        /** level postview screen */
+        POSTVIEW
     }
 
     public static enum Button {
@@ -152,11 +152,11 @@ public class TextScreen {
                     case INTRO:
                         initIntro();
                         break;
-                    case BRIEFING:
-                        initBriefing();
+                    case PREVIEW:
+                        initPreview();
                         break;
-                    case DEBRIEFING:
-                        initDebriefing();
+                    case POSTVIEW:
+                        initPostview();
                         break;
                     default:
                         break;
@@ -275,9 +275,9 @@ public class TextScreen {
     }
 
     /**
-     * Initialize the briefing screen.
+     * Initialize the preview screen.
      */
-    static void initBriefing() {
+    static void initPreview() {
         textDialog.clear();
         hintIndex = 0;
         drawBackground();
@@ -290,9 +290,9 @@ public class TextScreen {
     }
 
     /**
-     * Initialize the debriefing screen.
+     * Initialize the postview screen.
      */
-    static void initDebriefing() {
+    static void initPostview() {
         textDialog.clear();
         drawBackground();
         int numLemmings = GameController.getNumLemmingsMax();
@@ -332,26 +332,26 @@ public class TextScreen {
             if (GameController.getNumExited() <= 0) {
                 debriefing = debriefings.get(0);
             } else if (rescuedOfToRescue < 50) {
-                debriefing = debriefings.get(1);
+            	debriefing = debriefings.get(1);
             } else if (rescuedPercent < toRescuePercent - 5) {
-                debriefing = debriefings.get(2);
+            	debriefing = debriefings.get(2);
             } else if (rescuedPercent < toRescuePercent - 1) {
-                debriefing = debriefings.get(3);
+            	debriefing = debriefings.get(3);
             } else {
-                debriefing = debriefings.get(4);
+            	debriefing = debriefings.get(4);
             }
             textDialog.addStringCentered(debriefing, null, -1, RED);
             textDialog.addTextButton("Retry Level", "Retry Level", null, -12, 5, Button.RESTART, BLUE, YELLOW);
         } else {
             String debriefing;
             if (rescued <= toRescue && rescued < numLemmings) {
-                debriefing = debriefings.get(5);
+            	debriefing = debriefings.get(5);
             } else if (rescuedPercent < toRescuePercent + 20 && rescued < numLemmings) {
-                debriefing = debriefings.get(6);
+            	debriefing = debriefings.get(6);
             } else if (rescued < numLemmings) {
-                debriefing = debriefings.get(7);
+            	debriefing = debriefings.get(7);
             } else {
-                debriefing = debriefings.get(8);
+            	debriefing = debriefings.get(8);
             }
             int yPosText = -1;
             if (GameController.getWasCheated()) {
@@ -512,11 +512,11 @@ public class TextScreen {
                 case INTRO:
                     update_intro();
                     break;
-                case BRIEFING:
-                    update_briefing();
+                case PREVIEW:
+                    update_preview();
                     break;
-                case DEBRIEFING:
-                    update_debriefing();
+                case POSTVIEW:
+                    update_postview();
                     break;
                 default:
                     break;
@@ -567,15 +567,15 @@ public class TextScreen {
     }
 
     /**
-     * Update the briefing screen.
+     * Update the preview screen.
      */
-    private static void update_briefing() {
+    private static void update_preview() {
     }
 
     /**
-     * Update the debriefing screen.
+     * Update the postview screen.
      */
-    private static void update_debriefing() {
+    private static void update_postview() {
     }
 
     /**
@@ -602,12 +602,12 @@ public class TextScreen {
                     initIntro();
                     drawLogo();
                     break;
-                case BRIEFING:
-                    initBriefing();
+                case PREVIEW:
+                    initPreview();
                     drawLogo();
                     break;
-                case DEBRIEFING:
-                    initDebriefing();
+                case POSTVIEW:
+                    initPostview();
                     drawLogo();
                     break;
                 default:

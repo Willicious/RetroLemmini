@@ -1,3 +1,18 @@
 0xlemdebug in Level Codes / Ctrl + Alt + D in-game = Enable debug mode
-directdr0p in Level Codes / Ctrl + Alt + E in-game = Enable maximum exit physics (lems of any state can exit on contact with exit trigger)
-exitrule0k in Level Codes / Ctrl + Alt + E in-game = Enable maximum exit physics (lems of any state can exit on contact with exit trigger)
+
+Grants access to the following features (via hotkeys - see Hotkey Config):
+
+Draw mode - Draw with the LMB, erase with the RMB, use hotkeys to change the size of the brush
+End level with all lemmings saved
+Toggle superlemming mode
+Toggle timer countdown up/down
+Spawn lemming at cursor
+Toggle cursor info (in status bar)
+
+directdr0p in Level Codes / Ctrl + Alt + E in-game = Enable maximum exit physics
+exitrule0k in Level Codes / Ctrl + Alt + E in-game = Enable maximum exit physics
+
+In this mode, any lemming can exit on contact with the exit trigger, regardless of current action/state. Exits also persist over other
+gadgets when the triggers overlap.
+
+NOTE: The level will count as having been cheated if either of these modes is activated at any time, and records will not be saved
