@@ -319,7 +319,7 @@ public class TextScreen {
         } else {
             textDialog.addStringCentered(String.format("You needed %d%% - You rescued %d%%", toRescuePercent, rescuedPercent), null, -5, VIOLET);
         }
-        if (!GameController.wasLost()) {
+        if (!GameController.wasLost() && !GameController.getWasCheated()) {
             String timeTaken = String.format("%d:%02d", timeElapsed / 60, timeElapsed % 60);
             textDialog.addStringCentered(String.format("Time taken %s - Skills used %d", timeTaken, skillsUsed), null, -4, VIOLET);
             String pointWord = (score == 1) ? "point" : "points";
@@ -353,7 +353,12 @@ public class TextScreen {
             } else {
                 debriefing = debriefings.get(8);
             }
-            textDialog.addStringCentered(debriefing, null, -1, RED);
+            int yPosText = -1;
+            if (GameController.getWasCheated()) {
+            	debriefing = "You cheated!\nCompleting the level in debug mode\ndoesn't count!";
+            	yPosText = -2;
+            }
+            textDialog.addStringCentered(debriefing, null, yPosText, RED);
             int lpn = GameController.getCurLevelPackIdx();
             int r = GameController.getCurRating();
             int ln = GameController.getCurLevelNumber();
