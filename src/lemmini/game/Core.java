@@ -71,8 +71,8 @@ public class Core {
 
     public static final String REVISION = "2.5";
     public static final String COMMIT_ID = CommitID.ID;
-    public static final String REV_DATE = "Dec 2025";
-    public static final String STYLES_REVISION = "2.2";
+    public static final String REV_DATE = "Jan 2026";
+    public static final String STYLES_REVISION = "2.6";
 
     /** extensions accepted for level files in file dialog */
     public static final String[] LEVEL_EXTENSIONS = {"ini", "lvl", "dat"};
@@ -446,13 +446,13 @@ public class Core {
             }
         }
         if (!outdatedStyles.isEmpty()) {
-            StringBuilder message = new StringBuilder("Warning: The following styles are out of date:\n\n");
+            StringBuilder message = new StringBuilder("Warning: The following styles do not match the expected version:\n\n");
             for (String outdatedStyle : outdatedStyles) {
                 message.append(" • ").append(outdatedStyle).append("\n");
             }
             message.append("\nRetroLemmini will run, but there may be some compatibility issues with these styles.\n\n"
                          + "To get the latest version of these styles, please download RetroLemmini " + REVISION + "\n"
-            		     + "and replace each outdated style with the updated version.\n");
+            		     + "and replace each style with the updated version.\n");
             JOptionPane.showMessageDialog(null, message.toString(), "Outdated Styles", JOptionPane.WARNING_MESSAGE);
             System.out.println("    validation complete. The following styles are out of date:\n"
                               +"     " + outdatedStyles);
