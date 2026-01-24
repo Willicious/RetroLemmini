@@ -1327,11 +1327,11 @@ public class Lemming {
         int xMin;
         int xMax;
         if (dir == Direction.RIGHT) {
-            xMin = x + 16;
-            xMax = x + 16 + 1;
+            xMin = x + 8;
+            xMax = x + 8 + 1;
         } else {
-            xMin = x - 16;
-            xMax = x - 16 + 1;
+            xMin = x - 8;
+            xMax = x - 8 + 1;
         }
         for (int yb = yMin; yb <= yMax; yb++) {
             for (int xb = xMin; xb <= xMax; xb++) {
@@ -1403,11 +1403,11 @@ public class Lemming {
         int xMin;
         int xMax;
         if (dir == Direction.RIGHT) {
-            xMin = x + 14;
-            xMax = x + 14 + 1;
+            xMin = x + 4;
+            xMax = x + 4 + 1;
         } else {
-            xMin = x - 14;
-            xMax = x - 14 + 1;
+            xMin = x - 4;
+            xMax = x - 4 + 1;
         }
         for (int yb = yMin; yb <= yMax; yb++) {
             for (int xb = xMin; xb <= xMax; xb++) {
