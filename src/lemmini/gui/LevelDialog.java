@@ -557,7 +557,7 @@ public class LevelDialog extends JDialog {
                 if (Files.isDirectory(externLvl)) {
                     try (DirectoryStream<Path> stream = Files.newDirectoryStream(externLvl, entry -> {
                         String extension = FilenameUtils.getExtension(entry.toString()).toLowerCase(Locale.ROOT);
-                        return extension.equals("ini") || extension.equals("lvl") || extension.equals("dat");
+                        return extension.equals("rlv") || extension.equals("ini") || extension.equals("lvl") || extension.equals("dat");
                     })) {
                         for (Path lvl : stream) {
                             int[] levelPosition = GameController.addExternalLevel(lvl, null, false);

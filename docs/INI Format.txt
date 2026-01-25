@@ -1,4 +1,4 @@
-RetroLemmini INI files use the same format as Java properties files [1]. Files may be encoded in ASCII, UTF-8 (with or without a byte-order mark, or BOM), UTF-16 (with BOM), or UTF-32 (with BOM). UTF-8 is the recommended encoding. Because UTF-32 requires support from the Java runtime environment, and such support is not guaranteed to be present, use of UTF-32 is strongly discouraged. Additionally, all forms of "extended ASCII" or "ANSI" other than UTF-8 are not supported.
+RetroLemmini INI/RLV files use the same format as Java properties files [1]. Files may be encoded in ASCII, UTF-8 (with or without a byte-order mark, or BOM), UTF-16 (with BOM), or UTF-32 (with BOM). UTF-8 is the recommended encoding. Because UTF-32 requires support from the Java runtime environment, and such support is not guaranteed to be present, use of UTF-32 is strongly discouraged. Additionally, all forms of "extended ASCII" or "ANSI" other than UTF-8 are not supported.
 
 
 Each property may use either of the following types:

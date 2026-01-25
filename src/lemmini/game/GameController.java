@@ -161,6 +161,7 @@ public class GameController {
     }
 
     public static enum LevelFormat {
+    	RLV,
         INI,
         LVL,
         DAT
@@ -2137,6 +2138,7 @@ public class GameController {
                                 break;
                             case LVL:
                             case INI:
+                            case RLV:
                                 int numLevels = lp.getLevelCount(0);
                                 for (int i = 0; i < numLevels; i++) {
                                     if (FilenameUtils.removeExtension(lp.getInfo(0, i).getLevelResource().getFileName().toLowerCase(Locale.ROOT))
@@ -2161,7 +2163,7 @@ public class GameController {
                                 List<LevelInfo> liList = new ArrayList<>(levels.size());
                                 for (ListIterator<byte[]> lit = levels.listIterator(); lit.hasNext(); ) {
                                     int i = lit.nextIndex();
-                                    String outName = Core.EXTERNAL_LEVEL_CACHE_PATH + fNameStrNoExt + "_" + i + ".ini";
+                                    String outName = Core.EXTERNAL_LEVEL_CACHE_PATH + fNameStrNoExt + "_" + i + ".rlv";
                                     try (Writer w = Core.resourceTree.newBufferedWriter(outName)) {
                                         ExtractLevel.convertLevel(lit.next(),
                                                 fNameStr.toLowerCase(Locale.ROOT) + " (section " + i + ")", w, false, false);
@@ -2177,13 +2179,14 @@ public class GameController {
                                 saveExternalLevelList();
                                 return new int[]{0, lp.getRatings().size() - 1, 0};
                             case LVL:
-                                String outName = Core.EXTERNAL_LEVEL_CACHE_PATH + fNameStrNoExt + ".ini";
-                                try (Writer w = Core.resourceTree.newBufferedWriter(Core.EXTERNAL_LEVEL_CACHE_PATH + fNameStrNoExt + ".ini")) {
+                                String outName = Core.EXTERNAL_LEVEL_CACHE_PATH + fNameStrNoExt + ".rlv";
+                                try (Writer w = Core.resourceTree.newBufferedWriter(Core.EXTERNAL_LEVEL_CACHE_PATH + fNameStrNoExt + ".rlv")) {
                                     ExtractLevel.convertLevel(lvlPath, w, false, false);
                                 }
                                 lvlPath = Core.resourceTree.getPath(outName);
                                 /* falls through */
                             case INI:
+                            case RLV:
                                 LevelInfo li = new LevelInfo(new FileResource(lvlPath), null);
                                 if (li.isValidLevel()) {
                                     lp.addLevel(0, li);

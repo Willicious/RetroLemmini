@@ -41,7 +41,7 @@ public class LevelInfo {
     private String author;
     /** name of music for this level */
     private String music;
-    /** resource object for the INI file containing the level information */
+    /** resource object for the INI/RLV file containing the level information */
     private Resource levelResource;
     /** release rate: 0 is slowest, 99 is fastest */
     private int releaseRate;

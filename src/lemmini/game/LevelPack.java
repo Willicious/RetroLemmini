@@ -69,7 +69,7 @@ public class LevelPack {
     private final List<String> ratings = new ArrayList<>(16);
     /** list of list of level info - [rating][level number] */
     private final List<List<LevelInfo>> lvlInfo = new ArrayList<>(16);
-    /** path of level pack - where the INI files for the level pack are located */
+    /** path of level pack - where the INI/RLV files for the level pack are located */
     private final String path;
     /** maximum number of pixels a Lemming can fall before he dies */
     private int maxFallDistance;
