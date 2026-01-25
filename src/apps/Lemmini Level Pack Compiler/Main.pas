@@ -146,8 +146,7 @@ begin
 
     OpenDlg.Title := 'Select Level(s)';
     OpenDlg.InitialDir := LevelsPath;
-    OpenDlg.Filter := 'Level Files (*.ini)|*.ini|All Files (*.*)|*.*';
-    OpenDlg.DefaultExt := 'ini';
+    OpenDlg.Filter := 'Level Files (*.ini, *.rlv)|*.ini;*.rlv|All Files (*.*)|*.*';
     OpenDlg.FilterIndex := 1;
     OpenDlg.Options := [ofFileMustExist, ofHideReadOnly, ofAllowMultiSelect];
 
@@ -264,7 +263,7 @@ begin
   SaveDlg := TSaveDialog.Create(Self);
   try
     SaveDlg.Title := 'Save Level Pack INI';
-    SaveDlg.Filter := 'Level Files (*.ini)|*.ini|All Files (*.*)|*.*';
+    SaveDlg.Filter := 'Levelpack Files (*.ini)|*.ini|All Files (*.*)|*.*';
     SaveDlg.DefaultExt := 'ini';
     SaveDlg.FileName := 'levelpack.ini';
     SaveDlg.Options := [ofOverwritePrompt];
