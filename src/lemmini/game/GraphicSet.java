@@ -110,8 +110,6 @@ public class GraphicSet {
     private static final List<String> DEFAULT_STYLES = Arrays.asList("dirt", "fire", "marble", "pillar", "crystal",
         "brick", "rock", "snow", "bubble", "xmas");
     private static final int DEFAULT_ANIMATION_SPEED = 2;
-    private static final int[] SPECIAL_STYLE_OBJECT_ORDER = {0, 1, 7};
-    private static final String[] SPECIAL_STYLE_NAMES = {"awesome", "beasti", "beastii", "menace"};
 
     private final String name;
     private final Props props;
@@ -127,74 +125,41 @@ public class GraphicSet {
         this.name = name;
         props = new Props();
 
-        if (name.toLowerCase(Locale.ROOT).equals("special")) {
-            Resource resource = Core.findResource("styles/dirt/dirt.ini", true);
-            if (!props.load(resource)) {
-                throw new LemmException("Unable to read dirt.ini.");
-            }
+        if (name.toLowerCase(Locale.ROOT).equals("christmas"))
+        	name = "xmas";
+    	
+        String pathPrefix = "styles/" + name + "/" + name;
+        Resource resource = Core.findResource(pathPrefix + ".ini", true);
+        if (!props.load(resource)) {
+            throw new LemmException("Unable to read " + name + ".ini.");
+        }
 
-            // first some global settings
-            int bgCol = props.getInt("bgColor", props.getInt("bgColor", 0x000000)) | 0xff000000;
-            bgColor = new Color(bgCol);
-            debrisColor = props.getInt("debrisColor", 0xffffff) | 0xff000000;
-            debrisColor2 = props.getInt("debrisColor2", debrisColor) | 0xff000000;
-            particleColor = props.getIntArray("particleColor", props.getIntArray("particleColor", DEFAULT_PARTICLE_COLORS));
-            for (int i = 0; i < particleColor.length; i++) {
-                particleColor[i] |= 0xff000000;
-            }
+        // first some global settings
+        int bgCol = props.getInt("bgColor", props.getInt("bgColor", 0x000000)) | 0xff000000;
+        bgColor = new Color(bgCol);
+        debrisColor = props.getInt("debrisColor", 0xffffff) | 0xff000000;
+        debrisColor2 = props.getInt("debrisColor2", debrisColor) | 0xff000000;
+        particleColor = props.getIntArray("particleColor", props.getIntArray("particleColor", DEFAULT_PARTICLE_COLORS));
+        for (int i = 0; i < particleColor.length; i++) {
+            particleColor[i] |= 0xff000000;
+        }
 
-            // load the object data
-            objects = new ArrayList<>(SPECIAL_STYLE_OBJECT_ORDER.length);
-            for (int idx : SPECIAL_STYLE_OBJECT_ORDER) {
-                LvlObject obj = new LvlObject(props, "styles/dirt/dirt", idx);
-                if (obj.numFrames < 0) {
-                    break;
-                }
-                objects.add(obj);
+        // load the object data
+        objects = new ArrayList<>(64);
+        for (int idx = 0; true; idx++) {
+            LvlObject obj = new LvlObject(props, pathPrefix, idx);
+            if (obj.numFrames < 0) {
+                break;
             }
+            objects.add(obj);
+        }
 
-            // load the terrain data
-            terrain = new ArrayList<>(SPECIAL_STYLE_NAMES.length);
-            for (String name2 : SPECIAL_STYLE_NAMES) {
-                terrain.add(new Terrain("styles/special/" + name2 + "/" + name2, -1, false));
-            }
-        } else {
-            if (name.toLowerCase(Locale.ROOT).equals("christmas"))
-            	name = "xmas";
-        	
-            String pathPrefix = "styles/" + name + "/" + name;
-            Resource resource = Core.findResource(pathPrefix + ".ini", true);
-            if (!props.load(resource)) {
-                throw new LemmException("Unable to read " + name + ".ini.");
-            }
-
-            // first some global settings
-            int bgCol = props.getInt("bgColor", props.getInt("bgColor", 0x000000)) | 0xff000000;
-            bgColor = new Color(bgCol);
-            debrisColor = props.getInt("debrisColor", 0xffffff) | 0xff000000;
-            debrisColor2 = props.getInt("debrisColor2", debrisColor) | 0xff000000;
-            particleColor = props.getIntArray("particleColor", props.getIntArray("particleColor", DEFAULT_PARTICLE_COLORS));
-            for (int i = 0; i < particleColor.length; i++) {
-                particleColor[i] |= 0xff000000;
-            }
-
-            // load the object data
-            objects = new ArrayList<>(64);
-            for (int idx = 0; true; idx++) {
-                LvlObject obj = new LvlObject(props, pathPrefix, idx);
-                if (obj.numFrames < 0) {
-                    break;
-                }
-                objects.add(obj);
-            }
-
-            // load the terrain data
-            int tiles = props.getInt("tiles", 0);
-            int[] steelTiles = props.getIntArray("steelTiles", ArrayUtils.EMPTY_INT_ARRAY);
-            terrain = new ArrayList<>(tiles);
-            for (int idx = 0; idx < tiles; idx++) {
-                terrain.add(new Terrain(pathPrefix, idx, ArrayUtils.contains(steelTiles, idx)));
-            }
+        // load the terrain data
+        int tiles = props.getInt("tiles", 0);
+        int[] steelTiles = props.getIntArray("steelTiles", ArrayUtils.EMPTY_INT_ARRAY);
+        terrain = new ArrayList<>(tiles);
+        for (int idx = 0; idx < tiles; idx++) {
+            terrain.add(new Terrain(pathPrefix, idx, ArrayUtils.contains(steelTiles, idx)));
         }
     }
 

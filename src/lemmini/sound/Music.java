@@ -116,20 +116,8 @@ public class Music {
 
     /**
      * Get file name of a random track.
-     * @param style
-     * @param specialStyle
-     * @return file name of a random track
      */
-    public static String getRandomTrack(final String style, final String specialStyle) {
-        if (!specialStyle.isEmpty()) {
-            List<String> musicList = Core.searchForResources("music/special/", true, Core.MUSIC_EXTENSIONS);
-            for (String music : musicList) {
-                if (specialStyle.toLowerCase(Locale.ROOT).equals(FilenameUtils.removeExtension(music).toLowerCase(Locale.ROOT))) {
-                    return "special/" + music;
-                }
-            }
-        }
-
+    public static String getRandomTrack(final String style) {
         if (!style.isEmpty()) {
             List<String> musicList = Core.searchForResources("music/" + style + "/", true, Core.MUSIC_EXTENSIONS).stream()
                     .map(FilenameUtils::removeExtension).map(music -> music.toLowerCase(Locale.ROOT))

@@ -711,7 +711,7 @@ public class GameController {
 	                music = levelPacks.get(curLevelPack).getInfo(curRating, curLevelNumber).getMusic();
 	            }
 	            if (music == null) {
-	                music = Music.getRandomTrack(level.getStyleName(), level.getSpecialStyleName());
+	                music = Music.getRandomTrack(level.getStyleName());
 	            }
 	            Music.load("music/" + music);
 	        } catch (ResourceException ex) {
@@ -731,7 +731,7 @@ public class GameController {
 	            }
 	
 	            try {
-	                music = Music.getRandomTrack(level.getStyleName(), level.getSpecialStyleName());
+	                music = Music.getRandomTrack(level.getStyleName());
 	                Music.load("music/" + music);
 	            } catch (ResourceException ex2) {
 	                Core.resourceError(ex2.getMessage());

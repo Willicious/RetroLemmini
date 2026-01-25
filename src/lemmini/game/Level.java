@@ -5,6 +5,7 @@ import java.awt.RenderingHints;
 import java.awt.Transparency;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
@@ -69,10 +70,6 @@ public class Level {
     @SuppressWarnings("unused")
     private static final List<String> STYLES = Arrays.asList("dirt", "fire", "marble", "pillar", "crystal",
         "brick", "rock", "snow", "bubble", "xmas");
-    /** list of default special styles */
-    @SuppressWarnings("unused")
-    private static final List<String> SPECIAL_STYLES = Arrays.asList("awesome", "menace", "beastii", "beasti",
-        "covox", "prima", "apple");
     private static final int DEFAULT_TOP_BOUNDARY = 8;
     private static final int DEFAULT_BOTTOM_BOUNDARY = 20;
     private static final int DEFAULT_LEFT_BOUNDARY = 0;
@@ -85,6 +82,25 @@ public class Level {
     private static final int DEFAULT_MAX_RELEASE_RATE = 99;
     private static final int MAX_MAX_RELEASE_RATE = 106;
     private static final int MIN_RELEASE_RATE = -99;
+    
+    // Map special styles to a specific terrain piece in "bonus" style
+    private static final Map<String, Integer> SPECIAL_NAME_TO_TERRAIN;
+    static {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("apple",       0);
+        map.put("covox",       1);
+        map.put("prima",       2);
+        map.put("beasti",      3);
+        map.put("menace",      4);
+        map.put("awesome",     5);
+        map.put("beastii",     6);
+        map.put("beasti_md",   3);
+        map.put("menace_md",   4);
+        map.put("awesome_md",  5);
+        map.put("beastii_md",  6);
+        //map.put("hebereke",    7); // TODO - Find out what this is and include it in "special" style
+        SPECIAL_NAME_TO_TERRAIN = Collections.unmodifiableMap(map);
+    }
 
     private final List<Props> levelProps;
     private Map<String, GraphicSet> styles;
@@ -149,7 +165,6 @@ public class Level {
     /** objects like doors - originally 32 objects where each consists of 8 bytes */
     private final List<LvlObject> objects;
     private final GraphicSet mainStyle;
-    private final SpecialGraphicSet specialStyle;
     private final String music;
     /** terrain the Lemmings walk on etc. - originally 400 tiles, 4 bytes each */
     private final List<Terrain> terrain;
@@ -318,6 +333,8 @@ public class Level {
         String styleName = p.get("style", StringUtils.EMPTY);
         //out("style = " + style);
         String specialStyleName = p.get("specialStyle", StringUtils.EMPTY);
+        int specialStylePosX = p.getInt("specialStylePositionX", 0);
+        int specialStylePosY = p.getInt("specialStylePositionY", 0);
         //out("specialStyle = " + specialStyle);
         music = Props.get(levelProps, "music", null);
         superlemming = Props.getBoolean(levelProps, "superlemming", false);
@@ -326,11 +343,6 @@ public class Level {
         styles = new HashMap<>(16);
         mainStyle = new GraphicSet(styleName);
         styles.put(styleName.toLowerCase(Locale.ROOT), mainStyle);
-        if (!specialStyleName.isEmpty()) {
-            specialStyle = new SpecialGraphicSet(specialStyleName);
-        } else {
-            specialStyle = null;
-        }
 
         // read objects
         //out("\n[Objects]");
@@ -348,18 +360,17 @@ public class Level {
         // read terrain
         //out("\n[Terrain]");
         terrain = new ArrayList<>(512);
-        if (specialStyle != null) {
-            String positionX;
-            String positionY;
-            positionX = p.get("specialStylePositionX", Integer.toString(specialStyle.getPositionX()));
-            positionY = p.get("specialStylePositionY", Integer.toString(specialStyle.getPositionY()));
-            Terrain ter = new Terrain(new String[]{"0", positionX, positionY, "0"}, true);
+        if (specialStyleName != StringUtils.EMPTY) {
+        	Integer specialID = SPECIAL_NAME_TO_TERRAIN.get(specialStyleName.toLowerCase(Locale.ROOT));
+            Terrain ter = new Terrain(new String[]{
+            		Integer.toString(specialID), // get the correct image id from the "bonus" style
+            		Integer.toString(specialStylePosX), Integer.toString(specialStylePosY), "0", "special"});
             terrain.add(ter);
         }
         for (int i = 0; i < Integer.MAX_VALUE; i++) {
             String[] val = p.getArray("terrain_" + i, null);
             if (val != null && val.length >= 4) {
-                Terrain ter = new Terrain(val, false);
+                Terrain ter = new Terrain(val);
                 terrain.add(ter);
                 //out(ter.id + ", " + ter.xPos + ", " + ter.yPos + ", " + ter.modifier);
             } else {
@@ -409,7 +420,7 @@ public class Level {
             for (int j = 0; i < Integer.MAX_VALUE; j++) {
                 String[] val = p.getArray("bg_" + i + "_terrain_" + j, null);
                 if (val != null && val.length >= 4) {
-                    Terrain ter = new Terrain(val, false);
+                    Terrain ter = new Terrain(val);
                     bgTerrain.add(ter);
                 } else {
                     break;
@@ -490,30 +501,18 @@ public class Level {
             int steelMaskWidth;
             int steelMaskHeight;
             boolean isSteel;
-            if (t.specialGraphic) {
-                i = specialStyle.getImage();
-                mask = specialStyle.getMask();
-                steelMask = specialStyle.getSteelMask();
-                width = i.getWidth();
-                height = i.getHeight();
-                maskWidth = ArrayUtils.isNotEmpty(mask) ? mask[0].length : 0;
-                maskHeight = mask.length;
-                steelMaskWidth = ArrayUtils.isNotEmpty(steelMask) ? steelMask[0].length : 0;
-                steelMaskHeight = steelMask.length;
-                isSteel = true;
-            } else {
-                GraphicSet.Terrain t2 = terrainStyle.getTerrain(t.id);
-                i = t2.getImage();
-                mask = t2.getMask();
-                steelMask = t2.getSteelMask();
-                width = i.getWidth();
-                height = i.getHeight();
-                maskWidth = ArrayUtils.isNotEmpty(mask) ? mask[0].length : 0;
-                maskHeight = mask.length;
-                steelMaskWidth = ArrayUtils.isNotEmpty(steelMask) ? steelMask[0].length : 0;
-                steelMaskHeight = steelMask.length;
-                isSteel = t2.isSteel();
-            }
+            
+            GraphicSet.Terrain t2 = terrainStyle.getTerrain(t.id);
+            i = t2.getImage();
+            mask = t2.getMask();
+            steelMask = t2.getSteelMask();
+            width = i.getWidth();
+            height = i.getHeight();
+            maskWidth = ArrayUtils.isNotEmpty(mask) ? mask[0].length : 0;
+            maskHeight = mask.length;
+            steelMaskWidth = ArrayUtils.isNotEmpty(steelMask) ? steelMask[0].length : 0;
+            steelMaskHeight = steelMask.length;
+            isSteel = t2.isSteel();
             if (autosteelMode == AutosteelMode.NONE) {
                 isSteel = false;
             }
@@ -1290,13 +1289,7 @@ public class Level {
      * @return background color.
      */
     public Color getBgColor() {
-        Color bgColor = BLANK_COLOR;
-        if (specialStyle != null) {
-            bgColor = specialStyle.getBgColor();
-        }
-        if (bgColor.equals(BLANK_COLOR)) {
-            bgColor = mainStyle.getBgColor();
-        }
+        Color bgColor = mainStyle.getBgColor();
         return bgColor;
     }
 
@@ -1429,13 +1422,7 @@ public class Level {
      * @return color of debris pixels as ARGB
      */
     public final int getDebrisColor() {
-        int debrisColor = 0;
-        if (specialStyle != null) {
-            debrisColor = specialStyle.getDebrisColor();
-        }
-        if (debrisColor == 0) {
-            debrisColor = mainStyle.getDebrisColor();
-        }
+        int debrisColor = mainStyle.getDebrisColor();
         return debrisColor;
     }
 
@@ -1444,13 +1431,7 @@ public class Level {
      * @return second color of debris pixels as ARGB
      */
     public final int getDebrisColor2() {
-        int debrisColor2 = 0;
-        if (specialStyle != null) {
-            debrisColor2 = specialStyle.getDebrisColor2();
-        }
-        if (debrisColor2 == 0) {
-            debrisColor2 = mainStyle.getDebrisColor2();
-        }
+        int debrisColor2 = mainStyle.getDebrisColor2();
         return debrisColor2;
     }
 
@@ -1516,10 +1497,6 @@ public class Level {
 
     public String getStyleName() {
         return mainStyle.getName();
-    }
-
-    public String getSpecialStyleName() {
-        return (specialStyle != null) ? specialStyle.getName() : StringUtils.EMPTY;
     }
 
     /**
@@ -1626,7 +1603,6 @@ public class Level {
         int yPos;
         /** modifier - must be one of the above MODEs */
         int modifier;
-        boolean specialGraphic;
         String style;
 
         /**
@@ -1634,12 +1610,11 @@ public class Level {
          * @param val four or more values as array [identifier, x position, y position, modifier, style]
          * @param special
          */
-        public Terrain(final String[] val, final boolean special) {
+        public Terrain(final String[] val) {
             id = ToolBox.parseInt(val[0]);
             xPos = ToolBox.parseInt(val[1]);
             yPos = ToolBox.parseInt(val[2]);
             modifier = ToolBox.parseInt(val[3]);
-            specialGraphic = special;
             style = (val.length >= 5) ? val[4] : mainStyle.getName();
         }
     }

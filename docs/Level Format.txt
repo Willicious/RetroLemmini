@@ -31,13 +31,13 @@ xPos: (integer) (Deprecated--please use xPosCenter instead.) In RetroLemmini, th
 
 yPosCenter: (integer) The starting Y position of the center of the screen. If this value would cause the blank areas beyond the level edges to be displayed (and the height of the level portion of the window is not taller than the level), then the actual starting position is adjusted so that such areas are not displayed. (Default: 0)
 
-style: (string) (ignored if mainLevel is set) The name of the main style used in this level. This must be set even if specialStyle is defined. The names of the default styles are dirt, fire, marble, pillar, crystal, brick, rock, snow, bubble, and xmas.
+style: (string) (ignored if mainLevel is set) The name of the main style used in this level. The names of the default styles are dirt, fire, marble, pillar, crystal, brick, rock, snow, bubble, and xmas.
 
-specialStyle: (string) (ignored if mainLevel is set) The name of the special style used in this level. When set, a single (usually large) terrain piece is added to the level, and various colors (such as the background and brick colors) may be changed. Objects and terrain pieces from the level's normal style may be used as well. The names of the default special styles are awesome, menace, beastii, beasti, covox, prima, and apple.
+specialStyle: (string) This is now considered a deprecated compatibility-only feature and ideally shouldn't be used by new levels going forward. The given specialStyle name is mapped to a specific terrain piece in the "bonus" or "DMA" styles. The names of the special styles are apple, covox, prima, awesome, menace, beasti and beastii.
 
-specialStylePositionX: (integer) (ignored if mainLevel is set) The X position of the top-left corner of the special graphic. This overrides the positionX parameter in the special style's INI file and has no effect if no special style is set.
+specialStylePositionX: (integer) The X position of the top-left corner of the special graphic. This has no effect if no special style is set.
 
-specialStylePositionY: (integer) (ignored if mainLevel is set) The Y position of the top-left corner of the special graphic. This overrides the positionY parameter in the special style's INI file and has no effect if no special style is set.
+specialStylePositionY: (integer) The Y position of the top-left corner of the special graphic. This has no effect if no special style is set.
 
 music: (string) The music file to be used in this level. Overrides the music file that's specified in levelpack.ini.
 
