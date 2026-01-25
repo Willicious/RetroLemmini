@@ -444,7 +444,7 @@ public class LevelDialog extends JDialog {
             }
         });
 
-        jButtonOK.setText("OK");
+        jButtonOK.setText("Choose Level/Pack");
         jButtonOK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonOKActionPerformed(evt);
@@ -480,7 +480,7 @@ public class LevelDialog extends JDialog {
                         .addComponent(jButtonAddExternalLevels)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonClearExternalLevels)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 455, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 444, Short.MAX_VALUE)
                         .addComponent(jButtonOK)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonCancel)))
@@ -592,10 +592,24 @@ public class LevelDialog extends JDialog {
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         TreePath selPath = jTreeLevels.getSelectionPath();
-        Object[] selPathArray = selPath.getPath();
-        if (selPathArray.length >= 4) {
-            selectedLevel = (LevelItem) ((DefaultMutableTreeNode) selPathArray[3]).getUserObject();
+        if (selPath == null) {
+            dispose();
+            return;
         }
+
+        Object[] selPathArray = selPath.getPath();
+        DefaultMutableTreeNode node =
+            (DefaultMutableTreeNode) selPathArray[selPathArray.length - 1];
+
+        while (node.getChildCount() > 0) {
+            node = (DefaultMutableTreeNode) node.getChildAt(0);
+        }
+
+        Object userObj = node.getUserObject();
+        if (userObj instanceof LevelItem) {
+            selectedLevel = (LevelItem) userObj;
+        }
+
         dispose();
     }//GEN-LAST:event_jButtonOKActionPerformed
 
@@ -714,7 +728,6 @@ public class LevelDialog extends JDialog {
         if (state == GameController.State.PREVIEW || state == GameController.State.LEVEL
                 || state == GameController.State.LEVEL_END || state == GameController.State.POSTVIEW) {
             selectLevel(GameController.getCurLevelPackIdx(), GameController.getCurRating(), GameController.getCurLevelNumber());
-            jButtonOK.setEnabled(true);
         }
     }
 
@@ -766,7 +779,7 @@ public class LevelDialog extends JDialog {
                 jTextFieldTimeElapsed.setText(StringUtils.EMPTY);
                 jTextFieldScore.setText(StringUtils.EMPTY);
             }
-            jButtonOK.setEnabled(true);
+            jButtonOK.setText("Play Selected Level");
         } else {
             jTextFieldAuthor.setText(StringUtils.EMPTY);
             jTextFieldNumLemmings.setText(StringUtils.EMPTY);
@@ -785,7 +798,13 @@ public class LevelDialog extends JDialog {
             jTextFieldSkillsUsed.setText(StringUtils.EMPTY);
             jTextFieldTimeElapsed.setText(StringUtils.EMPTY);
             jTextFieldScore.setText(StringUtils.EMPTY);
-            jButtonOK.setEnabled(false);
+            
+            if (selPath != null && selPath.getPathCount() >= 3)
+            	jButtonOK.setText("Play Selected Group");
+            else if (selPath != null)
+            	jButtonOK.setText("Play Selected Pack");
+            else
+            	jButtonOK.setText("Choose Level/Pack");
         }
     }
 
