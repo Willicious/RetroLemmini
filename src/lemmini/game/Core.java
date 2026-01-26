@@ -227,7 +227,7 @@ public class Core {
         GameController.setOption(GameController.Option.FASTER_FAST_FORWARD, programProps.getBoolean("fasterFastForward", false));
         GameController.setOption(GameController.Option.PAUSE_STOPS_FAST_FORWARD, programProps.getBoolean("pauseStopsFastForward", true));
         GameController.setOption(GameController.Option.NO_PERCENTAGES, programProps.getBoolean("noPercentages", true));
-        GameController.setOption(GameController.Option.REPLAY_SCROLL, programProps.getBoolean("replayScroll", true));
+        GameController.setOption(GameController.Option.REPLAY_SCROLL, programProps.getBoolean("replayScroll", false));
         GameController.setOption(GameController.Option.UNPAUSE_ON_ASSIGNMENT, programProps.getBoolean("unpauseOnAssignment", true));
         // Settings added in SuperLemminiToo
         GameController.setOption(GameController.SLTooOption.TIMED_BOMBERS, programProps.getBoolean("timedBombers", true));
