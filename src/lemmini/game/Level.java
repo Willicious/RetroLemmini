@@ -198,7 +198,7 @@ public class Level {
         // read level properties from file
         Props p = new Props();
         if (!p.load(resource)) {
-            throw new ResourceException(resource);
+        	System.out.println("Level listed in the levelpack.ini for " + GameController.getCurLevelPack().getName() + " is missing.");
         }
         levelProps.add(p);
 

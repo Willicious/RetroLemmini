@@ -1844,7 +1844,10 @@ public class GameController {
                     try {
                         changeLevel(nextLevelPack, nextRating, nextLevelNumber, transitionState == TransitionState.LOAD_REPLAY);
                     } catch (ResourceException ex) {
-                        Core.resourceError(ex.getMessage());
+                    	String pack = GameController.getCurLevelPack().getName();
+                    	String rating = Integer.toString(nextRating);
+                    	String targetlevel = Integer.toString(nextLevelNumber);
+                        Core.missingLevelError(pack + "/Rating" + rating + "/Level" + targetlevel);
                         return;
                     } catch (LemmException ex) {
                         JOptionPane.showMessageDialog(LemminiFrame.getFrame(), ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
