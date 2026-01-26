@@ -1,0 +1,139 @@
+﻿# LVL 401 Go Thataway.rlv
+# Created with RetroLemmini Editor Version 1.0
+# RetroLemmini Level Version 8
+
+# Level stats
+name = \ Go Thataway\!
+author = 
+version = 8
+releaseRate = 50
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 75
+numToRescue = 75
+timeLimitSeconds = 360
+numClimbers = 1
+numFloaters = 1
+numBombers = 2
+numBlockers = 2
+numBuilders = 2
+numBashers = 2
+numMiners = 0
+numDiggers = 0
+xPosCenter = 400
+yPosCenter = 160
+style = Christmas
+width = 3200
+height = 320
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 3, 1440, 212, 4, 0, 0
+object_1 = 8, 1248, 264, 0, 0, 0
+object_2 = 9, 1248, 224, 0, 0, 0
+object_3 = 5, 1216, 16, 0, 0, 0
+object_4 = 5, 1344, 16, 0, 0, 0
+object_5 = 5, 1472, 16, 0, 0, 0
+object_6 = 5, 2400, 16, 0, 0, 0
+object_7 = 5, 2528, 16, 0, 0, 0
+object_8 = 5, 2656, 16, 0, 0, 0
+object_9 = 2, 1856, 88, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 4, 1708, 24, 0
+terrain_1 = 4, 1736, 140, 0
+terrain_2 = 4, 1700, 174, 0
+terrain_3 = 4, 1630, 184, 0
+terrain_4 = 29, 1680, 224, 64
+terrain_5 = 29, 1680, 176, 64
+terrain_6 = 29, 1680, 128, 64
+terrain_7 = 29, 1680, 80, 64
+terrain_8 = 29, 1680, 32, 64
+terrain_9 = 23, 1810, 270, 8
+terrain_10 = 23, 1870, 270, 8
+terrain_11 = 23, 1944, 270, 8
+terrain_12 = 1, 2034, 256, 8
+terrain_13 = 1, 1776, 252, 8
+terrain_14 = 29, 2096, 224, 64
+terrain_15 = 29, 2096, 176, 64
+terrain_16 = 29, 2096, 128, 64
+terrain_17 = 29, 2096, 80, 64
+terrain_18 = 29, 2168, 128, 64
+terrain_19 = 29, 2216, 128, 64
+terrain_20 = 29, 2192, 176, 64
+terrain_21 = 29, 2192, 224, 64
+terrain_22 = 29, 2288, 224, 64
+terrain_23 = 29, 2288, 176, 64
+terrain_24 = 29, 2288, 128, 64
+terrain_25 = 29, 2192, 272, 64
+terrain_26 = 1, 2068, 258, 8
+terrain_27 = 2, 2124, 286, 8
+terrain_28 = 2, 2216, 288, 8
+terrain_29 = 4, 2270, 258, 8
+terrain_30 = 3, 2082, 60, 8
+terrain_31 = 2, 2234, 42, 8
+terrain_32 = 24, 2430, -24, 8
+terrain_33 = 24, 2294, -24, 8
+terrain_34 = 24, 2230, -24, 8
+terrain_35 = 24, 2344, -24, 8
+terrain_36 = 24, 2090, -24, 8
+terrain_37 = 24, 2126, -24, 8
+terrain_38 = 24, 1946, -24, 8
+terrain_39 = 24, 2010, -24, 8
+terrain_40 = 24, 1864, -24, 8
+terrain_41 = 24, 1752, -24, 8
+terrain_42 = 24, 1702, -24, 8
+terrain_43 = 24, 1564, -24, 8
+terrain_44 = 24, 1480, -24, 8
+terrain_45 = 24, 1616, -24, 8
+terrain_46 = 24, 1412, -24, 8
+terrain_47 = 24, 1262, -24, 8
+terrain_48 = 24, 1426, 296, 8
+terrain_49 = 24, 1512, 294, 0
+terrain_50 = 24, 1350, 296, 0
+terrain_51 = 24, 1274, 296, 0
+terrain_52 = 24, 1212, 296, 0
+terrain_53 = 24, 1194, 296, 0
+terrain_54 = 24, 1216, 294, 0
+terrain_55 = 24, 1344, -24, 0
+terrain_56 = 24, 1206, -24, 0
+terrain_57 = 24, 2540, -24, 0
+terrain_58 = 24, 2676, -24, 0
+terrain_59 = 24, 2618, -24, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 0, 0, 32, 32, 0
+steel_1 = 1680, 144, 48, 128, 0
+steel_2 = 1680, 32, 48, 112, 0
+steel_3 = 2096, 160, 48, 112, 0
+steel_4 = 2096, 80, 48, 80, 0
+steel_5 = 2192, 176, 48, 96, 0
+steel_6 = 2168, 128, 96, 48, 0
+steel_7 = 2288, 128, 48, 32, 0
+steel_8 = 2288, 160, 48, 112, 0
+steel_9 = 2192, 272, 48, 48, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

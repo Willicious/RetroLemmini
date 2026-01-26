@@ -1,0 +1,94 @@
+﻿# LVL 310 The Wrath of Lem.rlv
+# Created with RetroLemmini Editor Version 1.0
+# RetroLemmini Level Version 8
+
+# Level stats
+name = \ The Wrath of Lem
+author = 
+version = 8
+releaseRate = 20
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 80
+numToRescue = 80
+timeLimitSeconds = 240
+numClimbers = 0
+numFloaters = 0
+numBombers = 0
+numBlockers = 2
+numBuilders = 5
+numBashers = 3
+numMiners = 1
+numDiggers = 2
+xPosCenter = 400
+yPosCenter = 160
+style = Christmas
+width = 3200
+height = 320
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 5, 1536, 16, 4, 0, 0
+object_1 = 3, 1472, 132, 4, 0, 0
+object_2 = 2, 1984, 112, 4, 0, 0
+object_3 = 2, 960, 104, 4, 0, 0
+object_4 = 5, 1664, 16, 4, 0, 0
+object_5 = 5, 1792, 16, 4, 0, 0
+object_6 = 5, 1408, 16, 4, 0, 0
+object_7 = 5, 1280, 16, 4, 0, 0
+object_8 = 5, 1152, 16, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 26, 1574, 108, 0
+terrain_1 = 26, 1654, 152, 0
+terrain_2 = 30, 1502, 210, 0
+terrain_3 = 26, 1726, 194, 0
+terrain_4 = 26, 1802, 240, 0
+terrain_5 = 25, 1372, 112, 0
+terrain_6 = 25, 1308, 152, 0
+terrain_7 = 25, 1242, 192, 0
+terrain_8 = 25, 1178, 232, 0
+terrain_9 = 25, 1120, 270, 0
+terrain_10 = 24, 1876, 280, 0
+terrain_11 = 24, 1992, 280, 0
+terrain_12 = 24, 1024, 290, 0
+terrain_13 = 24, 932, 288, 0
+terrain_14 = 27, 1512, 220, 12
+terrain_15 = 21, 870, 260, 8
+terrain_16 = 20, 2104, 256, 8
+terrain_17 = 24, 1152, -14, 8
+terrain_18 = 24, 1274, -14, 8
+terrain_19 = 24, 1396, -14, 8
+terrain_20 = 24, 1498, -16, 8
+terrain_21 = 24, 1612, -20, 8
+terrain_22 = 24, 1708, -20, 8
+terrain_23 = 24, 1804, -18, 8
+terrain_24 = 14, 1492, 216, 4
+terrain_25 = 15, 1508, 90, 2
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

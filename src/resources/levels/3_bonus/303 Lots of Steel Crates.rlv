@@ -1,0 +1,102 @@
+﻿# LVL 202 Lots of Steel Crates.rlv
+# Created with RetroLemmini Editor Version 1.0
+# RetroLemmini Level Version 9
+
+# Level stats
+name = Lots of Steel crates\!
+author = 
+version = 9
+releaseRate = 20
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 21
+numToRescue = 20
+timeLimitSeconds = 240
+numClimbers = 21
+numFloaters = 0
+numBombers = 1
+numBlockers = 0
+numBuilders = 2
+numBashers = 0
+numMiners = 0
+numDiggers = 0
+xPosCenter = 1570
+yPosCenter = 170
+style = Brick
+width = 3200
+height = 320
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 0, 1600, 56, 0, 0, 0
+object_1 = 1, 1344, 144, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 37, 1638, 126, 0
+terrain_1 = 37, 1574, 126, 0
+terrain_2 = 1, 1760, 272, 0
+terrain_3 = 1, 1632, 272, 0
+terrain_4 = 1, 1504, 272, 0
+terrain_5 = 1, 1376, 272, 0
+terrain_6 = 1, 1248, 272, 0
+terrain_7 = 19, 1248, 0, 4
+terrain_8 = 19, 1312, 0, 4
+terrain_9 = 19, 1376, 0, 4
+terrain_10 = 19, 1440, 0, 4
+terrain_11 = 19, 1504, 0, 4
+terrain_12 = 19, 1568, 0, 4
+terrain_13 = 19, 1632, 0, 4
+terrain_14 = 19, 1696, 0, 4
+terrain_15 = 19, 1760, 0, 4
+terrain_16 = 19, 1824, 0, 4
+terrain_17 = 42, 1792, 240, 4
+terrain_18 = 42, 1792, 208, 4
+terrain_19 = 42, 1792, 176, 4
+terrain_20 = 42, 1792, 144, 4
+terrain_21 = 42, 1792, 112, 4
+terrain_22 = 42, 1824, 240, 4
+terrain_23 = 42, 1824, 208, 4
+terrain_24 = 42, 1824, 176, 4
+terrain_25 = 42, 1824, 144, 4
+terrain_26 = 42, 1824, 112, 4
+terrain_27 = 42, 1824, 80, 4
+terrain_28 = 42, 1792, 80, 4
+terrain_29 = 42, 1792, 48, 4
+terrain_30 = 42, 1824, 48, 4
+terrain_31 = 38, 1702, 126, 0
+terrain_32 = 38, 1542, 126, 0
+terrain_33 = 32, 1246, 256, 0
+terrain_34 = 33, 1246, 224, 0
+terrain_35 = 33, 1246, 192, 0
+terrain_36 = 33, 1246, 160, 0
+terrain_37 = 33, 1246, 128, 0
+terrain_38 = 33, 1246, 96, 0
+terrain_39 = 34, 1246, 80, 0
+terrain_40 = 28, 1244, 48, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

@@ -1,0 +1,95 @@
+﻿# LVL 402 Break On Through.rlv
+# Created with RetroLemmini Editor Version 1.0
+# RetroLemmini Level Version 8
+
+# Level stats
+name = \ Break On Through
+author = 
+version = 8
+releaseRate = 99
+maxReleaseRate = 99
+lockReleaseRate = True
+numLemmings = 80
+numToRescue = 75
+timeLimitSeconds = 120
+numClimbers = 1
+numFloaters = 1
+numBombers = 5
+numBlockers = 4
+numBuilders = 5
+numBashers = 0
+numMiners = 0
+numDiggers = 0
+xPosCenter = 400
+yPosCenter = 160
+style = Christmas
+width = 3200
+height = 320
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 3, 1376, 188, 0, 0, 0
+object_1 = 2, 1376, 0, 0, 0, 0
+object_2 = 9, 1742, 14, 0, 0, 0
+object_3 = 7, 1742, 44, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 29, 1364, 112, 64
+terrain_1 = 29, 1412, 112, 64
+terrain_2 = 29, 1460, 112, 64
+terrain_3 = 29, 1508, 112, 64
+terrain_4 = 29, 1556, 112, 64
+terrain_5 = 29, 1352, 272, 64
+terrain_6 = 29, 1400, 272, 64
+terrain_7 = 29, 1448, 272, 64
+terrain_8 = 29, 1496, 272, 64
+terrain_9 = 29, 1544, 272, 64
+terrain_10 = 4, 1590, 126, 0
+terrain_11 = 0, 1596, 204, 8
+terrain_12 = 5, 1648, 128, 8
+terrain_13 = 3, 1682, 158, 0
+terrain_14 = 27, 1568, 142, 8
+terrain_15 = 27, 1646, 126, 2
+terrain_16 = 24, 1364, 132, 8
+terrain_17 = 24, 1364, 288, 8
+terrain_18 = 24, 1474, 284, 8
+terrain_19 = 23, 1478, 112, 8
+terrain_20 = 17, 1290, 88, 4
+terrain_21 = 18, 1306, 220, 0
+terrain_22 = 20, 1328, 256, 0
+terrain_23 = 7, 1290, 66, 0
+terrain_24 = 23, 1586, 254, 8
+terrain_25 = 23, 1534, 268, 8
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 1360, 112, 96, 48, 0
+steel_1 = 1456, 112, 104, 48, 0
+steel_2 = 1552, 112, 56, 48, 0
+steel_3 = 1352, 272, 112, 64, 0
+steel_4 = 1464, 272, 80, 48, 0
+steel_5 = 1544, 272, 48, 48, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

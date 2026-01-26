@@ -1,0 +1,90 @@
+﻿# LVL 308 It's a tight fit!.rlv
+# Created with RetroLemmini Editor Version 1.0
+# RetroLemmini Level Version 2
+
+# Level stats
+name = It's a tight fit\!
+author = 
+version = 2
+releaseRate = 1
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 10
+numToRescue = 10
+timeLimitSeconds = 60
+numClimbers = 10
+numFloaters = 10
+numBombers = 1
+numBlockers = 1
+numBuilders = 1
+numBashers = 0
+numMiners = 0
+numDiggers = 0
+xPosCenter = 1632
+yPosCenter = 160
+style = Rock
+width = 3200
+height = 320
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 1
+topBoundary = 8
+bottomBoundary = 20
+leftBoundary = 0
+rightBoundary = -16
+
+
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 1, 1408, 56, 4, 0, 0
+object_1 = 0, 1344, 232, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 57, 1576, 158, 64
+terrain_1 = 57, 1576, 148, 64
+terrain_2 = 7, 1350, 182, 0
+terrain_3 = 62, 1374, 242, 2
+terrain_4 = 63, 1368, 236, 2
+terrain_5 = 63, 1370, 234, 2
+terrain_6 = 8, 1584, 256, 0
+terrain_7 = 8, 1638, 276, 4
+terrain_8 = 9, 1556, 278, 0
+terrain_9 = 12, 1542, 296, 0
+terrain_10 = 11, 1510, 296, 0
+terrain_11 = 11, 1478, 296, 0
+terrain_12 = 10, 1462, 296, 0
+terrain_13 = 8, 1328, 290, 8
+terrain_14 = 8, 1234, 180, 0
+terrain_15 = 3, 1708, 238, 0
+terrain_16 = 4, 1824, 170, 0
+terrain_17 = 9, 1762, 278, 8
+terrain_18 = 7, 1828, 276, 0
+terrain_19 = 9, 2052, 296, 0
+terrain_20 = 28, 2008, 252, 8
+terrain_21 = 5, 1996, 166, 0
+terrain_22 = 3, 1902, 116, 0
+terrain_23 = 26, 1932, 224, 8
+terrain_24 = 22, 1930, 112, 0
+terrain_25 = 23, 2000, 162, 0
+terrain_26 = 57, 1576, 52, 64
+terrain_27 = 57, 1576, 100, 64
+terrain_28 = 59, 1604, 194, 66
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

@@ -1,0 +1,106 @@
+﻿# LVL 411 Emmings No L.rlv
+# Created with RetroLemmini Editor Version 1.0
+# RetroLemmini Level Version 8
+
+# Level stats
+name = \ Emmings\!  (No L)
+author = 
+version = 8
+releaseRate = 50
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 70
+numToRescue = 70
+timeLimitSeconds = 360
+numClimbers = 2
+numFloaters = 2
+numBombers = 2
+numBlockers = 2
+numBuilders = 6
+numBashers = 0
+numMiners = 2
+numDiggers = 2
+xPosCenter = 400
+yPosCenter = 160
+style = Christmas
+width = 3200
+height = 320
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 5, 2144, 0, 0, 0, 0
+object_1 = 5, 2016, 0, 0, 0, 0
+object_2 = 3, 640, 124, 0, 0, 0
+object_3 = 2, 1472, 152, 0, 0, 0
+object_4 = 2, 1472, 8, 0, 0, 0
+object_5 = 5, 1888, 0, 0, 0, 0
+object_6 = 5, 2272, 0, 0, 0, 0
+object_7 = 5, 2400, 0, 0, 0, 0
+object_8 = 5, 2528, 0, 0, 0, 0
+object_9 = 5, 2656, 0, 0, 0, 0
+object_10 = 5, 2784, 0, 0, 0, 0
+object_11 = 5, 2912, 0, 0, 0, 0
+object_12 = 5, 3040, 0, 0, 2, 0
+object_13 = 5, 1952, 48, 4, 2, 0
+object_14 = 5, 2080, 48, 4, 2, 0
+object_15 = 5, 2208, 48, 4, 2, 0
+object_16 = 5, 2336, 48, 4, 2, 0
+object_17 = 5, 2464, 48, 4, 2, 0
+object_18 = 5, 2592, 48, 4, 2, 0
+object_19 = 5, 2720, 48, 4, 2, 0
+object_20 = 5, 2848, 48, 4, 2, 0
+object_21 = 5, 2976, 48, 4, 2, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 2, 1418, 118, 0
+terrain_1 = 2, 1482, 116, 0
+terrain_2 = 4, 1352, 134, 0
+terrain_3 = 4, 1566, -46, 8
+terrain_4 = 0, 1376, 272, 0
+terrain_5 = 0, 1536, 262, 0
+terrain_6 = 3, 1348, 130, 0
+terrain_7 = 5, 1214, 42, 8
+terrain_8 = 5, 1162, -10, 8
+terrain_9 = 5, 1724, 198, 4
+terrain_10 = 4, 1790, 56, 0
+terrain_11 = 5, 1644, -46, 0
+terrain_12 = 25, 1194, 138, 0
+terrain_13 = 25, 1114, 182, 0
+terrain_14 = 25, 1048, 220, 0
+terrain_15 = 24, 942, 252, 0
+terrain_16 = 26, 856, 216, 0
+terrain_17 = 15, 838, 194, 0
+terrain_18 = 15, 838, 106, 0
+terrain_19 = 24, 586, 210, 0
+terrain_20 = 24, 650, 210, 0
+terrain_21 = 23, 684, 220, 0
+terrain_22 = 23, 610, 220, 0
+terrain_23 = 23, 554, 222, 0
+terrain_24 = 27, 1880, -2, 12
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

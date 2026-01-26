@@ -1,0 +1,82 @@
+﻿# LVL 402 Jacklemmings.rlv
+# Created with RetroLemmini Editor Version 1.0
+# RetroLemmini Level Version 8
+
+# Level stats
+name = JackLemmings
+author = 
+version = 8
+releaseRate = 50
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 80
+numToRescue = 60
+timeLimitSeconds = 240
+numClimbers = 25
+numFloaters = 25
+numBombers = 25
+numBlockers = 25
+numBuilders = 25
+numBashers = 25
+numMiners = 25
+numDiggers = 25
+xPosCenter = 1480
+yPosCenter = 130
+style = Brick
+width = 3200
+height = 320
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 1, 1184, 0, 0, 0, 0
+object_1 = 1, 1408, 0, 0, 0, 0
+object_2 = 1, 1632, 0, 0, 0, 0
+object_3 = 6, 1312, 16, 0, 0, 0
+object_4 = 6, 1536, 16, 0, 0, 0
+object_5 = 0, 1408, 200, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 24, 1294, 86, 0
+terrain_1 = 24, 1230, 86, 0
+terrain_2 = 24, 1166, 86, 0
+terrain_3 = 24, 1358, 86, 0
+terrain_4 = 24, 1420, 86, 0
+terrain_5 = 24, 1484, 86, 0
+terrain_6 = 24, 1548, 86, 0
+terrain_7 = 24, 1612, 86, 0
+terrain_8 = 24, 1676, 86, 0
+terrain_9 = 24, 1740, 86, 0
+terrain_10 = 27, 1430, 270, 0
+terrain_11 = 27, 1462, 270, 0
+terrain_12 = 27, 1398, 270, 0
+terrain_13 = 34, 1458, 302, 0
+terrain_14 = 34, 1408, 302, 0
+terrain_15 = 9, 1398, 170, 0
+terrain_16 = 9, 1472, 170, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

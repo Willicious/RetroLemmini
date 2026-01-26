@@ -1,0 +1,98 @@
+﻿# LVL 209 Quest for Kieran.rlv
+# Created with RetroLemmini Editor Version 1.0
+# RetroLemmini Level Version 8
+
+# Level stats
+name = \ Quest for Kieran
+author = 
+version = 8
+releaseRate = 50
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 40
+numToRescue = 40
+timeLimitSeconds = 240
+numClimbers = 3
+numFloaters = 2
+numBombers = 2
+numBlockers = 0
+numBuilders = 3
+numBashers = 0
+numMiners = 1
+numDiggers = 0
+xPosCenter = 400
+yPosCenter = 160
+style = Christmas
+width = 3200
+height = 320
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 2, 1504, 24, 0, 0, 0
+object_1 = 3, 800, 36, 0, 0, 0
+object_2 = 4, 2272, 24, 0, 0, 0
+object_3 = 5, 1696, 168, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 0, 1232, 116, 0
+terrain_1 = 3, 1202, 298, 0
+terrain_2 = 3, 1294, 290, 0
+terrain_3 = 3, 1376, 298, 0
+terrain_4 = 3, 1480, 290, 0
+terrain_5 = 3, 1432, 288, 0
+terrain_6 = 3, 1486, 212, 0
+terrain_7 = 4, 1582, 142, 8
+terrain_8 = 4, 1584, 106, 8
+terrain_9 = 5, 1044, 204, 0
+terrain_10 = 5, 950, 124, 0
+terrain_11 = 3, 782, 118, 0
+terrain_12 = 15, 838, 150, 8
+terrain_13 = 15, 838, 214, 8
+terrain_14 = 14, 1188, 276, 0
+terrain_15 = 15, 2332, 120, 0
+terrain_16 = 15, 2318, 120, 4
+terrain_17 = 15, 2308, 120, 0
+terrain_18 = 15, 2296, 120, 4
+terrain_19 = 15, 2286, 120, 0
+terrain_20 = 15, 2274, 120, 4
+terrain_21 = 15, 2260, 120, 0
+terrain_22 = 15, 2250, 120, 4
+terrain_23 = 15, 2332, 204, 4
+terrain_24 = 15, 2322, 204, 0
+terrain_25 = 15, 2310, 204, 4
+terrain_26 = 15, 2298, 204, 0
+terrain_27 = 15, 2284, 196, 4
+terrain_28 = 15, 2272, 196, 0
+terrain_29 = 15, 2260, 196, 0
+terrain_30 = 15, 2250, 196, 4
+terrain_31 = 14, 1640, 128, 0
+terrain_32 = 15, 1824, 166, 0
+terrain_33 = 15, 1824, 214, 0
+terrain_34 = 16, 1824, 120, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

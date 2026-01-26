@@ -1,0 +1,74 @@
+﻿# LVL 224 Tightrope City.rlv
+# Created with RetroLemmini Editor Version 1.0
+# RetroLemmini Level Version 2
+
+# Level stats
+name = Tightrope City
+author = 
+version = 2
+releaseRate = 85
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 80
+numToRescue = 75
+timeLimitSeconds = 120
+numClimbers = 5
+numFloaters = 5
+numBombers = 5
+numBlockers = 5
+numBuilders = 3
+numBashers = 5
+numMiners = 5
+numDiggers = 5
+xPosCenter = 992
+yPosCenter = 160
+style = Marble
+width = 3200
+height = 320
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 1
+topBoundary = 8
+bottomBoundary = 20
+leftBoundary = 0
+rightBoundary = -16
+
+
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 1, 896, 88, 4, 0, 0
+object_1 = 6, 1952, 104, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 38, 888, 188, 0
+terrain_1 = 38, 984, 188, 0
+terrain_2 = 38, 1080, 188, 0
+terrain_3 = 38, 1176, 188, 0
+terrain_4 = 38, 1272, 188, 0
+terrain_5 = 38, 1368, 188, 0
+terrain_6 = 38, 1464, 188, 0
+terrain_7 = 38, 1560, 188, 0
+terrain_8 = 38, 1656, 188, 0
+terrain_9 = 38, 1752, 188, 0
+terrain_10 = 38, 1848, 188, 0
+terrain_11 = 38, 1970, 150, 0
+terrain_12 = 38, 2038, 150, 2
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

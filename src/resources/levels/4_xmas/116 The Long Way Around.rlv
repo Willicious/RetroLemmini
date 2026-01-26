@@ -1,0 +1,133 @@
+﻿# LVL 116 The Long Way Around.rlv
+# Created with RetroLemmini Editor Version 1.0
+# RetroLemmini Level Version 8
+
+# Level stats
+name = \ The Long Way Around
+author = 
+version = 8
+releaseRate = 20
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 50
+numToRescue = 45
+timeLimitSeconds = 240
+numClimbers = 5
+numFloaters = 5
+numBombers = 5
+numBlockers = 5
+numBuilders = 5
+numBashers = 3
+numMiners = 0
+numDiggers = 0
+xPosCenter = 400
+yPosCenter = 160
+style = Christmas
+width = 3200
+height = 320
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 3, 2240, 68, 0, 0, 0
+object_1 = 5, 1856, 264, 0, 0, 0
+object_2 = 5, 2208, 232, 0, 0, 0
+object_3 = 2, 1472, -72, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 3, 1460, 82, 0
+terrain_1 = 2, 1428, 96, 0
+terrain_2 = 2, 1354, 116, 0
+terrain_3 = 3, 1250, 128, 0
+terrain_4 = 2, 1180, 128, 0
+terrain_5 = 3, 1096, 130, 0
+terrain_6 = 2, 1010, 124, 0
+terrain_7 = 3, 914, 128, 0
+terrain_8 = 3, 850, 140, 0
+terrain_9 = 3, 926, 148, 0
+terrain_10 = 3, 1022, 152, 0
+terrain_11 = 3, 1080, 142, 0
+terrain_12 = 3, 776, 142, 0
+terrain_13 = 3, 1382, 112, 0
+terrain_14 = 3, 1310, 134, 0
+terrain_15 = 3, 726, 154, 0
+terrain_16 = 4, 1552, -88, 8
+terrain_17 = 4, 1564, 80, 0
+terrain_18 = 4, 1562, 152, 0
+terrain_19 = 29, 1632, 8, 64
+terrain_20 = 29, 1632, 56, 64
+terrain_21 = 29, 1632, 104, 64
+terrain_22 = 15, 1658, 102, 8
+terrain_23 = 15, 1658, -20, 8
+terrain_24 = 14, 1624, -32, 8
+terrain_25 = 14, 738, 160, 8
+terrain_26 = 14, 732, 174, 8
+terrain_27 = 14, 1412, 114, 8
+terrain_28 = 14, 864, 148, 0
+terrain_29 = 14, 802, 148, 0
+terrain_30 = 14, 838, 146, 0
+terrain_31 = 14, 910, 146, 0
+terrain_32 = 31, 1524, 292, 0
+terrain_33 = 31, 1472, 292, 0
+terrain_34 = 31, 1420, 292, 0
+terrain_35 = 31, 1368, 292, 0
+terrain_36 = 31, 1316, 292, 0
+terrain_37 = 31, 1264, 292, 0
+terrain_38 = 31, 1212, 292, 0
+terrain_39 = 31, 1160, 294, 0
+terrain_40 = 31, 1108, 292, 0
+terrain_41 = 31, 1056, 292, 0
+terrain_42 = 25, 1682, 266, 0
+terrain_43 = 25, 1758, 222, 0
+terrain_44 = 25, 1828, 182, 0
+terrain_45 = 25, 1898, 142, 0
+terrain_46 = 25, 2030, 72, 0
+terrain_47 = 29, 2208, 184, 64
+terrain_48 = 29, 2256, 184, 64
+terrain_49 = 29, 2304, 184, 64
+terrain_50 = 23, 2216, 146, 0
+terrain_51 = 26, 2128, 126, 0
+terrain_52 = 28, 1846, 220, 8
+terrain_53 = 27, 1978, 154, 0
+terrain_54 = 29, 1584, 104, 64
+terrain_55 = 29, 1536, 104, 64
+terrain_56 = 23, 1450, 280, 0
+terrain_57 = 23, 1384, 284, 0
+terrain_58 = 23, 1318, 280, 0
+terrain_59 = 23, 1220, 280, 0
+terrain_60 = 23, 1130, 280, 0
+terrain_61 = 23, 1046, 280, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 0, 0, 32, 32, 0
+steel_1 = 1632, 8, 48, 48, 0
+steel_2 = 1632, 56, 48, 48, 0
+steel_3 = 1632, 104, 48, 48, 0
+steel_4 = 2208, 184, 48, 48, 0
+steel_5 = 2256, 184, 48, 48, 0
+steel_6 = 1584, 104, 48, 48, 0
+steel_7 = 1536, 104, 48, 48, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

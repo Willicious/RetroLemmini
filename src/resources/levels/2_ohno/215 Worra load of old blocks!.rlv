@@ -1,0 +1,148 @@
+﻿# LVL 215 Worra load of old blocks!.rlv
+# Created with RetroLemmini Editor Version 1.0
+# RetroLemmini Level Version 2
+
+# Level stats
+name = Worra load of old blocks!
+author = 
+version = 2
+releaseRate = 1
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 50
+numToRescue = 44
+timeLimitSeconds = 180
+numClimbers = 1
+numFloaters = 0
+numBombers = 1
+numBlockers = 0
+numBuilders = 6
+numBashers = 0
+numMiners = 0
+numDiggers = 3
+xPosCenter = 1184
+yPosCenter = 160
+style = Brick
+width = 3200
+height = 320
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 1
+topBoundary = 8
+bottomBoundary = 20
+leftBoundary = 0
+rightBoundary = -16
+
+
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 6, 1664, 64, 4, 0, 0
+object_1 = 6, 1664, 56, 4, 0, 0
+object_2 = 5, 1152, 288, 0, 0, 0
+object_3 = 5, 1280, 280, 0, 0, 0
+object_4 = 5, 1408, 280, 0, 0, 0
+object_5 = 5, 1536, 280, 0, 0, 0
+object_6 = 5, 1664, 280, 0, 0, 0
+object_7 = 5, 1792, 280, 4, 0, 0
+object_8 = 6, 1600, 64, 4, 0, 0
+object_9 = 1, 1312, 0, 0, 0, 0
+object_10 = 5, 1152, 280, 0, 0, 0
+object_11 = 5, 1024, 280, 0, 0, 0
+object_12 = 5, 896, 280, 0, 0, 0
+object_13 = 5, 768, 280, 4, 0, 0
+object_14 = 1, 1312, 0, 4, 0, 0
+object_15 = 0, 928, 224, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 7, 1360, 130, 0
+terrain_1 = 7, 1420, 130, 0
+terrain_2 = 7, 1478, 130, 0
+terrain_3 = 53, 1456, 288, 64
+terrain_4 = 53, 1408, 288, 64
+terrain_5 = 53, 1360, 288, 64
+terrain_6 = 53, 1312, 288, 64
+terrain_7 = 53, 1264, 288, 64
+terrain_8 = 53, 1216, 288, 64
+terrain_9 = 53, 1120, 288, 64
+terrain_10 = 53, 1072, 288, 64
+terrain_11 = 9, 1246, 76, 2
+terrain_12 = 9, 1246, 86, 2
+terrain_13 = 9, 1246, 88, 2
+terrain_14 = 9, 1312, 74, 2
+terrain_15 = 9, 1312, 84, 2
+terrain_16 = 9, 1312, 88, 2
+terrain_17 = 9, 1182, 76, 2
+terrain_18 = 9, 1180, 86, 2
+terrain_19 = 9, 1180, 88, 2
+terrain_20 = 9, 1312, 164, 2
+terrain_21 = 9, 1312, 160, 2
+terrain_22 = 53, 1024, 288, 64
+terrain_23 = 53, 976, 288, 64
+terrain_24 = 53, 928, 288, 64
+terrain_25 = 7, 1538, 130, 0
+terrain_26 = 7, 1598, 130, 0
+terrain_27 = 7, 1658, 130, 0
+terrain_28 = 51, 1654, 216, 64
+terrain_29 = 51, 1702, 216, 64
+terrain_30 = 51, 1750, 216, 64
+terrain_31 = 51, 1750, 168, 64
+terrain_32 = 51, 1750, 120, 64
+terrain_33 = 51, 1750, 72, 64
+terrain_34 = 51, 1750, 24, 64
+terrain_35 = 51, 1750, -24, 64
+terrain_36 = 7, 1696, 130, 8
+terrain_37 = 51, 1328, 178, 64
+terrain_38 = 51, 1328, 130, 64
+terrain_39 = 51, 1328, 82, 64
+terrain_40 = 51, 1256, 178, 64
+terrain_41 = 51, 1256, 130, 64
+terrain_42 = 51, 1256, 82, 64
+terrain_43 = 51, 1184, 178, 64
+terrain_44 = 51, 1184, 130, 64
+terrain_45 = 51, 1184, 82, 64
+terrain_46 = 51, 1112, 178, 64
+terrain_47 = 51, 1112, 130, 64
+terrain_48 = 51, 1112, 82, 64
+terrain_49 = 6, 1296, 106, 8
+terrain_50 = 6, 1224, 118, 8
+terrain_51 = 6, 1150, 130, 8
+terrain_52 = 6, 1234, 106, 8
+terrain_53 = 6, 1150, 106, 8
+terrain_54 = 52, 740, 290, 64
+terrain_55 = 51, 1544, 60, 64
+terrain_56 = 51, 1592, 60, 64
+terrain_57 = 51, 1640, 60, 64
+terrain_58 = 51, 1688, 60, 64
+terrain_59 = 51, 1544, 12, 64
+terrain_60 = 51, 1592, 12, 64
+terrain_61 = 51, 1640, 12, 64
+terrain_62 = 51, 1688, 12, 64
+terrain_63 = 8, 1224, 106, 8
+terrain_64 = 53, 1168, 288, 64
+terrain_65 = 52, 1626, 216, 64
+terrain_66 = 51, 1920, 272, 64
+terrain_67 = 53, 1746, -18, 72
+terrain_68 = 53, 1756, -18, 72
+terrain_69 = 6, 1150, 82, 8
+terrain_70 = 6, 1214, 82, 8
+terrain_71 = 6, 1296, 82, 8
+terrain_72 = 51, 720, 272, 64
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

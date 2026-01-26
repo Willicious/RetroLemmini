@@ -1,0 +1,70 @@
+﻿# LVL 104 For Every Lemming Turn Turn.rlv
+# Created with RetroLemmini Editor Version 1.0
+# RetroLemmini Level Version 9
+
+# Level stats
+name = For Every Lemming, Turn, Turn...
+author = 
+version = 9
+releaseRate = 25
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 80
+numToRescue = 79
+timeLimitSeconds = 240
+numClimbers = 1
+numFloaters = 0
+numBombers = 1
+numBlockers = 1
+numBuilders = 1
+numBashers = 0
+numMiners = 1
+numDiggers = 1
+xPosCenter = 1396
+yPosCenter = 209
+style = Brick
+width = 3200
+height = 320
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 0, 1888, 160, 4, 0, 0
+object_1 = 7, 992, 208, 4, 0, 0
+object_2 = 1, 1344, 136, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 1, 960, 272, 0
+terrain_1 = 1, 1088, 272, 0
+terrain_2 = 1, 1216, 272, 0
+terrain_3 = 1, 1344, 272, 0
+terrain_4 = 1, 1472, 272, 0
+terrain_5 = 1, 1600, 272, 0
+terrain_6 = 0, 1728, 224, 0
+terrain_7 = 0, 1856, 224, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

@@ -1,0 +1,144 @@
+﻿# LVL 509 One Way to Freedom.rlv
+# Created with RetroLemmini Editor Version 1.0
+# RetroLemmini Level Version 8
+
+# Level stats
+name = One Way to Freedom
+author = 
+version = 8
+releaseRate = 65
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 60
+numToRescue = 53
+timeLimitSeconds = 300
+numClimbers = 0
+numFloaters = 1
+numBombers = 12
+numBlockers = 0
+numBuilders = 25
+numBashers = 2
+numMiners = 0
+numDiggers = 0
+xPosCenter = 1564
+yPosCenter = 174
+style = Fire
+width = 3200
+height = 320
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 1
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 3, 1440, 248, 8, 0, 0
+object_1 = 3, 1376, 248, 8, 0, 0
+object_2 = 3, 1504, 248, 8, 0, 0
+object_3 = 3, 1376, 200, 8, 0, 0
+object_4 = 3, 1440, 200, 8, 0, 0
+object_5 = 3, 1504, 200, 8, 0, 0
+object_6 = 3, 1376, 152, 8, 0, 0
+object_7 = 3, 1440, 152, 8, 0, 0
+object_8 = 3, 1504, 152, 8, 0, 0
+object_9 = 3, 1376, 104, 8, 0, 0
+object_10 = 3, 1440, 104, 8, 0, 0
+object_11 = 3, 1504, 104, 8, 0, 0
+object_12 = 6, 2048, 184, 4, 0, 0
+object_13 = 1, 1216, 160, 4, 0, 0
+object_14 = 7, 1792, 264, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 14, 1170, 270, 64
+terrain_1 = 14, 1220, 270, 64
+terrain_2 = 14, 1270, 270, 64
+terrain_3 = 14, 1320, 270, 64
+terrain_4 = 14, 1370, 270, 64
+terrain_5 = 14, 1420, 270, 64
+terrain_6 = 14, 1470, 270, 64
+terrain_7 = 14, 1520, 270, 64
+terrain_8 = 14, 1570, 270, 64
+terrain_9 = 14, 1620, 270, 64
+terrain_10 = 14, 1670, 270, 64
+terrain_11 = 14, 1720, 270, 64
+terrain_12 = 14, 1770, 270, 64
+terrain_13 = 2, 1376, 220, 0
+terrain_14 = 2, 1426, 220, 0
+terrain_15 = 2, 1476, 220, 0
+terrain_16 = 2, 1518, 220, 0
+terrain_17 = 2, 1376, 148, 0
+terrain_18 = 2, 1426, 148, 0
+terrain_19 = 2, 1476, 148, 0
+terrain_20 = 2, 1518, 148, 0
+terrain_21 = 2, 1376, 76, 0
+terrain_22 = 2, 1426, 76, 0
+terrain_23 = 2, 1476, 76, 0
+terrain_24 = 2, 1518, 76, 0
+terrain_25 = 1, 1376, 76, 2
+terrain_26 = 1, 1426, 76, 2
+terrain_27 = 1, 1476, 76, 2
+terrain_28 = 1, 1524, 76, 2
+terrain_29 = 60, 1168, 198, 0
+terrain_30 = 61, 1152, 138, 0
+terrain_31 = 60, 1168, 74, 8
+terrain_32 = 61, 1152, 8, 0
+terrain_33 = 60, 1168, -56, 8
+terrain_34 = 14, 1820, 270, 64
+terrain_35 = 14, 1870, 270, 64
+terrain_36 = 14, 1920, 270, 64
+terrain_37 = 14, 1970, 270, 64
+terrain_38 = 14, 2020, 270, 64
+terrain_39 = 14, 2070, 270, 64
+terrain_40 = 14, 2120, 270, 64
+terrain_41 = 0, 1792, 286, 0
+terrain_42 = 0, 1804, 284, 0
+terrain_43 = 60, 2158, 198, 0
+terrain_44 = 61, 2142, 134, 8
+terrain_45 = 60, 2158, 70, 0
+terrain_46 = 61, 2142, 2, 8
+terrain_47 = 60, 2158, -62, 0
+terrain_48 = 60, 1168, 74, 0
+terrain_49 = 60, 1168, 198, 0
+terrain_50 = 60, 1168, -56, 0
+terrain_51 = 10, 1176, -32, 4
+terrain_52 = 10, 1330, -34, 4
+terrain_53 = 10, 1470, -32, 4
+terrain_54 = 10, 1616, -38, 4
+terrain_55 = 10, 1742, -32, 4
+terrain_56 = 10, 1886, -32, 4
+terrain_57 = 10, 1984, -30, 4
+terrain_58 = 10, 2150, -38, 4
+terrain_59 = 10, 1048, -36, 4
+terrain_60 = 34, 1738, 56, 0
+terrain_61 = 45, 1800, 50, 0
+terrain_62 = 45, 1862, 56, 0
+terrain_63 = 43, 1902, 56, 0
+terrain_64 = 57, 2004, 56, 0
+terrain_65 = 0, 2070, 288, 8
+terrain_66 = 14, 1120, 270, 64
+terrain_67 = 61, 1152, 258, 8
+terrain_68 = 14, 2170, 270, 64
+terrain_69 = 61, 2142, 254, 8
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

@@ -1,0 +1,144 @@
+﻿# LVL 303 Heaven can wait (we hope!!!!).rlv
+# Created with RetroLemmini Editor Version 1.0
+# RetroLemmini Level Version 2
+
+# Level stats
+name = Heaven can wait (we hope\!\!\!\!)
+author = 
+version = 2
+releaseRate = 1
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 100
+numToRescue = 100
+timeLimitSeconds = 120
+numClimbers = 30
+numFloaters = 30
+numBombers = 30
+numBlockers = 0
+numBuilders = 30
+numBashers = 30
+numMiners = 30
+numDiggers = 30
+xPosCenter = 1625
+yPosCenter = 160
+style = Fire
+width = 3200
+height = 320
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 1
+topBoundary = 8
+bottomBoundary = 20
+leftBoundary = 0
+rightBoundary = -16
+
+
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 1, 1248, 192, 4, 0, 0
+object_1 = 6, 1920, 32, 4, 0, 0
+object_2 = 5, 1568, 280, 4, 0, 0
+object_3 = 5, 1696, 280, 4, 0, 0
+object_4 = 5, 1824, 280, 4, 0, 0
+object_5 = 5, 1440, 280, 4, 0, 0
+object_6 = 5, 1312, 280, 4, 0, 0
+object_7 = 5, 1184, 280, 4, 0, 0
+object_8 = 5, 1056, 280, 4, 0, 0
+object_9 = 5, 928, 280, 4, 0, 0
+object_10 = 5, 1952, 280, 4, 0, 0
+object_11 = 5, 2080, 280, 4, 0, 0
+object_12 = 5, 2208, 280, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 38, 1282, 76, 0
+terrain_1 = 35, 1344, 78, 0
+terrain_2 = 31, 1394, 82, 0
+terrain_3 = 52, 1446, 80, 0
+terrain_4 = 35, 1496, 80, 0
+terrain_5 = 44, 1556, 74, 0
+terrain_6 = 58, 1630, 78, 0
+terrain_7 = 0, 1934, 136, 0
+terrain_8 = 0, 1884, 136, 0
+terrain_9 = 0, 1984, 136, 0
+terrain_10 = 63, 1858, 148, 0
+terrain_11 = 62, 2032, 148, 0
+terrain_12 = 0, 1528, 272, 0
+terrain_13 = 0, 1478, 272, 0
+terrain_14 = 0, 1430, 272, 0
+terrain_15 = 0, 1380, 272, 0
+terrain_16 = 0, 1332, 272, 0
+terrain_17 = 0, 1284, 272, 0
+terrain_18 = 0, 1234, 272, 0
+terrain_19 = 3, 1624, 260, 0
+terrain_20 = 3, 1702, 262, 0
+terrain_21 = 3, 1770, 260, 0
+terrain_22 = 3, 1834, 260, 0
+terrain_23 = 3, 2318, 240, 0
+terrain_24 = 4, 906, 278, 0
+terrain_25 = 5, 894, 262, 4
+terrain_26 = 5, 894, 242, 0
+terrain_27 = 0, 1234, 284, 0
+terrain_28 = 0, 1284, 284, 0
+terrain_29 = 0, 1334, 284, 0
+terrain_30 = 0, 1384, 284, 0
+terrain_31 = 0, 1430, 284, 0
+terrain_32 = 0, 1528, 284, 0
+terrain_33 = 0, 1476, 284, 0
+terrain_34 = 0, 1508, 284, 0
+terrain_35 = 0, 1234, 260, 0
+terrain_36 = 0, 1284, 260, 0
+terrain_37 = 0, 1334, 260, 0
+terrain_38 = 0, 1382, 260, 0
+terrain_39 = 0, 1428, 260, 0
+terrain_40 = 0, 1476, 260, 0
+terrain_41 = 0, 1524, 260, 0
+terrain_42 = 0, 1528, 260, 0
+terrain_43 = 0, 1186, 260, 0
+terrain_44 = 0, 1186, 272, 0
+terrain_45 = 0, 1186, 284, 0
+terrain_46 = 2, 1864, 260, 0
+terrain_47 = 2, 1914, 260, 0
+terrain_48 = 2, 1964, 260, 0
+terrain_49 = 2, 2014, 260, 0
+terrain_50 = 4, 1944, 148, 0
+terrain_51 = 4, 1944, 196, 0
+terrain_52 = 4, 1942, 244, 8
+terrain_53 = 5, 1932, 138, 0
+terrain_54 = 5, 1932, 244, 4
+terrain_55 = 12, 1866, 148, 70
+terrain_56 = 12, 1852, 194, 70
+terrain_57 = 12, 1850, 210, 70
+terrain_58 = 12, 2020, 148, 70
+terrain_59 = 12, 2018, 182, 70
+terrain_60 = 12, 2010, 210, 70
+terrain_61 = 5, 1196, 288, 0
+terrain_62 = 5, 1512, 288, 0
+terrain_63 = 5, 1364, 288, 0
+terrain_64 = 4, 1376, 312, 0
+terrain_65 = 4, 1524, 312, 0
+terrain_66 = 4, 1208, 312, 0
+terrain_67 = 12, 912, 240, 66
+terrain_68 = 12, 864, 242, 66
+terrain_69 = 12, 876, 282, 66
+terrain_70 = 12, 908, 280, 66
+terrain_71 = 3, 888, 246, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

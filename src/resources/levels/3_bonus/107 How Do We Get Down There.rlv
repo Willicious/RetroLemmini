@@ -1,0 +1,77 @@
+﻿# LVL 401 How Do We Get Down There.rlv
+# Created with RetroLemmini Editor Version 1.0
+# RetroLemmini Level Version 8
+
+# Level stats
+name = How do we get down there?
+author = 
+version = 8
+releaseRate = 25
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 80
+numToRescue = 64
+timeLimitSeconds = 180
+numClimbers = 25
+numFloaters = 25
+numBombers = 25
+numBlockers = 25
+numBuilders = 25
+numBashers = 25
+numMiners = 25
+numDiggers = 25
+xPosCenter = 1566
+yPosCenter = 146
+style = Rock
+width = 3200
+height = 320
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 0, 2016, 224, 4, 0, 0
+object_1 = 5, 1504, 272, 0, 0, 0
+object_2 = 5, 1376, 272, 0, 0, 0
+object_3 = 5, 1248, 272, 0, 0, 0
+object_4 = 5, 1120, 272, 0, 0, 0
+object_5 = 5, 992, 272, 0, 0, 0
+object_6 = 5, 864, 272, 0, 0, 0
+object_7 = 6, 1856, 256, 0, 0, 0
+object_8 = 8, 2208, 256, 0, 0, 0
+object_9 = 1, 1312, 0, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 7, 1630, 274, 0
+terrain_1 = 7, 1850, 276, 0
+terrain_2 = 7, 2072, 264, 4
+terrain_3 = 43, 846, 250, 0
+terrain_4 = 42, 820, 248, 0
+terrain_5 = 43, 836, 210, 8
+terrain_6 = 0, 1538, 108, 0
+terrain_7 = 7, 1262, 74, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

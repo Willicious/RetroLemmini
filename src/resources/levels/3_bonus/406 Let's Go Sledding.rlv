@@ -1,0 +1,110 @@
+﻿# LVL 205 Let's Go Sledding.rlv
+# Created with RetroLemmini Editor Version 1.0
+# RetroLemmini Level Version 9
+
+# Level stats
+name = Lets Go Sledding\!\!
+author = 
+version = 9
+releaseRate = 1
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 80
+numToRescue = 79
+timeLimitSeconds = 240
+numClimbers = 0
+numFloaters = 1
+numBombers = 1
+numBlockers = 0
+numBuilders = 3
+numBashers = 0
+numMiners = 0
+numDiggers = 2
+xPosCenter = 1610
+yPosCenter = 164
+style = Snow
+width = 3200
+height = 320
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 0, 1696, 200, 4, 0, 0
+object_1 = 5, 1888, 288, 4, 0, 0
+object_2 = 1, 1280, 0, 4, 0, 0
+object_3 = 5, 1440, 288, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 15, 1446, 192, 0
+terrain_1 = 15, 1446, 78, 0
+terrain_2 = 15, 1434, 78, 0
+terrain_3 = 15, 1434, 196, 0
+terrain_4 = 15, 1424, 192, 0
+terrain_5 = 15, 1424, 78, 0
+terrain_6 = 15, 1412, 78, 0
+terrain_7 = 15, 1412, 194, 0
+terrain_8 = 15, 1400, 78, 0
+terrain_9 = 15, 1400, 202, 0
+terrain_10 = 15, 1388, 78, 0
+terrain_11 = 15, 1388, 198, 0
+terrain_12 = 15, 1374, 78, 0
+terrain_13 = 15, 1374, 202, 0
+terrain_14 = 15, 1360, 78, 0
+terrain_15 = 15, 1360, 196, 0
+terrain_16 = 15, 1360, 144, 0
+terrain_17 = 15, 1346, 78, 0
+terrain_18 = 15, 1346, 196, 0
+terrain_19 = 15, 1332, 78, 0
+terrain_20 = 15, 1332, 200, 0
+terrain_21 = 15, 1332, 174, 0
+terrain_22 = 15, 1318, 78, 0
+terrain_23 = 15, 1318, 196, 0
+terrain_24 = 15, 1304, 78, 0
+terrain_25 = 15, 1304, 198, 0
+terrain_26 = 15, 1290, 78, 0
+terrain_27 = 15, 1290, 198, 0
+terrain_28 = 15, 1276, 78, 0
+terrain_29 = 15, 1276, 196, 0
+terrain_30 = 24, 1342, 62, 0
+terrain_31 = 24, 1278, 62, 0
+terrain_32 = 0, 1530, 242, 0
+terrain_33 = 0, 1682, 246, 0
+terrain_34 = 27, 1766, 0, 0
+terrain_35 = 27, 1734, -58, 0
+terrain_36 = 15, 1922, 220, 0
+terrain_37 = 15, 1922, 170, 0
+terrain_38 = 15, 1960, 232, 0
+terrain_39 = 15, 2000, 208, 0
+terrain_40 = 15, 2000, 82, 0
+terrain_41 = 16, 1922, 122, 0
+terrain_42 = 16, 1960, 184, 0
+terrain_43 = 16, 2000, 34, 0
+terrain_44 = 26, 1430, 64, 0
+terrain_45 = 26, 1452, 74, 0
+terrain_46 = 26, 1470, 84, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

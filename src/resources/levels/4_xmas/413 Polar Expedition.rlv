@@ -1,0 +1,100 @@
+﻿# LVL 413 Polar Expedition.rlv
+# Created with RetroLemmini Editor Version 1.0
+# RetroLemmini Level Version 8
+
+# Level stats
+name = \ Polar Expedition
+author = 
+version = 8
+releaseRate = 25
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 50
+numToRescue = 50
+timeLimitSeconds = 360
+numClimbers = 1
+numFloaters = 1
+numBombers = 5
+numBlockers = 2
+numBuilders = 1
+numBashers = 2
+numMiners = 0
+numDiggers = 2
+xPosCenter = 400
+yPosCenter = 160
+style = Christmas
+width = 3200
+height = 320
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 3, 2208, 196, 4, 0, 0
+object_1 = 2, 864, 24, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 4, 694, 40, 8
+terrain_1 = 4, 716, 144, 0
+terrain_2 = 4, 688, 182, 0
+terrain_3 = 0, 756, 222, 0
+terrain_4 = 0, 868, 214, 0
+terrain_5 = 0, 1018, 242, 0
+terrain_6 = 0, 1178, 234, 0
+terrain_7 = 0, 1298, 212, 0
+terrain_8 = 0, 1378, 224, 0
+terrain_9 = 0, 1454, 236, 0
+terrain_10 = 0, 1568, 226, 0
+terrain_11 = 0, 1676, 218, 0
+terrain_12 = 0, 1768, 232, 0
+terrain_13 = 0, 1858, 232, 0
+terrain_14 = 15, 1188, 206, 8
+terrain_15 = 16, 1188, 162, 8
+terrain_16 = 15, 1386, 112, 8
+terrain_17 = 16, 1386, 74, 8
+terrain_18 = 15, 1668, 144, 8
+terrain_19 = 0, 2106, 278, 0
+terrain_20 = 3, 2194, 276, 8
+terrain_21 = 3, 2144, 288, 0
+terrain_22 = 3, 2242, 296, 0
+terrain_23 = 29, 1656, 248, 64
+terrain_24 = 29, 728, 200, 64
+terrain_25 = 3, 2146, 278, 0
+terrain_26 = 29, 952, 272, 64
+terrain_27 = 29, 1416, 272, 64
+terrain_28 = 29, 1176, 272, 64
+terrain_29 = 29, 1376, 224, 64
+terrain_30 = 29, 1656, 296, 64
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 0, 0, 32, 32, 0
+steel_1 = 952, 272, 48, 48, 0
+steel_2 = 1656, 248, 48, 48, 0
+steel_3 = 1416, 272, 48, 48, 0
+steel_4 = 728, 200, 48, 48, 0
+steel_5 = 1176, 272, 48, 48, 0
+steel_6 = 1376, 224, 48, 48, 0
+steel_7 = 1656, 296, 48, 48, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

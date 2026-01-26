@@ -1,0 +1,87 @@
+﻿# LVL 607 And the winner is.rlv
+# Created with RetroLemmini Editor Version 1.0
+# RetroLemmini Level Version 2
+
+# Level stats
+name = And the winner is.....
+author = 
+version = 2
+releaseRate = 70
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 80
+numToRescue = 80
+timeLimitSeconds = 300
+numClimbers = 20
+numFloaters = 10
+numBombers = 10
+numBlockers = 10
+numBuilders = 50
+numBashers = 20
+numMiners = 20
+numDiggers = 20
+xPosCenter = 1425
+yPosCenter = 160
+style = Pillar
+width = 3200
+height = 320
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 1
+topBoundary = 8
+bottomBoundary = 20
+leftBoundary = 0
+rightBoundary = -16
+
+
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 1, 1376, 0, 4, 0, 0
+object_1 = 6, 1632, 48, 4, 0, 0
+object_2 = 7, 1664, 16, 4, 0, 0
+object_3 = 6, 1120, 48, 4, 0, 0
+object_4 = 2, 1152, 16, 4, 0, 0
+object_5 = 1, 1376, 0, 4, 0, 1
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 26, 1118, 98, 0
+terrain_1 = 1, 1138, 132, 8
+terrain_2 = 10, 1374, 64, 0
+terrain_3 = 26, 1370, 98, 0
+terrain_4 = 11, 1438, 64, 8
+terrain_5 = 49, 1376, 136, 64
+terrain_6 = 49, 1424, 136, 64
+terrain_7 = 2, 1202, 166, 4
+terrain_8 = 2, 1202, 96, 0
+terrain_9 = 2, 1456, 96, 0
+terrain_10 = 2, 1456, 166, 4
+terrain_11 = 35, 1622, 98, 4
+terrain_12 = 1, 1642, 124, 0
+terrain_13 = 7, 1112, 250, 0
+terrain_14 = 7, 1544, 250, 0
+terrain_15 = 0, 1206, 250, 2
+terrain_16 = 0, 1514, 250, 2
+terrain_17 = 0, 1206, 252, 0
+terrain_18 = 0, 1334, 252, 0
+terrain_19 = 0, 1462, 252, 0
+terrain_20 = 0, 1514, 252, 0
+terrain_21 = 1, 1390, 134, 8
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

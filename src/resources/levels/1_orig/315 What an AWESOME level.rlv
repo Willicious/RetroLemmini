@@ -1,0 +1,62 @@
+﻿# LVL 315 What an AWESOME level.rlv
+# Created with RetroLemmini Editor Version 1.0
+# RetroLemmini Level Version 2
+
+# Level stats
+name = What an AWESOME level
+author = 
+version = 2
+releaseRate = 50
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 100
+numToRescue = 80
+timeLimitSeconds = 360
+numClimbers = 20
+numFloaters = 20
+numBombers = 20
+numBlockers = 20
+numBuilders = 20
+numBashers = 20
+numMiners = 20
+numDiggers = 20
+xPosCenter = 1060
+yPosCenter = 160
+style = special
+width = 3200
+height = 320
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+topBoundary = 8
+bottomBoundary = 20
+leftBoundary = 0
+rightBoundary = -16
+music = special/awesome
+
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 2, 820, 8, 4, 0, 0
+object_1 = 6, 2502, 8, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 5, 720, 0, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

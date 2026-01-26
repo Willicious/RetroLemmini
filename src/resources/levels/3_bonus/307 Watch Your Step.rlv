@@ -1,0 +1,90 @@
+﻿# LVL 306 Watch Your Step.rlv
+# Created with RetroLemmini Editor Version 1.0
+# RetroLemmini Level Version 8
+
+# Level stats
+name = Watch Your Step\!
+author = 
+version = 8
+releaseRate = 80
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 80
+numToRescue = 78
+timeLimitSeconds = 180
+numClimbers = 2
+numFloaters = 2
+numBombers = 2
+numBlockers = 3
+numBuilders = 2
+numBashers = 1
+numMiners = 1
+numDiggers = 1
+xPosCenter = 954
+yPosCenter = 148
+style = Brick
+width = 3200
+height = 320
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 1, 640, 16, 4, 0, 0
+object_1 = 0, 2336, 48, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 24, 638, 144, 0
+terrain_1 = 24, 702, 144, 0
+terrain_2 = 24, 766, 144, 0
+terrain_3 = 24, 830, 144, 0
+terrain_4 = 24, 894, 144, 0
+terrain_5 = 24, 958, 144, 0
+terrain_6 = 24, 1022, 144, 0
+terrain_7 = 24, 1086, 144, 0
+terrain_8 = 24, 1150, 144, 0
+terrain_9 = 24, 1214, 144, 0
+terrain_10 = 24, 1278, 144, 0
+terrain_11 = 24, 1342, 144, 0
+terrain_12 = 24, 1406, 144, 0
+terrain_13 = 24, 1470, 144, 0
+terrain_14 = 24, 1534, 144, 0
+terrain_15 = 24, 1598, 144, 0
+terrain_16 = 24, 1662, 144, 0
+terrain_17 = 24, 1726, 144, 0
+terrain_18 = 24, 1790, 144, 0
+terrain_19 = 24, 1854, 144, 0
+terrain_20 = 24, 1918, 144, 0
+terrain_21 = 24, 1982, 144, 0
+terrain_22 = 24, 2046, 144, 0
+terrain_23 = 24, 2110, 144, 0
+terrain_24 = 24, 2174, 144, 0
+terrain_25 = 24, 2238, 144, 0
+terrain_26 = 24, 2302, 116, 0
+terrain_27 = 24, 2366, 116, 0
+terrain_28 = 20, 1300, 142, 2
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

@@ -1,0 +1,86 @@
+﻿# LVL 307 Break on through.rlv
+# Created with RetroLemmini Editor Version 1.0
+# RetroLemmini Level Version 8
+
+# Level stats
+name = \ Break on through...
+author = 
+version = 8
+releaseRate = 30
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 60
+numToRescue = 55
+timeLimitSeconds = 240
+numClimbers = 0
+numFloaters = 12
+numBombers = 25
+numBlockers = 0
+numBuilders = 19
+numBashers = 93
+numMiners = 0
+numDiggers = 0
+xPosCenter = 400
+yPosCenter = 160
+style = Christmas
+width = 3200
+height = 320
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 2, 1248, 128, 4, 0, 0
+object_1 = 3, 1600, 12, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 11, 1216, 236, 0
+terrain_1 = 11, 1274, 236, 0
+terrain_2 = 11, 1332, 236, 0
+terrain_3 = 11, 1390, 236, 0
+terrain_4 = 11, 1448, 236, 0
+terrain_5 = 11, 1506, 236, 0
+terrain_6 = 11, 1566, 240, 0
+terrain_7 = 11, 1624, 240, 0
+terrain_8 = 11, 1682, 240, 0
+terrain_9 = 11, 1740, 240, 0
+terrain_10 = 11, 1798, 240, 0
+terrain_11 = 2, 1204, 84, 0
+terrain_12 = 3, 1268, 90, 0
+terrain_13 = 2, 1378, 86, 0
+terrain_14 = 3, 1452, 92, 0
+terrain_15 = 2, 1558, 88, 0
+terrain_16 = 3, 1624, 92, 0
+terrain_17 = 2, 1728, 88, 0
+terrain_18 = 3, 1780, 92, 0
+terrain_19 = 4, 1846, 0, 0
+terrain_20 = 4, 1846, 150, 0
+terrain_21 = 4, 1890, 150, 8
+terrain_22 = 4, 1108, 0, 0
+terrain_23 = 4, 1128, 150, 0
+terrain_24 = 4, 1094, 154, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

@@ -1,0 +1,93 @@
+﻿# LVL 302 Heaven Can Wait II.rlv
+# Created with RetroLemmini Editor Version 1.0
+# RetroLemmini Level Version 8
+
+# Level stats
+name = Heaven Can Wait II
+author = 
+version = 8
+releaseRate = 5
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 80
+numToRescue = 80
+timeLimitSeconds = 240
+numClimbers = 2
+numFloaters = 2
+numBombers = 2
+numBlockers = 2
+numBuilders = 20
+numBashers = 2
+numMiners = 2
+numDiggers = 2
+xPosCenter = 1462
+yPosCenter = 175
+style = Brick
+width = 3200
+height = 320
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 5, 1472, 272, 0, 0, 0
+object_1 = 5, 1600, 272, 0, 0, 0
+object_2 = 5, 1344, 272, 0, 0, 0
+object_3 = 1, 1120, 128, 0, 0, 0
+object_4 = 0, 1728, 40, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 1, 1344, 272, 0
+terrain_1 = 1, 1216, 272, 0
+terrain_2 = 1, 1088, 272, 0
+terrain_3 = 52, 1728, 272, 64
+terrain_4 = 51, 1756, 272, 64
+terrain_5 = 24, 1702, 110, 0
+terrain_6 = 24, 1766, 110, 0
+terrain_7 = 31, 1732, 116, 0
+terrain_8 = 31, 1776, 116, 0
+terrain_9 = 30, 1732, 132, 0
+terrain_10 = 30, 1732, 164, 0
+terrain_11 = 30, 1732, 196, 0
+terrain_12 = 30, 1732, 228, 0
+terrain_13 = 29, 1732, 256, 0
+terrain_14 = 30, 1776, 132, 0
+terrain_15 = 30, 1776, 164, 0
+terrain_16 = 30, 1776, 196, 0
+terrain_17 = 30, 1776, 228, 0
+terrain_18 = 29, 1776, 256, 0
+terrain_19 = 5, 1406, 272, 2
+terrain_20 = 5, 1408, 272, 2
+terrain_21 = 5, 1348, 272, 2
+terrain_22 = 5, 1250, 270, 2
+terrain_23 = 5, 1294, 270, 2
+terrain_24 = 1, 1216, 272, 0
+terrain_25 = 22, 1088, 256, 0
+terrain_26 = 22, 1152, 256, 0
+terrain_27 = 22, 1216, 256, 0
+terrain_28 = 22, 1280, 256, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

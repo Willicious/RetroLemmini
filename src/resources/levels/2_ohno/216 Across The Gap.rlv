@@ -1,0 +1,117 @@
+﻿# LVL 216 Across The Gap.rlv
+# Created with RetroLemmini Editor Version 1.0
+# RetroLemmini Level Version 2
+
+# Level stats
+name = Across The Gap
+author = 
+version = 2
+releaseRate = 1
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 16
+numToRescue = 16
+timeLimitSeconds = 180
+numClimbers = 3
+numFloaters = 16
+numBombers = 3
+numBlockers = 16
+numBuilders = 3
+numBashers = 16
+numMiners = 3
+numDiggers = 16
+xPosCenter = 1504
+yPosCenter = 160
+style = Brick
+width = 3200
+height = 320
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 1
+topBoundary = 8
+bottomBoundary = 20
+leftBoundary = 0
+rightBoundary = -16
+
+
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 1, 1216, 32, 4, 0, 0
+object_1 = 0, 1696, 32, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 42, 1432, 278, 0
+terrain_1 = 42, 1496, 278, 0
+terrain_2 = 42, 1528, 278, 0
+terrain_3 = 42, 1528, 214, 0
+terrain_4 = 42, 1400, 278, 0
+terrain_5 = 42, 1400, 214, 0
+terrain_6 = 42, 1432, 214, 0
+terrain_7 = 42, 1432, 182, 0
+terrain_8 = 42, 1432, 150, 0
+terrain_9 = 42, 1400, 150, 0
+terrain_10 = 42, 1368, 150, 0
+terrain_11 = 42, 1368, 118, 0
+terrain_12 = 42, 1368, 86, 0
+terrain_13 = 42, 1400, 86, 0
+terrain_14 = 42, 1432, 86, 0
+terrain_15 = 42, 1432, 54, 0
+terrain_16 = 42, 1432, 22, 0
+terrain_17 = 42, 1496, 22, 0
+terrain_18 = 42, 1496, 54, 0
+terrain_19 = 42, 1496, 86, 0
+terrain_20 = 42, 1528, 86, 0
+terrain_21 = 42, 1560, 86, 0
+terrain_22 = 42, 1560, 118, 0
+terrain_23 = 42, 1560, 150, 0
+terrain_24 = 42, 1528, 150, 0
+terrain_25 = 42, 1496, 150, 0
+terrain_26 = 42, 1496, 182, 0
+terrain_27 = 42, 1496, 214, 0
+terrain_28 = 42, 1560, 214, 0
+terrain_29 = 42, 1560, 246, 0
+terrain_30 = 42, 1560, 278, 0
+terrain_31 = 42, 1560, 278, 0
+terrain_32 = 42, 1368, 214, 0
+terrain_33 = 42, 1368, 278, 0
+terrain_34 = 42, 1368, 246, 0
+terrain_35 = 42, 1560, 182, 0
+terrain_36 = 42, 1368, 182, 0
+terrain_37 = 24, 1684, 102, 0
+terrain_38 = 25, 1748, 102, 0
+terrain_39 = 24, 1620, 102, 0
+terrain_40 = 24, 1588, 102, 8
+terrain_41 = 24, 1304, 102, 8
+terrain_42 = 24, 1240, 102, 8
+terrain_43 = 24, 1208, 102, 8
+terrain_44 = 42, 1496, 310, 0
+terrain_45 = 42, 1560, 310, 0
+terrain_46 = 42, 1432, 310, 0
+terrain_47 = 42, 1368, 310, 0
+terrain_48 = 42, 1368, 54, 0
+terrain_49 = 42, 1368, 22, 0
+terrain_50 = 42, 1400, 22, 0
+terrain_51 = 42, 1528, 22, 0
+terrain_52 = 42, 1560, 22, 0
+terrain_53 = 42, 1560, 54, 0
+terrain_54 = 42, 1432, -10, 0
+terrain_55 = 42, 1496, -10, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

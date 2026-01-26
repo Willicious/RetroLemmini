@@ -1,0 +1,81 @@
+﻿# LVL 108 Clouds of Lemmings.rlv
+# Created with RetroLemmini Editor Version 1.0
+# RetroLemmini Level Version 8
+
+# Level stats
+name = \ Clouds of Lemmings
+author = 
+version = 8
+releaseRate = 40
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 80
+numToRescue = 70
+timeLimitSeconds = 360
+numClimbers = 15
+numFloaters = 15
+numBombers = 15
+numBlockers = 15
+numBuilders = 15
+numBashers = 15
+numMiners = 15
+numDiggers = 15
+xPosCenter = 1280
+yPosCenter = 160
+style = Christmas
+width = 3200
+height = 320
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+topBoundary = 8
+bottomBoundary = 20
+leftBoundary = 0
+rightBoundary = -16
+
+
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 4, 608, 16, 0, 0, 0
+object_1 = 2, 1024, 0, 0, 0, 0
+object_2 = 5, 1664, 216, 0, 0, 0
+object_3 = 5, 1792, 216, 0, 0, 0
+object_4 = 5, 1920, 216, 0, 0, 0
+object_5 = 3, 1824, -7, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 4, 1040, 154, 0
+terrain_1 = 3, 1290, 244, 0
+terrain_2 = 2, 1472, 184, 0
+terrain_3 = 3, 1150, 180, 0
+terrain_4 = 3, 1626, 102, 0
+terrain_5 = 24, 1810, 72, 0
+terrain_6 = 27, 1658, 216, 4
+terrain_7 = 27, 1786, 218, 4
+terrain_8 = 27, 1914, 216, 4
+terrain_9 = 27, 2042, 216, 4
+terrain_10 = 29, 584, 112, 64
+terrain_11 = 29, 632, 112, 64
+terrain_12 = 29, 680, 112, 64
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 584, 112, 48, 48, 0
+steel_1 = 632, 112, 48, 48, 0
+steel_2 = 680, 112, 48, 48, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

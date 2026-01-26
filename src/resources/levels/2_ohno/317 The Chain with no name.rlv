@@ -1,0 +1,145 @@
+﻿# LVL 317 The Chain with no name.rlv
+# Created with RetroLemmini Editor Version 1.0
+# RetroLemmini Level Version 2
+
+# Level stats
+name = The Chain with no name
+author = 
+version = 2
+releaseRate = 1
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 80
+numToRescue = 80
+timeLimitSeconds = 180
+numClimbers = 3
+numFloaters = 0
+numBombers = 1
+numBlockers = 2
+numBuilders = 10
+numBashers = 3
+numMiners = 3
+numDiggers = 0
+xPosCenter = 1408
+yPosCenter = 160
+style = Brick
+width = 3200
+height = 320
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 1
+topBoundary = 8
+bottomBoundary = 20
+leftBoundary = 0
+rightBoundary = -16
+
+
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 1, 1184, 0, 4, 0, 0
+object_1 = 0, 1760, 152, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 34, 1300, 0, 0
+terrain_1 = 33, 1300, 16, 0
+terrain_2 = 33, 1300, 48, 0
+terrain_3 = 33, 1300, 80, 0
+terrain_4 = 32, 1300, 110, 0
+terrain_5 = 39, 1280, 126, 0
+terrain_6 = 39, 1336, 126, 0
+terrain_7 = 39, 1218, 126, 0
+terrain_8 = 21, 1394, 122, 2
+terrain_9 = 38, 1186, 126, 0
+terrain_10 = 34, 1368, 0, 0
+terrain_11 = 33, 1368, 16, 0
+terrain_12 = 33, 1368, 48, 0
+terrain_13 = 33, 1368, 78, 0
+terrain_14 = 33, 1368, 90, 0
+terrain_15 = 32, 1368, 110, 0
+terrain_16 = 38, 1384, 126, 0
+terrain_17 = 37, 1364, 126, 0
+terrain_18 = 37, 1314, 102, 0
+terrain_19 = 33, 1368, 86, 0
+terrain_20 = 32, 1334, 110, 0
+terrain_21 = 33, 1334, 80, 0
+terrain_22 = 33, 1334, 48, 0
+terrain_23 = 33, 1334, 16, 0
+terrain_24 = 33, 1334, 0, 0
+terrain_25 = 34, 1334, 0, 0
+terrain_26 = 37, 1316, 78, 8
+terrain_27 = 37, 1318, 52, 8
+terrain_28 = 37, 1312, 28, 8
+terrain_29 = 5, 1362, 134, 0
+terrain_30 = 5, 1426, 134, 0
+terrain_31 = 5, 1436, 134, 2
+terrain_32 = 5, 1186, 134, 0
+terrain_33 = 5, 1250, 134, 0
+terrain_34 = 5, 1302, 134, 0
+terrain_35 = 54, 1428, 174, 64
+terrain_36 = 52, 1428, 126, 64
+terrain_37 = 54, 1428, 202, 64
+terrain_38 = 37, 1456, 126, 0
+terrain_39 = 37, 1520, 126, 0
+terrain_40 = 37, 1584, 126, 0
+terrain_41 = 37, 1456, 162, 0
+terrain_42 = 37, 1520, 162, 0
+terrain_43 = 37, 1584, 162, 0
+terrain_44 = 37, 1456, 222, 0
+terrain_45 = 37, 1520, 222, 0
+terrain_46 = 37, 1584, 222, 0
+terrain_47 = 32, 1626, 110, 0
+terrain_48 = 33, 1626, 78, 0
+terrain_49 = 33, 1626, 46, 0
+terrain_50 = 33, 1626, 16, 0
+terrain_51 = 33, 1626, 0, 0
+terrain_52 = 34, 1626, 0, 0
+terrain_53 = 39, 1330, 292, 0
+terrain_54 = 39, 1392, 292, 0
+terrain_55 = 39, 1450, 292, 0
+terrain_56 = 39, 1512, 292, 0
+terrain_57 = 39, 1576, 292, 0
+terrain_58 = 39, 1640, 292, 0
+terrain_59 = 39, 1704, 292, 0
+terrain_60 = 43, 1538, 0, 0
+terrain_61 = 46, 1512, 0, 0
+terrain_62 = 45, 1514, 60, 0
+terrain_63 = 46, 1088, 0, 0
+terrain_64 = 46, 1088, 64, 0
+terrain_65 = 47, 1088, 122, 0
+terrain_66 = 47, 1566, 0, 0
+terrain_67 = 51, 1768, 0, 64
+terrain_68 = 51, 1768, 48, 64
+terrain_69 = 51, 1816, 0, 64
+terrain_70 = 51, 1816, 48, 64
+terrain_71 = 51, 1720, 0, 64
+terrain_72 = 51, 1672, 0, 64
+terrain_73 = 51, 1864, 0, 64
+terrain_74 = 51, 1816, 96, 64
+terrain_75 = 5, 1750, 222, 0
+terrain_76 = 5, 1772, 222, 0
+terrain_77 = 51, 1124, 0, 64
+terrain_78 = 51, 1124, 48, 64
+terrain_79 = 51, 1124, 96, 64
+terrain_80 = 51, 1124, 144, 64
+terrain_81 = 51, 1124, 192, 64
+terrain_82 = 51, 1124, 240, 64
+terrain_83 = 51, 1124, 288, 64
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

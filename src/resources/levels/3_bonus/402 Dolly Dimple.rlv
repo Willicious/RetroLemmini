@@ -1,0 +1,83 @@
+﻿# LVL 403 Dolly Dimple.rlv
+# Created with RetroLemmini Editor Version 1.0
+# RetroLemmini Level Version 8
+
+# Level stats
+name = Dolly Dimple?
+author = 
+version = 8
+releaseRate = 25
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 80
+numToRescue = 80
+timeLimitSeconds = 180
+numClimbers = 1
+numFloaters = 1
+numBombers = 1
+numBlockers = 1
+numBuilders = 1
+numBashers = 1
+numMiners = 0
+numDiggers = 1
+xPosCenter = 1724
+yPosCenter = 140
+style = Bubble
+width = 3200
+height = 320
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 1, 1600, 0, 4, 0, 0
+object_1 = 1, 1760, 0, 4, 0, 0
+object_2 = 6, 1600, 224, 0, 0, 0
+object_3 = 5, 1664, 272, 4, 0, 0
+object_4 = 5, 1792, 272, 0, 0, 0
+object_5 = 5, 1920, 272, 0, 0, 0
+object_6 = 5, 1312, 272, 4, 0, 0
+object_7 = 5, 1184, 272, 4, 0, 0
+object_8 = 11, 1568, 224, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 8, 1414, 294, 0
+terrain_1 = 8, 1502, 294, 0
+terrain_2 = 8, 1590, 294, 0
+terrain_3 = 40, 1826, 58, 0
+terrain_4 = 45, 1762, 96, 0
+terrain_5 = 45, 1698, 96, 0
+terrain_6 = 45, 1636, 96, 0
+terrain_7 = 37, 1572, 58, 0
+terrain_8 = 48, 1568, 48, 0
+terrain_9 = 48, 1864, 48, 0
+terrain_10 = 49, 1702, 166, 0
+terrain_11 = 58, 1766, 166, 0
+terrain_12 = 59, 1670, 166, 0
+terrain_13 = 48, 1158, 290, 8
+terrain_14 = 48, 2044, 292, 8
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+
