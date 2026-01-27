@@ -1802,6 +1802,29 @@ public class LemminiPanel extends JPanel implements Runnable {
                                 }
                             }
                         }
+                        
+                        // fallback - search by level name only
+                        if (lpn < 0 || rn < 0 || ln < 0) {
+                            outer:
+                            for (int p = 0; p < GameController.getLevelPackCount(); p++) {
+                                LevelPack pack = GameController.getLevelPack(p);
+                                List<String> ratings = pack.getRatings();
+
+                                for (int r = 0; r < ratings.size(); r++) {
+                                    List<String> levels = pack.getLevels(r);
+
+                                    for (int l = 0; l < levels.size(); l++) {
+                                        if (ToolBox.looselyEquals(levels.get(l), rli.getLvlName())) {
+                                            lpn = p;
+                                            rn = r;
+                                            ln = l;
+                                            break outer; // first match wins
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
                         if (lpn >= 0 && rn >= 0 && ln >= 0) {
                             // success
                             GameController.requestChangeLevel(lpn, rn, ln, true);
