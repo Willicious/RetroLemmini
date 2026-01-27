@@ -369,6 +369,8 @@ public class GameController {
     private static int height = Level.DEFAULT_HEIGHT;
     private static int timesFailed;
 
+	private static boolean useReplayCompatibilityTitle;
+
     /**
      * Initialization.
      * @throws ResourceException
@@ -1854,6 +1856,7 @@ public class GameController {
                         System.exit(1);
                     }
                     setTitle();
+                    useReplayCompatibilityTitle = false;
                     LemminiFrame.getFrame().setCursor(LemmCursor.CursorType.NORMAL);
                     break;
                 default:
@@ -1874,12 +1877,22 @@ public class GameController {
             fadeSound(showPreview);
         }
     }
+    
+    public static void setReplayCompatibilityTitle(String compatibilityRevision, String replayRevision) {
+    	Core.setTitle("RetroLemmini - Current Version: " + Core.REVISION +
+			      " | Compatibility Version: " + compatibilityRevision +
+			      " | Replay Version: " + replayRevision);
+    	useReplayCompatibilityTitle = true;
+    }
 
     private static void setTitle() {
     	if (gameState == State.INTRO) {
     		Core.setTitle("RetroLemmini");
     		return;
     	}
+    	
+    	if (useReplayCompatibilityTitle)
+    		return;
     	
         int numLemmings = level.getNumLemmings();
 

@@ -10,9 +10,6 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
 
-import javax.swing.JOptionPane;
-
-import lemmini.LemminiFrame;
 import lemmini.tools.ToolBox;
 
 /*
@@ -244,11 +241,7 @@ public class ReplayStream {
             }
             events = ev;
             if (compareVersions(revision, COMPATIBILITY_REVISION) < 0) {
-                JOptionPane.showMessageDialog(LemminiFrame.getFrame(),
-                        "This replay was created with a potentially incompatible version of RetroLemmini. "
-                        + "For this reason, the replay might not play properly.",
-                        "Load Replay",
-                        JOptionPane.WARNING_MESSAGE);
+            	GameController.setReplayCompatibilityTitle(COMPATIBILITY_REVISION, revision);
             }
             return rli;
         } catch (IOException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
