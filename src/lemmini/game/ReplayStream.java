@@ -49,7 +49,7 @@ public class ReplayStream {
 
     static final int CURRENT_FORMAT = 1;
     static final String CURRENT_REVISION = Core.REVISION;
-    static final String SUPERLEMMINI_REVISION = "0.104";
+    static final String COMPATIBILITY_REVISION = "2.6"; // Tracks last physics update, prevents unnecessary pop-ups when loading replays between revisions
 
     private List<ReplayEvent> events;
     private int replayIndex;
@@ -242,8 +242,8 @@ public class ReplayStream {
                         throw new LemmException(String.format("Unsupported event found: %s", e[1]));
                 }
             }
-            events = ev;                              // For backwards compatibility
-            if (!revision.equals(CURRENT_REVISION) && !revision.equals(SUPERLEMMINI_REVISION)) {
+            events = ev;
+            if (compareVersions(revision, COMPATIBILITY_REVISION) < 0) {
                 JOptionPane.showMessageDialog(LemminiFrame.getFrame(),
                         "This replay was created with a potentially incompatible version of RetroLemmini. "
                         + "For this reason, the replay might not play properly.",
@@ -254,6 +254,26 @@ public class ReplayStream {
         } catch (IOException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new LemmException("Error reading replay file.");
         }
+    }
+    
+    /**
+     * Compares revisions stringa when loading replays
+     * @return (-1 if a < b), (0 if equal), (1 if a > b)
+     */
+    private static int compareVersions(String a, String b) {
+        String[] aParts = a.split("\\.");
+        String[] bParts = b.split("\\.");
+
+        int length = Math.max(aParts.length, bParts.length);
+
+        for (int i = 0; i < length; i++) {
+            int aVal = i < aParts.length ? Integer.parseInt(aParts[i]) : 0;
+            int bVal = i < bParts.length ? Integer.parseInt(bParts[i]) : 0;
+
+            if (aVal < bVal) return -1;
+            if (aVal > bVal) return 1;
+        }
+        return 0;
     }
 
     /**
