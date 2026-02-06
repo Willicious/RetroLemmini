@@ -94,11 +94,12 @@ public class Level {
         map.put("menace",      4);
         map.put("awesome",     5);
         map.put("beastii",     6);
-        map.put("beasti_md",   3);
-        map.put("menace_md",   4);
-        map.put("awesome_md",  5);
-        map.put("beastii_md",  6);
-        //map.put("hebereke",    7); // TODO - Find out what this is and include it in "special" style
+        map.put("beasti_md",   7);
+        map.put("menace_md",   8);
+        map.put("awesome_md",  9);
+        map.put("beastii_md",  10);
+        map.put("sixes_not",   11);
+        map.put("hebereke",    12);
         SPECIAL_NAME_TO_TERRAIN = Collections.unmodifiableMap(map);
     }
 

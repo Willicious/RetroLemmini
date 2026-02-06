@@ -91,19 +91,19 @@ public class ExtractLevel {
         //addStyle(23, "pillar_md", 0, 3, 4, 5, 6, 8, 9, 10, 15, 16, 17);
         //addStyle(24, "crystal_md", 0, 4, 5, 6, 7, 8, 9, 10);
 
-        SPECIAL_STYLES.put(0, "awesome");
-        SPECIAL_STYLES.put(1, "menace");
-        SPECIAL_STYLES.put(2, "beastii");
+        SPECIAL_STYLES.put(0, "apple");
+        SPECIAL_STYLES.put(1, "covox");
+        SPECIAL_STYLES.put(2, "prima");
         SPECIAL_STYLES.put(3, "beasti");
-        SPECIAL_STYLES.put(4, "covox");
-        SPECIAL_STYLES.put(5, "prima");
-        SPECIAL_STYLES.put(10, "awesome_md");
-        SPECIAL_STYLES.put(11, "menace_md");
-        SPECIAL_STYLES.put(12, "beasti_md");
-        SPECIAL_STYLES.put(13, "beastii_md");
-        SPECIAL_STYLES.put(14, "hebereke");
-        SPECIAL_STYLES.put(15, "apple");
-        SPECIAL_STYLES.put(101, "apple");
+        SPECIAL_STYLES.put(4, "menace");
+        SPECIAL_STYLES.put(5, "awesome");
+        SPECIAL_STYLES.put(6, "beastii");
+        SPECIAL_STYLES.put(7, "beasti_md");
+        SPECIAL_STYLES.put(8, "menace_md");
+        SPECIAL_STYLES.put(9, "awesome_md");
+        SPECIAL_STYLES.put(10, "beastii_md");
+        SPECIAL_STYLES.put(11, "sixes_not");
+        SPECIAL_STYLES.put(12, "hebereke");
 
         MUSIC_INDEX.put(1, "cancan.mod");
         MUSIC_INDEX.put(2, "lemming1.mod");
@@ -129,10 +129,11 @@ public class ExtractLevel {
         MUSIC_INDEX.put(22, "tune5.mod");
         MUSIC_INDEX.put(23, "tune6.mod");
 
-        MUSIC_STRING.put("awesome", "special/awesome.mod");
         MUSIC_STRING.put("beasti", "special/beasti.mod");
-        MUSIC_STRING.put("beastii", "special/beastii.mod");
         MUSIC_STRING.put("menace", "special/menace.mod");
+        MUSIC_STRING.put("awesome", "special/awesome.mod");
+        MUSIC_STRING.put("beastii", "special/beastii.mod");
+        MUSIC_STRING.put("sunsoftspecial", "special/hebereke.ogg");
         MUSIC_STRING.put("ohno_01", "tune1.mod");
         MUSIC_STRING.put("ohno_02", "tune2.mod");
         MUSIC_STRING.put("ohno_03", "tune3.mod");
@@ -156,7 +157,6 @@ public class ExtractLevel {
         MUSIC_STRING.put("orig_15", "tim4.mod");
         MUSIC_STRING.put("orig_16", "tenlemms.mod");
         MUSIC_STRING.put("orig_17", "mountain.mod");
-        MUSIC_STRING.put("sunsoftspecial", "special/hebereke.ogg");
         MUSIC_STRING.put("xmas_01", "xmas/jb.mod");
         MUSIC_STRING.put("xmas_02", "xmas/kw.mod");
         MUSIC_STRING.put("xmas_03", "xmas/rudi.mod");
