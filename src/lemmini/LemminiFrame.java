@@ -140,9 +140,6 @@ public class LemminiFrame extends JFrame {
             // initialize the game controller and main panel
             GameController.init();
 
-         // BOOKMARK TODO: This correctly sets the fullscreen bool
-//            isFullScreen = GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_SCREEN);
-
             lemminiPanelMain.init();
             lemminiPanelMain.setCursor(LemmCursor.getCursor());
 
@@ -1153,12 +1150,7 @@ public class LemminiFrame extends JFrame {
     }
 
     void toggleMenuBarVisibility() {
-        boolean shouldShowMenuBar;
-
-        // BOOKMARK TODO: (Fullscreen implementation) Find a way to auto-hide the menu bar
-        //                                            in such a way that the user can toggle it back on, even in Fullsreen
-        //shouldShowMenuBar = !GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_SCREEN);
-        shouldShowMenuBar = GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR);
+        boolean shouldShowMenuBar = GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR);
 
         if (shouldShowMenuBar)
             setJMenuBar(jMenuBarMain);

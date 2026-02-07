@@ -167,7 +167,6 @@ public class LemminiPanel extends JPanel implements Runnable {
     private boolean controlPressed;
     /** flag: alt key is pressed */
     private boolean altPressed;
-    // BOOKMARK TODO: create a combined modifier flag: SHIFT, CONTROL, ALT to more easily detect when *only* one modifier is pressed.
     /** flag: nudge view left hotkey is pressed */
     private boolean nudgeViewLeftPressed;
     /** flag: nudge view right hotkey is pressed */
@@ -852,8 +851,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                                 XOffset = 17;
                             else
                                 XOffset = 29;
-                        }
-                        else {
+                        } else {
                             if (needVLockIcon())
                                 XOffset = -1; // Don't draw the filler if the V-Lock icon is needed
                             else

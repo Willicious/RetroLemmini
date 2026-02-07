@@ -1951,7 +1951,7 @@ public class GameController {
             //draw lemming.
             int lx = l.screenX();
             int ly = l.screenY();
-            int mx = l.midX(); //used for countdown graphics, and selection indicators furing replay (lightbulbs)
+            int mx = l.midX(); //used for countdown graphics, and selection indicators during replay (lightbulbs)
             if (lx + l.width() > xPos && lx < xPos + Core.getDrawWidth()
                     && ly + l.height() > yPos && ly < yPos + LemminiFrame.LEVEL_HEIGHT) {
                 g.drawImage(l.getImage(), lx - xPos, ly - yPos);

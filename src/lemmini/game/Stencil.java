@@ -334,7 +334,7 @@ class StencilPixel {
     private int mask;
     /** this stores the ID of each individual object */
     private int maskObjectID;
-    /** this stores an array of all available object IDs */ // BOOKMARK TODO: Investigate and decide if we need this
+    /** this stores an array of all available object IDs */
     private int[] objectIDs;
 
     public StencilPixel() {
