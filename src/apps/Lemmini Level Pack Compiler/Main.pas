@@ -558,9 +558,6 @@ begin
 
       for j := 0 to List.Items.Count - 1 do
       begin
-        SL.Add(Format('# %s %d - %s',
-          [Tab.Caption, j + 1, StripExtension(List.Items[j])]));
-
         SL.Add(Format('level_%d_%d = %s,%d',
           [i, j, List.Items[j], j]));
       end;
