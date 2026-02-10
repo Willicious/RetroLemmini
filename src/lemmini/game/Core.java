@@ -75,7 +75,7 @@ public class Core {
     public static final String STYLES_REVISION = "2.6";
 
     /** extensions accepted for level files in file dialog */
-    public static final String[] LEVEL_EXTENSIONS = {"ini", "lvl", "dat"};
+    public static final String[] LEVEL_EXTENSIONS = {"rlv", "ini", "lvl", "dat"};
     /** extensions accepted for replay files in file dialog */
     public static final String[] REPLAY_EXTENSIONS = {"rpl"};
 
