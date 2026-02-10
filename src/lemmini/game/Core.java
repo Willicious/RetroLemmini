@@ -628,7 +628,7 @@ public class Core {
     
     public static void missingLevelError(final String rsrc) {
         String message = String.format("Missing level:<br><br>"
-        		+ "The level listed in the levelpack.ini for %s is missing.<br><br>"
+        		+ "The level listed in the levelpack.ini for %s could not be loaded.<br><br>"
                 + "Please visit <a href='https://www.lemmingsforums.net/index.php?msg=105737'>this help topic</a> on the Lemmings Forums for help.", rsrc);
 
         JEditorPane pane = new JEditorPane("text/html", "<html><body style='font-family:sans-serif;'>" + message + "</body></html>");

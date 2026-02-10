@@ -199,7 +199,7 @@ public class Level {
         // read level properties from file
         Props p = new Props();
         if (!p.load(resource)) {
-        	System.out.println("Level listed in the levelpack.ini for " + GameController.getCurLevelPack().getName() + " is missing.");
+        	System.out.println("Level listed in the levelpack.ini for " + GameController.getCurLevelPack().getName() + " could not be loaded.");
         }
         levelProps.add(p);
 

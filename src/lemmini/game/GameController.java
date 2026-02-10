@@ -1849,7 +1849,7 @@ public class GameController {
                     	String pack = GameController.getCurLevelPack().getName();
                     	String rating = Integer.toString(nextRating);
                     	String targetlevel = Integer.toString(nextLevelNumber);
-                        Core.missingLevelError(pack + "/Rating" + rating + "/Level" + targetlevel);
+                        Core.missingLevelError("[" + pack + "] 'level_" + rating + "_" + targetlevel + "'");
                         return;
                     } catch (LemmException ex) {
                         JOptionPane.showMessageDialog(LemminiFrame.getFrame(), ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
