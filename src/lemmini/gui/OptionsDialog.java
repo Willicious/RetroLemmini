@@ -114,7 +114,7 @@ public class OptionsDialog extends JDialog {
         jPanelSound.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sound", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         jCheckBoxEnableMusic.setSelected(GameController.isOptionEnabled(GameController.Option.MUSIC_ON));
-        jCheckBoxEnableMusic.setText("Enable Music");
+        jCheckBoxEnableMusic.setText("Music");
 
         jLabelMusicVolume.setLabelFor(jSliderMusicVolume);
         jLabelMusicVolume.setText("Music Volume");
@@ -125,10 +125,10 @@ public class OptionsDialog extends JDialog {
         jSliderMusicVolume.setValue((int) (100 * GameController.getMusicGain()));
 
         jCheckBoxEnableSound.setSelected(GameController.isOptionEnabled(GameController.Option.SOUND_ON));
-        jCheckBoxEnableSound.setText("Enable Sound Effects");
+        jCheckBoxEnableSound.setText("Sound Effects");
 
         jLabelSoundVolume.setLabelFor(jSliderSoundVolume);
-        jLabelSoundVolume.setText("Sound Volume");
+        jLabelSoundVolume.setText("Sound Effects Volume");
 
         jSliderSoundVolume.setMajorTickSpacing(10);
         jSliderSoundVolume.setMaximum(200);
@@ -193,8 +193,8 @@ public class OptionsDialog extends JDialog {
         jCheckBoxClassicScroller.setToolTipText("Show the classic ticker tape scroller on the title screen");
 
         jCheckBoxShowMenuBar.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
-        jCheckBoxShowMenuBar.setText("Show Menu Bar (Ctrl + M)");
-        jCheckBoxShowMenuBar.setToolTipText("Show the menu bar at the top of the game window. Use Ctrl + M to toggle visibility at any time");
+        jCheckBoxShowMenuBar.setText("Show Menu Bar (F1)");
+        jCheckBoxShowMenuBar.setToolTipText("Show the menu bar at the top of the game window. Use F1 to toggle visibility at any time");
         
         // Radio group for Exit sound
         jLabelMenuTheme.setText("Menu Theme");
@@ -255,22 +255,21 @@ public class OptionsDialog extends JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 40, 40)
                 .addComponent(jCheckBoxEnableSound)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBoxVisualSfx)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelSoundVolume)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSliderSoundVolume, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 40, 40)
-                .addComponent(jLabelMixer)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBoxMixer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 20, 20)
+                .addComponent(jCheckBoxVisualSfx)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelExitSound)
                 .addGroup(jPanelSoundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jRadioButtonYippee)
                         .addComponent(jRadioButtonBoing)
                         .addComponent(jRadioButtonAuto)
                         )
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 40, 40)
+                .addComponent(jLabelMixer)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxMixer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 )
         );
@@ -421,7 +420,7 @@ public class OptionsDialog extends JDialog {
         jCheckBoxUnpauseOnAssignment.setText("Unpause After Assigning Skill");
         
         jCheckBoxEnableScrollWheel.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.ENABLE_SCROLL_WHEEL));
-        jCheckBoxEnableScrollWheel.setText("Enable Scroll Wheel");
+        jCheckBoxEnableScrollWheel.setText("Use Scroll Wheel to Select Skills");
         jCheckBoxEnableScrollWheel.setToolTipText("Use the mouse scroll wheel to change the selected skill.");
         
         javax.swing.GroupLayout jPanelControlSchemeLayout = new javax.swing.GroupLayout(jPanelControlScheme);
