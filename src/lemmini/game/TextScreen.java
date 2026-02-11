@@ -17,6 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import lemmini.graphics.GraphicsContext;
 import lemmini.graphics.LemmImage;
+import lemmini.sound.Sound;
 import lemmini.tools.ToolBox;
 
 /*
@@ -388,9 +389,28 @@ public class TextScreen {
         }
         textDialog.addTextButton("Menu", "Menu", null, -9, 6, Button.MENU, BLUE, YELLOW);
         
+        handlePostviewJingles(rescued, toRescue);
+        
         // store the last level played
         Core.programProps.set("lastLevelPlayed", GameController.getLastLevelPlayedString());
         Core.programProps.save(Core.getProgramPropsFilePath(), false);
+    }
+    
+    private static void handlePostviewJingles(int rescued, int toRescue) {
+    	if (!GameController.isOptionEnabled(GameController.RetroLemminiOption.POSTVIEW_JINGLES))
+    		return;
+    	
+        try {
+			Sound sound = new Sound();
+			sound.load();
+			sound.setGain(GameController.getSoundGain());
+			
+	        if (rescued >= toRescue)
+	        	sound.play(Sound.Effect.PASS);
+	        else
+	        	sound.play(Sound.Effect.FAIL);
+		} catch (ResourceException e) {
+		}
     }
     
     public static boolean allLevelsCompleted(LevelPack pack, int rating) {

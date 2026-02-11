@@ -74,7 +74,9 @@ public class Sound {
         DROWN ("drown"),
         DIE ("die"),
         STEEL ("steel"),
-        STEP_WARNING ("stepWarning");
+        STEP_WARNING ("stepWarning"),
+    	PASS ("pass"),
+    	FAIL ("fail");
 
         private final String keyName;
 

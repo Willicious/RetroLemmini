@@ -141,10 +141,9 @@ public class GameController {
         //** flag: show/hide the top menu bar
         SHOW_MENU_BAR,
         //** flag: use full color minimap / green-tinted minimap
-        FULL_COLOR_MINIMAP
-        //,
-        //** flag: full screen or windowed
-        //FULL_SCREEN
+        FULL_COLOR_MINIMAP,
+        //** flag: play a pass/fail jingle on loading postview screen
+        POSTVIEW_JINGLES
     }
 
     // 3-way option for setting the Exit sound

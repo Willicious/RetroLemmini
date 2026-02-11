@@ -95,6 +95,7 @@ public class OptionsDialog extends JDialog {
         jCheckBoxEnableScrollWheel = new javax.swing.JCheckBox();
         jCheckBoxEnableFrameStepping = new javax.swing.JCheckBox();
         jCheckBoxVisualSfx = new javax.swing.JCheckBox();
+        jCheckBoxPostviewJingles = new javax.swing.JCheckBox();
         jCheckBoxEnhancedStatus = new javax.swing.JCheckBox();
         jCheckBoxShowLevelName = new javax.swing.JCheckBox();
         jCheckBoxEnhancedIconBar = new javax.swing.JCheckBox();
@@ -138,7 +139,10 @@ public class OptionsDialog extends JDialog {
         jLabelMixer.setText("SFX Mixer");
 
         jCheckBoxVisualSfx.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.VISUAL_SFX));
-        jCheckBoxVisualSfx.setText("Enable Visual SFX");
+        jCheckBoxVisualSfx.setText("Visual SFX");
+        
+        jCheckBoxPostviewJingles.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.POSTVIEW_JINGLES));
+        jCheckBoxPostviewJingles.setText("Postview Jingles");
 
         // Radio group for Exit sound
         jLabelExitSound.setText("Exit Sound");
@@ -233,6 +237,7 @@ public class OptionsDialog extends JDialog {
                     .addComponent(jLabelMixer)
                     .addComponent(jComboBoxMixer, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jCheckBoxVisualSfx)
+                    .addComponent(jCheckBoxPostviewJingles)
                     .addComponent(jLabelExitSound)
                     .addGroup(jPanelSoundLayout.createSequentialGroup()
                             .addComponent(jRadioButtonYippee)
@@ -259,6 +264,8 @@ public class OptionsDialog extends JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSliderSoundVolume, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(jCheckBoxVisualSfx)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCheckBoxPostviewJingles)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelExitSound)
                 .addGroup(jPanelSoundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -590,6 +597,7 @@ public class OptionsDialog extends JDialog {
         GameController.setOption(GameController.Option.SOUND_ON, jCheckBoxEnableSound.isSelected());
         GameController.setSoundGain(jSliderSoundVolume.getValue() / 100.0);
         GameController.sound.setMixerIdx(jComboBoxMixer.getSelectedIndex());
+        GameController.setOption(GameController.RetroLemminiOption.POSTVIEW_JINGLES, jCheckBoxPostviewJingles.isSelected());
         // apply exit sound setting
         GameController.setExitSoundOption(
                 jRadioButtonYippee.isSelected() ? GameController.ExitSoundOption.YIPPEE :
@@ -650,6 +658,7 @@ public class OptionsDialog extends JDialog {
     private javax.swing.JCheckBox jCheckBoxEnableScrollWheel;
     private javax.swing.JCheckBox jCheckBoxEnableFrameStepping;
     private javax.swing.JCheckBox jCheckBoxVisualSfx;
+    private javax.swing.JCheckBox jCheckBoxPostviewJingles;
     private javax.swing.JCheckBox jCheckBoxEnhancedStatus;
     private javax.swing.JCheckBox jCheckBoxShowLevelName;
     private javax.swing.JCheckBox jCheckBoxEnhancedIconBar;
