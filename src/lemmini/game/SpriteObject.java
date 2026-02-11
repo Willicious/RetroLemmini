@@ -47,6 +47,10 @@ public class SpriteObject extends Sprite {
         ONE_WAY_LEFT (false, true),
         /** right arrows - no digging to the left */
         ONE_WAY_RIGHT (false, true),
+        /** up arrows - no digging, bashing or mining (bombers only) */
+        ONE_WAY_UP (false, true),
+        /** down arrows - no bashing in either direction */
+        ONE_WAY_DOWN (false, true),
         /** trap triggering drowning animation */
         TRAP_DROWN (true, false),
         /** trap triggering a replacement with special death animation */
@@ -116,6 +120,10 @@ public class SpriteObject extends Sprite {
                 return Type.EXIT;
             case 9:
                 return Type.STEEL;
+            case 10:
+            	return Type.ONE_WAY_UP;
+            case 11:
+            	return Type.ONE_WAY_DOWN;
             case 32:
                 return Type.ENTRANCE;
             default:
@@ -236,6 +244,10 @@ public class SpriteObject extends Sprite {
                 return Stencil.MSK_ONE_WAY_LEFT;
             case ONE_WAY_RIGHT:
                 return Stencil.MSK_ONE_WAY_RIGHT;
+            case ONE_WAY_UP:
+                return Stencil.MSK_ONE_WAY_UP;
+            case ONE_WAY_DOWN:
+                return Stencil.MSK_ONE_WAY_DOWN;
             case TRAP_DROWN:
                 return Stencil.MSK_TRAP_LIQUID;
             case TRAP_REPLACE:

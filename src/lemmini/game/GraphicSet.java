@@ -309,6 +309,8 @@ public class GraphicSet {
                     case TURN_RIGHT:
                     case ONE_WAY_RIGHT:
                     case ONE_WAY_LEFT:
+                    case ONE_WAY_UP:
+                    case ONE_WAY_DOWN:
                     case TRAP_DIE:
                     case TRAP_REPLACE:
                     case TRAP_DROWN:

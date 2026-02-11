@@ -578,6 +578,8 @@ public class Lemming {
                                 if (!GameController.getLevel().getClassicSteel()) {
                                     eraseMask |= Stencil.MSK_ONE_WAY;
                                     checkMask |= Stencil.MSK_STEEL;
+                                    checkMask |= Stencil.MSK_ONE_WAY_UP;
+                                    checkMask |= Stencil.MSK_ONE_WAY_DOWN;
                                     checkMask |= (dir == Direction.LEFT) ? Stencil.MSK_ONE_WAY_RIGHT : Stencil.MSK_ONE_WAY_LEFT;
                                 }
                                 m.eraseMask(screenMaskX(), screenMaskY(), idx / TIME_SCALE - 2, eraseMask, checkMask);
@@ -602,6 +604,8 @@ public class Lemming {
                                 if (!GameController.getLevel().getClassicSteel()) {
                                     eraseMask |= Stencil.MSK_ONE_WAY;
                                     checkMask |= Stencil.MSK_STEEL;
+                                    checkMask |= Stencil.MSK_ONE_WAY_UP;
+                                    checkMask |= Stencil.MSK_ONE_WAY_DOWN;
                                     checkMask |= (dir == Direction.LEFT) ? Stencil.MSK_ONE_WAY_RIGHT : Stencil.MSK_ONE_WAY_LEFT;
                                 }
                                 m.eraseMask(screenMaskX(), screenMaskY(), idx / TIME_SCALE - 18, eraseMask, checkMask);
@@ -674,6 +678,7 @@ public class Lemming {
                             if (!GameController.getLevel().getClassicSteel()) {
                                 eraseMask |= Stencil.MSK_ONE_WAY;
                                 checkMask |= Stencil.MSK_STEEL;
+                                checkMask |= Stencil.MSK_ONE_WAY_UP;
                                 checkMask |= (dir == Direction.LEFT) ? Stencil.MSK_ONE_WAY_RIGHT : Stencil.MSK_ONE_WAY_LEFT;
                             }
                             m.eraseMask(screenMaskX(), screenMaskY(), idx / TIME_SCALE - 1, eraseMask, checkMask);
@@ -1102,6 +1107,7 @@ public class Lemming {
                         if (!GameController.getLevel().getClassicSteel()) {
                             eraseMask |= Stencil.MSK_ONE_WAY;
                             checkMask |= Stencil.MSK_STEEL;
+                            checkMask |= Stencil.MSK_ONE_WAY_UP;
                         }
                         m.eraseMask(screenMaskX(), screenMaskY(), 0, eraseMask, checkMask);
 
@@ -1338,13 +1344,17 @@ public class Lemming {
                 int sval = GameController.getStencil().getMask(xb, yb);
                 boolean hitOneWayLeft = BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_LEFT) && dir == Direction.RIGHT;
                 boolean hitOneWayRight = BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_RIGHT) && dir == Direction.LEFT;
+                boolean hitOneWayUp = BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_UP);
+                boolean hitOneWayDown = BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_DOWN);
                 boolean hitSteel = BooleanUtils.toBoolean(sval & Stencil.MSK_STEEL);
-                if (hitOneWayLeft || hitOneWayRight || hitSteel) {
+                if (hitOneWayLeft || hitOneWayRight || hitOneWayUp || hitOneWayDown ||  hitSteel) {
                     if (playSound) {
                         SpriteObject spr = GameController.getLevel().getSprObject(GameController.getStencil().getMaskObjectID(xb, yb));
                         if (spr != null
-                                && ((hitOneWayLeft && spr.getType() == SpriteObject.Type.ONE_WAY_LEFT)
+                                        && ((hitOneWayLeft && spr.getType() == SpriteObject.Type.ONE_WAY_LEFT)
                                         || (hitOneWayRight && spr.getType() == SpriteObject.Type.ONE_WAY_RIGHT)
+                                        || (hitOneWayUp && spr.getType() == SpriteObject.Type.ONE_WAY_UP)
+                                        || (hitOneWayDown && spr.getType() == SpriteObject.Type.ONE_WAY_DOWN)
                                         || (hitSteel && spr.getType() == SpriteObject.Type.STEEL))) {
                             GameController.sound.playVisualSFX(spr);
                         } else {
@@ -1369,10 +1379,12 @@ public class Lemming {
                 int ym = y + i;
                 int xm = x + j;
                 int sval = GameController.getStencil().getMask(xm, ym);
-                if (BooleanUtils.toBoolean(sval & Stencil.MSK_BRICK) && BooleanUtils.toBoolean(sval & Stencil.MSK_STEEL)) {
+                boolean hitSteel = BooleanUtils.toBoolean(sval & Stencil.MSK_STEEL);
+                boolean hitOneWayUp = BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_UP);
+                if (BooleanUtils.toBoolean(sval & Stencil.MSK_BRICK) && (hitSteel || hitOneWayUp)) {
                     if (playSound) {
                         SpriteObject spr = GameController.getLevel().getSprObject(GameController.getStencil().getMaskObjectID(xm, ym));
-                        if (spr != null && spr.getType() == SpriteObject.Type.STEEL) {
+                        if (spr != null && (spr.getType() == SpriteObject.Type.STEEL || spr.getType() == SpriteObject.Type.ONE_WAY_UP)) {
                             GameController.sound.playVisualSFX(spr);
                         } else {
                             playVisualSFX(Sound.Effect.STEEL);
@@ -1414,13 +1426,15 @@ public class Lemming {
                 int sval = GameController.getStencil().getMask(xb, yb);
                 boolean hitOneWayLeft = BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_LEFT) && dir == Direction.RIGHT;
                 boolean hitOneWayRight = BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_RIGHT) && dir == Direction.LEFT;
+                boolean hitOneWayUp = BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_UP);
                 boolean hitSteel = BooleanUtils.toBoolean(sval & Stencil.MSK_STEEL);
-                if (hitOneWayLeft || hitOneWayRight || hitSteel) {
+                if (hitOneWayLeft || hitOneWayRight || hitOneWayUp || hitSteel) {
                     if (playSound) {
                         SpriteObject spr = GameController.getLevel().getSprObject(GameController.getStencil().getMaskObjectID(xb, yb));
                         if (spr != null
-                                && ((hitOneWayLeft && spr.getType() == SpriteObject.Type.ONE_WAY_LEFT)
+                                	    && ((hitOneWayLeft && spr.getType() == SpriteObject.Type.ONE_WAY_LEFT)
                                         || (hitOneWayRight && spr.getType() == SpriteObject.Type.ONE_WAY_RIGHT)
+                                        || (hitOneWayUp && spr.getType() == SpriteObject.Type.ONE_WAY_UP)
                                         || (hitSteel && spr.getType() == SpriteObject.Type.STEEL))) {
                             GameController.sound.playVisualSFX(spr);
                         } else {
@@ -1440,13 +1454,15 @@ public class Lemming {
                 int sval = GameController.getStencil().getMask(xb, yb);
                 boolean hitOneWayLeft = !start && BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_LEFT) && dir == Direction.RIGHT;
                 boolean hitOneWayRight = !start && BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_RIGHT) && dir == Direction.LEFT;
+                boolean hitOneWayUp = !start && BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_UP);
                 boolean hitSteel = BooleanUtils.toBoolean(sval & Stencil.MSK_STEEL);
-                if (hitOneWayLeft || hitOneWayRight || hitSteel) {
+                if (hitOneWayLeft || hitOneWayRight || hitOneWayUp || hitSteel) {
                     if (playSound) {
                         SpriteObject spr = GameController.getLevel().getSprObject(GameController.getStencil().getMaskObjectID(xb, yb));
                         if (spr != null
-                                && ((hitOneWayLeft && spr.getType() == SpriteObject.Type.ONE_WAY_LEFT)
+                                	   && ((hitOneWayLeft && spr.getType() == SpriteObject.Type.ONE_WAY_LEFT)
                                         || (hitOneWayRight && spr.getType() == SpriteObject.Type.ONE_WAY_RIGHT)
+                                        || (hitOneWayUp && spr.getType() == SpriteObject.Type.ONE_WAY_UP)
                                         || (hitSteel && spr.getType() == SpriteObject.Type.STEEL))) {
                             GameController.sound.playVisualSFX(spr);
                         } else {

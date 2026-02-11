@@ -51,19 +51,23 @@ public class Stencil {
     public static final int MSK_ONE_WAY_LEFT = 1 << 10;
     /** right arrows - no bashing to the left */
     public static final int MSK_ONE_WAY_RIGHT = 1 << 11;
+    /** left arrows - no digging, bashing or mining (bombers only) */
+    public static final int MSK_ONE_WAY_UP = 1 << 12;
+    /** right arrows - no bashing in either direction */
+    public static final int MSK_ONE_WAY_DOWN = 1 << 13;
     /** no bashing - either left or right */
-    public static final int MSK_ONE_WAY = MSK_ONE_WAY_LEFT | MSK_ONE_WAY_RIGHT;
+    public static final int MSK_ONE_WAY = MSK_ONE_WAY_LEFT | MSK_ONE_WAY_RIGHT | MSK_ONE_WAY_UP | MSK_ONE_WAY_DOWN;
 
     /** a trap that triggers the drowning animation - i.e. water */
-    public static final int MSK_TRAP_LIQUID = 1 << 12;
+    public static final int MSK_TRAP_LIQUID = 1 << 14;
     /** a trap that removes the Lemming */
-    public static final int MSK_TRAP_REMOVE = 1 << 13;
+    public static final int MSK_TRAP_REMOVE = 1 << 15;
     /** a trap that triggers the normal death animation */
-    public static final int MSK_TRAP_FIRE = 1 << 14;
+    public static final int MSK_TRAP_FIRE = 1 << 16;
     /** a trap (either LIQUID, REMOVE or FIRE) */
     public static final int MSK_TRAP = MSK_TRAP_LIQUID | MSK_TRAP_REMOVE | MSK_TRAP_FIRE;
     /** the level exit */
-    public static final int MSK_EXIT = 1 << 15;
+    public static final int MSK_EXIT = 1 << 17;
 
     /** array which represents the stencil buffer */
     private final StencilPixel[] stencil;
