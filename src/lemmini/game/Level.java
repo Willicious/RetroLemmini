@@ -704,6 +704,13 @@ public class Level {
             // check for one-way arrows (these should only ever be drawn on terrain, regardless of any other flags)
             boolean isOneWay = (spr.getType() == SpriteObject.Type.ONE_WAY_LEFT) || (spr.getType() == SpriteObject.Type.ONE_WAY_RIGHT)
             		        || (spr.getType() == SpriteObject.Type.ONE_WAY_DOWN) || (spr.getType() == SpriteObject.Type.ONE_WAY_UP);
+            // disallow OWW rotation/flip
+            if (isOneWay) {
+            	rotate = false;
+            	upsideDown = false;
+            	upsideDownMask = false;
+            	flipHorizontally = false;
+            }
             // animated
             boolean invisible = BooleanUtils.toBoolean(o.paintMode & LvlObject.MODE_INVISIBLE);
             boolean drawOnVis = !invisible && (isOneWay || BooleanUtils.toBoolean(o.paintMode & LvlObject.MODE_VIS_ON_TERRAIN));
