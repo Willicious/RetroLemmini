@@ -66,6 +66,8 @@ public class LevelDialog extends JDialog {
     private static final long serialVersionUID = 1L;
 
     private static Path lvlPath = Paths.get(".");
+    
+    private Path currentPackFolder = null;
 
     private DefaultMutableTreeNode topNode = null;
     private DefaultTreeModel levelModel = null;
@@ -85,6 +87,8 @@ public class LevelDialog extends JDialog {
         initComponents();
         setMinimumSize(getSize());
         setLocationRelativeTo(parent);
+        currentPackFolder = null;
+        fillInInfo();
     }
 
     /**
@@ -543,8 +547,6 @@ public class LevelDialog extends JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    private Path currentPackFolder = null; // class-level
 
     private void updatePackLogo(DefaultMutableTreeNode packNode) {
         if (packNode == null) return;
@@ -558,7 +560,7 @@ public class LevelDialog extends JDialog {
         if (pack == null) return;
         Path folder = GameController.getLevelPackFolder(GameController.levelPacks.indexOf(pack));
         if (folder == null) return;
-        if (folder.equals(currentPackFolder)) return;
+        if (folder.equals(currentPackFolder) && jLabelLogoImage.getIcon() != null) return;
         
         currentPackFolder = folder;
         LemmImage logoImage;
