@@ -29,6 +29,8 @@ releaseHistory/
 
 # Allow RetroLemmini release zip folder
 !RetroLemmini*.zip
+# Allow Styles zip folder
+!styles.zip
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
