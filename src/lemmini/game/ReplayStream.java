@@ -240,33 +240,13 @@ public class ReplayStream {
                 }
             }
             events = ev;
-            if (compareVersions(revision, COMPATIBILITY_REVISION) < 0) {
+            if (Core.compareVersions(revision, COMPATIBILITY_REVISION) < 0) {
             	GameController.setReplayCompatibilityTitle(COMPATIBILITY_REVISION, revision);
             }
             return rli;
         } catch (IOException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new LemmException("Error reading replay file.");
         }
-    }
-    
-    /**
-     * Compares revisions stringa when loading replays
-     * @return (-1 if a < b), (0 if equal), (1 if a > b)
-     */
-    private static int compareVersions(String a, String b) {
-        String[] aParts = a.split("\\.");
-        String[] bParts = b.split("\\.");
-
-        int length = Math.max(aParts.length, bParts.length);
-
-        for (int i = 0; i < length; i++) {
-            int aVal = i < aParts.length ? Integer.parseInt(aParts[i]) : 0;
-            int bVal = i < bParts.length ? Integer.parseInt(bParts[i]) : 0;
-
-            if (aVal < bVal) return -1;
-            if (aVal > bVal) return 1;
-        }
-        return 0;
     }
 
     /**

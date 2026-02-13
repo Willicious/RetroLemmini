@@ -40,6 +40,7 @@ import lemmini.gui.LegalFrame;
 import lemmini.tools.CaseInsensitiveFileTree;
 import lemmini.tools.CommitID;
 import lemmini.tools.Props;
+import lemmini.tools.StyleDownloader;
 import lemmini.tools.ToolBox;
 
 /*
@@ -72,7 +73,7 @@ public class Core {
     public static final String REVISION = "2.7";
     public static final String COMMIT_ID = CommitID.ID;
     public static final String REV_DATE = "Jan 2026";
-    public static final String STYLES_REVISION = "2.6";
+    public static final String STYLES_REVISION = "2.8";
 
     /** extensions accepted for level files in file dialog */
     public static final String[] LEVEL_EXTENSIONS = {"rlv", "ini", "lvl", "dat"};
@@ -425,13 +426,13 @@ public class Core {
                 outdatedStyles.add(style + " (missing .ini file)");
                 continue;
             }
-            String version = null;
+            String revision = null;
             boolean foundRevision = false;
             try (BufferedReader reader = new BufferedReader(new FileReader(iniFile))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     if (line.startsWith("revision = ")) {
-                        version = line.split("=")[1].trim();
+                    	revision = line.split("=")[1].trim();
                         foundRevision = true;
                         break;
                     }
@@ -441,24 +442,55 @@ public class Core {
                 outdatedStyles.add(style + " (error reading file)");
                 continue;
             }
-            if (version == null || !foundRevision || !version.equals(STYLES_REVISION)) {
+            if (revision == null || !foundRevision || (compareVersions(revision, STYLES_REVISION) < 0)) {
                 outdatedStyles.add(style);
             }
         }
         if (!outdatedStyles.isEmpty()) {
-            StringBuilder message = new StringBuilder("Warning: The following styles do not match the expected version:\n\n");
+            System.out.println("    validation complete. The following styles are out of date:\n"
+                              +"     " + outdatedStyles);
+            
+            StringBuilder message = new StringBuilder("The following styles do not match the expected version:\n\n");
             for (String outdatedStyle : outdatedStyles) {
                 message.append(" • ").append(outdatedStyle).append("\n");
             }
-            message.append("\nRetroLemmini will run, but there may be some compatibility issues with these styles.\n\n"
-                         + "To get the latest version of these styles, please download RetroLemmini " + REVISION + "\n"
-            		     + "and replace each style with the updated version.\n");
-            JOptionPane.showMessageDialog(null, message.toString(), "Outdated Styles", JOptionPane.WARNING_MESSAGE);
-            System.out.println("    validation complete. The following styles are out of date:\n"
-                              +"     " + outdatedStyles);
+            message.append("\nRetroLemmini will run, but there may be some compatibility issues with these styles.\n"
+            		 	 + "\nWould you like to update these styles now?\n\n");
+            
+            int result = JOptionPane.showConfirmDialog(
+                    null,
+                    message,
+                    "Update Styles",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+            if (result == JOptionPane.YES_OPTION) {
+                StyleDownloader.startDownload();
+            } else {
+                System.out.println("User declined to update styles.");
+            }              
         } else {
             System.out.println("    validation complete. All styles are up to date.");
         }
+    }
+    
+    /**
+     * Compares revisions stringa
+     */
+    public static int compareVersions(String a, String b) {
+        String[] aParts = a.split("\\.");
+        String[] bParts = b.split("\\.");
+
+        int length = Math.max(aParts.length, bParts.length);
+
+        for (int i = 0; i < length; i++) {
+            int aVal = i < aParts.length ? Integer.parseInt(aParts[i]) : 0;
+            int bVal = i < bParts.length ? Integer.parseInt(bParts[i]) : 0;
+
+            if (aVal < bVal) return -1;
+            if (aVal > bVal) return 1;
+        }
+        return 0;
     }
 
     public static String appendBeforeExtension(String fname, String suffix) {
