@@ -62,6 +62,7 @@ import lemmini.gameutil.RetroLemminiHotkeys;
 import lemmini.graphics.LemmImage;
 import lemmini.sound.Music;
 import lemmini.tools.EditorTestMode;
+import lemmini.tools.StyleDownloader;
 import lemmini.tools.ToolBox;
 
 /**
@@ -228,6 +229,8 @@ public class LemminiFrame extends JFrame {
         jMenuOptions = new javax.swing.JMenu();
         jMenuItemOptions = new javax.swing.JMenuItem();
         jMenuItemHotkeys = new javax.swing.JMenuItem();
+        jMenuHelp = new javax.swing.JMenu();
+        jMenuItemUpdateStyles = new javax.swing.JMenuItem();
         jMenuItemAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -351,18 +354,31 @@ public class LemminiFrame extends JFrame {
             }
         });
 
+        jMenuOptions.add(jMenuItemOptions);
+        jMenuOptions.add(jMenuItemHotkeys);
+
+        jMenuBarMain.add(jMenuOptions);
+        
+        jMenuHelp.setText("Help");
+
+        jMenuItemUpdateStyles.setText("Update Styles");
+        jMenuItemUpdateStyles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	StyleDownloader.startDownload();
+            }
+        });
+        
         jMenuItemAbout.setText("About...");
         jMenuItemAbout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 handleAbout();
             }
         });
-
-        jMenuOptions.add(jMenuItemOptions);
-        jMenuOptions.add(jMenuItemHotkeys);
-        jMenuOptions.add(jMenuItemAbout);
-
-        jMenuBarMain.add(jMenuOptions);
+        
+        jMenuHelp.add(jMenuItemUpdateStyles);
+        jMenuHelp.add(jMenuItemAbout);
+        
+        jMenuBarMain.add(jMenuHelp);
 
         setJMenuBar(jMenuBarMain);
 
@@ -1298,9 +1314,11 @@ public class LemminiFrame extends JFrame {
     private javax.swing.JMenuItem jMenuItemAbout;
     private javax.swing.JMenuItem jMenuItemChooseLevel;
     private javax.swing.JMenuItem jMenuItemRestartLevel;
+    private javax.swing.JMenuItem jMenuItemUpdateStyles;
     private javax.swing.JMenu jMenuLevel;
     private javax.swing.JMenu jMenuOptions;
     private javax.swing.JMenu jMenuPlayers;
+    private javax.swing.JMenu jMenuHelp;
     private lemmini.LemminiPanel lemminiPanelMain;
     // End of variables declaration//GEN-END:variables
 }

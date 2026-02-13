@@ -18,6 +18,7 @@ package lemmini.gui;
 import java.awt.Frame;
 import java.awt.Toolkit;
 
+import javax.swing.GroupLayout;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 
@@ -27,6 +28,7 @@ import lemmini.game.GameController;
 import lemmini.game.GameController.ExitSoundOption;
 import lemmini.game.GameController.MenuThemeOption;
 import lemmini.sound.Music;
+import lemmini.tools.StyleDownloader;
 
 /**
  *
@@ -82,6 +84,7 @@ public class OptionsDialog extends JDialog {
         jPanelControlScheme = new javax.swing.JPanel();
         jPanelMisc = new javax.swing.JPanel();
         jPanelReplays = new javax.swing.JPanel();
+        jPanelStyles = new javax.swing.JPanel();
         jCheckBoxAdvanced = new javax.swing.JCheckBox();
         jCheckBoxClassicCursor = new javax.swing.JCheckBox();
         jCheckBoxSwap = new javax.swing.JCheckBox();
@@ -104,6 +107,7 @@ public class OptionsDialog extends JDialog {
         jCheckBoxClassicScroller = new javax.swing.JCheckBox();
         jCheckBoxShowMenuBar = new javax.swing.JCheckBox();
         jCheckBoxAutoSaveReplays = new javax.swing.JCheckBox();
+        jButtonUpdateStyles = new javax.swing.JButton();
         jButtonOK = new javax.swing.JButton();
         jButtonCancel = new javax.swing.JButton();
 
@@ -348,8 +352,8 @@ public class OptionsDialog extends JDialog {
         javax.swing.GroupLayout jPanelReplaysLayout = new javax.swing.GroupLayout(jPanelReplays);
         jPanelReplays.setLayout(jPanelReplaysLayout);
         jPanelReplaysLayout.setHorizontalGroup(
-                jPanelReplaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelReplaysLayout.createSequentialGroup()
+            jPanelReplaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            	.addGroup(jPanelReplaysLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelReplaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jCheckBoxAutoSaveReplays)
@@ -365,6 +369,31 @@ public class OptionsDialog extends JDialog {
                 )
         );
 
+        jPanelStyles.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Styles", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+
+        jButtonUpdateStyles.setText("Update Styles");
+        jButtonUpdateStyles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUpdateStylesActionPerformed(evt);
+            }
+        });
+        javax.swing.GroupLayout jPanelStylesLayout = new javax.swing.GroupLayout(jPanelStyles);
+        jPanelStyles.setLayout(jPanelStylesLayout);
+        jPanelStylesLayout.setHorizontalGroup(
+        	    jPanelStylesLayout.createSequentialGroup()
+        	        .addContainerGap()
+        	        .addComponent(jButtonUpdateStyles, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        	        .addContainerGap()
+        	);
+        jPanelStylesLayout.setVerticalGroup(
+        		jPanelStylesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelStylesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonUpdateStyles)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                )
+        );
+        
         jPanelClassicMode.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Classic Mode", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         
         jCheckBoxAdvanced.setSelected(GameController.isOptionEnabled(GameController.Option.ADVANCED_SELECT));
@@ -530,7 +559,8 @@ public class OptionsDialog extends JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanelGraphics, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanelReplays, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jPanelReplays, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        	.addComponent(jPanelStyles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         	.addComponent(jPanelClassicMode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -551,6 +581,8 @@ public class OptionsDialog extends JDialog {
                         .addComponent(jPanelGraphics, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanelReplays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanelStyles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     )
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanelClassicMode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -571,6 +603,10 @@ public class OptionsDialog extends JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void jButtonUpdateStylesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateStylesActionPerformed
+    	StyleDownloader.startDownload();
+    }//GEN-LAST:event_jButtonUpdateStylesActionPerformed
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         applyChanges();
@@ -580,7 +616,7 @@ public class OptionsDialog extends JDialog {
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         dispose();
     }//GEN-LAST:event_jButtonCancelActionPerformed
-
+    
     private void applyChanges() {
         // set all game settings based on GUI options first
         // apply sound settings
@@ -642,6 +678,7 @@ public class OptionsDialog extends JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancel;
     private javax.swing.JButton jButtonOK;
+    private javax.swing.JButton jButtonUpdateStyles;
     private javax.swing.JCheckBox jCheckBoxAdvanced;
     private javax.swing.JCheckBox jCheckBoxBilinear;
     private javax.swing.JCheckBox jCheckBoxClassicCursor;
@@ -685,6 +722,7 @@ public class OptionsDialog extends JDialog {
     private javax.swing.JPanel jPanelControlScheme;
     private javax.swing.JPanel jPanelMisc;
     private javax.swing.JPanel jPanelReplays;
+    private javax.swing.JPanel jPanelStyles;
     private javax.swing.JPanel jPanelSound;
     private javax.swing.JSlider jSliderMusicVolume;
     private javax.swing.JSlider jSliderSoundVolume;
