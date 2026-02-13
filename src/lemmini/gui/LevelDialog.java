@@ -572,7 +572,7 @@ public class LevelDialog extends JDialog {
         } else {
             logoImage = MiscGfx.getImage(MiscGfx.Index.RETROLEMMINI_LOGO_AMIGA);
         }
-        Image scaled = getScaledImage(logoImage.getImage(), jLabelLogoImage.getWidth(), jLabelLogoImage.getHeight());
+        Image scaled = getScaledImage(logoImage.getImage(), 300, 80);
         jLabelLogoImage.setIcon(new ImageIcon(scaled));
     }
 
