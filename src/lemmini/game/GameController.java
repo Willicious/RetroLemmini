@@ -285,7 +285,7 @@ public class GameController {
     /** list of all active Visual SFX */
     private static final List<Vsfx> vsfxs = new LinkedList<>();
     /** array of available level packs */
-    private static List<LevelPack> levelPacks;
+    public static List<LevelPack> levelPacks;
     private static Set<ExternalLevelEntry> externalLevelList;
     /** small preview version of level used in preview screen */
     private static LemmImage mapPreview;
@@ -461,6 +461,15 @@ public class GameController {
         cheatWasActivated = Core.player.isDebugMode() || Core.player.isMaximumExitPhysics();
 
         System.out.println("GameController initialization complete.");
+    }
+    
+    public static Path getLevelPackFolder(int levelPackIndex) {
+        LevelPack pack = levelPacks.get(levelPackIndex);
+        if (pack == null) return null;
+        String packFolder = pack.getPath();
+        if (packFolder == null) return null;        
+        Path path = Core.resourcePath.resolve(packFolder);
+        return path;
     }
 
     /**

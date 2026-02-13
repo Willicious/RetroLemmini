@@ -323,4 +323,8 @@ public class LevelPack {
     public List<String> getModPaths() {
         return Collections.unmodifiableList(packMods);
     }
+    
+    public String getPath() {
+    	return path;
+    }
 }

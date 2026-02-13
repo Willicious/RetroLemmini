@@ -17,6 +17,7 @@ package lemmini.gui;
 
 import java.awt.Desktop;
 import java.awt.Frame;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -29,8 +30,11 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
@@ -46,6 +50,8 @@ import lemmini.game.GameController;
 import lemmini.game.LevelInfo;
 import lemmini.game.LevelPack;
 import lemmini.game.LevelRecord;
+import lemmini.game.MiscGfx;
+import lemmini.graphics.LemmImage;
 import lemmini.tools.ToolBox;
 
 /**
@@ -94,6 +100,8 @@ public class LevelDialog extends JDialog {
         refreshLevels();
         jTreeLevels = new javax.swing.JTree();
         jTreeLevels.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+        jLabelFloaterImage = new javax.swing.JLabel();
+        jLabelLogoImage = new javax.swing.JLabel();
         jPanelAuthor = new javax.swing.JPanel();
         jLabelAuthor = new javax.swing.JLabel();
         jTextFieldAuthor = new javax.swing.JTextField();
@@ -132,7 +140,6 @@ public class LevelDialog extends JDialog {
         jTextFieldTimeElapsed = new javax.swing.JTextField();
         jLabelScore = new javax.swing.JLabel();
         jTextFieldScore = new javax.swing.JTextField();
-        jLabelExternalLevels = new javax.swing.JLabel();
         jButtonAddExternalLevels = new javax.swing.JButton();
         jButtonClearExternalLevels = new javax.swing.JButton();
         jButtonGetMoreLevels = new javax.swing.JButton();
@@ -429,16 +436,14 @@ public class LevelDialog extends JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabelExternalLevels.setText("External Levels:");
-
-        jButtonAddExternalLevels.setText("Add...");
+        jButtonAddExternalLevels.setText("Add External Levels");
         jButtonAddExternalLevels.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAddExternalLevelsActionPerformed(evt);
             }
         });
 
-        jButtonClearExternalLevels.setText("Clear");
+        jButtonClearExternalLevels.setText("Clear External Levels");
         jButtonClearExternalLevels.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonClearExternalLevelsActionPerformed(evt);
@@ -453,6 +458,7 @@ public class LevelDialog extends JDialog {
         });
 
         jButtonOK.setText("Choose Level/Pack");
+        jButtonOK.setEnabled(false);
         jButtonOK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonOKActionPerformed(evt);
@@ -465,6 +471,16 @@ public class LevelDialog extends JDialog {
                 jButtonCancelActionPerformed(evt);
             }
         });
+        
+        LemmImage floaterLemming = MiscGfx.getImage(MiscGfx.Index.FLOATER_LEMMING);
+        jLabelFloaterImage.setIcon(new ImageIcon(getScaledImage(floaterLemming.getImage(), 120, 120)));
+        jLabelFloaterImage.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabelFloaterImage.setVerticalAlignment(SwingConstants.CENTER);
+        
+        LemmImage logo = MiscGfx.getImage(MiscGfx.Index.RETROLEMMINI_LOGO_AMIGA);
+        jLabelLogoImage.setIcon(new ImageIcon(getScaledImage(logo.getImage(), 300, 80)));
+        jLabelLogoImage.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabelLogoImage.setVerticalAlignment(SwingConstants.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -477,20 +493,21 @@ public class LevelDialog extends JDialog {
                         .addComponent(jScrollPaneLevels)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanelLevelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanelRecords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        		.addGroup(layout.createSequentialGroup()
+                        			    .addComponent(jPanelLevelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        			    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        			    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        			        .addComponent(jPanelRecords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        			        .addComponent(jLabelFloaterImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        	.addComponent(jLabelLogoImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanelAuthor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelExternalLevels)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonAddExternalLevels)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonClearExternalLevels)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonGetMoreLevels)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 444, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 340, Short.MAX_VALUE)
                         .addComponent(jButtonOK)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonCancel)))
@@ -502,16 +519,20 @@ public class LevelDialog extends JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabelLogoImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanelAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanelLevelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanelRecords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        	    .addComponent(jPanelLevelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        	    .addGroup(layout.createSequentialGroup()
+                        	        .addComponent(jPanelRecords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        	        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        	        .addComponent(jLabelFloaterImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPaneLevels))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelExternalLevels)
                     .addComponent(jButtonAddExternalLevels)
                     .addComponent(jButtonClearExternalLevels)
                     .addComponent(jButtonGetMoreLevels)
@@ -522,6 +543,38 @@ public class LevelDialog extends JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private Path currentPackFolder = null; // class-level
+
+    private void updatePackLogo(DefaultMutableTreeNode packNode) {
+        if (packNode == null) return;
+        Object userObj = packNode.getUserObject();
+        if (!(userObj instanceof String)) return;
+        String packName = (String) userObj;        
+        LevelPack pack = GameController.levelPacks.stream()
+                .filter(lp -> lp.getName().equalsIgnoreCase(packName))
+                .findFirst()
+                .orElse(null);      
+        if (pack == null) return;
+        Path folder = GameController.getLevelPackFolder(GameController.levelPacks.indexOf(pack));
+        if (folder == null) return;
+        if (folder.equals(currentPackFolder)) return;
+        
+        currentPackFolder = folder;
+        LemmImage logoImage;
+        Path logoPath = folder.resolve("logo.png");
+        if (Files.exists(logoPath)) {
+            try {
+                logoImage = new LemmImage(ImageIO.read(logoPath.toFile()));
+            } catch (IOException e) {
+                logoImage = MiscGfx.getImage(MiscGfx.Index.RETROLEMMINI_LOGO_AMIGA);
+            }
+        } else {
+            logoImage = MiscGfx.getImage(MiscGfx.Index.RETROLEMMINI_LOGO_AMIGA);
+        }
+        Image scaled = getScaledImage(logoImage.getImage(), jLabelLogoImage.getWidth(), jLabelLogoImage.getHeight());
+        jLabelLogoImage.setIcon(new ImageIcon(scaled));
+    }
 
     private void jTreeLevelsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTreeLevelsKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -753,7 +806,15 @@ public class LevelDialog extends JDialog {
     }
 
     private void fillInInfo() {
-        TreePath selPath = jTreeLevels.getSelectionPath();
+        TreePath selPath = jTreeLevels.getSelectionPath();   
+        if (selPath == null) return;
+
+        Object[] selPathArray = selPath.getPath();
+        if (selPathArray.length < 2) return;
+
+        DefaultMutableTreeNode packNode = (DefaultMutableTreeNode) selPathArray[1];
+        updatePackLogo(packNode);
+        
         if (selPath != null && selPath.getPathCount() >= 4) {
             LevelItem lvlItem = (LevelItem) ((DefaultMutableTreeNode) selPath.getPath()[3]).getUserObject();
             LevelPack lvlPack = GameController.getLevelPack(lvlItem.levelPack);
@@ -801,6 +862,7 @@ public class LevelDialog extends JDialog {
                 jTextFieldScore.setText(StringUtils.EMPTY);
             }
             jButtonOK.setText("Play Selected Level");
+            jButtonOK.setEnabled(true);
         } else {
             jTextFieldAuthor.setText(StringUtils.EMPTY);
             jTextFieldNumLemmings.setText(StringUtils.EMPTY);
@@ -820,13 +882,31 @@ public class LevelDialog extends JDialog {
             jTextFieldTimeElapsed.setText(StringUtils.EMPTY);
             jTextFieldScore.setText(StringUtils.EMPTY);
             
-            if (selPath != null && selPath.getPathCount() >= 3)
+            if (selPath != null && selPath.getPathCount() >= 3) {
             	jButtonOK.setText("Play Selected Group");
-            else if (selPath != null)
+            	jButtonOK.setEnabled(true);
+            } else {
             	jButtonOK.setText("Play Selected Pack");
-            else
-            	jButtonOK.setText("Choose Level/Pack");
+            	jButtonOK.setEnabled(true);
+            }
         }
+    }
+    
+    private static Image getScaledImage(Image original, int maxWidth, int maxHeight) {
+        int width = original.getWidth(null);
+        int height = original.getHeight(null);
+
+        double scale = Math.min(
+                (double) maxWidth / width,
+                (double) maxHeight / height
+        );
+
+        int newW = (int) (width * scale);
+        int newH = (int) (height * scale);
+
+        Image scaled = original.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
+        
+        return scaled;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -836,7 +916,6 @@ public class LevelDialog extends JDialog {
     private javax.swing.JButton jButtonGetMoreLevels;
     private javax.swing.JButton jButtonOK;
     private javax.swing.JLabel jLabelAuthor;
-    private javax.swing.JLabel jLabelExternalLevels;
     private javax.swing.JLabel jLabelLemmingsSaved;
     private javax.swing.JLabel jLabelNumBashers;
     private javax.swing.JLabel jLabelNumBlockers;
@@ -856,6 +935,8 @@ public class LevelDialog extends JDialog {
     private javax.swing.JPanel jPanelAuthor;
     private javax.swing.JPanel jPanelLevelInfo;
     private javax.swing.JPanel jPanelRecords;
+    private javax.swing.JLabel jLabelFloaterImage;
+    private javax.swing.JLabel jLabelLogoImage;
     private javax.swing.JScrollPane jScrollPaneLevels;
     private javax.swing.JSeparator jSeparatorSkills;
     private javax.swing.JTextField jTextFieldAuthor;
