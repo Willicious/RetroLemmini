@@ -876,7 +876,7 @@ public class LemminiPanel extends JPanel implements Runnable {
 
                         // draw lemmings
                         offGfx.setClip(0, 0, width, levelHeight);
-                        GameController.drawLemmings(offGfx);
+                        GameController.drawLemmings(offGfx, GameController.getXPos(), GameController.getYPos(), false);
                         Lemming lemmUnderCursor = GameController.lemmUnderCursor(LemmCursor.getType());
                         offGfx.setClip(0, 0, width, levelHeight);
                         // draw explosions

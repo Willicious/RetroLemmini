@@ -22,6 +22,7 @@ import java.awt.Desktop;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLDecoder;
@@ -54,11 +55,13 @@ import lemmini.game.Icons;
 import lemmini.game.LemmCursor;
 import lemmini.game.LemmException;
 import lemmini.game.Lemming;
+import lemmini.game.Level;
 import lemmini.game.LevelPack;
 import lemmini.game.ResourceException;
 import lemmini.game.Vsfx;
 import lemmini.gameutil.Fader;
 import lemmini.gameutil.RetroLemminiHotkeys;
+import lemmini.graphics.GraphicsContext;
 import lemmini.graphics.LemmImage;
 import lemmini.sound.Music;
 import lemmini.tools.EditorTestMode;
@@ -1268,8 +1271,18 @@ public class LemminiFrame extends JFrame {
     }
 
     private void saveLevelAsImage() {
-        String levelName = GameController.getLevel().getLevelName();
-        String baseFileName = levelName.replaceAll("[^a-zA-Z0-9._-]", "_"); // Sanitize filename
+        Level level = GameController.getLevel();
+        if (level == null) {
+            JOptionPane.showMessageDialog(null, "No level loaded",
+                    "Save Level Image", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        boolean paused = GameController.isPaused();
+        if (!paused) GameController.setPaused(true); // Always pause the game
+
+        String levelName = level.getLevelName();
+        String baseFileName = levelName.replaceAll("[^a-zA-Z0-9._-]", "_");
         String fileName = baseFileName + ".png";
         Path filePath = Core.resourceTree.getPath(fileName);
 
@@ -1279,17 +1292,84 @@ public class LemminiFrame extends JFrame {
             filePath = Core.resourceTree.getPath(fileName);
             counter++;
         }
-
-        LemmImage tmp = GameController.getLevel().createMinimap(GameController.getFgImage(), 1.0, 1.0, true, false, true);
-        // BOOKMARK TODO: See if there's a way to draw the lemmings to this image as well
-        //                If there is, maybe show a quick "options" dialog where the user can choose whether or not to include lemmings, background, etc
-        try (OutputStream out = Files.newOutputStream(filePath, StandardOpenOption.CREATE_NEW)) {
-            ImageIO.write(tmp.getImage(), "png", out);
-            out.flush();
-            JOptionPane.showMessageDialog(null, "Level image successfully saved to\n" + filePath, "Save Level Image", JOptionPane.PLAIN_MESSAGE);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Could not save level image", "Save Level Image", JOptionPane.ERROR_MESSAGE);
+        
+        boolean showLems;
+        int option = JOptionPane.showConfirmDialog(null,
+                "Do you want to show lemmings in the image?",
+                "Save Level Image",
+                JOptionPane.YES_NO_OPTION
+        );
+        if (option == JOptionPane.YES_OPTION)
+        	showLems = true;
+        else if (option == JOptionPane.NO_OPTION)
+        	showLems = false;
+        else return;
+        
+        if (!showLems) { // Use minimap image if not showing lemmings
+	        LemmImage tmp = GameController.getLevel().createMinimap(GameController.getFgImage(), 1.0, 1.0, true, false, true);
+	        // BOOKMARK TODO: See if there's a way to draw the lemmings to this image as well
+	        //                If there is, maybe show a quick "options" dialog where the user can choose whether or not to include lemmings, background, etc
+	        try (OutputStream out = Files.newOutputStream(filePath, StandardOpenOption.CREATE_NEW)) {
+	            ImageIO.write(tmp.getImage(), "png", out);
+	            out.flush();
+	            JOptionPane.showMessageDialog(null, "Level image successfully saved to\n" + filePath, "Save Level Image", JOptionPane.PLAIN_MESSAGE);
+	        } catch (IOException ex) {
+	            ex.printStackTrace();
+	            JOptionPane.showMessageDialog(null,
+	                    "Could not save level image",
+	                    "Save Level Image",
+	                    JOptionPane.ERROR_MESSAGE);
+	        }
+        } else { // Re-use rendering logic from LemminiPanel redraw method to get the full image including lemmings, explosions, etc.
+	        try {
+	            LemmImage fgImage = GameController.getFgImage();
+	            if (fgImage == null) {
+	                JOptionPane.showMessageDialog(null, "No foreground image available",
+	                        "Save Level Image", JOptionPane.ERROR_MESSAGE);
+	                return;
+	            }
+	
+	            int fullWidth = level.getWidth();
+	            int fullHeight = level.getHeight();
+	
+	            int transparency = fgImage.getImage().getTransparency();
+	            BufferedImage buffered = ToolBox.createImage(fullWidth, fullHeight, transparency);
+	            LemmImage fullImage = new LemmImage(buffered);
+	            GraphicsContext g = fullImage.createGraphicsContext();
+	
+                // Set camera to 0, 0 and the full width and height of the level
+                g.setClip(0, 0, fullWidth, fullHeight);
+                
+                // Draw the full level image
+                g.setBackground(level.getBgColor());
+                g.clearRect(0, 0, fullWidth, fullHeight);
+                level.drawBackground(g, fullWidth, fullHeight, 0, 0);
+                level.drawBehindObjects(g, fullWidth, fullHeight, 0, 0);
+                g.drawImage(fgImage, 0, 0, fullWidth, fullHeight, 0, 0, fullWidth, fullHeight);
+                level.drawInFrontObjects(g, fullWidth, fullHeight, 0, 0);
+                
+                // Add lemmings and explosions
+                g.setClip(0, 0, fullWidth, fullHeight);
+                GameController.drawLemmings(g, 0, 0, true);
+                GameController.drawExplosions(g, fullWidth, fullHeight, 0, 0);
+	
+	            try (OutputStream out = Files.newOutputStream(filePath, StandardOpenOption.CREATE_NEW)) {
+	                ImageIO.write(fullImage.getImage(), "png", out);
+	            }
+	
+	            JOptionPane.showMessageDialog(null,
+	                    "Level image successfully saved to\n" + filePath,
+	                    "Save Level Image",
+	                    JOptionPane.PLAIN_MESSAGE);
+	
+	        } catch (IOException ex) {
+	            ex.printStackTrace();
+	            JOptionPane.showMessageDialog(null,
+	                    "Could not save level image",
+	                    "Save Level Image",
+	                    JOptionPane.ERROR_MESSAGE);
+	        }	        
+	        GameController.setPaused(paused); // Restore previous paused state
         }
     }
     

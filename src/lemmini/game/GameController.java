@@ -1954,35 +1954,36 @@ public class GameController {
         });
     }
 
-    public static synchronized void drawLemmings(final GraphicsContext g) {
+    public static synchronized void drawLemmings(final GraphicsContext g, int cameraX, int cameraY, boolean isScreenshot) {
         lemmings.stream().forEachOrdered(l -> {
-            //draw lemming.
-            int lx = l.screenX();
+            // Draw lemmings
+        	int lx = l.screenX();
             int ly = l.screenY();
-            int mx = l.midX(); //used for countdown graphics, and selection indicators during replay (lightbulbs)
-            if (lx + l.width() > xPos && lx < xPos + Core.getDrawWidth()
-                    && ly + l.height() > yPos && ly < yPos + LemminiFrame.LEVEL_HEIGHT) {
-                g.drawImage(l.getImage(), lx - xPos, ly - yPos);
+            int mx = l.midX();
+
+            if (isScreenshot || (lx + l.width() > cameraX && lx < cameraX + Core.getDrawWidth() &&
+                                 ly + l.height() > cameraY && ly < cameraY + LemminiFrame.LEVEL_HEIGHT)) {
+                g.drawImage(l.getImage(), lx - cameraX, ly - cameraY);
             }
 
-            //draws any countdown graphics if necessary
+            // Draw countdown graphics if necessary
             LemmImage cd = l.getCountdown();
             if (cd != null) {
-                int x = mx - xPos - cd.getWidth() / 2;
-                int y = ly - yPos - cd.getHeight();
-                if (x + cd.getHeight() > 0 && x < Core.getDrawWidth()
-                        && y + cd.getHeight() > 0 && y < LemminiFrame.LEVEL_HEIGHT) {
+                int x = mx - cameraX - cd.getWidth() / 2;
+                int y = ly - cameraY - cd.getHeight();
+                if (isScreenshot || (x + cd.getHeight() > 0 && x < Core.getDrawWidth() &&
+                                     y + cd.getHeight() > 0 && y < LemminiFrame.LEVEL_HEIGHT)) {
                     g.drawImage(cd, x, y);
                 }
             }
 
-            //draws any selection indicators in replays
+            // Draw lightbulb for selected lems
             LemmImage sel = l.getSelectImg();
             if (sel != null) {
-                int x = mx - xPos - sel.getWidth() / 2;
-                int y = ly - yPos - sel.getHeight();
-                if (x + sel.getHeight() > 0 && x < Core.getDrawWidth()
-                        && y + sel.getHeight() > 0 && y < LemminiFrame.LEVEL_HEIGHT) {
+                int x = mx - cameraX - sel.getWidth() / 2;
+                int y = ly - cameraY - sel.getHeight();
+                if (isScreenshot || (x + sel.getHeight() > 0 && x < Core.getDrawWidth() &&
+                                     y + sel.getHeight() > 0 && y < LemminiFrame.LEVEL_HEIGHT)) {
                     g.drawImage(sel, x, y);
                 }
             }
