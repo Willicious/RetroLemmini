@@ -286,7 +286,7 @@ public class GameController {
     private static final List<Vsfx> vsfxs = new LinkedList<>();
     /** array of available level packs */
     public static List<LevelPack> levelPacks;
-    private static Set<ExternalLevelEntry> externalLevelList;
+    public static Set<ExternalLevelEntry> externalLevelList;
     /** small preview version of level used in preview screen */
     private static LemmImage mapPreview;
     /** timer used for nuking */

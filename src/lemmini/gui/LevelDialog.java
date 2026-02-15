@@ -448,6 +448,7 @@ public class LevelDialog extends JDialog {
         });
 
         jButtonClearExternalLevels.setText("Clear External Levels");
+        jButtonClearExternalLevels.setEnabled(GameController.externalLevelList.size() > 0);
         jButtonClearExternalLevels.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonClearExternalLevelsActionPerformed(evt);
@@ -644,6 +645,7 @@ public class LevelDialog extends JDialog {
                 refreshLevels();
                 levelModel.reload();
                 selectLevel(lastLevelPosition[0], lastLevelPosition[1], lastLevelPosition[2]);
+                jButtonClearExternalLevels.setEnabled(GameController.externalLevelList.size() > 0);
             } else {
                 JOptionPane.showMessageDialog(this, "No valid level files were loaded.", "Load Level", JOptionPane.ERROR_MESSAGE);
             }
@@ -654,6 +656,7 @@ public class LevelDialog extends JDialog {
         GameController.clearExternalLevelList();
         refreshLevels();
         levelModel.reload();
+        jButtonClearExternalLevels.setEnabled(false);
     }//GEN-LAST:event_jButtonClearExternalLevelsActionPerformed
     
     private void jButtonGetMoreLevelsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGetMoreLevelsActionPerformed
