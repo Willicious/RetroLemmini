@@ -479,8 +479,9 @@ public class LemminiFrame extends JFrame {
         storeUnmaximizedPos();
     }//GEN-LAST:event_formComponentMoved
     private void printLevelNameToConsole() {
-        System.out.println(GameController.getLevelPack(GameController.getCurLevelPackIdx()).getInfo(GameController.getCurRating(),
-                                                       GameController.getCurLevelNumber()).getLevelResource());
+    	System.out.println("Debug mode toggled for level:");
+        System.out.println("   " + GameController.getLevelPack(GameController.getCurLevelPackIdx()).getInfo(GameController.getCurRating(),
+                                                               GameController.getCurLevelNumber()).getLevelResource());
     }
     
     private void addLemmingAtCursor() {
@@ -775,10 +776,12 @@ public class LemminiFrame extends JFrame {
                 case HotkeyDebugToggleDebug:
                     Core.player.setDebugMode(!Core.player.isDebugMode());
                     GameController.setWasCheated(true); // 'Cheated' flag remains true if debug mode is entered
+                    printLevelNameToConsole();
                     break;
                 case HotkeyDebugMaxExitPhysics:
                     Core.player.setMaximumExitPhysics(!Core.player.isMaximumExitPhysics());
                     GameController.setWasCheated(true); // 'Cheated' flag remains true if maximum exit physics mode is entered
+                    printLevelNameToConsole();
                     break;
                 default:
                 	break;
@@ -806,9 +809,6 @@ public class LemminiFrame extends JFrame {
                     break;
                 case HotkeyDebugDrawBrushSizeDown:
                     lemminiPanelMain.decreaseDrawBrushSize();
-                    break;
-                case HotkeyDebugPrintLevelName:
-                    printLevelNameToConsole();
                     break;
                 case HotkeyDebugToggleCursorInfo:
                     lemminiPanelMain.setDebugCursorInfo(!lemminiPanelMain.debugCursorInfoVisible());

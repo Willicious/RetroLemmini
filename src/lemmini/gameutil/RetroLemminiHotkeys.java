@@ -67,7 +67,6 @@ public class RetroLemminiHotkeys {
 	    HotkeyDebugToggleDrawMode("(Debug) Toggle draw mode", HotkeyScope.DEBUG),
 	    HotkeyDebugDrawBrushSizeUp("(Debug) Increase draw brush size", HotkeyScope.DEBUG),
 	    HotkeyDebugDrawBrushSizeDown("(Debug) Decrease draw brush size", HotkeyScope.DEBUG),
-	    HotkeyDebugPrintLevelName("(Debug) Print level name to console", HotkeyScope.DEBUG),
 	    HotkeyDebugToggleCursorInfo("(Debug) Toggle debug cursor info", HotkeyScope.DEBUG),
 	    HotkeyDebugAddLemAtCursor("(Debug) Add lemming at cursor", HotkeyScope.DEBUG),
 	    HotkeyToggleMenuBar("(Anywhere) Toggle menu bar", HotkeyScope.ANYWHERE),
@@ -147,7 +146,6 @@ public class RetroLemminiHotkeys {
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleDrawMode, KeyEvent.VK_D));
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugDrawBrushSizeUp, KeyEvent.VK_0));
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugDrawBrushSizeDown, KeyEvent.VK_9));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugPrintLevelName, KeyEvent.VK_NUMPAD4));
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleCursorInfo, KeyEvent.VK_NUMPAD5));
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugAddLemAtCursor, KeyEvent.VK_L));
 	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyToggleMenuBar, KeyEvent.VK_F1));
