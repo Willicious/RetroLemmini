@@ -301,7 +301,7 @@ public class Core {
     }
 
     public static void loadHotkeys(Path path) {
-        List<Hotkey> hotkeys = RetroLemminiHotkeys.getDefaultHotkeys();
+        List<Hotkey> hotkeys = RetroLemminiHotkeys.getHotkeys(RetroLemminiHotkeys.HotkeyProfile.DEFAULT);
         Path iniPath = path;
 
         if (Files.exists(iniPath)) {

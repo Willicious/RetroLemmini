@@ -22,6 +22,11 @@ public class RetroLemminiHotkeys {
 	    POSTVIEW,
 	    DEBUG
 	}
+	
+	public enum HotkeyProfile {
+	    DEFAULT,
+	    CLASSIC
+	}
 
     /** Enum for all actions */
 	public enum HotkeyAction {
@@ -102,60 +107,119 @@ public class RetroLemminiHotkeys {
     /**
      * Returns default hotkeys as a list of Hotkey objects.
      */
-	public static List<Hotkey> getDefaultHotkeys() {
+	public static List<Hotkey> getHotkeys(HotkeyProfile profile) {
 	    List<Hotkey> hotkeys = new ArrayList<>();
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyToggleMusic, KeyEvent.VK_M));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyToggleSound, KeyEvent.VK_Z));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyPause, KeyEvent.VK_P));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyRestart, KeyEvent.VK_R, "Ctrl"));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNuke, KeyEvent.VK_N));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDecreaseRR, KeyEvent.VK_MINUS));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyIncreaseRR, KeyEvent.VK_EQUALS));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectClimber, KeyEvent.VK_1));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectFloater, KeyEvent.VK_2));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectBomber, KeyEvent.VK_3));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectBlocker, KeyEvent.VK_4));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectBuilder, KeyEvent.VK_5));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectBasher, KeyEvent.VK_6));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectMiner, KeyEvent.VK_7));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectDigger, KeyEvent.VK_8));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyToggleVerticalLock, KeyEvent.VK_V));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyFastForward, KeyEvent.VK_F));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyTurboForward, KeyEvent.VK_T));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectLeft, KeyEvent.VK_LEFT));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectRight, KeyEvent.VK_RIGHT));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectWalker, KeyEvent.VK_W));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNudgeViewLeft, KeyEvent.VK_LEFT, "Ctrl"));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNudgeViewRight, KeyEvent.VK_RIGHT, "Ctrl"));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNudgeViewUp, KeyEvent.VK_UP, "Ctrl"));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNudgeViewDown, KeyEvent.VK_DOWN, "Ctrl"));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyEndLevel, KeyEvent.VK_ESCAPE));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySaveReplay, KeyEvent.VK_S, "Ctrl"));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyLoadReplay, KeyEvent.VK_L, "Ctrl"));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyCancelReplay, KeyEvent.VK_C));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySaveAsImage, KeyEvent.VK_I));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNextLevel, KeyEvent.VK_RIGHT));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyPreviousLevel, KeyEvent.VK_LEFT));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNextGroup, KeyEvent.VK_UP));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyPreviousGroup, KeyEvent.VK_DOWN));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleDebug, KeyEvent.VK_D, "Ctrl"));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugMaxExitPhysics, KeyEvent.VK_E, "Ctrl"));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugSaveAll, KeyEvent.VK_NUMPAD1));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugInvertTimer, KeyEvent.VK_NUMPAD2));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleSuperLemming, KeyEvent.VK_NUMPAD3));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleDrawMode, KeyEvent.VK_D));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugDrawBrushSizeUp, KeyEvent.VK_0));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugDrawBrushSizeDown, KeyEvent.VK_9));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleCursorInfo, KeyEvent.VK_NUMPAD5));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugAddLemAtCursor, KeyEvent.VK_L));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyToggleMenuBar, KeyEvent.VK_F1));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyManagePlayers, KeyEvent.VK_F2));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyLevelSelect, KeyEvent.VK_F3));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyEnterCode, KeyEvent.VK_F4));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyOpenSettings, KeyEvent.VK_F5));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyManageHotkeys, KeyEvent.VK_F6));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyAbout, KeyEvent.VK_F7));
-	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyCloseApp, KeyEvent.VK_F8, "Alt"));
+	    
+	    switch (profile) {
+	    	case DEFAULT:
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyToggleMusic, KeyEvent.VK_M));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyToggleSound, KeyEvent.VK_Z));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyPause, KeyEvent.VK_P));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyRestart, KeyEvent.VK_R, "Ctrl"));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNuke, KeyEvent.VK_N));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDecreaseRR, KeyEvent.VK_MINUS));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyIncreaseRR, KeyEvent.VK_EQUALS));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectClimber, KeyEvent.VK_1));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectFloater, KeyEvent.VK_2));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectBomber, KeyEvent.VK_3));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectBlocker, KeyEvent.VK_4));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectBuilder, KeyEvent.VK_5));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectBasher, KeyEvent.VK_6));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectMiner, KeyEvent.VK_7));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectDigger, KeyEvent.VK_8));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyToggleVerticalLock, KeyEvent.VK_V));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyFastForward, KeyEvent.VK_F));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyTurboForward, KeyEvent.VK_T));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectLeft, KeyEvent.VK_LEFT));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectRight, KeyEvent.VK_RIGHT));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectWalker, KeyEvent.VK_W));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNudgeViewLeft, KeyEvent.VK_LEFT, "Ctrl"));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNudgeViewRight, KeyEvent.VK_RIGHT, "Ctrl"));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNudgeViewUp, KeyEvent.VK_UP, "Ctrl"));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNudgeViewDown, KeyEvent.VK_DOWN, "Ctrl"));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyEndLevel, KeyEvent.VK_ESCAPE));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySaveReplay, KeyEvent.VK_S, "Ctrl"));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyLoadReplay, KeyEvent.VK_L, "Ctrl"));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyCancelReplay, KeyEvent.VK_C));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySaveAsImage, KeyEvent.VK_I));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNextLevel, KeyEvent.VK_RIGHT));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyPreviousLevel, KeyEvent.VK_LEFT));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNextGroup, KeyEvent.VK_UP));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyPreviousGroup, KeyEvent.VK_DOWN));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleDebug, KeyEvent.VK_D, "Ctrl"));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugMaxExitPhysics, KeyEvent.VK_E, "Ctrl"));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugSaveAll, KeyEvent.VK_NUMPAD1));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugInvertTimer, KeyEvent.VK_NUMPAD2));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleSuperLemming, KeyEvent.VK_NUMPAD3));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleDrawMode, KeyEvent.VK_D));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugDrawBrushSizeUp, KeyEvent.VK_0));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugDrawBrushSizeDown, KeyEvent.VK_9));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleCursorInfo, KeyEvent.VK_NUMPAD5));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugAddLemAtCursor, KeyEvent.VK_L));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyToggleMenuBar, KeyEvent.VK_F1));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyManagePlayers, KeyEvent.VK_F2));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyLevelSelect, KeyEvent.VK_F3));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyEnterCode, KeyEvent.VK_F4));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyOpenSettings, KeyEvent.VK_F5));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyManageHotkeys, KeyEvent.VK_F6));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyAbout, KeyEvent.VK_F7));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyCloseApp, KeyEvent.VK_F8, "Alt"));
+	    	    break;
+	    	case CLASSIC:
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyToggleMusic, KeyEvent.VK_UNDEFINED));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyToggleSound, KeyEvent.VK_UNDEFINED));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyPause, KeyEvent.VK_P));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyRestart, KeyEvent.VK_R, "Ctrl"));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNuke, KeyEvent.VK_F12));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDecreaseRR, KeyEvent.VK_F1));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyIncreaseRR, KeyEvent.VK_F2));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectClimber, KeyEvent.VK_F3));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectFloater, KeyEvent.VK_F4));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectBomber, KeyEvent.VK_F5));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectBlocker, KeyEvent.VK_F6));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectBuilder, KeyEvent.VK_F7));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectBasher, KeyEvent.VK_F8));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectMiner, KeyEvent.VK_F9));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectDigger, KeyEvent.VK_F10));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyToggleVerticalLock, KeyEvent.VK_S));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyFastForward, KeyEvent.VK_F));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyTurboForward, KeyEvent.VK_UNDEFINED));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectLeft, KeyEvent.VK_LEFT));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectRight, KeyEvent.VK_RIGHT));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectWalker, KeyEvent.VK_UP));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNudgeViewLeft, KeyEvent.VK_LEFT, "Ctrl"));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNudgeViewRight, KeyEvent.VK_RIGHT, "Ctrl"));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNudgeViewUp, KeyEvent.VK_UP, "Ctrl"));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNudgeViewDown, KeyEvent.VK_DOWN, "Ctrl"));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyEndLevel, KeyEvent.VK_ESCAPE));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySaveReplay, KeyEvent.VK_S, "Ctrl"));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyLoadReplay, KeyEvent.VK_L, "Ctrl"));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyCancelReplay, KeyEvent.VK_X));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySaveAsImage, KeyEvent.VK_V));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNextLevel, KeyEvent.VK_RIGHT));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyPreviousLevel, KeyEvent.VK_LEFT));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNextGroup, KeyEvent.VK_UP));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyPreviousGroup, KeyEvent.VK_DOWN));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleDebug, KeyEvent.VK_UNDEFINED));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugMaxExitPhysics, KeyEvent.VK_UNDEFINED));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugSaveAll, KeyEvent.VK_W));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugInvertTimer, KeyEvent.VK_T));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleSuperLemming, KeyEvent.VK_U));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleDrawMode, KeyEvent.VK_D));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugDrawBrushSizeUp, KeyEvent.VK_UNDEFINED));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugDrawBrushSizeDown, KeyEvent.VK_UNDEFINED));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleCursorInfo, KeyEvent.VK_I));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugAddLemAtCursor, KeyEvent.VK_N));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyToggleMenuBar, KeyEvent.VK_UNDEFINED));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyManagePlayers, KeyEvent.VK_F4, "Ctrl"));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyLevelSelect, KeyEvent.VK_F9, "Ctrl"));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyEnterCode, KeyEvent.VK_F5, "Ctrl"));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyOpenSettings, KeyEvent.VK_F10, "Ctrl"));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyManageHotkeys, KeyEvent.VK_F11, "Ctrl"));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyAbout, KeyEvent.VK_F12, "Ctrl"));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyCloseApp, KeyEvent.VK_UNDEFINED));
+	    	    break;
+	    }
 
 	    return hotkeys;
 	}
@@ -163,6 +227,7 @@ public class RetroLemminiHotkeys {
     private static final Map<String, Integer> nameToCode = new HashMap<>();
     private static final Map<Integer, String> codeToName = new HashMap<>();
 	public static final String UNDEFINED = "Undefined";
+	public static final String UNKNOWN = "Unknown";
 
     static {
         // Letters

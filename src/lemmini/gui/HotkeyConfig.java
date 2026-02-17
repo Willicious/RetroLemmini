@@ -7,6 +7,8 @@ import lemmini.gameutil.RetroLemminiHotkeys;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.KeyboardFocusManager;
 import java.io.*;
 import java.nio.file.*;
@@ -25,16 +27,18 @@ public class HotkeyConfig extends JDialog {
     private final Map<RetroLemminiHotkeys.HotkeyAction, String> currentKeys = new HashMap<>();
     private final Path hotkeysIniPath = Core.getProgramHotkeysFilePath();
 
-    private List<Hotkey> defaultHotkeys = new ArrayList<>();
     private String pendingModifier = null;
     private KeyEventDispatcher activeDispatcher = null;
     
     private static final Color TRANSPARENT  = new Color(0, 0, 0, 0);
+    
+    private String defaultTip = "TIP: When assigning a modifier key (Ctrl, Shift, Alt), press the modifier first, then the main key";
+    JLabel tipLabel = new JLabel(defaultTip);
 
-    public HotkeyConfig(List<Hotkey> keys) {
-    	defaultHotkeys = RetroLemminiHotkeys.getDefaultHotkeys();
-    	hotkeys.clear();
-    	for (Hotkey hk : defaultHotkeys) hotkeys.add(new Hotkey(hk));
+    public HotkeyConfig() {
+        hotkeys.clear();
+        List<Hotkey> defaultHotkeys = RetroLemminiHotkeys.getHotkeys(RetroLemminiHotkeys.HotkeyProfile.DEFAULT);
+        for (Hotkey hk : defaultHotkeys) hotkeys.add(new Hotkey(hk));
 
         setTitle("Hotkey Configuration");
         setModal(true);
@@ -156,33 +160,48 @@ public class HotkeyConfig extends JDialog {
             }
         }
 
-        // Bottom panel with Save / Cancel
-     // Bottom panel
-        JPanel bottomPanel = new JPanel(new BorderLayout());
-        JPanel tipPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
-        JLabel tipLabel = new JLabel("TIP: When assigning a modifier key (Ctrl, Shift, Alt), press the modifier first, then the main key");
-        tipLabel.setFont(tipLabel.getFont().deriveFont(Font.PLAIN, 11f)); // smaller font
+        // Bottom paneL (tip panel and buttons)
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.Y_AXIS));
+        JPanel tipPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
+        tipLabel.setFont(tipLabel.getFont().deriveFont(Font.PLAIN, 11f));
         tipLabel.setForeground(Color.GRAY);
         tipPanel.add(tipLabel);
-        bottomPanel.add(tipPanel, BorderLayout.WEST);
+        bottomPanel.add(tipPanel);
         
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel buttonRow = new JPanel(new BorderLayout());
         JButton btnClearAll = new JButton("Clear All");
-        JButton btnLoadDefaults = new JButton("Load Defaults");
+        JButton btnLoadClassic = new JButton("Load Classic Keys");
+        JButton btnLoadDefaults = new JButton("Load RetroLemmini Keys");
+        JButton btnReload = new JButton("Reload");
         JButton btnSave = new JButton("Save Current Configuration");
         JButton btnCancel = new JButton("Cancel");
         btnClearAll.addActionListener(e -> { clearAllHotkeys(); updateButtonColors(); });
-        btnLoadDefaults.addActionListener(e -> { loadDefaultHotkeys(); updateButtonColors(); });
+        btnLoadClassic.addActionListener(e -> { loadHotkeys(RetroLemminiHotkeys.HotkeyProfile.CLASSIC); updateButtonColors(); });
+        btnLoadDefaults.addActionListener(e -> { loadHotkeys(RetroLemminiHotkeys.HotkeyProfile.DEFAULT); updateButtonColors(); });
+        btnReload.addActionListener(e -> { loadHotkeysFromIni(); initComponents(); updateButtonColors(); });
         btnSave.addActionListener(e -> saveHotkeys());
         btnCancel.addActionListener(e -> dispose());
-        buttonPanel.add(btnClearAll);
-        buttonPanel.add(btnLoadDefaults);
-        buttonPanel.add(btnSave);
-        buttonPanel.add(btnCancel);
-        bottomPanel.add(buttonPanel, BorderLayout.EAST);
+        setButtonTip(btnClearAll, "Clear all keys to build a hotkey config from scratch");
+        setButtonTip(btnLoadClassic, "Load the hotkeys from previous Lemmini versions");
+        setButtonTip(btnLoadDefaults, "Load the RetroLemmini default hotkeys");
+        setButtonTip(btnReload, "Reload your previously saved hotkeys");
+        setButtonTip(btnSave, "Save your chosen keys and close the dialog");
+        setButtonTip(btnCancel, "Close without saving");
+        JPanel leftButtons = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        leftButtons.add(btnClearAll);
+        leftButtons.add(btnLoadClassic);
+        leftButtons.add(btnLoadDefaults);
+        buttonRow.add(leftButtons, BorderLayout.WEST);
+        JPanel rightButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+        rightButtons.add(btnReload);
+        rightButtons.add(btnSave);
+        rightButtons.add(btnCancel);
+        buttonRow.add(rightButtons, BorderLayout.EAST);        
+        bottomPanel.add(buttonRow);
 
         mainPanel.add(bottomPanel, BorderLayout.SOUTH);
-
+        
         setContentPane(mainPanel);
 
         // Dynamically calculate dialog width based on content
@@ -205,6 +224,21 @@ public class HotkeyConfig extends JDialog {
 
         setPreferredSize(new Dimension(totalWidth, totalHeight));
         pack();
+    }
+    
+    private void setButtonTip(JButton button, String tip) {
+        button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            	tipLabel.setForeground(Color.BLUE);
+                tipLabel.setText(tip);
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+            	tipLabel.setForeground(Color.GRAY);
+                tipLabel.setText(defaultTip);
+            }
+        });
     }
 
     private void startListening(JButton btn, Hotkey hotkey) {
@@ -292,7 +326,7 @@ public class HotkeyConfig extends JDialog {
     
     private void updateButtonColors() {
     	for (JButton btn : actionButtons.values()) {
-    		if (btn.getText() == RetroLemminiHotkeys.UNDEFINED)
+    		if ((btn.getText().startsWith(RetroLemminiHotkeys.UNDEFINED)) || (btn.getText().startsWith(RetroLemminiHotkeys.UNKNOWN)))
     			btn.setForeground(TRANSPARENT);
     		else
     			btn.setForeground(Color.BLACK);
@@ -310,15 +344,18 @@ public class HotkeyConfig extends JDialog {
         }
     }
     
-    /** Reload the defaults */
-    private void loadDefaultHotkeys() {
+    /** Load the requested hotkey profile */
+    private void loadHotkeys(RetroLemminiHotkeys.HotkeyProfile profile) {
+        List<Hotkey> profileHotkeys = RetroLemminiHotkeys.getHotkeys(profile);
+
         currentKeys.clear();
-        for (Hotkey defaultHk : defaultHotkeys) {
-            Hotkey hk = getHotkey(defaultHk.getAction());
+
+        for (Hotkey source : profileHotkeys) {
+            Hotkey hk = getHotkey(source.getAction());
             if (hk != null) {
-                hk.setKey(defaultHk.getKeyCode(), RetroLemminiHotkeys.getKeyName(defaultHk.getKeyCode()));
-                hk.setModifier(defaultHk.getModifier());
-                
+                hk.setKey(source.getKeyCode(), RetroLemminiHotkeys.getKeyName(source.getKeyCode()));
+                hk.setModifier(source.getModifier());
+
                 String keyText = hk.getKeyDescription();
                 currentKeys.put(hk.getAction(), keyText);
 
@@ -329,6 +366,7 @@ public class HotkeyConfig extends JDialog {
             }
         }
     }
+
 
     /** Save hotkeys to INI */
     private void saveHotkeys() {

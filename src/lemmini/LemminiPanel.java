@@ -65,8 +65,6 @@ import lemmini.game.SpriteObject;
 import lemmini.game.Stencil;
 import lemmini.game.TextScreen;
 import lemmini.gameutil.Fader;
-import lemmini.gameutil.Hotkey;
-import lemmini.gameutil.RetroLemminiHotkeys;
 import lemmini.graphics.GraphicsBuffer;
 import lemmini.graphics.GraphicsContext;
 import lemmini.graphics.LemmImage;
@@ -1494,8 +1492,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
     
     void handleHotkeyConfig() {
-        List<Hotkey> defaultHotkeys = RetroLemminiHotkeys.getDefaultHotkeys();
-        HotkeyConfig hc = new HotkeyConfig(defaultHotkeys);
+        HotkeyConfig hc = new HotkeyConfig();
         hc.setVisible(true);
         GameController.activeHotkeys = hc.getAllHotkeys(); 
     }
