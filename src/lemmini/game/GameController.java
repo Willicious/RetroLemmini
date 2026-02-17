@@ -367,7 +367,7 @@ public class GameController {
     private static int width = Level.DEFAULT_WIDTH;
     private static int height = Level.DEFAULT_HEIGHT;
     private static int timesFailed;
-
+    /** show replay compatibility info in the window caption (or not) */
 	private static boolean useReplayCompatibilityTitle;
 
     /**
