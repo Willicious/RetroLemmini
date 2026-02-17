@@ -57,6 +57,8 @@ public class MiscGfx {
         /** menu background tile */
         BACKGROUND_MAIN_AMIGA,
         BACKGROUND_MAIN_WINLEMM,
+        /** fall distance ruler */
+        RULER,
         /** replay sign 1 */
         REPLAY_1,
         /** replay sign 2 */
@@ -163,6 +165,10 @@ public class MiscGfx {
         images.add(img);
         /* BACKGROUND_MAIN_WINLEMM */
         resource = Core.findResource("gfx/menu/background_main_retro.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
+        images.add(img);
+        /* RULER */
+        resource = Core.findResource("gfx/misc/ruler.png", Core.IMAGE_EXTENSIONS);
         img = Core.loadLemmImage(resource);
         images.add(img);
         /* REPLAY_1, REPLAY_2 */

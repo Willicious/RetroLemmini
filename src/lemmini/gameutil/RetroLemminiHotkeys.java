@@ -46,6 +46,7 @@ public class RetroLemminiHotkeys {
 	    HotkeySelectMiner("(In-Game) Select Miner skill", HotkeyScope.IN_GAME),
 	    HotkeySelectDigger("(In-Game) Select Digger skill", HotkeyScope.IN_GAME),
 	    HotkeyToggleVerticalLock("(In-Game) Toggle Vertical Lock", HotkeyScope.IN_GAME),
+	    HotkeyToggleFallDistanceRuler("(In-Game) Toggle Fall Distance Ruler", HotkeyScope.IN_GAME),
 	    HotkeyFastForward("(In-Game) Fast-Forward", HotkeyScope.IN_GAME),
 	    HotkeyTurboForward("(In-Game) Turbo Fast-Forward", HotkeyScope.IN_GAME),
 	    HotkeySaveAsImage("(In-Game + Preview) Save level as image", HotkeyScope.IN_GAME, HotkeyScope.PREVIEW),
@@ -128,6 +129,7 @@ public class RetroLemminiHotkeys {
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectMiner, KeyEvent.VK_7));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectDigger, KeyEvent.VK_8));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyToggleVerticalLock, KeyEvent.VK_V));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyToggleFallDistanceRuler, KeyEvent.VK_I));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyFastForward, KeyEvent.VK_F));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyTurboForward, KeyEvent.VK_T));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectLeft, KeyEvent.VK_LEFT));
@@ -141,7 +143,7 @@ public class RetroLemminiHotkeys {
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySaveReplay, KeyEvent.VK_S, "Ctrl"));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyLoadReplay, KeyEvent.VK_L, "Ctrl"));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyCancelReplay, KeyEvent.VK_C));
-	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySaveAsImage, KeyEvent.VK_I));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySaveAsImage, KeyEvent.VK_I, "Ctrl"));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNextLevel, KeyEvent.VK_RIGHT));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyPreviousLevel, KeyEvent.VK_LEFT));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNextGroup, KeyEvent.VK_UP));
@@ -182,6 +184,7 @@ public class RetroLemminiHotkeys {
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectMiner, KeyEvent.VK_F9));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectDigger, KeyEvent.VK_F10));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyToggleVerticalLock, KeyEvent.VK_S));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyToggleFallDistanceRuler, KeyEvent.VK_UNDEFINED));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyFastForward, KeyEvent.VK_F));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyTurboForward, KeyEvent.VK_UNDEFINED));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySelectLeft, KeyEvent.VK_LEFT));

@@ -704,6 +704,9 @@ public class LemminiFrame extends JFrame {
                     GameController.setVerticalLock(!GameController.isVerticalLock());
                     GameController.pressIcon(Icons.IconType.VLOCK);
                     break;
+                case HotkeyToggleFallDistanceRuler:
+                	GameController.toggleFallDistanceRuler();
+                	break;
                 case HotkeyFastForward:
                     GameController.setTurbo(false);
                     GameController.setFastForward(!GameController.isFastForward());

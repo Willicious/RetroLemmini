@@ -369,6 +369,8 @@ public class GameController {
     private static int timesFailed;
     /** show replay compatibility info in the window caption (or not) */
 	private static boolean useReplayCompatibilityTitle;
+	/** draw fall distance ruler at cursor (or not) */
+    public static boolean drawRulerAtCursor;
 
     /**
      * Initialization.
@@ -1593,6 +1595,10 @@ public class GameController {
         }
         setPaused(!isPaused);
         pressIcon(Icons.IconType.PAUSE);
+    }
+    
+    public static void toggleFallDistanceRuler() {
+    	drawRulerAtCursor = !drawRulerAtCursor;
     }
 
     /**

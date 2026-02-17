@@ -1099,6 +1099,19 @@ public class LemminiPanel extends JPanel implements Runnable {
                             offGfx.drawImage(lemmLevelName, menuOffsetX + 4 + debugModeOffset + maxExitOffset, LemminiFrame.LEVEL_HEIGHT + 2, 0.5);
                             lemmLevelName = null;
                         }
+                        
+                        // fall distance ruler
+                        LemmImage ruler = MiscGfx.getImage(MiscGfx.Index.RULER);
+                        if (ruler != null) {
+                        	if (GameController.drawRulerAtCursor == true) {
+                        		int rx = LemmCursor.getX() - ruler.getWidth() / 2;
+                        		int ry = LemmCursor.getY() - ruler.getHeight() / 2;
+                        		int rWidth = ruler.getWidth();
+                        		int fallDist = GameController.getLevel().getMaxFallDistance();
+                        		int rHeight = fallDist <= 0 ? ruler.getHeight() : fallDist;
+                        		offGfx.drawImage(ruler, rx, ry, rWidth, rHeight);
+                        	}
+                        }
 
                         // replay icon
                         LemmImage replayImage = GameController.getReplayImage();
