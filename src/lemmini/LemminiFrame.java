@@ -367,7 +367,16 @@ public class LemminiFrame extends JFrame {
         jMenuItemUpdateStyles.setText("Update Styles");
         jMenuItemUpdateStyles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	StyleDownloader.startDownload();
+                int result = JOptionPane.showConfirmDialog(
+                        null,
+                        "Would you like to update all styles now?",
+                        "Update Styles",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE
+                );
+                if (result == JOptionPane.YES_OPTION)
+                    StyleDownloader.startDownload();
+                else return;
             }
         });
         

@@ -21,6 +21,7 @@ import java.awt.Toolkit;
 import javax.swing.GroupLayout;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 import lemmini.LemminiFrame;
 import lemmini.game.Core;
@@ -605,7 +606,16 @@ public class OptionsDialog extends JDialog {
     }// </editor-fold>//GEN-END:initComponents
     
     private void jButtonUpdateStylesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateStylesActionPerformed
-    	StyleDownloader.startDownload();
+        int result = JOptionPane.showConfirmDialog(
+                null,
+                "Would you like to update all styles now?",
+                "Update Styles",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+        if (result == JOptionPane.YES_OPTION)
+            StyleDownloader.startDownload();
+        else return;
     }//GEN-LAST:event_jButtonUpdateStylesActionPerformed
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
