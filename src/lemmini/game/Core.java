@@ -229,7 +229,7 @@ public class Core {
         GameController.setOption(GameController.Option.PAUSE_STOPS_FAST_FORWARD, programProps.getBoolean("pauseStopsFastForward", true));
         GameController.setOption(GameController.Option.NO_PERCENTAGES, programProps.getBoolean("noPercentages", true));
         GameController.setOption(GameController.Option.REPLAY_SCROLL, programProps.getBoolean("replayScroll", false));
-        GameController.setOption(GameController.Option.UNPAUSE_ON_ASSIGNMENT, programProps.getBoolean("unpauseOnAssignment", true));
+        GameController.setOption(GameController.Option.UNPAUSE_ON_ASSIGNMENT, programProps.getBoolean("unpauseOnAssignment", false));
         // Settings added in SuperLemminiToo
         GameController.setOption(GameController.SLTooOption.TIMED_BOMBERS, programProps.getBoolean("timedBombers", true));
         GameController.setOption(GameController.SLTooOption.UNLOCK_ALL_LEVELS, programProps.getBoolean("unlockAllLevels", true));
@@ -244,7 +244,7 @@ public class Core {
         GameController.setOption(GameController.SLTooOption.CLASSIC_SCROLLER, programProps.getBoolean("classicScroller", true));
         GameController.setOption(GameController.SLTooOption.DEBUG_VERBOSE_PLAYER_LOAD, programProps.getBoolean("debugVerbosePlayerLoad", false));
         // Settings added in RetroLemmini
-        GameController.setOption(GameController.RetroLemminiOption.AUTOSAVE_REPLAYS, programProps.getBoolean("autoSaveReplays", false));
+        GameController.setOption(GameController.RetroLemminiOption.AUTOSAVE_REPLAYS, programProps.getBoolean("autoSaveReplays", true));
         GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, programProps.getBoolean("showMenuBar", true));
         GameController.setOption(GameController.RetroLemminiOption.FULL_COLOR_MINIMAP, programProps.getBoolean("fullColorMinimap", true));
         GameController.setOption(GameController.RetroLemminiOption.POSTVIEW_JINGLES, programProps.getBoolean("postviewJingles", false));
