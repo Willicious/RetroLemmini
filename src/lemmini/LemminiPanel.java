@@ -1504,7 +1504,7 @@ public class LemminiPanel extends JPanel implements Runnable {
         }
     }
     
-    void handleHotkeyConfig() {
+    public void handleHotkeyConfig() {
         HotkeyConfig hc = new HotkeyConfig();
         hc.setVisible(true);
         GameController.activeHotkeys = hc.getAllHotkeys(); 
@@ -1958,7 +1958,7 @@ public class LemminiPanel extends JPanel implements Runnable {
         GameController.MenuThemeOption oldMenuThemeOption = GameController.getMenuThemeOption();
 
         // Show options dialog
-        OptionsDialog d = new OptionsDialog(getParentFrame(), true);
+        OptionsDialog d = new OptionsDialog(this, getParentFrame(), true);
         d.setVisible(true);
 
         // Update UI if options have changed

@@ -24,6 +24,7 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import lemmini.LemminiFrame;
+import lemmini.LemminiPanel;
 import lemmini.game.Core;
 import lemmini.game.GameController;
 import lemmini.game.GameController.ExitSoundOption;
@@ -46,11 +47,14 @@ public class OptionsDialog extends JDialog {
      * @param parent
      * @param modal
      */
-    public OptionsDialog(Frame parent, boolean modal) {
+    public OptionsDialog(LemminiPanel panel, Frame parent, boolean modal) {
         super(parent, modal);
+        parentPanel = panel;
         initComponents();
         setLocationRelativeTo(parent);
     }
+    
+    private LemminiPanel parentPanel;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -109,6 +113,7 @@ public class OptionsDialog extends JDialog {
         jCheckBoxShowMenuBar = new javax.swing.JCheckBox();
         jCheckBoxAutoSaveReplays = new javax.swing.JCheckBox();
         jButtonUpdateStyles = new javax.swing.JButton();
+        jButtonConfigureHotkeys = new javax.swing.JButton();
         jButtonOK = new javax.swing.JButton();
         jButtonCancel = new javax.swing.JButton();
 
@@ -527,6 +532,13 @@ public class OptionsDialog extends JDialog {
                 .addComponent(jCheckBoxUnlockAllLevels)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        
+        jButtonConfigureHotkeys.setText("Configure Hotkeys");
+        jButtonConfigureHotkeys.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+                parentPanel.handleHotkeyConfig();
+            }
+        });
 
         jButtonOK.setText("Save and Close");
         jButtonOK.addActionListener(new java.awt.event.ActionListener() {
@@ -550,7 +562,8 @@ public class OptionsDialog extends JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    	.addComponent(jButtonConfigureHotkeys)
+                    	.addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonOK)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonCancel)
@@ -595,6 +608,7 @@ public class OptionsDialog extends JDialog {
                 )
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                	.addComponent(jButtonConfigureHotkeys)
                     .addComponent(jButtonCancel)
                     .addComponent(jButtonOK)
                 )
@@ -688,6 +702,7 @@ public class OptionsDialog extends JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancel;
     private javax.swing.JButton jButtonOK;
+    private javax.swing.JButton jButtonConfigureHotkeys;
     private javax.swing.JButton jButtonUpdateStyles;
     private javax.swing.JCheckBox jCheckBoxAdvanced;
     private javax.swing.JCheckBox jCheckBoxBilinear;
