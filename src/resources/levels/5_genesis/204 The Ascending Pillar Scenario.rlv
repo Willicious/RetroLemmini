@@ -1,0 +1,95 @@
+﻿# LVL tricky04.rlv
+# Created with RetroLemmini Editor Version 1.1.2
+# RetroLemmini Level Version 4
+
+# Level stats
+name = The ascending pillar scenario
+author = 
+version = 4
+releaseRate = 20
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 75
+numToRescue = 55
+timeLimitSeconds = 300
+numClimbers = 20
+numFloaters = 20
+numBombers = 20
+numBlockers = 20
+numBuilders = 20
+numBashers = 20
+numMiners = 20
+numDiggers = 20
+xPosCenter = 400
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = True
+autosteelMode = 0
+style = Pillar
+width = 1022
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 4
+rightBoundary = -4
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 6, 32, 232, 4, 0, 0
+object_1 = 1, 864, 136, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 26, 874, 226, 0
+terrain_1 = 26, 752, 200, 0
+terrain_2 = 26, 632, 170, 0
+terrain_3 = 26, 516, 148, 0
+terrain_4 = 26, 396, 124, 0
+terrain_5 = 26, 278, 100, 0
+terrain_6 = 28, 1012, 300, 0
+terrain_7 = 28, 894, 270, 0
+terrain_8 = 1, 772, 244, 0
+terrain_9 = 1, 652, 214, 0
+terrain_10 = 1, 536, 192, 0
+terrain_11 = 1, 416, 168, 0
+terrain_12 = 1, 416, 202, 0
+terrain_13 = 1, 298, 144, 0
+terrain_14 = 1, 298, 226, 0
+terrain_15 = 38, 106, 294, 8
+terrain_16 = 38, 962, -18, 8
+terrain_17 = 38, 878, -18, 8
+terrain_18 = 38, 794, -18, 8
+terrain_19 = 38, 710, -18, 8
+terrain_20 = 38, 626, -18, 8
+terrain_21 = 38, 542, -18, 8
+terrain_22 = 38, 458, -18, 8
+terrain_23 = 38, 374, -18, 8
+terrain_24 = 38, 290, -18, 8
+terrain_25 = 38, 206, -18, 8
+terrain_26 = 38, 122, -18, 8
+terrain_27 = 38, 106, 282, 8
+terrain_28 = 28, 984, 256, 2
+terrain_29 = 1, 42, 0, 0
+terrain_30 = 7, -58, 128, 0
+terrain_31 = 7, -56, 128, 0
+terrain_32 = 2, -128, 58, 0
+terrain_33 = 38, 22, 280, 0
+terrain_34 = 38, 108, 280, 0
+terrain_35 = 38, 192, 280, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

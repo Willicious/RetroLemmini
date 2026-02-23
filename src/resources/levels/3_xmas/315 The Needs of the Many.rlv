@@ -1,0 +1,106 @@
+﻿# LVL 315 The Needs of the Many.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 9
+
+# Level stats
+name =  The Needs of the Many...
+author = 
+version = 9
+releaseRate = 50
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 15
+numToRescue = 8
+timeLimitSeconds = 480
+numClimbers = 11
+numFloaters = 11
+numBombers = 5
+numBlockers = 0
+numBuilders = 2
+numBashers = 1
+numMiners = 0
+numDiggers = 0
+xPosCenter = 448
+yPosCenter = 144
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = xmas
+width = 1496
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 3, 1256, 204, 0, 0, 0
+object_1 = 2, 168, -32, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 0, 188, 238, 0
+terrain_1 = 0, 330, 224, 0
+terrain_2 = 0, 410, 230, 0
+terrain_3 = 15, 636, 194, 8
+terrain_4 = 15, 636, 98, 8
+terrain_5 = 15, 204, 194, 8
+terrain_6 = 15, 204, 74, 8
+terrain_7 = 16, 204, 32, 0
+terrain_8 = 15, 650, 98, 8
+terrain_9 = 15, 650, 198, 8
+terrain_10 = 15, 658, 98, 8
+terrain_11 = 15, 658, 196, 8
+terrain_12 = 15, 670, 98, 8
+terrain_13 = 15, 670, 202, 8
+terrain_14 = 26, 618, 70, 0
+terrain_15 = 26, 504, 84, 0
+terrain_16 = 26, 430, 44, 0
+terrain_17 = 27, 424, -14, 0
+terrain_18 = 24, 690, 98, 8
+terrain_19 = 24, 786, 94, 8
+terrain_20 = 12, 800, 24, 8
+terrain_21 = 24, 894, 90, 8
+terrain_22 = 24, 866, 104, 0
+terrain_23 = 24, 930, 106, 0
+terrain_24 = 24, 960, 90, 8
+terrain_25 = 15, 1062, -10, 8
+terrain_26 = 11, 1050, 148, 8
+terrain_27 = 15, 1086, 228, 8
+terrain_28 = 15, 1076, 230, 0
+terrain_29 = 15, 1064, 228, 0
+terrain_30 = 15, 1050, 228, 0
+terrain_31 = 16, 1292, 288, 0
+terrain_32 = 16, 1316, 288, 0
+terrain_33 = 16, 1340, 288, 0
+terrain_34 = 16, 1268, 288, 0
+terrain_35 = 16, 1244, 288, 0
+terrain_36 = 16, 1220, 288, 0
+terrain_37 = 16, 1196, 288, 0
+terrain_38 = 16, 1172, 288, 0
+terrain_39 = 16, 1148, 288, 0
+terrain_40 = 16, 1124, 288, 0
+terrain_41 = 16, 1100, 288, 8
+terrain_42 = 15, 204, 10, 2
+terrain_43 = 16, 204, 90, 0
+terrain_44 = 29, 168, -8, 64
+terrain_45 = 29, 216, -8, 64
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 168, 0, 96, 40, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

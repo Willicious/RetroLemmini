@@ -1,11 +1,11 @@
 ﻿# LVL 218 NO PROBLEM.rlv
-# Created with RetroLemmini Editor Version 1.0
-# RetroLemmini Level Version 2
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 3
 
 # Level stats
 name = NO PROBLEM
 author = 
-version = 2
+version = 3
 releaseRate = 10
 maxReleaseRate = 99
 lockReleaseRate = False
@@ -22,20 +22,18 @@ numMiners = 2
 numDiggers = 0
 xPosCenter = 420
 yPosCenter = 160
-style = Bubble
-width = 3200
-height = 320
 superlemming = False
 forceNormalTimerSpeed = True
 maxFallDistance = 126
 classicSteel = False
 autosteelMode = 1
+style = bubble
+width = 3164
+height = 320
 topBoundary = 8
 bottomBoundary = 20
 leftBoundary = 0
 rightBoundary = -16
-
-
 
 # Objects
 # ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier

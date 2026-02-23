@@ -1,0 +1,211 @@
+﻿# LVL 305 It's A Race Against Time.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 3
+
+# Level stats
+name = It's A Race Against Time
+author = Ron Stard
+version = 3
+releaseRate = 50
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 10
+numToRescue = 9
+timeLimitSeconds = 120
+numClimbers = 1
+numFloaters = 1
+numBombers = 0
+numBlockers = 0
+numBuilders = 1
+numBashers = 1
+numMiners = 0
+numDiggers = 1
+xPosCenter = 569
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = crystal
+width = 1626
+height = 320
+topBoundary = 8
+bottomBoundary = 20
+leftBoundary = 0
+rightBoundary = -16
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 8, 265, 240, 4, 0, 0
+object_1 = 1, 745, 24, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 34, 257, 286, 64
+terrain_1 = 34, 289, 286, 64
+terrain_2 = 34, 481, 286, 64
+terrain_3 = 34, 673, 222, 64
+terrain_4 = 34, 947, 222, 64
+terrain_5 = 34, 979, 222, 64
+terrain_6 = 34, 1171, 222, 64
+terrain_7 = 34, 1171, 254, 64
+terrain_8 = 34, 1171, 286, 64
+terrain_9 = 34, 1171, 190, 64
+terrain_10 = 28, 1023, 144, 0
+terrain_11 = 34, 1011, 222, 64
+terrain_12 = 34, 1043, 222, 64
+terrain_13 = 34, 1075, 222, 64
+terrain_14 = 34, 1107, 222, 64
+terrain_15 = 22, 1041, 254, 2
+terrain_16 = 22, 1069, 254, 2
+terrain_17 = 22, 1057, 264, 2
+terrain_18 = 13, 991, 0, 0
+terrain_19 = 13, 991, 64, 0
+terrain_20 = 13, 927, 0, 0
+terrain_21 = 7, 917, 170, 0
+terrain_22 = 7, 919, 170, 0
+terrain_23 = 7, 917, 168, 0
+terrain_24 = 7, 919, 168, 0
+terrain_25 = 13, 927, 64, 0
+terrain_26 = 22, 481, 190, 0
+terrain_27 = 34, 481, 158, 64
+terrain_28 = 34, 481, 126, 64
+terrain_29 = 34, 513, 190, 66
+terrain_30 = 28, 553, 80, 0
+terrain_31 = 34, 641, 158, 64
+terrain_32 = 34, 609, 158, 64
+terrain_33 = 34, 577, 158, 64
+terrain_34 = 34, 545, 158, 64
+terrain_35 = 34, 641, 222, 64
+terrain_36 = 34, 609, 222, 64
+terrain_37 = 34, 577, 222, 64
+terrain_38 = 34, 545, 222, 64
+terrain_39 = 34, 545, 190, 66
+terrain_40 = 34, 577, 190, 66
+terrain_41 = 34, 609, 190, 66
+terrain_42 = 34, 641, 190, 66
+terrain_43 = 34, 609, 254, 66
+terrain_44 = 34, 577, 254, 66
+terrain_45 = 34, 653, 126, 66
+terrain_46 = 32, 819, 108, 64
+terrain_47 = 34, 819, 76, 64
+terrain_48 = 29, 609, 92, 2
+terrain_49 = 34, 1123, 190, 66
+terrain_50 = 29, 1083, 160, 2
+terrain_51 = 34, 737, 76, 64
+terrain_52 = 13, 927, 110, 0
+terrain_53 = 7, 983, 170, 0
+terrain_54 = 7, 983, 168, 0
+terrain_55 = 7, 981, 170, 0
+terrain_56 = 7, 981, 168, 0
+terrain_57 = 13, 991, 110, 0
+terrain_58 = 34, 915, 222, 64
+terrain_59 = 14, 827, 182, 0
+terrain_60 = 34, 883, 222, 64
+terrain_61 = 14, 765, 182, 0
+terrain_62 = 34, 705, 222, 64
+terrain_63 = 34, 737, 222, 64
+terrain_64 = 34, 769, 222, 64
+terrain_65 = 33, 801, 222, 64
+terrain_66 = 34, 851, 222, 64
+terrain_67 = 6, 761, 180, 2
+terrain_68 = 6, 869, 174, 2
+terrain_69 = 6, 879, 184, 2
+terrain_70 = 6, 859, 164, 2
+terrain_71 = 3, 747, 184, 2
+terrain_72 = 3, 757, 174, 2
+terrain_73 = 3, 767, 164, 2
+terrain_74 = 3, 859, 174, 2
+terrain_75 = 23, 705, 130, 0
+terrain_76 = 23, 719, 130, 0
+terrain_77 = 23, 705, 130, 0
+terrain_78 = 23, 733, 130, 0
+terrain_79 = 23, 747, 130, 0
+terrain_80 = 23, 761, 130, 0
+terrain_81 = 23, 759, 148, 0
+terrain_82 = 23, 745, 148, 0
+terrain_83 = 23, 731, 148, 0
+terrain_84 = 23, 717, 148, 0
+terrain_85 = 23, 705, 148, 0
+terrain_86 = 23, 705, 144, 0
+terrain_87 = 23, 761, 116, 0
+terrain_88 = 23, 747, 116, 0
+terrain_89 = 23, 733, 116, 0
+terrain_90 = 23, 719, 116, 0
+terrain_91 = 23, 775, 116, 0
+terrain_92 = 23, 775, 130, 0
+terrain_93 = 23, 777, 130, 0
+terrain_94 = 23, 777, 118, 0
+terrain_95 = 14, 701, 118, 0
+terrain_96 = 34, 673, 158, 64
+terrain_97 = 14, 743, 118, 0
+terrain_98 = 32, 737, 108, 64
+terrain_99 = 34, 705, 158, 64
+terrain_100 = 6, 777, 158, 0
+terrain_101 = 5, 749, 162, 0
+terrain_102 = 6, 773, 162, 0
+terrain_103 = 6, 695, 118, 2
+terrain_104 = 6, 709, 118, 2
+terrain_105 = 6, 709, 114, 2
+terrain_106 = 6, 703, 114, 2
+terrain_107 = 6, 699, 122, 2
+terrain_108 = 6, 699, 128, 2
+terrain_109 = 3, 689, 106, 2
+terrain_110 = 3, 791, 106, 2
+terrain_111 = 3, 791, 110, 2
+terrain_112 = 3, 791, 114, 2
+terrain_113 = 3, 791, 118, 2
+terrain_114 = 3, 791, 120, 2
+terrain_115 = 3, 785, 114, 2
+terrain_116 = 3, 781, 116, 2
+terrain_117 = 3, 777, 116, 2
+terrain_118 = 3, 773, 116, 2
+terrain_119 = 3, 769, 116, 2
+terrain_120 = 3, 769, 118, 2
+terrain_121 = 3, 781, 130, 2
+terrain_122 = 3, 785, 130, 2
+terrain_123 = 3, 789, 130, 2
+terrain_124 = 3, 791, 130, 2
+terrain_125 = 3, 791, 126, 2
+terrain_126 = 3, 791, 124, 2
+terrain_127 = 6, 775, 166, 2
+terrain_128 = 33, 801, 158, 64
+terrain_129 = 6, 773, 172, 2
+terrain_130 = 6, 773, 174, 2
+terrain_131 = 7, 759, 186, 2
+terrain_132 = 7, 761, 188, 2
+terrain_133 = 34, 321, 286, 64
+terrain_134 = 11, 355, 224, 0
+terrain_135 = 34, 353, 286, 64
+terrain_136 = 34, 385, 286, 64
+terrain_137 = 34, 417, 286, 64
+terrain_138 = 34, 449, 286, 64
+terrain_139 = 4, 355, 318, 2
+terrain_140 = 5, 749, 162, 0
+terrain_141 = 34, 737, 158, 64
+terrain_142 = 26, 255, -28, 4
+terrain_143 = 26, 295, -82, 0
+terrain_144 = 26, 335, -58, 0
+terrain_145 = 26, 411, -60, 0
+terrain_146 = 26, 509, -100, 0
+terrain_147 = 26, 519, -128, 4
+terrain_148 = 25, 1027, -86, 0
+terrain_149 = 25, 1285, -68, 0
+terrain_150 = 25, 1197, -56, 4
+terrain_151 = 26, 1131, -18, 4
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

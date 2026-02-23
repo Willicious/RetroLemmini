@@ -1,0 +1,76 @@
+﻿# LVL 10 What's it like up there.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 3
+
+# Level stats
+name = What's it like up there?
+author = 
+version = 3
+releaseRate = 40
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 60
+numToRescue = 60
+timeLimitSeconds = 300
+numClimbers = 2
+numFloaters = 10
+numBombers = 20
+numBlockers = 20
+numBuilders = 2
+numBashers = 10
+numMiners = 2
+numDiggers = 1
+xPosCenter = 720
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = classic
+width = 1670
+height = 320
+topBoundary = 8
+bottomBoundary = 20
+leftBoundary = 0
+rightBoundary = -16
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 2, 593, 113, 0, 0, 0
+object_1 = 1, 761, 30, 0, 0, 0
+object_2 = 3, 433, 288, 4, 0, 0
+object_3 = 3, 561, 288, 4, 0, 0
+object_4 = 3, 689, 288, 4, 0, 0
+object_5 = 3, 817, 288, 4, 0, 0
+object_6 = 3, 945, 288, 4, 0, 0
+object_7 = 3, 1073, 288, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 9, 181, 0, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 433, 288, 32, 32, 0
+steel_1 = 1169, 288, 32, 32, 0
+steel_2 = 1009, 96, 32, 32, 0
+steel_3 = 721, 32, 32, 224, 0
+steel_4 = 753, 96, 32, 32, 0
+steel_5 = 817, 96, 96, 32, 0
+steel_6 = 881, 128, 32, 16, 0
+steel_7 = 881, 64, 160, 32, 0
+steel_8 = 1073, 96, 32, 32, 0
+steel_9 = 1073, 64, 352, 32, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

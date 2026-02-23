@@ -1,0 +1,148 @@
+﻿# LVL fun04.rlv
+# Created with RetroLemmini Editor Version 1.1.2
+# RetroLemmini Level Version 4
+
+# Level stats
+name = Now use miners and climbers
+author = 
+version = 4
+releaseRate = 1
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 10
+numToRescue = 10
+timeLimitSeconds = 300
+numClimbers = 10
+numFloaters = 0
+numBombers = 0
+numBlockers = 0
+numBuilders = 0
+numBashers = 0
+numMiners = 1
+numDiggers = 0
+xPosCenter = 400
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = True
+autosteelMode = 0
+style = Marble
+width = 1022
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 4
+rightBoundary = -4
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 1, 352, 24, 4, 0, 0
+object_1 = 6, 672, 48, 4, 0, 0
+object_2 = 5, 160, 272, 0, 0, 0
+object_3 = 5, 32, 272, 4, 0, 0
+object_4 = 5, 288, 272, 4, 0, 0
+object_5 = 5, 512, 272, 4, 0, 0
+object_6 = 5, 672, 272, 4, 0, 0
+object_7 = 5, 800, 272, 0, 0, 0
+object_8 = 5, 928, 272, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 12, 142, 122, 8
+terrain_1 = 12, 238, 122, 8
+terrain_2 = 12, 334, 122, 8
+terrain_3 = 12, 430, 122, 8
+terrain_4 = 12, 526, 122, 8
+terrain_5 = 39, 662, 96, 0
+terrain_6 = 39, 726, 96, 0
+terrain_7 = 39, 662, 160, 0
+terrain_8 = 39, 726, 160, 0
+terrain_9 = 21, 646, 224, 8
+terrain_10 = 21, 512, 224, 8
+terrain_11 = 21, 378, 224, 8
+terrain_12 = 21, 242, 224, 8
+terrain_13 = 21, 172, 224, 0
+terrain_14 = 1, 542, 0, 8
+terrain_15 = 1, 574, -6, 8
+terrain_16 = 1, 254, -26, 0
+terrain_17 = 1, 286, -26, 0
+terrain_18 = 21, 132, -18, 0
+terrain_19 = 21, 292, -18, 0
+terrain_20 = 21, 452, -18, 0
+terrain_21 = 21, 612, -20, 0
+terrain_22 = 21, 646, -20, 0
+terrain_23 = 21, 42, -18, 8
+terrain_24 = 21, 750, -20, 8
+terrain_25 = 7, 694, 128, 2
+terrain_26 = 7, 726, 128, 2
+terrain_27 = 38, 678, 118, 0
+terrain_28 = 40, 710, 160, 8
+terrain_29 = 40, 676, 126, 8
+terrain_30 = 41, 680, 160, 8
+terrain_31 = 41, 706, 134, 8
+terrain_32 = 1, 806, 210, 0
+terrain_33 = 1, 838, 210, 0
+terrain_34 = 1, 806, 62, 0
+terrain_35 = 1, 838, 62, 0
+terrain_36 = 1, 806, 12, 0
+terrain_37 = 1, 838, 12, 0
+terrain_38 = 35, 560, 34, 0
+terrain_39 = 35, 560, 54, 0
+terrain_40 = 35, 272, 38, 0
+terrain_41 = 35, 272, 86, 0
+terrain_42 = 35, 176, 62, 0
+terrain_43 = 35, 176, 78, 0
+terrain_44 = 35, 824, 42, 0
+terrain_45 = 35, 824, 66, 0
+terrain_46 = 35, 824, 190, 0
+terrain_47 = 26, 48, 250, 0
+terrain_48 = 26, 20, 262, 8
+terrain_49 = 26, 2, 278, 8
+terrain_50 = 26, 26, 234, 8
+terrain_51 = 26, 20, 248, 8
+terrain_52 = 46, 38, 294, 0
+terrain_53 = 3, 870, -32, 0
+terrain_54 = 11, 944, -32, 0
+terrain_55 = 11, 46, -32, 0
+terrain_56 = 3, -28, -32, 0
+terrain_57 = 26, 404, 260, 0
+terrain_58 = 26, 426, 266, 0
+terrain_59 = 26, 450, 280, 0
+terrain_60 = 26, 454, 264, 0
+terrain_61 = 26, 490, 278, 0
+terrain_62 = 26, 472, 276, 0
+terrain_63 = 26, 520, 290, 0
+terrain_64 = 26, 378, 268, 8
+terrain_65 = 26, 346, 288, 8
+terrain_66 = 26, 636, 262, 0
+terrain_67 = 26, 606, 280, 0
+terrain_68 = 1, 160, 294, 0
+terrain_69 = 1, 192, 294, 0
+terrain_70 = 1, 192, 154, 0
+terrain_71 = 1, 160, 154, 0
+terrain_72 = 1, 160, 8, 8
+terrain_73 = 1, 192, 0, 8
+terrain_74 = 35, 178, 62, 0
+terrain_75 = 35, 178, 78, 0
+terrain_76 = 35, 178, 182, 0
+terrain_77 = 35, 176, 248, 0
+terrain_78 = 26, 948, 232, 0
+terrain_79 = 26, 954, 256, 0
+terrain_80 = 26, 930, 284, 0
+terrain_81 = 26, 940, 248, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

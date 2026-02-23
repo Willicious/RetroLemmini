@@ -1,0 +1,127 @@
+﻿# LVL 16 One Man Does All The Hard Work.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 5
+
+# Level stats
+name = One Man Does All The Hard Work
+author = 
+version = 5
+releaseRate = 30
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 5
+numToRescue = 5
+timeLimitSeconds = 300
+numClimbers = 0
+numFloaters = 0
+numBombers = 0
+numBlockers = 0
+numBuilders = 2
+numBashers = 2
+numMiners = 0
+numDiggers = 1
+xPosCenter = 804
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = crystal
+width = 2264
+height = 320
+topBoundary = 8
+bottomBoundary = 20
+leftBoundary = 0
+rightBoundary = -16
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 1, 640, 30, 0, 0, 0
+object_1 = 8, 1456, 196, 0, 0, 0
+object_2 = 8, 1456, 194, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 27, 668, 106, 0
+terrain_1 = 27, 780, 106, 0
+terrain_2 = 10, 868, 104, 0
+terrain_3 = 19, 898, 138, 8
+terrain_4 = 27, 600, 106, 0
+terrain_5 = 10, 580, 104, 0
+terrain_6 = 19, 580, 138, 8
+terrain_7 = 19, 580, 266, 8
+terrain_8 = 19, 898, 234, 8
+terrain_9 = 27, 948, 156, 0
+terrain_10 = 27, 1076, 156, 0
+terrain_11 = 27, 1204, 156, 0
+terrain_12 = 27, 948, 236, 0
+terrain_13 = 27, 1076, 236, 0
+terrain_14 = 27, 1204, 236, 0
+terrain_15 = 27, 1332, 236, 0
+terrain_16 = 27, 1460, 236, 0
+terrain_17 = 27, 1588, 236, 0
+terrain_18 = 27, 1684, 236, 0
+terrain_19 = 19, 1398, 210, 8
+terrain_20 = 19, 1574, 210, 8
+terrain_21 = 10, 1786, 236, 0
+terrain_22 = 19, 1816, 260, 8
+terrain_23 = 10, 412, 288, 0
+terrain_24 = 10, 396, 262, 8
+terrain_25 = 10, 372, 236, 8
+terrain_26 = 10, 348, 216, 8
+terrain_27 = 10, 316, 200, 8
+terrain_28 = 10, 284, 184, 8
+terrain_29 = 10, 252, 174, 8
+terrain_30 = 10, 218, 168, 8
+terrain_31 = 10, 182, 164, 8
+terrain_32 = 10, 150, 164, 8
+terrain_33 = 10, 118, 164, 8
+terrain_34 = 10, 82, 168, 8
+terrain_35 = 19, 92, 216, 8
+terrain_36 = 19, 92, 56, 8
+terrain_37 = 19, 92, -24, 8
+terrain_38 = 28, 168, 240, 0
+terrain_39 = 11, 254, 268, 0
+terrain_40 = 8, 234, 238, 8
+terrain_41 = 10, 2038, 138, 0
+terrain_42 = 10, 2086, 122, 0
+terrain_43 = 10, 2124, 98, 0
+terrain_44 = 10, 1994, 144, 8
+terrain_45 = 10, 1946, 144, 8
+terrain_46 = 10, 1898, 128, 8
+terrain_47 = 10, 1866, 96, 8
+terrain_48 = 10, 1834, 64, 8
+terrain_49 = 10, 1818, 32, 8
+terrain_50 = 10, 1802, 0, 8
+terrain_51 = 19, 2144, 208, 0
+terrain_52 = 19, 2144, 80, 8
+terrain_53 = 19, 2144, -48, 8
+terrain_54 = 25, 1760, -52, 0
+terrain_55 = 13, 948, 156, 0
+terrain_56 = 13, 948, 220, 0
+terrain_57 = 27, 943, 188, 2
+terrain_58 = 27, 943, 204, 2
+terrain_59 = 27, 943, 268, 2
+terrain_60 = 13, 1328, 135, 0
+terrain_61 = 13, 1328, 92, 2
+terrain_62 = 27, 1212, 188, 2
+terrain_63 = 4, 1366, 210, 0
+terrain_64 = 4, 1334, 210, 2
+terrain_65 = 4, 1574, 210, 0
+terrain_66 = 4, 1606, 210, 2
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

@@ -1,0 +1,76 @@
+﻿# LVL 101 Climbing to the Top.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 9
+
+# Level stats
+name =  Climbing to the Top\!
+author = 
+version = 9
+releaseRate = 50
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 10
+numToRescue = 10
+timeLimitSeconds = 360
+numClimbers = 20
+numFloaters = 20
+numBombers = 20
+numBlockers = 20
+numBuilders = 20
+numBashers = 20
+numMiners = 20
+numDiggers = 20
+xPosCenter = 480
+yPosCenter = 172
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = xmas
+width = 960
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 2, 236, 56, 0, 0, 0
+object_1 = 3, 620, 20, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 15, 172, 192, 0
+terrain_1 = 15, 172, 64, 0
+terrain_2 = 15, 772, 192, 0
+terrain_3 = 15, 772, 64, 0
+terrain_4 = 16, 172, 16, 0
+terrain_5 = 16, 772, 16, 0
+terrain_6 = 9, 260, 204, 0
+terrain_7 = 8, 194, 288, 0
+terrain_8 = 8, 224, 270, 0
+terrain_9 = 0, 290, 210, 0
+terrain_10 = 27, 544, 192, 4
+terrain_11 = 27, 560, 192, 4
+terrain_12 = 27, 552, 64, 4
+terrain_13 = 27, 552, 196, 0
+terrain_14 = 27, 552, 192, 0
+terrain_15 = 23, 562, 100, 0
+terrain_16 = 23, 646, 96, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

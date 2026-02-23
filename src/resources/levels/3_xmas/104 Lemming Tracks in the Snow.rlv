@@ -1,0 +1,149 @@
+﻿# LVL 104 Lemming Tracks in the Snow.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 10
+
+# Level stats
+name =  Lemming Tracks in the Snow\!
+author = 
+version = 10
+releaseRate = 25
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 50
+numToRescue = 45
+timeLimitSeconds = 360
+numClimbers = 20
+numFloaters = 20
+numBombers = 20
+numBlockers = 20
+numBuilders = 20
+numBashers = 20
+numMiners = 20
+numDiggers = 20
+xPosCenter = 1368
+yPosCenter = 204
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = xmas
+width = 2412
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 2, 1056, 0, 0, 0, 0
+object_1 = 3, 2016, 124, 0, 0, 0
+object_2 = 4, 2208, 0, 0, 0, 0
+object_3 = 7, 128, 0, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 17, 1528, 84, 0
+terrain_1 = 17, 954, 12, 0
+terrain_2 = 17, 958, 132, 0
+terrain_3 = 24, 1026, 144, 0
+terrain_4 = 24, 1130, 144, 0
+terrain_5 = 24, 1236, 142, 0
+terrain_6 = 26, 1344, 140, 0
+terrain_7 = 26, 1428, 182, 0
+terrain_8 = 26, 1434, 190, 0
+terrain_9 = 24, 1176, 144, 0
+terrain_10 = 24, 1084, 144, 0
+terrain_11 = 34, 1316, 96, 0
+terrain_12 = 29, 1034, 272, 72
+terrain_13 = 29, 1082, 272, 72
+terrain_14 = 29, 1130, 272, 72
+terrain_15 = 29, 1178, 272, 72
+terrain_16 = 29, 1226, 272, 72
+terrain_17 = 29, 1274, 272, 72
+terrain_18 = 29, 1322, 272, 72
+terrain_19 = 29, 1370, 272, 72
+terrain_20 = 29, 1418, 272, 72
+terrain_21 = 29, 1466, 272, 72
+terrain_22 = 29, 1514, 272, 72
+terrain_23 = 29, 1034, 224, 72
+terrain_24 = 29, 1082, 224, 72
+terrain_25 = 29, 1130, 224, 72
+terrain_26 = 29, 1178, 224, 72
+terrain_27 = 29, 1226, 224, 72
+terrain_28 = 29, 1274, 224, 72
+terrain_29 = 29, 1322, 224, 72
+terrain_30 = 29, 1370, 224, 72
+terrain_31 = 29, 1418, 224, 72
+terrain_32 = 29, 1466, 224, 72
+terrain_33 = 29, 1514, 224, 72
+terrain_34 = 29, 1034, 176, 72
+terrain_35 = 29, 1082, 176, 72
+terrain_36 = 29, 1130, 176, 72
+terrain_37 = 29, 1178, 176, 72
+terrain_38 = 29, 1226, 176, 72
+terrain_39 = 29, 1274, 176, 72
+terrain_40 = 29, 1322, 176, 72
+terrain_41 = 29, 1370, 176, 72
+terrain_42 = 29, 1418, 176, 72
+terrain_43 = 26, 1382, 142, 0
+terrain_44 = 26, 1434, 172, 0
+terrain_45 = 0, 710, 212, 0
+terrain_46 = 1, 638, 256, 0
+terrain_47 = 0, 416, 236, 0
+terrain_48 = 0, 180, 216, 0
+terrain_49 = 0, 320, 234, 0
+terrain_50 = 22, 1580, 280, 0
+terrain_51 = 22, 1656, 276, 8
+terrain_52 = 22, 1728, 276, 4
+terrain_53 = 22, 1802, 276, 8
+terrain_54 = 22, 1688, 276, 8
+terrain_55 = 22, 1886, 274, 8
+terrain_56 = 22, 1872, 284, 8
+terrain_57 = 24, 2152, 96, 0
+terrain_58 = 24, 2180, 96, 0
+terrain_59 = 24, 2172, 96, 0
+terrain_60 = 0, 1930, 208, 0
+terrain_61 = 3, 2000, 206, 8
+terrain_62 = 11, 2204, 136, 0
+terrain_63 = 10, 2248, 220, 0
+terrain_64 = 10, 2230, 228, 0
+terrain_65 = 10, 2190, 218, 0
+terrain_66 = 10, 2178, 262, 0
+terrain_67 = 11, 2202, 180, 8
+terrain_68 = 11, 2212, 190, 8
+terrain_69 = 11, 2202, 254, 8
+terrain_70 = 1, 106, 266, 8
+terrain_71 = 34, 162, 250, 8
+terrain_72 = 30, 144, 240, 8
+terrain_73 = 30, 144, 214, 8
+terrain_74 = 30, 144, 188, 8
+terrain_75 = 30, 144, 162, 8
+terrain_76 = 24, 100, 128, 8
+terrain_77 = 23, 98, 124, 0
+terrain_78 = 7, 1300, 82, 0
+terrain_79 = 15, 2052, 82, 2
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 1032, 224, 128, 96, 0
+steel_1 = 1160, 224, 128, 96, 0
+steel_2 = 1288, 224, 128, 96, 0
+steel_3 = 1416, 224, 128, 96, 0
+steel_4 = 1032, 176, 128, 48, 0
+steel_5 = 1160, 176, 128, 48, 0
+steel_6 = 1288, 176, 128, 48, 0
+steel_7 = 1416, 176, 48, 48, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

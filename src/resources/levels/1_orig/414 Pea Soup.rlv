@@ -1,11 +1,11 @@
 ﻿# LVL 414 Pea Soup.rlv
-# Created with RetroLemmini Editor Version 1.0
-# RetroLemmini Level Version 2
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 3
 
 # Level stats
 name = Pea Soup
 author = 
-version = 2
+version = 3
 releaseRate = 70
 maxReleaseRate = 99
 lockReleaseRate = False
@@ -20,81 +20,79 @@ numBuilders = 30
 numBashers = 0
 numMiners = 0
 numDiggers = 21
-xPosCenter = 1152
+xPosCenter = 488
 yPosCenter = 160
-style = Marble
-width = 3200
-height = 320
 superlemming = False
 forceNormalTimerSpeed = True
 maxFallDistance = 126
 classicSteel = False
 autosteelMode = 1
+style = marble
+width = 1748
+height = 320
 topBoundary = 8
 bottomBoundary = 20
 leftBoundary = 0
 rightBoundary = -16
 
-
-
 # Objects
 # ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
 # Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
 # Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
-object_0 = 5, 1344, 200, 0, 0, 0
-object_1 = 5, 1472, 200, 0, 0, 0
-object_2 = 5, 1600, 200, 0, 0, 0
-object_3 = 5, 1728, 200, 4, 0, 0
-object_4 = 5, 1216, 200, 4, 0, 0
-object_5 = 6, 1984, 240, 4, 0, 0
-object_6 = 1, 960, 192, 4, 0, 0
+object_0 = 5, 680, 200, 0, 0, 0
+object_1 = 5, 808, 200, 0, 0, 0
+object_2 = 5, 936, 200, 0, 0, 0
+object_3 = 5, 1064, 200, 4, 0, 0
+object_4 = 5, 552, 200, 4, 0, 0
+object_5 = 6, 1320, 240, 4, 0, 0
+object_6 = 1, 296, 192, 4, 0, 0
 
 # Terrain
 # ID, X pos, Y pos, flags
 # Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
-terrain_0 = 5, 1342, 250, 64
-terrain_1 = 5, 1390, 250, 64
-terrain_2 = 5, 1438, 250, 64
-terrain_3 = 5, 1486, 250, 64
-terrain_4 = 5, 1534, 250, 64
-terrain_5 = 5, 1582, 250, 64
-terrain_6 = 5, 1630, 250, 64
-terrain_7 = 5, 1678, 250, 64
-terrain_8 = 57, 1726, 244, 64
-terrain_9 = 57, 1754, 238, 64
-terrain_10 = 57, 1782, 228, 64
-terrain_11 = 57, 1810, 214, 64
-terrain_12 = 57, 1838, 202, 64
-terrain_13 = 57, 1314, 244, 64
-terrain_14 = 57, 1286, 238, 64
-terrain_15 = 57, 1258, 230, 64
-terrain_16 = 57, 1230, 218, 64
-terrain_17 = 57, 1202, 202, 64
-terrain_18 = 21, 1506, 298, 0
-terrain_19 = 21, 1666, 298, 0
-terrain_20 = 21, 1826, 298, 0
-terrain_21 = 21, 1986, 298, 0
-terrain_22 = 21, 1346, 298, 0
-terrain_23 = 21, 1186, 298, 0
-terrain_24 = 21, 1026, 298, 0
-terrain_25 = 21, 968, 298, 0
-terrain_26 = 21, 922, 298, 0
-terrain_27 = 42, 890, 282, 0
-terrain_28 = 42, 858, 298, 0
-terrain_29 = 42, 826, 314, 0
-terrain_30 = 42, 890, 306, 0
-terrain_31 = 44, 2114, 282, 0
-terrain_32 = 44, 2146, 298, 0
-terrain_33 = 44, 2178, 314, 0
-terrain_34 = 44, 2114, 306, 0
-terrain_35 = 13, 922, 298, 0
-terrain_36 = 13, 2130, 298, 0
-terrain_37 = 45, 1628, 196, 0
-terrain_38 = 45, 1398, 204, 0
-terrain_39 = 46, 1484, 206, 0
-terrain_40 = 46, 1700, 200, 0
-terrain_41 = 46, 1344, 202, 0
-terrain_42 = 4, 1988, 288, 0
+terrain_0 = 5, 678, 250, 64
+terrain_1 = 5, 726, 250, 64
+terrain_2 = 5, 774, 250, 64
+terrain_3 = 5, 822, 250, 64
+terrain_4 = 5, 870, 250, 64
+terrain_5 = 5, 918, 250, 64
+terrain_6 = 5, 966, 250, 64
+terrain_7 = 5, 1014, 250, 64
+terrain_8 = 57, 1062, 244, 64
+terrain_9 = 57, 1090, 238, 64
+terrain_10 = 57, 1118, 228, 64
+terrain_11 = 57, 1146, 214, 64
+terrain_12 = 57, 1174, 202, 64
+terrain_13 = 57, 650, 244, 64
+terrain_14 = 57, 622, 238, 64
+terrain_15 = 57, 594, 230, 64
+terrain_16 = 57, 566, 218, 64
+terrain_17 = 57, 538, 202, 64
+terrain_18 = 21, 842, 298, 0
+terrain_19 = 21, 1002, 298, 0
+terrain_20 = 21, 1162, 298, 0
+terrain_21 = 21, 1322, 298, 0
+terrain_22 = 21, 682, 298, 0
+terrain_23 = 21, 522, 298, 0
+terrain_24 = 21, 362, 298, 0
+terrain_25 = 21, 304, 298, 0
+terrain_26 = 21, 258, 298, 0
+terrain_27 = 42, 226, 282, 0
+terrain_28 = 42, 194, 298, 0
+terrain_29 = 42, 162, 314, 0
+terrain_30 = 42, 226, 306, 0
+terrain_31 = 44, 1450, 282, 0
+terrain_32 = 44, 1482, 298, 0
+terrain_33 = 44, 1514, 314, 0
+terrain_34 = 44, 1450, 306, 0
+terrain_35 = 13, 258, 298, 0
+terrain_36 = 13, 1466, 298, 0
+terrain_37 = 45, 964, 196, 0
+terrain_38 = 45, 734, 204, 0
+terrain_39 = 46, 820, 206, 0
+terrain_40 = 46, 1036, 200, 0
+terrain_41 = 46, 680, 202, 0
+terrain_42 = 4, 1324, 288, 0
 
 # Steel
 # X position, Y position, width, height, flags (optional)

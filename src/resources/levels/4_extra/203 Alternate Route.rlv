@@ -1,0 +1,109 @@
+﻿# LVL 203 Alternate Route.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 10
+
+# Level stats
+name = Alternate Route
+author = 
+version = 10
+releaseRate = 25
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 80
+numToRescue = 60
+timeLimitSeconds = 240
+numClimbers = 10
+numFloaters = 10
+numBombers = 10
+numBlockers = 10
+numBuilders = 10
+numBashers = 10
+numMiners = 10
+numDiggers = 10
+xPosCenter = 592
+yPosCenter = 198
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = brick
+width = 1688
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 0, 1412, 208, 4, 0, 0
+object_1 = 1, 260, 104, 4, 0, 0
+object_2 = 6, 452, 160, 4, 0, 0
+object_3 = 6, 516, 160, 4, 0, 0
+object_4 = 6, 580, 160, 4, 0, 0
+object_5 = 6, 644, 160, 4, 0, 0
+object_6 = 6, 708, 160, 4, 0, 0
+object_7 = 6, 772, 160, 4, 0, 0
+object_8 = 6, 836, 160, 4, 0, 0
+object_9 = 6, 900, 160, 4, 0, 0
+object_10 = 6, 964, 160, 4, 0, 0
+object_11 = 6, 1028, 160, 4, 0, 0
+object_12 = 6, 1092, 160, 4, 0, 0
+object_13 = 6, 1156, 160, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 0, 228, 224, 0
+terrain_1 = 0, 356, 224, 0
+terrain_2 = 0, 484, 224, 0
+terrain_3 = 0, 612, 224, 0
+terrain_4 = 0, 740, 224, 0
+terrain_5 = 0, 868, 224, 0
+terrain_6 = 0, 996, 224, 0
+terrain_7 = 0, 1124, 224, 0
+terrain_8 = 1, 1252, 272, 0
+terrain_9 = 1, 1380, 272, 0
+terrain_10 = 53, 452, 132, 64
+terrain_11 = 53, 500, 132, 64
+terrain_12 = 53, 548, 132, 64
+terrain_13 = 53, 596, 132, 64
+terrain_14 = 53, 644, 132, 64
+terrain_15 = 53, 692, 132, 64
+terrain_16 = 53, 740, 132, 64
+terrain_17 = 53, 788, 132, 64
+terrain_18 = 53, 836, 132, 64
+terrain_19 = 53, 884, 132, 64
+terrain_20 = 53, 932, 132, 64
+terrain_21 = 53, 980, 132, 64
+terrain_22 = 53, 1028, 132, 64
+terrain_23 = 53, 1076, 132, 64
+terrain_24 = 53, 1124, 132, 64
+terrain_25 = 53, 1172, 132, 64
+terrain_26 = 53, 452, 104, 64
+terrain_27 = 53, 452, 76, 64
+terrain_28 = 53, 452, 48, 64
+terrain_29 = 53, 452, 22, 64
+terrain_30 = 53, 452, -6, 64
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 452, 0, 48, 128, 0
+steel_1 = 452, 128, 128, 32, 0
+steel_2 = 580, 128, 128, 32, 0
+steel_3 = 708, 128, 128, 32, 0
+steel_4 = 836, 128, 128, 32, 0
+steel_5 = 964, 128, 128, 32, 0
+steel_6 = 1092, 128, 128, 32, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

@@ -1,0 +1,209 @@
+﻿# LVL taxing27.rlv
+# Created with RetroLemmini Editor Version 1.1.2
+# RetroLemmini Level Version 4
+
+# Level stats
+name = Watch your fingertip!
+author = 
+version = 4
+releaseRate = 1
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 50
+numToRescue = 49
+timeLimitSeconds = 240
+numClimbers = 0
+numFloaters = 0
+numBombers = 0
+numBlockers = 1
+numBuilders = 4
+numBashers = 4
+numMiners = 1
+numDiggers = 0
+xPosCenter = 400
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = True
+autosteelMode = 0
+style = dirt_md
+width = 1022
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 4
+rightBoundary = -4
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 7, 832, 240, 4, 0, 0
+object_1 = 1, 32, 0, 4, 0, 0
+object_2 = 5, 96, 288, 4, 0, 0
+object_3 = 5, 224, 288, 4, 0, 0
+object_4 = 5, 352, 288, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 3, 54, 104, 0
+terrain_1 = 4, 152, 90, 12
+terrain_2 = 1, 170, 110, 12
+terrain_3 = 2, 138, 118, 8
+terrain_4 = 3, 258, 74, 8
+terrain_5 = 1, 284, 108, 2
+terrain_6 = 1, 308, 88, 2
+terrain_7 = 1, 284, 62, 8
+terrain_8 = 0, 304, 54, 0
+terrain_9 = 4, 320, 30, 12
+terrain_10 = 1, 364, 130, 2
+terrain_11 = 1, 380, 118, 2
+terrain_12 = 1, 396, 98, 2
+terrain_13 = 1, 362, 166, 2
+terrain_14 = 2, 316, 106, 8
+terrain_15 = 15, 442, 30, 0
+terrain_16 = 43, 514, 42, 8
+terrain_17 = 25, 358, 184, 72
+terrain_18 = 25, 406, 184, 72
+terrain_19 = 25, 278, 88, 64
+terrain_20 = 25, 326, 88, 64
+terrain_21 = 25, 374, 88, 64
+terrain_22 = 25, 422, 88, 64
+terrain_23 = 2, 426, 94, 12
+terrain_24 = 3, 408, 168, 8
+terrain_25 = 25, 470, 88, 64
+terrain_26 = 25, 516, 88, 72
+terrain_27 = 11, 64, 118, 8
+terrain_28 = 11, 34, 110, 0
+terrain_29 = 11, 54, 166, 0
+terrain_30 = 11, 44, 212, 8
+terrain_31 = 11, 40, 194, 8
+terrain_32 = 11, 36, 232, 8
+terrain_33 = 11, 36, 218, 8
+terrain_34 = 11, 52, 236, 8
+terrain_35 = 11, 58, 264, 0
+terrain_36 = 11, 80, 292, 0
+terrain_37 = 11, 64, 252, 8
+terrain_38 = 11, 50, 276, 8
+terrain_39 = 11, 40, 284, 8
+terrain_40 = 11, 32, 296, 8
+terrain_41 = 11, 36, 276, 8
+terrain_42 = 11, 48, 156, 8
+terrain_43 = 11, 66, 104, 8
+terrain_44 = 25, 544, 288, 64
+terrain_45 = 25, 592, 288, 64
+terrain_46 = 24, 640, 288, 64
+terrain_47 = 31, 668, 288, 0
+terrain_48 = 31, 690, 292, 0
+terrain_49 = 31, 712, 294, 0
+terrain_50 = 31, 734, 294, 0
+terrain_51 = 31, 756, 292, 0
+terrain_52 = 31, 778, 288, 0
+terrain_53 = 23, 800, 288, 64
+terrain_54 = 23, 848, 288, 64
+terrain_55 = 23, 896, 288, 64
+terrain_56 = 11, 938, 252, 8
+terrain_57 = 11, 960, 226, 8
+terrain_58 = 11, 978, 256, 8
+terrain_59 = 11, 938, 198, 8
+terrain_60 = 11, 932, 204, 8
+terrain_61 = 11, 932, 180, 8
+terrain_62 = 11, 932, 136, 8
+terrain_63 = 11, 938, 162, 0
+terrain_64 = 11, 944, 116, 0
+terrain_65 = 11, 950, 104, 0
+terrain_66 = 11, 946, 154, 8
+terrain_67 = 11, 954, 206, 8
+terrain_68 = 11, 964, 214, 8
+terrain_69 = 11, 990, 260, 8
+terrain_70 = 11, 936, 108, 8
+terrain_71 = 11, 948, 90, 8
+terrain_72 = 11, 956, 78, 0
+terrain_73 = 11, 964, 56, 0
+terrain_74 = 11, 950, 68, 8
+terrain_75 = 11, 940, 54, 8
+terrain_76 = 11, 956, 38, 8
+terrain_77 = 11, 950, 152, 8
+terrain_78 = 11, 928, 236, 8
+terrain_79 = 11, 920, 268, 8
+terrain_80 = 11, 900, 280, 8
+terrain_81 = 11, 922, 256, 8
+terrain_82 = 23, 976, 12, 72
+terrain_83 = 23, 976, 60, 72
+terrain_84 = 23, 976, 110, 72
+terrain_85 = 23, 976, 158, 72
+terrain_86 = 23, 976, 206, 72
+terrain_87 = 23, 976, 254, 72
+terrain_88 = 25, 942, 292, 64
+terrain_89 = 25, 990, 292, 64
+terrain_90 = 37, 90, 144, 0
+terrain_91 = 37, 288, 108, 8
+terrain_92 = 36, 370, 210, 0
+terrain_93 = 41, 156, 222, 0
+terrain_94 = 38, 226, 252, 0
+terrain_95 = 39, 134, 146, 0
+terrain_96 = 39, 272, 134, 0
+terrain_97 = 39, 488, 210, 0
+terrain_98 = 39, 404, 114, 0
+terrain_99 = 39, 520, 112, 0
+terrain_100 = 40, 514, 114, 0
+terrain_101 = 40, 138, 148, 0
+terrain_102 = 40, 358, 210, 0
+terrain_103 = 40, 410, 210, 0
+terrain_104 = 34, 448, 210, 0
+terrain_105 = 34, 276, 114, 0
+terrain_106 = 34, 502, 108, 8
+terrain_107 = 34, 428, 110, 8
+terrain_108 = 34, 464, 50, 8
+terrain_109 = 34, 186, 204, 8
+terrain_110 = 34, 120, 136, 8
+terrain_111 = 34, 138, 150, 8
+terrain_112 = 32, 294, 114, 0
+terrain_113 = 32, 520, 200, 0
+terrain_114 = 32, 494, 50, 0
+terrain_115 = 32, 142, 206, 0
+terrain_116 = 33, 192, 220, 8
+terrain_117 = 33, 386, 112, 8
+terrain_118 = 33, 502, 204, 8
+terrain_119 = 33, 92, 174, 8
+terrain_120 = 35, 318, 198, 0
+terrain_121 = 26, 262, 164, 66
+terrain_122 = 45, 520, 70, 0
+terrain_123 = 17, 268, 146, 2
+terrain_124 = 17, 288, 136, 2
+terrain_125 = 17, 300, 128, 2
+terrain_126 = 2, 310, 64, 8
+terrain_127 = 17, 302, 118, 2
+terrain_128 = 26, 304, 140, 66
+terrain_129 = 26, 302, 132, 66
+terrain_130 = 17, 310, 122, 2
+terrain_131 = 17, 316, 166, 2
+terrain_132 = 17, 318, 172, 2
+terrain_133 = 3, 522, 292, 8
+terrain_134 = 23, 496, 288, 64
+terrain_135 = 24, 468, 288, 64
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 280, 88, 128, 32, 0
+steel_1 = 408, 88, 128, 32, 0
+steel_2 = 536, 88, 32, 32, 0
+steel_3 = 344, 184, 112, 32, 0
+steel_4 = 512, 288, 128, 32, 0
+steel_5 = 640, 288, 32, 32, 0
+steel_6 = 800, 288, 128, 32, 0
+steel_7 = 928, 288, 88, 32, 0
+steel_8 = 976, 8, 40, 128, 0
+steel_9 = 976, 136, 40, 128, 0
+steel_10 = 976, 264, 40, 24, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

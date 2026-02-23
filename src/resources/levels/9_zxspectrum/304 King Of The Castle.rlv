@@ -1,0 +1,125 @@
+﻿# LVL 304 King Of The Castle.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 2
+
+# Level stats
+name = King Of The Castle
+author = 
+version = 2
+releaseRate = 40
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 20
+numToRescue = 18
+timeLimitSeconds = 240
+numClimbers = 0
+numFloaters = 0
+numBombers = 0
+numBlockers = 0
+numBuilders = 14
+numBashers = 0
+numMiners = 0
+numDiggers = 0
+xPosCenter = 554
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = fire
+width = 1118
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 5, 666, 280, 4, 0, 0
+object_1 = 5, 730, 280, 4, 0, 0
+object_2 = 5, 554, 280, 4, 0, 0
+object_3 = 1, 330, 192, 4, 0, 0
+object_4 = 5, 442, 280, 4, 0, 0
+object_5 = 5, 314, 280, 4, 0, 0
+object_6 = 6, 282, 8, 4, 0, 0
+object_7 = 5, 266, 280, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 23, 846, 0, 0
+terrain_1 = 23, 846, 78, 0
+terrain_2 = 23, 846, 156, 0
+terrain_3 = 23, 846, 234, 0
+terrain_4 = 23, 846, 242, 0
+terrain_5 = 17, 886, 272, 0
+terrain_6 = 9, 888, 292, 0
+terrain_7 = 9, 916, 270, 0
+terrain_8 = 9, 876, 292, 4
+terrain_9 = 9, 890, 278, 4
+terrain_10 = 9, 912, 260, 4
+terrain_11 = 6, 946, 288, 0
+terrain_12 = 24, 764, 270, 0
+terrain_13 = 24, 686, 270, 0
+terrain_14 = 13, 684, 270, 64
+terrain_15 = 24, 594, 270, 0
+terrain_16 = 24, 516, 270, 0
+terrain_17 = 13, 526, 270, 64
+terrain_18 = 13, 462, 270, 64
+terrain_19 = 24, 372, 270, 0
+terrain_20 = 24, 326, 270, 0
+terrain_21 = 24, 296, 270, 0
+terrain_22 = 23, 294, 242, 0
+terrain_23 = 23, 294, 166, 0
+terrain_24 = 24, 296, 166, 0
+terrain_25 = 24, 374, 166, 0
+terrain_26 = 24, 452, 166, 0
+terrain_27 = 24, 530, 166, 0
+terrain_28 = 24, 608, 166, 0
+terrain_29 = 24, 648, 166, 0
+terrain_30 = 24, 764, 218, 0
+terrain_31 = 24, 686, 218, 0
+terrain_32 = 24, 608, 218, 0
+terrain_33 = 24, 530, 218, 0
+terrain_34 = 24, 464, 218, 0
+terrain_35 = 24, 422, 114, 0
+terrain_36 = 24, 518, 114, 0
+terrain_37 = 24, 596, 114, 0
+terrain_38 = 24, 674, 114, 0
+terrain_39 = 24, 742, 114, 0
+terrain_40 = 1, 278, 114, 0
+terrain_41 = 1, 328, 114, 0
+terrain_42 = 21, 368, 112, 0
+terrain_43 = 21, 368, 86, 0
+terrain_44 = 24, 440, 62, 0
+terrain_45 = 24, 362, 62, 0
+terrain_46 = 21, 368, 68, 0
+terrain_47 = 21, 292, 140, 0
+terrain_48 = 21, 292, 138, 0
+terrain_49 = 24, 456, 114, 0
+terrain_50 = 24, 518, 62, 0
+terrain_51 = 24, 596, 62, 0
+terrain_52 = 24, 624, 62, 0
+terrain_53 = 9, 248, 272, 0
+terrain_54 = 9, 228, 282, 0
+terrain_55 = 6, 254, 262, 0
+terrain_56 = 9, 238, 278, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 458, 272, 32, 48, 0
+steel_1 = 522, 272, 32, 48, 0
+steel_2 = 682, 272, 32, 48, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

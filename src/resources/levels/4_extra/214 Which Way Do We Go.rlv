@@ -1,0 +1,111 @@
+﻿# LVL 214 Which Way Do We Go.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 9
+
+# Level stats
+name = Which Way Do We Go?
+author = 
+version = 9
+releaseRate = 50
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 80
+numToRescue = 80
+timeLimitSeconds = 300
+numClimbers = 1
+numFloaters = 1
+numBombers = 1
+numBlockers = 3
+numBuilders = 10
+numBashers = 2
+numMiners = 1
+numDiggers = 2
+xPosCenter = 1056
+yPosCenter = 112
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = rock
+width = 2568
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 6, 760, 136, 4, 0, 0
+object_1 = 6, 984, 88, 4, 0, 0
+object_2 = 6, 856, 144, 4, 0, 0
+object_3 = 6, 1240, 136, 4, 0, 0
+object_4 = 6, 1336, 144, 4, 0, 0
+object_5 = 1, 984, 0, 4, 0, 0
+object_6 = 0, 2232, 208, 4, 0, 0
+object_7 = 6, 2200, 240, 4, 0, 0
+object_8 = 0, 408, 192, 4, 0, 0
+object_9 = 6, 472, 216, 4, 0, 0
+object_10 = 6, 504, 216, 4, 0, 0
+object_11 = 6, 536, 216, 4, 0, 0
+object_12 = 6, 408, 216, 0, 0, 0
+object_13 = 6, 376, 216, 4, 2, 0
+object_14 = 6, 312, 216, 4, 2, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 11, 1010, 114, 8
+terrain_1 = 11, 1042, 114, 8
+terrain_2 = 12, 1074, 114, 8
+terrain_3 = 10, 994, 114, 8
+terrain_4 = 14, 942, 112, 0
+terrain_5 = 14, 894, 138, 0
+terrain_6 = 14, 1080, 114, 4
+terrain_7 = 14, 1130, 142, 4
+terrain_8 = 7, 1158, 164, 0
+terrain_9 = 7, 672, 166, 0
+terrain_10 = 8, 1186, 192, 0
+terrain_11 = 8, 1260, 198, 0
+terrain_12 = 3, 1480, 214, 0
+terrain_13 = 3, 1524, 172, 0
+terrain_14 = 3, 1572, 230, 0
+terrain_15 = 3, 1550, 228, 0
+terrain_16 = 3, 1590, 138, 0
+terrain_17 = 3, 1572, 138, 0
+terrain_18 = 3, 1662, 132, 0
+terrain_19 = 3, 1638, 208, 0
+terrain_20 = 2, 1712, 184, 0
+terrain_21 = 2, 1692, 100, 0
+terrain_22 = 2, 1542, 170, 0
+terrain_23 = 2, 1682, 208, 0
+terrain_24 = 2, 1716, 252, 0
+terrain_25 = 2, 1642, 122, 0
+terrain_26 = 2, 1504, 176, 0
+terrain_27 = 2, 1576, 134, 0
+terrain_28 = 2, 1750, 234, 0
+terrain_29 = 2, 1746, 166, 0
+terrain_30 = 2, 1472, 244, 0
+terrain_31 = 7, 1986, 266, 0
+terrain_32 = 7, 2146, 262, 0
+terrain_33 = 6, 2004, 222, 0
+terrain_34 = 7, 396, 272, 8
+terrain_35 = 7, 296, 264, 8
+terrain_36 = 7, 196, 276, 8
+terrain_37 = 7, 386, 240, 8
+terrain_38 = 7, 202, 240, 8
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

@@ -1,11 +1,11 @@
 ﻿# LVL 102 Rent-a-Lemming.rlv
-# Created with RetroLemmini Editor Version 1.0
-# RetroLemmini Level Version 3
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 4
 
 # Level stats
 name = Rent-a-Lemming
 author = 
-version = 3
+version = 4
 releaseRate = 1
 maxReleaseRate = 99
 lockReleaseRate = False
@@ -20,62 +20,60 @@ numBuilders = 20
 numBashers = 20
 numMiners = 20
 numDiggers = 20
-xPosCenter = 1312
+xPosCenter = 476
 yPosCenter = 160
-style = Rock
-width = 3200
-height = 320
 superlemming = False
 forceNormalTimerSpeed = True
 maxFallDistance = 126
 classicSteel = False
 autosteelMode = 1
+style = rock
+width = 1056
+height = 320
 topBoundary = 8
 bottomBoundary = 20
 leftBoundary = 0
 rightBoundary = -16
 
-
-
 # Objects
 # ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
 # Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
 # Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
-object_0 = 1, 1024, 168, 4, 0, 0
-object_1 = 0, 1536, 136, 4, 0, 0
+object_0 = 1, 188, 168, 4, 0, 0
+object_1 = 0, 700, 136, 4, 0, 0
 
 # Terrain
 # ID, X pos, Y pos, flags
 # Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
-terrain_0 = 7, 982, 274, 8
-terrain_1 = 7, 1190, 268, 8
-terrain_2 = 7, 1334, 292, 8
-terrain_3 = 7, 1520, 276, 8
-terrain_4 = 7, 1354, 248, 8
-terrain_5 = 8, 1124, 252, 8
-terrain_6 = 8, 1158, 238, 8
-terrain_7 = 7, 1214, 212, 8
-terrain_8 = 7, 1250, 188, 8
-terrain_9 = 7, 1406, 202, 8
-terrain_10 = 2, 1576, 212, 8
-terrain_11 = 52, 1312, 154, 8
-terrain_12 = 42, 1388, 156, 8
-terrain_13 = 44, 1466, 146, 8
-terrain_14 = 43, 1482, 116, 8
-terrain_15 = 43, 1482, 140, 8
-terrain_16 = 0, 960, 128, 8
-terrain_17 = 0, 956, 8, 8
-terrain_18 = 4, 942, 220, 8
-terrain_19 = 7, 976, -20, 8
-terrain_20 = 7, 1176, -20, 8
-terrain_21 = 8, 1368, -20, 8
-terrain_22 = 7, 1486, -40, 8
-terrain_23 = 0, 1606, 0, 8
-terrain_24 = 1, 1638, 198, 8
-terrain_25 = 11, 1588, 198, 8
-terrain_26 = 11, 1556, 198, 8
-terrain_27 = 11, 1524, 198, 8
-terrain_28 = 11, 1498, 198, 8
+terrain_0 = 7, 146, 274, 8
+terrain_1 = 7, 354, 268, 8
+terrain_2 = 7, 498, 292, 8
+terrain_3 = 7, 684, 276, 8
+terrain_4 = 7, 518, 248, 8
+terrain_5 = 8, 288, 252, 8
+terrain_6 = 8, 322, 238, 8
+terrain_7 = 7, 378, 212, 8
+terrain_8 = 7, 414, 188, 8
+terrain_9 = 7, 570, 202, 8
+terrain_10 = 2, 740, 212, 8
+terrain_11 = 52, 476, 154, 8
+terrain_12 = 42, 552, 156, 8
+terrain_13 = 44, 630, 146, 8
+terrain_14 = 43, 646, 116, 8
+terrain_15 = 43, 646, 140, 8
+terrain_16 = 0, 124, 128, 8
+terrain_17 = 0, 120, 8, 8
+terrain_18 = 4, 106, 220, 8
+terrain_19 = 7, 140, -20, 8
+terrain_20 = 7, 340, -20, 8
+terrain_21 = 8, 532, -20, 8
+terrain_22 = 7, 650, -40, 8
+terrain_23 = 0, 770, 0, 8
+terrain_24 = 1, 802, 198, 8
+terrain_25 = 11, 752, 198, 8
+terrain_26 = 11, 720, 198, 8
+terrain_27 = 11, 688, 198, 8
+terrain_28 = 11, 662, 198, 8
 
 # Steel
 # X position, Y position, width, height, flags (optional)

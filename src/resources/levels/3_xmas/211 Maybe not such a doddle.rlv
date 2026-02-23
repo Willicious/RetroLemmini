@@ -1,0 +1,80 @@
+﻿# LVL 211 Maybe not such a doddle.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 9
+
+# Level stats
+name =  Maybe not such a doddle
+author = 
+version = 9
+releaseRate = 40
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 80
+numToRescue = 80
+timeLimitSeconds = 420
+numClimbers = 5
+numFloaters = 5
+numBombers = 5
+numBlockers = 5
+numBuilders = 5
+numBashers = 5
+numMiners = 5
+numDiggers = 5
+xPosCenter = 484
+yPosCenter = 144
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = xmas
+width = 2284
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 3, 1844, 204, 0, 0, 0
+object_1 = 2, 308, 40, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 4, 142, -18, 0
+terrain_1 = 4, 174, 118, 0
+terrain_2 = 4, 136, 128, 0
+terrain_3 = 0, 162, 226, 0
+terrain_4 = 0, 258, 228, 0
+terrain_5 = 0, 334, 240, 0
+terrain_6 = 0, 442, 232, 0
+terrain_7 = 0, 600, 242, 0
+terrain_8 = 0, 788, 234, 0
+terrain_9 = 0, 930, 242, 0
+terrain_10 = 0, 1214, 234, 0
+terrain_11 = 4, 1434, 152, 8
+terrain_12 = 0, 1478, 226, 0
+terrain_13 = 3, 1828, 286, 0
+terrain_14 = 3, 1766, 288, 0
+terrain_15 = 3, 1672, 292, 0
+terrain_16 = 3, 1682, 272, 0
+terrain_17 = 3, 1884, 284, 0
+terrain_18 = 0, 1934, 214, 8
+terrain_19 = 4, 2028, 68, 8
+terrain_20 = 4, 2032, -8, 8
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

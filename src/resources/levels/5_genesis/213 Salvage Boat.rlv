@@ -1,0 +1,90 @@
+﻿# LVL tricky13.rlv
+# Created with RetroLemmini Editor Version 1.1.2
+# RetroLemmini Level Version 4
+
+# Level stats
+name = Salvage boat
+author = 
+version = 4
+releaseRate = 1
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 30
+numToRescue = 30
+timeLimitSeconds = 300
+numClimbers = 0
+numFloaters = 0
+numBombers = 0
+numBlockers = 0
+numBuilders = 12
+numBashers = 1
+numMiners = 2
+numDiggers = 0
+xPosCenter = 400
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = True
+autosteelMode = 0
+style = Marble
+width = 1022
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 4
+rightBoundary = -4
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 6, 192, 24, 4, 0, 0
+object_1 = 1, 384, 144, 4, 0, 0
+object_2 = 9, 768, 32, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 23, 400, 288, 0
+terrain_1 = 43, 336, 224, 8
+terrain_2 = 2, 496, 214, 0
+terrain_3 = 18, 560, 288, 0
+terrain_4 = 16, 544, 288, 0
+terrain_5 = 16, 576, 304, 0
+terrain_6 = 38, 570, 214, 0
+terrain_7 = 38, 570, 246, 0
+terrain_8 = 11, 666, 182, 0
+terrain_9 = 27, 352, 134, 0
+terrain_10 = 2, 362, 60, 0
+terrain_11 = 11, 436, 60, 0
+terrain_12 = 40, 452, 114, 0
+terrain_13 = 40, 490, 76, 0
+terrain_14 = 2, 480, 102, 0
+terrain_15 = 1, 456, -88, 0
+terrain_16 = 40, 310, 72, 0
+terrain_17 = 18, 288, 72, 0
+terrain_18 = 38, 192, 72, 0
+terrain_19 = 10, 592, 288, 0
+terrain_20 = 27, 786, 78, 0
+terrain_21 = 27, 786, 162, 0
+terrain_22 = 18, 786, 246, 0
+terrain_23 = 40, 670, 248, 0
+terrain_24 = 13, 722, 298, 0
+terrain_25 = 41, 728, 246, 8
+terrain_26 = 18, 784, 68, 0
+terrain_27 = 38, 180, 72, 8
+terrain_28 = 14, 178, 72, 0
+terrain_29 = 8, 456, 0, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

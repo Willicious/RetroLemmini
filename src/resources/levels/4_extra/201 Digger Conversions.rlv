@@ -1,0 +1,73 @@
+﻿# LVL 201 Digger Conversions.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 9
+
+# Level stats
+name = Digger Conversions
+author = 
+version = 9
+releaseRate = 25
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 80
+numToRescue = 70
+timeLimitSeconds = 240
+numClimbers = 0
+numFloaters = 0
+numBombers = 0
+numBlockers = 0
+numBuilders = 0
+numBashers = 1
+numMiners = 1
+numDiggers = 1
+xPosCenter = 596
+yPosCenter = 155
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = brick
+width = 1164
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 0, 888, 208, 4, 0, 0
+object_1 = 1, 248, 0, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 0, 216, 224, 0
+terrain_1 = 0, 216, 128, 0
+terrain_2 = 0, 344, 128, 0
+terrain_3 = 0, 344, 224, 0
+terrain_4 = 0, 472, 128, 0
+terrain_5 = 0, 472, 224, 0
+terrain_6 = 1, 600, 272, 0
+terrain_7 = 1, 728, 272, 0
+terrain_8 = 1, 856, 272, 0
+terrain_9 = 1, 472, 80, 0
+terrain_10 = 1, 344, 80, 0
+terrain_11 = 1, 216, 80, 0
+terrain_12 = 58, 592, 32, 0
+terrain_13 = 58, 216, 32, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

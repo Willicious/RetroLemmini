@@ -1,0 +1,134 @@
+﻿# LVL 102 Don't Let Your Eyes Deceive You.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 3
+
+# Level stats
+name = Don't Let Your Eyes Deceive You
+author = Ron Stard
+version = 3
+releaseRate = 40
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 20
+numToRescue = 10
+timeLimitSeconds = 480
+numClimbers = 10
+numFloaters = 10
+numBombers = 10
+numBlockers = 10
+numBuilders = 10
+numBashers = 10
+numMiners = 10
+numDiggers = 10
+xPosCenter = 517
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = pillar
+width = 1392
+height = 320
+topBoundary = 8
+bottomBoundary = 20
+leftBoundary = 0
+rightBoundary = -16
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 1, 261, 48, 4, 0, 0
+object_1 = 6, 1077, 96, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 35, 619, 258, 0
+terrain_1 = 35, 819, 258, 0
+terrain_2 = 3, 639, 86, 0
+terrain_3 = 3, 839, 60, 0
+terrain_4 = 55, 579, 204, 0
+terrain_5 = 55, 779, 204, 0
+terrain_6 = 56, 695, 204, 0
+terrain_7 = 31, 557, 284, 0
+terrain_8 = 31, 389, 282, 0
+terrain_9 = 31, 305, 282, 0
+terrain_10 = 1, 301, 148, 8
+terrain_11 = 26, 281, 142, 0
+terrain_12 = 35, 281, 256, 0
+terrain_13 = 33, 393, 198, 0
+terrain_14 = 22, 433, 242, 0
+terrain_15 = 38, 291, -20, 0
+terrain_16 = 38, 375, -20, 0
+terrain_17 = 38, 459, -20, 0
+terrain_18 = 38, 543, -20, 0
+terrain_19 = 38, 627, -20, 0
+terrain_20 = 38, 711, -20, 0
+terrain_21 = 38, 795, -20, 0
+terrain_22 = 38, 879, -20, 0
+terrain_23 = 38, 963, -20, 0
+terrain_24 = 38, 1047, -20, 0
+terrain_25 = 38, 1131, -20, 0
+terrain_26 = 10, 227, 284, 0
+terrain_27 = 38, 207, -20, 0
+terrain_28 = 11, 473, 282, 0
+terrain_29 = 22, 265, 282, 0
+terrain_30 = 31, 381, 184, 0
+terrain_31 = 22, 405, 184, 0
+terrain_32 = 31, 445, 184, 2
+terrain_33 = 31, 725, 284, 0
+terrain_34 = 31, 641, 284, 0
+terrain_35 = 31, 809, 284, 0
+terrain_36 = 31, 893, 284, 0
+terrain_37 = 1, 639, 130, 0
+terrain_38 = 54, 573, 260, 0
+terrain_39 = 57, 741, 260, 0
+terrain_40 = 54, 773, 260, 0
+terrain_41 = 57, 899, 204, 0
+terrain_42 = 1, 839, 102, 0
+terrain_43 = 1, 839, 130, 0
+terrain_44 = 57, 911, 220, 0
+terrain_45 = 22, 937, 244, 0
+terrain_46 = 54, 971, 220, 0
+terrain_47 = 54, 977, 212, 0
+terrain_48 = 31, 1061, 284, 0
+terrain_49 = 54, 1037, 170, 0
+terrain_50 = 31, 1145, 284, 0
+terrain_51 = 11, 1207, 284, 0
+terrain_52 = 57, 1175, 260, 0
+terrain_53 = 57, 1169, 252, 0
+terrain_54 = 44, 1113, 268, 0
+terrain_55 = 15, 1161, 244, 0
+terrain_56 = 44, 1097, 268, 0
+terrain_57 = 15, 1113, 244, 0
+terrain_58 = 15, 1081, 244, 0
+terrain_59 = 17, 1081, 180, 0
+terrain_60 = 54, 1057, 146, 0
+terrain_61 = 44, 1097, 146, 0
+terrain_62 = 43, 1081, 212, 0
+terrain_63 = 45, 1137, 146, 0
+terrain_64 = 17, 1161, 180, 0
+terrain_65 = 17, 1161, 150, 0
+terrain_66 = 45, 1137, 212, 0
+terrain_67 = 44, 1097, 212, 0
+terrain_68 = 16, 1113, 212, 0
+terrain_69 = 57, 1095, 188, 0
+terrain_70 = 57, 1089, 180, 0
+terrain_71 = 17, 1081, 146, 0
+terrain_72 = 43, 1081, 146, 0
+terrain_73 = 8, 1207, 282, 2
+terrain_74 = 31, 977, 284, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

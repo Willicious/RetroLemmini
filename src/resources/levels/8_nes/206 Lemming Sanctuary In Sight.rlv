@@ -1,0 +1,125 @@
+﻿# LVL 206 Lemming Sanctuary In Sight.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 2
+
+# Level stats
+name = Lemmings Sanctuary In Sight
+author = 
+version = 2
+releaseRate = 40
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 14
+numToRescue = 12
+timeLimitSeconds = 180
+numClimbers = 0
+numFloaters = 0
+numBombers = 0
+numBlockers = 10
+numBuilders = 10
+numBashers = 0
+numMiners = 0
+numDiggers = 0
+xPosCenter = 500
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = fire
+width = 1089
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 5, 612, 280, 4, 0, 0
+object_1 = 5, 676, 280, 4, 0, 0
+object_2 = 5, 500, 280, 4, 0, 0
+object_3 = 1, 276, 192, 4, 0, 0
+object_4 = 5, 388, 280, 4, 0, 0
+object_5 = 5, 260, 280, 4, 0, 0
+object_6 = 6, 228, 8, 4, 0, 0
+object_7 = 5, 212, 280, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 23, 792, 0, 0
+terrain_1 = 23, 792, 78, 0
+terrain_2 = 23, 792, 156, 0
+terrain_3 = 23, 792, 234, 0
+terrain_4 = 23, 792, 242, 0
+terrain_5 = 17, 832, 272, 0
+terrain_6 = 9, 834, 292, 0
+terrain_7 = 9, 862, 270, 0
+terrain_8 = 9, 822, 292, 4
+terrain_9 = 9, 836, 278, 4
+terrain_10 = 9, 858, 260, 4
+terrain_11 = 6, 892, 288, 0
+terrain_12 = 24, 710, 270, 0
+terrain_13 = 24, 632, 270, 0
+terrain_14 = 13, 630, 270, 64
+terrain_15 = 24, 540, 270, 0
+terrain_16 = 24, 462, 270, 0
+terrain_17 = 13, 472, 270, 64
+terrain_18 = 13, 408, 270, 64
+terrain_19 = 24, 318, 270, 0
+terrain_20 = 24, 272, 270, 0
+terrain_21 = 24, 242, 270, 0
+terrain_22 = 23, 240, 242, 0
+terrain_23 = 23, 240, 166, 0
+terrain_24 = 24, 242, 166, 0
+terrain_25 = 24, 320, 166, 0
+terrain_26 = 24, 398, 166, 0
+terrain_27 = 24, 476, 166, 0
+terrain_28 = 24, 554, 166, 0
+terrain_29 = 24, 594, 166, 0
+terrain_30 = 24, 710, 218, 0
+terrain_31 = 24, 632, 218, 0
+terrain_32 = 24, 554, 218, 0
+terrain_33 = 24, 476, 218, 0
+terrain_34 = 24, 410, 218, 0
+terrain_35 = 24, 368, 114, 0
+terrain_36 = 24, 464, 114, 0
+terrain_37 = 24, 542, 114, 0
+terrain_38 = 24, 620, 114, 0
+terrain_39 = 24, 688, 114, 0
+terrain_40 = 1, 224, 114, 0
+terrain_41 = 1, 274, 114, 0
+terrain_42 = 21, 314, 112, 0
+terrain_43 = 21, 314, 86, 0
+terrain_44 = 24, 386, 62, 0
+terrain_45 = 24, 308, 62, 0
+terrain_46 = 21, 314, 68, 0
+terrain_47 = 21, 238, 140, 0
+terrain_48 = 21, 238, 138, 0
+terrain_49 = 24, 402, 114, 0
+terrain_50 = 24, 464, 62, 0
+terrain_51 = 24, 542, 62, 0
+terrain_52 = 24, 570, 62, 0
+terrain_53 = 9, 194, 272, 0
+terrain_54 = 9, 174, 282, 0
+terrain_55 = 6, 200, 262, 0
+terrain_56 = 9, 184, 278, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 404, 272, 32, 48, 0
+steel_1 = 468, 272, 32, 48, 0
+steel_2 = 628, 272, 32, 48, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

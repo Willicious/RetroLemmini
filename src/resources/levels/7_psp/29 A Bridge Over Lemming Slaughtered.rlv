@@ -1,0 +1,133 @@
+﻿# LVL 29 A Bridge Over Lemming Slaughtered.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 4
+
+# Level stats
+name = A Bridge Over Lemming Slaugtered
+author = 
+version = 4
+releaseRate = 50
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 10
+numToRescue = 9
+timeLimitSeconds = 300
+numClimbers = 1
+numFloaters = 1
+numBombers = 0
+numBlockers = 0
+numBuilders = 7
+numBashers = 3
+numMiners = 1
+numDiggers = 2
+xPosCenter = 1056
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = marble
+width = 1584
+height = 320
+topBoundary = 8
+bottomBoundary = 20
+leftBoundary = 0
+rightBoundary = -16
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 6, 256, 260, 0, 0, 0
+object_1 = 9, 816, 168, 0, 0, 0
+object_2 = 1, 994, 5, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 12, 266, 308, 0
+terrain_1 = 53, 164, 168, 0
+terrain_2 = 4, 396, 258, 0
+terrain_3 = 4, 428, 258, 8
+terrain_4 = 39, 460, 290, 0
+terrain_5 = 4, 556, 226, 0
+terrain_6 = 4, 652, 226, 0
+terrain_7 = 4, 748, 226, 0
+terrain_8 = 4, 844, 226, 0
+terrain_9 = 26, 498, 276, 0
+terrain_10 = 26, 536, 292, 8
+terrain_11 = 26, 162, 276, 0
+terrain_12 = 5, 556, 206, 64
+terrain_13 = 5, 604, 206, 64
+terrain_14 = 5, 652, 206, 64
+terrain_15 = 5, 700, 206, 64
+terrain_16 = 5, 748, 206, 64
+terrain_17 = 5, 796, 206, 64
+terrain_18 = 5, 844, 206, 64
+terrain_19 = 5, 892, 206, 64
+terrain_20 = 39, 460, 144, 8
+terrain_21 = 39, 460, 96, 0
+terrain_22 = 39, 876, 144, 0
+terrain_23 = 39, 876, 80, 0
+terrain_24 = 39, 876, 48, 0
+terrain_25 = 4, 816, 48, 2
+terrain_26 = 4, 940, 196, 0
+terrain_27 = 58, 940, 180, 64
+terrain_28 = 58, 952, 186, 72
+terrain_29 = 4, 1036, 196, 0
+terrain_30 = 58, 988, 196, 64
+terrain_31 = 58, 1020, 196, 64
+terrain_32 = 53, 1036, 48, 0
+terrain_33 = 4, 1132, 196, 0
+terrain_34 = 4, 940, 116, 0
+terrain_35 = 4, 1004, 116, 8
+terrain_36 = 4, 1100, 100, 0
+terrain_37 = 4, 1196, 100, 0
+terrain_38 = 39, 1036, 228, 0
+terrain_39 = 39, 1068, 228, 0
+terrain_40 = 39, 1036, 292, 0
+terrain_41 = 39, 1068, 292, 0
+terrain_42 = 39, 876, 258, 0
+terrain_43 = 4, 940, 276, 0
+terrain_44 = 53, 1228, 96, 0
+terrain_45 = 4, 1196, 196, 8
+terrain_46 = 39, 1228, 276, 0
+terrain_47 = 39, 1260, 276, 0
+terrain_48 = 26, 834, 308, 0
+terrain_49 = 26, 914, 308, 0
+terrain_50 = 26, 882, 292, 0
+terrain_51 = 26, 858, 298, 0
+terrain_52 = 26, 1290, 282, 0
+terrain_53 = 26, 1242, 298, 0
+terrain_54 = 26, 1338, 266, 0
+terrain_55 = 26, 1338, 266, 0
+terrain_56 = 26, 1322, 282, 0
+terrain_57 = 5, 508, 206, 64
+terrain_58 = 4, 508, 226, 8
+terrain_59 = 5, 460, 206, 64
+terrain_60 = 4, 460, 226, 8
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 552, 208, 80, 48, 0
+steel_1 = 616, 208, 80, 48, 0
+steel_2 = 680, 208, 80, 48, 0
+steel_3 = 744, 208, 80, 48, 0
+steel_4 = 792, 208, 80, 48, 0
+steel_5 = 840, 208, 80, 48, 0
+steel_6 = 864, 208, 80, 48, 0
+steel_7 = 936, 176, 64, 32, 0
+steel_8 = 984, 192, 64, 32, 0
+steel_9 = 1016, 192, 64, 32, 0
+steel_10 = 504, 208, 80, 48, 0
+steel_11 = 456, 208, 80, 48, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

@@ -1,0 +1,128 @@
+﻿# LVL 105 Christmas South of the Equator.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 9
+
+# Level stats
+name =  Christmas South of the Equator
+author = 
+version = 9
+releaseRate = 40
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 75
+numToRescue = 25
+timeLimitSeconds = 300
+numClimbers = 20
+numFloaters = 20
+numBombers = 20
+numBlockers = 20
+numBuilders = 20
+numBashers = 20
+numMiners = 20
+numDiggers = 20
+xPosCenter = 600
+yPosCenter = 168
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = xmas
+width = 1544
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 3, 596, 188, 0, 0, 0
+object_1 = 8, 980, 184, 0, 0, 0
+object_2 = 9, 980, 144, 0, 0, 0
+object_3 = 1, 372, 0, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 19, 112, 248, 4
+terrain_1 = 19, 162, 252, 4
+terrain_2 = 19, 194, 208, 4
+terrain_3 = 19, 262, 176, 4
+terrain_4 = 19, 316, 138, 4
+terrain_5 = 19, 386, 98, 4
+terrain_6 = 22, 484, 80, 0
+terrain_7 = 22, 492, 98, 0
+terrain_8 = 22, 566, 88, 0
+terrain_9 = 22, 638, 74, 0
+terrain_10 = 22, 642, 96, 0
+terrain_11 = 22, 740, 86, 0
+terrain_12 = 22, 528, 78, 0
+terrain_13 = 22, 700, 76, 0
+terrain_14 = 22, 716, 94, 0
+terrain_15 = 19, 818, 48, 4
+terrain_16 = 19, 902, -8, 4
+terrain_17 = 19, 944, -14, 4
+terrain_18 = 19, 876, 36, 4
+terrain_19 = 19, 846, 56, 4
+terrain_20 = 29, 490, 272, 64
+terrain_21 = 29, 538, 272, 64
+terrain_22 = 29, 586, 272, 64
+terrain_23 = 29, 634, 272, 64
+terrain_24 = 29, 682, 272, 64
+terrain_25 = 29, 730, 272, 64
+terrain_26 = 22, 956, 208, 8
+terrain_27 = 21, 920, 244, 8
+terrain_28 = 21, 908, 270, 8
+terrain_29 = 22, 992, 226, 8
+terrain_30 = 22, 950, 236, 8
+terrain_31 = 22, 948, 280, 8
+terrain_32 = 22, 1000, 254, 8
+terrain_33 = 22, 1022, 244, 8
+terrain_34 = 22, 1018, 276, 8
+terrain_35 = 21, 1090, 266, 8
+terrain_36 = 22, 458, 128, 8
+terrain_37 = 22, 554, 130, 8
+terrain_38 = 22, 624, 116, 8
+terrain_39 = 22, 686, 128, 8
+terrain_40 = 22, 764, 126, 8
+terrain_41 = 21, 422, 134, 8
+terrain_42 = 21, 456, 124, 8
+terrain_43 = 21, 384, 138, 8
+terrain_44 = 21, 352, 160, 8
+terrain_45 = 21, 1038, -22, 8
+terrain_46 = 21, 1050, 172, 8
+terrain_47 = 22, 1094, 212, 8
+terrain_48 = 21, 1112, 172, 8
+terrain_49 = 21, 1150, 166, 8
+terrain_50 = 22, 1190, 244, 8
+terrain_51 = 22, 1122, 238, 8
+terrain_52 = 22, 1132, 274, 8
+terrain_53 = 22, 1090, 172, 8
+terrain_54 = 22, 1180, 188, 8
+terrain_55 = 21, 1172, 218, 8
+terrain_56 = 19, 1230, 206, 8
+terrain_57 = 19, 1180, 266, 8
+terrain_58 = 19, 1246, 242, 8
+terrain_59 = 19, 1222, 260, 8
+terrain_60 = 19, 1284, 252, 8
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 492, 272, 48, 48, 0
+steel_1 = 540, 272, 48, 48, 0
+steel_2 = 588, 272, 48, 48, 0
+steel_3 = 636, 272, 48, 48, 0
+steel_4 = 684, 272, 48, 48, 0
+steel_5 = 732, 272, 48, 48, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

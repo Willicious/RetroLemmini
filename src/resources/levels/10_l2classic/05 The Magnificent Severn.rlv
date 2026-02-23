@@ -1,0 +1,84 @@
+﻿# LVL 05 The Magnificent Severn.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 3
+
+# Level stats
+name = The Magnificent Severn
+author = 
+version = 3
+releaseRate = 30
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 60
+numToRescue = 59
+timeLimitSeconds = 300
+numClimbers = 1
+numFloaters = 5
+numBombers = 1
+numBlockers = 1
+numBuilders = 2
+numBashers = 5
+numMiners = 1
+numDiggers = 2
+xPosCenter = 620
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = classic
+width = 2255
+height = 320
+topBoundary = 8
+bottomBoundary = 20
+leftBoundary = 0
+rightBoundary = -16
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 2, 1800, 257, 4, 0, 0
+object_1 = 3, 300, 288, 4, 0, 0
+object_2 = 1, 327, 32, 0, 0, 0
+object_3 = 3, 428, 288, 4, 0, 0
+object_4 = 3, 684, 288, 4, 0, 0
+object_5 = 3, 556, 288, 4, 0, 0
+object_6 = 3, 812, 288, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 4, 300, 0, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 328, 96, 160, 16, 0
+steel_1 = 616, 96, 64, 16, 0
+steel_2 = 712, 96, 64, 16, 0
+steel_3 = 936, 256, 32, 64, 0
+steel_4 = 1192, 240, 32, 80, 0
+steel_5 = 1320, 256, 224, 16, 0
+steel_6 = 1384, 0, 604, 16, 0
+steel_7 = 1448, 48, 480, 32, 0
+steel_8 = 1512, 112, 416, 32, 0
+steel_9 = 1576, 176, 352, 32, 0
+steel_10 = 1288, 48, 32, 224, 0
+steel_11 = 1320, 64, 32, 32, 0
+steel_12 = 1320, 128, 96, 32, 0
+steel_13 = 1320, 192, 160, 32, 0
+steel_14 = 1640, 240, 128, 32, 0
+steel_15 = 1960, 48, 28, 32, 0
+steel_16 = 1960, 112, 28, 32, 0
+steel_17 = 1960, 176, 28, 32, 0
+steel_18 = 1960, 240, 28, 32, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

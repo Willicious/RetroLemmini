@@ -1,0 +1,77 @@
+﻿# LVL 03 LEMTRIS.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 3
+
+# Level stats
+name = LEMTRIS
+author = 
+version = 3
+releaseRate = 20
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 60
+numToRescue = 60
+timeLimitSeconds = 240
+numClimbers = 4
+numFloaters = 4
+numBombers = 4
+numBlockers = 4
+numBuilders = 4
+numBashers = 4
+numMiners = 4
+numDiggers = 4
+xPosCenter = 1072
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = classic
+width = 1736
+height = 320
+topBoundary = 8
+bottomBoundary = 20
+leftBoundary = 0
+rightBoundary = -16
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 2, 307, 143, 0, 0, 0
+object_1 = 1, 1363, 127, 0, 0, 0
+object_2 = 3, 1391, 288, 4, 0, 0
+object_3 = 3, 1269, 288, 4, 0, 0
+object_4 = 3, 1013, 288, 4, 0, 0
+object_5 = 3, 1141, 288, 4, 0, 0
+object_6 = 3, 501, 288, 4, 0, 0
+object_7 = 3, 629, 288, 4, 0, 0
+object_8 = 3, 757, 288, 4, 0, 0
+object_9 = 3, 885, 288, 4, 0, 0
+object_10 = 3, 247, 288, 4, 0, 0
+object_11 = 3, 373, 288, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 2, 247, 0, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 243, 0, 32, 320, 0
+steel_1 = 1491, 0, 32, 320, 0
+steel_2 = 1427, 64, 64, 32, 0
+steel_3 = 275, 64, 64, 32, 0
+steel_4 = 339, 32, 32, 64, 0
+steel_5 = 275, 192, 32, 32, 0
+steel_6 = 403, 192, 1088, 32, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

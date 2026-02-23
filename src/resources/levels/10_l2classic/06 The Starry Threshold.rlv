@@ -1,0 +1,96 @@
+﻿# LVL 06 The Starry Threshold.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 4
+
+# Level stats
+name = The Starry Threshold
+author = 
+version = 4
+releaseRate = 10
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 60
+numToRescue = 60
+timeLimitSeconds = 360
+numClimbers = 4
+numFloaters = 2
+numBombers = 2
+numBlockers = 2
+numBuilders = 5
+numBashers = 2
+numMiners = 2
+numDiggers = 10
+xPosCenter = 577
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = classic
+width = 2654
+height = 320
+topBoundary = 8
+bottomBoundary = 20
+leftBoundary = 0
+rightBoundary = -16
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 3, 1374, 288, 4, 0, 0
+object_1 = 3, 258, 288, 4, 0, 0
+object_2 = 3, 386, 288, 4, 0, 0
+object_3 = 3, 642, 288, 4, 0, 0
+object_4 = 3, 514, 288, 4, 0, 0
+object_5 = 3, 770, 288, 4, 0, 0
+object_6 = 3, 974, 256, 4, 0, 0
+object_7 = 3, 1310, 192, 4, 0, 0
+object_8 = 3, 1182, 192, 4, 0, 0
+object_9 = 3, 1214, 176, 4, 0, 0
+object_10 = 3, 1310, 176, 4, 0, 0
+object_11 = 3, 1278, 160, 4, 0, 0
+object_12 = 3, 1278, 144, 4, 0, 0
+object_13 = 3, 2330, 288, 4, 0, 0
+object_14 = 4, 2206, 168, 4, 0, 0
+object_15 = 2, 2206, 239, 4, 0, 0
+object_16 = 1, 734, 46, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 5, 258, 0, 8
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 862, 0, 32, 144, 0
+steel_1 = 702, 112, 160, 32, 0
+steel_2 = 894, 288, 608, 32, 0
+steel_3 = 1470, 272, 32, 16, 0
+steel_4 = 1502, 0, 64, 224, 0
+steel_5 = 1406, 64, 32, 192, 0
+steel_6 = 1214, 224, 192, 32, 0
+steel_7 = 1182, 192, 64, 32, 0
+steel_8 = 1214, 160, 64, 32, 0
+steel_9 = 1246, 128, 64, 32, 0
+steel_10 = 1278, 96, 64, 32, 0
+steel_11 = 990, 192, 96, 32, 0
+steel_12 = 1022, 160, 96, 32, 0
+steel_13 = 1054, 128, 96, 32, 0
+steel_14 = 1086, 96, 96, 32, 0
+steel_15 = 1118, 64, 96, 32, 0
+steel_16 = 1310, 64, 96, 32, 0
+steel_17 = 926, 256, 224, 32, 0
+steel_18 = 958, 224, 160, 32, 0
+steel_19 = 2334, 288, 32, 32, 0
+steel_20 = 2366, 112, 92, 160, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

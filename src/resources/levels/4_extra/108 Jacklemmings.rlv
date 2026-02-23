@@ -1,0 +1,80 @@
+﻿# LVL 108 Jacklemmings.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 9
+
+# Level stats
+name = JackLemmings
+author = 
+version = 9
+releaseRate = 50
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 80
+numToRescue = 60
+timeLimitSeconds = 240
+numClimbers = 25
+numFloaters = 25
+numBombers = 25
+numBlockers = 25
+numBuilders = 25
+numBashers = 25
+numMiners = 25
+numDiggers = 25
+xPosCenter = 664
+yPosCenter = 130
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = brick
+width = 1288
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 1, 368, 0, 0, 0, 0
+object_1 = 1, 592, 0, 0, 0, 0
+object_2 = 1, 816, 0, 0, 0, 0
+object_3 = 6, 496, 16, 0, 0, 0
+object_4 = 6, 720, 16, 0, 0, 0
+object_5 = 0, 592, 200, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 24, 478, 86, 0
+terrain_1 = 24, 414, 86, 0
+terrain_2 = 24, 350, 86, 0
+terrain_3 = 24, 542, 86, 0
+terrain_4 = 24, 604, 86, 0
+terrain_5 = 24, 668, 86, 0
+terrain_6 = 24, 732, 86, 0
+terrain_7 = 24, 796, 86, 0
+terrain_8 = 24, 860, 86, 0
+terrain_9 = 24, 924, 86, 0
+terrain_10 = 27, 614, 270, 0
+terrain_11 = 27, 646, 270, 0
+terrain_12 = 27, 582, 270, 0
+terrain_13 = 34, 642, 302, 0
+terrain_14 = 34, 592, 302, 0
+terrain_15 = 9, 582, 170, 0
+terrain_16 = 9, 656, 170, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

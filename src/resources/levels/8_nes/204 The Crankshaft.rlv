@@ -1,0 +1,132 @@
+﻿# LVL 204 The Crankshaft.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 3
+
+# Level stats
+name = The Crankshaft
+author = Ron Stard
+version = 3
+releaseRate = 20
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 10
+numToRescue = 9
+timeLimitSeconds = 240
+numClimbers = 3
+numFloaters = 3
+numBombers = 3
+numBlockers = 3
+numBuilders = 1
+numBashers = 3
+numMiners = 3
+numDiggers = 3
+xPosCenter = 449
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = pillar
+width = 1773
+height = 320
+topBoundary = 8
+bottomBoundary = 20
+leftBoundary = 0
+rightBoundary = -16
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 1, 305, 40, 4, 0, 0
+object_1 = 6, 1377, 160, 4, 0, 0
+object_2 = 5, 1185, 288, 4, 0, 0
+object_3 = 5, 929, 288, 4, 0, 0
+object_4 = 5, 673, 288, 4, 0, 0
+object_5 = 5, 545, 288, 4, 0, 0
+object_6 = 5, 801, 288, 4, 0, 0
+object_7 = 5, 1057, 288, 4, 0, 0
+object_8 = 8, 1057, 48, 4, 0, 0
+object_9 = 5, 1313, 288, 4, 0, 0
+object_10 = 5, 1425, 288, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 35, 511, 294, 0
+terrain_1 = 3, 531, 46, 0
+terrain_2 = 3, 825, 46, 0
+terrain_3 = 3, 1119, 46, 0
+terrain_4 = 1, 1119, 90, 0
+terrain_5 = 0, 433, 122, 0
+terrain_6 = 0, 561, 208, 0
+terrain_7 = 0, 741, 208, 0
+terrain_8 = 0, 893, 122, 0
+terrain_9 = 0, 1187, 208, 0
+terrain_10 = 0, 1315, 208, 0
+terrain_11 = 0, 305, 122, 0
+terrain_12 = 23, 279, 102, 0
+terrain_13 = 10, 241, 288, 8
+terrain_14 = 31, 279, 288, 8
+terrain_15 = 31, 363, 288, 8
+terrain_16 = 1, 531, 90, 0
+terrain_17 = 1, 825, 90, 0
+terrain_18 = 31, 539, 288, 8
+terrain_19 = 31, 801, 288, 0
+terrain_20 = 31, 831, 288, 0
+terrain_21 = 35, 805, 294, 0
+terrain_22 = 1, 825, 166, 0
+terrain_23 = 31, 1095, 288, 0
+terrain_24 = 31, 1127, 288, 0
+terrain_25 = 35, 1099, 294, 0
+terrain_26 = 1, 1119, 166, 0
+terrain_27 = 31, 447, 288, 8
+terrain_28 = 19, 1059, 118, 0
+terrain_29 = 19, 1043, 120, 0
+terrain_30 = 0, 991, 122, 0
+terrain_31 = 5, 671, 208, 0
+terrain_32 = 1, 531, 166, 0
+terrain_33 = 4, 715, 208, 0
+terrain_34 = 0, 1395, 208, 0
+terrain_35 = 31, 1473, 288, 0
+terrain_36 = 25, 1479, 188, 0
+terrain_37 = 38, 627, 32, 0
+terrain_38 = 38, 711, 32, 0
+terrain_39 = 22, 651, -8, 0
+terrain_40 = 22, 731, -8, 0
+terrain_41 = 22, 691, -8, 0
+terrain_42 = 8, 613, -6, 0
+terrain_43 = 9, 771, -6, 0
+terrain_44 = 43, 651, 0, 0
+terrain_45 = 42, 731, 0, 0
+terrain_46 = 44, 679, 0, 0
+terrain_47 = 12, 649, 16, 0
+terrain_48 = 12, 755, 16, 0
+terrain_49 = 31, 923, -8, 0
+terrain_50 = 31, 1007, -8, 0
+terrain_51 = 8, 885, -6, 0
+terrain_52 = 9, 1091, -6, 0
+terrain_53 = 31, 1181, -8, 0
+terrain_54 = 31, 1265, -8, 0
+terrain_55 = 31, 1349, -8, 0
+terrain_56 = 31, 1433, -8, 0
+terrain_57 = 9, 1517, -6, 0
+terrain_58 = 9, 1475, 32, 0
+terrain_59 = 8, 1143, -6, 0
+terrain_60 = 8, 1185, 32, 0
+terrain_61 = 31, 1391, 32, 0
+terrain_62 = 31, 1307, 32, 0
+terrain_63 = 31, 1223, 32, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

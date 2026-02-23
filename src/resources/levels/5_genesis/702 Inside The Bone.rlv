@@ -1,0 +1,147 @@
+﻿# LVL sunsoft02.rlv
+# Created with RetroLemmini Editor Version 1.1.2
+# RetroLemmini Level Version 4
+
+# Level stats
+name = Inside the bone
+author = 
+version = 4
+releaseRate = 1
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 50
+numToRescue = 50
+timeLimitSeconds = 300
+numClimbers = 0
+numFloaters = 0
+numBombers = 0
+numBlockers = 0
+numBuilders = 13
+numBashers = 2
+numMiners = 0
+numDiggers = 0
+xPosCenter = 400
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = True
+autosteelMode = 0
+style = dirt_md
+width = 1022
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 4
+rightBoundary = -4
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 1, 128, 88, 4, 0, 0
+object_1 = 7, 896, 88, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 20, 86, 210, 0
+terrain_1 = 20, 90, 156, 0
+terrain_2 = 20, 116, 214, 8
+terrain_3 = 19, 58, 216, 0
+terrain_4 = 21, 174, 250, 0
+terrain_5 = 4, 220, -64, 4
+terrain_6 = 4, 276, -40, 4
+terrain_7 = 4, 244, 8, 4
+terrain_8 = 4, 290, 24, 4
+terrain_9 = 4, 324, -18, 4
+terrain_10 = 4, 356, -62, 4
+terrain_11 = 4, 338, -78, 4
+terrain_12 = 2, 230, 28, 0
+terrain_13 = 2, 310, 128, 8
+terrain_14 = 2, 320, 108, 8
+terrain_15 = 3, 184, -12, 8
+terrain_16 = 3, 126, -32, 8
+terrain_17 = 3, 94, -38, 8
+terrain_18 = 10, 626, 228, 0
+terrain_19 = 10, 666, 184, 0
+terrain_20 = 10, 582, 156, 0
+terrain_21 = 10, 510, 196, 0
+terrain_22 = 10, 506, 244, 0
+terrain_23 = 10, 440, 222, 0
+terrain_24 = 10, 372, 272, 0
+terrain_25 = 10, 616, 84, 0
+terrain_26 = 10, 712, 136, 0
+terrain_27 = 10, 704, 242, 0
+terrain_28 = 10, 756, 182, 0
+terrain_29 = 10, 808, 164, 0
+terrain_30 = 10, 830, 230, 0
+terrain_31 = 10, 884, 226, 0
+terrain_32 = 10, 894, 196, 0
+terrain_33 = 10, 718, 248, 0
+terrain_34 = 10, 394, -76, 8
+terrain_35 = 10, 288, -30, 8
+terrain_36 = 37, 262, 134, 0
+terrain_37 = 37, 206, 30, 0
+terrain_38 = 39, 198, 26, 0
+terrain_39 = 39, 404, 150, 0
+terrain_40 = 41, 266, 8, 0
+terrain_41 = 6, 612, 100, 0
+terrain_42 = 8, 648, 80, 4
+terrain_43 = 8, 626, 94, 12
+terrain_44 = 8, 618, 98, 12
+terrain_45 = 9, 682, 74, 0
+terrain_46 = 9, 690, 78, 8
+terrain_47 = 22, 892, 134, 0
+terrain_48 = 27, 292, 294, 8
+terrain_49 = 27, 310, 300, 8
+terrain_50 = 27, 66, 282, 8
+terrain_51 = 27, 172, 306, 8
+terrain_52 = 27, 190, 306, 8
+terrain_53 = 27, 196, 304, 8
+terrain_54 = 27, 222, 304, 8
+terrain_55 = 27, 248, 304, 8
+terrain_56 = 27, 262, 304, 8
+terrain_57 = 44, 696, 54, 8
+terrain_58 = 47, 572, 184, 8
+terrain_59 = 42, 350, 212, 12
+terrain_60 = 42, 374, 236, 12
+terrain_61 = 42, 256, 250, 8
+terrain_62 = 42, 296, 210, 8
+terrain_63 = 46, 126, 140, 8
+terrain_64 = 15, 878, 130, 8
+terrain_65 = 15, 912, 130, 0
+terrain_66 = 27, 268, 302, 8
+terrain_67 = 1, 128, 222, 8
+terrain_68 = 17, 334, 296, 2
+terrain_69 = 17, 326, 288, 2
+terrain_70 = 17, 320, 286, 2
+terrain_71 = 17, 306, 280, 2
+terrain_72 = 27, 160, 242, 8
+terrain_73 = 17, 208, 262, 8
+terrain_74 = 17, 220, 270, 8
+terrain_75 = 17, 222, 284, 8
+terrain_76 = 17, 224, 288, 8
+terrain_77 = 17, 216, 294, 8
+terrain_78 = 17, 196, 266, 2
+terrain_79 = 17, 198, 268, 2
+terrain_80 = 17, 200, 272, 2
+terrain_81 = 17, 252, 262, 8
+terrain_82 = 17, 254, 272, 8
+terrain_83 = 17, 252, 278, 8
+terrain_84 = 17, 250, 292, 8
+terrain_85 = 47, 572, 172, 0
+terrain_86 = 27, 386, 296, 8
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 344, 304, 48, 16, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

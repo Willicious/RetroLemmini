@@ -1,0 +1,130 @@
+﻿# LVL 203 CindyLand.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 9
+
+# Level stats
+name =  CindyLand
+author = 
+version = 9
+releaseRate = 50
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 80
+numToRescue = 75
+timeLimitSeconds = 300
+numClimbers = 7
+numFloaters = 7
+numBombers = 7
+numBlockers = 7
+numBuilders = 7
+numBashers = 7
+numMiners = 7
+numDiggers = 7
+xPosCenter = 1276
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = xmas
+width = 2560
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 3, 208, 60, 4, 0, 0
+object_1 = 3, 2192, 164, 0, 0, 0
+object_2 = 2, 1232, 8, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 23, 1146, 158, 0
+terrain_1 = 23, 1204, 154, 0
+terrain_2 = 23, 1274, 164, 0
+terrain_3 = 23, 1386, 276, 0
+terrain_4 = 23, 1462, 274, 0
+terrain_5 = 15, 1574, 200, 0
+terrain_6 = 15, 1574, 122, 0
+terrain_7 = 16, 1574, 78, 0
+terrain_8 = 1, 1578, 254, 8
+terrain_9 = 4, 1630, 142, 8
+terrain_10 = 0, 1710, 218, 0
+terrain_11 = 0, 914, 232, 0
+terrain_12 = 0, 746, 216, 0
+terrain_13 = 4, 792, 64, 8
+terrain_14 = 5, 588, 186, 0
+terrain_15 = 0, 454, 204, 8
+terrain_16 = 29, 1976, 56, 64
+terrain_17 = 29, 2024, 56, 64
+terrain_18 = 29, 2072, 56, 64
+terrain_19 = 29, 2120, 56, 64
+terrain_20 = 29, 2168, 56, 64
+terrain_21 = 29, 2216, 56, 64
+terrain_22 = 29, 2264, 56, 64
+terrain_23 = 29, 2312, 56, 64
+terrain_24 = 29, 2312, 104, 64
+terrain_25 = 29, 2312, 152, 64
+terrain_26 = 29, 2312, 200, 64
+terrain_27 = 29, 2312, 248, 64
+terrain_28 = 29, 2264, 248, 64
+terrain_29 = 29, 2216, 248, 64
+terrain_30 = 29, 2168, 248, 64
+terrain_31 = 29, 2120, 248, 64
+terrain_32 = 29, 2072, 248, 64
+terrain_33 = 29, 2024, 248, 64
+terrain_34 = 29, 1976, 248, 64
+terrain_35 = 29, 1976, 200, 64
+terrain_36 = 29, 1976, 104, 64
+terrain_37 = 0, 1892, 218, 8
+terrain_38 = 0, 1982, -28, 8
+terrain_39 = 0, 2068, -36, 8
+terrain_40 = 0, 1992, 18, 8
+terrain_41 = 0, 2076, 18, 8
+terrain_42 = 0, 2068, 258, 8
+terrain_43 = 0, 2228, 246, 8
+terrain_44 = 1, 2356, 214, 8
+terrain_45 = 1, 2304, 186, 8
+terrain_46 = 1, 2328, 156, 8
+terrain_47 = 1, 2304, 114, 8
+terrain_48 = 1, 2274, 54, 8
+terrain_49 = 1, 2292, 188, 8
+terrain_50 = 1, 2304, 144, 8
+terrain_51 = 1, 2258, -2, 8
+terrain_52 = 1, 2230, -28, 8
+terrain_53 = 0, 184, 128, 8
+terrain_54 = 0, 96, 124, 8
+terrain_55 = 15, 102, 78, 8
+terrain_56 = 15, 102, -16, 8
+terrain_57 = 15, 414, 110, 8
+terrain_58 = 15, 414, 16, 8
+terrain_59 = 15, 414, -26, 8
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 1976, 104, 48, 48, 0
+steel_1 = 1976, 200, 48, 48, 0
+steel_2 = 1976, 248, 80, 48, 0
+steel_3 = 2056, 248, 128, 48, 0
+steel_4 = 2184, 248, 128, 48, 0
+steel_5 = 2312, 200, 48, 96, 0
+steel_6 = 2312, 104, 48, 96, 0
+steel_7 = 1976, 56, 128, 48, 0
+steel_8 = 2104, 56, 128, 48, 0
+steel_9 = 2232, 56, 128, 48, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

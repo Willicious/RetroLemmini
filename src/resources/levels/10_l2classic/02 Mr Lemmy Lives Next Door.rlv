@@ -1,0 +1,67 @@
+﻿# LVL 02 Mr Lemmy Lives Next Door.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 3
+
+# Level stats
+name = Mr Lemmy Lives Next Door
+author = 
+version = 3
+releaseRate = 50
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 60
+numToRescue = 60
+timeLimitSeconds = 300
+numClimbers = 1
+numFloaters = 10
+numBombers = 2
+numBlockers = 2
+numBuilders = 6
+numBashers = 1
+numMiners = 1
+numDiggers = 1
+xPosCenter = 567
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = classic
+width = 1133
+height = 320
+topBoundary = 8
+bottomBoundary = 20
+leftBoundary = 0
+rightBoundary = -16
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 2, 755, 159, 0, 0, 0
+object_1 = 1, 307, 113, 0, 0, 0
+object_2 = 3, 247, 288, 0, 0, 0
+object_3 = 3, 375, 288, 0, 0, 0
+object_4 = 3, 503, 288, 0, 0, 0
+object_5 = 3, 631, 288, 0, 0, 0
+object_6 = 3, 759, 288, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 1, 247, 0, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 531, 144, 32, 64, 0
+steel_1 = 691, 144, 32, 32, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

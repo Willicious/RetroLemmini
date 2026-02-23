@@ -1,0 +1,109 @@
+﻿# LVL 115 Head for the Hills.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 9
+
+# Level stats
+name =  Head for the Hills\!
+author = 
+version = 9
+releaseRate = 20
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 10
+numToRescue = 10
+timeLimitSeconds = 180
+numClimbers = 10
+numFloaters = 10
+numBombers = 10
+numBlockers = 10
+numBuilders = 10
+numBashers = 0
+numMiners = 0
+numDiggers = 0
+xPosCenter = 1012
+yPosCenter = 168
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = xmas
+width = 2040
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 2, 964, 16, 0, 0, 0
+object_1 = 3, 964, 220, 0, 0, 0
+object_2 = 5, 1764, 48, 0, 0, 0
+object_3 = 5, 1764, 80, 0, 0, 0
+object_4 = 5, 1764, 112, 0, 0, 0
+object_5 = 5, 1764, 144, 0, 0, 0
+object_6 = 5, 1764, 176, 0, 0, 0
+object_7 = 5, 1764, 208, 0, 0, 0
+object_8 = 5, 1764, 240, 0, 0, 0
+object_9 = 5, 1764, 272, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 2, 870, 122, 0
+terrain_1 = 3, 938, 126, 0
+terrain_2 = 2, 1046, 122, 0
+terrain_3 = 0, 760, 230, 0
+terrain_4 = 0, 998, 236, 0
+terrain_5 = 14, 978, 304, 0
+terrain_6 = 36, 1002, 296, 2
+terrain_7 = 36, 1008, 292, 2
+terrain_8 = 36, 1012, 288, 2
+terrain_9 = 36, 1024, 276, 2
+terrain_10 = 36, 1024, 272, 2
+terrain_11 = 36, 1020, 278, 2
+terrain_12 = 36, 1018, 282, 2
+terrain_13 = 36, 1024, 280, 2
+terrain_14 = 36, 976, 278, 2
+terrain_15 = 36, 976, 276, 2
+terrain_16 = 36, 986, 276, 2
+terrain_17 = 36, 984, 276, 2
+terrain_18 = 36, 980, 270, 2
+terrain_19 = 36, 978, 278, 2
+terrain_20 = 3, 1086, 128, 0
+terrain_21 = 0, 1236, 212, 0
+terrain_22 = 0, 592, 214, 0
+terrain_23 = 0, 404, 222, 0
+terrain_24 = 0, 470, 164, 0
+terrain_25 = 0, 450, 76, 0
+terrain_26 = 0, 356, 0, 0
+terrain_27 = 0, 284, 48, 0
+terrain_28 = 0, 228, 114, 0
+terrain_29 = 0, 166, 184, 0
+terrain_30 = 0, 166, 232, 0
+terrain_31 = 0, 364, 154, 0
+terrain_32 = 0, 96, 252, 0
+terrain_33 = 1, 656, 176, 0
+terrain_34 = 16, 1740, 14, 0
+terrain_35 = 16, 1892, 14, 0
+terrain_36 = 15, 1892, 62, 0
+terrain_37 = 15, 1892, 190, 0
+terrain_38 = 15, 1892, 286, 0
+terrain_39 = 15, 1740, 62, 0
+terrain_40 = 15, 1740, 190, 0
+terrain_41 = 15, 1740, 204, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

@@ -1,0 +1,83 @@
+﻿# LVL fun32.rlv
+# Created with RetroLemmini Editor Version 1.1.2
+# RetroLemmini Level Version 4
+
+# Level stats
+name = flag test map
+author = 
+version = 4
+releaseRate = 10
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 100
+numToRescue = 1
+timeLimitSeconds = 300
+numClimbers = 8
+numFloaters = 8
+numBombers = 8
+numBlockers = 8
+numBuilders = 8
+numBashers = 8
+numMiners = 8
+numDiggers = 8
+xPosCenter = 400
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = True
+autosteelMode = 0
+style = dirt_md
+width = 1022
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 4
+rightBoundary = -4
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 7, 352, 184, 4, 0, 0
+object_1 = 1, 96, 8, 4, 0, 0
+object_2 = 2, 352, 56, 0, 0, 0
+object_3 = 2, 384, 56, 0, 0, 0
+object_4 = 2, 416, 56, 0, 0, 0
+object_5 = 9, 448, 88, 0, 0, 0
+object_6 = 9, 480, 88, 0, 0, 0
+object_7 = 9, 512, 88, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 19, -22, 204, 0
+terrain_1 = 19, 12, 172, 0
+terrain_2 = 19, 34, 216, 0
+terrain_3 = 19, 54, 160, 0
+terrain_4 = 19, 76, 212, 0
+terrain_5 = 19, 100, 158, 0
+terrain_6 = 19, 138, 176, 0
+terrain_7 = 19, 146, 222, 0
+terrain_8 = 19, 184, 212, 0
+terrain_9 = 19, 274, 204, 0
+terrain_10 = 19, 226, 208, 0
+terrain_11 = 19, 326, 208, 0
+terrain_12 = 19, 382, 176, 0
+terrain_13 = 19, 374, 234, 0
+terrain_14 = 19, 436, 224, 0
+terrain_15 = 19, 496, 186, 0
+terrain_16 = 19, 504, 220, 0
+terrain_17 = 18, 414, 216, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

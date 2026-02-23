@@ -1,0 +1,92 @@
+﻿# LVL 208 Division Bell.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 9
+
+# Level stats
+name =  Division Bell
+author = 
+version = 9
+releaseRate = 60
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 80
+numToRescue = 75
+timeLimitSeconds = 60
+numClimbers = 10
+numFloaters = 10
+numBombers = 10
+numBlockers = 10
+numBuilders = 10
+numBashers = 10
+numMiners = 10
+numDiggers = 10
+xPosCenter = 1508
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = xmas
+width = 2536
+height = 320
+topBoundary = 8
+bottomBoundary = 20
+leftBoundary = 0
+rightBoundary = -16
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 2, 1476, 0, 4, 0, 0
+object_1 = 3, 2308, 168, 0, 0, 0
+object_2 = 3, 132, 180, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 22, 1446, 156, 0
+terrain_1 = 22, 1516, 158, 0
+terrain_2 = 25, 1620, 132, 0
+terrain_3 = 26, 1362, 130, 0
+terrain_4 = 18, 1360, 44, 8
+terrain_5 = 18, 1652, 46, 8
+terrain_6 = 23, 456, 264, 8
+terrain_7 = 23, 540, 254, 8
+terrain_8 = 23, 596, 256, 8
+terrain_9 = 23, 676, 250, 8
+terrain_10 = 23, 734, 248, 8
+terrain_11 = 23, 806, 252, 8
+terrain_12 = 23, 906, 254, 8
+terrain_13 = 23, 1012, 256, 8
+terrain_14 = 23, 1112, 252, 8
+terrain_15 = 23, 1200, 256, 8
+terrain_16 = 23, 1258, 248, 8
+terrain_17 = 23, 1370, 252, 8
+terrain_18 = 23, 1482, 252, 8
+terrain_19 = 23, 1592, 252, 8
+terrain_20 = 23, 1686, 248, 8
+terrain_21 = 23, 1772, 242, 8
+terrain_22 = 23, 1874, 244, 8
+terrain_23 = 23, 1990, 254, 8
+terrain_24 = 23, 2098, 256, 8
+terrain_25 = 23, 2202, 250, 8
+terrain_26 = 23, 2282, 248, 8
+terrain_27 = 23, 406, 256, 0
+terrain_28 = 23, 324, 256, 0
+terrain_29 = 23, 264, 258, 0
+terrain_30 = 23, 196, 258, 0
+terrain_31 = 23, 98, 260, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

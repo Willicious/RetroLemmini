@@ -1,0 +1,78 @@
+﻿# LVL 101 The Covox Level.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 11
+
+# Level stats
+name = The COVOX Level
+author = 
+version = 11
+releaseRate = 50
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 80
+numToRescue = 40
+timeLimitSeconds = 540
+numClimbers = 25
+numFloaters = 25
+numBombers = 25
+numBlockers = 25
+numBuilders = 25
+numBashers = 25
+numMiners = 25
+numDiggers = 25
+xPosCenter = 1020
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = bubble
+width = 2116
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 1, 972, 72, 4, 0, 0
+object_1 = 6, 1708, 192, 4, 0, 0
+object_2 = 6, 396, 192, 4, 0, 0
+object_3 = 11, 1676, 192, 4, 0, 0
+object_4 = 11, 364, 192, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 1, 108, 0, 0, special
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 1228, 264, 128, 48, 0
+steel_1 = 1100, 264, 128, 48, 0
+steel_2 = 972, 264, 128, 48, 0
+steel_3 = 844, 264, 128, 48, 0
+steel_4 = 772, 264, 72, 48, 0
+steel_5 = 348, 264, 128, 48, 0
+steel_6 = 148, 264, 72, 48, 0
+steel_7 = 220, 264, 128, 48, 0
+steel_8 = 148, 168, 56, 96, 0
+steel_9 = 148, 72, 56, 96, 0
+steel_10 = 1900, 168, 56, 96, 0
+steel_11 = 1900, 72, 56, 96, 0
+steel_12 = 1828, 264, 128, 48, 0
+steel_13 = 1700, 264, 128, 48, 0
+steel_14 = 1660, 264, 40, 48, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

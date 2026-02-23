@@ -1,0 +1,144 @@
+﻿# LVL 415 Steel Block Party.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 9
+
+# Level stats
+name =  Steel Block Party
+author = 
+version = 9
+releaseRate = 40
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 60
+numToRescue = 60
+timeLimitSeconds = 300
+numClimbers = 1
+numFloaters = 0
+numBombers = 1
+numBlockers = 2
+numBuilders = 4
+numBashers = 1
+numMiners = 0
+numDiggers = 4
+xPosCenter = 540
+yPosCenter = 196
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = xmas
+width = 1076
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 3, 700, 188, 0, 0, 0
+object_1 = 4, 476, 16, 0, 0, 0
+object_2 = 2, 284, 16, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 15, 634, 110, 0
+terrain_1 = 15, 624, 110, 4
+terrain_2 = 15, 614, 110, 0
+terrain_3 = 15, 600, 110, 4
+terrain_4 = 15, 586, 110, 0
+terrain_5 = 15, 574, 110, 4
+terrain_6 = 15, 560, 110, 0
+terrain_7 = 15, 550, 110, 4
+terrain_8 = 15, 540, 110, 0
+terrain_9 = 15, 530, 110, 4
+terrain_10 = 15, 520, 110, 0
+terrain_11 = 15, 508, 110, 4
+terrain_12 = 15, 498, 110, 0
+terrain_13 = 15, 486, 110, 4
+terrain_14 = 15, 474, 110, 0
+terrain_15 = 15, 462, 110, 4
+terrain_16 = 15, 634, 198, 4
+terrain_17 = 15, 624, 198, 0
+terrain_18 = 15, 612, 198, 4
+terrain_19 = 15, 602, 198, 0
+terrain_20 = 15, 590, 198, 4
+terrain_21 = 15, 578, 198, 0
+terrain_22 = 15, 566, 198, 4
+terrain_23 = 15, 552, 198, 0
+terrain_24 = 15, 540, 196, 4
+terrain_25 = 15, 530, 196, 0
+terrain_26 = 15, 518, 196, 4
+terrain_27 = 15, 506, 196, 0
+terrain_28 = 15, 494, 196, 4
+terrain_29 = 15, 482, 196, 0
+terrain_30 = 15, 472, 196, 4
+terrain_31 = 15, 462, 196, 4
+terrain_32 = 15, 452, 110, 4
+terrain_33 = 15, 450, 206, 4
+terrain_34 = 15, 440, 110, 4
+terrain_35 = 15, 436, 210, 4
+terrain_36 = 15, 428, 110, 4
+terrain_37 = 15, 426, 210, 4
+terrain_38 = 15, 418, 110, 4
+terrain_39 = 15, 414, 224, 4
+terrain_40 = 15, 404, 110, 4
+terrain_41 = 15, 400, 218, 4
+terrain_42 = 15, 398, 110, 4
+terrain_43 = 15, 390, 234, 4
+terrain_44 = 15, 390, 110, 4
+terrain_45 = 15, 378, 204, 4
+terrain_46 = 15, 366, 204, 4
+terrain_47 = 15, 354, 204, 4
+terrain_48 = 15, 344, 204, 4
+terrain_49 = 15, 332, 204, 4
+terrain_50 = 15, 324, 204, 4
+terrain_51 = 29, 292, 200, 64
+terrain_52 = 29, 340, 200, 64
+terrain_53 = 29, 292, 248, 64
+terrain_54 = 29, 292, 296, 64
+terrain_55 = 15, 386, 200, 8
+terrain_56 = 29, 460, 112, 64
+terrain_57 = 29, 372, 264, 64
+terrain_58 = 29, 556, 296, 64
+terrain_59 = 29, 564, 144, 64
+terrain_60 = 29, 652, 272, 64
+terrain_61 = 29, 700, 272, 64
+terrain_62 = 29, 748, 272, 64
+terrain_63 = 29, 796, 272, 64
+terrain_64 = 29, 444, 248, 64
+terrain_65 = 29, 492, 248, 64
+terrain_66 = 29, 484, 64, 66
+terrain_67 = 29, 442, 64, 66
+terrain_68 = 29, 402, 64, 66
+terrain_69 = 29, 386, 64, 66
+terrain_70 = 29, 520, 64, 66
+terrain_71 = 29, 568, 64, 66
+terrain_72 = 29, 616, 64, 66
+terrain_73 = 29, 508, 112, 64
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 460, 112, 48, 48, 0
+steel_1 = 292, 200, 104, 48, 0
+steel_2 = 292, 248, 48, 72, 0
+steel_3 = 556, 296, 48, 48, 0
+steel_4 = 652, 272, 96, 48, 0
+steel_5 = 748, 272, 96, 48, 0
+steel_6 = 444, 248, 96, 48, 0
+steel_7 = 508, 112, 48, 48, 0
+steel_8 = 564, 144, 48, 48, 0
+steel_9 = 372, 264, 48, 48, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

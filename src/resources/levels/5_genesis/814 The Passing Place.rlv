@@ -1,0 +1,118 @@
+﻿# LVL multi14.rlv
+# Created with RetroLemmini Editor Version 1.1.2
+# RetroLemmini Level Version 4
+
+# Level stats
+name = The Passing Place
+author = 
+version = 4
+releaseRate = 20
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 75
+numToRescue = 57
+timeLimitSeconds = 240
+numClimbers = 2
+numFloaters = 1
+numBombers = 0
+numBlockers = 0
+numBuilders = 50
+numBashers = 20
+numMiners = 20
+numDiggers = 20
+xPosCenter = 400
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = True
+autosteelMode = 0
+style = Pillar
+width = 1022
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 4
+rightBoundary = -4
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 6, 288, 136, 4, 0, 0
+object_1 = 6, 608, 136, 4, 0, 0
+object_2 = 7, 640, 104, 4, 0, 0
+object_3 = 2, 320, 104, 4, 0, 0
+object_4 = 1, 832, 56, 4, 0, 0
+object_5 = 1, 64, 56, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 27, 482, 282, 64
+terrain_1 = 27, 482, 234, 64
+terrain_2 = 27, 482, 186, 64
+terrain_3 = 27, 482, 138, 64
+terrain_4 = 27, 482, 42, 64
+terrain_5 = 27, 482, -6, 64
+terrain_6 = 28, 848, 278, 0
+terrain_7 = 28, 82, 278, 0
+terrain_8 = 33, 936, 244, 0
+terrain_9 = 33, 936, 160, 0
+terrain_10 = 33, 936, 76, 0
+terrain_11 = 33, 22, 246, 0
+terrain_12 = 33, 22, 162, 0
+terrain_13 = 33, 24, 78, 0
+terrain_14 = 38, 150, 290, 8
+terrain_15 = 38, 234, 290, 8
+terrain_16 = 38, 318, 290, 8
+terrain_17 = 38, 402, 290, 8
+terrain_18 = 38, 764, 290, 8
+terrain_19 = 38, 680, 290, 8
+terrain_20 = 38, 596, 290, 8
+terrain_21 = 38, 514, 290, 8
+terrain_22 = 31, 530, -14, 0
+terrain_23 = 31, 614, -14, 0
+terrain_24 = 31, 698, -14, 4
+terrain_25 = 31, 782, -14, 0
+terrain_26 = 31, 398, -14, 0
+terrain_27 = 31, 314, -14, 4
+terrain_28 = 31, 230, -16, 4
+terrain_29 = 31, 146, -16, 4
+terrain_30 = 8, 108, -12, 0
+terrain_31 = 9, 866, -12, 0
+terrain_32 = 49, 270, 184, 64
+terrain_33 = 49, 318, 184, 64
+terrain_34 = 49, 366, 184, 64
+terrain_35 = 49, 588, 184, 64
+terrain_36 = 49, 636, 184, 64
+terrain_37 = 49, 684, 184, 64
+terrain_38 = 22, 24, 38, 0
+terrain_39 = 22, 936, 36, 0
+terrain_40 = 10, 6, 2, 0
+terrain_41 = 10, 918, 0, 0
+terrain_42 = 11, 956, -2, 0
+terrain_43 = 11, 44, 0, 0
+terrain_44 = 28, 848, 214, 0
+terrain_45 = 28, 82, 214, 0
+terrain_46 = 26, 62, 170, 0
+terrain_47 = 26, 828, 170, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 264, 184, 128, 32, 0
+steel_1 = 392, 184, 24, 32, 0
+steel_2 = 584, 184, 128, 32, 0
+steel_3 = 712, 184, 24, 32, 0
+steel_4 = 480, 0, 48, 88, 0
+steel_5 = 480, 136, 48, 128, 0
+steel_6 = 480, 264, 48, 56, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

@@ -1,0 +1,68 @@
+﻿# LVL 04 Tension Sheet Good Idea.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 3
+
+# Level stats
+name = Tension Sheet, Good Idea
+author = 
+version = 3
+releaseRate = 40
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 60
+numToRescue = 59
+timeLimitSeconds = 300
+numClimbers = 2
+numFloaters = 2
+numBombers = 10
+numBlockers = 10
+numBuilders = 3
+numBashers = 1
+numMiners = 3
+numDiggers = 1
+xPosCenter = 603
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = classic
+width = 1679
+height = 320
+topBoundary = 8
+bottomBoundary = 20
+leftBoundary = 0
+rightBoundary = -16
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 2, 1303, 143, 0, 0, 0
+object_1 = 3, 759, 240, 4, 0, 0
+object_2 = 3, 663, 240, 4, 0, 0
+object_3 = 1, 375, 30, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 3, 283, 0, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 471, 256, 224, 32, 0
+steel_1 = 663, 32, 32, 224, 0
+steel_2 = 855, 160, 32, 128, 0
+steel_3 = 695, 272, 160, 16, 0
+steel_4 = 1271, 192, 32, 128, 0
+steel_5 = 1111, 224, 32, 96, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

@@ -1,0 +1,85 @@
+﻿# LVL 03 Sixes Not.rlv
+# Created with RetroLemmini Editor Version 1.1.2
+# RetroLemmini Level Version 3
+
+# Level stats
+name = Sixes Not!
+author = 
+version = 3
+releaseRate = 66
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 20
+numToRescue = 14
+timeLimitSeconds = 360
+numClimbers = 20
+numFloaters = 20
+numBombers = 20
+numBlockers = 20
+numBuilders = 20
+numBashers = 20
+numMiners = 20
+numDiggers = 20
+xPosCenter = 1264
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = fire
+width = 3200
+height = 320
+topBoundary = 8
+bottomBoundary = 20
+leftBoundary = 0
+rightBoundary = -16
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 5, 1024, 280, 4, 0, 0
+object_1 = 5, 1152, 280, 4, 0, 0
+object_2 = 5, 1280, 280, 4, 0, 0
+object_3 = 5, 1408, 280, 4, 0, 0
+object_4 = 5, 1536, 280, 4, 0, 0
+object_5 = 5, 1664, 280, 4, 0, 0
+object_6 = 5, 1792, 280, 4, 0, 0
+object_7 = 5, 1920, 280, 4, 0, 0
+object_8 = 5, 2048, 280, 4, 0, 0
+object_9 = 5, 2176, 280, 4, 0, 0
+object_10 = 5, 896, 280, 4, 0, 0
+object_11 = 6, 1824, 136, 4, 0, 0
+object_12 = 1, 1248, 160, 4, 0, 0
+object_13 = 5, 0, 280, 4, 0, 0
+object_14 = 5, 128, 280, 4, 0, 0
+object_15 = 5, 256, 280, 4, 0, 0
+object_16 = 5, 384, 280, 4, 0, 0
+object_17 = 5, 512, 280, 4, 0, 0
+object_18 = 5, 640, 280, 4, 0, 0
+object_19 = 5, 768, 280, 4, 0, 0
+object_20 = 5, 2304, 280, 4, 0, 0
+object_21 = 5, 2432, 280, 4, 0, 0
+object_22 = 5, 2560, 280, 4, 0, 0
+object_23 = 5, 2688, 280, 4, 0, 0
+object_24 = 5, 2816, 280, 4, 0, 0
+object_25 = 5, 2944, 280, 4, 0, 0
+object_26 = 5, 3072, 280, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 11, 608, 0, 0, special
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

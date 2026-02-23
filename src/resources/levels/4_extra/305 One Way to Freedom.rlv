@@ -1,0 +1,142 @@
+﻿# LVL 305 One Way to Freedom.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 9
+
+# Level stats
+name = One Way to Freedom
+author = 
+version = 9
+releaseRate = 65
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 60
+numToRescue = 53
+timeLimitSeconds = 300
+numClimbers = 0
+numFloaters = 1
+numBombers = 12
+numBlockers = 0
+numBuilders = 25
+numBashers = 2
+numMiners = 0
+numDiggers = 0
+xPosCenter = 612
+yPosCenter = 174
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 1
+style = fire
+width = 1428
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 3, 488, 248, 8, 0, 0
+object_1 = 3, 424, 248, 8, 0, 0
+object_2 = 3, 552, 248, 8, 0, 0
+object_3 = 3, 424, 200, 8, 0, 0
+object_4 = 3, 488, 200, 8, 0, 0
+object_5 = 3, 552, 200, 8, 0, 0
+object_6 = 3, 424, 152, 8, 0, 0
+object_7 = 3, 488, 152, 8, 0, 0
+object_8 = 3, 552, 152, 8, 0, 0
+object_9 = 3, 424, 104, 8, 0, 0
+object_10 = 3, 488, 104, 8, 0, 0
+object_11 = 3, 552, 104, 8, 0, 0
+object_12 = 6, 1096, 184, 4, 0, 0
+object_13 = 1, 264, 160, 4, 0, 0
+object_14 = 7, 840, 264, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 14, 218, 270, 64
+terrain_1 = 14, 268, 270, 64
+terrain_2 = 14, 318, 270, 64
+terrain_3 = 14, 368, 270, 64
+terrain_4 = 14, 418, 270, 64
+terrain_5 = 14, 468, 270, 64
+terrain_6 = 14, 518, 270, 64
+terrain_7 = 14, 568, 270, 64
+terrain_8 = 14, 618, 270, 64
+terrain_9 = 14, 668, 270, 64
+terrain_10 = 14, 718, 270, 64
+terrain_11 = 14, 768, 270, 64
+terrain_12 = 14, 818, 270, 64
+terrain_13 = 2, 424, 220, 0
+terrain_14 = 2, 474, 220, 0
+terrain_15 = 2, 524, 220, 0
+terrain_16 = 2, 566, 220, 0
+terrain_17 = 2, 424, 148, 0
+terrain_18 = 2, 474, 148, 0
+terrain_19 = 2, 524, 148, 0
+terrain_20 = 2, 566, 148, 0
+terrain_21 = 2, 424, 76, 0
+terrain_22 = 2, 474, 76, 0
+terrain_23 = 2, 524, 76, 0
+terrain_24 = 2, 566, 76, 0
+terrain_25 = 1, 424, 76, 2
+terrain_26 = 1, 474, 76, 2
+terrain_27 = 1, 524, 76, 2
+terrain_28 = 1, 572, 76, 2
+terrain_29 = 60, 216, 198, 0
+terrain_30 = 61, 200, 138, 0
+terrain_31 = 60, 216, 74, 8
+terrain_32 = 61, 200, 8, 0
+terrain_33 = 60, 216, -56, 8
+terrain_34 = 14, 868, 270, 64
+terrain_35 = 14, 918, 270, 64
+terrain_36 = 14, 968, 270, 64
+terrain_37 = 14, 1018, 270, 64
+terrain_38 = 14, 1068, 270, 64
+terrain_39 = 14, 1118, 270, 64
+terrain_40 = 14, 1168, 270, 64
+terrain_41 = 0, 840, 286, 0
+terrain_42 = 0, 852, 284, 0
+terrain_43 = 60, 1206, 198, 0
+terrain_44 = 61, 1190, 134, 8
+terrain_45 = 60, 1206, 70, 0
+terrain_46 = 61, 1190, 2, 8
+terrain_47 = 60, 1206, -62, 0
+terrain_48 = 60, 216, 74, 0
+terrain_49 = 60, 216, 198, 0
+terrain_50 = 60, 216, -56, 0
+terrain_51 = 10, 224, -32, 4
+terrain_52 = 10, 378, -34, 4
+terrain_53 = 10, 518, -32, 4
+terrain_54 = 10, 664, -38, 4
+terrain_55 = 10, 790, -32, 4
+terrain_56 = 10, 934, -32, 4
+terrain_57 = 10, 1032, -30, 4
+terrain_58 = 10, 1198, -38, 4
+terrain_59 = 10, 96, -36, 4
+terrain_60 = 34, 786, 56, 0
+terrain_61 = 45, 848, 50, 0
+terrain_62 = 45, 910, 56, 0
+terrain_63 = 43, 950, 56, 0
+terrain_64 = 57, 1052, 56, 0
+terrain_65 = 0, 1118, 288, 8
+terrain_66 = 14, 168, 270, 64
+terrain_67 = 61, 200, 258, 8
+terrain_68 = 14, 1218, 270, 64
+terrain_69 = 61, 1190, 254, 8
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

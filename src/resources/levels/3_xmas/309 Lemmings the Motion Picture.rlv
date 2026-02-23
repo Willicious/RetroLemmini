@@ -1,0 +1,94 @@
+﻿# LVL 309 Lemmings the Motion Picture.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 9
+
+# Level stats
+name =  Lemmings...The Motion Picture
+author = 
+version = 9
+releaseRate = 25
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 80
+numToRescue = 75
+timeLimitSeconds = 540
+numClimbers = 2
+numFloaters = 10
+numBombers = 1
+numBlockers = 10
+numBuilders = 30
+numBashers = 10
+numMiners = 10
+numDiggers = 10
+xPosCenter = 540
+yPosCenter = 168
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = xmas
+width = 2684
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 3, 2428, 116, 0, 0, 0
+object_1 = 2, 188, 32, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 24, 282, 266, 0
+terrain_1 = 24, 366, 264, 0
+terrain_2 = 4, 188, 160, 0
+terrain_3 = 25, 480, 226, 0
+terrain_4 = 25, 536, 190, 0
+terrain_5 = 25, 672, 134, 0
+terrain_6 = 25, 748, 90, 0
+terrain_7 = 25, 772, 264, 0
+terrain_8 = 25, 834, 226, 0
+terrain_9 = 25, 974, 170, 0
+terrain_10 = 25, 1058, 122, 0
+terrain_11 = 25, 1132, 74, 0
+terrain_12 = 25, 1092, 278, 0
+terrain_13 = 25, 1170, 232, 0
+terrain_14 = 25, 1208, 206, 0
+terrain_15 = 25, 1336, 138, 0
+terrain_16 = 25, 1408, 96, 0
+terrain_17 = 25, 1482, 48, 0
+terrain_18 = 25, 1450, 272, 0
+terrain_19 = 25, 1518, 228, 0
+terrain_20 = 25, 1572, 190, 0
+terrain_21 = 25, 1704, 136, 0
+terrain_22 = 25, 1766, 96, 0
+terrain_23 = 25, 1840, 50, 0
+terrain_24 = 25, 1888, 22, 0
+terrain_25 = 25, 1826, 276, 0
+terrain_26 = 25, 1888, 236, 0
+terrain_27 = 25, 1948, 192, 0
+terrain_28 = 25, 2016, 148, 0
+terrain_29 = 25, 2092, 102, 0
+terrain_30 = 25, 2216, 52, 0
+terrain_31 = 25, 2258, 28, 0
+terrain_32 = 23, 2306, 188, 0
+terrain_33 = 23, 2368, 192, 0
+terrain_34 = 23, 2466, 186, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

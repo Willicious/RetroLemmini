@@ -1,0 +1,133 @@
+﻿# LVL mayhem13.rlv
+# Created with RetroLemmini Editor Version 1.1.2
+# RetroLemmini Level Version 5
+
+# Level stats
+name = The Great Lemming Caper
+author = 
+version = 5
+releaseRate = 50
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 2
+numToRescue = 2
+timeLimitSeconds = 300
+numClimbers = 1
+numFloaters = 1
+numBombers = 2
+numBlockers = 2
+numBuilders = 2
+numBashers = 10
+numMiners = 10
+numDiggers = 10
+xPosCenter = 400
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = Pillar
+width = 1022
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 1, 160, 16, 4, 0, 0
+object_1 = 6, 704, 144, 4, 0, 0
+object_2 = 5, 768, 288, 4, 0, 0
+object_3 = 5, 896, 288, 4, 0, 0
+object_4 = 8, 896, 80, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 38, 180, 98, 0
+terrain_1 = 38, 180, 138, 0
+terrain_2 = 38, 180, 178, 0
+terrain_3 = 38, 180, 218, 0
+terrain_4 = 38, 180, 298, 0
+terrain_5 = 38, 264, 298, 0
+terrain_6 = 38, 348, 298, 0
+terrain_7 = 38, 432, 298, 0
+terrain_8 = 38, 516, 298, 0
+terrain_9 = 38, 600, 298, 0
+terrain_10 = 38, 348, 258, 0
+terrain_11 = 38, 348, 218, 0
+terrain_12 = 38, 348, 178, 0
+terrain_13 = 38, 308, 138, 0
+terrain_14 = 38, 392, 138, 0
+terrain_15 = 38, 432, 218, 0
+terrain_16 = 38, 566, 258, 0
+terrain_17 = 38, 566, 218, 0
+terrain_18 = 38, 566, 178, 0
+terrain_19 = 38, 566, 138, 0
+terrain_20 = 38, 526, 98, 0
+terrain_21 = 38, 610, 98, 0
+terrain_22 = 38, 650, 194, 0
+terrain_23 = 38, 734, 194, 0
+terrain_24 = 26, 710, 234, 0
+terrain_25 = 21, 896, 192, 0
+terrain_26 = 21, 936, 192, 0
+terrain_27 = 8, 818, 232, 0
+terrain_28 = 9, 938, 232, 0
+terrain_29 = 21, 856, 230, 0
+terrain_30 = 21, 898, 230, 0
+terrain_31 = 21, 892, 230, 8
+terrain_32 = 8, 858, 270, 0
+terrain_33 = 9, 896, 270, 0
+terrain_34 = 9, 976, 194, 0
+terrain_35 = 56, 938, 250, 8
+terrain_36 = 55, 786, 254, 8
+terrain_37 = 38, 816, 194, 0
+terrain_38 = 10, 838, 158, 0
+terrain_39 = 22, 876, 154, 0
+terrain_40 = 21, 916, 154, 0
+terrain_41 = 11, 956, 156, 0
+terrain_42 = 11, 12, 260, 0
+terrain_43 = 11, 50, 296, 0
+terrain_44 = 32, -82, 258, 0
+terrain_45 = 33, 10, 296, 0
+terrain_46 = 32, -52, 290, 0
+terrain_47 = 3, -16, 170, 8
+terrain_48 = 2, 224, -26, 4
+terrain_49 = 2, 356, -26, 4
+terrain_50 = 2, 486, -26, 4
+terrain_51 = 2, 616, -26, 4
+terrain_52 = 2, 422, -44, 12
+terrain_53 = 2, 294, -44, 12
+terrain_54 = 2, 554, -44, 12
+terrain_55 = 41, 48, 218, 8
+terrain_56 = 41, 72, 218, 8
+terrain_57 = 41, 96, 218, 8
+terrain_58 = 41, 118, 218, 8
+terrain_59 = 41, 130, 218, 8
+terrain_60 = 41, 150, 218, 8
+terrain_61 = 41, 162, 218, 8
+terrain_62 = 28, -16, 214, 0
+terrain_63 = 28, -16, 278, 8
+terrain_64 = 11, -10, 242, 0
+terrain_65 = 28, 730, 278, 0
+terrain_66 = 35, 4, 122, 0
+terrain_67 = 1, 24, -6, 0
+terrain_68 = 38, 648, 192, 0
+terrain_69 = 38, 732, 192, 0
+terrain_70 = 38, 816, 192, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

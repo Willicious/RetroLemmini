@@ -1,0 +1,117 @@
+﻿# LVL 21 Seeing Double.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 4
+
+# Level stats
+name = Seeing Double!
+author = 
+version = 4
+releaseRate = 10
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 12
+numToRescue = 8
+timeLimitSeconds = 300
+numClimbers = 5
+numFloaters = 0
+numBombers = 1
+numBlockers = 2
+numBuilders = 2
+numBashers = 4
+numMiners = 0
+numDiggers = 0
+xPosCenter = 679
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = marble
+width = 1460
+height = 320
+topBoundary = 8
+bottomBoundary = 20
+leftBoundary = 0
+rightBoundary = -16
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 6, 671, 242, 0, 0, 0
+object_1 = 9, 687, 88, 4, 0, 0
+object_2 = 1, 383, 0, 0, 0, 0
+object_3 = 1, 767, 0, 0, 0, 0
+object_4 = 1, 383, 0, 0, 0, 0
+object_5 = 1, 767, 0, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 4, 417, 296, 0
+terrain_1 = 4, 513, 296, 0
+terrain_2 = 4, 529, 296, 0
+terrain_3 = 4, 321, 196, 0
+terrain_4 = 4, 369, 116, 0
+terrain_5 = 4, 465, 116, 0
+terrain_6 = 4, 561, 116, 0
+terrain_7 = 4, 657, 116, 0
+terrain_8 = 4, 737, 116, 0
+terrain_9 = 1, 369, -32, 0
+terrain_10 = 4, 321, 296, 0
+terrain_11 = 4, 225, 296, 0
+terrain_12 = 4, 129, 296, 0
+terrain_13 = 53, 131, 172, 8
+terrain_14 = 4, 833, 116, 0
+terrain_15 = 57, 645, 242, 64
+terrain_16 = 57, 645, 194, 64
+terrain_17 = 58, 671, 194, 64
+terrain_18 = 58, 671, 290, 64
+terrain_19 = 59, 645, 290, 64
+terrain_20 = 18, 719, 290, 0
+terrain_21 = 18, 751, 290, 0
+terrain_22 = 18, 757, 290, 0
+terrain_23 = 17, 773, 258, 0
+terrain_24 = 17, 773, 226, 0
+terrain_25 = 17, 773, 194, 0
+terrain_26 = 18, 719, 194, 0
+terrain_27 = 18, 751, 194, 0
+terrain_28 = 4, 929, 116, 0
+terrain_29 = 39, 673, -46, 0
+terrain_30 = 39, 705, -46, 0
+terrain_31 = 4, 1057, 196, 0
+terrain_32 = 4, 809, 296, 0
+terrain_33 = 4, 905, 296, 0
+terrain_34 = 4, 1001, 296, 0
+terrain_35 = 4, 1097, 296, 0
+terrain_36 = 4, 1193, 296, 0
+terrain_37 = 53, 1235, 172, 8
+terrain_38 = 4, 1009, 116, 0
+terrain_39 = 1, 1073, -32, 0
+terrain_40 = 4, 1225, 296, 0
+terrain_41 = 6, 703, 126, 8
+terrain_42 = 39, 705, 18, 0
+terrain_43 = 39, 673, 18, 0
+terrain_44 = 58, 671, 210, 66
+terrain_45 = 58, 703, 210, 66
+terrain_46 = 57, 661, 210, 66
+terrain_47 = 57, 661, 244, 66
+terrain_48 = 58, 671, 306, 66
+terrain_49 = 58, 643, 306, 66
+terrain_50 = 1, 1069, -32, 0
+terrain_51 = 1, 373, -32, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 639, 288, 80, 24, 0
+steel_1 = 639, 208, 24, 96, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

@@ -1,0 +1,110 @@
+﻿# LVL 215 Old MacDonald Had A Farm.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 9
+
+# Level stats
+name = Old MacDonald Had a Farm...
+author = 
+version = 9
+releaseRate = 25
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 80
+numToRescue = 76
+timeLimitSeconds = 180
+numClimbers = 0
+numFloaters = 3
+numBombers = 1
+numBlockers = 5
+numBuilders = 8
+numBashers = 0
+numMiners = 0
+numDiggers = 0
+xPosCenter = 1179
+yPosCenter = 130
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = brick
+width = 1788
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 7, 288, 256, 4, 0, 0
+object_1 = 0, 640, 248, 4, 0, 0
+object_2 = 1, 1376, 0, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 37, 192, 312, 0
+terrain_1 = 37, 256, 312, 0
+terrain_2 = 37, 320, 312, 0
+terrain_3 = 37, 384, 312, 0
+terrain_4 = 37, 448, 312, 0
+terrain_5 = 37, 512, 312, 0
+terrain_6 = 37, 576, 312, 0
+terrain_7 = 37, 640, 312, 0
+terrain_8 = 37, 704, 312, 0
+terrain_9 = 37, 768, 312, 0
+terrain_10 = 34, 490, 230, 0
+terrain_11 = 34, 488, 140, 0
+terrain_12 = 34, 490, 64, 0
+terrain_13 = 42, 416, 280, 0
+terrain_14 = 0, 832, 224, 12
+terrain_15 = 0, 960, 224, 12
+terrain_16 = 0, 832, 128, 12
+terrain_17 = 0, 960, 128, 12
+terrain_18 = 0, 832, 32, 12
+terrain_19 = 0, 960, 32, 12
+terrain_20 = 13, 1088, 32, 12
+terrain_21 = 5, 1088, 92, 12
+terrain_22 = 5, 1088, 188, 12
+terrain_23 = 13, 1148, 92, 4
+terrain_24 = 13, 1208, 152, 4
+terrain_25 = 13, 1268, 212, 4
+terrain_26 = 13, 1328, 272, 4
+terrain_27 = 5, 1148, 152, 4
+terrain_28 = 5, 1088, 236, 4
+terrain_29 = 5, 1148, 224, 4
+terrain_30 = 5, 1208, 212, 4
+terrain_31 = 5, 1208, 248, 4
+terrain_32 = 5, 1268, 272, 4
+terrain_33 = 5, 1356, 224, 4
+terrain_34 = 5, 1416, 224, 4
+terrain_35 = 26, 768, 32, 4
+terrain_36 = 26, 704, 32, 4
+terrain_37 = 26, 640, 32, 4
+terrain_38 = 26, 576, 32, 4
+terrain_39 = 26, 512, 32, 4
+terrain_40 = 5, 1356, 128, 4
+terrain_41 = 5, 1416, 128, 4
+terrain_42 = 6, 1356, 80, 4
+terrain_43 = 6, 1416, 80, 4
+terrain_44 = 10, 464, 128, 6
+terrain_45 = 32, 492, 142, 4
+terrain_46 = 42, 448, 280, 0
+terrain_47 = 42, 480, 280, 0
+terrain_48 = 21, 416, 278, 2
+terrain_49 = 21, 414, 290, 2
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

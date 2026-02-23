@@ -1,0 +1,131 @@
+﻿# LVL 107 Lemming Snowjourn.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 9
+
+# Level stats
+name =  Lemming Snowjourn
+author = 
+version = 9
+releaseRate = 40
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 50
+numToRescue = 25
+timeLimitSeconds = 300
+numClimbers = 20
+numFloaters = 20
+numBombers = 20
+numBlockers = 20
+numBuilders = 20
+numBashers = 20
+numMiners = 20
+numDiggers = 20
+xPosCenter = 512
+yPosCenter = 164
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = xmas
+width = 1592
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 3, 1380, 220, 0, 0, 0
+object_1 = 2, 132, 0, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 9, 136, 216, 0
+terrain_1 = 10, 158, 162, 0
+terrain_2 = 10, 176, 228, 0
+terrain_3 = 9, 198, 210, 0
+terrain_4 = 10, 246, 236, 0
+terrain_5 = 9, 270, 230, 0
+terrain_6 = 10, 314, 232, 0
+terrain_7 = 9, 340, 224, 0
+terrain_8 = 10, 384, 230, 0
+terrain_9 = 9, 412, 230, 0
+terrain_10 = 9, 444, 228, 0
+terrain_11 = 10, 490, 232, 0
+terrain_12 = 9, 510, 232, 0
+terrain_13 = 10, 540, 232, 0
+terrain_14 = 10, 408, 230, 0
+terrain_15 = 9, 560, 232, 0
+terrain_16 = 9, 594, 224, 0
+terrain_17 = 9, 630, 226, 0
+terrain_18 = 9, 668, 222, 0
+terrain_19 = 9, 706, 222, 0
+terrain_20 = 11, 684, 228, 0
+terrain_21 = 11, 640, 228, 0
+terrain_22 = 10, 752, 226, 0
+terrain_23 = 9, 772, 224, 0
+terrain_24 = 11, 806, 234, 0
+terrain_25 = 10, 832, 234, 0
+terrain_26 = 11, 870, 242, 0
+terrain_27 = 11, 902, 172, 0
+terrain_28 = 11, 932, 102, 0
+terrain_29 = 11, 966, 24, 0
+terrain_30 = 11, 990, 96, 0
+terrain_31 = 11, 1016, 174, 0
+terrain_32 = 11, 1040, 244, 0
+terrain_33 = 7, 958, 104, 4
+terrain_34 = 7, 954, 154, 4
+terrain_35 = 7, 928, 180, 4
+terrain_36 = 7, 968, 172, 4
+terrain_37 = 7, 956, 208, 4
+terrain_38 = 7, 930, 230, 4
+terrain_39 = 7, 896, 250, 4
+terrain_40 = 7, 924, 250, 4
+terrain_41 = 7, 992, 252, 4
+terrain_42 = 7, 966, 282, 4
+terrain_43 = 7, 948, 284, 4
+terrain_44 = 7, 978, 200, 4
+terrain_45 = 7, 986, 202, 0
+terrain_46 = 7, 914, 192, 0
+terrain_47 = 7, 956, 82, 0
+terrain_48 = 7, 904, 258, 0
+terrain_49 = 27, 1090, 194, 4
+terrain_50 = 27, 1104, 194, 4
+terrain_51 = 27, 1118, 194, 4
+terrain_52 = 27, 1132, 194, 4
+terrain_53 = 27, 1146, 194, 4
+terrain_54 = 27, 1160, 194, 4
+terrain_55 = 27, 1174, 194, 4
+terrain_56 = 27, 1188, 194, 4
+terrain_57 = 27, 1202, 194, 4
+terrain_58 = 27, 1216, 194, 4
+terrain_59 = 27, 1230, 194, 4
+terrain_60 = 27, 1244, 194, 4
+terrain_61 = 27, 1258, 194, 4
+terrain_62 = 27, 1272, 194, 4
+terrain_63 = 27, 1286, 194, 4
+terrain_64 = 27, 1300, 194, 4
+terrain_65 = 27, 1314, 194, 4
+terrain_66 = 27, 1328, 194, 4
+terrain_67 = 29, 1340, 304, 64
+terrain_68 = 29, 1388, 304, 64
+terrain_69 = 29, 1436, 304, 64
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 1340, 304, 128, 16, 0
+steel_1 = 1468, 304, 16, 16, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

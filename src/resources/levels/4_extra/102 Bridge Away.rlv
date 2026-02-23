@@ -1,0 +1,91 @@
+﻿# LVL 102 Bridge Away.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 9
+
+# Level stats
+name = Bridge Away\!
+author = 
+version = 9
+releaseRate = 50
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 80
+numToRescue = 40
+timeLimitSeconds = 240
+numClimbers = 50
+numFloaters = 50
+numBombers = 50
+numBlockers = 50
+numBuilders = 50
+numBashers = 50
+numMiners = 50
+numDiggers = 50
+xPosCenter = 474
+yPosCenter = 133
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = brick
+width = 928
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 0, 688, 40, 4, 0, 0
+object_1 = 1, 240, 0, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 0, 146, 224, 0
+terrain_1 = 0, 274, 224, 0
+terrain_2 = 0, 402, 224, 0
+terrain_3 = 0, 528, 224, 0
+terrain_4 = 0, 654, 224, 0
+terrain_5 = 13, 144, -4, 0
+terrain_6 = 12, 718, -4, 0
+terrain_7 = 37, 276, 108, 0
+terrain_8 = 58, 144, 60, 0
+terrain_9 = 58, 144, 108, 0
+terrain_10 = 58, 144, 156, 0
+terrain_11 = 58, 774, 60, 0
+terrain_12 = 58, 774, 108, 0
+terrain_13 = 58, 774, 156, 0
+terrain_14 = 49, 750, 188, 0
+terrain_15 = 49, 142, 188, 0
+terrain_16 = 41, 308, 188, 0
+terrain_17 = 41, 372, 188, 0
+terrain_18 = 41, 436, 188, 0
+terrain_19 = 41, 500, 188, 0
+terrain_20 = 41, 562, 188, 0
+terrain_21 = 49, 716, 188, 0
+terrain_22 = 49, 682, 188, 0
+terrain_23 = 49, 734, 152, 0
+terrain_24 = 49, 700, 152, 0
+terrain_25 = 49, 718, 116, 0
+terrain_26 = 37, 710, 108, 0
+terrain_27 = 37, 710, 108, 0
+terrain_28 = 37, 646, 108, 0
+terrain_29 = 46, 632, 44, 0
+terrain_30 = 46, 632, -4, 0
+terrain_31 = 47, 632, 112, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

@@ -1,0 +1,148 @@
+﻿# LVL mayhem06.rlv
+# Created with RetroLemmini Editor Version 1.1.2
+# RetroLemmini Level Version 4
+
+# Level stats
+name = Over the wall
+author = 
+version = 4
+releaseRate = 20
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 50
+numToRescue = 47
+timeLimitSeconds = 300
+numClimbers = 0
+numFloaters = 0
+numBombers = 2
+numBlockers = 2
+numBuilders = 3
+numBashers = 5
+numMiners = 0
+numDiggers = 0
+xPosCenter = 400
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = True
+autosteelMode = 0
+style = dirt_md
+width = 1022
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 4
+rightBoundary = -4
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 1, 192, 0, 4, 0, 0
+object_1 = 7, 320, 24, 4, 0, 0
+object_2 = 5, 192, 288, 4, 0, 0
+object_3 = 5, 320, 288, 4, 0, 0
+object_4 = 5, 704, 288, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 15, 210, 70, 0
+terrain_1 = 5, 82, -38, 0
+terrain_2 = 5, 62, 42, 0
+terrain_3 = 5, 120, 124, 0
+terrain_4 = 5, 156, 176, 0
+terrain_5 = 10, 8, 248, 0
+terrain_6 = 10, -72, 234, 0
+terrain_7 = 10, -72, 160, 0
+terrain_8 = 10, -70, 90, 0
+terrain_9 = 10, -68, 20, 0
+terrain_10 = 10, -60, -42, 0
+terrain_11 = 2, -34, 56, 0
+terrain_12 = 2, 84, 66, 4
+terrain_13 = 0, -24, 56, 0
+terrain_14 = 4, 52, 86, 0
+terrain_15 = 7, 140, 114, 8
+terrain_16 = 7, 178, 170, 8
+terrain_17 = 8, 140, 122, 12
+terrain_18 = 8, 150, 134, 12
+terrain_19 = 8, 184, 178, 12
+terrain_20 = 6, 138, 126, 8
+terrain_21 = 6, 168, 168, 8
+terrain_22 = 6, 172, 172, 8
+terrain_23 = 6, 180, 188, 8
+terrain_24 = 9, 138, 162, 8
+terrain_25 = 9, 138, 156, 8
+terrain_26 = 28, 208, 258, 0
+terrain_27 = 35, 288, 210, 4
+terrain_28 = 33, 248, 280, 0
+terrain_29 = 33, 218, 94, 8
+terrain_30 = 37, 236, 88, 8
+terrain_31 = 32, 256, 90, 0
+terrain_32 = 32, 350, 98, 0
+terrain_33 = 42, 340, 212, 8
+terrain_34 = 4, 326, 56, 12
+terrain_35 = 4, 384, 210, 8
+terrain_36 = 10, 460, 170, 0
+terrain_37 = 10, 448, 214, 8
+terrain_38 = 10, 504, 244, 8
+terrain_39 = 2, 458, 226, 4
+terrain_40 = 2, 576, 94, 4
+terrain_41 = 3, 530, 144, 8
+terrain_42 = 3, 564, 124, 12
+terrain_43 = 3, 586, 104, 12
+terrain_44 = 3, 366, 64, 12
+terrain_45 = 3, 318, 72, 12
+terrain_46 = 43, 494, 78, 8
+terrain_47 = 35, 536, 130, 12
+terrain_48 = 2, 588, 26, 12
+terrain_49 = 0, 582, 78, 4
+terrain_50 = 2, 424, -18, 12
+terrain_51 = 28, 650, 210, 0
+terrain_52 = 4, 792, 220, 0
+terrain_53 = 4, 854, 138, 4
+terrain_54 = 4, 870, 204, 0
+terrain_55 = 4, 926, 114, 0
+terrain_56 = 4, 910, 202, 0
+terrain_57 = 3, 862, 144, 12
+terrain_58 = 45, 206, 54, 0
+terrain_59 = 25, 894, 248, 64
+terrain_60 = 25, 942, 248, 64
+terrain_61 = 8, 458, 188, 12
+terrain_62 = 8, 474, 178, 12
+terrain_63 = 8, 482, 176, 12
+terrain_64 = 8, 510, 160, 12
+terrain_65 = 6, 852, 142, 8
+terrain_66 = 6, 858, 154, 8
+terrain_67 = 38, 848, 192, 0
+terrain_68 = 32, 744, 236, 0
+terrain_69 = 34, 706, 234, 0
+terrain_70 = 11, 970, 84, 0
+terrain_71 = 15, 314, 66, 0
+terrain_72 = 24, 288, 48, 72
+terrain_73 = 24, 288, 0, 72
+terrain_74 = 27, 308, 72, 8
+terrain_75 = 41, 302, 92, 8
+terrain_76 = 38, 292, 44, 0
+terrain_77 = 43, 494, 96, 0
+terrain_78 = 35, 538, 96, 12
+terrain_79 = 44, 982, 60, 8
+terrain_80 = 43, 502, 94, 8
+terrain_81 = 43, 500, 92, 8
+terrain_82 = 17, 564, 122, 2
+terrain_83 = 17, 558, 126, 2
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 288, 0, 32, 96, 0
+steel_1 = 896, 248, 96, 32, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

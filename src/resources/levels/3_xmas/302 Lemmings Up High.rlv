@@ -1,0 +1,87 @@
+﻿# LVL 302 Lemmings Up High.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 9
+
+# Level stats
+name =  Lemmings Up High
+author = 
+version = 9
+releaseRate = 20
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 80
+numToRescue = 80
+timeLimitSeconds = 300
+numClimbers = 0
+numFloaters = 0
+numBombers = 0
+numBlockers = 0
+numBuilders = 11
+numBashers = 1
+numMiners = 0
+numDiggers = 1
+xPosCenter = 744
+yPosCenter = 164
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = xmas
+width = 1480
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 3, 960, -4, 0, 0, 0
+object_1 = 2, 480, 88, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 4, 342, -12, 0
+terrain_1 = 4, 356, 150, 0
+terrain_2 = 4, 268, 4, 0
+terrain_3 = 4, 276, 158, 0
+terrain_4 = 4, 214, -4, 0
+terrain_5 = 4, 200, 156, 0
+terrain_6 = 4, 142, -14, 0
+terrain_7 = 4, 128, 146, 0
+terrain_8 = 4, 1190, -24, 0
+terrain_9 = 4, 1122, -26, 0
+terrain_10 = 4, 1048, -30, 0
+terrain_11 = 4, 1206, 128, 0
+terrain_12 = 4, 1126, 116, 0
+terrain_13 = 4, 1034, 116, 0
+terrain_14 = 4, 1200, 246, 0
+terrain_15 = 4, 1084, 132, 0
+terrain_16 = 4, 1120, 206, 0
+terrain_17 = 4, 1024, 220, 0
+terrain_18 = 3, 436, 268, 0
+terrain_19 = 3, 440, 290, 0
+terrain_20 = 3, 496, 276, 0
+terrain_21 = 3, 552, 270, 0
+terrain_22 = 3, 592, 290, 0
+terrain_23 = 3, 544, 296, 0
+terrain_24 = 3, 622, 272, 0
+terrain_25 = 3, 632, 288, 0
+terrain_26 = 2, 924, 72, 0
+terrain_27 = 2, 980, 72, 8
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

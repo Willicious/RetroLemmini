@@ -1,0 +1,96 @@
+﻿# LVL 111 At Home in a Cave.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 9
+
+# Level stats
+name =  At Home in a Cave
+author = 
+version = 9
+releaseRate = 10
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 80
+numToRescue = 78
+timeLimitSeconds = 240
+numClimbers = 10
+numFloaters = 10
+numBombers = 10
+numBlockers = 0
+numBuilders = 10
+numBashers = 5
+numMiners = 5
+numDiggers = 5
+xPosCenter = 588
+yPosCenter = 148
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = xmas
+width = 1572
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 0
+rightBoundary = 0
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 1, 172, 0, 0, 0, 0
+object_1 = 3, 1132, 148, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 15, 298, 194, 0
+terrain_1 = 15, 298, 106, 0
+terrain_2 = 15, 286, 106, 0
+terrain_3 = 15, 286, 200, 0
+terrain_4 = 15, 274, 106, 0
+terrain_5 = 15, 274, 204, 0
+terrain_6 = 15, 262, 106, 0
+terrain_7 = 15, 262, 166, 0
+terrain_8 = 15, 262, 244, 0
+terrain_9 = 15, 248, 106, 0
+terrain_10 = 15, 248, 206, 0
+terrain_11 = 15, 236, 106, 0
+terrain_12 = 15, 236, 210, 0
+terrain_13 = 15, 222, 106, 0
+terrain_14 = 15, 222, 200, 0
+terrain_15 = 15, 210, 106, 0
+terrain_16 = 15, 210, 204, 0
+terrain_17 = 15, 198, 106, 0
+terrain_18 = 15, 198, 204, 0
+terrain_19 = 15, 184, 106, 0
+terrain_20 = 15, 184, 212, 0
+terrain_21 = 0, 320, 214, 0
+terrain_22 = 5, 506, 182, 4
+terrain_23 = 5, 592, 110, 4
+terrain_24 = 0, 568, 228, 0
+terrain_25 = 0, 744, 232, 0
+terrain_26 = 0, 730, 30, 0
+terrain_27 = 0, 928, 210, 0
+terrain_28 = 0, 868, 32, 0
+terrain_29 = 0, 1122, 228, 0
+terrain_30 = 0, 1078, 32, 0
+terrain_31 = 4, 1328, 148, 0
+terrain_32 = 4, 1320, 22, 0
+terrain_33 = 3, 1228, 78, 0
+terrain_34 = 3, 1250, 94, 0
+terrain_35 = 3, 1242, 46, 0
+terrain_36 = 3, 1094, 228, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

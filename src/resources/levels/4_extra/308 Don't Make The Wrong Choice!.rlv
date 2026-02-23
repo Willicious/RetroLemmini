@@ -1,0 +1,208 @@
+﻿# LVL 308 Don't Make The Wrong Choice!.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 8
+
+# Level stats
+name = Don't Make The Wrong Choice!
+author = 
+version = 8
+releaseRate = 50
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 50
+numToRescue = 45
+timeLimitSeconds = 240
+numClimbers = 19
+numFloaters = 1
+numBombers = 2
+numBlockers = 18
+numBuilders = 9
+numBashers = 14
+numMiners = 1
+numDiggers = 0
+xPosCenter = 1240
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 1
+style = crystal
+width = 2628
+height = 320
+topBoundary = 8
+bottomBoundary = 20
+leftBoundary = 0
+rightBoundary = -16
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 1, 1112, 208, 0, 0, 0
+object_1 = 8, 1208, 48, 4, 0, 0
+object_2 = 6, 664, 288, 4, 0, 0
+object_3 = 6, 536, 288, 4, 0, 0
+object_4 = 6, 408, 288, 4, 0, 0
+object_5 = 6, 2040, 288, 4, 0, 0
+object_6 = 6, 2168, 288, 4, 0, 0
+object_7 = 6, 2296, 288, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 22, 1128, 296, 0
+terrain_1 = 33, 1086, 170, 64
+terrain_2 = 33, 1136, 170, 64
+terrain_3 = 33, 1186, 170, 64
+terrain_4 = 33, 1254, 96, 64
+terrain_5 = 33, 1204, 96, 64
+terrain_6 = 33, 1154, 96, 64
+terrain_7 = 33, 1304, 96, 64
+terrain_8 = 33, 1036, 170, 64
+terrain_9 = 31, 1104, 78, 64
+terrain_10 = 31, 1104, 28, 64
+terrain_11 = 31, 1104, -22, 64
+terrain_12 = 31, 1236, 170, 64
+terrain_13 = 31, 1236, 220, 64
+terrain_14 = 31, 1236, 270, 64
+terrain_15 = 31, 1354, 96, 64
+terrain_16 = 31, 1354, 146, 64
+terrain_17 = 31, 1354, 196, 64
+terrain_18 = 31, 986, 152, 64
+terrain_19 = 31, 986, 102, 64
+terrain_20 = 31, 986, 52, 64
+terrain_21 = 27, 1284, 286, 8
+terrain_22 = 19, 878, 136, 8
+terrain_23 = 22, 862, 88, 0
+terrain_24 = 25, 798, 232, 0
+terrain_25 = 25, 884, 280, 4
+terrain_26 = 26, 818, 230, 8
+terrain_27 = 26, 894, 260, 12
+terrain_28 = 25, 878, 262, 8
+terrain_29 = 23, 984, 236, 2
+terrain_30 = 27, 1008, 300, 8
+terrain_31 = 12, 1002, 218, 8
+terrain_32 = 21, 728, 208, 8
+terrain_33 = 21, 640, 120, 8
+terrain_34 = 10, 612, 110, 0
+terrain_35 = 27, 540, 124, 8
+terrain_36 = 10, 506, 108, 0
+terrain_37 = 27, 1408, 286, 0
+terrain_38 = 31, 1404, 146, 64
+terrain_39 = 31, 1454, 146, 64
+terrain_40 = 31, 1504, 146, 64
+terrain_41 = 31, 1554, 146, 64
+terrain_42 = 27, 1534, 286, 0
+terrain_43 = 19, 1362, 176, 8
+terrain_44 = 19, 1462, 168, 8
+terrain_45 = 19, 1564, 170, 8
+terrain_46 = 19, 1462, 78, 8
+terrain_47 = 19, 1564, 78, 8
+terrain_48 = 19, 1462, -28, 8
+terrain_49 = 19, 1564, -22, 8
+terrain_50 = 19, 1314, -30, 8
+terrain_51 = 31, 1604, 146, 64
+terrain_52 = 31, 1654, 146, 64
+terrain_53 = 31, 1704, 146, 64
+terrain_54 = 31, 1754, 146, 64
+terrain_55 = 27, 904, 108, 8
+terrain_56 = 27, 1658, 286, 8
+terrain_57 = 27, 1780, 286, 8
+terrain_58 = 19, 1666, 176, 8
+terrain_59 = 19, 1666, -42, 8
+terrain_60 = 20, 820, 50, 8
+terrain_61 = 19, 1764, 166, 8
+terrain_62 = 10, 784, 132, 0
+terrain_63 = 22, 872, 24, 2
+terrain_64 = 31, 1804, 146, 64
+terrain_65 = 31, 1804, 96, 64
+terrain_66 = 31, 1804, 46, 64
+terrain_67 = 21, 1828, 46, 8
+terrain_68 = 27, 1810, 152, 8
+terrain_69 = 10, 1904, 130, 0
+terrain_70 = 27, 1686, 56, 8
+terrain_71 = 10, 1650, 40, 0
+terrain_72 = 27, 1886, 286, 0
+terrain_73 = 10, 2002, 274, 0
+terrain_74 = 20, 2036, 200, 8
+terrain_75 = 20, 2074, 162, 8
+terrain_76 = 10, 2150, 150, 0
+terrain_77 = 27, 2178, 162, 8
+terrain_78 = 27, 1898, 152, 8
+terrain_79 = 10, 2012, 136, 0
+terrain_80 = 10, 2286, 148, 0
+terrain_81 = 0, 1684, -48, 8
+terrain_82 = 0, 1686, -44, 8
+terrain_83 = 0, 1692, -44, 8
+terrain_84 = 1, 1624, -38, 8
+terrain_85 = 1, 1620, -36, 8
+terrain_86 = 1, 1614, -36, 8
+terrain_87 = 1, 1520, -40, 8
+terrain_88 = 1, 1516, -40, 8
+terrain_89 = 1, 1514, -38, 8
+terrain_90 = 0, 1590, -54, 8
+terrain_91 = 0, 1594, -54, 8
+terrain_92 = 0, 1588, -44, 8
+terrain_93 = 0, 1486, -52, 8
+terrain_94 = 0, 1484, -44, 8
+terrain_95 = 0, 1482, -38, 8
+terrain_96 = 1, 1410, -48, 8
+terrain_97 = 1, 1408, -46, 8
+terrain_98 = 1, 1404, -44, 8
+terrain_99 = 1, 1264, -48, 8
+terrain_100 = 1, 1260, -46, 8
+terrain_101 = 1, 1264, -36, 8
+terrain_102 = 0, 1328, -42, 8
+terrain_103 = 0, 1332, -40, 8
+terrain_104 = 0, 1334, -36, 8
+terrain_105 = 26, 908, 282, 12
+terrain_106 = 14, 568, -14, 0
+terrain_107 = 14, 618, -4, 0
+terrain_108 = 14, 676, -4, 0
+terrain_109 = 14, 736, -4, 0
+terrain_110 = 14, 794, -4, 0
+terrain_111 = 21, 516, -20, 2
+terrain_112 = 21, 608, 32, 2
+terrain_113 = 21, 666, 32, 2
+terrain_114 = 21, 696, 20, 2
+terrain_115 = 20, 716, 12, 2
+terrain_116 = 20, 776, -10, 2
+terrain_117 = 20, 786, 2, 2
+terrain_118 = 3, 554, -10, 0
+terrain_119 = 31, 760, 278, 64
+terrain_120 = 31, 2412, 284, 64
+terrain_121 = 31, 372, 278, 64
+terrain_122 = 31, 2036, 282, 64
+terrain_123 = 26, 2032, -94, 0
+terrain_124 = 26, 2084, -74, 0
+terrain_125 = 26, 2142, -56, 0
+terrain_126 = 26, 2064, -56, 4
+terrain_127 = 26, 2210, -48, 0
+terrain_128 = 26, 2200, -68, 4
+terrain_129 = 25, 2328, -36, 4
+terrain_130 = 25, 2420, -82, 0
+terrain_131 = 25, 1950, -106, 0
+terrain_132 = 25, 272, -70, 0
+terrain_133 = 25, 250, 2, 0
+terrain_134 = 25, 170, -78, 0
+terrain_135 = 25, 166, 16, 0
+terrain_136 = 26, 198, 56, 8
+terrain_137 = 26, 248, 60, 8
+terrain_138 = 26, 58, -70, 8
+terrain_139 = 26, 108, -4, 8
+terrain_140 = 26, 92, -44, 8
+terrain_141 = 26, 346, -60, 8
+terrain_142 = 8, 1030, 284, 8
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

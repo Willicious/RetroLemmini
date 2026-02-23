@@ -1,0 +1,130 @@
+﻿# LVL 304 Battle at Midway.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 8
+
+# Level stats
+name = Battle at Midway
+author = 
+version = 8
+releaseRate = 55
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 100
+numToRescue = 90
+timeLimitSeconds = 300
+numClimbers = 1
+numFloaters = 1
+numBombers = 5
+numBlockers = 5
+numBuilders = 40
+numBashers = 1
+numMiners = 1
+numDiggers = 1
+xPosCenter = 1198
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 1
+style = marble
+width = 2364
+height = 320
+topBoundary = 8
+bottomBoundary = 20
+leftBoundary = 0
+rightBoundary = -16
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 6, 2084, 72, 4, 0, 0
+object_1 = 5, 1668, 272, 4, 0, 0
+object_2 = 1, 1988, 176, 4, 0, 1
+object_3 = 1, 292, 176, 4, 0, 0
+object_4 = 5, 580, 272, 4, 0, 0
+object_5 = 6, 228, 72, 4, 0, 0
+object_6 = 7, 2116, 40, 0, 0, 0
+object_7 = 2, 260, 40, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 57, 550, 282, 64
+terrain_1 = 57, 1798, 280, 64
+terrain_2 = 38, 1148, 294, 0
+terrain_3 = 38, 1244, 294, 0
+terrain_4 = 38, 1052, 294, 0
+terrain_5 = 38, 1340, 294, 0
+terrain_6 = 38, 956, 294, 0
+terrain_7 = 40, 906, 246, 0
+terrain_8 = 41, 1422, 246, 0
+terrain_9 = 41, 850, 252, 0
+terrain_10 = 40, 1478, 252, 0
+terrain_11 = 38, 1148, 238, 8
+terrain_12 = 43, 332, 130, 8
+terrain_13 = 24, 1900, 128, 8
+terrain_14 = 26, 432, 246, 8
+terrain_15 = 25, 400, 246, 0
+terrain_16 = 25, 358, 246, 8
+terrain_17 = 25, 320, 246, 8
+terrain_18 = 25, 276, 246, 8
+terrain_19 = 23, 172, 122, 8
+terrain_20 = 26, 1852, 252, 8
+terrain_21 = 25, 1884, 246, 0
+terrain_22 = 25, 1936, 246, 0
+terrain_23 = 25, 1982, 246, 0
+terrain_24 = 25, 2024, 246, 0
+terrain_25 = 8, 1882, 288, 0
+terrain_26 = 1, 282, 288, 8
+terrain_27 = 8, 282, 288, 0
+terrain_28 = 8, 2060, 288, 0
+terrain_29 = 1, 2060, 314, 0
+terrain_30 = 23, 2028, 120, 8
+terrain_31 = 12, 218, 118, 8
+terrain_32 = 12, 2076, 118, 8
+terrain_33 = 5, 1172, 248, 64
+terrain_34 = 5, 532, 288, 64
+terrain_35 = 5, 486, 288, 64
+terrain_36 = 5, 708, 304, 64
+terrain_37 = 5, 754, 304, 64
+terrain_38 = 5, 800, 304, 64
+terrain_39 = 5, 820, 304, 64
+terrain_40 = 5, 1796, 288, 64
+terrain_41 = 5, 1820, 288, 64
+terrain_42 = 5, 1532, 304, 64
+terrain_43 = 5, 1580, 304, 64
+terrain_44 = 5, 1620, 304, 64
+terrain_45 = 57, 560, 274, 64
+terrain_46 = 57, 700, 272, 64
+terrain_47 = 57, 1648, 272, 64
+terrain_48 = 57, 1790, 272, 64
+terrain_49 = 38, 460, 170, 0
+terrain_50 = 38, 556, 170, 0
+terrain_51 = 38, 652, 170, 0
+terrain_52 = 38, 748, 170, 0
+terrain_53 = 38, 844, 170, 0
+terrain_54 = 38, 940, 170, 0
+terrain_55 = 38, 1034, 170, 0
+terrain_56 = 38, 1836, 168, 0
+terrain_57 = 38, 1740, 168, 0
+terrain_58 = 38, 1644, 168, 0
+terrain_59 = 38, 1548, 168, 0
+terrain_60 = 38, 1452, 168, 0
+terrain_61 = 38, 1356, 168, 0
+terrain_62 = 38, 1260, 168, 0
+terrain_63 = 38, 1106, 170, 2
+terrain_64 = 38, 1182, 168, 2
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

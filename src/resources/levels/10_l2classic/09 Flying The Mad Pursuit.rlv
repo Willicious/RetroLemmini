@@ -1,0 +1,78 @@
+﻿# LVL 09 Flying The Mad Pursuit.rlv
+# Created with RetroLemmini Editor Version 1.2
+# RetroLemmini Level Version 3
+
+# Level stats
+name = Flying The Mad Pursuit
+author = 
+version = 3
+releaseRate = 20
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 60
+numToRescue = 60
+timeLimitSeconds = 300
+numClimbers = 1
+numFloaters = 10
+numBombers = 10
+numBlockers = 10
+numBuilders = 10
+numBashers = 1
+numMiners = 2
+numDiggers = 10
+xPosCenter = 539
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = False
+autosteelMode = 0
+style = classic
+width = 1172
+height = 320
+topBoundary = 8
+bottomBoundary = 20
+leftBoundary = 0
+rightBoundary = -16
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 2, 443, 207, 4, 0, 0
+object_1 = 3, 191, 288, 4, 0, 0
+object_2 = 3, 319, 288, 4, 0, 0
+object_3 = 3, 571, 288, 4, 0, 0
+object_4 = 3, 731, 288, 4, 0, 0
+object_5 = 1, 443, 14, 0, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 8, 191, 0, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 219, 96, 160, 32, 0
+steel_1 = 411, 96, 192, 32, 0
+steel_2 = 251, 256, 96, 32, 0
+steel_3 = 379, 256, 224, 32, 0
+steel_4 = 635, 288, 160, 32, 0
+steel_5 = 827, 288, 64, 32, 0
+steel_6 = 827, 192, 64, 32, 0
+steel_7 = 635, 256, 96, 32, 0
+steel_8 = 635, 96, 256, 32, 0
+steel_9 = 411, 0, 32, 64, 0
+steel_10 = 411, 128, 32, 128, 0
+steel_11 = 379, 288, 32, 32, 0
+steel_12 = 571, 288, 32, 32, 0
+steel_13 = 859, 224, 32, 64, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+

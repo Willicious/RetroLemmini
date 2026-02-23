@@ -1,0 +1,147 @@
+﻿# LVL tricky21.rlv
+# Created with RetroLemmini Editor Version 1.1.2
+# RetroLemmini Level Version 4
+
+# Level stats
+name = Don't leave any Lemmings
+author = 
+version = 4
+releaseRate = 1
+maxReleaseRate = 99
+lockReleaseRate = False
+numLemmings = 50
+numToRescue = 25
+timeLimitSeconds = 360
+numClimbers = 0
+numFloaters = 0
+numBombers = 30
+numBlockers = 30
+numBuilders = 30
+numBashers = 0
+numMiners = 0
+numDiggers = 0
+xPosCenter = 400
+yPosCenter = 160
+superlemming = False
+forceNormalTimerSpeed = True
+maxFallDistance = 126
+classicSteel = True
+autosteelMode = 0
+style = Marble
+width = 1022
+height = 320
+topBoundary = 0
+bottomBoundary = 0
+leftBoundary = 4
+rightBoundary = -4
+
+# Objects
+# ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
+# Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
+# Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
+object_0 = 6, 96, 24, 4, 0, 0
+object_1 = 1, 608, 112, 4, 0, 0
+object_2 = 9, 480, 104, 4, 0, 0
+object_3 = 9, 352, 40, 4, 0, 0
+
+# Terrain
+# ID, X pos, Y pos, flags
+# Flags (combining allowed): 1 = invisible, 2 = eraser, 4 = inverted, 8 = no overwrite, 16 = fake, 32 = flipped, 64 = no one-way, 128 = rotated
+terrain_0 = 24, 172, 256, 0
+terrain_1 = 24, 300, 192, 0
+terrain_2 = 24, 428, 128, 0
+terrain_3 = 43, 188, 160, 0
+terrain_4 = 16, 316, 232, 0
+terrain_5 = 16, 332, 224, 0
+terrain_6 = 16, 348, 216, 0
+terrain_7 = 24, 268, 112, 0
+terrain_8 = 16, 252, 168, 0
+terrain_9 = 16, 268, 176, 0
+terrain_10 = 16, 284, 184, 0
+terrain_11 = 43, 348, 80, 0
+terrain_12 = 16, 476, 152, 0
+terrain_13 = 16, 492, 144, 0
+terrain_14 = 16, 508, 136, 0
+terrain_15 = 43, 396, 224, 0
+terrain_16 = 43, 524, 288, 0
+terrain_17 = 16, 396, 224, 0
+terrain_18 = 16, 412, 216, 0
+terrain_19 = 44, 156, 144, 0
+terrain_20 = 44, 124, 128, 0
+terrain_21 = 44, 92, 112, 0
+terrain_22 = 44, 60, 96, 0
+terrain_23 = 44, 28, 80, 0
+terrain_24 = 38, 44, 70, 0
+terrain_25 = 38, 140, 70, 0
+terrain_26 = 38, 234, 70, 0
+terrain_27 = 38, 330, 70, 0
+terrain_28 = 38, 396, 70, 2
+terrain_29 = 16, 380, 104, 0
+terrain_30 = 16, 412, 120, 0
+terrain_31 = 16, 204, 288, 0
+terrain_32 = 16, 220, 280, 0
+terrain_33 = 16, 236, 272, 0
+terrain_34 = 24, 44, 160, 0
+terrain_35 = 18, 28, 224, 0
+terrain_36 = 16, 156, 152, 0
+terrain_37 = 16, 188, 168, 0
+terrain_38 = 24, 348, 272, 0
+terrain_39 = 16, 460, 264, 0
+terrain_40 = 16, 492, 280, 0
+terrain_41 = 43, 540, 144, 0
+terrain_42 = 43, 668, 208, 0
+terrain_43 = 43, 76, 216, 0
+terrain_44 = 24, 604, 248, 0
+terrain_45 = 24, 652, 112, 0
+terrain_46 = 16, 636, 168, 0
+terrain_47 = 16, 652, 176, 0
+terrain_48 = 16, 668, 184, 0
+terrain_49 = 42, 556, 112, 0
+terrain_50 = 38, 572, 102, 0
+terrain_51 = 38, 668, 102, 0
+terrain_52 = 38, 764, 102, 0
+terrain_53 = 38, 796, 102, 2
+terrain_54 = 43, 732, 144, 0
+terrain_55 = 16, 732, 152, 0
+terrain_56 = 16, 764, 136, 0
+terrain_57 = 24, 748, 256, 0
+terrain_58 = 16, 796, 280, 0
+terrain_59 = 16, 812, 272, 0
+terrain_60 = 16, 828, 264, 0
+terrain_61 = 24, 796, 184, 0
+terrain_62 = 16, 780, 240, 0
+terrain_63 = 16, 796, 248, 0
+terrain_64 = 16, 812, 256, 0
+terrain_65 = 16, 844, 208, 0
+terrain_66 = 16, 876, 192, 0
+terrain_67 = 44, 860, 232, 0
+terrain_68 = 18, 908, 248, 0
+terrain_69 = 16, 876, 248, 0
+terrain_70 = 16, 876, 224, 0
+terrain_71 = 16, 860, 232, 0
+terrain_72 = 16, 892, 256, 0
+terrain_73 = 8, 28, 240, 0
+terrain_74 = 1, 28, 266, 0
+terrain_75 = 8, 908, 264, 0
+terrain_76 = 1, 908, 290, 0
+terrain_77 = 1, 204, -78, 0
+terrain_78 = 8, 204, 0, 0
+terrain_79 = 1, 670, -46, 0
+terrain_80 = 8, 670, 0, 0
+terrain_81 = 0, 670, 94, 0
+terrain_82 = 0, 204, 62, 0
+terrain_83 = 0, 28, 312, 0
+terrain_84 = 0, 908, 312, 0
+
+# Steel
+# X position, Y position, width, height, flags (optional)
+# Flags: 1 = remove existing steel
+steel_0 = 200, 0, 40, 72, 0
+
+# Hints
+# hint_N = Your hint here
+
+# Rulers
+# X position, Y position, width, height, modifier (optional)
+# Flags: 1 = remove existing steel
+
