@@ -18,8 +18,6 @@ https://www.oracle.com/java/technologies/downloads/
    
    (NOTE: "RLEditor.exe is a dedicated level editor for RetroLemmini.")
    
-   (NOTE: "LemminiLevelPackCompiler.exe can be used to easily group levels into packs.")
-   
    (NOTE: The "docs" folder contains some useful documentation for help with
    using RetroLemmini including hotkeys, cheat codes, level formatting, etc.)
    
