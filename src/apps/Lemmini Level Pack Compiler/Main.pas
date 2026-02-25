@@ -521,6 +521,7 @@ var
   i, j: Integer;
   Tab: TTabSheet;
   List: TListBox;
+  MusicIndex: Integer;
 begin
   SL := TStringList.Create;
   try
@@ -558,8 +559,17 @@ begin
 
       for j := 0 to List.Items.Count - 1 do
       begin
-        SL.Add(Format('level_%d_%d = %s,%d',
-          [i, j, List.Items[j], j]));
+        if lbMusic.Items.Count > 0 then
+          MusicIndex := j mod lbMusic.Items.Count
+        else
+          MusicIndex := -1;
+
+        if MusicIndex >= 0 then
+          SL.Add(Format('level_%d_%d = %s,%d',
+            [i, j, List.Items[j], MusicIndex]))
+        else
+          SL.Add(Format('level_%d_%d = %s',
+            [i, j, List.Items[j]]));
       end;
 
       SL.Add('');
