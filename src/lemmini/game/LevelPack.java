@@ -175,9 +175,22 @@ public class LevelPack {
                 }
                 // filename, music number
                 if (levelStr != null && levelStr.length >= 2) {
-                    LevelInfo info = new LevelInfo(path + levelStr[0],
-                            music.get(ToolBox.parseInt(levelStr[1])));
-                    levels.add(info);
+					String msg = null;
+					if (levelStr.length >= 2) {
+					    try {
+					        int musicIndex = ToolBox.parseInt(levelStr[1]);
+					        LevelInfo info = new LevelInfo(path + levelStr[0], music.get(musicIndex));
+					        levels.add(info);
+					    } catch (NumberFormatException e) {
+					        msg = "Invalid music index: " + levelStr[1] + " (" + name + ")";
+					    } catch (IndexOutOfBoundsException e) {
+					        msg = "Music index out of range: " + levelStr[1] + " (" + name + ")";
+					    }
+					} else {
+					    msg = "Invalid level data format (" + name + ")";
+					}
+					if (msg != null)
+						Core.generalError(msg);
                 }
                 idx++;
             } while (levelStr != null && levelStr.length >= 2);

@@ -726,6 +726,11 @@ public class Core {
         JOptionPane.showMessageDialog(null, pane, "Error", JOptionPane.ERROR_MESSAGE);
     }
     
+    public static void generalError(final String message) {
+        JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
+        System.exit(1);
+    }
+    
     public static void returnToMainMenu() {
         GameController.setTransition(GameController.TransitionState.TO_INTRO);
     	TextScreen.initIntro();
