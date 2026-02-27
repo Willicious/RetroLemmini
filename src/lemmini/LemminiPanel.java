@@ -458,8 +458,9 @@ public class LemminiPanel extends JPanel implements Runnable {
                 }
                 break;
             case LEVEL:
+                boolean isDebugDraw = Core.player.isDebugMode() && draw;
                 //  debug drawing
-                if (leftMousePressed || rightMousePressed) {
+                if (isDebugDraw && (leftMousePressed || rightMousePressed)) {
                     debugDraw(x, y, leftMousePressed);
                 }
                 if (buttonPressed == MouseEvent.BUTTON1) {
@@ -602,8 +603,10 @@ public class LemminiPanel extends JPanel implements Runnable {
                     }
                     Minimap.adjustXPos();
                 }
-                // debug drawing
-                if (leftMousePressed || rightMousePressed) {
+                
+            	// debug drawing
+                boolean isDebugDraw = draw && Core.player.isDebugMode(); 
+                if (isDebugDraw && (leftMousePressed || rightMousePressed)) {
                     debugDraw(x, y, leftMousePressed);
                 }
                 formMouseMoved(evt);
