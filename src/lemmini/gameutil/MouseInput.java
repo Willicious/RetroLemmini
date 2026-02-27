@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Properties;
 
+import lemmini.game.Core;
 import lemmini.game.GameController;
 
 import java.awt.event.MouseEvent;
@@ -22,6 +23,10 @@ public class MouseInput {
         RELEASERATEDOWN,
         RELEASERATEUP
     }
+    
+    public boolean clickAirToCancelReplay;
+    public boolean enableWheelSkillSelect;
+    public boolean enableWheelBrushSize;
 
     public final Map<Integer, List<MouseAction>> buttonMap =
             new HashMap<Integer, List<MouseAction>>();
@@ -31,7 +36,7 @@ public class MouseInput {
     }
 
     public void setDefaultMappings() {
-        buttonMap.clear();
+    	clearMappings();
 
         addMapping(MouseEvent.BUTTON2, MouseAction.TOGGLEPAUSE);
         addMapping(MouseEvent.BUTTON3, MouseAction.DRAGVIEWAREA);
@@ -39,6 +44,10 @@ public class MouseInput {
         addMapping(MouseEvent.BUTTON3, MouseAction.FASTSCROLL);
         addMapping(4, MouseAction.RELEASERATEDOWN);
         addMapping(5, MouseAction.RELEASERATEUP);
+        
+        clickAirToCancelReplay = true;
+        enableWheelSkillSelect = false;
+        enableWheelBrushSize = true;
     }
 
     public void clearMappings() {
@@ -78,13 +87,21 @@ public class MouseInput {
         return buttonMap;
     }
     
-    public void loadFromProperties(Path path) {
+    public void loadFromProperties(Path path) {        
         if (path == null || !Files.exists(path)) return;
         Properties props = new Properties();
         try {
             InputStream in = Files.newInputStream(path);
             props.load(in);
             in.close();
+            
+            // Handle options first
+            clickAirToCancelReplay = Core.programProps.getBoolean("clickAirToCancelReplay", true);
+            enableWheelSkillSelect = Core.programProps.getBoolean("enableWheelSkillSelect", false);
+            enableWheelBrushSize = Core.programProps.getBoolean("enableWheelBrushSize", true);
+            applyOptionChanges();
+            
+            // Then button mappings
             clearMappings();
             
             for (MouseAction action : MouseAction.values()) {
@@ -104,13 +121,13 @@ public class MouseInput {
             // If nothing loaded, restore defaults
             if (buttonMap.isEmpty()) {
                 setDefaultMappings();
-            }
+            }            
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
     
-    public void saveToProperties(Path path, boolean clickAirToCancelReplay, boolean enableWheelSkillSelect, boolean enableWheelBrushSize) {
+    public void saveToProperties(Path path) {
         if (path == null) return;
         Properties props = new Properties();
         try {
@@ -152,12 +169,16 @@ public class MouseInput {
             props.store(out, "RetroLemmini Settings");
             out.close();
 
-            // Apply changes immediately to GameController
-            GameController.setOption(GameController.RetroLemminiOption.CLICK_AIR_TO_CANCEL_REPLAY, clickAirToCancelReplay);
-            GameController.setOption(GameController.RetroLemminiOption.ENABLE_WHEEL_SKILL_SELECT, enableWheelSkillSelect);
-            GameController.setOption(GameController.RetroLemminiOption.ENABLE_WHEEL_BRUSH_SIZE, enableWheelBrushSize);
+            // Apply option changes immediately to GameController
+            applyOptionChanges();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+    
+    private void applyOptionChanges() {
+        GameController.setOption(GameController.RetroLemminiOption.CLICK_AIR_TO_CANCEL_REPLAY, clickAirToCancelReplay);
+        GameController.setOption(GameController.RetroLemminiOption.ENABLE_WHEEL_SKILL_SELECT, enableWheelSkillSelect);
+        GameController.setOption(GameController.RetroLemminiOption.ENABLE_WHEEL_BRUSH_SIZE, enableWheelBrushSize);
     }
 }

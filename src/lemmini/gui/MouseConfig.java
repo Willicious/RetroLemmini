@@ -3,7 +3,6 @@ package lemmini.gui;
 import javax.swing.*;
 
 import lemmini.game.Core;
-import lemmini.game.GameController;
 import lemmini.gameutil.MouseInput;
 import lemmini.gameutil.MouseInput.MouseAction;
 
@@ -91,36 +90,6 @@ public class MouseConfig extends JDialog {
             map.put(5, checkForward);
 
             actionCheckBoxes.put(action, map);
-
-            // Pre-select based on current mapping
-            List<MouseAction> offActions = mouseInput.getActionsForButton(MouseEvent.NOBUTTON);
-            List<MouseAction> leftActions = mouseInput.getActionsForButton(MouseEvent.BUTTON1);
-            List<MouseAction> midActions = mouseInput.getActionsForButton(MouseEvent.BUTTON2);
-            List<MouseAction> rightActions = mouseInput.getActionsForButton(MouseEvent.BUTTON3);
-            List<MouseAction> backwardActions = mouseInput.getActionsForButton(4);
-            List<MouseAction> forwardActions = mouseInput.getActionsForButton(5);
-            
-            if (offActions != null && offActions.contains(action)) {
-            	checkOff.setSelected(true);
-            	
-            	checkLeft.setSelected(false);
-            	checkMiddle.setSelected(false);
-            	checkRight.setSelected(false);
-            	checkBackward.setSelected(false);
-            	checkForward.setSelected(false);
-            	
-            	checkLeft.setEnabled(false);
-            	checkMiddle.setEnabled(false);
-            	checkRight.setEnabled(false);
-            	checkBackward.setEnabled(false);
-            	checkForward.setEnabled(false);
-            } else {
-	            if (leftActions != null && leftActions.contains(action)) checkLeft.setSelected(true);
-	            if (midActions != null && midActions.contains(action)) checkMiddle.setSelected(true);
-	            if (rightActions != null && rightActions.contains(action)) checkRight.setSelected(true);
-	            if (backwardActions != null && backwardActions.contains(action)) checkBackward.setSelected(true);
-	            if (forwardActions != null && forwardActions.contains(action)) checkForward.setSelected(true);
-            }
             
             mainPanel.add(row);
         }
@@ -132,21 +101,18 @@ public class MouseConfig extends JDialog {
         // Click air to cancel replay
         JPanel cancelReplayPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         checkClickAirToCancelReplay = new JCheckBox("Click Air to Cancel Replay");
-        checkClickAirToCancelReplay.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.CLICK_AIR_TO_CANCEL_REPLAY));
         cancelReplayPanel.add(checkClickAirToCancelReplay);
         optionsPanel.add(cancelReplayPanel);
 
         // Scroll wheel to select skills
         JPanel skillPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         checkWheelSkillSelect = new JCheckBox("Use Scroll Wheel to Select Skills");
-        checkWheelSkillSelect.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.ENABLE_WHEEL_SKILL_SELECT));
         skillPanel.add(checkWheelSkillSelect);
         optionsPanel.add(skillPanel);
 
         // Scroll wheel to change debug brush size
         JPanel brushPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         checkWheelBrushSize = new JCheckBox("Use Scroll Wheel to Change Debug Draw Paintbrush Size");
-        checkWheelBrushSize.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.ENABLE_WHEEL_BRUSH_SIZE));
         brushPanel.add(checkWheelBrushSize);
         optionsPanel.add(brushPanel);
 
@@ -154,52 +120,76 @@ public class MouseConfig extends JDialog {
         mainPanel.add(Box.createVerticalStrut(10));
         mainPanel.add(optionsPanel);
 
-        JButton saveBtn = new JButton("Save");
-        saveBtn.addActionListener(this::saveConfig);
+        JButton btnReset = new JButton("Reset");
+        btnReset.addActionListener(this::reloadDefaults);
+        
+        JButton btnSave = new JButton("Save");
+        btnSave.addActionListener(this::saveConfig);
 
         // Wrap in a panel to center it
-        JPanel savePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        savePanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-        savePanel.add(saveBtn);
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        buttonPanel.add(btnReset);
+        buttonPanel.add(btnSave);
 
-        add(savePanel, BorderLayout.SOUTH);
+        add(buttonPanel, BorderLayout.SOUTH);
 
         JScrollPane pane = new JScrollPane(mainPanel);
         pane.setBorder(BorderFactory.createEmptyBorder());
 
         add(pane, BorderLayout.CENTER);
-        saveBtn.requestFocusInWindow();
+        
+        loadDefaults();
+        loadUserConfig();
+        
+        btnSave.requestFocusInWindow();
     }
     
-    private void checkOffCheckChanged(MouseAction action, JCheckBox checkOff) {       
-        Map<Integer, JCheckBox> map = actionCheckBoxes.get(action);
-        if (map == null) return;
+    private void applyMouseInputToUI(MouseInput source) {
+        for (MouseAction action : MouseAction.values()) {
+            Map<Integer, JCheckBox> map = actionCheckBoxes.get(action);
+            if (map == null) continue;
 
-        JCheckBox left = map.get(MouseEvent.BUTTON1);
-        JCheckBox middle = map.get(MouseEvent.BUTTON2);
-        JCheckBox right = map.get(MouseEvent.BUTTON3);
-        JCheckBox backward = map.get(4);
-        JCheckBox forward = map.get(5);
-
-        if (checkOff.isSelected()) {
-            left.setSelected(false);
-            middle.setSelected(false);
-            right.setSelected(false);
-            backward.setSelected(false);
-            forward.setSelected(false);
-
-            left.setEnabled(false);
-            middle.setEnabled(false);
-            right.setEnabled(false);
-            backward.setSelected(false);
-            forward.setSelected(false);
-        } else {
-            left.setEnabled(isAllowed(action, MouseEvent.BUTTON1));
-            middle.setEnabled(isAllowed(action, MouseEvent.BUTTON2));
-            right.setEnabled(isAllowed(action, MouseEvent.BUTTON3));
-            backward.setEnabled(isAllowed(action, 4));
-            forward.setEnabled(isAllowed(action, 5));
+            for (Map.Entry<Integer, JCheckBox> e : map.entrySet()) {
+                int button = e.getKey();
+                JCheckBox box = e.getValue();
+                box.setSelected(source.getActionsForButton(button).contains(action));
+                box.setEnabled(isAllowed(action, button));
+            }
         }
+
+        checkClickAirToCancelReplay.setSelected(source.clickAirToCancelReplay);
+        checkWheelSkillSelect.setSelected(source.enableWheelSkillSelect);
+        checkWheelBrushSize.setSelected(source.enableWheelBrushSize);
+    }
+    
+    private void loadUserConfig() {
+        mouseInput.loadFromProperties(Core.getProgramPropsFilePath());
+        applyMouseInputToUI(mouseInput);
+    }
+    
+    private void loadDefaults() {
+        MouseInput defaults = new MouseInput();
+        applyMouseInputToUI(defaults);
+    }
+    
+    private Map<Integer, JCheckBox> getCheckMap(MouseAction action) {
+        return actionCheckBoxes.getOrDefault(action, Collections.emptyMap());
+    }
+    
+    private void updateOffSelection(MouseAction action, boolean offSelected) {
+        Map<Integer, JCheckBox> map = getCheckMap(action);
+        for (Map.Entry<Integer, JCheckBox> e : map.entrySet()) {
+            int button = e.getKey();
+            JCheckBox box = e.getValue();
+            if (button == MouseEvent.NOBUTTON) continue;
+            box.setEnabled(!offSelected && isAllowed(action, button));
+            if (offSelected) box.setSelected(false);
+        }
+    }
+    
+    private void checkOffCheckChanged(MouseAction action, JCheckBox checkOff) {
+        updateOffSelection(action, checkOff.isSelected());
     }
 
 	private String describeAction(MouseAction action) {
@@ -225,25 +215,31 @@ public class MouseConfig extends JDialog {
     			return true;
     	}
     }
-
-    private void saveConfig(ActionEvent e) {
-        mouseInput.clearMappings();
-        for (MouseAction action : actionCheckBoxes.keySet()) {
-            Map<Integer, JCheckBox> checkMap = actionCheckBoxes.get(action);
-            for (Integer button : checkMap.keySet()) {
-                JCheckBox box = checkMap.get(button);
-                if (box.isSelected()) {
-                    mouseInput.addMapping(button, action);
+    
+    private void copyUIToMouseInput(MouseInput target) {
+        target.clearMappings();
+        for (MouseAction action : MouseAction.values()) {
+            Map<Integer, JCheckBox> map = getCheckMap(action);
+            for (Map.Entry<Integer, JCheckBox> e : map.entrySet()) {
+                if (e.getValue().isSelected()) {
+                    target.addMapping(e.getKey(), action);
                 }
             }
         }
-        boolean clickAirToCancelReplay = checkClickAirToCancelReplay.isSelected();
-        boolean enableWheelSkillSelect = checkWheelSkillSelect.isSelected();
-        boolean enableWheelBrushSize = checkWheelBrushSize.isSelected();
-        
-        mouseInput.saveToProperties(Core.getProgramPropsFilePath(), clickAirToCancelReplay, enableWheelSkillSelect, enableWheelBrushSize);
+        target.clickAirToCancelReplay = checkClickAirToCancelReplay.isSelected();
+        target.enableWheelSkillSelect = checkWheelSkillSelect.isSelected();
+        target.enableWheelBrushSize = checkWheelBrushSize.isSelected();
+    }
+
+    private void saveConfig(ActionEvent e) {
+        copyUIToMouseInput(mouseInput);
+        mouseInput.saveToProperties(Core.getProgramPropsFilePath());
         JOptionPane.showMessageDialog(this, "Mouse configuration saved!");
         dispose();
+    }
+    
+    private void reloadDefaults(ActionEvent e) {
+    	loadDefaults();
     }
 
     public static void main(String[] args) {
