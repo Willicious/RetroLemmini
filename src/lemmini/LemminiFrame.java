@@ -60,6 +60,7 @@ import lemmini.game.LevelPack;
 import lemmini.game.ResourceException;
 import lemmini.game.Vsfx;
 import lemmini.gameutil.Fader;
+import lemmini.gameutil.MouseInput;
 import lemmini.gameutil.RetroLemminiHotkeys;
 import lemmini.graphics.GraphicsContext;
 import lemmini.graphics.LemmImage;
@@ -88,6 +89,8 @@ public class LemminiFrame extends JFrame {
 
     /** self reference */
     static LemminiFrame thisFrame;
+    
+    private final MouseInput mouseInput = new MouseInput();
 
     /**
      * Creates new form LemminiFrame
@@ -746,19 +749,7 @@ public class LemminiFrame extends JFrame {
                     break;
                 case HotkeySelectWalker:
                     if (GameController.isOptionEnabled(GameController.Option.ADVANCED_SELECT)) {
-                        switch (LemmCursor.getType()) {
-                            case NORMAL:
-                                lemminiPanelMain.setCursor(LemmCursor.CursorType.WALKER);
-                                break;
-                            case LEFT:
-                                lemminiPanelMain.setCursor(LemmCursor.CursorType.WALKER_LEFT);
-                                break;
-                            case RIGHT:
-                                lemminiPanelMain.setCursor(LemmCursor.CursorType.WALKER_RIGHT);
-                                break;
-                            default:
-                                break;
-                        }
+                    	lemminiPanelMain.pressSelectWalker();
                     }
                     break;
                 case HotkeyNudgeViewLeft:
@@ -891,19 +882,7 @@ public class LemminiFrame extends JFrame {
                     break;
                 case HotkeySelectWalker:
                     if (GameController.isOptionEnabled(GameController.Option.ADVANCED_SELECT)) {
-                        switch (LemmCursor.getType()) {
-                            case WALKER:
-                                lemminiPanelMain.setCursor(LemmCursor.CursorType.NORMAL);
-                                break;
-                            case WALKER_LEFT:
-                                lemminiPanelMain.setCursor(LemmCursor.CursorType.LEFT);
-                                break;
-                            case WALKER_RIGHT:
-                                lemminiPanelMain.setCursor(LemmCursor.CursorType.RIGHT);
-                                break;
-                            default:
-                                break;
-                        }
+                    	lemminiPanelMain.releaseSelectWalker();
                     }
                     break;
                 case HotkeyNudgeViewLeft:
@@ -1394,7 +1373,11 @@ public class LemminiFrame extends JFrame {
         }
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    public MouseInput getMouseInput() {
+		return mouseInput;
+	}
+
+	// Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBarMain;
     private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenuItem jMenuItemEnterLevelCode;

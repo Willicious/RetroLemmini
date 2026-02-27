@@ -65,6 +65,7 @@ import lemmini.game.SpriteObject;
 import lemmini.game.Stencil;
 import lemmini.game.TextScreen;
 import lemmini.gameutil.Fader;
+import lemmini.gameutil.MouseInput;
 import lemmini.graphics.GraphicsBuffer;
 import lemmini.graphics.GraphicsContext;
 import lemmini.graphics.LemmImage;
@@ -328,14 +329,10 @@ public class LemminiPanel extends JPanel implements Runnable {
         int y = Core.unscale(evt.getY());
         mouseDx = 0;
         mouseDy = 0;
-        // BOOKMARK TODO: rewrite the mouse button selecting to allow changing what all the mouse buttons do
-        //                for instance, right now, up to 5 mouse buttons are supported:
-        //                BUTTON1 (left-click) is the main button
-        //                BUTTON2 (right-click)
-        boolean swapButtons = GameController.isOptionEnabled(GameController.Option.SWAP_BUTTONS);
         int buttonPressed = evt.getButton();
         int modifiers = evt.getModifiersEx();
         boolean leftMousePressed = BooleanUtils.toBoolean(modifiers & InputEvent.BUTTON1_DOWN_MASK);
+        //boolean middleMousePressed = BooleanUtils.toBoolean(modifiers & InputEvent.BUTTON2_DOWN_MASK);
         boolean rightMousePressed = BooleanUtils.toBoolean(modifiers & InputEvent.BUTTON3_DOWN_MASK);
 
         if (Fader.getState() != Fader.State.OFF
@@ -459,65 +456,63 @@ public class LemminiPanel extends JPanel implements Runnable {
                 break;
             case LEVEL:
                 boolean isDebugDraw = Core.player.isDebugMode() && draw;
+                boolean mouseOverPanel = y >= getIconBarY() && y < getIconBarY() + Icons.getIconHeight();
+                
                 //  debug drawing
                 if (isDebugDraw && (leftMousePressed || rightMousePressed)) {
                     debugDraw(x, y, leftMousePressed);
-                }
-                if (buttonPressed == MouseEvent.BUTTON1) {
-                    if (y >= getIconBarY() && y < getIconBarY() + Icons.getIconHeight()) {
-                        //System.out.println("y:" + y + " x:" + x + "\n getIconBarX():" + getIconBarX() + " getIconBarY():" + getIconBarY());
-                        //clicking on icons
-                        Icons.IconType type = GameController.getIconType(x - menuOffsetX - getIconBarX());
-                        if (type != null) {
-                            GameController.handleIconButton(type);
-                        }
-                    } else {
-                        //clicking on lemmings
-                        Lemming l = GameController.lemmUnderCursor(LemmCursor.getType());
-                        if (l != null) {
-                            GameController.requestSkill(l);
-                        } else if (y < LemminiFrame.LEVEL_HEIGHT) {
-                            GameController.stopReplayMode();
-                            if (GameController.isOptionEnabled(GameController.SLTooOption.ENABLE_FRAME_STEPPING)) {
-                                GameController.advanceFrame();
-                            }
-                        }
-                    }
-                    // check minimap mouse move
-                    if (x >= getSmallX() + menuOffsetX && x < getSmallX() + menuOffsetX + Minimap.getVisibleWidth()
-                            && y >= getSmallY() && y < getSmallY() + Minimap.getVisibleHeight()) {
-                        holdingMinimap = true;
-                    }
-                    evt.consume();
-                }
-                if (buttonPressed == (swapButtons ? MouseEvent.BUTTON2 : MouseEvent.BUTTON3)) {
-                    switch (LemmCursor.getType()) {
-                        case NORMAL:
-                            setCursor(LemmCursor.CursorType.WALKER);
-                            break;
-                        case LEFT:
-                            setCursor(LemmCursor.CursorType.WALKER_LEFT);
-                            break;
-                        case RIGHT:
-                            setCursor(LemmCursor.CursorType.WALKER_RIGHT);
-                            break;
-                        default:
-                            break;
-                    }
-                    shiftPressed = true;
-                }
-                if (buttonPressed == (swapButtons ? MouseEvent.BUTTON3 : MouseEvent.BUTTON2)) {
-                	GameController.togglePause();
-                }
-                if (buttonPressed == 4) {
-                    GameController.pressMinus(GameController.KEYREPEAT_KEY);
-                }
-                if (buttonPressed == 5) {
-                    GameController.pressPlus(GameController.KEYREPEAT_KEY);
-                }
-                break;
-            default:
-                break;
+                } else {
+	                if (buttonPressed == MouseEvent.BUTTON1) {
+	                    if (mouseOverPanel) {
+	                        //clicking on icons
+	                        Icons.IconType type = GameController.getIconType(x - menuOffsetX - getIconBarX());
+	                        if (type != null) {
+	                            GameController.handleIconButton(type);
+	                        }
+	                    } else {
+	                        //clicking on lemmings
+	                        Lemming l = GameController.lemmUnderCursor(LemmCursor.getType());
+	                        if (l != null) {
+	                            GameController.requestSkill(l);
+	                        } else if (y < LemminiFrame.LEVEL_HEIGHT) {
+	                            GameController.stopReplayMode();
+	                            if (GameController.isOptionEnabled(GameController.SLTooOption.ENABLE_FRAME_STEPPING))
+	                            	GameController.advanceFrame();
+	                        }
+	                    }
+	                    // check minimap mouse move
+	                    if (x >= getSmallX() + menuOffsetX && x < getSmallX() + menuOffsetX + Minimap.getVisibleWidth()
+	                            && y >= getSmallY() && y < getSmallY() + Minimap.getVisibleHeight()) {
+	                        holdingMinimap = true;
+	                    }
+	                    evt.consume();
+	                } else {
+		                MouseInput.handleButton(buttonPressed, action -> {
+		                    switch (action) {
+		                        case TOGGLE_PAUSE:
+		                        	GameController.togglePause();
+		                        	break;
+		                        case SELECT_WALKER:
+		    	                	pressSelectWalker();
+		                        	break;
+		                        case FAST_SCROLL:
+		    	            	    shiftPressed = true;
+		                        	break;
+		                    	default:
+		                    		break;
+			                    }
+			                });
+		                }
+		                if (buttonPressed == 4) {
+		                    GameController.pressMinus(GameController.KEYREPEAT_KEY);
+		                }
+		                if (buttonPressed == 5) {
+		                    GameController.pressPlus(GameController.KEYREPEAT_KEY);
+		                }
+	                }
+	                break;
+	            default:
+	                break;
         }
     }//GEN-LAST:event_formMousePressed
 
@@ -526,7 +521,6 @@ public class LemminiPanel extends JPanel implements Runnable {
         int y = Core.unscale(evt.getY());
         mouseDx = 0;
         mouseDy = 0;
-        boolean swapButtons = GameController.isOptionEnabled(GameController.Option.SWAP_BUTTONS);
         int buttonPressed = evt.getButton();
 
         switch (GameController.getGameState()) {
@@ -548,28 +542,25 @@ public class LemminiPanel extends JPanel implements Runnable {
                     GameController.releaseIcon(Icons.IconType.PLUS);
                     GameController.releaseIcon(Icons.IconType.NUKE);
                     GameController.releaseIcon(Icons.IconType.RESTART);
-                }
-                if (buttonPressed == (swapButtons ? MouseEvent.BUTTON2 : MouseEvent.BUTTON3)) {
-                    switch (LemmCursor.getType()) {
-                        case WALKER:
-                            setCursor(LemmCursor.CursorType.NORMAL);
-                            break;
-                        case WALKER_LEFT:
-                            setCursor(LemmCursor.CursorType.LEFT);
-                            break;
-                        case WALKER_RIGHT:
-                            setCursor(LemmCursor.CursorType.RIGHT);
-                            break;
-                        default:
-                            break;
-                    }
-                    shiftPressed = false;
-                }
-                if (buttonPressed == 4) {
-                    GameController.releaseMinus(GameController.KEYREPEAT_KEY);
-                }
-                if (buttonPressed == 5) {
-                    GameController.releasePlus(GameController.KEYREPEAT_KEY);
+                } else {
+	                MouseInput.handleButton(buttonPressed, action -> {
+	                    switch (action) {
+	                        case SELECT_WALKER:
+	    	                	releaseSelectWalker();
+	                        	break;
+	                        case FAST_SCROLL:
+	    	            	    shiftPressed = false;
+	                        	break;
+	                    	default:
+	                    		break;
+		                    }
+		                });
+	                if (buttonPressed == 4) {
+	                    GameController.releaseMinus(GameController.KEYREPEAT_KEY);
+	                }
+	                if (buttonPressed == 5) {
+	                    GameController.releasePlus(GameController.KEYREPEAT_KEY);
+	                }
                 }
                 evt.consume();
                 break;
@@ -593,24 +584,25 @@ public class LemminiPanel extends JPanel implements Runnable {
             case LEVEL:
                 int x = Core.unscale(evt.getX());
                 int y = Core.unscale(evt.getY());
-                if (GameController.isOptionEnabled(GameController.Option.SWAP_BUTTONS)
-                        ? rightMousePressed : middleMousePressed) {
-                    int xOfsTemp = GameController.getXPos() + (x - mouseDragStartX);
-                    GameController.setXPos(xOfsTemp);
-                    if (!GameController.isVerticalLock()) {
-                        int yOfsTemp = GameController.getYPos() + (y - mouseDragStartY);
-                        GameController.setYPos(yOfsTemp);
-                    }
-                    Minimap.adjustXPos();
-                }
                 
             	// debug drawing
                 boolean isDebugDraw = draw && Core.player.isDebugMode(); 
                 if (isDebugDraw && (leftMousePressed || rightMousePressed)) {
                     debugDraw(x, y, leftMousePressed);
+                } else {
+                	int button = middleMousePressed ? MouseEvent.BUTTON2 : rightMousePressed ? MouseEvent.BUTTON3 : MouseEvent.NOBUTTON;
+	                MouseInput.handleButton(button, action -> {
+	                    switch (action) {
+	                        case DRAG_VIEW_AREA:
+	                        	dragViewArea(x, y);
+	                        	break;
+	                    	default:
+	                    		break;
+		                    }
+		                });
+	                formMouseMoved(evt);
+	                evt.consume();
                 }
-                formMouseMoved(evt);
-                evt.consume();
                 break;
             default:
                 break;
@@ -678,6 +670,16 @@ public class LemminiPanel extends JPanel implements Runnable {
         }
     }//GEN-LAST:event_formMouseWheelMoved
     
+    private void dragViewArea(int x, int y) {
+        int xOfsTemp = GameController.getXPos() + (x - mouseDragStartX);
+        GameController.setXPos(xOfsTemp);
+        if (!GameController.isVerticalLock()) {
+            int yOfsTemp = GameController.getYPos() + (y - mouseDragStartY);
+            GameController.setYPos(yOfsTemp);
+        }
+        Minimap.adjustXPos();
+    }
+    
     /**
      * Replaces transparent pixels with black
      * @param img
@@ -708,6 +710,38 @@ public class LemminiPanel extends JPanel implements Runnable {
     public void setCursor(final LemmCursor.CursorType c) {
         LemmCursor.setType(c);
         super.setCursor(LemmCursor.getCursor());
+    }
+    
+    public void pressSelectWalker() {
+    	switch (LemmCursor.getType()) {
+	        case NORMAL:
+	            setCursor(LemmCursor.CursorType.WALKER);
+	            break;
+	        case LEFT:
+	            setCursor(LemmCursor.CursorType.WALKER_LEFT);
+	            break;
+	        case RIGHT:
+	            setCursor(LemmCursor.CursorType.WALKER_RIGHT);
+	            break;
+	        default:
+	            break;
+	    }
+    }
+    
+    public void releaseSelectWalker() {
+    	switch (LemmCursor.getType()) {
+	        case WALKER:
+	            setCursor(LemmCursor.CursorType.NORMAL);
+	            break;
+	        case WALKER_LEFT:
+	            setCursor(LemmCursor.CursorType.LEFT);
+	            break;
+	        case WALKER_RIGHT:
+	            setCursor(LemmCursor.CursorType.RIGHT);
+	            break;
+	        default:
+	            break;
+	    }
     }
 
     @Override

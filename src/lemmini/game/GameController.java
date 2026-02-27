@@ -100,7 +100,6 @@ public class GameController {
         ADVANCED_SELECT,
         /** flag: use classic mouse cursor behavior */
         CLASSIC_CURSOR,
-        SWAP_BUTTONS,
         FASTER_FAST_FORWARD,
         PAUSE_STOPS_FAST_FORWARD,
         NO_PERCENTAGES,
