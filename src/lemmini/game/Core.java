@@ -34,6 +34,7 @@ import lemmini.LemminiFrame;
 import lemmini.game.GameController.ExitSoundOption;
 import lemmini.game.GameController.MenuThemeOption;
 import lemmini.gameutil.Hotkey;
+import lemmini.gameutil.MouseInput;
 import lemmini.gameutil.RetroLemminiHotkeys;
 import lemmini.graphics.LemmImage;
 import lemmini.gui.LegalFrame;
@@ -145,6 +146,8 @@ public class Core {
     private static int drawWidth;
     /** draw height */
     private static int drawHeight;
+    
+    private static MouseInput mouseInput = new MouseInput();
 
     /**
      * Initialize some core elements.
@@ -205,6 +208,10 @@ public class Core {
         System.out.println("\n    hotkey config: " + getProgramHotkeysFilePath().toString());
         loadHotkeys(getProgramHotkeysFilePath());
         System.out.println("    hotkey config read successfully");
+        
+        // Mouse Config
+        getMouseInput().loadFromProperties(Core.getProgramPropsFilePath());
+        System.out.println("    mouse config read successfully");
 
         // Resources directory
         if (gamePath.toString().endsWith(".jar")) {
@@ -930,5 +937,9 @@ public class Core {
 
 	public static void setProgramHotkeysFilePath(Path programHotkeysFilePath) {
 		Core.programHotkeysFilePath = programHotkeysFilePath;
+	}
+
+	public static MouseInput getMouseInput() {
+		return mouseInput;
 	}
 }

@@ -60,7 +60,6 @@ import lemmini.game.LevelPack;
 import lemmini.game.ResourceException;
 import lemmini.game.Vsfx;
 import lemmini.gameutil.Fader;
-import lemmini.gameutil.MouseInput;
 import lemmini.gameutil.RetroLemminiHotkeys;
 import lemmini.graphics.GraphicsContext;
 import lemmini.graphics.LemmImage;
@@ -89,8 +88,6 @@ public class LemminiFrame extends JFrame {
 
     /** self reference */
     static LemminiFrame thisFrame;
-    
-    private final MouseInput mouseInput = new MouseInput();
 
     /**
      * Creates new form LemminiFrame
@@ -618,7 +615,8 @@ public class LemminiFrame extends JFrame {
                 lemminiPanelMain.handleOptions();
                 break;
             case HotkeyManageHotkeys:
-                lemminiPanelMain.handleHotkeyConfig();
+                //lemminiPanelMain.handleHotkeyConfig();
+                lemminiPanelMain.handleMouseConfig();
                 break;
             case HotkeyAbout:
                 handleAbout();
@@ -1372,10 +1370,6 @@ public class LemminiFrame extends JFrame {
             } catch (IOException ex) {
         }
     }
-
-    public MouseInput getMouseInput() {
-		return mouseInput;
-	}
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBarMain;

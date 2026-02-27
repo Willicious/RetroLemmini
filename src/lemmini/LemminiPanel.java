@@ -72,6 +72,7 @@ import lemmini.graphics.LemmImage;
 import lemmini.gui.HotkeyConfig;
 import lemmini.gui.LevelCodeDialog;
 import lemmini.gui.LevelDialog;
+import lemmini.gui.MouseConfig;
 import lemmini.gui.OptionsDialog;
 import lemmini.gui.PlayerDialog;
 import lemmini.tools.ToolBox;
@@ -104,7 +105,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     static final int SMALL_X = ICONS_X + 32 * 15 + 16;
     /** y coordinate of minimap in pixels */
     static final int SMALL_Y = ICONS_Y;
-
+    
     private boolean needVLockIcon() {
         return GameController.getLevel() != null &&
                GameController.getLevel().getHeight() > Level.DEFAULT_HEIGHT;
@@ -487,22 +488,22 @@ public class LemminiPanel extends JPanel implements Runnable {
 	                    }
 	                    evt.consume();
 	                } else {
-		                MouseInput.handleButton(buttonPressed, action -> {
-		                    switch (action) {
-		                        case TOGGLE_PAUSE:
-		                        	GameController.togglePause();
-		                        	break;
-		                        case SELECT_WALKER:
-		    	                	pressSelectWalker();
-		                        	break;
-		                        case FAST_SCROLL:
-		    	            	    shiftPressed = true;
-		                        	break;
-		                    	default:
-		                    		break;
+	                	for (MouseInput.MouseAction action :
+	                		Core.getMouseInput().getActionsForButton(buttonPressed)) {
+			                    switch (action) {
+			                        case TOGGLEPAUSE:
+			                            GameController.togglePause();
+			                            break;		
+			                        case SELECTWALKER:
+			                            pressSelectWalker();
+			                            break;		
+			                        case FASTSCROLL:
+			                            shiftPressed = true;
+			                            break;		
+			                        default:
+			                            break;
 			                    }
-			                });
-		                }
+			                }
 		                if (buttonPressed == 4) {
 		                    GameController.pressMinus(GameController.KEYREPEAT_KEY);
 		                }
@@ -510,9 +511,10 @@ public class LemminiPanel extends JPanel implements Runnable {
 		                    GameController.pressPlus(GameController.KEYREPEAT_KEY);
 		                }
 	                }
-	                break;
-	            default:
-	                break;
+                }
+            	break;
+            default:
+                break;
         }
     }//GEN-LAST:event_formMousePressed
 
@@ -543,18 +545,19 @@ public class LemminiPanel extends JPanel implements Runnable {
                     GameController.releaseIcon(Icons.IconType.NUKE);
                     GameController.releaseIcon(Icons.IconType.RESTART);
                 } else {
-	                MouseInput.handleButton(buttonPressed, action -> {
-	                    switch (action) {
-	                        case SELECT_WALKER:
+                	for (MouseInput.MouseAction action :
+                        Core.getMouseInput().getActionsForButton(buttonPressed)) {
+		                    switch (action) {
+	                        case SELECTWALKER:
 	    	                	releaseSelectWalker();
 	                        	break;
-	                        case FAST_SCROLL:
+	                        case FASTSCROLL:
 	    	            	    shiftPressed = false;
 	                        	break;
 	                    	default:
 	                    		break;
 		                    }
-		                });
+		                }
 	                if (buttonPressed == 4) {
 	                    GameController.releaseMinus(GameController.KEYREPEAT_KEY);
 	                }
@@ -591,15 +594,16 @@ public class LemminiPanel extends JPanel implements Runnable {
                     debugDraw(x, y, leftMousePressed);
                 } else {
                 	int button = middleMousePressed ? MouseEvent.BUTTON2 : rightMousePressed ? MouseEvent.BUTTON3 : MouseEvent.NOBUTTON;
-	                MouseInput.handleButton(button, action -> {
-	                    switch (action) {
-	                        case DRAG_VIEW_AREA:
+                	for (MouseInput.MouseAction action :
+                        Core.getMouseInput().getActionsForButton(button)) {
+		                    switch (action) {
+	                        case DRAGVIEWAREA:
 	                        	dragViewArea(x, y);
 	                        	break;
 	                    	default:
 	                    		break;
 		                    }
-		                });
+		                }
 	                formMouseMoved(evt);
 	                evt.consume();
                 }
@@ -1568,6 +1572,11 @@ public class LemminiPanel extends JPanel implements Runnable {
         HotkeyConfig hc = new HotkeyConfig();
         hc.setVisible(true);
         GameController.activeHotkeys = hc.getAllHotkeys(); 
+    }
+    
+    public void handleMouseConfig() {
+        MouseConfig mc = new MouseConfig(Core.getMouseInput());
+        mc.setVisible(true);
     }
 
     void loadDefaultLevel() {
