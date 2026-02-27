@@ -537,8 +537,6 @@ public class LemminiPanel extends JPanel implements Runnable {
                         }
                     }
                     // always release icons which don't stay pressed
-                    // this is to avoid the icons get stuck when they're pressed,
-                    // the the mouse is dragged out and released outside
                     GameController.releasePlus(GameController.KEYREPEAT_ICON);
                     GameController.releaseMinus(GameController.KEYREPEAT_ICON);
                     GameController.releaseIcon(Icons.IconType.MINUS);

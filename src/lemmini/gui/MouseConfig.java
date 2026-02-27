@@ -56,27 +56,26 @@ public class MouseConfig extends JDialog {
             label.setPreferredSize(new Dimension(150, 25));
             row.add(label);
 
-            final JCheckBox checkLeft = new JCheckBox("Left");
+            //final JCheckBox checkLeft = new JCheckBox("Left");
             final JCheckBox checkMiddle = new JCheckBox("Middle");
             final JCheckBox checkRight = new JCheckBox("Right");
             final JCheckBox checkBackward = new JCheckBox("X1");
             final JCheckBox checkForward = new JCheckBox("X2");
             
-            if (!isAllowed(action, MouseEvent.BUTTON1)) checkLeft.setEnabled(false);
+            //if (!isAllowed(action, MouseEvent.BUTTON1)) checkLeft.setEnabled(false);
             if (!isAllowed(action, MouseEvent.BUTTON2)) checkMiddle.setEnabled(false);
             if (!isAllowed(action, MouseEvent.BUTTON3)) checkRight.setEnabled(false);
             if (!isAllowed(action, 4)) checkBackward.setEnabled(false);
             if (!isAllowed(action, 5)) checkForward.setEnabled(false);
 
-            row.add(checkLeft);
+            //row.add(checkLeft);
             row.add(checkMiddle);
             row.add(checkRight);
             row.add(checkBackward);
             row.add(checkForward);
 
-            // Store checkboxes
             Map<Integer, JCheckBox> map = new HashMap<Integer, JCheckBox>();
-            map.put(MouseEvent.BUTTON1, checkLeft);
+            //map.put(MouseEvent.BUTTON1, checkLeft);
             map.put(MouseEvent.BUTTON2, checkMiddle);
             map.put(MouseEvent.BUTTON3, checkRight);
             map.put(4, checkBackward);
@@ -183,15 +182,16 @@ public class MouseConfig extends JDialog {
     }
 
     private boolean isAllowed(MouseAction action, int button) {
-    	switch (action) {
-    		case TOGGLEPAUSE:
-    		case SELECTWALKER:
-    		case RELEASERATEDOWN:
-    		case RELEASERATEUP:
-    			return button != MouseEvent.BUTTON1;
-    		default:
-    			return true;
-    	}
+    	return true;
+//    	switch (action) {
+//    		case TOGGLEPAUSE:
+//    		case SELECTWALKER:
+//    		case RELEASERATEDOWN:
+//    		case RELEASERATEUP:
+//    			return button != MouseEvent.BUTTON1;
+//    		default:
+//    			return true;
+//    	}
     }
     
     private void copyUIToMouseInput(MouseInput target) {
