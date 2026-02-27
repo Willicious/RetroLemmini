@@ -18,7 +18,9 @@ public class MouseInput {
         TOGGLEPAUSE,
         SELECTWALKER,
         DRAGVIEWAREA,
-        FASTSCROLL
+        FASTSCROLL,
+        RELEASERATEDOWN,
+        RELEASERATEUP
     }
 
     public final Map<Integer, List<MouseAction>> buttonMap =
@@ -35,6 +37,8 @@ public class MouseInput {
         addMapping(MouseEvent.BUTTON3, MouseAction.DRAGVIEWAREA);
         addMapping(MouseEvent.BUTTON3, MouseAction.SELECTWALKER);
         addMapping(MouseEvent.BUTTON3, MouseAction.FASTSCROLL);
+        addMapping(4, MouseAction.RELEASERATEDOWN);
+        addMapping(5, MouseAction.RELEASERATEUP);
     }
 
     public void clearMappings() {

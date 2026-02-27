@@ -500,19 +500,19 @@ public class LemminiPanel extends JPanel implements Runnable {
 			                            break;		
 			                        case FASTSCROLL:
 			                            shiftPressed = true;
-			                            break;		
+			                            break;
+			                        case RELEASERATEDOWN:
+			                        	GameController.pressMinus(GameController.KEYREPEAT_KEY);
+			                        	break;
+			                        case RELEASERATEUP:
+			                        	GameController.pressPlus(GameController.KEYREPEAT_KEY);
+			                        	break;
 			                        default:
 			                            break;
 			                    }
 			                }
-		                if (buttonPressed == 4) {
-		                    GameController.pressMinus(GameController.KEYREPEAT_KEY);
-		                }
-		                if (buttonPressed == 5) {
-		                    GameController.pressPlus(GameController.KEYREPEAT_KEY);
 		                }
 	                }
-                }
             	break;
             default:
                 break;
@@ -555,17 +555,17 @@ public class LemminiPanel extends JPanel implements Runnable {
 	                        case FASTSCROLL:
 	    	            	    shiftPressed = false;
 	                        	break;
+	                        case RELEASERATEDOWN:
+	                        	GameController.releaseMinus(GameController.KEYREPEAT_KEY);
+	                        	break;
+	                        case RELEASERATEUP:
+	                        	GameController.releasePlus(GameController.KEYREPEAT_KEY);
+	                        	break;
 	                    	default:
 	                    		break;
 		                    }
 		                }
-	                if (buttonPressed == 4) {
-	                    GameController.releaseMinus(GameController.KEYREPEAT_KEY);
 	                }
-	                if (buttonPressed == 5) {
-	                    GameController.releasePlus(GameController.KEYREPEAT_KEY);
-	                }
-                }
                 evt.consume();
                 break;
             case INTRO:
@@ -581,6 +581,8 @@ public class LemminiPanel extends JPanel implements Runnable {
         boolean leftMousePressed = BooleanUtils.toBoolean(modifiers & InputEvent.BUTTON1_DOWN_MASK);
         boolean middleMousePressed = BooleanUtils.toBoolean(modifiers & InputEvent.BUTTON2_DOWN_MASK);
         boolean rightMousePressed = BooleanUtils.toBoolean(modifiers & InputEvent.BUTTON3_DOWN_MASK);
+        boolean backwardMousePressed = BooleanUtils.toBoolean(modifiers & InputEvent.getMaskForButton(4));
+        boolean forwardMousePressed = BooleanUtils.toBoolean(modifiers & InputEvent.getMaskForButton(5));
         mouseDx = 0;
         mouseDy = 0;
         // check minimap mouse move
@@ -594,7 +596,22 @@ public class LemminiPanel extends JPanel implements Runnable {
                 if (isDebugDraw && (leftMousePressed || rightMousePressed)) {
                     debugDraw(x, y, leftMousePressed);
                 } else {
-                	int button = middleMousePressed ? MouseEvent.BUTTON2 : rightMousePressed ? MouseEvent.BUTTON3 : MouseEvent.NOBUTTON;
+                	int button = MouseEvent.NOBUTTON;
+                	if (leftMousePressed) {
+                	    button = MouseEvent.BUTTON1;
+                	}
+                	else if (middleMousePressed) {
+                	    button = MouseEvent.BUTTON2;
+                	}
+                	else if (rightMousePressed) {
+                	    button = MouseEvent.BUTTON3;
+                	}
+                	else if (backwardMousePressed) {
+                	    button = 4;
+                	}
+                	else if (forwardMousePressed) {
+                	    button = 5;
+                	}                	
                 	for (MouseInput.MouseAction action :
                         Core.getMouseInput().getActionsForButton(button)) {
 		                    switch (action) {

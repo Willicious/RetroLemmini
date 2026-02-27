@@ -61,6 +61,8 @@ public class MouseConfig extends JDialog {
             final JCheckBox checkLeft = new JCheckBox("Left");
             final JCheckBox checkMiddle = new JCheckBox("Middle");
             final JCheckBox checkRight = new JCheckBox("Right");
+            final JCheckBox checkBackward = new JCheckBox("X1");
+            final JCheckBox checkForward = new JCheckBox("X2");
             
             checkOff.setEnabled(true);
             final MouseAction thisAction = action;
@@ -69,11 +71,15 @@ public class MouseConfig extends JDialog {
             if (!isAllowed(action, MouseEvent.BUTTON1)) checkLeft.setEnabled(false);
             if (!isAllowed(action, MouseEvent.BUTTON2)) checkMiddle.setEnabled(false);
             if (!isAllowed(action, MouseEvent.BUTTON3)) checkRight.setEnabled(false);
+            if (!isAllowed(action, 4)) checkBackward.setEnabled(false);
+            if (!isAllowed(action, 5)) checkForward.setEnabled(false);
 
             row.add(checkOff);
             row.add(checkLeft);
             row.add(checkMiddle);
             row.add(checkRight);
+            row.add(checkBackward);
+            row.add(checkForward);
 
             // Store checkboxes
             Map<Integer, JCheckBox> map = new HashMap<Integer, JCheckBox>();
@@ -81,6 +87,8 @@ public class MouseConfig extends JDialog {
             map.put(MouseEvent.BUTTON1, checkLeft);
             map.put(MouseEvent.BUTTON2, checkMiddle);
             map.put(MouseEvent.BUTTON3, checkRight);
+            map.put(4, checkBackward);
+            map.put(5, checkForward);
 
             actionCheckBoxes.put(action, map);
 
@@ -89,6 +97,8 @@ public class MouseConfig extends JDialog {
             List<MouseAction> leftActions = mouseInput.getActionsForButton(MouseEvent.BUTTON1);
             List<MouseAction> midActions = mouseInput.getActionsForButton(MouseEvent.BUTTON2);
             List<MouseAction> rightActions = mouseInput.getActionsForButton(MouseEvent.BUTTON3);
+            List<MouseAction> backwardActions = mouseInput.getActionsForButton(4);
+            List<MouseAction> forwardActions = mouseInput.getActionsForButton(5);
             
             if (offActions != null && offActions.contains(action)) {
             	checkOff.setSelected(true);
@@ -96,14 +106,20 @@ public class MouseConfig extends JDialog {
             	checkLeft.setSelected(false);
             	checkMiddle.setSelected(false);
             	checkRight.setSelected(false);
+            	checkBackward.setSelected(false);
+            	checkForward.setSelected(false);
             	
             	checkLeft.setEnabled(false);
             	checkMiddle.setEnabled(false);
             	checkRight.setEnabled(false);
+            	checkBackward.setEnabled(false);
+            	checkForward.setEnabled(false);
             } else {
 	            if (leftActions != null && leftActions.contains(action)) checkLeft.setSelected(true);
 	            if (midActions != null && midActions.contains(action)) checkMiddle.setSelected(true);
 	            if (rightActions != null && rightActions.contains(action)) checkRight.setSelected(true);
+	            if (backwardActions != null && backwardActions.contains(action)) checkBackward.setSelected(true);
+	            if (forwardActions != null && forwardActions.contains(action)) checkForward.setSelected(true);
             }
             
             mainPanel.add(row);
@@ -162,28 +178,38 @@ public class MouseConfig extends JDialog {
         JCheckBox left = map.get(MouseEvent.BUTTON1);
         JCheckBox middle = map.get(MouseEvent.BUTTON2);
         JCheckBox right = map.get(MouseEvent.BUTTON3);
+        JCheckBox backward = map.get(4);
+        JCheckBox forward = map.get(5);
 
         if (checkOff.isSelected()) {
             left.setSelected(false);
             middle.setSelected(false);
             right.setSelected(false);
+            backward.setSelected(false);
+            forward.setSelected(false);
 
             left.setEnabled(false);
             middle.setEnabled(false);
             right.setEnabled(false);
+            backward.setSelected(false);
+            forward.setSelected(false);
         } else {
             left.setEnabled(isAllowed(action, MouseEvent.BUTTON1));
             middle.setEnabled(isAllowed(action, MouseEvent.BUTTON2));
             right.setEnabled(isAllowed(action, MouseEvent.BUTTON3));
+            backward.setEnabled(isAllowed(action, 4));
+            forward.setEnabled(isAllowed(action, 5));
         }
     }
 
 	private String describeAction(MouseAction action) {
         switch (action) {
             case TOGGLEPAUSE: return "Toggle Pause";
-            case SELECTWALKER: return "Select Walker";
-            case DRAGVIEWAREA: return "Drag View Area";
+            case SELECTWALKER: return "Select Walker Only";
+            case DRAGVIEWAREA: return "Drag-to-Scroll View Area";
             case FASTSCROLL: return "Fast Scroll";
+            case RELEASERATEDOWN: return "Release Rate (-)";
+            case RELEASERATEUP: return "Release Rate (+)";
             default: return action.name();
         }
     }
@@ -192,6 +218,8 @@ public class MouseConfig extends JDialog {
     	switch (action) {
     		case TOGGLEPAUSE:
     		case SELECTWALKER:
+    		case RELEASERATEDOWN:
+    		case RELEASERATEUP:
     			return button != MouseEvent.BUTTON1;
     		default:
     			return true;
