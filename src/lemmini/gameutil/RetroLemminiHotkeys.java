@@ -148,8 +148,8 @@ public class RetroLemminiHotkeys {
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyPreviousLevel, KeyEvent.VK_LEFT));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNextGroup, KeyEvent.VK_UP));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyPreviousGroup, KeyEvent.VK_DOWN));
-	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleDebug, KeyEvent.VK_D, "Ctrl"));
-	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugMaxExitPhysics, KeyEvent.VK_E, "Ctrl"));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleDebug, KeyEvent.VK_D, "Alt"));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugMaxExitPhysics, KeyEvent.VK_E, "Alt"));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugSaveAll, KeyEvent.VK_NUMPAD1));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugInvertTimer, KeyEvent.VK_NUMPAD2));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyDebugToggleSuperLemming, KeyEvent.VK_NUMPAD3));
