@@ -80,7 +80,8 @@ public class RetroLemminiHotkeys {
 		HotkeyLevelSelect("(Anywhere) Select level", HotkeyScope.ANYWHERE),
 		HotkeyEnterCode("(Anywhere) Enter code", HotkeyScope.ANYWHERE),
 		HotkeyOpenSettings("(Anywhere) Options", HotkeyScope.ANYWHERE),
-		HotkeyManageHotkeys("(Anywhere) Hotkeys", HotkeyScope.ANYWHERE),
+		HotkeyManageHotkeys("(Anywhere) Configure Hotkeys", HotkeyScope.ANYWHERE),
+		HotkeyManageMouse("(Anywhere) Configure Mouse", HotkeyScope.ANYWHERE),
 		HotkeyAbout("(Anywhere) About RetroLemmini", HotkeyScope.ANYWHERE),
 		HotkeyCloseApp("(Anywhere) Close RetroLemmini", HotkeyScope.ANYWHERE);
 
@@ -164,7 +165,8 @@ public class RetroLemminiHotkeys {
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyEnterCode, KeyEvent.VK_F4));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyOpenSettings, KeyEvent.VK_F5));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyManageHotkeys, KeyEvent.VK_F6));
-	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyAbout, KeyEvent.VK_F7));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyManageMouse, KeyEvent.VK_F7));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyAbout, KeyEvent.VK_F8));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyCloseApp, KeyEvent.VK_F8, "Alt"));
 	    	    break;
 	    	case CLASSIC:
@@ -219,6 +221,7 @@ public class RetroLemminiHotkeys {
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyEnterCode, KeyEvent.VK_F5, "Ctrl"));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyOpenSettings, KeyEvent.VK_F10, "Ctrl"));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyManageHotkeys, KeyEvent.VK_F11, "Ctrl"));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyManageMouse, KeyEvent.VK_F11, "Alt"));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyAbout, KeyEvent.VK_F12, "Ctrl"));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyCloseApp, KeyEvent.VK_UNDEFINED));
 	    	    break;

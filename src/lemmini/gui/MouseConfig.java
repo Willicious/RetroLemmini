@@ -123,7 +123,7 @@ public class MouseConfig extends JDialog {
         JButton btnReset = new JButton("Reset");
         btnReset.addActionListener(this::reloadDefaults);
         
-        JButton btnSave = new JButton("Save");
+        JButton btnSave = new JButton("Save and Close");
         btnSave.addActionListener(this::saveConfig);
 
         // Wrap in a panel to center it
@@ -234,7 +234,6 @@ public class MouseConfig extends JDialog {
     private void saveConfig(ActionEvent e) {
         copyUIToMouseInput(mouseInput);
         mouseInput.saveToProperties(Core.getProgramPropsFilePath());
-        JOptionPane.showMessageDialog(this, "Mouse configuration saved!");
         dispose();
     }
     

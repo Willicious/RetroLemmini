@@ -626,6 +626,9 @@ public class LemminiFrame extends JFrame {
             case HotkeyManageHotkeys:
                 lemminiPanelMain.handleHotkeyConfig();
                 break;
+            case HotkeyManageMouse:
+                lemminiPanelMain.handleMouseConfig();
+                break;
             case HotkeyAbout:
                 handleAbout();
                 break;

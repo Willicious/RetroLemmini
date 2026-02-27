@@ -174,7 +174,7 @@ public class HotkeyConfig extends JDialog {
         JButton btnLoadClassic = new JButton("Load Classic Keys");
         JButton btnLoadDefaults = new JButton("Load RetroLemmini Keys");
         JButton btnReload = new JButton("Reload");
-        JButton btnSave = new JButton("Save Current Configuration");
+        JButton btnSave = new JButton("Save and Close");
         JButton btnCancel = new JButton("Cancel");
         btnClearAll.addActionListener(e -> { clearAllHotkeys(); updateButtonColors(); });
         btnLoadClassic.addActionListener(e -> { loadHotkeys(RetroLemminiHotkeys.HotkeyProfile.CLASSIC); updateButtonColors(); });
