@@ -60,11 +60,14 @@ import lemmini.game.LevelPack;
 import lemmini.game.ResourceException;
 import lemmini.game.Vsfx;
 import lemmini.gameutil.Fader;
+import lemmini.gameutil.Hotkey;
 import lemmini.gameutil.RetroLemminiHotkeys;
+import lemmini.gameutil.RetroLemminiHotkeys.HotkeyAction;
 import lemmini.graphics.GraphicsContext;
 import lemmini.graphics.LemmImage;
 import lemmini.sound.Music;
 import lemmini.tools.EditorTestMode;
+import lemmini.tools.MenuHotkeyDisplay;
 import lemmini.tools.StyleDownloader;
 import lemmini.tools.ToolBox;
 
@@ -280,10 +283,12 @@ public class LemminiFrame extends JFrame {
             lemminiPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 450, Short.MAX_VALUE)
         );
+        
+        String padding = "     ";
 
         jMenuFile.setText("File");
 
-        jMenuItemExit.setText("Exit");
+        jMenuItemExit.setText("Exit" + padding);
         jMenuItemExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemExitActionPerformed(evt);
@@ -295,7 +300,7 @@ public class LemminiFrame extends JFrame {
 
         jMenuPlayers.setText("Players");
 
-        jMenuItemManagePlayers.setText("Manage Players");
+        jMenuItemManagePlayers.setText("Manage Players" + padding);
         jMenuItemManagePlayers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemManagePlayersActionPerformed(evt);
@@ -307,7 +312,7 @@ public class LemminiFrame extends JFrame {
 
         jMenuLevel.setText("Level");
         
-        jMenuItemChooseLevel.setText("Choose Level");
+        jMenuItemChooseLevel.setText("Choose Level" + padding);
         jMenuItemChooseLevel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemChooseLevelActionPerformed(evt);
@@ -315,7 +320,7 @@ public class LemminiFrame extends JFrame {
         });
         jMenuLevel.add(jMenuItemChooseLevel);
 
-        jMenuItemRestartLevel.setText("Restart Level");
+        jMenuItemRestartLevel.setText("Restart Level" + padding);
         jMenuItemRestartLevel.setEnabled(false);
         jMenuItemRestartLevel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -324,7 +329,7 @@ public class LemminiFrame extends JFrame {
         });
         jMenuLevel.add(jMenuItemRestartLevel);
 
-        jMenuItemLoadReplay.setText("Load Replay");
+        jMenuItemLoadReplay.setText("Load Replay" + padding);
         jMenuItemLoadReplay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemLoadReplayActionPerformed(evt);
@@ -332,7 +337,7 @@ public class LemminiFrame extends JFrame {
         });
         jMenuLevel.add(jMenuItemLoadReplay);
 
-        jMenuItemEnterLevelCode.setText("Enter Level Code");
+        jMenuItemEnterLevelCode.setText("Enter Level Code" + padding);
         jMenuItemEnterLevelCode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemEnterLevelCodeActionPerformed(evt);
@@ -344,21 +349,21 @@ public class LemminiFrame extends JFrame {
 
         jMenuOptions.setText("Options");
 
-        jMenuItemOptions.setText("Options");
+        jMenuItemOptions.setText("Options" + padding);
         jMenuItemOptions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemOptionsActionPerformed(evt);
             }
         });
 
-        jMenuItemHotkeys.setText("Hotkeys");
+        jMenuItemHotkeys.setText("Hotkeys" + padding);
         jMenuItemHotkeys.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	lemminiPanelMain.handleHotkeyConfig();
             }
         });
         
-        jMenuItemMouse.setText("Mouse");
+        jMenuItemMouse.setText("Mouse" + padding);
         jMenuItemMouse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	lemminiPanelMain.handleMouseConfig();
@@ -373,7 +378,7 @@ public class LemminiFrame extends JFrame {
         
         jMenuHelp.setText("Help");
 
-        jMenuItemUpdateStyles.setText("Update Styles");
+        jMenuItemUpdateStyles.setText("Update Styles" + padding);
         jMenuItemUpdateStyles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 int result = JOptionPane.showConfirmDialog(
@@ -389,7 +394,7 @@ public class LemminiFrame extends JFrame {
             }
         });
         
-        jMenuItemAbout.setText("About");
+        jMenuItemAbout.setText("About" + padding);
         jMenuItemAbout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 handleAbout();
@@ -402,6 +407,19 @@ public class LemminiFrame extends JFrame {
         jMenuBarMain.add(jMenuHelp);
 
         setJMenuBar(jMenuBarMain);
+        
+        List<Hotkey> keys = GameController.activeHotkeys;
+        MenuHotkeyDisplay.applyHotkey(jMenuItemExit, HotkeyAction.HotkeyCloseApp, keys);
+        MenuHotkeyDisplay.applyHotkey(jMenuItemManagePlayers, HotkeyAction.HotkeyManagePlayers, keys);
+        MenuHotkeyDisplay.applyHotkey(jMenuItemChooseLevel, HotkeyAction.HotkeyLevelSelect, keys);
+        MenuHotkeyDisplay.applyHotkey(jMenuItemRestartLevel, HotkeyAction.HotkeyRestart, keys);
+        MenuHotkeyDisplay.applyHotkey(jMenuItemEnterLevelCode, HotkeyAction.HotkeyEnterCode, keys);
+        MenuHotkeyDisplay.applyHotkey(jMenuItemLoadReplay, HotkeyAction.HotkeyLoadReplay, keys);
+        MenuHotkeyDisplay.applyHotkey(jMenuItemOptions, HotkeyAction.HotkeyOpenSettings, keys);
+        MenuHotkeyDisplay.applyHotkey(jMenuItemHotkeys, HotkeyAction.HotkeyManageHotkeys, keys);
+        MenuHotkeyDisplay.applyHotkey(jMenuItemMouse, HotkeyAction.HotkeyManageMouse, keys);
+        MenuHotkeyDisplay.applyHotkey(jMenuItemUpdateStyles, null, keys);
+        MenuHotkeyDisplay.applyHotkey(jMenuItemAbout, HotkeyAction.HotkeyAbout, keys);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
