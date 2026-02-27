@@ -114,7 +114,6 @@ public class GameController {
     public static enum SLTooOption {
         TIMED_BOMBERS,
         UNLOCK_ALL_LEVELS,
-        ENABLE_SCROLL_WHEEL,
         ENABLE_FRAME_STEPPING,
         /** flag: show Visual SFX */
         VISUAL_SFX,
@@ -142,7 +141,11 @@ public class GameController {
         //** flag: use full color minimap / green-tinted minimap
         FULL_COLOR_MINIMAP,
         //** flag: play a pass/fail jingle on loading postview screen
-        POSTVIEW_JINGLES
+        POSTVIEW_JINGLES,
+        //** flag: use the mouse wheel to select skills from the panel
+        ENABLE_WHEEL_SKILL_SELECT,
+        //** flag: use the mouse wheel to change the brush size in debug draw mode
+        ENABLE_WHEEL_BRUSH_SIZE        
     }
 
     // 3-way option for setting the Exit sound

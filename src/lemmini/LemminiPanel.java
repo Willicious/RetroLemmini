@@ -656,15 +656,38 @@ public class LemminiPanel extends JPanel implements Runnable {
     }//GEN-LAST:event_formMouseMoved
 
     private void formMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_formMouseWheelMoved
-        if (GameController.getGameState() == GameController.State.LEVEL && GameController.isOptionEnabled(GameController.SLTooOption.ENABLE_SCROLL_WHEEL)) {
-            int wheelRotation = evt.getWheelRotation();
-            if (wheelRotation > 0) {
-                for (int i = 0; i < wheelRotation; i++) {
-                    GameController.nextSkill();
+        if (GameController.getGameState() != GameController.State.LEVEL)
+        	return;
+        
+        boolean isDebugDraw = draw && Core.player.isDebugMode();
+        boolean enableWheelBrushSize = isDebugDraw && GameController.isOptionEnabled(GameController.RetroLemminiOption.ENABLE_WHEEL_BRUSH_SIZE);
+        boolean enableWheelSkillSelect = GameController.isOptionEnabled(GameController.RetroLemminiOption.ENABLE_WHEEL_SKILL_SELECT);
+        
+        if (!enableWheelSkillSelect && !enableWheelBrushSize)
+        	return;
+    	
+        int wheelRotation = evt.getWheelRotation();
+        boolean wheelUp = wheelRotation < 0;
+        boolean wheelDown = wheelRotation > 0;
+        
+    	if (enableWheelBrushSize) {
+            if (wheelUp) {
+                for (int i = 0; i > wheelRotation; i--) {
+                	increaseDrawBrushSize();
                 }
-            } else if (wheelRotation < 0) {
+            } else if (wheelDown) {
+                for (int i = 0; i < wheelRotation; i++) {
+                	decreaseDrawBrushSize();
+                }
+            }
+    	} else if (enableWheelSkillSelect) {
+            if (wheelUp) {
                 for (int i = 0; i > wheelRotation; i--) {
                     GameController.previousSkill();
+                }
+            } else if (wheelDown) {
+                for (int i = 0; i < wheelRotation; i++) {
+                    GameController.nextSkill();
                 }
             }
         }

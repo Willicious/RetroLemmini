@@ -102,7 +102,6 @@ public class OptionsDialog extends JDialog {
 		jCheckBoxUnpauseOnAssignment = new javax.swing.JCheckBox();
 		jCheckBoxTimedBombers = new javax.swing.JCheckBox();
 		jCheckBoxUnlockAllLevels = new javax.swing.JCheckBox();
-		jCheckBoxEnableScrollWheel = new javax.swing.JCheckBox();
 		jCheckBoxEnableFrameStepping = new javax.swing.JCheckBox();
 		jCheckBoxVisualSfx = new javax.swing.JCheckBox();
 		jCheckBoxPostviewJingles = new javax.swing.JCheckBox();
@@ -440,11 +439,6 @@ public class OptionsDialog extends JDialog {
 				.setSelected(GameController.isOptionEnabled(GameController.Option.UNPAUSE_ON_ASSIGNMENT));
 		jCheckBoxUnpauseOnAssignment.setText("Unpause After Assigning Skill");
 
-		jCheckBoxEnableScrollWheel
-				.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.ENABLE_SCROLL_WHEEL));
-		jCheckBoxEnableScrollWheel.setText("Use Scroll Wheel to Select Skills");
-		jCheckBoxEnableScrollWheel.setToolTipText("Use the mouse scroll wheel to change the selected skill.");
-
 		javax.swing.GroupLayout jPanelControlSchemeLayout = new javax.swing.GroupLayout(jPanelControlScheme);
 		jPanelControlScheme.setLayout(jPanelControlSchemeLayout);
 		jPanelControlSchemeLayout.setHorizontalGroup(
@@ -453,7 +447,6 @@ public class OptionsDialog extends JDialog {
 								.addGroup(jPanelControlSchemeLayout
 										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 										.addComponent(jCheckBoxClassicCursor)
-										.addComponent(jCheckBoxEnableScrollWheel)
 										.addComponent(jCheckBoxFaster)
 										.addComponent(jCheckBoxPauseStopsFastForward)
 										.addComponent(jCheckBoxUnpauseOnAssignment)
@@ -464,7 +457,6 @@ public class OptionsDialog extends JDialog {
 				.addGroup(jPanelControlSchemeLayout.createSequentialGroup().addContainerGap()
 						.addComponent(jCheckBoxClassicCursor)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(jCheckBoxEnableScrollWheel)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 						.addComponent(jCheckBoxFaster)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -655,8 +647,6 @@ public class OptionsDialog extends JDialog {
 				jCheckBoxUnpauseOnAssignment.isSelected());
 		GameController.setOption(GameController.SLTooOption.TIMED_BOMBERS, jCheckBoxTimedBombers.isSelected());
 		GameController.setOption(GameController.SLTooOption.UNLOCK_ALL_LEVELS, jCheckBoxUnlockAllLevels.isSelected());
-		GameController.setOption(GameController.SLTooOption.ENABLE_SCROLL_WHEEL,
-				jCheckBoxEnableScrollWheel.isSelected());
 		GameController.setOption(GameController.SLTooOption.ENABLE_FRAME_STEPPING,
 				jCheckBoxEnableFrameStepping.isSelected());
 		GameController.setOption(GameController.SLTooOption.VISUAL_SFX, jCheckBoxVisualSfx.isSelected());
@@ -682,7 +672,6 @@ public class OptionsDialog extends JDialog {
 	private javax.swing.JCheckBox jCheckBoxUnpauseOnAssignment;
 	private javax.swing.JCheckBox jCheckBoxTimedBombers;
 	private javax.swing.JCheckBox jCheckBoxUnlockAllLevels;
-	private javax.swing.JCheckBox jCheckBoxEnableScrollWheel;
 	private javax.swing.JCheckBox jCheckBoxEnableFrameStepping;
 	private javax.swing.JCheckBox jCheckBoxVisualSfx;
 	private javax.swing.JCheckBox jCheckBoxPostviewJingles;
