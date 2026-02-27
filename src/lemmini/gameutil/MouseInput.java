@@ -106,7 +106,7 @@ public class MouseInput {
         }
     }
     
-    public void saveToProperties(Path path, boolean enableWheelSkillSelect, boolean enableWheelBrushSize) {
+    public void saveToProperties(Path path, boolean clickAirToCancelReplay, boolean enableWheelSkillSelect, boolean enableWheelBrushSize) {
         if (path == null) return;
         Properties props = new Properties();
         try {
@@ -139,6 +139,7 @@ public class MouseInput {
             }
             
             // Save general options
+            props.setProperty("clickAirToCancelReplay", Boolean.toString(clickAirToCancelReplay));
             props.setProperty("enableWheelSkillSelect", Boolean.toString(enableWheelSkillSelect));
             props.setProperty("enableWheelBrushSize", Boolean.toString(enableWheelBrushSize));
 
@@ -148,6 +149,7 @@ public class MouseInput {
             out.close();
 
             // Apply changes immediately to GameController
+            GameController.setOption(GameController.RetroLemminiOption.CLICK_AIR_TO_CANCEL_REPLAY, clickAirToCancelReplay);
             GameController.setOption(GameController.RetroLemminiOption.ENABLE_WHEEL_SKILL_SELECT, enableWheelSkillSelect);
             GameController.setOption(GameController.RetroLemminiOption.ENABLE_WHEEL_BRUSH_SIZE, enableWheelBrushSize);
         } catch (Exception ex) {

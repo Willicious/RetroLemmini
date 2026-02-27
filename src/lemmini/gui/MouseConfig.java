@@ -26,6 +26,7 @@ public class MouseConfig extends JDialog {
     
     JCheckBox checkWheelSkillSelect;
     JCheckBox checkWheelBrushSize;
+    JCheckBox checkClickAirToCancelReplay;
 
     public MouseConfig(MouseInput mouseInput) {
 
@@ -36,7 +37,7 @@ public class MouseConfig extends JDialog {
         setResizable(false);
         
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(480, 340);
+        setSize(480, 380);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         
@@ -89,10 +90,21 @@ public class MouseConfig extends JDialog {
             List<MouseAction> midActions = mouseInput.getActionsForButton(MouseEvent.BUTTON2);
             List<MouseAction> rightActions = mouseInput.getActionsForButton(MouseEvent.BUTTON3);
             
-            if (offActions != null && offActions.contains(action)) checkOff.setSelected(true);
-            if (leftActions != null && leftActions.contains(action)) checkLeft.setSelected(true);
-            if (midActions != null && midActions.contains(action)) checkMiddle.setSelected(true);
-            if (rightActions != null && rightActions.contains(action)) checkRight.setSelected(true);
+            if (offActions != null && offActions.contains(action)) {
+            	checkOff.setSelected(true);
+            	
+            	checkLeft.setSelected(false);
+            	checkMiddle.setSelected(false);
+            	checkRight.setSelected(false);
+            	
+            	checkLeft.setEnabled(false);
+            	checkMiddle.setEnabled(false);
+            	checkRight.setEnabled(false);
+            } else {
+	            if (leftActions != null && leftActions.contains(action)) checkLeft.setSelected(true);
+	            if (midActions != null && midActions.contains(action)) checkMiddle.setSelected(true);
+	            if (rightActions != null && rightActions.contains(action)) checkRight.setSelected(true);
+            }
             
             mainPanel.add(row);
         }
@@ -100,6 +112,13 @@ public class MouseConfig extends JDialog {
         JPanel optionsPanel = new JPanel();
         optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.Y_AXIS));
         optionsPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        
+        // Click air to cancel replay
+        JPanel cancelReplayPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        checkClickAirToCancelReplay = new JCheckBox("Click Air to Cancel Replay");
+        checkClickAirToCancelReplay.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.CLICK_AIR_TO_CANCEL_REPLAY));
+        cancelReplayPanel.add(checkClickAirToCancelReplay);
+        optionsPanel.add(cancelReplayPanel);
 
         // Scroll wheel to select skills
         JPanel skillPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -136,8 +155,7 @@ public class MouseConfig extends JDialog {
         saveBtn.requestFocusInWindow();
     }
     
-    private void checkOffCheckChanged(MouseAction action, JCheckBox checkOff) {
-        
+    private void checkOffCheckChanged(MouseAction action, JCheckBox checkOff) {       
         Map<Integer, JCheckBox> map = actionCheckBoxes.get(action);
         if (map == null) return;
 
@@ -171,7 +189,13 @@ public class MouseConfig extends JDialog {
     }
 
     private boolean isAllowed(MouseAction action, int button) {
-        return button != MouseEvent.BUTTON1;
+    	switch (action) {
+    		case TOGGLEPAUSE:
+    		case SELECTWALKER:
+    			return button != MouseEvent.BUTTON1;
+    		default:
+    			return true;
+    	}
     }
 
     private void saveConfig(ActionEvent e) {
@@ -185,10 +209,11 @@ public class MouseConfig extends JDialog {
                 }
             }
         }
+        boolean clickAirToCancelReplay = checkClickAirToCancelReplay.isSelected();
         boolean enableWheelSkillSelect = checkWheelSkillSelect.isSelected();
         boolean enableWheelBrushSize = checkWheelBrushSize.isSelected();
         
-        mouseInput.saveToProperties(Core.getProgramPropsFilePath(), enableWheelSkillSelect, enableWheelBrushSize);
+        mouseInput.saveToProperties(Core.getProgramPropsFilePath(), clickAirToCancelReplay, enableWheelSkillSelect, enableWheelBrushSize);
         JOptionPane.showMessageDialog(this, "Mouse configuration saved!");
         dispose();
     }

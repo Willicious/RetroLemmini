@@ -253,6 +253,7 @@ public class Core {
         GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, programProps.getBoolean("showMenuBar", true));
         GameController.setOption(GameController.RetroLemminiOption.FULL_COLOR_MINIMAP, programProps.getBoolean("fullColorMinimap", true));
         GameController.setOption(GameController.RetroLemminiOption.POSTVIEW_JINGLES, programProps.getBoolean("postviewJingles", false));
+        GameController.setOption(GameController.RetroLemminiOption.CLICK_AIR_TO_CANCEL_REPLAY, programProps.getBoolean("clickAirToCancelReplay", true));
         GameController.setOption(GameController.RetroLemminiOption.ENABLE_WHEEL_SKILL_SELECT, programProps.getBoolean("enableWheelSkillSelect", false));
         GameController.setOption(GameController.RetroLemminiOption.ENABLE_WHEEL_BRUSH_SIZE, programProps.getBoolean("enableWheelBrushSize", true));
         // Exit sound settings
@@ -411,6 +412,7 @@ public class Core {
         programProps.setBoolean("showMenuBar", GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
         programProps.setBoolean("fullColorMinimap", GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_COLOR_MINIMAP));
         programProps.setBoolean("postviewJingles", GameController.isOptionEnabled(GameController.RetroLemminiOption.POSTVIEW_JINGLES));
+        programProps.setBoolean("clickAirToCancelReplay", GameController.isOptionEnabled(GameController.RetroLemminiOption.CLICK_AIR_TO_CANCEL_REPLAY));
         programProps.setBoolean("enableWheelSkillSelect", GameController.isOptionEnabled(GameController.RetroLemminiOption.ENABLE_WHEEL_SKILL_SELECT));
         programProps.setBoolean("enableWheelBrushSize", GameController.isOptionEnabled(GameController.RetroLemminiOption.ENABLE_WHEEL_BRUSH_SIZE));
         // Exit sound

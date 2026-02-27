@@ -142,6 +142,8 @@ public class GameController {
         FULL_COLOR_MINIMAP,
         //** flag: play a pass/fail jingle on loading postview screen
         POSTVIEW_JINGLES,
+        //** flag: click air (anywhere but a lemming) to cancel replay
+        CLICK_AIR_TO_CANCEL_REPLAY,
         //** flag: use the mouse wheel to select skills from the panel
         ENABLE_WHEEL_SKILL_SELECT,
         //** flag: use the mouse wheel to change the brush size in debug draw mode

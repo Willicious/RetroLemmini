@@ -476,7 +476,8 @@ public class LemminiPanel extends JPanel implements Runnable {
 	                        if (l != null) {
 	                            GameController.requestSkill(l);
 	                        } else if (y < LemminiFrame.LEVEL_HEIGHT) {
-	                            GameController.stopReplayMode();
+	                        	if (GameController.isOptionEnabled(GameController.RetroLemminiOption.CLICK_AIR_TO_CANCEL_REPLAY))
+	                        		GameController.stopReplayMode();
 	                            if (GameController.isOptionEnabled(GameController.SLTooOption.ENABLE_FRAME_STEPPING))
 	                            	GameController.advanceFrame();
 	                        }
