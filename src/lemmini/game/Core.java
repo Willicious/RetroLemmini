@@ -210,7 +210,7 @@ public class Core {
         System.out.println("    hotkey config read successfully");
         
         // Mouse Config
-        getMouseInput().loadFromProperties(Core.getProgramPropsFilePath());
+        getMouseInput().loadFromProgramProps(programProps);
         System.out.println("    mouse config read successfully");
 
         // Resources directory

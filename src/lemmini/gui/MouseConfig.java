@@ -157,7 +157,7 @@ public class MouseConfig extends JDialog {
     }
     
     private void loadUserConfig() {
-        mouseInput.loadFromProperties(Core.getProgramPropsFilePath());
+        mouseInput.loadFromProgramProps(Core.programProps);
         applyMouseInputToUI(mouseInput);
     }
     
@@ -211,7 +211,8 @@ public class MouseConfig extends JDialog {
 
     private void saveConfig(ActionEvent e) {
         copyUIToMouseInput(mouseInput);
-        mouseInput.saveToProperties(Core.getProgramPropsFilePath());
+        mouseInput.saveToProgramProps(Core.programProps);
+        Core.saveSettings();
         dispose();
     }
     

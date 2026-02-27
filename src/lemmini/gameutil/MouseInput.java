@@ -1,14 +1,7 @@
 package lemmini.gameutil;
 
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
-import java.util.Properties;
-
-import lemmini.game.Core;
 import lemmini.game.GameController;
+import lemmini.tools.Props;
 
 import java.awt.event.MouseEvent;
 import java.util.*;
@@ -87,98 +80,57 @@ public class MouseInput {
         return buttonMap;
     }
     
-    public void loadFromProperties(Path path) {        
-        if (path == null || !Files.exists(path)) return;
-        Properties props = new Properties();
-        try {
-            InputStream in = Files.newInputStream(path);
-            props.load(in);
-            in.close();
-            
-            // Handle options first
-            clickAirToCancelReplay = Core.programProps.getBoolean("clickAirToCancelReplay", true);
-            enableWheelSkillSelect = Core.programProps.getBoolean("enableWheelSkillSelect", false);
-            enableWheelBrushSize = Core.programProps.getBoolean("enableWheelBrushSize", true);
-            applyOptionChanges();
-            
-            // Then button mappings
-            clearMappings();
-            
-            for (MouseAction action : MouseAction.values()) {
-                String key = "mouseInput." + action.name();
-                String value = props.getProperty(key);
-                if (value != null && !value.trim().isEmpty()) {
-                    String[] parts = value.split(",");
-                    for (String part : parts) {
-                        try {
-                            int button = Integer.parseInt(part.trim());
-                            addMapping(button, action);
-                        } catch (NumberFormatException ignored) {
-                        }
-                    }
-                }
-            }
-            // If nothing loaded, restore defaults
-            if (buttonMap.isEmpty()) {
-                setDefaultMappings();
-            }            
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-    
-    public void saveToProperties(Path path) {
-        if (path == null) return;
-        Properties props = new Properties();
-        try {
-            // Preserve existing settings
-            if (Files.exists(path)) {
-                InputStream in = Files.newInputStream(path);
-                props.load(in);
-                in.close();
-            }
-            // Remove all existing mouseInput.* keys first
-            for (Object keyObj : new java.util.HashSet<Object>(props.keySet())) {
-                String key = keyObj.toString();
-                if (key.startsWith("mouseInput.")) {
-                    props.remove(key);
-                }
-            }
-            // Write current mappings
-            for (MouseAction action : MouseAction.values()) {
-                StringBuilder csv = new StringBuilder();
-                for (Integer button : buttonMap.keySet()) {
-                    if (buttonMap.get(button).contains(action)) {
-                        if (csv.length() > 0) csv.append(",");
-                        csv.append(button);
-                    }
-                }
-                if (csv.length() > 0) {
-                    String key = "mouseInput." + action.name();
-                    props.setProperty(key, csv.toString());
-                }
-            }
-            
-            // Save general options
-            props.setProperty("clickAirToCancelReplay", Boolean.toString(clickAirToCancelReplay));
-            props.setProperty("enableWheelSkillSelect", Boolean.toString(enableWheelSkillSelect));
-            props.setProperty("enableWheelBrushSize", Boolean.toString(enableWheelBrushSize));
-
-            // Write back to file
-            OutputStream out = Files.newOutputStream(path, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-            props.store(out, "RetroLemmini Settings");
-            out.close();
-
-            // Apply option changes immediately to GameController
-            applyOptionChanges();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-    
     private void applyOptionChanges() {
         GameController.setOption(GameController.RetroLemminiOption.CLICK_AIR_TO_CANCEL_REPLAY, clickAirToCancelReplay);
         GameController.setOption(GameController.RetroLemminiOption.ENABLE_WHEEL_SKILL_SELECT, enableWheelSkillSelect);
         GameController.setOption(GameController.RetroLemminiOption.ENABLE_WHEEL_BRUSH_SIZE, enableWheelBrushSize);
+    }
+    
+    public void loadFromProgramProps(Props props) {
+        clickAirToCancelReplay = props.getBoolean("clickAirToCancelReplay", true);
+        enableWheelSkillSelect = props.getBoolean("enableWheelSkillSelect", false);
+        enableWheelBrushSize = props.getBoolean("enableWheelBrushSize", true);
+        applyOptionChanges();
+
+        clearMappings();
+
+        for (MouseAction action : MouseAction.values()) {
+            String key = "mouseInput." + action.name();
+            String value = props.get(key, null);
+            if (value != null && !value.trim().isEmpty()) {
+                for (String part : value.split(",")) {
+                    try {
+                        int button = Integer.parseInt(part.trim());
+                        addMapping(button, action);
+                    } catch (NumberFormatException ignored) {}
+                }
+            }
+        }
+        if (buttonMap.isEmpty()) {
+            setDefaultMappings();
+        }
+    }
+    
+    public void saveToProgramProps(Props props) {
+        props.setBoolean("clickAirToCancelReplay", clickAirToCancelReplay);
+        props.setBoolean("enableWheelSkillSelect", enableWheelSkillSelect);
+        props.setBoolean("enableWheelBrushSize", enableWheelBrushSize);
+        applyOptionChanges();
+    	
+        for (MouseAction action : MouseAction.values()) {
+            props.remove("mouseInput." + action.name());
+        }
+        for (MouseAction action : MouseAction.values()) {
+            StringBuilder csv = new StringBuilder();
+            for (Integer b : buttonMap.keySet()) {
+                if (buttonMap.get(b).contains(action)) {
+                    if (csv.length() > 0) csv.append(",");
+                    csv.append(b);
+                }
+            }
+            if (csv.length() > 0) {
+                props.set("mouseInput." + action.name(), csv.toString());
+            }
+        }
     }
 }
