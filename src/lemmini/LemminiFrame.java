@@ -232,6 +232,7 @@ public class LemminiFrame extends JFrame {
         jMenuOptions = new javax.swing.JMenu();
         jMenuItemOptions = new javax.swing.JMenuItem();
         jMenuItemHotkeys = new javax.swing.JMenuItem();
+        jMenuItemMouse = new javax.swing.JMenuItem();
         jMenuHelp = new javax.swing.JMenu();
         jMenuItemUpdateStyles = new javax.swing.JMenuItem();
         jMenuItemAbout = new javax.swing.JMenuItem();
@@ -294,7 +295,7 @@ public class LemminiFrame extends JFrame {
 
         jMenuPlayers.setText("Players");
 
-        jMenuItemManagePlayers.setText("Manage Players...");
+        jMenuItemManagePlayers.setText("Manage Players");
         jMenuItemManagePlayers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemManagePlayersActionPerformed(evt);
@@ -306,7 +307,7 @@ public class LemminiFrame extends JFrame {
 
         jMenuLevel.setText("Level");
         
-        jMenuItemChooseLevel.setText("Choose Level...");
+        jMenuItemChooseLevel.setText("Choose Level");
         jMenuItemChooseLevel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemChooseLevelActionPerformed(evt);
@@ -323,7 +324,7 @@ public class LemminiFrame extends JFrame {
         });
         jMenuLevel.add(jMenuItemRestartLevel);
 
-        jMenuItemLoadReplay.setText("Load Replay...");
+        jMenuItemLoadReplay.setText("Load Replay");
         jMenuItemLoadReplay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemLoadReplayActionPerformed(evt);
@@ -331,7 +332,7 @@ public class LemminiFrame extends JFrame {
         });
         jMenuLevel.add(jMenuItemLoadReplay);
 
-        jMenuItemEnterLevelCode.setText("Enter Level Code...");
+        jMenuItemEnterLevelCode.setText("Enter Level Code");
         jMenuItemEnterLevelCode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemEnterLevelCodeActionPerformed(evt);
@@ -343,22 +344,30 @@ public class LemminiFrame extends JFrame {
 
         jMenuOptions.setText("Options");
 
-        jMenuItemOptions.setText("Options...");
+        jMenuItemOptions.setText("Options");
         jMenuItemOptions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemOptionsActionPerformed(evt);
             }
         });
 
-        jMenuItemHotkeys.setText("Hotkeys...");
+        jMenuItemHotkeys.setText("Hotkeys");
         jMenuItemHotkeys.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	lemminiPanelMain.handleHotkeyConfig();
             }
         });
+        
+        jMenuItemMouse.setText("Mouse");
+        jMenuItemMouse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	lemminiPanelMain.handleMouseConfig();
+            }
+        });
 
         jMenuOptions.add(jMenuItemOptions);
         jMenuOptions.add(jMenuItemHotkeys);
+        jMenuOptions.add(jMenuItemMouse);
 
         jMenuBarMain.add(jMenuOptions);
         
@@ -380,7 +389,7 @@ public class LemminiFrame extends JFrame {
             }
         });
         
-        jMenuItemAbout.setText("About...");
+        jMenuItemAbout.setText("About");
         jMenuItemAbout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 handleAbout();
@@ -615,8 +624,7 @@ public class LemminiFrame extends JFrame {
                 lemminiPanelMain.handleOptions();
                 break;
             case HotkeyManageHotkeys:
-                //lemminiPanelMain.handleHotkeyConfig();
-                lemminiPanelMain.handleMouseConfig();
+                lemminiPanelMain.handleHotkeyConfig();
                 break;
             case HotkeyAbout:
                 handleAbout();
@@ -1380,6 +1388,7 @@ public class LemminiFrame extends JFrame {
     private javax.swing.JMenuItem jMenuItemManagePlayers;
     private javax.swing.JMenuItem jMenuItemOptions;
     private javax.swing.JMenuItem jMenuItemHotkeys;
+    private javax.swing.JMenuItem jMenuItemMouse;
     private javax.swing.JMenuItem jMenuItemAbout;
     private javax.swing.JMenuItem jMenuItemChooseLevel;
     private javax.swing.JMenuItem jMenuItemRestartLevel;
