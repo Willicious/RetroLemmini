@@ -371,10 +371,12 @@ public class GameController {
     private static int width = Level.DEFAULT_WIDTH;
     private static int height = Level.DEFAULT_HEIGHT;
     private static int timesFailed;
-    /** show replay compatibility info in the window caption (or not) */
-	private static boolean useReplayCompatibilityTitle;
+
 	/** draw fall distance ruler at cursor (or not) */
     public static boolean drawRulerAtCursor;
+    
+    /** allow replay information to be displayed in the window caption */
+    public static String windowCaption;
 
     /**
      * Initialization.
@@ -1151,11 +1153,15 @@ public class GameController {
                 switch (r.type) {
                     case ReplayStream.ASSIGN_SKILL: {
                         ReplayAssignSkillEvent rs = (ReplayAssignSkillEvent) r;
-                        double pan;
-                        Lemming l = lemmings.get(rs.lemming);
-                        l.setSkill(rs.skill, false, r);
-                        l.setSelected();
-                        pan = l.getPan();
+                        double pan = 0;
+                        try {
+                        	Lemming l = lemmings.get(rs.lemming);
+                            l.setSkill(rs.skill, false, r);
+                            l.setSelected();
+                            pan = l.getPan();
+                        } catch(IndexOutOfBoundsException e) {
+                        	Core.setTitle("RetroLemmini - Replay Error: Expected lemming index is " + rs.lemming + " (" + e.getMessage() + ")");
+                        }
                         switch (rs.skill) {
                             case CLIMBER:
                                 if (numClimbers != Integer.MAX_VALUE) {
@@ -1823,6 +1829,7 @@ public class GameController {
                 case END_LEVEL:
                     finishLevel();
                     LemmCursor.setBox(false);
+                    GameController.windowCaption = null;
                     LemminiFrame.getFrame().setCursor(LemmCursor.CursorType.NORMAL);
                     break;
                 case TO_PREVIEW:
@@ -1858,6 +1865,7 @@ public class GameController {
                     }
                     LemmCursor.setBox(false);
                     LemminiFrame.getFrame().setCursor(LemmCursor.CursorType.NORMAL);
+                    setLevelTitle();
                     break;
                 case LOAD_LEVEL:
                 case LOAD_REPLAY:
@@ -1873,9 +1881,8 @@ public class GameController {
                         JOptionPane.showMessageDialog(LemminiFrame.getFrame(), ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         System.exit(1);
                     }
-                    setTitle();
-                    useReplayCompatibilityTitle = false;
-                    LemminiFrame.getFrame().setCursor(LemmCursor.CursorType.NORMAL);
+                	setLevelTitle();
+                	LemminiFrame.getFrame().setCursor(LemmCursor.CursorType.NORMAL);
                     break;
                 default:
                     break;
@@ -1895,38 +1902,26 @@ public class GameController {
             fadeSound(showPreview);
         }
     }
-    
-    public static void setReplayCompatibilityTitle(String compatibilityRevision, String replayRevision) {
-    	Core.setTitle("RetroLemmini - Current Version: " + Core.REVISION +
-			      " | Compatibility Version: " + compatibilityRevision +
-			      " | Replay Version: " + replayRevision);
-    	useReplayCompatibilityTitle = true;
-    }
 
-    private static void setTitle() {
-    	if (gameState == State.INTRO) {
-    		Core.setTitle("RetroLemmini");
-    		return;
+    private static void setLevelTitle() {
+    	if (GameController.windowCaption == null) {    	
+	        int numLemmings = level.getNumLemmings();
+	
+	        String numToRescue = (isOptionEnabled(Option.NO_PERCENTAGES) || numLemmings > 100) 
+	                ? String.valueOf(level.getNumToRescue())
+	                : (level.getNumToRescue() * 100 / numLemmings) + "%";
+	        
+	        String lemmingWord = (numLemmings == 1) ? "Lemming" : "Lemmings";
+	        GameController.windowCaption = String.format("RetroLemmini - %s - %s %d - %s - Save %s of %d %s",
+	                GameController.getCurLevelPack().getName(),
+	                GameController.getCurLevelPack().getRatings().get(GameController.getCurRating()),
+	                GameController.curLevelNumber + 1,
+	                level.getLevelName().trim(),
+	                numToRescue,
+	                numLemmings,
+	                lemmingWord);
     	}
-    	
-    	if (useReplayCompatibilityTitle)
-    		return;
-    	
-        int numLemmings = level.getNumLemmings();
-
-        String numToRescue = (isOptionEnabled(Option.NO_PERCENTAGES) || numLemmings > 100) 
-                ? String.valueOf(level.getNumToRescue())
-                : (level.getNumToRescue() * 100 / numLemmings) + "%";
-        
-        String lemmingWord = (numLemmings == 1) ? "Lemming" : "Lemmings";
-        Core.setTitle(String.format("RetroLemmini - %s - %s %d - %s - Save %s of %d %s",
-                GameController.getCurLevelPack().getName(),
-                GameController.getCurLevelPack().getRatings().get(GameController.getCurRating()),
-                GameController.curLevelNumber + 1,
-                level.getLevelName().trim(),
-                numToRescue,
-                numLemmings,
-                lemmingWord));
+    	Core.setTitle(GameController.windowCaption);
     }
 
     /**
@@ -2674,9 +2669,9 @@ public class GameController {
             switch (gameState) {
                 case PREVIEW:
                 case LEVEL:
-                case POSTVIEW:
                 case LEVEL_END:
-                    setTitle();
+                case POSTVIEW:
+                    setLevelTitle();
                     break;
                 default:
                     break;

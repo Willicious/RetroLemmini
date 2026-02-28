@@ -241,7 +241,9 @@ public class ReplayStream {
             }
             events = ev;
             if (Core.compareVersions(revision, COMPATIBILITY_REVISION) < 0) {
-            	GameController.setReplayCompatibilityTitle(COMPATIBILITY_REVISION, revision);
+            	GameController.windowCaption = "RetroLemmini - Current Version: " + Core.REVISION +
+      			      " | Compatibility Version: " + COMPATIBILITY_REVISION +
+      			      " | Replay Version: " + revision;
             }
             return rli;
         } catch (IOException | NumberFormatException | ArrayIndexOutOfBoundsException e) {

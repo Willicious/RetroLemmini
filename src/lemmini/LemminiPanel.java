@@ -1898,6 +1898,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                         
                         // fallback - search by level name only
                         if (lpn < 0 || rn < 0 || ln < 0) {
+                        	GameController.windowCaption = "RetroLemmini - Closest match for '" + rli.getLvlName() + "' (" + rli.getLevelPack() + ")";
                             outer:
                             for (int p = 0; p < GameController.getLevelPackCount(); p++) {
                                 LevelPack pack = GameController.getLevelPack(p);
