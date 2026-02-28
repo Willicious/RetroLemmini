@@ -235,6 +235,8 @@ public class GameController {
     private static boolean fastForward;
     private static boolean turbo;
     private static boolean verticalLock;
+    /** flag: Direct Drop is active */
+    private static boolean directDrop;
     /** flag: Superlemming mode is active */
     private static boolean superLemming;
     private static boolean forceNormalTimerSpeed;
@@ -583,6 +585,7 @@ public class GameController {
         setFastForward(false);
         setVerticalLock(false);
         setSuperLemming(false);
+        setDirectDrop(false);
 
         if (!wasLost() && curLevelPack != 0) {
             LevelPack lvlPack = getCurLevelPack();
@@ -713,6 +716,8 @@ public class GameController {
         mapPreview = level.createMinimap(fgImage, 1.0 / scaleFactor, 1.0 / scaleFactor, true, false, true);
         Minimap.init(1.0 / 16.0, 1.0 / 8.0, !GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_COLOR_MINIMAP));
 
+        setDirectDrop(level.isDirectDrop());
+        
         setSuperLemming(level.isSuperLemming());
         forceNormalTimerSpeed = level.getForceNormalTimerSpeed();
 
@@ -2351,6 +2356,20 @@ public class GameController {
      */
     public static boolean saveReplay(final Path fn) {
         return replay.save(fn);
+    }
+    
+    /**
+     * Activate/deactivate Direct Drop.
+     */
+    public static void setDirectDrop(final boolean dd) {
+        directDrop = dd;
+    }
+    
+    /**
+     * Get Direct Drop state.
+     */
+    public static boolean isDirectDrop() {
+        return directDrop;
     }
 
     /**

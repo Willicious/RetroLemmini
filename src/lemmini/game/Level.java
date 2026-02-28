@@ -160,6 +160,8 @@ public class Level {
     private final int maxFallDistance;
     private final boolean classicSteel;
     private final AutosteelMode autosteelMode;
+    /** this level allows Direct Drop (lems can exit in midair and from any fall distance)*/
+    private final boolean directDrop;
     /** this level is a SuperLemming level (runs faster) */
     private final boolean superlemming;
     private final boolean forceNormalTimerSpeed;
@@ -338,6 +340,7 @@ public class Level {
         int specialStylePosY = p.getInt("specialStylePositionY", 0);
         //out("specialStyle = " + specialStyle);
         music = Props.get(levelProps, "music", null);
+        directDrop = Props.getBoolean(levelProps, "directDrop", false);
         superlemming = Props.getBoolean(levelProps, "superlemming", false);
         forceNormalTimerSpeed = Props.getBoolean(levelProps, "forceNormalTimerSpeed", false);
 
@@ -1486,6 +1489,13 @@ public class Level {
 
     public String getMusic() {
         return music;
+    }
+    
+    /**
+     * Check if this level allows Direct Drop (lems can exit in midair and from any fall distance).
+     */
+    public boolean isDirectDrop() {
+        return directDrop;
     }
 
     /**

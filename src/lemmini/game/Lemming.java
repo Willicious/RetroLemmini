@@ -968,7 +968,8 @@ public class Lemming {
                         break;
                     }
                 case Stencil.MSK_EXIT:
-                    if (Core.player.isMaximumExitPhysics()) { // All lem types exit in maximum exit physics mode
+                	// All lem types exit in maximum exit physics / direct drop mode
+                    if (Core.player.isMaximumExitPhysics() || GameController.isDirectDrop()) {
                         switch (newType) {
                            case FALLER:
                            case SPLATTER:
