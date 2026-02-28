@@ -290,7 +290,7 @@ public class TextScreen {
         addLevelName(level);
         showLevelInfo();
         textDialog.addTextButton("Start Level", "Start Level", null, -12, 6, Button.START_LEVEL, BLUE, YELLOW);
-        textDialog.addTextButton("Menu", "Menu", null, 4, 6, Button.MENU, BLUE, YELLOW);
+        textDialog.addTextButton("Main Menu", "Main Menu", null, 4, 6, Button.MENU, BLUE, YELLOW);
     }
 
     /**
@@ -388,7 +388,7 @@ public class TextScreen {
             textDialog.addTextButton("View Replay", "View Replay", null, 1, 5, Button.REPLAY, BLUE, YELLOW);
             textDialog.addTextButton("Save Replay", "Save Replay", null, 1, 6, Button.SAVE_REPLAY, BLUE, YELLOW);
         }
-        textDialog.addTextButton("Menu", "Menu", null, -9, 6, Button.MENU, BLUE, YELLOW);
+        textDialog.addTextButton("Main Menu", "Main Menu", null, -9, 6, Button.MENU, BLUE, YELLOW);
         
         handlePostviewJingles(rescued, toRescue);
         
