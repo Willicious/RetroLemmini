@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import lemmini.game.LemmFont.LemmColor;
 import lemmini.graphics.GraphicsContext;
 import lemmini.graphics.LemmImage;
 import lemmini.sound.Sound;
@@ -448,34 +449,46 @@ public class TextScreen {
             textDialog.clearGroup("info");
             Level level = GameController.getLevel();
             String rating = GameController.getCurLevelPack().getRatings().get(GameController.getCurRating());
-            String lemWord = (level.getNumLemmings() == 1) ? "emming" : "emmings";
-            if (level.isSuperLemming())
-            	textDialog.addString(String.format("%d Superl" + lemWord, level.getNumLemmings()), "info", -9, -2, HOT_RED);
-            else
-            	textDialog.addString(String.format("%d L" + lemWord, level.getNumLemmings()), "info", -9, -2, BLUE);
-            if (GameController.isOptionEnabled(GameController.Option.NO_PERCENTAGES) || level.getNumLemmings() > 100)
-                textDialog.addString(String.format("%d to be saved", level.getNumToRescue()), "info", -9, -1, GREEN);
-            else
-                textDialog.addString(String.format("%d%% to be saved", level.getNumToRescue() * 100 / level.getNumLemmings()), "info", -9, -1, GREEN);
-            textDialog.addString(String.format("Release Rate %d", level.getReleaseRate()), "info", -9, 0, YELLOW);
+            String lemWord = level.isSuperLemming() ? "Superl" : "L";
+            lemWord = lemWord + (level.getNumLemmings() == 1 ? "emming" : "emmings");
+            LemmColor lemColor = level.isSuperLemming() ? HOT_RED : BLUE;
+            int savePercent = level.getNumToRescue() * 100 / level.getNumLemmings();
+            int xPos = -11;
+            
+            if (level.isDirectDrop()) {
+            	if (GameController.isOptionEnabled(GameController.Option.NO_PERCENTAGES) || level.getNumLemmings() > 100)
+            		textDialog.addString(String.format("Save %d of %d %s", level.getNumToRescue(), level.getNumLemmings(), lemWord), "info", xPos, -2, lemColor);
+            	else
+            		textDialog.addString(String.format("Save %d%% of %d %s", savePercent, level.getNumLemmings(), lemWord), "info", xPos, -2, lemColor);
+            	
+            	textDialog.addString("Direct Drop active", "info", xPos, -1, GREEN);     
+            } else {
+            	textDialog.addString(String.format("%d " + lemWord, level.getNumLemmings()), "info", xPos, -2, lemColor);
+                
+            	if (GameController.isOptionEnabled(GameController.Option.NO_PERCENTAGES) || level.getNumLemmings() > 100)
+                    textDialog.addString(String.format("%d to be saved", level.getNumToRescue()), "info", xPos, -1, GREEN);
+                else
+                    textDialog.addString(String.format("%d%% to be saved", savePercent), "info", xPos, -1, GREEN);           	
+            }
+            textDialog.addString(String.format("Release Rate %d", level.getReleaseRate()), "info", xPos, 0, YELLOW);
             int minutes = level.getTimeLimitSeconds() / 60;
             int seconds = level.getTimeLimitSeconds() % 60;
             if (!GameController.isTimed())
-                textDialog.addString("No time limit", "info", -9, 1, TURQUOISE);
+                textDialog.addString("Infinite time", "info", xPos, 1, TURQUOISE);
             else if (seconds == 0) {
                 String minuteWord = (minutes == 1) ? "Minute" : "Minutes";
-                textDialog.addString(String.format("Time      %d %s", minutes, minuteWord), "info", -9, 1, TURQUOISE);
+                textDialog.addString(String.format("Time      %d %s", minutes, minuteWord), "info", xPos, 1, TURQUOISE);
             } else
-                textDialog.addString(String.format("Time      %d-%02d", minutes, seconds), "info", -9, 1, TURQUOISE);
-            textDialog.addString(String.format("Rating    %s", rating), "info", -9, 2, VIOLET);
+                textDialog.addString(String.format("Time      %d-%02d", minutes, seconds), "info", xPos, 1, TURQUOISE);
+            textDialog.addString(String.format("Rating    %s", rating), "info", xPos, 2, VIOLET);
             int n = 3;
             String author = level.getAuthor();
             if (StringUtils.isNotEmpty(author)) {
-                textDialog.addString(String.format("Author    %s", author), "info", -9, n, RED);
+                textDialog.addString(String.format("Author    %s", author), "info", xPos, n, RED);
                 n++;
             }
             if (level.getMaxFallDistance() != 126)
-            	textDialog.addString(String.format("Max fall distance %d", level.getMaxFallDistance()), "info", -9, n, ORANGE);
+            	textDialog.addString(String.format("Max fall distance %d", level.getMaxFallDistance()), "info", xPos, n, ORANGE);
             if (level.getNumHints() > 0 && (Core.player.isDebugMode() || GameController.getTimesFailed() >= FAILURE_THRESHOLD_FOR_HINTS))
                 textDialog.addTextButton("Show Hint", "Show Hint", "info", -4, 5, Button.SHOW_HINT, BLUE, YELLOW);
         }
