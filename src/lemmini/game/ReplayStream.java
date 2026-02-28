@@ -196,7 +196,7 @@ public class ReplayStream {
                         // If 5th value (Timed/Untimed Bomber) is missing, use the current user setting
                         boolean isTimedBomber = (e.length >= 5)
                             ? Boolean.parseBoolean(e[4])
-                            : GameController.isOptionEnabled(GameController.SLTooOption.TIMED_BOMBERS);
+                            : getIsTimedBomber(revision);
 
                         ev.add(new ReplayAssignSkillEvent(
                             Integer.parseInt(e[0]),
@@ -249,6 +249,14 @@ public class ReplayStream {
         } catch (IOException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new LemmException("Error reading replay file.");
         }
+    }
+    
+    private boolean getIsTimedBomber(String revision) {
+    	// Backwards compatibility with SuperLemmini replays - timed bombers were removed in version 0.103
+    	if (revision != null && revision.startsWith("0.1"))
+    	    return false;
+    	
+    	return GameController.isOptionEnabled(GameController.SLTooOption.TIMED_BOMBERS);
     }
 
     /**
