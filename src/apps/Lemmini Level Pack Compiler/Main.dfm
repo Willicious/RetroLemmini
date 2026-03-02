@@ -1,9 +1,10 @@
 object MainForm: TMainForm
   Left = 0
   Top = 0
+  BorderStyle = bsSingle
   Caption = 'Lemmini Level Pack Compiler'
-  ClientHeight = 520
-  ClientWidth = 718
+  ClientHeight = 537
+  ClientWidth = 728
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,23 +18,23 @@ object MainForm: TMainForm
   TextHeight = 13
   object gbMusic: TGroupBox
     Left = 8
-    Top = 170
+    Top = 196
     Width = 305
-    Height = 313
+    Height = 299
     Caption = 'Music'
     TabOrder = 0
     object lbMusic: TListBox
       Left = 16
-      Top = 22
-      Width = 177
-      Height = 270
+      Top = 27
+      Width = 180
+      Height = 254
       ItemHeight = 13
       MultiSelect = True
       TabOrder = 0
     end
     object btnAddMusicTrack: TButton
       Left = 202
-      Top = 24
+      Top = 27
       Width = 90
       Height = 25
       Caption = 'Add Track(s)'
@@ -42,7 +43,7 @@ object MainForm: TMainForm
     end
     object btnDeleteSelectedMusicTrack: TButton
       Left = 202
-      Top = 55
+      Top = 58
       Width = 87
       Height = 25
       Caption = 'Delete Track(s)'
@@ -51,7 +52,7 @@ object MainForm: TMainForm
     end
     object btnMoveMusicTrackUp: TButton
       Left = 202
-      Top = 86
+      Top = 89
       Width = 87
       Height = 25
       Caption = 'Move Up'
@@ -60,7 +61,7 @@ object MainForm: TMainForm
     end
     object btnMoveMusicTrackDown: TButton
       Left = 202
-      Top = 117
+      Top = 120
       Width = 87
       Height = 25
       Caption = 'Move Down'
@@ -72,7 +73,7 @@ object MainForm: TMainForm
     Left = 8
     Top = 8
     Width = 305
-    Height = 156
+    Height = 169
     Caption = 'General Info'
     TabOrder = 1
     object lblPackTitle: TLabel
@@ -84,17 +85,24 @@ object MainForm: TMainForm
     end
     object lblCodeSeed: TLabel
       Left = 16
-      Top = 67
+      Top = 95
       Width = 52
       Height = 13
       Caption = 'Code Seed'
     end
     object lblMods: TLabel
       Left = 16
-      Top = 106
+      Top = 134
       Width = 25
       Height = 13
       Caption = 'Mods'
+    end
+    object lblAuthor: TLabel
+      Left = 16
+      Top = 63
+      Width = 58
+      Height = 13
+      Caption = 'Pack Author'
     end
     object edPackTitle: TEdit
       Left = 88
@@ -106,7 +114,7 @@ object MainForm: TMainForm
     end
     object edCodeSeed: TEdit
       Left = 88
-      Top = 64
+      Top = 92
       Width = 106
       Height = 21
       CharCase = ecUpperCase
@@ -117,7 +125,7 @@ object MainForm: TMainForm
     end
     object cbMods: TComboBox
       Left = 88
-      Top = 103
+      Top = 131
       Width = 201
       Height = 21
       Style = csDropDownList
@@ -125,12 +133,20 @@ object MainForm: TMainForm
     end
     object btnGenerateSeed: TButton
       Left = 202
-      Top = 62
+      Top = 90
       Width = 87
       Height = 25
       Caption = 'Generate'
       TabOrder = 3
       OnClick = btnGenerateSeedClick
+    end
+    object edPackAuthor: TEdit
+      Left = 88
+      Top = 60
+      Width = 201
+      Height = 21
+      TabOrder = 4
+      OnClick = TextInputClick
     end
   end
   object gbLevels: TGroupBox
@@ -142,9 +158,9 @@ object MainForm: TMainForm
     TabOrder = 2
     object pcLevels: TPageControl
       Left = 11
-      Top = 25
+      Top = 29
       Width = 277
-      Height = 433
+      Height = 448
       ActivePage = tsLevelGroup
       TabOrder = 0
       object tsLevelGroup: TTabSheet
@@ -153,11 +169,12 @@ object MainForm: TMainForm
           Left = 0
           Top = 0
           Width = 269
-          Height = 405
+          Height = 420
           Align = alClient
           ItemHeight = 13
           MultiSelect = True
           TabOrder = 0
+          ExplicitHeight = 434
         end
       end
     end
@@ -225,13 +242,22 @@ object MainForm: TMainForm
       OnClick = btnRenameGroupClick
     end
   end
-  object btnGenerateLevelPackINI: TButton
-    Left = 33
-    Top = 477
-    Width = 669
+  object btnSaveLevelPackINI: TButton
+    Left = 208
+    Top = 493
+    Width = 494
     Height = 35
-    Caption = 'Generate levelpack.ini'
+    Caption = 'Save levelpack.ini'
     TabOrder = 3
-    OnClick = btnGenerateLevelPackINIClick
+    OnClick = btnSaveLevelPackINIClick
+  end
+  object btnLoadLevelPackINI: TButton
+    Left = 24
+    Top = 493
+    Width = 178
+    Height = 35
+    Caption = 'Load levelpack.ini'
+    TabOrder = 4
+    OnClick = btnLoadLevelPackINIClick
   end
 end

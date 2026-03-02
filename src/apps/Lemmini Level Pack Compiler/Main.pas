@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages,
   System.SysUtils, System.Variants, System.Classes, System.IOUtils,
-  System.Types, System.UITypes,
+  System.Types, System.UITypes, System.RegularExpressions,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
   Vcl.ComCtrls;
 
@@ -35,8 +35,11 @@ type
     btnDeleteLevel: TButton;
     btnAddLevel: TButton;
     btnGenerateSeed: TButton;
-    btnGenerateLevelPackINI: TButton;
+    btnSaveLevelPackINI: TButton;
     btnRenameGroup: TButton;
+    lblAuthor: TLabel;
+    edPackAuthor: TEdit;
+    btnLoadLevelPackINI: TButton;
     procedure FormCreate(Sender: TObject);
     procedure TextInputClick(Sender: TObject);
     procedure btnGenerateSeedClick(Sender: TObject);
@@ -51,7 +54,8 @@ type
     procedure btnDeleteLevelClick(Sender: TObject);
     procedure btnMoveLevelUpClick(Sender: TObject);
     procedure btnMoveLevelDownClick(Sender: TObject);
-    procedure btnGenerateLevelPackINIClick(Sender: TObject);
+    procedure btnSaveLevelPackINIClick(Sender: TObject);
+    procedure btnLoadLevelPackINIClick(Sender: TObject);
   private
     Version: String;
     RootPath: String;
@@ -256,7 +260,128 @@ begin
   edCodeSeed.Text := GenerateRandomCodeSeed;
 end;
 
-procedure TMainForm.btnGenerateLevelPackINIClick(Sender: TObject);
+procedure TMainForm.btnLoadLevelPackINIClick(Sender: TObject);
+var
+  SL: TStringList;
+  LineIndex: Integer;
+  GroupIndex, LevelIndex: Integer;
+  Line, Key, Value: string;
+  Tab: TTabSheet;
+  List: TListBox;
+  Parts: TArray<string>;
+
+  function GetListBoxFromTab(Tab: TTabSheet): TListBox;
+  var
+    i: Integer;
+  begin
+    Result := nil;
+    if Tab = nil then Exit;
+
+    for i := 0 to Tab.ControlCount - 1 do
+      if Tab.Controls[i] is TListBox then
+        Exit(TListBox(Tab.Controls[i]));
+  end;
+begin
+  with TOpenDialog.Create(Self) do
+  try
+    Title := 'Select Level Pack INI';
+    Filter := 'Levelpack Files (*.ini)|*.ini|All Files (*.*)|*.*';
+    DefaultExt := 'ini';
+    Options := [ofFileMustExist, ofHideReadOnly];
+
+    if not Execute then
+      Exit;
+
+    SL := TStringList.Create;
+    try
+      SL.LoadFromFile(FileName, TEncoding.UTF8);
+
+      edPackTitle.Text := '';
+      edPackAuthor.Text := '';
+      edCodeSeed.Text := GenerateRandomCodeSeed;
+      cbMods.ItemIndex := 0;
+      lbMusic.Items.Clear;
+      while pcLevels.PageCount > 0 do
+        pcLevels.Pages[0].Free;
+
+      for LineIndex := 0 to SL.Count - 1 do
+      begin
+        Line := Trim(SL[LineIndex]);
+        if (Line = '') or (Line[1] = '#') then
+          Continue;
+
+        // Pack Title
+        if Line.StartsWith('name =') then
+          edPackTitle.Text := Trim(Copy(Line, Length('name =')+1, MaxInt))
+        // Codeseed
+        else if Line.StartsWith('codeSeed =') then
+          edCodeSeed.Text := Trim(Copy(Line, Length('codeSeed =')+1, MaxInt))
+        // Music list
+        else if Line.StartsWith('music_') then
+        begin
+          Parts := Line.Split(['=']);
+          if Length(Parts) = 2 then
+            lbMusic.Items.Add(Trim(Parts[1]));
+        end
+        // Level list
+        else if Line.StartsWith('level_') then
+        begin
+          Parts := Line.Split(['=']);
+          if Length(Parts) <> 2 then Continue;
+
+          Key := Trim(Parts[0]);
+          Value := Trim(Parts[1]);
+
+          // Group - level_0 = Group Name
+          if TRegEx.IsMatch(Key, '^level_\d+$') then
+          begin
+            Tab := TTabSheet.Create(pcLevels);
+            Tab.PageControl := pcLevels;
+            Tab.Caption := Value;
+
+            List := TListBox.Create(Tab);
+            List.Parent := Tab;
+            List.Align := alClient;
+            List.MultiSelect := True;
+          end
+          // Level - level_0_0 = Level Name
+          else if TRegEx.IsMatch(Key, '^level_\d+_\d+$') then
+          begin
+            Parts := Key.Split(['_']);
+            if Length(Parts) = 3 then
+            begin
+              GroupIndex := StrToIntDef(Parts[1], -1);
+              LevelIndex := StrToIntDef(Parts[2], -1);
+
+              if (GroupIndex >= 0) and (GroupIndex < pcLevels.PageCount) then
+              begin
+                Tab := pcLevels.Pages[GroupIndex];
+                List := GetListBoxFromTab(Tab);
+                if List = nil then Continue;
+
+                // Split out optional music index
+                if Value.Contains(',') then
+                  List.Items.Add(Value.Split([','])[0])
+                else
+                  List.Items.Add(Value);
+              end;
+            end;
+          end;
+        end else begin
+          // Mods
+          if cbMods.Items.IndexOf(Line) >= 0 then
+            cbMods.Text := Line;
+        end;
+      end;
+    finally
+      SL.Free;
+    end;
+  finally
+    Free;
+  end;
+end;
+
+procedure TMainForm.btnSaveLevelPackINIClick(Sender: TObject);
 var
   SaveDlg: TSaveDialog;
 begin
@@ -478,6 +603,14 @@ procedure TMainForm.GenerateLevelPackINI(const FileName: string);
     Result := ChangeFileExt(S, '');
   end;
 
+  function ValidateAuthor: String;
+  begin
+    if (edPackAuthor.Text = '') then
+      Result := '' + #13#10
+    else
+      Result := ' by ' + edPackAuthor.Text + #13#10;
+  end;
+
   function ValidateName: String;
   begin
     if (edPackTitle.Text = '') then
@@ -526,6 +659,8 @@ begin
   SL := TStringList.Create;
   try
     // General Info
+    SL.Add('# levelpack.ini generated with LemminiLevelPackCompiler ' + GetVersion);
+    SL.Add('# ' + ValidateName + ValidateAuthor);
     SL.Add('name = ' + ValidateName);
     SL.Add('codeSeed = ' + ValidateCodeSeed);
     SL.Add(ValidateMods);
