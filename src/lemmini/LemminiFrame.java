@@ -18,7 +18,9 @@
  */
 package lemmini;
 
+import java.awt.Color;
 import java.awt.Desktop;
+import java.awt.Graphics;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
@@ -34,11 +36,15 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -92,6 +98,27 @@ public class LemminiFrame extends JFrame {
 
     /** self reference */
     static LemminiFrame thisFrame;
+    
+    public enum FrameColor {
+        DEEP_BLUE,
+        AMIGA_BLUE,
+        CHARCOAL,
+        CHALK,
+        MENU_TEXT,
+    }
+    
+    public static class ColorPalette {
+        public static Color getColor(FrameColor fc) {
+            switch (fc) {
+                case DEEP_BLUE: return new Color(20, 50, 110); // 20, 80, 140 ? // 20, 40, 100
+                case AMIGA_BLUE: return new Color(0, 0, 51);
+                case CHARCOAL: return new Color(20, 20, 20);
+                case CHALK: return new Color (160, 160, 160);
+                case MENU_TEXT: return new Color(210, 210, 210);
+                default: return Color.BLACK;
+            }
+        }
+    }
 
     /**
      * Creates new form LemminiFrame
@@ -220,10 +247,14 @@ public class LemminiFrame extends JFrame {
      */
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    @SuppressWarnings("serial")
     private void initComponents() {
-
+        Color bgColor = ColorPalette.getColor(FrameColor.DEEP_BLUE);
+        Color fgColor = ColorPalette.getColor(FrameColor.MENU_TEXT);
+        Color hkColor = ColorPalette.getColor(FrameColor.CHALK);
+        UIManager.put("MenuItem.acceleratorForeground", hkColor);
+        
         lemminiPanelMain = new lemmini.LemminiPanel();
-        jMenuBarMain = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
         jMenuItemExit = new javax.swing.JMenuItem();
         jMenuPlayers = new javax.swing.JMenu();
@@ -240,6 +271,15 @@ public class LemminiFrame extends JFrame {
         jMenuHelp = new javax.swing.JMenu();
         jMenuItemUpdateStyles = new javax.swing.JMenuItem();
         jMenuItemAbout = new javax.swing.JMenuItem();
+        
+        jMenuBarMain = new javax.swing.JMenuBar() {
+            @Override
+            protected void paintComponent(Graphics g) {
+            	g.setColor(bgColor);
+                g.fillRect(0, 0, getWidth(), getHeight());
+            }
+        };
+        jMenuBarMain.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, bgColor));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("RetroLemmini");
@@ -431,6 +471,7 @@ public class LemminiFrame extends JFrame {
 
         setJMenuBar(jMenuBarMain);
         
+        // Add hotkey text
         List<Hotkey> keys = GameController.activeHotkeys;
         MenuHotkeyDisplay.applyHotkey(jMenuItemExit, HotkeyAction.HotkeyCloseApp, keys);
         MenuHotkeyDisplay.applyHotkey(jMenuItemManagePlayers, HotkeyAction.HotkeyManagePlayers, keys);
@@ -443,6 +484,33 @@ public class LemminiFrame extends JFrame {
         MenuHotkeyDisplay.applyHotkey(jMenuItemMouse, HotkeyAction.HotkeyManageMouse, keys);
         MenuHotkeyDisplay.applyHotkey(jMenuItemUpdateStyles, null, keys);
         MenuHotkeyDisplay.applyHotkey(jMenuItemAbout, HotkeyAction.HotkeyAbout, keys);
+
+        // Apply menu colors
+        for (int i = 0; i < jMenuBarMain.getMenuCount(); i++) {
+            JMenu menu = jMenuBarMain.getMenu(i);
+            if (menu == null) continue;
+
+            // Top-level menu styling
+            menu.setForeground(fgColor);
+            menu.setOpaque(true);
+            menu.setBackground(bgColor);
+            menu.setBorder(BorderFactory.createLineBorder(bgColor, 1));
+
+            // Style popup menu border
+            JPopupMenu popup = menu.getPopupMenu();
+            popup.setBorder(BorderFactory.createEmptyBorder());
+            //popup.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2));
+
+            // Style all sub-items
+            for (int j = 0; j < menu.getItemCount(); j++) {
+                JMenuItem item = menu.getItem(j);
+                if (item != null) { // skip separators
+                    item.setForeground(fgColor);
+                    item.setBackground(bgColor);
+                    item.setOpaque(true);
+                }
+            }
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
