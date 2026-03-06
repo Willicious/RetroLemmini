@@ -174,7 +174,6 @@ object MainForm: TMainForm
           ItemHeight = 13
           MultiSelect = True
           TabOrder = 0
-          ExplicitHeight = 434
         end
       end
     end

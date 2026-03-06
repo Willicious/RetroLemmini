@@ -663,7 +663,7 @@ begin
     SL.Add('# ' + ValidateName + ValidateAuthor);
     SL.Add('name = ' + ValidateName);
     SL.Add('codeSeed = ' + ValidateCodeSeed);
-    SL.Add(ValidateMods);
+    SL.Add('mods = ' + ValidateMods);
 
     // Music
     SL.Add('# Music selection');
@@ -711,6 +711,7 @@ begin
     end;
 
     SL.SaveToFile(FileName, TEncoding.UTF8);
+    ShowMessage('levelpack.ini saved successfully!');
 
   finally
     SL.Free;
