@@ -316,7 +316,7 @@ public class TextScreen {
         if (GameController.getTime() == 0 && GameController.isTimed()) {
             textDialog.addStringCentered("Time is up.", null, -7, TURQUOISE);
         } else {
-            textDialog.addStringCentered("All lemmings accounted for.", null, -7, TURQUOISE);
+            textDialog.addStringCentered("All " + GameController.getLemmNamesPlural() + " accounted for.", null, -7, TURQUOISE);
         }
         if (GameController.isOptionEnabled(GameController.Option.NO_PERCENTAGES) || numLemmings > 100) {
             textDialog.addStringCentered(String.format("You needed %d - You rescued %d", toRescue, rescued), null, -5, VIOLET);
@@ -449,8 +449,8 @@ public class TextScreen {
             textDialog.clearGroup("info");
             Level level = GameController.getLevel();
             String rating = GameController.getCurLevelPack().getRatings().get(GameController.getCurRating());
-            String lemWord = level.isSuperLemming() ? "Superl" : "L";
-            lemWord = lemWord + (level.getNumLemmings() == 1 ? "emming" : "emmings");
+            String lemWord = level.isSuperLemming() ? "Super" : "";
+            lemWord = lemWord + (level.getNumLemmings() == 1 ? GameController.getLemmNames() : GameController.getLemmNamesPlural());
             LemmColor lemColor = level.isSuperLemming() ? HOT_RED : BLUE;
             int savePercent = level.getNumToRescue() * 100 / level.getNumLemmings();
             int xPos = -11;

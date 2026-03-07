@@ -1679,6 +1679,8 @@ public class Lemming {
         }
         lemmings.clear();
         // read lemmings
+        GameController.setLemmNames(p.get("names", "Lemming"));
+        GameController.setLemmNamesPlural(p.get("names_plural", "Lemmings"));
         templateColor = p.getInt("templateColor", DEF_TEMPLATE_COLOR) & 0x00ffffff;
         templateColor2 = p.getInt("templateColor2", templateColor) & 0x00ffffff;
         Type[] lemmTypes = Type.values();

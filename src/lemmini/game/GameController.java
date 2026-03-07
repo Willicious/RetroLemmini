@@ -373,6 +373,9 @@ public class GameController {
     private static int width = Level.DEFAULT_WIDTH;
     private static int height = Level.DEFAULT_HEIGHT;
     private static int timesFailed;
+    
+    private static String lemmNames;
+    private static String lemmNamesPlural;
 
 	/** draw fall distance ruler at cursor (or not) */
     public static boolean drawRulerAtCursor;
@@ -2851,6 +2854,22 @@ public class GameController {
         }
         return result[2];
     }
+
+	public static String getLemmNames() {
+		return lemmNames == null ? "Lemming" : lemmNames;
+	}
+
+	public static void setLemmNames(String lemmNames) {
+		GameController.lemmNames = lemmNames;
+	}
+
+	public static String getLemmNamesPlural() {
+		return lemmNamesPlural == null ? "Lemmings" : lemmNamesPlural;
+	}
+
+	public static void setLemmNamesPlural(String lemmNamesPlural) {
+		GameController.lemmNamesPlural = lemmNamesPlural;
+	}
 }
 
 
