@@ -1781,12 +1781,13 @@ public class LemminiPanel extends JPanel implements Runnable {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH_mm_ss__dd_MM_yyyy");
         String timestamp = now.format(formatter);
 
+        String userName = Core.player.getName();
         String levelName = level.getLevelName().replaceAll("[^a-zA-Z0-9_\\-]", "_");
         String levelPackName = levelPack.getName().replaceAll("[^a-zA-Z0-9_\\-]", "_");
         String ratingName = levelPack.getRatings().get(curRating).replaceAll("[^a-zA-Z0-9_\\-]", "_");
 
-        String replayFileName = String.format("%s__%s__%02d__%s__%s." + Core.REPLAY_EXTENSIONS[0],
-            levelPackName, ratingName, curLevelNum + 1, levelName, timestamp);
+        String replayFileName = String.format("%s__%s__%s__%02d__%s__%s." + Core.REPLAY_EXTENSIONS[0],
+            userName, levelPackName, ratingName, curLevelNum + 1, levelName, timestamp);
 
         Path replayPath = Core.resourcePath.resolve(Core.REPLAYS_PATH).resolve(replayFileName);
         System.out.println("replayPath = " + replayPath);
