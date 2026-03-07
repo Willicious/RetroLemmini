@@ -290,7 +290,7 @@ public class TextScreen {
         addLevelName(level);
         showLevelInfo();
         textDialog.addTextButton("Start Level", "Start Level", null, -12, 6, Button.START_LEVEL, BLUE, YELLOW);
-        textDialog.addTextButton("Main Menu", "Main Menu", null, 4, 6, Button.MENU, BLUE, YELLOW);
+        textDialog.addTextButton("Main Menu", "Main Menu", null, 3, 6, Button.MENU, BLUE, YELLOW);
     }
 
     /**
@@ -345,7 +345,7 @@ public class TextScreen {
             	debriefing = debriefings.get(4);
             }
             textDialog.addStringCentered(debriefing, null, -1, RED);
-            textDialog.addTextButton("Retry Level", "Retry Level", null, -12, 5, Button.RESTART, BLUE, YELLOW);
+            textDialog.addTextButton("Retry Level", "Retry Level", null, -14, 5, Button.RESTART, BLUE, YELLOW);
         } else {
             String debriefing;
             if (rescued <= toRescue && rescued < numLemmings) {
@@ -385,10 +385,10 @@ public class TextScreen {
             }
         }
         if (!GameController.getWasCheated()) {
-            textDialog.addTextButton("View Replay", "View Replay", null, 1, 5, Button.REPLAY, BLUE, YELLOW);
-            textDialog.addTextButton("Save Replay", "Save Replay", null, 1, 6, Button.SAVE_REPLAY, BLUE, YELLOW);
+            textDialog.addTextButton("View Replay", "View Replay", null, 0, 5, Button.REPLAY, BLUE, YELLOW);
+            textDialog.addTextButton("Save Replay", "Save Replay", null, 0, 6, Button.SAVE_REPLAY, BLUE, YELLOW);
         }
-        textDialog.addTextButton("Main Menu", "Main Menu", null, -9, 6, Button.MENU, BLUE, YELLOW);
+        textDialog.addTextButton("Main Menu", "Main Menu", null, -12, 6, Button.MENU, BLUE, YELLOW);
         
         handlePostviewJingles(rescued, toRescue);
         
