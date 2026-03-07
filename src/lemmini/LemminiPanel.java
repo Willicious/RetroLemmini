@@ -31,7 +31,10 @@ import java.awt.event.MouseEvent;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -1760,6 +1763,34 @@ public class LemminiPanel extends JPanel implements Runnable {
         Fader.setState(Fader.State.OUT);
         Core.setTitle("RetroLemmini");
     }
+    
+    public static String buildReplayFileName(String template, String user, String pack, String rating, String level, String time) {
+		Map<String, String> tags = new HashMap<>();
+		tags.put("{user}", user);
+		tags.put("{pack}", pack);
+		tags.put("{rating}", rating);
+		tags.put("{level}", level);
+		tags.put("{time}", time);
+		
+		List<String> values = new ArrayList<>();
+		
+		int index = 0;
+		while (index < template.length()) {
+			boolean found = false;
+			for (String key : tags.keySet()) {
+				if (template.startsWith(key, index)) {
+					values.add(tags.get(key));
+					index += key.length();
+					found = true;
+					break;
+				}
+			}
+			if (!found)
+				index++;
+		}
+		String name = String.join("__", values);
+		return name + "." + Core.REPLAY_EXTENSIONS[0];
+    }
 
     private void maybeAutoSaveReplay() {
         if (!GameController.isOptionEnabled(GameController.RetroLemminiOption.AUTOSAVE_REPLAYS)) return;
@@ -1783,11 +1814,13 @@ public class LemminiPanel extends JPanel implements Runnable {
 
         String userName = Core.player.getName();
         String levelName = level.getLevelName().replaceAll("[^a-zA-Z0-9_\\-]", "_");
+        String levelWithNumber = String.format("%02d_%s", curLevelNum + 1, levelName);
         String levelPackName = levelPack.getName().replaceAll("[^a-zA-Z0-9_\\-]", "_");
         String ratingName = levelPack.getRatings().get(curRating).replaceAll("[^a-zA-Z0-9_\\-]", "_");
+        
+        String template = GameController.getReplayNameTemplate();
 
-        String replayFileName = String.format("%s__%s__%s__%02d__%s__%s." + Core.REPLAY_EXTENSIONS[0],
-            userName, levelPackName, ratingName, curLevelNum + 1, levelName, timestamp);
+        String replayFileName = buildReplayFileName(template, userName, levelPackName, ratingName, levelWithNumber, timestamp);
 
         Path replayPath = Core.resourcePath.resolve(Core.REPLAYS_PATH).resolve(replayFileName);
         System.out.println("replayPath = " + replayPath);

@@ -260,6 +260,8 @@ public class Core {
         GameController.setExitSoundOption(ExitSoundOption.valueOf(programProps.get("exitSound", "AUTO")));
         // Menu theme settings
         GameController.setMenuThemeOption(MenuThemeOption.valueOf(programProps.get("menuTheme", "WINLEMM")));
+        // Auto-replay naming template
+        GameController.setReplayNameTemplate(programProps.get("replayNameTemplate", "{user}_{pack}_{rating}_{level}_{time}"));
 
         System.out.println("      all settings read from config");
 
@@ -419,6 +421,8 @@ public class Core {
         programProps.set("exitSound", GameController.getExitSoundOption().name());
         // Menu theme
         programProps.set("menuTheme", GameController.getMenuThemeOption().name());
+        // Replay name template
+        programProps.set("replayNameTemplate", GameController.getReplayNameTemplate());
         
         // Update file
         programProps.save(programPropsFilePath, false);

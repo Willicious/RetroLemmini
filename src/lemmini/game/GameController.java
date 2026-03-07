@@ -212,6 +212,9 @@ public class GameController {
 
     private static final String LEVEL_DIR_REGEX = "levels/[^/]+/levelpack.ini";
     private static final String LEVEL_CACHE_INI = "$levelcache.ini";
+    
+    /** replay naming template */
+    private static String replayNameTemplate;
 
     /** sound object */
     public static Sound sound;
@@ -2869,6 +2872,14 @@ public class GameController {
 
 	public static void setLemmNamesPlural(String lemmNamesPlural) {
 		GameController.lemmNamesPlural = lemmNamesPlural;
+	}
+
+	public static String getReplayNameTemplate() {
+		return replayNameTemplate;
+	}
+
+	public static void setReplayNameTemplate(String template) {
+		GameController.replayNameTemplate = template;
 	}
 }
 

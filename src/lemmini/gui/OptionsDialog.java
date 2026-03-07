@@ -17,11 +17,14 @@ package lemmini.gui;
 
 import java.awt.Frame;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.GroupLayout;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.event.ChangeListener;
 
 import lemmini.LemminiFrame;
 import lemmini.LemminiPanel;
@@ -78,6 +81,8 @@ public class OptionsDialog extends JDialog {
 		jLabelMixer = new javax.swing.JLabel();
 		jComboBoxMixer = new JComboBox<String>(GameController.sound.getMixers());
 		jLabelExitSound = new javax.swing.JLabel();
+		jLabelReplayTemplate = new javax.swing.JLabel();
+		jTextFieldReplayTemplate = new javax.swing.JTextField();
 		jRadioButtonYippee = new javax.swing.JRadioButton();
 		jRadioButtonBoing = new javax.swing.JRadioButton();
 		jRadioButtonAuto = new javax.swing.JRadioButton();
@@ -346,20 +351,53 @@ public class OptionsDialog extends JDialog {
 		jCheckBoxAutoSaveReplays.setText("Auto-Save Successful Replays");
 		jCheckBoxAutoSaveReplays
 				.setToolTipText("Automatically saves replays for succesfully-completed levels to 'resources/replays/'");
+		jCheckBoxAutoSaveReplays.addActionListener(e -> updateAutoSaveControls());
+		
+		final String defaultTemplate = "{user}_{pack}_{rating}_{level}_{time}";
+
+		MouseAdapter resetTemplateAdapter = new MouseAdapter() {
+		    @Override
+		    public void mouseClicked(MouseEvent evt) {
+		        if (evt.isControlDown()) {
+		            jTextFieldReplayTemplate.setText(defaultTemplate);
+		        }
+		    }
+		};
+		
+		jLabelReplayTemplate.setText("Name template (Ctrl + click to reset)");
+		jLabelReplayTemplate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		jLabelReplayTemplate.addMouseListener(resetTemplateAdapter);
+		jLabelReplayTemplate.setEnabled(jCheckBoxAutoSaveReplays.isSelected());
+
+		jTextFieldReplayTemplate.setText(GameController.getReplayNameTemplate());
+		jTextFieldReplayTemplate.setColumns(22);
+		jTextFieldReplayTemplate.setToolTipText("Available tags: {user} {pack} {rating} {level} {time}");
+		jTextFieldReplayTemplate.addMouseListener(resetTemplateAdapter);
+		jTextFieldReplayTemplate.setEnabled(jCheckBoxAutoSaveReplays.isSelected());
 
 		javax.swing.GroupLayout jPanelReplaysLayout = new javax.swing.GroupLayout(jPanelReplays);
 		jPanelReplays.setLayout(jPanelReplaysLayout);
-		jPanelReplaysLayout.setHorizontalGroup(jPanelReplaysLayout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(jPanelReplaysLayout.createSequentialGroup().addContainerGap()
-						.addGroup(jPanelReplaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addComponent(jCheckBoxAutoSaveReplays))
-						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
-		jPanelReplaysLayout
-				.setVerticalGroup(jPanelReplaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(jPanelReplaysLayout.createSequentialGroup().addContainerGap()
-								.addComponent(jCheckBoxAutoSaveReplays)
-								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+		jPanelReplaysLayout.setHorizontalGroup(
+			    jPanelReplaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			        .addGroup(jPanelReplaysLayout.createSequentialGroup()
+			            .addContainerGap()
+			            .addGroup(jPanelReplaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			                .addComponent(jCheckBoxAutoSaveReplays)
+			                .addComponent(jLabelReplayTemplate)
+			                .addComponent(jTextFieldReplayTemplate))
+			            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+		jPanelReplaysLayout.setVerticalGroup(
+			    jPanelReplaysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			        .addGroup(jPanelReplaysLayout.createSequentialGroup()
+			            .addContainerGap()
+			            .addComponent(jCheckBoxAutoSaveReplays)
+			            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+			            .addComponent(jLabelReplayTemplate)
+			            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+			            .addComponent(jTextFieldReplayTemplate, javax.swing.GroupLayout.PREFERRED_SIZE,
+			                          javax.swing.GroupLayout.DEFAULT_SIZE,
+			                          javax.swing.GroupLayout.PREFERRED_SIZE)
+			            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
 		jPanelStyles.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Styles",
 				javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -593,6 +631,12 @@ public class OptionsDialog extends JDialog {
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 
+	private void updateAutoSaveControls() {
+	    boolean doAutosave = jCheckBoxAutoSaveReplays.isSelected();
+	    jLabelReplayTemplate.setEnabled(doAutosave);
+	    jTextFieldReplayTemplate.setEnabled(doAutosave);
+	}
+
 	private void jButtonUpdateStylesActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonUpdateStylesActionPerformed
 		int result = JOptionPane.showConfirmDialog(null, "Would you like to update all styles now?", "Update Styles",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -664,6 +708,7 @@ public class OptionsDialog extends JDialog {
 		GameController.setOption(GameController.SLTooOption.ENABLE_FRAME_STEPPING,
 				jCheckBoxEnableFrameStepping.isSelected());
 		GameController.setOption(GameController.SLTooOption.VISUAL_SFX, jCheckBoxVisualSfx.isSelected());
+		GameController.setReplayNameTemplate(jTextFieldReplayTemplate.getText());
 
 		// then commit all those settings to disk
 		Core.saveSettings();
@@ -703,6 +748,8 @@ public class OptionsDialog extends JDialog {
 	private javax.swing.JLabel jLabelMusicVolume;
 	private javax.swing.JLabel jLabelSoundVolume;
 	private javax.swing.JLabel jLabelExitSound;
+	private javax.swing.JLabel jLabelReplayTemplate;
+	private javax.swing.JTextField jTextFieldReplayTemplate;
 	private javax.swing.JRadioButton jRadioButtonYippee;
 	private javax.swing.JRadioButton jRadioButtonBoing;
 	private javax.swing.JRadioButton jRadioButtonAuto;
