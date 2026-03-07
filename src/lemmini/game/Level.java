@@ -450,8 +450,6 @@ public class Level {
             stencil = level2.stencil;
             level2.stencil = null;
         }
-
-        Lemming.replaceColors(getDebrisColor(), getDebrisColor2());
     }
 
     void createLevelImage() {

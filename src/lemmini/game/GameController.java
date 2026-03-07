@@ -853,6 +853,8 @@ public class GameController {
             LemmCursor.init();
             Lemming.loadLemmings();
         }
+        
+        Lemming.replaceColors(level.getDebrisColor(), level.getDebrisColor2());
 
         initLevel(true);
 
