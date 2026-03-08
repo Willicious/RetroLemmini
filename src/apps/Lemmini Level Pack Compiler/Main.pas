@@ -67,9 +67,8 @@ type
     function GenerateRandomCodeSeed: String;
     function GetPath(const BasePath, FullPath: string): string;
     function GetActiveGroupList: TListBox;
-    function GetVersion: String;
   public
-    { Public declarations }
+    function GetVersion: String;
   end;
 
 var
