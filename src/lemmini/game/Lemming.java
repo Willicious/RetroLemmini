@@ -1749,6 +1749,9 @@ public class Lemming {
     public String getLemmingInfo() {
         String n = type.name;
         if (!n.isEmpty()) {
+        	if ((explodeNumCtr > 0) || (type.name == "FLAPPER")) {
+        		n = "BOMBER";
+        	}
             if (canClimb && canFloat) {
                 n += " (A)";
             } else if (canClimb && type != Type.CLIMBER && type != Type.FLIPPER) {
