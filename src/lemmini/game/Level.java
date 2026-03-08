@@ -690,8 +690,19 @@ public class Level {
             boolean fake = BooleanUtils.toBoolean(o.flags & LvlObject.FLAG_FAKE);
             boolean upsideDownMask = BooleanUtils.toBoolean(o.flags & LvlObject.FLAG_UPSIDE_DOWN_MASK);
             boolean flipHorizontally = BooleanUtils.toBoolean(o.flags & LvlObject.FLAG_FLIP_HORIZONTALLY);
-            // create sprite object
+            // determine object by its ID
             GraphicSet.LvlObject o2 = objectStyle.getObject(o.id);
+            // check for one-way arrows (these are always drawn on terrain regardless of draw flags, and ignore transform data)
+            boolean isOneWay = (o2.getType() == SpriteObject.Type.ONE_WAY_LEFT) || (o2.getType() == SpriteObject.Type.ONE_WAY_RIGHT)
+            		        || (o2.getType() == SpriteObject.Type.ONE_WAY_DOWN) || (o2.getType() == SpriteObject.Type.ONE_WAY_UP);
+            // disallow one-way arrow transforms
+            if (isOneWay) {
+            	rotate = false;
+            	upsideDown = false;
+            	upsideDownMask = false;
+            	flipHorizontally = false;
+            }
+            // create sprite object
             SpriteObject spr = new SpriteObject(o2, GraphicSet.Orientation.getOrientation(flipHorizontally, upsideDown, rotate), false);
             spr.setX(o.xPos);
             spr.setY(o.yPos);
@@ -701,16 +712,6 @@ public class Level {
                         o.yPos + spr.getMaskOffsetY(), BooleanUtils.toBoolean(o.objSpecificModifier & LvlObject.OPTION_ENTRANCE_LEFT));
                 e.id = oCombined.size();
                 entrances.add(e);
-            }
-            // check for one-way arrows (these should only ever be drawn on terrain, regardless of any other flags)
-            boolean isOneWay = (spr.getType() == SpriteObject.Type.ONE_WAY_LEFT) || (spr.getType() == SpriteObject.Type.ONE_WAY_RIGHT)
-            		        || (spr.getType() == SpriteObject.Type.ONE_WAY_DOWN) || (spr.getType() == SpriteObject.Type.ONE_WAY_UP);
-            // disallow OWW rotation/flip
-            if (isOneWay) {
-            	rotate = false;
-            	upsideDown = false;
-            	upsideDownMask = false;
-            	flipHorizontally = false;
             }
             // animated
             boolean invisible = BooleanUtils.toBoolean(o.paintMode & LvlObject.MODE_INVISIBLE);
