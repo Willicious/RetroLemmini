@@ -194,12 +194,20 @@ public class GraphicSet {
         return particleColor;
     }
 
-    public LvlObject getObject(int idx) {
-        return objects.get(idx);
+    public LvlObject getObject(int idx) throws LemmException {
+        try {
+            return objects.get(idx);
+        } catch (IndexOutOfBoundsException e) {
+            throw new LemmException(Core.stylePieceIndexError(name, "object", idx));
+        }
     }
 
-    public Terrain getTerrain(int idx) {
-        return terrain.get(idx);
+    public Terrain getTerrain(int idx) throws LemmException {
+        try {
+            return terrain.get(idx);
+        } catch (IndexOutOfBoundsException e) {
+            throw new LemmException(Core.stylePieceIndexError(name, "terrain", idx));
+        }
     }
 
     public class LvlObject {
@@ -282,56 +290,64 @@ public class GraphicSet {
             return sound;
         }
 
-        public List<LemmImage> getImages(Orientation orientation) throws ResourceException {
-            if (!images.containsKey(Orientation.NORMAL)) {
-                Resource resource = Core.findResource(
-                        pathPrefix + "o_" + index + ".png",
-                        Core.IMAGE_EXTENSIONS);
-                LemmImage sourceImage = Core.loadLemmImage(resource);
-                images.put(Orientation.NORMAL, ToolBox.getAnimation(sourceImage, numFrames));
+        public List<LemmImage> getImages(Orientation orientation) throws LemmException {
+        	try {
+	            if (!images.containsKey(Orientation.NORMAL)) {
+	                Resource resource = Core.findResource(
+	                        pathPrefix + "o_" + index + ".png",
+	                        Core.IMAGE_EXTENSIONS);
+	                LemmImage sourceImage = Core.loadLemmImage(resource);
+	                images.put(Orientation.NORMAL, ToolBox.getAnimation(sourceImage, numFrames));
+	            }
+	            if (!images.containsKey(orientation)) {
+	                List<LemmImage> newImages = new ArrayList<>(images.get(Orientation.NORMAL));
+	                for (ListIterator<LemmImage> lit = newImages.listIterator(); lit.hasNext(); ) {
+	                    LemmImage image = lit.next().transform(orientation.rotate(), orientation.flipHoriz(), orientation.flipVert());
+	                    lit.set(image);
+	                }
+	                images.put(orientation, newImages);
+	            }
+	            return images.get(orientation);
+        	} catch (ResourceException ex) {
+                throw new LemmException(Core.stylePieceResourceError(name, "object", index));
             }
-            if (!images.containsKey(orientation)) {
-                List<LemmImage> newImages = new ArrayList<>(images.get(Orientation.NORMAL));
-                for (ListIterator<LemmImage> lit = newImages.listIterator(); lit.hasNext(); ) {
-                    LemmImage image = lit.next().transform(orientation.rotate(), orientation.flipHoriz(), orientation.flipVert());
-                    lit.set(image);
-                }
-                images.put(orientation, newImages);
-            }
-            return images.get(orientation);
         }
 
-        public boolean[][] getMask() throws ResourceException {
-            if (mask == null) {
-                switch (type) {
-                    case EXIT:
-                    case TURN_LEFT:
-                    case TURN_RIGHT:
-                    case ONE_WAY_RIGHT:
-                    case ONE_WAY_LEFT:
-                    case ONE_WAY_UP:
-                    case ONE_WAY_DOWN:
-                    case TRAP_DIE:
-                    case TRAP_REPLACE:
-                    case TRAP_DROWN:
-                    case STEEL:
-                        Resource resource = Core.findResource(
-                                pathPrefix + "om_" + index + ".png",
-                                Core.IMAGE_EXTENSIONS);
-                        LemmImage sourceImage = Core.loadLemmImage(resource);
-                        mask = new boolean[sourceImage.getHeight()][sourceImage.getWidth()];
-                        for (int y = 0; y < mask.length; y++) {
-                            for (int x = 0; x < mask[y].length; x++) {
-                                mask[y][x] = (sourceImage.getRGB(x, y) >>> 24) >= 0x80;
-                            }
-                        }
-                        break;
-                    default:
-                        mask = new boolean[0][0];
-                        break;
-                }
-            }
-            return mask;
+        public boolean[][] getMask() throws LemmException {
+        	try {
+	            if (mask == null) {
+	                switch (type) {
+	                    case EXIT:
+	                    case TURN_LEFT:
+	                    case TURN_RIGHT:
+	                    case ONE_WAY_RIGHT:
+	                    case ONE_WAY_LEFT:
+	                    case ONE_WAY_UP:
+	                    case ONE_WAY_DOWN:
+	                    case TRAP_DIE:
+	                    case TRAP_REPLACE:
+	                    case TRAP_DROWN:
+	                    case STEEL:
+	                        Resource resource = Core.findResource(
+	                                pathPrefix + "om_" + index + ".png",
+	                                Core.IMAGE_EXTENSIONS);
+	                        LemmImage sourceImage = Core.loadLemmImage(resource);
+	                        mask = new boolean[sourceImage.getHeight()][sourceImage.getWidth()];
+	                        for (int y = 0; y < mask.length; y++) {
+	                            for (int x = 0; x < mask[y].length; x++) {
+	                                mask[y][x] = (sourceImage.getRGB(x, y) >>> 24) >= 0x80;
+	                            }
+	                        }
+	                        break;
+	                    default:
+	                        mask = new boolean[0][0];
+	                        break;
+	                }
+	            }
+	            return mask;
+	        } catch  (ResourceException ex) {
+	            throw new LemmException(Core.stylePieceResourceError(name, "object", index));
+	        }
         }
     }
 
@@ -354,50 +370,51 @@ public class GraphicSet {
             return steel;
         }
 
-        public LemmImage getImage() throws ResourceException {
-            if (image == null) {
-                Resource resource;
-                if (index >= 0) {
-                    resource = Core.findResource(
-                            pathPrefix + "_" + index + ".png",
-                            Core.IMAGE_EXTENSIONS);
-                } else {
-                    resource = Core.findResource(pathPrefix + ".png",
-                            Core.IMAGE_EXTENSIONS);
-                }
-                image = Core.loadLemmImage(resource);
-            }
-            return image;
+        public LemmImage getImage() throws LemmException {
+        	try {
+	            if (image == null) {
+	                Resource resource;
+	                if (index >= 0) {
+	                    resource = Core.findResource(
+	                            pathPrefix + "_" + index + ".png",
+	                            Core.IMAGE_EXTENSIONS);
+	                } else {
+	                    resource = Core.findResource(pathPrefix + ".png",
+	                            Core.IMAGE_EXTENSIONS);
+	                }
+	                image = Core.loadLemmImage(resource);
+	            }
+	            return image;
+        	} catch (ResourceException ex) {
+                throw new LemmException(Core.stylePieceResourceError(name, "terrain", index));
+        	}
         }
 
-        public boolean[][] getMask() throws ResourceException {
-            if (mask == null) {
-                LemmImage sourceImage;
+        public boolean[][] getMask() throws LemmException {
+            if (mask != null) return mask;
+            LemmImage sourceImage;
+            try {
+                Resource resource = (index >= 0)
+                        ? Core.findResource(pathPrefix + "m_" + index + ".png", Core.IMAGE_EXTENSIONS)
+                        : Core.findResource(pathPrefix + "m.png", Core.IMAGE_EXTENSIONS);
+                sourceImage = Core.loadLemmImage(resource);
+            } catch (ResourceException ex) {
                 try {
-                    Resource resource;
-                    if (index >= 0) {
-                        resource = Core.findResource(
-                                pathPrefix + "m_" + index + ".png",
-                                Core.IMAGE_EXTENSIONS);
-                    } else {
-                        resource = Core.findResource(pathPrefix + "m.png",
-                                Core.IMAGE_EXTENSIONS);
-                    }
-                    sourceImage = Core.loadLemmImage(resource);
-                } catch (ResourceException ex) {
                     sourceImage = getImage();
+                } catch (LemmException e) {
+                    throw new LemmException(Core.stylePieceResourceError(name, "terrain", index));
                 }
-                mask = new boolean[sourceImage.getHeight()][sourceImage.getWidth()];
-                for (int y = 0; y < mask.length; y++) {
-                    for (int x = 0; x < mask[y].length; x++) {
-                        mask[y][x] = (sourceImage.getRGB(x, y) >>> 24) >= 0x80;
-                    }
+            }
+            mask = new boolean[sourceImage.getHeight()][sourceImage.getWidth()];
+            for (int y = 0; y < mask.length; y++) {
+                for (int x = 0; x < mask[y].length; x++) {
+                    mask[y][x] = (sourceImage.getRGB(x, y) >>> 24) >= 0x80;
                 }
             }
             return mask;
         }
 
-        public boolean[][] getSteelMask() throws ResourceException {
+        public boolean[][] getSteelMask() throws LemmException {
             if (steelMask == null) {
                 if (steel) {
                     LemmImage sourceImage = getImage();

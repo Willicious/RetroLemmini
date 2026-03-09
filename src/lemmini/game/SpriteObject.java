@@ -152,7 +152,7 @@ public class SpriteObject extends Sprite {
      * @param modifiable
      * @throws ResourceException
      */
-    public SpriteObject(GraphicSet.LvlObject obj, GraphicSet.Orientation orientation, final boolean modifiable) throws ResourceException {
+    public SpriteObject(GraphicSet.LvlObject obj, GraphicSet.Orientation orientation, final boolean modifiable) throws LemmException {
         super(obj.getImages(orientation), obj.getSpeed(), modifiable);
         animMode = obj.getAnimationMode();
         type = obj.getType();

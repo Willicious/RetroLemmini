@@ -1892,7 +1892,7 @@ public class GameController {
                         return;
                     } catch (LemmException ex) {
                         JOptionPane.showMessageDialog(LemminiFrame.getFrame(), ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                        System.exit(1);
+                        Core.returnToMainMenu();
                     }
                 	setLevelTitle();
                 	LemminiFrame.getFrame().setCursor(LemmCursor.CursorType.NORMAL);

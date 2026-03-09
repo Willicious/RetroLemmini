@@ -677,7 +677,6 @@ public class Core {
         String message = String.format("Missing level:<br><br>"
         		+ "The level listed in the levelpack.ini for %s could not be loaded.<br><br>"
                 + "Please visit <a href='https://www.lemmingsforums.net/index.php?msg=105737'>this help topic</a> on the Lemmings Forums for help.", rsrc);
-
         JEditorPane pane = new JEditorPane("text/html", "<html><body style='font-family:sans-serif;'>" + message + "</body></html>");
         pane.setEditable(false);
         pane.setOpaque(false);
@@ -699,7 +698,6 @@ public class Core {
         String message = String.format("Missing resource:<br><br>"
         		+ "resources/%s<br><br>"
                 + "Please visit <a href='https://www.lemmingsforums.net/index.php?msg=105737'>this help topic</a> on the Lemmings Forums for help.", rsrc);
-
         JEditorPane pane = new JEditorPane("text/html", "<html><body style='font-family:sans-serif;'>" + message + "</body></html>");
         pane.setEditable(false);
         pane.setOpaque(false);
@@ -712,7 +710,6 @@ public class Core {
                 }
             }
         });
-
         JOptionPane.showMessageDialog(null, pane, "Error", JOptionPane.ERROR_MESSAGE);
         returnToMainMenu();
     }
@@ -722,7 +719,6 @@ public class Core {
         		+ "resources/music/%s<br><br>"
         		+ "No music will play for this level.<br><br>"
                 + "Please visit <a href='https://www.lemmingsforums.net/index.php?msg=105737'>this help topic</a> on the Lemmings Forums for help.", rsrc);
-
         JEditorPane pane = new JEditorPane("text/html", "<html><body style='font-family:sans-serif;'>" + message + "</body></html>");
         pane.setEditable(false);
         pane.setOpaque(false);
@@ -737,6 +733,21 @@ public class Core {
         });
 
         JOptionPane.showMessageDialog(null, pane, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    public static String stylePieceIndexError(final String style, final String type, final int idx) {
+    	if (type == "object")
+    		return "An object with index " + idx + " is not listed in " + style + ".ini";
+    	else
+    		return "Index of terrain piece (" + idx + ") is higher than the value of 'tiles' listed in " + style + ".ini";
+    }
+    
+    public static String stylePieceResourceError(final String style, final String type, final int idx) {
+    	String suffix = type == "object" ? "o" : "";
+        return String.format("<html>Missing style piece: resources/styles/%s/%s%s_%d (%s)<br><br>"
+        		+ "Run 'Help > Refresh Styles' and then try loading the level again.<br>"
+        		+ "If that doesn't work, contact the pack author/maintainer.<br><br>"
+        		+ "The system will now return to main menu.<br><br></html>", style, style, suffix, idx, type);
     }
     
     public static void generalError(final String message) {
