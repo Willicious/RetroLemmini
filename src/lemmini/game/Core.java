@@ -148,6 +148,9 @@ public class Core {
     private static int drawHeight;
     
     private static MouseInput mouseInput = new MouseInput();
+    
+    /** the directory containing the JAR */
+	private static String jarDirectory;
 
     /**
      * Initialize some core elements.
@@ -479,6 +482,7 @@ public class Core {
             );
             if (result == JOptionPane.YES_OPTION) {
                 StyleDownloader.startDownload();
+                StyleDownloader.reInitializeCore();
             } else {
                 System.out.println("User declined to update styles.");
             }              
@@ -958,5 +962,13 @@ public class Core {
 
 	public static MouseInput getMouseInput() {
 		return mouseInput;
+	}
+
+	public static String getJarDirectory() {
+		return jarDirectory;
+	}
+
+	public static void setJarDirectory(String jarDirectory) {
+		Core.jarDirectory = jarDirectory;
 	}
 }

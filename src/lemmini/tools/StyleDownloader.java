@@ -15,6 +15,7 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 
 import lemmini.game.Core;
+import lemmini.game.LemmException;
 
 public class StyleDownloader {
 	
@@ -49,7 +50,6 @@ public class StyleDownloader {
 	}
     
 	public static void startDownload() {
-
 	    final JDialog dialog = new JDialog((Frame) null, "Updating Styles", true);
 	    dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 
@@ -103,5 +103,13 @@ public class StyleDownloader {
 
 	    worker.execute();
 	    dialog.setVisible(true);
+	}
+	
+	public static void reInitializeCore() {
+        try {
+			Core.init(Core.getJarDirectory());
+		} catch (LemmException e) {
+		} catch (IOException e) {
+		}
 	}
 }

@@ -24,7 +24,6 @@ import javax.swing.GroupLayout;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.event.ChangeListener;
 
 import lemmini.LemminiFrame;
 import lemmini.LemminiPanel;
@@ -640,10 +639,10 @@ public class OptionsDialog extends JDialog {
 	private void jButtonUpdateStylesActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonUpdateStylesActionPerformed
 		int result = JOptionPane.showConfirmDialog(null, "Would you like to update all styles now?", "Update Styles",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-		if (result == JOptionPane.YES_OPTION)
+		if (result == JOptionPane.YES_OPTION) {
 			StyleDownloader.startDownload();
-		else
-			return;
+			StyleDownloader.reInitializeCore();
+		} else return;
 	}// GEN-LAST:event_jButtonUpdateStylesActionPerformed
 
 	private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonOKActionPerformed

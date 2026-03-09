@@ -126,9 +126,9 @@ public class LemminiFrame extends JFrame {
     public LemminiFrame() {
         try {
             //found at: https://stackoverflow.com/questions/2837263/how-do-i-get-the-directory-that-the-currently-executing-jar-file-is-in
-            String currentFolderStr = URLDecoder.decode(getClass().getProtectionDomain().getCodeSource().getLocation().getFile(), "UTF-8");
-            System.out.println("Current directory: " + currentFolderStr);
-            boolean successful = Core.init(currentFolderStr); // initialize Core object
+            Core.setJarDirectory(URLDecoder.decode(getClass().getProtectionDomain().getCodeSource().getLocation().getFile(), "UTF-8"));
+            System.out.println("Current directory: " + Core.getJarDirectory());
+            boolean successful = Core.init(Core.getJarDirectory()); // initialize Core object
             if (!successful) {
                 System.exit(0);
             }
@@ -449,9 +449,10 @@ public class LemminiFrame extends JFrame {
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE
                 );
-                if (result == JOptionPane.YES_OPTION)
+                if (result == JOptionPane.YES_OPTION) {
                     StyleDownloader.startDownload();
-                else return;
+                    StyleDownloader.reInitializeCore();
+                } else return;
             }
         });
         
