@@ -1,6 +1,4 @@
-      NEW: lemminas_pink.zip
-      NEW: starlight.zip
-      NEW: sugar.zip
+  CHANGED: special.zip
 UNCHANGED: brick.zip
 UNCHANGED: bubble.zip
 UNCHANGED: classic.zip
@@ -9,10 +7,12 @@ UNCHANGED: crystal_md.zip
 UNCHANGED: dirt.zip
 UNCHANGED: dirt_md.zip
 UNCHANGED: fire.zip
+UNCHANGED: lemminas_pink.zip
 UNCHANGED: marble.zip
 UNCHANGED: pillar.zip
 UNCHANGED: rock.zip
 UNCHANGED: sega.zip
 UNCHANGED: snow.zip
-UNCHANGED: special.zip
+UNCHANGED: starlight.zip
+UNCHANGED: sugar.zip
 UNCHANGED: xmas.zip
