@@ -127,6 +127,8 @@ public class Core {
     public static Path settingsPath;
     /** path of resources */
     public static Path resourcePath;
+    /** path of icons */
+    public static Path iconsPath;
     /** path of currently run RetroLemmini instance */
     public static Path gamePath;
     /** settings directory */
@@ -224,6 +226,14 @@ public class Core {
         }
         System.out.println("      resourcePath: " + resourcePath.toString());
         resourceTree = new CaseInsensitiveFileTree(resourcePath);
+        
+        // Icons directory
+        if (gamePath.toString().endsWith(".jar")) {
+            iconsPath = Paths.get(Core.gamePath.getParent().toString(), "icons");
+        } else {
+            iconsPath = Paths.get(Core.gamePath.toString(), "icons");
+        }
+        System.out.println("      iconsPath: " + iconsPath.toString());
 
         bilinear = programProps.getBoolean("bilinear", true);
 

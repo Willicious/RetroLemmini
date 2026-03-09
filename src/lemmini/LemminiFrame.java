@@ -329,7 +329,7 @@ public class LemminiFrame extends JFrame {
 
         jMenuFile.setText("File");
 
-        ImageIcon exit = new ImageIcon(Core.gamePath + "\\icons\\IconExit.png");
+        ImageIcon exit = new ImageIcon(Core.iconsPath.resolve("IconExit.png").toString());
         jMenuItemExit.setIcon(exit);
         jMenuItemExit.setText("Exit" + padding);
         jMenuItemExit.addActionListener(new java.awt.event.ActionListener() {
@@ -343,7 +343,7 @@ public class LemminiFrame extends JFrame {
 
         jMenuPlayers.setText("Players");
 
-        ImageIcon players = new ImageIcon(Core.gamePath + "\\icons\\IconPlayers.png");
+        ImageIcon players = new ImageIcon(Core.iconsPath.resolve("IconPlayers.png").toString());
         jMenuItemManagePlayers.setIcon(players);
         jMenuItemManagePlayers.setText("Manage Players" + padding);
         jMenuItemManagePlayers.addActionListener(new java.awt.event.ActionListener() {
@@ -357,7 +357,7 @@ public class LemminiFrame extends JFrame {
 
         jMenuLevel.setText("Level");
         
-        ImageIcon entrance = new ImageIcon(Core.gamePath + "\\icons\\IconEntrance.png");
+        ImageIcon entrance = new ImageIcon(Core.iconsPath.resolve("IconEntrance.png").toString());
         jMenuItemChooseLevel.setIcon(entrance);
         jMenuItemChooseLevel.setText("Choose Level" + padding);
         jMenuItemChooseLevel.addActionListener(new java.awt.event.ActionListener() {
@@ -367,7 +367,7 @@ public class LemminiFrame extends JFrame {
         });
         jMenuLevel.add(jMenuItemChooseLevel);
 
-        ImageIcon restart = new ImageIcon(Core.gamePath + "\\icons\\IconRestart.png");
+        ImageIcon restart = new ImageIcon(Core.iconsPath.resolve("IconRestart.png").toString());
         jMenuItemRestartLevel.setIcon(restart);
         jMenuItemRestartLevel.setText("Restart Level" + padding);
         jMenuItemRestartLevel.setEnabled(false);
@@ -378,7 +378,7 @@ public class LemminiFrame extends JFrame {
         });
         jMenuLevel.add(jMenuItemRestartLevel);
 
-        ImageIcon replay = new ImageIcon(Core.gamePath + "\\icons\\IconReplay.png");
+        ImageIcon replay = new ImageIcon(Core.iconsPath.resolve("IconReplay.png").toString());
         jMenuItemLoadReplay.setIcon(replay);
         jMenuItemLoadReplay.setText("Load Replay" + padding);
         jMenuItemLoadReplay.addActionListener(new java.awt.event.ActionListener() {
@@ -388,7 +388,7 @@ public class LemminiFrame extends JFrame {
         });
         jMenuLevel.add(jMenuItemLoadReplay);
 
-        ImageIcon codes = new ImageIcon(Core.gamePath + "\\icons\\IconCodes.png");
+        ImageIcon codes = new ImageIcon(Core.iconsPath.resolve("IconCodes.png").toString());
         jMenuItemEnterLevelCode.setIcon(codes);
         jMenuItemEnterLevelCode.setText("Enter Level Code" + padding);
         jMenuItemEnterLevelCode.addActionListener(new java.awt.event.ActionListener() {
@@ -402,7 +402,7 @@ public class LemminiFrame extends JFrame {
 
         jMenuOptions.setText("Options");
 
-        ImageIcon options = new ImageIcon(Core.gamePath + "\\icons\\IconOptions.png");
+        ImageIcon options = new ImageIcon(Core.iconsPath.resolve("IconOptions.png").toString());
         jMenuItemOptions.setIcon(options);
         jMenuItemOptions.setText("Options" + padding);
         jMenuItemOptions.addActionListener(new java.awt.event.ActionListener() {
@@ -411,7 +411,7 @@ public class LemminiFrame extends JFrame {
             }
         });
 
-        ImageIcon hotkeys = new ImageIcon(Core.gamePath + "\\icons\\IconHotkeys.png");
+        ImageIcon hotkeys = new ImageIcon(Core.iconsPath.resolve("IconHotkeys.png").toString());
         jMenuItemHotkeys.setIcon(hotkeys);
         jMenuItemHotkeys.setText("Hotkeys" + padding);
         jMenuItemHotkeys.addActionListener(new java.awt.event.ActionListener() {
@@ -420,7 +420,7 @@ public class LemminiFrame extends JFrame {
             }
         });
         
-        ImageIcon mouse = new ImageIcon(Core.gamePath + "\\icons\\IconMouse.png");
+        ImageIcon mouse = new ImageIcon(Core.iconsPath.resolve("IconMouse.png").toString());
         jMenuItemMouse.setIcon(mouse);
         jMenuItemMouse.setText("Mouse" + padding);
         jMenuItemMouse.addActionListener(new java.awt.event.ActionListener() {
@@ -437,7 +437,7 @@ public class LemminiFrame extends JFrame {
         
         jMenuHelp.setText("Help");
 
-        ImageIcon styles = new ImageIcon(Core.gamePath + "\\icons\\IconStyles.png");
+        ImageIcon styles = new ImageIcon(Core.iconsPath.resolve("IconStyles.png").toString());
         jMenuItemUpdateStyles.setIcon(styles);
         jMenuItemUpdateStyles.setText("Update Styles" + padding);
         jMenuItemUpdateStyles.addActionListener(new java.awt.event.ActionListener() {
@@ -456,7 +456,7 @@ public class LemminiFrame extends JFrame {
             }
         });
         
-        ImageIcon about = new ImageIcon(Core.gamePath + "\\icons\\IconAbout.png");
+        ImageIcon about = new ImageIcon(Core.iconsPath.resolve("IconAbout.png").toString());
         jMenuItemAbout.setIcon(about);
         jMenuItemAbout.setText("About" + padding);
         jMenuItemAbout.addActionListener(new java.awt.event.ActionListener() {
