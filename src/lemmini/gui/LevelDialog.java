@@ -34,12 +34,14 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
+import javax.swing.GroupLayout;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -106,7 +108,7 @@ public class LevelDialog extends JDialog {
         jTreeLevels.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         jLabelFloaterImage = new javax.swing.JLabel();
         jLabelLogoImage = new javax.swing.JLabel();
-        jPanelAuthor = new javax.swing.JPanel();
+        jPanelContent = new javax.swing.JPanel();
         jLabelAuthor = new javax.swing.JLabel();
         jTextFieldAuthor = new javax.swing.JTextField();
         jPanelLevelInfo = new javax.swing.JPanel();
@@ -174,32 +176,16 @@ public class LevelDialog extends JDialog {
         });
         jScrollPaneLevels.setViewportView(jTreeLevels);
         selectCurrentLevel();
+        
+        LemmImage logo = MiscGfx.getImage(MiscGfx.Index.RETROLEMMINI_LOGO_AMIGA);
+        jLabelLogoImage.setIcon(new ImageIcon(getScaledImage(logo.getImage(), 300, 80)));
+        jLabelLogoImage.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabelLogoImage.setVerticalAlignment(SwingConstants.CENTER);
 
         jLabelAuthor.setText("Author:");
 
         jTextFieldAuthor.setEditable(false);
         jTextFieldAuthor.setHighlighter(null);
-
-        javax.swing.GroupLayout jPanelAuthorLayout = new javax.swing.GroupLayout(jPanelAuthor);
-        jPanelAuthor.setLayout(jPanelAuthorLayout);
-        jPanelAuthorLayout.setHorizontalGroup(
-            jPanelAuthorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelAuthorLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelAuthor)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldAuthor)
-                .addContainerGap())
-        );
-        jPanelAuthorLayout.setVerticalGroup(
-            jPanelAuthorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelAuthorLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelAuthorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelAuthor)
-                    .addComponent(jTextFieldAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
 
         jPanelLevelInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Level info", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
@@ -398,47 +384,61 @@ public class LevelDialog extends JDialog {
 
         jTextFieldScore.setEditable(false);
         jTextFieldScore.setHighlighter(null);
+        
+        LemmImage floaterLemming = MiscGfx.getImage(MiscGfx.Index.FLOATER_LEMMING);
+        jLabelFloaterImage.setIcon(new ImageIcon(getScaledImage(floaterLemming.getImage(), 120, 120)));
+        jLabelFloaterImage.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabelFloaterImage.setVerticalAlignment(SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanelRecordsLayout = new javax.swing.GroupLayout(jPanelRecords);
         jPanelRecords.setLayout(jPanelRecordsLayout);
         jPanelRecordsLayout.setHorizontalGroup(
-            jPanelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelRecordsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelScore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelTimeElapsed, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelSkillsUsed, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelLemmingsSaved, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextFieldScore, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                    .addComponent(jTextFieldTimeElapsed)
-                    .addComponent(jTextFieldSkillsUsed)
-                    .addComponent(jTextFieldLemmingsSaved))
-                .addContainerGap())
-        );
+        	    jPanelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        	        .addGroup(jPanelRecordsLayout.createSequentialGroup()
+        	            .addContainerGap()
+        	            .addGroup(jPanelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        	                .addGroup(jPanelRecordsLayout.createSequentialGroup()
+        	                    .addGroup(jPanelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        	                        .addComponent(jLabelScore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        	                        .addComponent(jLabelTimeElapsed, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        	                        .addComponent(jLabelSkillsUsed, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        	                        .addComponent(jLabelLemmingsSaved, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        	                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        	                    .addGroup(jPanelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+        	                        .addComponent(jTextFieldScore, 60, 60, 60)
+        	                        .addComponent(jTextFieldTimeElapsed)
+        	                        .addComponent(jTextFieldSkillsUsed)
+        	                        .addComponent(jTextFieldLemmingsSaved)))
+        	                .addComponent(jLabelFloaterImage, javax.swing.GroupLayout.DEFAULT_SIZE,
+        	                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        	            .addContainerGap()));
         jPanelRecordsLayout.setVerticalGroup(
-            jPanelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelRecordsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelLemmingsSaved)
-                    .addComponent(jTextFieldLemmingsSaved, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelSkillsUsed)
-                    .addComponent(jTextFieldSkillsUsed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelTimeElapsed)
-                    .addComponent(jTextFieldTimeElapsed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelScore)
-                    .addComponent(jTextFieldScore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        	    jPanelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        	        .addGroup(jPanelRecordsLayout.createSequentialGroup()
+        	            .addContainerGap()
+        	            .addGroup(jPanelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        	                .addComponent(jLabelLemmingsSaved)
+        	                .addComponent(jTextFieldLemmingsSaved, javax.swing.GroupLayout.PREFERRED_SIZE,
+        	                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        	            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        	            .addGroup(jPanelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        	                .addComponent(jLabelSkillsUsed)
+        	                .addComponent(jTextFieldSkillsUsed, javax.swing.GroupLayout.PREFERRED_SIZE,
+        	                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        	            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        	            .addGroup(jPanelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        	                .addComponent(jLabelTimeElapsed)
+        	                .addComponent(jTextFieldTimeElapsed, javax.swing.GroupLayout.PREFERRED_SIZE,
+        	                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        	            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        	            .addGroup(jPanelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        	                .addComponent(jLabelScore)
+        	                .addComponent(jTextFieldScore, javax.swing.GroupLayout.PREFERRED_SIZE,
+        	                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        	            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+        	            .addComponent(jLabelFloaterImage, javax.swing.GroupLayout.PREFERRED_SIZE,
+        	                    javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        	            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
         jButtonAddExternalLevels.setText("Add External Levels");
         jButtonAddExternalLevels.addActionListener(new java.awt.event.ActionListener() {
@@ -477,75 +477,75 @@ public class LevelDialog extends JDialog {
             }
         });
         
-        LemmImage floaterLemming = MiscGfx.getImage(MiscGfx.Index.FLOATER_LEMMING);
-        jLabelFloaterImage.setIcon(new ImageIcon(getScaledImage(floaterLemming.getImage(), 120, 120)));
-        jLabelFloaterImage.setHorizontalAlignment(SwingConstants.CENTER);
-        jLabelFloaterImage.setVerticalAlignment(SwingConstants.CENTER);
-        
-        LemmImage logo = MiscGfx.getImage(MiscGfx.Index.RETROLEMMINI_LOGO_AMIGA);
-        jLabelLogoImage.setIcon(new ImageIcon(getScaledImage(logo.getImage(), 300, 80)));
-        jLabelLogoImage.setHorizontalAlignment(SwingConstants.CENTER);
-        jLabelLogoImage.setVerticalAlignment(SwingConstants.CENTER);
+        // Content layout
+        jPanelContent.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.GRAY));
+        GroupLayout contentLayout = new GroupLayout(jPanelContent);
+        jPanelContent.setLayout(contentLayout);
+        contentLayout.setHorizontalGroup(
+        	    contentLayout.createSequentialGroup()
+        	        .addContainerGap()
+        	        .addGroup(contentLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        	            .addComponent(jLabelLogoImage, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        	            .addGroup(contentLayout.createSequentialGroup()
+        	                .addComponent(jLabelAuthor)
+        	                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+        	                .addComponent(jTextFieldAuthor))
+        	            .addGroup(contentLayout.createSequentialGroup()
+        	                .addComponent(jPanelLevelInfo)
+        	                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+        	                .addComponent(jPanelRecords)))
+        	        .addContainerGap());
+        contentLayout.setVerticalGroup(
+        	    contentLayout.createSequentialGroup()
+        	        .addContainerGap()	
+        	        	.addComponent(jLabelLogoImage, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+	                .addGroup(contentLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	                    .addComponent(jLabelAuthor)
+	                    .addComponent(jTextFieldAuthor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+	                .addGroup(contentLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	                    .addComponent(jPanelLevelInfo)
+	                    .addComponent(jPanelRecords))
+	                .addContainerGap());
 
+        // Full dialog layout
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPaneLevels)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        		.addGroup(layout.createSequentialGroup()
-                        			    .addComponent(jPanelLevelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        			    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        			    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        			        .addComponent(jPanelRecords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        			        .addComponent(jLabelFloaterImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        	.addComponent(jLabelLogoImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanelAuthor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonAddExternalLevels)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonClearExternalLevels)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonGetMoreLevels)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 340, Short.MAX_VALUE)
-                        .addComponent(jButtonOK)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCancel)))
-                .addContainerGap())
-        );
+        	    layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        	        .addGroup(layout.createSequentialGroup()
+        	            .addContainerGap()
+        	            .addComponent(jScrollPaneLevels)
+        	            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+        	            .addComponent(jPanelContent, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        	            .addContainerGap())
+        	        .addGroup(layout.createSequentialGroup()
+            	        .addContainerGap()	
+        	            .addComponent(jButtonAddExternalLevels)
+        	            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+        	            .addComponent(jButtonClearExternalLevels)
+        	            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+        	            .addComponent(jButtonGetMoreLevels)
+        	            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 340, Short.MAX_VALUE)
+        	            .addComponent(jButtonOK)
+        	            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+        	            .addComponent(jButtonCancel)
+        	            .addContainerGap()));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelLogoImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanelAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        	    .addComponent(jPanelLevelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        	    .addGroup(layout.createSequentialGroup()
-                        	        .addComponent(jPanelRecords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        	        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        	        .addComponent(jLabelFloaterImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPaneLevels))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonAddExternalLevels)
-                    .addComponent(jButtonClearExternalLevels)
-                    .addComponent(jButtonGetMoreLevels)
-                    .addComponent(jButtonCancel)
-                    .addComponent(jButtonOK))
-                .addContainerGap())
-        );
-
+        	    layout.createSequentialGroup()
+        	        .addContainerGap()
+        	        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        	            .addComponent(jScrollPaneLevels)
+        	            .addComponent(jPanelContent))
+        	        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+        	        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+        	            .addComponent(jButtonAddExternalLevels)
+        	            .addComponent(jButtonClearExternalLevels)
+        	            .addComponent(jButtonGetMoreLevels)
+        	            .addComponent(jButtonCancel)
+        	            .addComponent(jButtonOK))
+        	        .addContainerGap());
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -937,7 +937,7 @@ public class LevelDialog extends JDialog {
     private javax.swing.JLabel jLabelSkillsUsed;
     private javax.swing.JLabel jLabelTimeElapsed;
     private javax.swing.JLabel jLabelTimeLimit;
-    private javax.swing.JPanel jPanelAuthor;
+    private javax.swing.JPanel jPanelContent;
     private javax.swing.JPanel jPanelLevelInfo;
     private javax.swing.JPanel jPanelRecords;
     private javax.swing.JLabel jLabelFloaterImage;
