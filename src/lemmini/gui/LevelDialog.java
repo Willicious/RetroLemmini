@@ -121,6 +121,7 @@ public class LevelDialog extends JDialog {
         jLabelTimeLimit = new javax.swing.JLabel();
         jTextFieldTimeLimit = new javax.swing.JTextField();
         jSeparatorSkills = new javax.swing.JSeparator();
+        jSeparatorRecords = new javax.swing.JSeparator();
         jLabelNumClimbers = new javax.swing.JLabel();
         jTextFieldNumClimbers = new javax.swing.JTextField();
         jLabelNumFloaters = new javax.swing.JLabel();
@@ -301,8 +302,7 @@ public class LevelDialog extends JDialog {
                             .addComponent(jTextFieldNumBashers, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldNumMiners, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldNumDiggers, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
-        );
+                .addContainerGap()));
         jPanelLevelInfoLayout.setVerticalGroup(
             jPanelLevelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLevelInfoLayout.createSequentialGroup()
@@ -386,7 +386,7 @@ public class LevelDialog extends JDialog {
         jTextFieldScore.setHighlighter(null);
         
         LemmImage floaterLemming = MiscGfx.getImage(MiscGfx.Index.FLOATER_LEMMING);
-        jLabelFloaterImage.setIcon(new ImageIcon(getScaledImage(floaterLemming.getImage(), 120, 120)));
+        jLabelFloaterImage.setIcon(new ImageIcon(getScaledImage(floaterLemming.getImage(), 200, 200)));
         jLabelFloaterImage.setHorizontalAlignment(SwingConstants.CENTER);
         jLabelFloaterImage.setVerticalAlignment(SwingConstants.CENTER);
 
@@ -394,6 +394,10 @@ public class LevelDialog extends JDialog {
         jPanelRecords.setLayout(jPanelRecordsLayout);
         jPanelRecordsLayout.setHorizontalGroup(
         	    jPanelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        	    .addGroup(jPanelRecordsLayout.createSequentialGroup()
+        	    	    .addContainerGap()
+        	    	    .addComponent(jSeparatorRecords, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        	    	    .addContainerGap())
         	        .addGroup(jPanelRecordsLayout.createSequentialGroup()
         	            .addContainerGap()
         	            .addGroup(jPanelRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -435,6 +439,8 @@ public class LevelDialog extends JDialog {
         	                .addComponent(jLabelScore)
         	                .addComponent(jTextFieldScore, javax.swing.GroupLayout.PREFERRED_SIZE,
         	                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        	            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+        	            .addComponent(jSeparatorRecords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         	            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
         	            .addComponent(jLabelFloaterImage, javax.swing.GroupLayout.PREFERRED_SIZE,
         	                    javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -548,17 +554,21 @@ public class LevelDialog extends JDialog {
         	        .addContainerGap());
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void updatePackLogo(DefaultMutableTreeNode packNode) {
-        if (packNode == null) return;
+    
+    private LevelPack getPackFromTreeNode(DefaultMutableTreeNode packNode) {
+        if (packNode == null) return null;
         Object userObj = packNode.getUserObject();
-        if (!(userObj instanceof String)) return;
-        String packName = (String) userObj;        
-        LevelPack pack = GameController.levelPacks.stream()
+        if (!(userObj instanceof String)) return null;
+        String packName = (String) userObj;
+        return GameController.levelPacks.stream()
                 .filter(lp -> lp.getName().equalsIgnoreCase(packName))
                 .findFirst()
-                .orElse(null);      
+                .orElse(null);
+    }
+
+    private void updatePackLogo(LevelPack pack) {
         if (pack == null) return;
+        
         Path folder = GameController.getLevelPackFolder(GameController.levelPacks.indexOf(pack));
         if (folder == null) return;
         if (folder.equals(currentPackFolder) && jLabelLogoImage.getIcon() != null) return;
@@ -577,6 +587,15 @@ public class LevelDialog extends JDialog {
         }
         Image scaled = getScaledImage(logoImage.getImage(), 300, 80);
         jLabelLogoImage.setIcon(new ImageIcon(scaled));
+    }
+    
+    private void updateFloaterLem(boolean full, boolean partial) {
+        LemmImage image =
+            full ? MiscGfx.getImage(MiscGfx.Index.LEVEL_COMPLETED_GOLD) :
+            partial ? MiscGfx.getImage(MiscGfx.Index.LEVEL_NOT_COMPLETED) :
+            MiscGfx.getImage(MiscGfx.Index.FLOATER_LEMMING);
+
+        jLabelFloaterImage.setIcon(new ImageIcon(getScaledImage(image.getImage(), 200, 200)));
     }
 
     private void jTreeLevelsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTreeLevelsKeyPressed
@@ -774,6 +793,30 @@ public class LevelDialog extends JDialog {
             }
         }
     }
+    
+    // Returns true if the level pack or rating contains at least one incomplete level
+    private boolean isAnyLevelIncomplete(LevelPack lp, int ratingIndex) {
+        List<String> levels = lp.getLevels(ratingIndex);
+        String rating = lp.getRatings().get(ratingIndex);
+        for (int k = 0; k < levels.size(); k++) {
+            if (lp.getAllLevelsUnlocked() || Core.player.isAvailable(lp.getName(), rating, k))
+                if (!Core.player.getLevelRecord(lp.getName(), rating, k).isCompleted())
+                    return true;
+        }
+        return false;
+    }
+    
+    // Returns true if the level pack or rating contains at least one completed level
+    private boolean isAnyLevelComplete(LevelPack lp, int ratingIndex) {
+        List<String> levels = lp.getLevels(ratingIndex);
+        String rating = lp.getRatings().get(ratingIndex);
+        for (int k = 0; k < levels.size(); k++) {
+            if (lp.getAllLevelsUnlocked() || Core.player.isAvailable(lp.getName(), rating, k))
+                if (Core.player.getLevelRecord(lp.getName(), rating, k).isCompleted())
+                    return true;
+        }
+        return false;
+    }
 
     private void selectLevel(int lp, int rating, int level) {
         if (lp < 0 || lp >= levelPackPositionLookup.length
@@ -818,7 +861,23 @@ public class LevelDialog extends JDialog {
         if (selPathArray.length < 2) return;
 
         DefaultMutableTreeNode packNode = (DefaultMutableTreeNode) selPathArray[1];
-        updatePackLogo(packNode);
+        LevelPack pack = getPackFromTreeNode(packNode);
+
+        boolean anyComplete = false;
+        boolean anyIncomplete = false;
+        for (int r = 0; r < pack.getRatings().size(); r++) {
+            if (isAnyLevelComplete(pack, r))
+                anyComplete = true;
+            if (isAnyLevelIncomplete(pack, r))
+                anyIncomplete = true;
+            if (anyComplete && anyIncomplete)
+                break;
+        }
+        boolean isFullyCompleted = anyComplete && !anyIncomplete;
+        boolean isPartiallyCompleted = anyComplete && anyIncomplete;
+        
+        updatePackLogo(pack);
+        updateFloaterLem(isFullyCompleted, isPartiallyCompleted);
         
         if (selPath != null && selPath.getPathCount() >= 4) {
             LevelItem lvlItem = (LevelItem) ((DefaultMutableTreeNode) selPath.getPath()[3]).getUserObject();
@@ -860,11 +919,13 @@ public class LevelDialog extends JDialog {
                 jTextFieldSkillsUsed.setText(Integer.toString(lvlRecord.getSkillsUsed()));
                 jTextFieldTimeElapsed.setText(String.format("%d:%02d", timeElapsed / 60, timeElapsed % 60));
                 jTextFieldScore.setText(Integer.toString(lvlRecord.getScore()));
+                updateFloaterLem(true, false);
             } else {
                 jTextFieldLemmingsSaved.setText(StringUtils.EMPTY);
                 jTextFieldSkillsUsed.setText(StringUtils.EMPTY);
                 jTextFieldTimeElapsed.setText(StringUtils.EMPTY);
                 jTextFieldScore.setText(StringUtils.EMPTY);
+                updateFloaterLem(false, false);
             }
             jButtonOK.setText("Play Selected Level");
             jButtonOK.setEnabled(true);
@@ -888,6 +949,10 @@ public class LevelDialog extends JDialog {
             jTextFieldScore.setText(StringUtils.EMPTY);
             
             if (selPath != null && selPath.getPathCount() >= 3) {
+                int ratingIndex = packNode.getIndex((DefaultMutableTreeNode)selPathArray[2]);
+                anyComplete = isAnyLevelComplete(pack, ratingIndex);
+                anyIncomplete = isAnyLevelIncomplete(pack, ratingIndex);
+                updateFloaterLem(anyComplete && !anyIncomplete, anyComplete && anyIncomplete);
             	jButtonOK.setText("Play Selected Group");
             	jButtonOK.setEnabled(true);
             } else {
@@ -944,6 +1009,7 @@ public class LevelDialog extends JDialog {
     private javax.swing.JLabel jLabelLogoImage;
     private javax.swing.JScrollPane jScrollPaneLevels;
     private javax.swing.JSeparator jSeparatorSkills;
+    private javax.swing.JSeparator jSeparatorRecords;
     private javax.swing.JTextField jTextFieldAuthor;
     private javax.swing.JTextField jTextFieldLemmingsSaved;
     private javax.swing.JTextField jTextFieldNumBashers;

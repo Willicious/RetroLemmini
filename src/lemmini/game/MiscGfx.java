@@ -90,6 +90,9 @@ public class MiscGfx {
         CARD_PLAYERS,
         CARD_REPLAYS,
         FLOATER_LEMMING,
+        LEVEL_NOT_COMPLETED,
+        LEVEL_COMPLETED_SILVER,
+        LEVEL_COMPLETED_GOLD,
         /** version number font */
         VERSION_WINLEMM,
         VERSION_NUMS_WINLEMM
@@ -237,6 +240,18 @@ public class MiscGfx {
         images.add(img);
         /* FLOATER_LEMMING */
         resource = Core.findResource("gfx/menu/floater_lemming.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
+        images.add(img);
+        /* LEVEL_NOT_COMPLETED */
+        resource = Core.findResource("gfx/menu/level_not_completed.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
+        images.add(img);
+        /* LEVEL_COMPLETED_SILVER */
+        resource = Core.findResource("gfx/menu/level_completed_silver.png", Core.IMAGE_EXTENSIONS);
+        img = Core.loadLemmImage(resource);
+        images.add(img);
+        /* LEVEL_COMPLETED_GOLD */
+        resource = Core.findResource("gfx/menu/level_completed_gold.png", Core.IMAGE_EXTENSIONS);
         img = Core.loadLemmImage(resource);
         images.add(img);
         /* VERSION_WINLEMM */
