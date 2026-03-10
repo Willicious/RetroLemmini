@@ -1373,10 +1373,10 @@ public class GameController {
                 // BOOKMARK - this is the *creak* sound of the doors opening (sound_5 door.wav)
 
                 // this code here plays the sound and shows the "creak" VSFX
-                //entranceSprites.stream().forEach(sound::playVisualSFX);
+                //entranceSprites.stream().findAny().ifPresent(sound::playVisualSFX);
 
                 // this code just plays the sound
-                entranceSprites.stream().forEach(sound::play);
+                entranceSprites.stream().findAny().ifPresent(sound::play); // play the sound only once, not per-sprite
             } else if (entranceOpenCtr == MAX_ENTRANCE_OPEN_CTR + 30) {
                 //System.out.println("opened");
                 entranceOpened = true;
