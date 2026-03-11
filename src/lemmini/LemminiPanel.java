@@ -1582,6 +1582,7 @@ public class LemminiPanel extends JPanel implements Runnable {
         ld.setVisible(true);
         int[] level = ld.getSelectedLevel();
         if (level != null) {
+        	GameController.windowCaption = null;
             GameController.requestChangeLevel(level[0], level[1], level[2], false);
             getParentFrame().setRestartEnabled(true);
         }
