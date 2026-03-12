@@ -23,7 +23,15 @@ import java.awt.Desktop;
 import java.awt.Graphics;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -284,32 +292,32 @@ public class LemminiFrame extends JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("RetroLemmini");
         setIconImage(Toolkit.getDefaultToolkit().getImage(LemminiFrame.class.getClassLoader().getResource("icon_256.png")));
-        addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentMoved(java.awt.event.ComponentEvent evt) {
+        addComponentListener(new ComponentAdapter() {
+            public void componentMoved(ComponentEvent evt) {
                 formComponentMoved(evt);
             }
         });
-        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
-            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+        addWindowFocusListener(new WindowFocusListener() {
+            public void windowGainedFocus(WindowEvent evt) {
                 formWindowGainedFocus(evt);
             }
-            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            public void windowLostFocus(WindowEvent evt) {
                 formWindowLostFocus(evt);
             }
         });
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
+        addWindowListener(new WindowAdapter() {
+            public void windowClosed(WindowEvent evt) {
                 formWindowClosed(evt);
             }
-            public void windowClosing(java.awt.event.WindowEvent evt) {
+            public void windowClosing(WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
-        addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
+        addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent evt) {
                 formKeyPressed(evt);
             }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
+            public void keyReleased(KeyEvent evt) {
                 formKeyReleased(evt);
             }
         });
@@ -332,8 +340,8 @@ public class LemminiFrame extends JFrame {
         ImageIcon exit = new ImageIcon(Core.iconsPath.resolve("IconExit.png").toString());
         jMenuItemExit.setIcon(exit);
         jMenuItemExit.setText("Exit" + padding);
-        jMenuItemExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jMenuItemExit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 jMenuItemExitActionPerformed(evt);
             }
         });
@@ -346,8 +354,8 @@ public class LemminiFrame extends JFrame {
         ImageIcon players = new ImageIcon(Core.iconsPath.resolve("IconPlayers.png").toString());
         jMenuItemManagePlayers.setIcon(players);
         jMenuItemManagePlayers.setText("Manage Players" + padding);
-        jMenuItemManagePlayers.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jMenuItemManagePlayers.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 jMenuItemManagePlayersActionPerformed(evt);
             }
         });
@@ -360,8 +368,8 @@ public class LemminiFrame extends JFrame {
         ImageIcon entrance = new ImageIcon(Core.iconsPath.resolve("IconEntrance.png").toString());
         jMenuItemChooseLevel.setIcon(entrance);
         jMenuItemChooseLevel.setText("Choose Level" + padding);
-        jMenuItemChooseLevel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jMenuItemChooseLevel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 jMenuItemChooseLevelActionPerformed(evt);
             }
         });
@@ -371,8 +379,8 @@ public class LemminiFrame extends JFrame {
         jMenuItemRestartLevel.setIcon(restart);
         jMenuItemRestartLevel.setText("Restart Level" + padding);
         jMenuItemRestartLevel.setEnabled(false);
-        jMenuItemRestartLevel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jMenuItemRestartLevel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 jMenuItemRestartLevelActionPerformed(evt);
             }
         });
@@ -381,8 +389,8 @@ public class LemminiFrame extends JFrame {
         ImageIcon replay = new ImageIcon(Core.iconsPath.resolve("IconReplay.png").toString());
         jMenuItemLoadReplay.setIcon(replay);
         jMenuItemLoadReplay.setText("Load Replay" + padding);
-        jMenuItemLoadReplay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jMenuItemLoadReplay.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 jMenuItemLoadReplayActionPerformed(evt);
             }
         });
@@ -391,8 +399,8 @@ public class LemminiFrame extends JFrame {
         ImageIcon codes = new ImageIcon(Core.iconsPath.resolve("IconCodes.png").toString());
         jMenuItemEnterLevelCode.setIcon(codes);
         jMenuItemEnterLevelCode.setText("Enter Level Code" + padding);
-        jMenuItemEnterLevelCode.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jMenuItemEnterLevelCode.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 jMenuItemEnterLevelCodeActionPerformed(evt);
             }
         });
@@ -405,8 +413,8 @@ public class LemminiFrame extends JFrame {
         ImageIcon options = new ImageIcon(Core.iconsPath.resolve("IconOptions.png").toString());
         jMenuItemOptions.setIcon(options);
         jMenuItemOptions.setText("Options" + padding);
-        jMenuItemOptions.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jMenuItemOptions.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 jMenuItemOptionsActionPerformed(evt);
             }
         });
@@ -414,8 +422,8 @@ public class LemminiFrame extends JFrame {
         ImageIcon hotkeys = new ImageIcon(Core.iconsPath.resolve("IconHotkeys.png").toString());
         jMenuItemHotkeys.setIcon(hotkeys);
         jMenuItemHotkeys.setText("Hotkeys" + padding);
-        jMenuItemHotkeys.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jMenuItemHotkeys.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
             	lemminiPanelMain.handleHotkeyConfig();
             }
         });
@@ -423,8 +431,8 @@ public class LemminiFrame extends JFrame {
         ImageIcon mouse = new ImageIcon(Core.iconsPath.resolve("IconMouse.png").toString());
         jMenuItemMouse.setIcon(mouse);
         jMenuItemMouse.setText("Mouse" + padding);
-        jMenuItemMouse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jMenuItemMouse.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
             	lemminiPanelMain.handleMouseConfig();
             }
         });
@@ -440,8 +448,8 @@ public class LemminiFrame extends JFrame {
         ImageIcon styles = new ImageIcon(Core.iconsPath.resolve("IconStyles.png").toString());
         jMenuItemUpdateStyles.setIcon(styles);
         jMenuItemUpdateStyles.setText("Update Styles" + padding);
-        jMenuItemUpdateStyles.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jMenuItemUpdateStyles.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 int result = JOptionPane.showConfirmDialog(
                         null,
                         "Would you like to update all styles now?",
@@ -459,8 +467,8 @@ public class LemminiFrame extends JFrame {
         ImageIcon about = new ImageIcon(Core.iconsPath.resolve("IconAbout.png").toString());
         jMenuItemAbout.setIcon(about);
         jMenuItemAbout.setText("About" + padding);
-        jMenuItemAbout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jMenuItemAbout.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 handleAbout();
             }
         });
@@ -603,7 +611,7 @@ public class LemminiFrame extends JFrame {
         }
     }
 
-    private void formComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentMoved
+    private void formComponentMoved(ComponentEvent evt) {//GEN-FIRST:event_formComponentMoved
         storeUnmaximizedPos();
     }//GEN-LAST:event_formComponentMoved
     private void printLevelNameToConsole() {
@@ -619,7 +627,7 @@ public class LemminiFrame extends JFrame {
         GameController.addVsfx(v);
     }
 
-    private void formKeyPressed(java.awt.event.KeyEvent evt) { //GEN-FIRST:event_formKeyPressed
+    private void formKeyPressed(KeyEvent evt) { //GEN-FIRST:event_formKeyPressed
         int code = evt.getKeyCode();
         RetroLemminiHotkeys.HotkeyAction action = RetroLemminiHotkeys.getHotkeyActionForEvent(evt, GameController.activeHotkeys);
 
@@ -945,7 +953,7 @@ public class LemminiFrame extends JFrame {
         evt.consume();
     }//GEN-LAST:event_formKeyPressed
 
-    private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
+    private void formKeyReleased(KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
         int code = evt.getKeyCode();
         boolean isLevel = GameController.getGameState() == GameController.State.LEVEL;
         
@@ -1022,35 +1030,35 @@ public class LemminiFrame extends JFrame {
         }
     }//GEN-LAST:event_formKeyReleased
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+    private void formWindowClosed(WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         exit();
     }//GEN-LAST:event_formWindowClosed
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+    private void formWindowClosing(WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         exit();
     }//GEN-LAST:event_formWindowClosing
 
-    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+    private void formWindowGainedFocus(WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         lemminiPanelMain.focusGained();
     }//GEN-LAST:event_formWindowGainedFocus
 
-    private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
+    private void formWindowLostFocus(WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
         lemminiPanelMain.focusLost();
     }//GEN-LAST:event_formWindowLostFocus
 
-    private void jMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed
+    private void jMenuItemExitActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed
         exit();
     }//GEN-LAST:event_jMenuItemExitActionPerformed
 
-    private void jMenuItemManagePlayersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemManagePlayersActionPerformed
+    private void jMenuItemManagePlayersActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemManagePlayersActionPerformed
         lemminiPanelMain.handlePlayers();
     }//GEN-LAST:event_jMenuItemManagePlayersActionPerformed
     
-    private void jMenuItemChooseLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemChooseLevelActionPerformed
+    private void jMenuItemChooseLevelActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemChooseLevelActionPerformed
         lemminiPanelMain.handleChooseLevel();
     }//GEN-LAST:event_jMenuItemChooseLevelActionPerformed
 
-    private void jMenuItemRestartLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRestartLevelActionPerformed
+    private void jMenuItemRestartLevelActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemRestartLevelActionPerformed
         if (GameController.getLevel() == null) {
             GameController.requestChangeLevel(GameController.getCurLevelPackIdx(), GameController.getCurRating(), GameController.getCurLevelNumber(), false);
         } else {
@@ -1058,15 +1066,15 @@ public class LemminiFrame extends JFrame {
         }
     }//GEN-LAST:event_jMenuItemRestartLevelActionPerformed
 
-    private void jMenuItemLoadReplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLoadReplayActionPerformed
+    private void jMenuItemLoadReplayActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemLoadReplayActionPerformed
         lemminiPanelMain.handleLoadReplay();
     }//GEN-LAST:event_jMenuItemLoadReplayActionPerformed
 
-    private void jMenuItemEnterLevelCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEnterLevelCodeActionPerformed
+    private void jMenuItemEnterLevelCodeActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemEnterLevelCodeActionPerformed
         lemminiPanelMain.handleEnterCode();
     }//GEN-LAST:event_jMenuItemEnterLevelCodeActionPerformed
 
-    private void jMenuItemOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemOptionsActionPerformed
+    private void jMenuItemOptionsActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemOptionsActionPerformed
         lemminiPanelMain.handleOptions();
     }//GEN-LAST:event_jMenuItemOptionsActionPerformed
 
