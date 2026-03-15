@@ -22,6 +22,7 @@ import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Graphics;
 import java.awt.Insets;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -284,8 +285,19 @@ public class LemminiFrame extends JFrame {
         jMenuBarMain = new javax.swing.JMenuBar() {
             @Override
             protected void paintComponent(Graphics g) {
-            	g.setColor(bgColor);
+            	// Set background color
+                g.setColor(bgColor);
                 g.fillRect(0, 0, getWidth(), getHeight());
+
+                // Set highlighted item color
+                for (int i = 0; i < getMenuCount(); i++) {
+                    JMenu menu = getMenu(i);
+                    if (menu.isPopupMenuVisible() || menu.getModel().isRollover()) {
+                        Rectangle bounds = menu.getBounds();
+                        g.setColor(ColorPalette.getColor(FrameColor.AMIGA_BLUE));
+                        g.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
+                    }
+                }
             }
         };
         jMenuBarMain.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, bgColor));
