@@ -370,7 +370,7 @@ public class LemminiFrame extends JFrame {
 
         jMenuItemRestartLevel.setIcon(loadMenuIcon(Core.iconsPath, "IconRestart"));
         jMenuItemRestartLevel.setText("Restart Level" + padding);
-        jMenuItemRestartLevel.setEnabled(false);
+        jMenuItemRestartLevel.setVisible(false);
         jMenuItemRestartLevel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 jMenuItemRestartLevelActionPerformed(evt);
@@ -1383,7 +1383,7 @@ public class LemminiFrame extends JFrame {
     }
 
     void setRestartEnabled(boolean restartEnabled) {
-        jMenuItemRestartLevel.setEnabled(restartEnabled);
+        jMenuItemRestartLevel.setVisible(restartEnabled);
     }
 
     public static LemminiFrame getFrame() {
