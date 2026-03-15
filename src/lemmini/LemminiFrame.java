@@ -262,6 +262,7 @@ public class LemminiFrame extends JFrame {
         Color fgColor = ColorPalette.getColor(FrameColor.MENU_TEXT);
         Color hkColor = ColorPalette.getColor(FrameColor.CHALK);
         UIManager.put("MenuItem.acceleratorForeground", hkColor);
+        UIManager.put("MenuItem.acceleratorSelectionForeground", hkColor);
         
         lemminiPanelMain = new lemmini.LemminiPanel();
         jMenuApp = new javax.swing.JMenu();
@@ -486,14 +487,12 @@ public class LemminiFrame extends JFrame {
 
             // Top-level menu styling
             menu.setForeground(fgColor);
-            menu.setOpaque(true);
-            menu.setBackground(bgColor);
+            menu.setDoubleBuffered(true);
             menu.setBorder(BorderFactory.createLineBorder(bgColor, 1));
 
             // Style popup menu border
             JPopupMenu popup = menu.getPopupMenu();
             popup.setBorder(BorderFactory.createEmptyBorder());
-            //popup.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2));
 
             // Style all sub-items
             for (int j = 0; j < menu.getItemCount(); j++) {
