@@ -46,7 +46,6 @@ import java.util.Locale;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -265,9 +264,8 @@ public class LemminiFrame extends JFrame {
         UIManager.put("MenuItem.acceleratorForeground", hkColor);
         
         lemminiPanelMain = new lemmini.LemminiPanel();
-        jMenuFile = new javax.swing.JMenu();
+        jMenuApp = new javax.swing.JMenu();
         jMenuItemExit = new javax.swing.JMenuItem();
-        jMenuPlayers = new javax.swing.JMenu();
         jMenuItemManagePlayers = new javax.swing.JMenuItem();
         jMenuLevel = new javax.swing.JMenu();
         jMenuItemChooseLevel = new javax.swing.JMenuItem();
@@ -337,7 +335,16 @@ public class LemminiFrame extends JFrame {
         
         String padding = "     ";
 
-        jMenuFile.setText("File");
+        jMenuApp.setText("Application");
+        
+        jMenuItemManagePlayers.setIcon(loadMenuIcon(Core.iconsPath, "IconPlayers"));
+        jMenuItemManagePlayers.setText("Manage Players" + padding);
+        jMenuItemManagePlayers.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jMenuItemManagePlayersActionPerformed(evt);
+            }
+        });
+        jMenuApp.add(jMenuItemManagePlayers);
 
         jMenuItemExit.setIcon(loadMenuIcon(Core.iconsPath, "IconExit"));
         jMenuItemExit.setText("Exit" + padding);
@@ -346,22 +353,9 @@ public class LemminiFrame extends JFrame {
                 jMenuItemExitActionPerformed(evt);
             }
         });
-        jMenuFile.add(jMenuItemExit);
+        jMenuApp.add(jMenuItemExit);
 
-        jMenuBarMain.add(jMenuFile);
-
-        jMenuPlayers.setText("Players");
-
-        jMenuItemManagePlayers.setIcon(loadMenuIcon(Core.iconsPath, "IconPlayers"));
-        jMenuItemManagePlayers.setText("Manage Players" + padding);
-        jMenuItemManagePlayers.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                jMenuItemManagePlayersActionPerformed(evt);
-            }
-        });
-        jMenuPlayers.add(jMenuItemManagePlayers);
-
-        jMenuBarMain.add(jMenuPlayers);
+        jMenuBarMain.add(jMenuApp);
 
         jMenuLevel.setText("Level");
         
@@ -1510,7 +1504,10 @@ public class LemminiFrame extends JFrame {
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBarMain;
-    private javax.swing.JMenu jMenuFile;
+    private javax.swing.JMenu jMenuApp;
+    private javax.swing.JMenu jMenuLevel;
+    private javax.swing.JMenu jMenuOptions;
+    private javax.swing.JMenu jMenuHelp;
     private javax.swing.JMenuItem jMenuItemEnterLevelCode;
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemLoadReplay;
@@ -1522,10 +1519,6 @@ public class LemminiFrame extends JFrame {
     private javax.swing.JMenuItem jMenuItemChooseLevel;
     private javax.swing.JMenuItem jMenuItemRestartLevel;
     private javax.swing.JMenuItem jMenuItemUpdateStyles;
-    private javax.swing.JMenu jMenuLevel;
-    private javax.swing.JMenu jMenuOptions;
-    private javax.swing.JMenu jMenuPlayers;
-    private javax.swing.JMenu jMenuHelp;
     private lemmini.LemminiPanel lemminiPanelMain;
     // End of variables declaration//GEN-END:variables
 }
