@@ -74,7 +74,6 @@ public class Core {
     public static final String REVISION = "2.8";
     public static final String COMMIT_ID = CommitID.ID;
     public static final String REV_DATE = "March 2026";
-    public static final String STYLES_REVISION = "2.8";
 
     /** extensions accepted for level files in file dialog */
     public static final String[] LEVEL_EXTENSIONS = {"rlv", "ini", "lvl", "dat"};
@@ -111,8 +110,20 @@ public class Core {
     private static final String PLAYER_PROPS_FILE_NAME = "players.ini";
 
     public static final Set<String> OG_STYLES = new HashSet<>(Arrays.asList(
-            "brick", "bubble", "crystal", "dirt", "fire",
-            "marble", "pillar", "rock", "snow", "xmas"
+            "brick",
+            "bubble",
+            "classic",
+            "crystal",
+            "crystal_md",
+            "dirt",
+            "dirt_md",
+            "fire",
+            "marble",
+            "pillar",
+            "rock",
+            "snow",
+            "special",
+            "xmas"
         ));
 
     /** program properties */
@@ -442,63 +453,19 @@ public class Core {
     }
     
     /***
-     * Makes sure default styles are up to date
+     * Downloads the default styles (if missing)
      */
     public static void validateDefaultStyles() {
-        List<String> outdatedStyles = new ArrayList<>();
         for (String style : OG_STYLES) {
             File iniFile = new File(resourcePath + "/styles/" + style + "/" + style + ".ini");
             if (!iniFile.exists()) {
-                outdatedStyles.add(style + " (missing .ini file)");
-                continue;
-            }
-            String revision = null;
-            boolean foundRevision = false;
-            try (BufferedReader reader = new BufferedReader(new FileReader(iniFile))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    if (line.startsWith("revision = ")) {
-                    	revision = line.split("=")[1].trim();
-                        foundRevision = true;
-                        break;
-                    }
-                }
-            } catch (IOException e) {
-                System.err.println("Error reading file: " + iniFile.getAbsolutePath());
-                outdatedStyles.add(style + " (error reading file)");
-                continue;
-            }
-            if (revision == null || !foundRevision || (compareVersions(revision, STYLES_REVISION) < 0)) {
-                outdatedStyles.add(style);
-            }
-        }
-        if (!outdatedStyles.isEmpty()) {
-            System.out.println("    validation complete. The following styles are out of date:\n"
-                              +"     " + outdatedStyles);
-            
-            StringBuilder message = new StringBuilder("The following styles do not match the expected version:\n\n");
-            for (String outdatedStyle : outdatedStyles) {
-                message.append(" • ").append(outdatedStyle).append("\n");
-            }
-            message.append("\nRetroLemmini will run, but there may be some compatibility issues with these styles.\n"
-            		 	 + "\nWould you like to update these styles now?\n\n");
-            
-            int result = JOptionPane.showConfirmDialog(
-                    null,
-                    message,
-                    "Update Styles",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE
-            );
-            if (result == JOptionPane.YES_OPTION) {
+                System.out.println("Missing style detected. Downloading styles...");
                 StyleDownloader.startDownload();
                 StyleDownloader.reInitializeCore();
-            } else {
-                System.out.println("User declined to update styles.");
-            }              
-        } else {
-            System.out.println("    validation complete. All styles are up to date.");
+                return;
+            }
         }
+        System.out.println("    validation complete. All styles present.");
     }
     
     /**
