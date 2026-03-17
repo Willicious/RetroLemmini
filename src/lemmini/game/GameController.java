@@ -744,7 +744,6 @@ public class GameController {
 	            }
 	            Music.load("music/" + music);
 	        } catch (ResourceException ex) {
-	        	GameController.windowCaption = "Missing music resource: '" + music + "'.";
 	        	try {
 	        		music = Music.getRandomTrack("");
 	        		Music.load("music/" + music);
