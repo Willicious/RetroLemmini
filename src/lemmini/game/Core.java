@@ -719,7 +719,7 @@ public class Core {
     	if (type == "object")
     		return "An object with index " + idx + " is not listed in " + style + ".ini";
     	else
-    		return "Index of terrain piece (" + idx + ") is higher than the value of 'tiles' listed in " + style + ".ini";
+    		return "Index of terrain piece (" + idx + ") is higher than the number of terrain pieces in '" + style + "'";
     }
     
     public static String stylePieceResourceError(final String style, final String type, final int idx) {

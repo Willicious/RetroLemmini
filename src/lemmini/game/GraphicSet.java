@@ -16,9 +16,11 @@
 package lemmini.game;
 
 import java.awt.Color;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
@@ -155,12 +157,29 @@ public class GraphicSet {
         }
 
         // load the terrain data
-        int tiles = props.getInt("tiles", 0);
+        int tiles = getTerrainTileCount(name);
         int[] steelTiles = props.getIntArray("steelTiles", ArrayUtils.EMPTY_INT_ARRAY);
         terrain = new ArrayList<>(tiles);
         for (int idx = 0; idx < tiles; idx++) {
             terrain.add(new Terrain(pathPrefix, idx, ArrayUtils.contains(steelTiles, idx)));
         }
+    }
+    
+    private static final Map<String, Integer> terrainCountCache = new HashMap<>();
+    
+    private int getTerrainTileCount(String style) {
+    	String styleName = style.toLowerCase(Locale.ROOT);
+        if (terrainCountCache.containsKey(styleName)) {
+            return terrainCountCache.get(styleName);
+        }
+        File styleDir = Core.resourcePath.resolve(Core.STYLES_PATH).resolve(styleName).toFile();
+        int count = 0;
+        if (styleDir.isDirectory()) {
+            String[] files = styleDir.list((dir, name) -> name.toLowerCase(Locale.ROOT).startsWith(styleName + "_"));
+            count = (files != null) ? files.length : 0;
+        }
+        terrainCountCache.put(styleName, count);
+        return count;
     }
 
     public void unloadImages() {
