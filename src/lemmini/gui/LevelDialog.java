@@ -15,6 +15,7 @@
  */
 package lemmini.gui;
 
+import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Frame;
 import java.awt.Image;
@@ -27,16 +28,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Locale;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JTree;
 import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
@@ -58,9 +60,79 @@ import lemmini.tools.ToolBox;
 
 /**
  *
- * @author Ryan Sakowski
+ * @author Ryan Sakowski, William James
  */
 public class LevelDialog extends JDialog {
+	
+	/** Custom class for storing/displaying level nodes */
+	class LevelItem {
+	    final int levelPack;
+	    final int rating;
+	    final int levelIndex;
+	    final String levelName;
+	    final boolean completed;
+
+	    LevelItem(int lp, int r, int li, String ln, boolean c) {
+	        levelPack = lp;
+	        rating = r;
+	        levelIndex = li;
+	        levelName = ln;
+	        completed = c;
+	    }
+
+	    @Override
+	    public String toString() {
+	        return (levelIndex + 1) + ": " + levelName + (completed ? " (completed)" : StringUtils.EMPTY);
+	    }
+	}
+	
+	/** Custom tree renderer */
+	class LevelTreeRenderer extends DefaultTreeCellRenderer {
+		private static final long serialVersionUID = 1L;
+
+	    @Override
+	    public Component getTreeCellRendererComponent(
+	            JTree tree, Object value, boolean sel, boolean expanded,
+	            boolean leaf, int row, boolean hasFocus) {
+
+	        super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
+
+	        if (!(value instanceof DefaultMutableTreeNode)) return this;
+
+	        DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
+	        Object userObj = node.getUserObject();
+
+	        if (userObj instanceof LevelPack) {
+	            LevelPack lp = (LevelPack) userObj;
+
+	            boolean fullyCompleted = true;
+	            for (int r = 0; r < lp.getRatings().size(); r++) {
+	                if (isAnyLevelIncomplete(lp, r)) {
+	                    fullyCompleted = false;
+	                    break;
+	                }
+	            }
+	            setText(lp.getName() + (fullyCompleted ? " (completed)" : ""));
+	        }
+	        else if (userObj instanceof String) {
+	            String ratingName = (String) userObj;
+
+	            DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) node.getParent();
+	            LevelPack lp = getPackFromTreeNode(parentNode);
+
+	            if (lp != null) {
+	                int ratingIndex = parentNode.getIndex(node);
+	                boolean fullyCompleted = !isAnyLevelIncomplete(lp, ratingIndex) && isAnyLevelComplete(lp, ratingIndex);
+	                setText(ratingName + (fullyCompleted ? " (completed)" : ""));
+	            } else {
+	                setText(ratingName);
+	            }
+	        }
+	        // LevelItem nodes: currently handled by toString() override in the LevelItem class
+
+	        return this;
+	    }
+	}
 
     /**
      *
@@ -106,6 +178,7 @@ public class LevelDialog extends JDialog {
         refreshLevels();
         jTreeLevels = new javax.swing.JTree();
         jTreeLevels.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+        jTreeLevels.setCellRenderer(new LevelTreeRenderer());
         jLabelFloaterImage = new javax.swing.JLabel();
         jLabelLogoImage = new javax.swing.JLabel();
         jPanelContent = new javax.swing.JPanel();
@@ -558,12 +631,10 @@ public class LevelDialog extends JDialog {
     private LevelPack getPackFromTreeNode(DefaultMutableTreeNode packNode) {
         if (packNode == null) return null;
         Object userObj = packNode.getUserObject();
-        if (!(userObj instanceof String)) return null;
-        String packName = (String) userObj;
-        return GameController.levelPacks.stream()
-                .filter(lp -> lp.getName().equalsIgnoreCase(packName))
-                .findFirst()
-                .orElse(null);
+        if (userObj instanceof LevelPack) {
+            return (LevelPack) userObj;
+        }
+        return null;
     }
 
     private void updatePackLogo(LevelPack pack) {
@@ -731,52 +802,43 @@ public class LevelDialog extends JDialog {
 
     private void refreshLevels() {
         topNode.removeAllChildren();
-        // read level packs
+
         int levelPackCount = GameController.getLevelPackCount();
         levelPackPositionLookup = new int[levelPackCount];
         ratingPositionLookup = new int[levelPackCount][];
         levelPositionLookup = new int[levelPackCount][][];
+
         for (int i = 0, ia = 0; i < levelPackCount; i++) {
             LevelPack lp = GameController.getLevelPack(i);
             DefaultMutableTreeNode lpNode = new DefaultMutableTreeNode();
-            // read ratings
+
             List<String> ratings = lp.getRatings();
             ratingPositionLookup[i] = new int[ratings.size()];
             levelPositionLookup[i] = new int[ratings.size()][];
-            boolean packCompleted = true;
+
             int ja = 0;
-            for (ListIterator<String> lit = ratings.listIterator(); lit.hasNext(); ) {
-                int j = lit.nextIndex();
-                String rating = lit.next();
+            for (int j = 0; j < ratings.size(); j++) {
+                String rating = ratings.get(j);
                 DefaultMutableTreeNode ratingNode = new DefaultMutableTreeNode();
-                // read levels
+
                 List<String> levels = lp.getLevels(j);
                 levelPositionLookup[i][j] = new int[levels.size()];
-                boolean ratingCompleted = true;
                 int ka = 0;
-                for (ListIterator<String> lit2 = levels.listIterator(); lit2.hasNext(); ) {
-                    int k = lit2.nextIndex();
-                    String level = lit2.next();
+
+                for (int k = 0; k < levels.size(); k++) {
+                    String level = levels.get(k);
                     if (lp.getAllLevelsUnlocked() || Core.player.isAvailable(lp.getName(), rating, k)) {
                         LevelItem levelItem = new LevelItem(i, j, k, level,
                                                             Core.player.getLevelRecord(lp.getName(), rating, k).isCompleted());
                         DefaultMutableTreeNode levelNode = new DefaultMutableTreeNode(levelItem, false);
                         ratingNode.add(levelNode);
                         levelPositionLookup[i][j][k] = ka++;
-                        if (!levelItem.completed) {
-                            ratingCompleted = false;
-                        }
                     } else {
                         levelPositionLookup[i][j][k] = -1;
-                        ratingCompleted = false;
                     }
                 }
-                if (ratingCompleted) {
-                    rating += " (completed)";
-                } else {
-                    packCompleted = false;
-                }
                 ratingNode.setUserObject(rating);
+
                 if (ratingNode.getChildCount() > 0) {
                     lpNode.add(ratingNode);
                     ratingPositionLookup[i][j] = ja++;
@@ -784,7 +846,8 @@ public class LevelDialog extends JDialog {
                     ratingPositionLookup[i][j] = -1;
                 }
             }
-            lpNode.setUserObject(lp.getName() + (packCompleted ? " (completed)" : StringUtils.EMPTY));
+            lpNode.setUserObject(lp);
+
             if (lpNode.getChildCount() > 0) {
                 topNode.add(lpNode);
                 levelPackPositionLookup[i] = ia++;
@@ -1029,26 +1092,4 @@ public class LevelDialog extends JDialog {
     private javax.swing.JTextField jTextFieldTimeLimit;
     private javax.swing.JTree jTreeLevels;
     // End of variables declaration//GEN-END:variables
-}
-
-class LevelItem {
-
-    final int levelPack;
-    final int rating;
-    final int levelIndex;
-    final String levelName;
-    final boolean completed;
-
-    LevelItem(int lp, int r, int li, String ln, boolean c) {
-        levelPack = lp;
-        rating = r;
-        levelIndex = li;
-        levelName = ln;
-        completed = c;
-    }
-
-    @Override
-    public String toString() {
-        return (levelIndex + 1) + ": " + levelName + (completed ? " (completed)" : StringUtils.EMPTY);
-    }
 }
