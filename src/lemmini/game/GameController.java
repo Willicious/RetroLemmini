@@ -744,26 +744,29 @@ public class GameController {
 	            }
 	            Music.load("music/" + music);
 	        } catch (ResourceException ex) {
-	        	Core.musicResourceError(music);
-	            music = "";
+	        	GameController.windowCaption = "Missing music resource: '" + music + "'.";
+	        	try {
+	        		music = Music.getRandomTrack("");
+	        		Music.load("music/" + music);
+	        	} catch (ResourceException ex2) {
+	        		music = "";
+	        	}
 	        } catch (LemmException ex) {
 	            if (music==null) {
-	                music="";
+	                music = "";
 	            }
-	            //get the "real" file, from the requested resource:
+	            // get the "real" file, from the requested resource:
 	            Resource resource = Core.findResource("music/" + music, Core.MUSIC_EXTENSIONS);
 	            String ext = FilenameUtils.getExtension(resource.getFileName()).toLowerCase(Locale.ROOT);
-	            //only show the error if it's not an .ogg file
-	            // .ogg files not playing properly is the result of missing dependencies.
+	            // only show the error if it's not .ogg (.ogg not playing properly is the result of missing dependencies)
 	            if(!ext.equals("ogg")) {
 	                JOptionPane.showMessageDialog(null, "Unable to load music resource:\n" + ex.getMessage() + "\n\nAttempting midi fallback.", "Error Loading Music", JOptionPane.ERROR_MESSAGE);
 	            }
-	
 	            try {
 	                music = Music.getRandomTrack(level.getStyleName());
 	                Music.load("music/" + music);
 	            } catch (ResourceException ex2) {
-	                Core.resourceError(ex2.getMessage());
+	                Core.musicResourceError(music);
 	                return;
 	            } catch (LemmException ex2) {
 	                JOptionPane.showMessageDialog(null, "Unable to load music resource:\n" + ex2.getMessage() + "\n\nNo music will play for this level.", "Error Loading Music", JOptionPane.ERROR_MESSAGE);
