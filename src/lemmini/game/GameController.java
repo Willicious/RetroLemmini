@@ -1492,107 +1492,51 @@ public class GameController {
         } else {
             switch (lemmSkill) {
                 case CLIMBER:
-                    if (numClimbers > 0) {
-                        if (lemm.setSkill(lemmSkill, true)) {
-                            if (numClimbers != Integer.MAX_VALUE) {
-                                numClimbers--;
-                                numSkillsUsed++;
-                            }
-                            canSet = true;
-                        }
-                    } else {
-                        sound.play(Sound.Effect.INVALID, lemm.getPan());
+                    if (tryAssignSkill(lemm, lemmSkill, numClimbers)) {
+                        if (numClimbers != Integer.MAX_VALUE) numClimbers--;
+                        canSet = true;
                     }
                     break;
                 case FLOATER:
-                    if (numFloaters > 0) {
-                        if (lemm.setSkill(lemmSkill, true)) {
-                            if (numFloaters != Integer.MAX_VALUE) {
-                                numFloaters--;
-                                numSkillsUsed++;
-                            }
-                            canSet = true;
-                        }
-                    } else {
-                        sound.play(Sound.Effect.INVALID, lemm.getPan());
+                    if (tryAssignSkill(lemm, lemmSkill, numFloaters)) {
+                        if (numFloaters != Integer.MAX_VALUE) numFloaters--;
+                        canSet = true;
                     }
                     break;
                 case FLAPPER:
-                    if (numBombers > 0) {
-                        if (lemm.setSkill(lemmSkill, true)) {
-                            if (numBombers != Integer.MAX_VALUE) {
-                                numBombers--;
-                                numSkillsUsed++;
-                            }
-                            canSet = true;
-                        }
-                    } else {
-                        sound.play(Sound.Effect.INVALID, lemm.getPan());
+                    if (tryAssignSkill(lemm, lemmSkill, numBombers)) {
+                        if (numBombers != Integer.MAX_VALUE) numBombers--;
+                        canSet = true;
                     }
                     break;
                 case BLOCKER:
-                    if (numBlockers > 0) {
-                        if (lemm.setSkill(lemmSkill, true)) {
-                            if (numBlockers != Integer.MAX_VALUE) {
-                                numBlockers--;
-                                numSkillsUsed++;
-                            }
-                            canSet = true;
-                        }
-                    } else {
-                        sound.play(Sound.Effect.INVALID, lemm.getPan());
+                    if (tryAssignSkill(lemm, lemmSkill, numBlockers)) {
+                        if (numBlockers != Integer.MAX_VALUE) numBlockers--;
+                        canSet = true;
                     }
                     break;
                 case BUILDER:
-                    if (numBuilders > 0) {
-                        if (lemm.setSkill(lemmSkill, true)) {
-                            if (numBuilders != Integer.MAX_VALUE) {
-                                numBuilders--;
-                                numSkillsUsed++;
-                            }
-                            canSet = true;
-                        }
-                    } else {
-                        sound.play(Sound.Effect.INVALID, lemm.getPan());
+                    if (tryAssignSkill(lemm, lemmSkill, numBuilders)) {
+                        if (numBuilders != Integer.MAX_VALUE) numBuilders--;
+                        canSet = true;
                     }
                     break;
                 case BASHER:
-                    if (numBashers > 0) {
-                        if (lemm.setSkill(lemmSkill, true)) {
-                            if (numBashers != Integer.MAX_VALUE) {
-                                numBashers--;
-                                numSkillsUsed++;
-                            }
-                            canSet = true;
-                        }
-                    } else {
-                        sound.play(Sound.Effect.INVALID, lemm.getPan());
+                    if (tryAssignSkill(lemm, lemmSkill, numBashers)) {
+                        if (numBashers != Integer.MAX_VALUE) numBashers--;
+                        canSet = true;
                     }
                     break;
                 case MINER:
-                    if (numMiners > 0) {
-                        if (lemm.setSkill(lemmSkill, true)) {
-                            if (numMiners != Integer.MAX_VALUE) {
-                                numMiners--;
-                                numSkillsUsed++;
-                            }
-                            canSet = true;
-                        }
-                    } else {
-                        sound.play(Sound.Effect.INVALID, lemm.getPan());
+                    if (tryAssignSkill(lemm, lemmSkill, numMiners)) {
+                        if (numMiners != Integer.MAX_VALUE) numMiners--;
+                        canSet = true;
                     }
                     break;
                 case DIGGER:
-                    if (numDiggers > 0) {
-                        if (lemm.setSkill(lemmSkill, true)) {
-                            if (numDiggers != Integer.MAX_VALUE) {
-                                numDiggers--;
-                                numSkillsUsed++;
-                            }
-                            canSet = true;
-                        }
-                    } else {
-                        sound.play(Sound.Effect.INVALID, lemm.getPan());
+                    if (tryAssignSkill(lemm, lemmSkill, numDiggers)) {
+                        if (numDiggers != Integer.MAX_VALUE) numDiggers--;
+                        canSet = true;
                     }
                     break;
                 default:
@@ -1616,6 +1560,20 @@ public class GameController {
         } else if (!delete) {
             lemmSkillRequest = null;
         }
+    }
+    
+    private static boolean tryAssignSkill(Lemming lemm, Lemming.Type skill, int availableCount) {
+        if (availableCount > 0) {
+            if (lemm.setSkill(skill, true)) {
+                if (availableCount != Integer.MAX_VALUE) {
+                    numSkillsUsed++;
+                }
+                return true;
+            }
+        } else {
+            sound.play(Sound.Effect.INVALID, lemm.getPan());
+        }
+        return false;
     }
     
     public static void togglePause() {
