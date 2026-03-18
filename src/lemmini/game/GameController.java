@@ -1085,6 +1085,10 @@ public class GameController {
 
         return levelPackIndex + "," + ratingIndex + "," + levelIndex;
     }
+    
+    private static int getReleaseRatePitch(int releaseRate) {
+        return (int) Math.round(releaseRate * 2.69);
+    }
 
     /**
      * Update the whole game state by one frame.
@@ -1110,7 +1114,7 @@ public class GameController {
                     releaseRate += 1;
                 }
                 calcReleaseBase();
-                sound.playPitched(Sound.PitchedEffect.RELEASE_RATE, (int) Math.round(releaseRate * 2.69));
+                sound.playPitched(Sound.PitchedEffect.RELEASE_RATE, getReleaseRatePitch(releaseRate));
             }
         }
 
@@ -1123,7 +1127,7 @@ public class GameController {
                     releaseRate -= 1;
                 }
                 calcReleaseBase();
-                sound.playPitched(Sound.PitchedEffect.RELEASE_RATE, (int) Math.round(releaseRate * 2.69));
+                sound.playPitched(Sound.PitchedEffect.RELEASE_RATE, getReleaseRatePitch(releaseRate));
             }
         }
 
@@ -1240,7 +1244,7 @@ public class GameController {
                             ReplayReleaseRateEvent rr = (ReplayReleaseRateEvent) r;
                             releaseRate = rr.releaseRate;
                             calcReleaseBase();
-                            sound.playPitched(Sound.PitchedEffect.RELEASE_RATE, releaseRate + 99);
+                            sound.playPitched(Sound.PitchedEffect.RELEASE_RATE, getReleaseRatePitch(releaseRate));
                             releaseRateOld = releaseRate;
                         }
                         break;
