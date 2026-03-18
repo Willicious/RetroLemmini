@@ -6,13 +6,13 @@
   CHANGED: dirt.zip
   CHANGED: dirt_md.zip
   CHANGED: fire.zip
+  CHANGED: lemminas_pink.zip
   CHANGED: marble.zip
   CHANGED: pillar.zip
   CHANGED: rock.zip
   CHANGED: sega.zip
   CHANGED: snow.zip
   CHANGED: special.zip
+  CHANGED: starlight.zip
+  CHANGED: sugar.zip
   CHANGED: xmas.zip
-UNCHANGED: lemminas_pink.zip
-UNCHANGED: starlight.zip
-UNCHANGED: sugar.zip
