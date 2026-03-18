@@ -659,13 +659,13 @@ public class LemminiFrame extends JFrame {
         if (isLevel) {
             switch (code) {
                 case KeyEvent.VK_SHIFT:
-                    lemminiPanelMain.setShiftPressed(true);
+                    GameController.setShiftPressed(true);
                     break;
                 case KeyEvent.VK_CONTROL:
-                    lemminiPanelMain.setControlPressed(true);
+                    GameController.setCtrlPressed(true);
                     break;
                 case KeyEvent.VK_ALT:
-                    lemminiPanelMain.setAltPressed(true);
+                    GameController.setAltPressed(true);
                     break;
                 case KeyEvent.VK_ESCAPE:
                     GameController.endLevel();
@@ -978,13 +978,13 @@ public class LemminiFrame extends JFrame {
         if (isLevel) {
             switch (code) {
                 case KeyEvent.VK_SHIFT:
-                    lemminiPanelMain.setShiftPressed(false);
+                    GameController.setShiftPressed(false);
                     break;
                 case KeyEvent.VK_CONTROL:
-                    lemminiPanelMain.setControlPressed(false);
+                	GameController.setCtrlPressed(false);
                     break;
                 case KeyEvent.VK_ALT:
-                    lemminiPanelMain.setAltPressed(false);
+                	GameController.setAltPressed(false);
                     break;
                 default:
                     break;

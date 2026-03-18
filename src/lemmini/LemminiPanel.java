@@ -164,12 +164,6 @@ public class LemminiPanel extends JPanel implements Runnable {
     private int mouseDx;
     /** mouse drag length in y direction (pixels) */
     private int mouseDy;
-    /** flag: shift key is pressed */
-    private boolean shiftPressed;
-    /** flag: control key is pressed */
-    private boolean controlPressed;
-    /** flag: alt key is pressed */
-    private boolean altPressed;
     /** flag: nudge view left hotkey is pressed */
     private boolean nudgeViewLeftPressed;
     /** flag: nudge view right hotkey is pressed */
@@ -207,7 +201,7 @@ public class LemminiPanel extends JPanel implements Runnable {
         isFocused = true;
         mouseHasEntered = true;
         holdingMinimap = false;
-        shiftPressed = false;
+        GameController.resetModifierKeys();
         initComponents();
         unmaximizedWidth = getWidth();
         unmaximizedHeight = getHeight();
@@ -504,7 +498,7 @@ public class LemminiPanel extends JPanel implements Runnable {
 			                            pressSelectWalker();
 			                            break;		
 			                        case FASTSCROLL:
-			                            shiftPressed = true;
+			                            GameController.setShiftPressed(true);
 			                            break;
 			                        case RELEASERATEDOWN:
 			                        	GameController.pressMinus(GameController.KEYREPEAT_KEY);
@@ -560,7 +554,7 @@ public class LemminiPanel extends JPanel implements Runnable {
 	    	                	releaseSelectWalker();
 	                        	break;
 	                        case FASTSCROLL:
-	    	            	    shiftPressed = false;
+	    	            	    GameController.setShiftPressed(false);
 	                        	break;
 	                        case RELEASERATEDOWN:
 	                        	GameController.releaseMinus(GameController.KEYREPEAT_KEY);
@@ -817,8 +811,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
 
     void focusLost() {
-        shiftPressed = false;
-        controlPressed = false;
+    	GameController.resetModifierKeys();
         nudgeViewLeftPressed = false;
         nudgeViewRightPressed = false;
         nudgeViewUpPressed = false;
@@ -2198,54 +2191,6 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
 
     /**
-     * Get flag: Shift key is pressed?
-     * @return true if shift key is pressed, false otherwise
-     */
-    boolean isShiftPressed() {
-        return shiftPressed;
-    }
-
-    /**
-     * Set flag: Shift key is pressed.
-     * @param p true: Shift key is pressed, false otherwise
-     */
-    void setShiftPressed(final boolean p) {
-        shiftPressed = p;
-    }
-
-    /**
-     * Get flag: Control key is pressed?
-     * @return true if control key is pressed, false otherwise
-     */
-    boolean isControlPressed() {
-        return controlPressed;
-    }
-
-    /**
-     * Set flag: Control key is pressed.
-     * @param p true: control key is pressed, false otherwise
-     */
-    void setControlPressed(final boolean p) {
-        controlPressed = p;
-    }
-
-    /**
-     * Get flag: Alt key is pressed?
-     * @return true if control key is pressed, false otherwise
-     */
-    boolean isAltPressed() {
-        return altPressed;
-    }
-
-    /**
-     * Set flag: Alt key is pressed.
-     * @param p true: control key is pressed, false otherwise
-     */
-    void setAltPressed(final boolean p) {
-        altPressed = p;
-    }
-
-    /**
      * Get/set nudge view flags:
      */
     boolean isNudgeViewLeftPressed() {
@@ -2313,7 +2258,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
 
     private int getStepSize() {
-        return (shiftPressed ? X_STEP_FAST : X_STEP);
+        return (GameController.isShiftPressed() ? X_STEP_FAST : X_STEP);
     }
 
     public int getDrawBrushSize() {

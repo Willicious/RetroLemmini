@@ -390,6 +390,13 @@ public class GameController {
     /** allow error information to be displayed in the window caption */
     public static String replayCaption;
     public static String musicCaption;
+    
+    /** flag: shift key is pressed */
+    private static boolean shiftPressed;
+    /** flag: ctrl key is pressed */
+    private static boolean ctrlPressed;
+    /** flag: alt key is pressed */
+    private static boolean altPressed;
 
     /**
      * Initialization.
@@ -2864,6 +2871,63 @@ public class GameController {
 	public static void setReplayNameTemplate(String template) {
 		GameController.replayNameTemplate = template;
 	}
+	
+    /**
+     * Get flag: Shift key is pressed?
+     * @return true if shift key is pressed, false otherwise
+     */
+    public static boolean isShiftPressed() {
+        return shiftPressed;
+    }
+
+    /**
+     * Set flag: Shift key is pressed.
+     * @param p true: Shift key is pressed, false otherwise
+     */
+    public static void setShiftPressed(final boolean p) {
+        shiftPressed = p;
+    }
+
+    /**
+     * Get flag: Ctrl key is pressed?
+     * @return true if ctrl key is pressed, false otherwise
+     */
+    public static boolean isCtrlPressed() {
+        return ctrlPressed;
+    }
+
+    /**
+     * Set flag: Ctrl key is pressed.
+     * @param p true: ctrl key is pressed, false otherwise
+     */
+    public static void setCtrlPressed(final boolean p) {
+    	ctrlPressed = p;
+    }
+
+    /**
+     * Get flag: Alt key is pressed?
+     * @return true if control key is pressed, false otherwise
+     */
+    public static boolean isAltPressed() {
+        return altPressed;
+    }
+
+    /**
+     * Set flag: Alt key is pressed.
+     * @param p true: control key is pressed, false otherwise
+     */
+    public static void setAltPressed(final boolean p) {
+        altPressed = p;
+    }
+    
+    /**
+     * Set flag: Set all modifier states to false.
+     */
+    public static void resetModifierKeys() {
+    	shiftPressed = false;
+    	ctrlPressed = false;
+    	altPressed = false;
+    }
 }
 
 
