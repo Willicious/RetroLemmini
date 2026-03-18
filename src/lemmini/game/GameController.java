@@ -1111,7 +1111,7 @@ public class GameController {
 
         updateCtr++;
         
-    	if (leftMouseButtonHeld) {   		
+    	if (leftMouseButtonHeld && altPressed) {   		
             Lemming l = GameController.lemmUnderCursor(LemmCursor.getType());
             if (l != null && l != lastAssignedLemming) {
                 GameController.requestSkill(l);
