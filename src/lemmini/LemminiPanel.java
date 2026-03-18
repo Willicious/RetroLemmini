@@ -467,6 +467,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                     debugDraw(x, y, leftMousePressed);
                 } else {
 	                if (buttonPressed == MouseEvent.BUTTON1) {
+	                	GameController.leftMouseButtonHeld = true;
 	                    if (mouseOverPanel) {
 	                        //clicking on icons
 	                        Icons.IconType type = GameController.getIconType(x - menuOffsetX - getIconBarX());
@@ -478,6 +479,7 @@ public class LemminiPanel extends JPanel implements Runnable {
 	                        Lemming l = GameController.lemmUnderCursor(LemmCursor.getType());
 	                        if (l != null) {
 	                            GameController.requestSkill(l);
+	                            GameController.lastAssignedLemming = l;
 	                        } else if (y < LemminiFrame.LEVEL_HEIGHT) {
 	                        	if (GameController.isOptionEnabled(GameController.RetroLemminiOption.CLICK_AIR_TO_CANCEL_REPLAY))
 	                        		GameController.stopReplayMode();
@@ -523,7 +525,11 @@ public class LemminiPanel extends JPanel implements Runnable {
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
-        int x = Core.unscale(evt.getX());
+        GameController.leftMouseButtonHeld = false;
+        GameController.attemptingHoldToAssign = false;
+        GameController.lastAssignedLemming = null;
+    	
+    	int x = Core.unscale(evt.getX());
         int y = Core.unscale(evt.getY());
         mouseDx = 0;
         mouseDy = 0;

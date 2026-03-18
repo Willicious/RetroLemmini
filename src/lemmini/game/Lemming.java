@@ -1955,7 +1955,7 @@ public class Lemming {
                 GameController.sound.play(Sound.Effect.ASSIGN_SKILL, getPan());
             }
         } else {
-            if (playSound) {
+            if (playSound && !GameController.attemptingHoldToAssign) {
                 GameController.sound.play(Sound.Effect.INVALID, getPan());
             }
         }

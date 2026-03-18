@@ -213,6 +213,10 @@ public class GameController {
     private static final String LEVEL_DIR_REGEX = "levels/[^/]+/levelpack.ini";
     private static final String LEVEL_CACHE_INI = "$levelcache.ini";
     
+    public static boolean leftMouseButtonHeld = false;
+    public static boolean attemptingHoldToAssign = false;
+    public static Lemming lastAssignedLemming = null;
+    
     /** replay naming template */
     private static String replayNameTemplate;
 
@@ -1099,6 +1103,15 @@ public class GameController {
         }
 
         updateCtr++;
+        
+    	if (leftMouseButtonHeld) {   		
+            Lemming l = GameController.lemmUnderCursor(LemmCursor.getType());
+            if (l != null && l != lastAssignedLemming) {
+                GameController.requestSkill(l);
+                GameController.attemptingHoldToAssign = true;
+                lastAssignedLemming = l;
+            }
+    	}
 
         if (!replayMode) {
             assignSkill(false); // first try to assign skill
@@ -1571,7 +1584,9 @@ public class GameController {
                 return true;
             }
         } else {
-            sound.play(Sound.Effect.INVALID, lemm.getPan());
+            if (!attemptingHoldToAssign) {
+                sound.play(Sound.Effect.INVALID, lemm.getPan());
+            }
         }
         return false;
     }
