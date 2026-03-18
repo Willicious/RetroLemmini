@@ -753,7 +753,7 @@ public class LevelDialog extends JDialog {
         try {
             Desktop.getDesktop().browse(new URI("https://www.lemmingsforums.net/index.php?msg=88514"));
         } catch (Exception e) {
-            e.printStackTrace(); // or show a dialog
+        	JOptionPane.showMessageDialog(jButtonGetMoreLevels, e, "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         dispose();
