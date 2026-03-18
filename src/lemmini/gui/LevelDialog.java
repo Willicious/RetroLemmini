@@ -228,7 +228,7 @@ public class LevelDialog extends JDialog {
         jButtonCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Select Level");
+        setTitle("Choose Level");
         setIconImage(Toolkit.getDefaultToolkit().getImage(LemminiFrame.class.getClassLoader().getResource("icon_256.png")));
 
         jTreeLevels.setModel(levelModel);
