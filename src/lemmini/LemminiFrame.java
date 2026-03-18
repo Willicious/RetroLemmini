@@ -554,6 +554,8 @@ public class LemminiFrame extends JFrame {
         String urlLemmini = "http://lemmini.de";
         String urlForumBoard = "https://www.lemmingsforums.net/index.php?board=10.0";
         String urlRetroLemmini = "https://www.lemmingsforums.net/index.php?topic=7030.0";
+        String urlLevelsCatalog = "https://www.lemmingsforums.net/index.php?msg=88514";
+        String urlMusicCatalog = "https://www.lemmingsforums.net/index.php?msg=108302";
 
         // Create a JEditorPane with HTML content
         JEditorPane editorPane = new JEditorPane("text/html",
@@ -567,6 +569,8 @@ public class LemminiFrame extends JFrame {
                 + "Get the latest version of RetroLemmini here: <a href='" + urlRetroLemmini + "'>" + "RetroLemmini on LemmingsForums.net" + "</a><br>"
                 + "Join the Forum discussion here: <a href='" + urlForumBoard + "'>" + "Discussion board on LemmingsForums.net" + "</a><br>"
                 + "Lemmini website: <a href='" + urlLemmini + "'>" + urlLemmini + "</a><br><br>"
+                + "<a href='" + urlLevelsCatalog + "'>" + "Get more levels here" + "</a><br>"
+                + "<a href='" + urlMusicCatalog + "'>" + "Get more music here" + "</a><br><br>"
                 + "Revision Commit ID: " + getGitCommitSHA(7) + "</a><br>"
                 + "Java Version: " + System.getProperty("java.version")
                 + "</html>");

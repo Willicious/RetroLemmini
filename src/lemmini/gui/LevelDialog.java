@@ -223,6 +223,7 @@ public class LevelDialog extends JDialog {
         jButtonAddExternalLevels = new javax.swing.JButton();
         jButtonClearExternalLevels = new javax.swing.JButton();
         jButtonGetMoreLevels = new javax.swing.JButton();
+        jButtonGetMoreMusic = new javax.swing.JButton();
         jButtonOK = new javax.swing.JButton();
         jButtonCancel = new javax.swing.JButton();
 
@@ -540,6 +541,13 @@ public class LevelDialog extends JDialog {
                 jButtonGetMoreLevelsActionPerformed(evt);
             }
         });
+        
+        jButtonGetMoreMusic.setText("Get More Music");
+        jButtonGetMoreMusic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGetMoreMusicActionPerformed(evt);
+            }
+        });
 
         jButtonOK.setText("Choose Level/Pack");
         jButtonOK.setEnabled(false);
@@ -606,6 +614,8 @@ public class LevelDialog extends JDialog {
         	            .addComponent(jButtonClearExternalLevels)
         	            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
         	            .addComponent(jButtonGetMoreLevels)
+        	            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+        	            .addComponent(jButtonGetMoreMusic)
         	            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 340, Short.MAX_VALUE)
         	            .addComponent(jButtonOK)
         	            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
@@ -622,6 +632,7 @@ public class LevelDialog extends JDialog {
         	            .addComponent(jButtonAddExternalLevels)
         	            .addComponent(jButtonClearExternalLevels)
         	            .addComponent(jButtonGetMoreLevels)
+        	            .addComponent(jButtonGetMoreMusic)
         	            .addComponent(jButtonCancel)
         	            .addComponent(jButtonOK))
         	        .addContainerGap());
@@ -758,6 +769,16 @@ public class LevelDialog extends JDialog {
 
         dispose();
     }//GEN-LAST:event_jButtonGetMoreLevelsActionPerformed
+    
+    private void jButtonGetMoreMusicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGetMoreMusicActionPerformed
+        try {
+            Desktop.getDesktop().browse(new URI("https://www.lemmingsforums.net/index.php?msg=108302"));
+        } catch (Exception e) {
+        	JOptionPane.showMessageDialog(jButtonGetMoreMusic, e, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        dispose();
+    }//GEN-LAST:event_jButtonGetMoreMusicActionPerformed
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         TreePath selPath = jTreeLevels.getSelectionPath();
@@ -1047,6 +1068,7 @@ public class LevelDialog extends JDialog {
     private javax.swing.JButton jButtonCancel;
     private javax.swing.JButton jButtonClearExternalLevels;
     private javax.swing.JButton jButtonGetMoreLevels;
+    private javax.swing.JButton jButtonGetMoreMusic;
     private javax.swing.JButton jButtonOK;
     private javax.swing.JLabel jLabelAuthor;
     private javax.swing.JLabel jLabelLemmingsSaved;
