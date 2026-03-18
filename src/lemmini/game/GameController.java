@@ -383,8 +383,9 @@ public class GameController {
 	/** draw fall distance ruler at cursor (or not) */
     public static boolean drawRulerAtCursor;
     
-    /** allow replay information to be displayed in the window caption */
-    public static String windowCaption;
+    /** allow error information to be displayed in the window caption */
+    public static String replayCaption;
+    public static String musicCaption;
 
     /**
      * Initialization.
@@ -736,6 +737,7 @@ public class GameController {
         if (showPreview) {
 	        String music = level.getMusic();
 	        try {
+	        	GameController.musicCaption = "";
 	            if (music == null) {
 	                music = levelPacks.get(curLevelPack).getInfo(curRating, curLevelNumber).getMusic();
 	            }
@@ -744,6 +746,7 @@ public class GameController {
 	            }
 	            Music.load("music/" + music);
 	        } catch (ResourceException ex) {
+	        	GameController.musicCaption = " - Missing music '" + music + "'";
 	        	try {
 	        		music = Music.getRandomTrack("");
 	        		Music.load("music/" + music);
@@ -1844,7 +1847,7 @@ public class GameController {
                 case END_LEVEL:
                     finishLevel();
                     LemmCursor.setBox(false);
-                    GameController.windowCaption = null;
+                    GameController.replayCaption = null;
                     LemminiFrame.getFrame().setCursor(LemmCursor.CursorType.NORMAL);
                     break;
                 case TO_PREVIEW:
@@ -1919,15 +1922,16 @@ public class GameController {
     }
 
     private static void setLevelTitle() {
-    	if (GameController.windowCaption == null) {    	
-	        int numLemmings = level.getNumLemmings();
-	
+    	if (GameController.replayCaption != null) {
+    		Core.setTitle(GameController.replayCaption);
+    	} else {
+	        int numLemmings = level.getNumLemmings();	
 	        String numToRescue = (isOptionEnabled(Option.NO_PERCENTAGES) || numLemmings > 100) 
 	                ? String.valueOf(level.getNumToRescue())
 	                : (level.getNumToRescue() * 100 / numLemmings) + "%";
 	        
 	        String lemmingWord = (numLemmings == 1) ? "Lemming" : "Lemmings";
-	        GameController.windowCaption = String.format("RetroLemmini - %s - %s %d - %s - Save %s of %d %s",
+	        String levelTitleCaption = String.format("RetroLemmini - %s - %s %d - %s - Save %s of %d %s",
 	                GameController.getCurLevelPack().getName(),
 	                GameController.getCurLevelPack().getRatings().get(GameController.getCurRating()),
 	                GameController.curLevelNumber + 1,
@@ -1935,8 +1939,8 @@ public class GameController {
 	                numToRescue,
 	                numLemmings,
 	                lemmingWord);
+	        Core.setTitle(levelTitleCaption + GameController.musicCaption);
     	}
-    	Core.setTitle(GameController.windowCaption);
     }
 
     /**

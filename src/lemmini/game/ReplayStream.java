@@ -241,7 +241,7 @@ public class ReplayStream {
             }
             events = ev;
             if (Core.compareVersions(revision, COMPATIBILITY_REVISION) < 0) {
-            	GameController.windowCaption = "RetroLemmini - Current Version: " + Core.REVISION +
+            	GameController.replayCaption = "RetroLemmini - Current Version: " + Core.REVISION +
       			      " | Compatibility Version: " + COMPATIBILITY_REVISION +
       			      " | Replay Version: " + revision;
             }
