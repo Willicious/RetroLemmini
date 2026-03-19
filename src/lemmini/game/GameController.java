@@ -1186,7 +1186,7 @@ public class GameController {
                             l.setSelected();
                             pan = l.getPan();
                         } catch(IndexOutOfBoundsException e) {
-                        	Core.setTitle("RetroLemmini - Replay Error: Expected lemming index is " + rs.lemming + " (" + e.getMessage() + ")");
+                        	Core.setWindowCaption("RetroLemmini - Replay Error: Expected lemming index is " + rs.lemming + " (" + e.getMessage() + ")");
                         }
                         switch (rs.skill) {
                             case CLIMBER:
@@ -1886,7 +1886,7 @@ public class GameController {
 
     private static void setLevelTitle() {
     	if (GameController.replayCaption != null) {
-    		Core.setTitle(GameController.replayCaption);
+    		Core.setWindowCaption(GameController.replayCaption);
     	} else {
 	        int numLemmings = level.getNumLemmings();	
 	        String numToRescue = (isOptionEnabled(Option.NO_PERCENTAGES) || numLemmings > 100) 
@@ -1902,7 +1902,7 @@ public class GameController {
 	                numToRescue,
 	                numLemmings,
 	                lemmingWord);
-	        Core.setTitle(levelTitleCaption + GameController.directDropCaption + GameController.musicCaption);
+	        Core.setWindowCaption(levelTitleCaption + GameController.directDropCaption + GameController.musicCaption);
     	}
     }
 

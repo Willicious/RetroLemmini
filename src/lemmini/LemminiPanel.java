@@ -434,7 +434,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                         case MENU:
                             GameController.setTransition(GameController.TransitionState.TO_INTRO);
                             Fader.setState(Fader.State.OUT);
-                            Core.setTitle("RetroLemmini");
+                            Core.setWindowCaption("RetroLemmini");
                             break;
                         case REPLAY:
                             GameController.requestRestartLevel(true, true);
@@ -1755,7 +1755,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     void exitToMenu() {
         GameController.setTransition(GameController.TransitionState.TO_INTRO);
         Fader.setState(Fader.State.OUT);
-        Core.setTitle("RetroLemmini");
+        Core.setWindowCaption("RetroLemmini");
     }
     
     public static String buildReplayFileName(String template, String user, String pack, String rating, String level, String time) {
@@ -2058,7 +2058,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                 }
                 GameController.setTransition(GameController.TransitionState.TO_INTRO);
                 Fader.setState(Fader.State.OUT);
-                Core.setTitle("RetroLemmini");
+                Core.setWindowCaption("RetroLemmini");
             }
             Core.player = new Player(player);
         }

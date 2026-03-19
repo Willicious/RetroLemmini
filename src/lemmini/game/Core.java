@@ -608,8 +608,15 @@ public class Core {
     /**
      * Set the title
      */
-    public static void setTitle(String title) {
-        LemminiFrame.getFrame().setTitle(title);
+    public static void setWindowCaption(String caption) {
+        LemminiFrame.getFrame().setTitle(caption);
+    }
+    
+    /**
+     * Get the title
+     */
+    public static String getWindowCaption() {
+        return LemminiFrame.getFrame().getTitle();
     }
 
     /**
