@@ -79,8 +79,6 @@ public class Stencil {
 
     /**
      * Constructor.
-     * @param w width in pixels
-     * @param h height in pixels
      */
     public Stencil(final int w, final int h) {
         width = w;
@@ -103,9 +101,6 @@ public class Stencil {
 
      /**
      * Set given value at given position.
-     * @param x x position in pixels
-     * @param y y position in pixels
-     * @param val stencil value
      */
     public void setMask(final int x, final int y, final int val) {
         if (x < 0 || x >= width || y < 0 || y >= height) {
@@ -117,8 +112,6 @@ public class Stencil {
 
     /**
      * Set given value at given position.
-     * @param pos position (x+y*width)
-     * @param val stencil value
      */
     public void setMask(final int pos, final int val) {
         int y = pos / width;
@@ -131,9 +124,6 @@ public class Stencil {
 
     /**
      * AND given value with existing value at given position.
-     * @param x x position in pixels
-     * @param y y position in pixels
-     * @param val stencil value
      */
     public void andMask(final int x, final int y, final int val) {
         if (x < 0 || x >= width || y < 0 || y >= height) {
@@ -146,8 +136,6 @@ public class Stencil {
 
     /**
      * AND given value with existing value at given position.
-     * @param pos position (x*width+y)
-     * @param val stencil value
      */
     public void andMask(final int pos, final int val) {
         int y = pos / width;
@@ -157,9 +145,6 @@ public class Stencil {
 
     /**
      * OR given value with existing value at given position.
-     * @param x x position in pixels
-     * @param y y position in pixels
-     * @param val stencil value
      */
     public void orMask(final int x, final int y, final int val) {
         if (x < 0 || x >= width || y < 0 || y >= height) {
@@ -172,8 +157,6 @@ public class Stencil {
 
     /**
      * OR given value with existing value at given position - don't call this for gadgets
-     * @param pos position (x*width+y)
-     * @param val stencil value
      */
     public void orMask(final int pos, final int val) {
         int y = pos / width;
@@ -183,9 +166,6 @@ public class Stencil {
 
     /**
      * Sets the mask object ID of this stencil pixel.
-     * @param x x position in pixels
-     * @param y y position in pixels
-     * @param id identifier
      */
     public void setMaskObjectID(final int x, final int y, final int id) {
         if (x < 0 || x >= width || y < 0 || y >= height) {
@@ -198,8 +178,6 @@ public class Stencil {
 
     /**
      * Sets the mask object ID of this stencil pixel.
-     * @param pos position (x+y*width)
-     * @param id identifier
      */
     public void setMaskObjectID(final int pos, final int id) {
         int y = pos / width;
@@ -212,9 +190,6 @@ public class Stencil {
 
     /**
      * Get stencil value at given position.
-     * @param x x position in pixels
-     * @param y y position in pixels
-     * @return stencil value
      */
     public int getMask(final int x, final int y) {
         if (x < 0 || x >= width || y < 0 || y >= height) {
@@ -226,8 +201,6 @@ public class Stencil {
 
     /**
      * Get stencil value at given position.
-     * @param pos position (x+y*width)
-     * @return stencil value
      */
     public int getMask(final int pos) {
         int y = pos / width;
@@ -237,10 +210,6 @@ public class Stencil {
 
     /**
      * Adds a gadget to the stencil
-     * @param x x position in pixels
-     * @param y y position in pixels
-     * @param aMask mask type
-     * @param aID object identifier
      */
     public void addGadget(final int x, final int y, final int aMask, final int aID) {
         if (x < 0 || x >= width || y < 0 || y >= height) {
@@ -252,9 +221,6 @@ public class Stencil {
 
     /**
      * Adds an object ID to the stencil.
-     * @param x x position in pixels
-     * @param y y position in pixels
-     * @param id identifier
      */
     public void addID(final int x, final int y, final int id) {
         if (x < 0 || x >= width || y < 0 || y >= height) {
@@ -267,8 +233,6 @@ public class Stencil {
 
     /**
      * Adds an object ID to the stencil.
-     * @param pos position (x+y*width)
-     * @param id identifier
      */
     public void addID(final int pos, final int id) {
         int y = pos / width;
@@ -278,9 +242,6 @@ public class Stencil {
 
     /**
      * Gets all object IDs from the stencil.
-     * @param x x position in pixels
-     * @param y y position in pixels
-     * @return identifier
      */
     public int[] getIDs(final int x, final int y) {
         if (x < 0 || x >= width || y < 0 || y >= height) {
@@ -293,8 +254,6 @@ public class Stencil {
 
     /**
      * Gets all object IDs from the stencil.
-     * @param pos position (x+y*width)
-     * @return identifier
      */
     public int[] getIDs(final int pos) {
         int y = pos / width;
@@ -318,7 +277,6 @@ public class Stencil {
     }
 
     /** Get width of stencil.
-     * @return width of stencil
      */
     public int getWidth() {
         return width;
@@ -326,7 +284,6 @@ public class Stencil {
 
     /**
      * Get height of stencil.
-     * @return height of stencil
      */
     public int getHeight() {
         return height;

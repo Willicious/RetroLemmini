@@ -79,7 +79,6 @@ public class LemmFont {
 
     /**
      * Initialization.
-     * @throws ResourceException
      */
     public static void init() throws ResourceException {
         Resource resource = Core.findResource(FONT_INI_STR, true);
@@ -143,11 +142,6 @@ public class LemmFont {
 
     /**
      * Draw string into graphics object in given color.
-     * @param g graphics object to draw to.
-     * @param s string to draw.
-     * @param x X coordinate in pixels
-     * @param y Y coordinate in pixels
-     * @param color Color
      */
     public static void strImage(final GraphicsContext g, String s, int x, final int y, final LemmColor color) {
         s = Normalizer.normalize(s, Normalizer.Form.NFC);
@@ -168,9 +162,6 @@ public class LemmFont {
 
     /**
      * Draw string into graphics object in given color.
-     * @param g graphics object to draw to.
-     * @param s string to draw.
-     * @param color Color
      */
     public static void strImage(final GraphicsContext g, final String s, final LemmColor color) {
         strImage(g, s, 0, 0, color);
@@ -178,9 +169,6 @@ public class LemmFont {
 
     /**
      * Create image of string in given color.
-     * @param s string to draw
-     * @param color Color
-     * @return a buffered image of the needed size that contains an image of the given string
      */
     public static LemmImage strImage(final String s, final LemmColor color) {
         LemmImage image = ToolBox.createLemmImage(getCharCount(s) * width, height);
@@ -198,8 +186,6 @@ public class LemmFont {
 
     /**
      * Create image of string in default color (green).
-     * @param s string to draw
-     * @return a buffered image of the needed size that contains an image of the given string
      */
     public static LemmImage strImage(final String s) {
         return strImage(s, LemmColor.GREEN);
@@ -207,8 +193,6 @@ public class LemmFont {
 
     /**
      * Draw string into graphics object in default color (green).
-     * @param g graphics object to draw to.
-     * @param s string to draw.
      */
     public static void strImage(final GraphicsContext g, final String s) {
         strImage(g, s, 0, 0, LemmColor.GREEN);
@@ -239,7 +223,6 @@ public class LemmFont {
 
     /**
      * Get the width of one character in pixels.
-     * @return width of one character in pixels
      */
     public static int getWidth() {
         return width;
@@ -247,7 +230,6 @@ public class LemmFont {
 
     /**
      * Get the height of one character in pixels.
-     * @return height of one character in pixels
      */
     public static int getHeight() {
         return height;
@@ -255,8 +237,6 @@ public class LemmFont {
 
     /**
      * Get the number of displayable characters in the given string.
-     * @param s string
-     * @return number of displayable characters
      */
     public static int getCharCount(String s) {
         s = Normalizer.normalize(s, Normalizer.Form.NFC);
@@ -276,10 +256,7 @@ public class LemmFont {
      * at legal word-wrapping positions. If word wrapping occurs immediately
      * after a soft hyphen, then the soft hyphen will be converted to a real
      * hyphen.
-     * @param s string to split
-     * @param maxLineLength maximum number of characters allowed per line; 0 if
      * no word wrapping should be performed
-     * @return a list of strings, one string for each line
      */
     public static List<String> split(String s, int maxLineLength) {
         s = Normalizer.normalize(s, Normalizer.Form.NFC);

@@ -147,7 +147,6 @@ public class TextScreen {
 
     /**
      * Set mode.
-     * @param m mode.
      */
     public static void setMode(final Mode m) {
         synchronized (getMonitor()) {
@@ -523,7 +522,6 @@ public class TextScreen {
 
     /**
      * Get text dialog.
-     * @return text dialog.
      */
     public static TextDialog getDialog() {
         synchronized (getMonitor()) {
@@ -620,11 +618,6 @@ public class TextScreen {
 
     /**
      * Draw the text screen to the given graphics object.
-     * @param g graphics object to draw the text screen to
-     * @param x
-     * @param y
-     * @param width
-     * @param height
      */
     public static void drawScreen(GraphicsContext g, int x, int y, int width, int height) {
         synchronized (getMonitor()) {

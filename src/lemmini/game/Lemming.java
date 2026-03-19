@@ -129,8 +129,6 @@ public class Lemming {
 
         /**
          * Reverse lookup implemented via hashtable.
-         * @param val Ordinal value
-         * @return Parameter with ordinal value val
          */
         public static Direction get(final int val) {
             return LOOKUP.get(val);
@@ -234,9 +232,6 @@ public class Lemming {
 
     /**
      * Constructor: Create Lemming
-     * @param sx x coordinate of foot
-     * @param sy y coordinate of foot
-     * @param d initial direction
      */
     public Lemming(final int sx, final int sy, final Direction d) {
         frameIdx = 0;
@@ -260,8 +255,6 @@ public class Lemming {
 
     /**
      * Get number of Lemming type in internal resource array.
-     * @param t Type
-     * @return resource number for type
      */
     public static int getOrdinal(final Type t) {
         switch (t) {
@@ -1139,7 +1132,6 @@ public class Lemming {
     /**
      * Plays the specified sound effect at the lemming's current location.<br/>
      * If VisualSFX are enabled, a text-graphic is shown at the lemming's location, too.
-     * @param e The Sound Effect to play
      */
     public void playVisualSFX(Sound.Effect e) {
         GameController.sound.playVisualSFX(e, footX(), midY()); //NOTE: footX was midX
@@ -1147,7 +1139,6 @@ public class Lemming {
 
     /**
      * Check if a Lemming is to be turned by a blocker.
-     * @return true if Lemming is to be turned, false otherwise
      */
     private boolean turnedByBlocker() {
         int s = stencilFoot();
@@ -1186,8 +1177,6 @@ public class Lemming {
 
     /**
      * Change skill/type.
-     * @param oldType old skill/type of Lemming
-     * @param newType new skill/type of Lemming
      */
     private void changeType(final Type oldType, final Type newType) {
         if (oldType != newType) {
@@ -1265,7 +1254,6 @@ public class Lemming {
 
     /**
      * Get stencil value from the foot of the lemming
-     * @return stencil value from the foot of the lemming
      */
     private int stencilFoot() {
         int xm = x;
@@ -1284,7 +1272,6 @@ public class Lemming {
 
     /**
      * Get object ID from the foot of the lemming
-     * @return stencil value from the middle of the lemming
      */
     private int objectFoot() {
         int xm = x;
@@ -1303,7 +1290,6 @@ public class Lemming {
 
     /**
      * Check if bashing is possible.
-     * @return true if bashing is possible, false otherwise.
      */
     private boolean canBash() {
         int xm = x;
@@ -1325,7 +1311,6 @@ public class Lemming {
 
     /**
      * Check if bashing is possible.
-     * @return true if bashing is possible, false otherwise.
      */
     private boolean canBashSteel(final boolean playSound) {
         int yMin = y - BASHER_CHECK_STEP_STEEL;
@@ -1371,7 +1356,6 @@ public class Lemming {
 
     /**
      * Check if digging is possible.
-     * @return true if digging is possible, false otherwise.
      */
     private boolean canDig(final boolean playSound) {
         boolean classicSteel = GameController.getLevel().getClassicSteel();
@@ -1400,7 +1384,6 @@ public class Lemming {
 
     /**
      * Check if mining is possible.
-     * @return true if mining is possible, false otherwise.
      */
     private boolean canMine(final boolean start, final boolean playSound) {
         if (x < GameController.getLevel().getLeftBoundary()
@@ -1479,7 +1462,6 @@ public class Lemming {
 
     /**
      * Get number of free pixels below the lemming (max of step is checked).
-     * @return number of free pixels below the lemming
      */
     private int freeBelow(final int step) {
         if (x < GameController.getLevel().getLeftBoundary()
@@ -1512,7 +1494,6 @@ public class Lemming {
 
     /**
      * Check if Lemming reached the left or right border of the level and was turned.
-     * @return true if lemming was turned, false otherwise.
      */
     private boolean flipDirBorder() {
         boolean flip = false;
@@ -1534,7 +1515,6 @@ public class Lemming {
 
     /**
      * Checks whether there are any free pixels above the the builder (max of step is checked).
-     * @return whether there are any free pixels above the the builder
      */
     private boolean freeAboveBuilder() {
         if (dir == Direction.LEFT && x - 3 < GameController.getLevel().getLeftBoundary()
@@ -1561,7 +1541,6 @@ public class Lemming {
 
     /**
      * Get number of free pixels above the lemming (max of step is checked).
-     * @return number of free pixels above the lemming
      */
     private boolean freeAboveClimber() {
         if (x < GameController.getLevel().getLeftBoundary()
@@ -1583,7 +1562,6 @@ public class Lemming {
 
     /**
      * Check if Lemming has fallen to/through the bottom of the level.
-     * @return true if Lemming has fallen to/through the bottom of the level, false otherwise
      */
     private boolean crossedLowerBorder() {
         if (y >= GameController.getHeight() + GameController.getLevel().getBottomBoundary()) {
@@ -1596,7 +1574,6 @@ public class Lemming {
 
     /**
      * Get the number of pixels of walkable ground above the Lemming's foot.
-     * @return number of pixels of walkable ground above the Lemming's foot.
      */
     private int aboveGround() {
         if (x < GameController.getLevel().getLeftBoundary()
@@ -1625,7 +1602,6 @@ public class Lemming {
 
     /**
      * Check if climber reached a plateau he can walk on.
-     * @return true if climber reached a plateau he can walk on, false otherwise
      */
     private boolean reachedPlateau(final int hand) {
         if (x - 2 < GameController.getLevel().getLeftBoundary()
@@ -1656,8 +1632,6 @@ public class Lemming {
     /**
      * Replace two colors in the animation frames other colors.
      * Used to shift the color of debris to level-specific colors.
-     * @param replaceCol first color to replace
-     * @param replaceCol2 second color to replace
      */
     public static void replaceColors(final int replaceCol, final int replaceCol2) {
         lemmings.stream().forEach(lemm -> { // go through all the lemmings
@@ -1667,7 +1641,6 @@ public class Lemming {
 
     /**
      * Load images used for Lemming animations.
-     * @throws ResourceException
      */
     public static void loadLemmings() throws ResourceException {
         explodeFont = new ExplodeFont();
@@ -1744,7 +1717,6 @@ public class Lemming {
 
     /**
      * Get display info for this Lemming.
-     * @return display name of this Lemming
      */
     public String getLemmingInfo() {
         String n = type.name;
@@ -1765,7 +1737,6 @@ public class Lemming {
 
     /**
      * Get current skill/type of this Lemming.
-     * @return current skill/type of this Lemming
      */
     public Type getSkill() {
         return type;
@@ -1773,10 +1744,6 @@ public class Lemming {
 
     /**
      * Set new skill/type of this Lemming.
-     * @param newSkill new skill/type
-     * @param playSound
-     * @param r checks if it's a replay event
-     * @return true if a change was possible, false otherwise
      */
     public boolean setSkill(final Type newSkill, boolean playSound, ReplayEvent r) {
         if (r == null || newSkill != Type.FLAPPER) {
@@ -1807,9 +1774,6 @@ public class Lemming {
 
     /**
      * Set new skill/type of this Lemming
-     * @param newSkill new skill/type
-     * @param playSound
-     * @return true if a change was possible, false otherwise
      */
     public boolean setSkill(final Type newSkill, boolean playSound) {
         if (newSkill == type || hasDied) {
@@ -1945,9 +1909,6 @@ public class Lemming {
 
     /**
      * Play either the ASSIGN_SKILL sfx, or the INVALID sfx.
-     * @param canSet is this a valid skill assign?
-     * @param playSound is a sound effect supposed to be played?
-     * @return true if a change was possible, false otherwise
      */
     private boolean playSetSkillSound(boolean validAssign, boolean playSound) {
         if (validAssign) {
@@ -1964,7 +1925,6 @@ public class Lemming {
 
     /**
      * Get width of animation frame in pixels.
-     * @return width of animation frame in pixels
      */
     public int width() {
         return lemRes.width;
@@ -1972,7 +1932,6 @@ public class Lemming {
 
     /**
      * Get height of animation frame in pixels.
-     * @return height of animation frame in pixels
      */
     public int height() {
         return lemRes.height;
@@ -1980,8 +1939,6 @@ public class Lemming {
 
     /**
      * Get static resource for a skill/type
-     * @param type skill/type
-     * @return static resource for this skill/type
      */
     private static LemmingResource getResource(final Type type) {
         return lemmings.get(getOrdinal(type));
@@ -1989,7 +1946,6 @@ public class Lemming {
 
     /**
      * Get X coordinate of upper left corner of animation frame.
-     * @return X coordinate of upper left corner of animation frame
      */
     public int screenX() {
         return x - lemRes.footX;
@@ -1997,7 +1953,6 @@ public class Lemming {
 
     /**
      * Get Y coordinate of upper left corner of animation frame
-     * @return Y coordinate of upper left corner of animation frame
      */
     public int screenY() {
         return y - lemRes.footY;
@@ -2005,7 +1960,6 @@ public class Lemming {
 
     /**
      * Get x coordinate of middle of lemming
-     * @return
      */
     public int midX() {
         // BOOKMARK TODO: figure out how to avoid a magic number of 3.
@@ -2014,7 +1968,6 @@ public class Lemming {
 
     /**
      * Get y coordinate of foot less the "mid" position above the foot
-     * @return
      */
     public int midY() {
         return y - lemRes.size;
@@ -2022,7 +1975,6 @@ public class Lemming {
 
     /**
      * Get x coordinate of foot in pixels
-     * @return
      */
     public int footX() {
         return x;
@@ -2030,7 +1982,6 @@ public class Lemming {
 
     /**
      * Get y coordinate of foot in pixels
-     * @return
      */
     public int footY() {
         return y;
@@ -2046,7 +1997,6 @@ public class Lemming {
 
     /**
      * Get heading of Lemming.
-     * @return heading of Lemming
      */
     public Direction getDirection() {
         return dir;
@@ -2054,7 +2004,6 @@ public class Lemming {
 
     /**
      * Get current animation frame for this Lemming.
-     * @return current animation frame for this Lemming
      */
     public LemmImage getImage() {
         return lemRes.getImage(dir, frameIdx / TIME_SCALE);
@@ -2062,7 +2011,6 @@ public class Lemming {
 
     /**
      * Get image for explosion countdown.
-     * @return image for explosion countdown (or null if no explosion countdown)
      */
     public LemmImage getCountdown() {
         if (explodeNumCtr == 0) {
@@ -2081,7 +2029,6 @@ public class Lemming {
 
     /**
      * Get the selection image for replay.
-     * @return the selection image (or null if no selection displayed)
      */
     public LemmImage getSelectImg() {
         if (selectCtr == 0) {
@@ -2093,7 +2040,6 @@ public class Lemming {
 
     /**
      * Get: Lemming has died.
-     * @return true if Lemming has died, false otherwise
      */
     public boolean hasDied() {
         return hasDied;
@@ -2101,7 +2047,6 @@ public class Lemming {
 
     /**
      * Get: Lemming has exited the level.
-     * @return true if Lemming has exited the level, false otherwise
      */
     public boolean hasExited() {
         return hasExited;
@@ -2109,7 +2054,6 @@ public class Lemming {
 
     /**
      * Get: Lemming is to be nuked.
-     * @return true if Lemming is to be nuked, false otherwise
      */
     public boolean nuke() {
         return nuke;
@@ -2117,7 +2061,6 @@ public class Lemming {
 
     /**
      * Get: Lemming can float.
-     * @return true if Lemming can float, false otherwise
      */
     public boolean canFloat() {
         return canFloat;
@@ -2125,7 +2068,6 @@ public class Lemming {
 
     /**
      * Get: Lemming can climb.
-     * @return true if Lemming can climb, false otherwise
      */
     public boolean canClimb() {
         return canClimb;
@@ -2133,7 +2075,6 @@ public class Lemming {
 
     /**
      * Get: Lemming can get a new skill.
-     * @return true if Lemming can get a new skill, false otherwise
      */
     public boolean canChangeSkill() {
         return canChangeSkill;
@@ -2197,8 +2138,6 @@ class LemmingResource {
 
     /**
      * Constructor.
-     * @param sourceImg  image containing animation frames (one above the other)
-     * @param animFrames number of animation frames.
      */
     LemmingResource(final LemmImage sourceImg, final int animFrames) {
         frames = animFrames;
@@ -2213,9 +2152,6 @@ class LemmingResource {
 
     /**
      * Constructor.
-     * @param sourceImg  image containing animation frames (one above the other)
-     * @param sourceImgLeft
-     * @param animFrames number of animation frames.
      */
     LemmingResource(final LemmImage sourceImg, final LemmImage sourceImgLeft, final int animFrames) {
         frames = animFrames;
@@ -2233,8 +2169,6 @@ class LemmingResource {
 
     /**
      * Get the mask for stencil manipulation.
-     * @param dir Direction
-     * @return mask for stencil manipulation
      */
     Mask getMask(final Lemming.Direction dir) {
         if (dirs > 1) {
@@ -2246,7 +2180,6 @@ class LemmingResource {
 
     /**
      * Set the masks for stencil manipulation.
-     * @param m list of masks for stencil manipulation
      */
     void setMasks(final List<Mask> m) {
         mask = m;
@@ -2254,9 +2187,6 @@ class LemmingResource {
 
     /**
      * Get specific animation frame.
-     * @param dir Direction.
-     * @param frame Index of animation frame.
-     * @return specific animation frame
      */
     LemmImage getImage(final Lemming.Direction dir, final int frame) {
         if (dirs > 1) {
@@ -2301,8 +2231,6 @@ class ExplodeFont {
 
     /**
      * Constructor.
-     * @param cmp parent component
-     * @throws ResourceException
      */
     ExplodeFont() throws ResourceException {
         Resource resource = Core.findResource("gfx/lemming/countdown.png", Core.IMAGE_EXTENSIONS);
@@ -2312,8 +2240,6 @@ class ExplodeFont {
 
     /**
      * Get image for a counter value (0-9)
-     * @param num counter value (0-9)
-     * @return
      */
     LemmImage getImage(final int num) {
         return img.get(num);

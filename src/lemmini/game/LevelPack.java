@@ -108,8 +108,6 @@ public class LevelPack {
 
     /**
      * Constructor for loading a level pack.
-     * @param res resource object for level pack INI
-     * @throws ResourceException
      */
     public LevelPack(final Resource resource) throws ResourceException {
         // get path from descriptor file
@@ -200,9 +198,6 @@ public class LevelPack {
 
     /**
      * Assemble level pack and rating to string.
-     * @param pack level pack
-     * @param rating name of rating
-     * @return String formed from level pack and rating
      */
     public static String getID(String pack, String rating) {
         pack = Normalizer.normalize(pack.toLowerCase(Locale.ROOT), Normalizer.Form.NFKC);
@@ -213,7 +208,6 @@ public class LevelPack {
 
     /**
      * Return ratings as string list.
-     * @return ratings as string list
      */
     public List<String> getRatings() {
         return Collections.unmodifiableList(ratings);
@@ -221,7 +215,6 @@ public class LevelPack {
 
     /**
      * Get name of level pack.
-     * @return name of level pack
      */
     public String getName() {
         return name;
@@ -229,7 +222,6 @@ public class LevelPack {
 
     /**
      * Get code seed.
-     * @return code seed.
      */
     public String getCodeSeed() {
         return codeSeed;
@@ -237,7 +229,6 @@ public class LevelPack {
 
     /**
      * Get maximum fall distance.
-     * @return maximum fall distance
      */
     public int getMaxFallDistance() {
         return maxFallDistance;
@@ -253,7 +244,6 @@ public class LevelPack {
 
     /**
      * Get offset to apply in level code algorithm.
-     * @return offset to apply in level code algorithm
      */
     public int getCodeOffset() {
         return codeOffset;
@@ -261,9 +251,6 @@ public class LevelPack {
 
     /**
      * Get level info for a certain level.
-     * @param rating rating
-     * @param level level number
-     * @return LevelInfo for the given level
      */
     public LevelInfo getInfo(final int rating, final int level) {
         return lvlInfo.get(rating).get(level);
@@ -271,9 +258,6 @@ public class LevelPack {
 
     /**
      * Set level info for a certain level.
-     * @param rating rating
-     * @param level level number
-     * @param li new LevelInfo for the given level
      */
     public void setInfo(final int rating, final int level, final LevelInfo li) {
         lvlInfo.get(rating).set(level, li);
@@ -281,8 +265,6 @@ public class LevelPack {
 
     /**
      * Add a level to the end of a rating.
-     * @param rating rating
-     * @param li LevelInfo for the new level
      */
     public void addLevel(final int rating, final LevelInfo li) {
         lvlInfo.get(rating).add(li);
@@ -290,8 +272,6 @@ public class LevelPack {
 
     /**
      * Remove a level from a rating.
-     * @param rating rating
-     * @param level index of the level to remove
      */
     public void removeLevel(final int rating, final int level) {
         lvlInfo.get(rating).remove(level);
@@ -299,8 +279,6 @@ public class LevelPack {
 
     /**
      * Add a rating to this level pack.
-     * @param rating name of rating
-     * @param li LevelInfo for each level
      */
     public void addRating(final String rating, final List<LevelInfo> li) {
         ratings.add(rating);
@@ -309,7 +287,6 @@ public class LevelPack {
 
     /**
      * Remove a rating from this level pack.
-     * @param rating index of rating to remove
      */
     public void removeRating(final int rating) {
         ratings.remove(rating);
@@ -318,8 +295,6 @@ public class LevelPack {
 
     /**
      * Return all levels for a rating
-     * @param rating index of rating
-     * @return level names as string list
      */
     public List<String> getLevels(final int rating) {
         return lvlInfo.get(rating).stream().map(li -> li.getName().trim()).collect(Collectors.toList());

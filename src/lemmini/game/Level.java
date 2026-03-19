@@ -190,10 +190,6 @@ public class Level {
 
     /**
      * Load a level and all level resources.
-     * @param res resource object
-     * @param level2 level with resources to reuse
-     * @throws ResourceException
-     * @throws LemmException
      */
     public Level(final Resource resource, final Level level2) throws ResourceException, LemmException {
         levelProps = new ArrayList<>(4);
@@ -1005,11 +1001,6 @@ public class Level {
 
     /**
      * Draw opaque objects behind foreground image.
-     * @param g graphics object to draw on
-     * @param width width of screen
-     * @param height height of screen
-     * @param xOfs level offset x position
-     * @param yOfs level offset y position
      */
     public void drawBehindObjects(final GraphicsContext g, final int width, final int height,
             final int xOfs, final int yOfs) {
@@ -1028,11 +1019,6 @@ public class Level {
 
     /**
      * Draw transparent objects in front of foreground image.
-     * @param g graphics object to draw on
-     * @param width width of screen
-     * @param height height of screen
-     * @param xOfs level offset x position
-     * @param yOfs level offset y position
      */
     public void drawInFrontObjects(final GraphicsContext g, final int width, final int height,
             final int xOfs, final int yOfs) {
@@ -1050,11 +1036,6 @@ public class Level {
 
     /**
      * Draw the background layers behind the foreground image.
-     * @param g graphics object to draw on
-     * @param width width of screen
-     * @param height height of screen
-     * @param xOfs level offset x position
-     * @param yOfs level offset y position
      */
     public void drawBackground(final GraphicsContext g, final int width, final int height,
             final int xOfs, final int yOfs) {
@@ -1162,24 +1143,8 @@ public class Level {
         }
     }
 
-    ///**
-    // * Debug output.
-    // * @param o string to print
-    // */
-    //private static void out(final String o) {
-    //    System.out.println(o);
-    //}
-
-
     /**
      * Create a minimap for this level.
-     * @param fgImage foreground image used as source for the minimap
-     * @param scaleX integer X scaling factor
-     * @param scaleY integer Y scaling factor
-     * @param tint apply a greenish color tint
-     * @param drawBackground
-     * @param highQuality
-     * @return image with minimap
      */
     public LemmImage createMinimap(final LemmImage fgImage, final double scaleX, final double scaleY,
             final boolean highQuality, final boolean tint, final boolean drawBackground) {
@@ -1249,8 +1214,6 @@ public class Level {
 
     /**
      * Get level sprite object via index.
-     * @param idx index
-     * @return level sprite object
      */
     public SpriteObject getSprObject(final int idx) {
         if (idx >= 0 && idx < sprObjects.length) {
@@ -1262,7 +1225,6 @@ public class Level {
 
     /**
      * Get number of level sprite objects.
-     * @return number of level sprite objects
      */
     public int getNumSprObjects() {
         if (sprObjects == null) {
@@ -1273,8 +1235,6 @@ public class Level {
 
     /**
      * Get level Entrance via idx.
-     * @param idx index
-     * @return level Entrance
      */
     Entrance getEntrance(final int idx) {
         return entrances.get(idx);
@@ -1282,7 +1242,6 @@ public class Level {
 
     /**
      * Get number of entrances for this level.
-     * @return number of entrances.
      */
     public int getNumEntrances() {
         if (entrances == null) {
@@ -1297,7 +1256,6 @@ public class Level {
 
     /**
      * Get background color.
-     * @return background color.
      */
     public Color getBgColor() {
         Color bgColor = mainStyle.getBgColor();
@@ -1306,7 +1264,6 @@ public class Level {
 
     /**
      * Get maximum safe fall distance.
-     * @return maximum safe fall distance
      */
     public int getMaxFallDistance() {
         return maxFallDistance;
@@ -1318,7 +1275,6 @@ public class Level {
 
     /**
      * Get array of ARGB colors used for particle effects.
-     * @return array of ARGB colors used for particle effects
      */
     public int[] getParticleCol() {
         return mainStyle.getParticleColor();
@@ -1326,7 +1282,6 @@ public class Level {
 
     /**
      * Get start screen x position.
-     * @return start screen x position
      */
     public int getXPosCenter() {
         return xPosCenter;
@@ -1334,7 +1289,6 @@ public class Level {
 
     /**
      * Get start screen y position.
-     * @return start screen y position
      */
     public int getYPosCenter() {
         return yPosCenter;
@@ -1342,7 +1296,6 @@ public class Level {
 
     /**
      * Get number of climbers in this level.
-     * @return number of climbers in this level
      */
     public int getNumClimbers() {
         return numClimbers;
@@ -1350,7 +1303,6 @@ public class Level {
 
     /**
      * Get number of floaters in this level.
-     * @return number of floaters in this level
      */
     public int getNumFloaters() {
         return numFloaters;
@@ -1358,7 +1310,6 @@ public class Level {
 
     /**
      * Get number of bombers in this level.
-     * @return number of bombers in this level
      */
     public int getNumBombers() {
         return numBombers;
@@ -1366,7 +1317,6 @@ public class Level {
 
     /**
      * Get number of blockers in this level.
-     * @return number of blockers in this level
      */
     public int getNumBlockers() {
         return numBlockers;
@@ -1374,7 +1324,6 @@ public class Level {
 
     /**
      * Get number of builders in this level.
-     * @return number of builders in this level
      */
     public int getNumBuilders() {
         return numBuilders;
@@ -1382,7 +1331,6 @@ public class Level {
 
     /**
      * Get number of bashers in this level.
-     * @return number of bashers in this level
      */
     public int getNumBashers() {
         return numBashers;
@@ -1390,7 +1338,6 @@ public class Level {
 
     /**
      * Get number of miners in this level.
-     * @return number of miners in this level
      */
     public int getNumMiners() {
         return numMiners;
@@ -1398,7 +1345,6 @@ public class Level {
 
     /**
      * Get number of diggers in this level.
-     * @return number of diggers in this level
      */
     public int getNumDiggers() {
         return numDiggers;
@@ -1406,7 +1352,6 @@ public class Level {
 
     /**
      * Get time limit in seconds
-     * @return time limit in seconds
      */
     public int getTimeLimitSeconds() {
         return timeLimitSeconds;
@@ -1414,7 +1359,6 @@ public class Level {
 
     /**
      * Get number of Lemmings to rescue: should be less than or equal to number of Lemmings.
-     * @return number of Lemmings to rescue
      */
     public int getNumToRescue() {
         return numToRescue;
@@ -1422,7 +1366,6 @@ public class Level {
 
     /**
      * Get number of Lemmings in this level (maximum 0x0072 = 114 in original LVL format).
-     * @return number of Lemmings in this level
      */
     public int getNumLemmings() {
         return numLemmings;
@@ -1430,7 +1373,6 @@ public class Level {
 
     /**
      * Get color of debris pixels (to be replaced with level color).
-     * @return color of debris pixels as ARGB
      */
     public final int getDebrisColor() {
         int debrisColor = mainStyle.getDebrisColor();
@@ -1439,7 +1381,6 @@ public class Level {
 
     /**
      * Get second color of debris pixels (to be replaced with level color).
-     * @return second color of debris pixels as ARGB
      */
     public final int getDebrisColor2() {
         int debrisColor2 = mainStyle.getDebrisColor2();
@@ -1448,7 +1389,6 @@ public class Level {
 
     /**
      * Get release rate: -99 is slowest, 106 is fastest
-     * @return release rate: -99 is slowest, 106 is fastest
      */
     public int getReleaseRate() {
         return releaseRate;
@@ -1499,7 +1439,6 @@ public class Level {
 
     /**
      * Check if this is a SuperLemming level (runs faster).
-     * @return true if this is a SuperLemming level, false otherwise
      */
     public boolean isSuperLemming() {
         return superlemming;
@@ -1507,7 +1446,6 @@ public class Level {
 
     /**
      * Check whether the timer should run at normal speed, even if this is a SuperLemming level.
-     * @return true if the timer should run at normal speed, false otherwise
      */
     public boolean getForceNormalTimerSpeed() {
         return forceNormalTimerSpeed;
@@ -1519,7 +1457,6 @@ public class Level {
 
     /**
      * Get level name.
-     * @return level name
      */
     public String getLevelName() {
         return lvlName;
@@ -1527,7 +1464,6 @@ public class Level {
 
     /**
      * Get level author.
-     * @return level author
      */
     public String getAuthor() {
         return author;
@@ -1581,7 +1517,6 @@ public class Level {
 
         /**
          * Constructor
-         * @param val five or more values as array [identifier, x position, y position, paint mode, flags, object-specific modifier, style]
          */
         public LvlObject(final String[] val) {
             id = ToolBox.parseInt(val[0]);
@@ -1625,8 +1560,6 @@ public class Level {
 
         /**
          * Constructor.
-         * @param val four or more values as array [identifier, x position, y position, modifier, style]
-         * @param special
          */
         public Terrain(final String[] val) {
             id = ToolBox.parseInt(val[0]);
@@ -1655,7 +1588,6 @@ public class Level {
 
         /**
          * Constructor.
-         * @param val four or five values as array [x position, y position, width, height, flags]
          */
         public Steel(final int[] val) {
             xPos = val[0];

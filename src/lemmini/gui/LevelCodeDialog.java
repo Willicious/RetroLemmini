@@ -44,8 +44,6 @@ public class LevelCodeDialog extends JDialog {
 
     /**
      * Creates new form LevelCodeDialog
-     * @param parent
-     * @param modal
      */
     public LevelCodeDialog(Frame parent, boolean modal) {
         super(parent, modal);
@@ -184,7 +182,6 @@ public class LevelCodeDialog extends JDialog {
 
     /**
      * Get entered level code.
-     * @return entered level code.
      */
     public String getCode() {
         return code;
@@ -192,7 +189,6 @@ public class LevelCodeDialog extends JDialog {
 
     /**
      * Get selected level pack.
-     * @return selected level pack
      */
     public int getLevelPack() {
         return levelPackIndex;

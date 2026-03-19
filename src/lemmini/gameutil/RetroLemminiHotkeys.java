@@ -348,9 +348,6 @@ public class RetroLemminiHotkeys {
 
     /**
      * Returns the HotkeyAction corresponding to the given KeyEvent, or null if none matches.
-     * @param e the KeyEvent
-     * @param config the HotkeyConfig holding all hotkeys
-     * @return the matching HotkeyAction, or null
      */
     public static RetroLemminiHotkeys.HotkeyAction getHotkeyActionForEvent(KeyEvent e, List<Hotkey> hotkeys) {
         if (hotkeys == null) return null;

@@ -57,10 +57,6 @@ public class ModMusic implements Runnable, MusicPlayer {
 
     /**
      * Load MOD file, initialize player.
-     * @param res resource
-     * @param loop
-     * @throws ResourceException
-     * @throws LemmException
      */
     @Override
     public void load(final Resource resource, final boolean loop) throws ResourceException, LemmException {
@@ -201,7 +197,6 @@ public class ModMusic implements Runnable, MusicPlayer {
 
     /**
      * Set gain (volume) of MOD output
-     * @param gain gain factor: 0.0 = off, 1.0 = full volume, 2.0 = double volume
      */
     @Override
     public void setGain(double gain) {

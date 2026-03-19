@@ -47,9 +47,6 @@ public class OptionsDialog extends JDialog {
 
 	/**
 	 * Creates new form OptionsDialog
-	 * 
-	 * @param parent
-	 * @param modal
 	 */
 	public OptionsDialog(LemminiPanel panel, Frame parent, boolean modal) {
 		super(parent, modal);
@@ -159,8 +156,7 @@ public class OptionsDialog extends JDialog {
 		jCheckBoxVisualSfx.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.VISUAL_SFX));
 		jCheckBoxVisualSfx.setText("Visual SFX");
 
-		jCheckBoxPostviewJingles
-				.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.POSTVIEW_JINGLES));
+		jCheckBoxPostviewJingles.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.POSTVIEW_JINGLES));
 		jCheckBoxPostviewJingles.setText("Postview Jingles");
 
 		// Radio group for Exit sound
@@ -429,8 +425,7 @@ public class OptionsDialog extends JDialog {
 		jCheckBoxTimedBombers.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.TIMED_BOMBERS));
 		jCheckBoxTimedBombers.setText("Enable 5 second timed bombers");
 
-		jCheckBoxEnableFrameStepping
-				.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.ENABLE_FRAME_STEPPING));
+		jCheckBoxEnableFrameStepping.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.ENABLE_FRAME_STEPPING));
 		jCheckBoxEnableFrameStepping.setText("Enable Frame Stepping");
 		jCheckBoxEnableFrameStepping.setToolTipText("Enable advancing the game by a single frame when paused.");
 
@@ -670,12 +665,11 @@ public class OptionsDialog extends JDialog {
 		GameController.setOption(GameController.Option.SOUND_ON, jCheckBoxEnableSound.isSelected());
 		GameController.setSoundGain(jSliderSoundVolume.getValue() / 100.0);
 		GameController.sound.setMixerIdx(jComboBoxMixer.getSelectedIndex());
-		GameController.setOption(GameController.RetroLemminiOption.POSTVIEW_JINGLES,
-				jCheckBoxPostviewJingles.isSelected());
+		GameController.setOption(GameController.RetroLemminiOption.POSTVIEW_JINGLES, jCheckBoxPostviewJingles.isSelected());
 		// apply exit sound setting
 		GameController.setExitSoundOption(jRadioButtonYippee.isSelected() ? GameController.ExitSoundOption.YIPPEE
 				: jRadioButtonBoing.isSelected() ? GameController.ExitSoundOption.BOING
-						: GameController.ExitSoundOption.AUTO);
+				: GameController.ExitSoundOption.AUTO);
 		// apply graphics settings
 		Core.setBilinear(jCheckBoxBilinear.isSelected());
 		GameController.setOption(GameController.Option.CLASSIC_CURSOR, jCheckBoxClassicCursor.isSelected());
@@ -683,29 +677,23 @@ public class OptionsDialog extends JDialog {
 		GameController.setOption(GameController.SLTooOption.SHOW_LEVEL_NAME, jCheckBoxShowLevelName.isSelected());
 		GameController.setOption(GameController.SLTooOption.ENHANCED_ICONBAR, jCheckBoxEnhancedIconBar.isSelected());
 		GameController.setOption(GameController.SLTooOption.ICON_LABELS, jCheckBoxIconLabels.isSelected());
-		GameController.setOption(GameController.RetroLemminiOption.FULL_COLOR_MINIMAP,
-				jCheckBoxFullColorMinimap.isSelected());
+		GameController.setOption(GameController.RetroLemminiOption.FULL_COLOR_MINIMAP, jCheckBoxFullColorMinimap.isSelected());
 		GameController.setOption(GameController.SLTooOption.CLASSIC_SCROLLER, jCheckBoxClassicScroller.isSelected());
 		// apply menu theme setting
-		GameController.setMenuThemeOption(jRadioButtonAmigaTheme.isSelected() ? GameController.MenuThemeOption.AMIGA
-				: GameController.MenuThemeOption.WINLEMM);
+		GameController.setMenuThemeOption(jRadioButtonAmigaTheme.isSelected() ? GameController.MenuThemeOption.AMIGA : GameController.MenuThemeOption.WINLEMM);
 		// apply replay settings
-		GameController.setOption(GameController.RetroLemminiOption.AUTOSAVE_REPLAYS,
-				jCheckBoxAutoSaveReplays.isSelected());
+		GameController.setOption(GameController.RetroLemminiOption.AUTOSAVE_REPLAYS, jCheckBoxAutoSaveReplays.isSelected());
 		GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, jCheckBoxShowMenuBar.isSelected());
 		// apply miscellaneous settings
 		GameController.setOption(GameController.Option.ADVANCED_SELECT, jCheckBoxAdvanced.isSelected());
 		GameController.setOption(GameController.Option.FASTER_FAST_FORWARD, jCheckBoxFaster.isSelected());
-		GameController.setOption(GameController.Option.PAUSE_STOPS_FAST_FORWARD,
-				jCheckBoxPauseStopsFastForward.isSelected());
+		GameController.setOption(GameController.Option.PAUSE_STOPS_FAST_FORWARD, jCheckBoxPauseStopsFastForward.isSelected());
 		GameController.setOption(GameController.Option.NO_PERCENTAGES, !jCheckBoxNoPercentages.isSelected());
 		GameController.setOption(GameController.Option.REPLAY_SCROLL, jCheckBoxReplayScroll.isSelected());
-		GameController.setOption(GameController.Option.UNPAUSE_ON_ASSIGNMENT,
-				jCheckBoxUnpauseOnAssignment.isSelected());
+		GameController.setOption(GameController.Option.UNPAUSE_ON_ASSIGNMENT, jCheckBoxUnpauseOnAssignment.isSelected());
 		GameController.setOption(GameController.SLTooOption.TIMED_BOMBERS, jCheckBoxTimedBombers.isSelected());
 		GameController.setOption(GameController.SLTooOption.UNLOCK_ALL_LEVELS, jCheckBoxUnlockAllLevels.isSelected());
-		GameController.setOption(GameController.SLTooOption.ENABLE_FRAME_STEPPING,
-				jCheckBoxEnableFrameStepping.isSelected());
+		GameController.setOption(GameController.SLTooOption.ENABLE_FRAME_STEPPING, jCheckBoxEnableFrameStepping.isSelected());
 		GameController.setOption(GameController.SLTooOption.VISUAL_SFX, jCheckBoxVisualSfx.isSelected());
 		GameController.setReplayNameTemplate(jTextFieldReplayTemplate.getText());
 

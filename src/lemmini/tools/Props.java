@@ -55,7 +55,6 @@ public class Props {
 
     /**
      * Set the property file header
-     * @param h String containing Header information
      */
     public void setHeader(final String h) {
         header = h;
@@ -70,7 +69,6 @@ public class Props {
 
     /**
      * Remove key
-     * @param key Name of key
      */
     public void remove(final String key) {
         hash.remove(key);
@@ -78,8 +76,6 @@ public class Props {
 
     /**
      * Set string property
-     * @param key Name of the key to set value for
-     * @param value Value to set
      */
     public void set(final String key, final String value) {
         hash.setProperty(key, value);
@@ -87,8 +83,6 @@ public class Props {
 
     /**
      * Set integer property
-     * @param key Name of the key to set value for
-     * @param value Value to set
      */
     public void setInt(final String key, final int value) {
         hash.setProperty(key, Integer.toString(value));
@@ -96,8 +90,6 @@ public class Props {
 
     /**
      * Set double property
-     * @param key Name of the key to set value for
-     * @param value Value to set
      */
     public void setDouble(final String key, final double value) {
         hash.setProperty(key, Double.toString(value));
@@ -105,8 +97,6 @@ public class Props {
 
     /**
      * Set boolean property
-     * @param key Name of the key to set value for
-     * @param value Value to set
      */
     public void setBoolean(final String key, final boolean value) {
         hash.setProperty(key, Boolean.toString(value));
@@ -114,9 +104,6 @@ public class Props {
 
     /**
      * Get string property
-     * @param key Name of the key to get value for
-     * @param def Default value in case key is not found
-     * @return Value of key as String
      */
     public String get(final String key, final String def) {
         return hash.getProperty(key, def);
@@ -124,10 +111,6 @@ public class Props {
 
     /**
      * Get string property from the first Props object that contains it
-     * @param pCollection Collection of Props objects to search
-     * @param key Name of the key to get value for
-     * @param def Default value in case key is not found in any Props objects
-     * @return Value of key as String
      */
     public static String get(final Collection<? extends Props> pCollection, final String key, final String def) {
         for (Props p : pCollection) {
@@ -140,9 +123,6 @@ public class Props {
 
     /**
      * Get string array property (an array is a result split by commas)
-     * @param key Name of the key to get value for
-     * @param def Default value in case key is not found
-     * @return Value of key as array of strings
      */
     public String[] getArray(final String key, final String[] def) {
         String s = hash.getProperty(key);
@@ -160,10 +140,6 @@ public class Props {
 
     /**
      * Get string array property from the first Props object that contains it
-     * @param pCollection Collection of Props objects to search
-     * @param key Name of the key to get value for
-     * @param def Default value in case key is not found in any Props objects
-     * @return Value of key as array of strings
      */
     public static String[] getArray(final Collection<? extends Props> pCollection, final String key, final String[] def) {
         for (Props p : pCollection) {
@@ -176,9 +152,6 @@ public class Props {
 
     /**
      * Get integer property
-     * @param key Name of the key to get value for
-     * @param def Default value in case key is not found
-     * @return Value of key as int
      */
     public int getInt(final String key, final int def) {
         String s = hash.getProperty(key);
@@ -190,10 +163,6 @@ public class Props {
 
     /**
      * Get integer property from the first Props object that contains it
-     * @param pCollection Collection of Props objects to search
-     * @param key Name of the key to get value for
-     * @param def Default value in case key is not found in any Props objects
-     * @return Value of key as int
      */
     public static int getInt(final Collection<? extends Props> pCollection, final String key, final int def) {
         for (Props p : pCollection) {
@@ -206,9 +175,6 @@ public class Props {
 
     /**
      * Get integer array property
-     * @param key Name of the key to get value for
-     * @param def Default value in case key is not found
-     * @return Value of key as array of ints
      */
     public int[] getIntArray(final String key, final int[] def) {
         String s = hash.getProperty(key);
@@ -228,10 +194,6 @@ public class Props {
 
     /**
      * Get integer array property from the first Props object that contains it
-     * @param pCollection Collection of Props objects to search
-     * @param key Name of the key to get value for
-     * @param def Default value in case key is not found in any Props objects
-     * @return Value of key as array of ints
      */
     public static int[] getIntArray(final Collection<? extends Props> pCollection, final String key, final int[] def) {
         for (Props p : pCollection) {
@@ -244,9 +206,6 @@ public class Props {
 
     /**
      * Get double property
-     * @param key Name of the key to get value for
-     * @param def Default value in case key is not found
-     * @return value of key as double
      */
     public double getDouble(final String key, final double def) {
         String s = hash.getProperty(key);
@@ -267,10 +226,6 @@ public class Props {
 
     /**
      * Get double property from the first Props object that contains it
-     * @param pCollection Collection of Props objects to search
-     * @param key Name of the key to get value for
-     * @param def Default value in case key is not found in any Props objects
-     * @return value of key as double
      */
     public static double getDouble(final Collection<? extends Props> pCollection, final String key, final double def) {
         for (Props p : pCollection) {
@@ -283,9 +238,6 @@ public class Props {
 
     /**
      * Get double array property
-     * @param key Name of the key to get value for
-     * @param def Default value in case key is not found
-     * @return Value of key as array of doubles
      */
     public double[] getDoubleArray(final String key, final double[] def) {
         String s = hash.getProperty(key);
@@ -314,10 +266,6 @@ public class Props {
 
     /**
      * Get double array property from the first Props object that contains it
-     * @param pCollection Collection of Props objects to search
-     * @param key Name of the key to get value for
-     * @param def Default value in case key is not found in any Props objects
-     * @return Value of key as array of doubles
      */
     public static double[] getDoubleArray(final Collection<? extends Props> pCollection, final String key, final double[] def) {
         for (Props p : pCollection) {
@@ -330,9 +278,6 @@ public class Props {
 
     /**
      * Get boolean property
-     * @param key Name of the key to get value for
-     * @param def Default value in case key is not found
-     * @return Value of key as boolean
      */
     public boolean getBoolean(final String key, final boolean def) {
         String s = hash.getProperty(key);
@@ -344,10 +289,6 @@ public class Props {
 
     /**
      * Get boolean property from the first Props object that contains it
-     * @param pCollection Collection of Props objects to search
-     * @param key Name of the key to get value for
-     * @param def Default value in case key is not found in any Props objects
-     * @return Value of key as boolean
      */
     public static boolean getBoolean(final Collection<? extends Props> pCollection, final String key, final boolean def) {
         for (Props p : pCollection) {
@@ -360,9 +301,6 @@ public class Props {
 
     /**
      * Get boolean array property
-     * @param key Name of the key to get value for
-     * @param def Default value in case key is not found
-     * @return Value of key as array of booleans
      */
     public boolean[] getBooleanArray(final String key, final boolean[] def) {
         String s = hash.getProperty(key);
@@ -382,10 +320,6 @@ public class Props {
 
     /**
      * Get boolean array property from the first Props object that contains it
-     * @param pCollection Collection of Props objects to search
-     * @param key Name of the key to get value for
-     * @param def Default value in case key is not found in any Props objects
-     * @return Value of key as array of booleans
      */
     public static boolean[] getBooleanArray(final Collection<? extends Props> pCollection, final String key, final boolean[] def) {
         for (Props p : pCollection) {
@@ -402,8 +336,6 @@ public class Props {
 
     /**
      * Save property file
-     * @param fname File name of property file
-     * @return True if OK, false if exception occurred
      */
     public boolean save(final Path fname, boolean reload) {
         try {
@@ -424,8 +356,6 @@ public class Props {
 
     /**
      * Save property file
-     * @param fname File name of property file
-     * @return True if OK, false if exception occurred
      */
     public boolean save(final String fname) {
         try (Writer w = Core.resourceTree.newBufferedWriter(fname)) {
@@ -439,8 +369,6 @@ public class Props {
 
     /**
      * Save property file
-     * @param w Writer to property file
-     * @return True if OK, false if exception occurred
      */
     public boolean save(final Writer w) {
         try {
@@ -455,8 +383,6 @@ public class Props {
 
     /**
      * Load property file
-     * @param fname Name of property file
-     * @return True if OK, false if exception occurred
      */
     public boolean load(final Path fname) {
         try (Reader r = ToolBox.getBufferedReader(fname)) {
@@ -469,8 +395,6 @@ public class Props {
 
     /**
      * Load property file
-     * @param file URL of property file
-     * @return True if OK, false if exception occurred
      */
     public boolean load(final URL file) {
         try (Reader r = ToolBox.getBufferedReader(file)) {
@@ -483,8 +407,6 @@ public class Props {
 
     /**
      * Load property file
-     * @param res property file resource
-     * @return True if OK, false if exception occurred
      */
     public boolean load(final Resource resource) {
         try (Reader r = resource.getBufferedReader()) {
@@ -497,8 +419,6 @@ public class Props {
 
     /**
      * Load property file
-     * @param r Reader for property file
-     * @return True if OK, false if exception occurred
      */
     public boolean load(final Reader r) {
         try {
@@ -512,8 +432,6 @@ public class Props {
 
     /**
      * Returns the highest level number present for the supplied Group, in the records.
-     * @param groupNum The group number from the player INI file to check levels against
-     * @return -1 if no matches found, or the highest level number otherwise (starting at 0).
      */
     public int getHighestLevel(int groupNum) {
         Set<Object> keys = hash.keySet();

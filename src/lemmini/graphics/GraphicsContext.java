@@ -66,9 +66,6 @@ public class GraphicsContext {
      * The image is drawn with its top-left corner at(x, y) in this graphics context's coordinate
      * space. Transparent pixels in the image do not affect whatever
      * pixels are already there.
-     * @param image the specified LemmImage sprite to be drawn
-     * @param x the x coordinate of the top-left corner.
-     * @param y the y coordinate of the top-left corner.
      */
     public void drawImage(LemmImage image, int x, int y) {
         graphics.drawImage(image.getImage(), x, y, null);
@@ -125,13 +122,7 @@ public class GraphicsContext {
      * image has been constructed for this output device.  Each size of
      * the image may be cached separately and generated from the original
      * data in a separate image production sequence.
-     * @param    image  the specified image to be drawn. This method does
      *                  nothing if {@code image} is null.
-     * @param    x      the <i>x</i> coordinate.
-     * @param    y      the <i>y</i> coordinate.
-     * @param    width  the width of the rectangle.
-     * @param    height the height of the rectangle.
-     * @return   {@code false} if the image pixels are still changing;
      *           {@code true} otherwise.
      * @see      java.awt.Image
      * @see      java.awt.image.ImageObserver
@@ -164,25 +155,15 @@ public class GraphicsContext {
      * the destination rectangle, and the second source coordinate is
      * mapped to the second destination coordinate. The subimage is
      * scaled and flipped as needed to preserve those mappings.
-     * @param       image the specified image to be drawn. This method does
      *                    nothing if {@code image} is null.
-     * @param       dx1 the <i>x</i> coordinate of the first corner of the
      *                    destination rectangle.
-     * @param       dy1 the <i>y</i> coordinate of the first corner of the
      *                    destination rectangle.
-     * @param       dx2 the <i>x</i> coordinate of the second corner of the
      *                    destination rectangle.
-     * @param       dy2 the <i>y</i> coordinate of the second corner of the
      *                    destination rectangle.
-     * @param       sx1 the <i>x</i> coordinate of the first corner of the
      *                    source rectangle.
-     * @param       sy1 the <i>y</i> coordinate of the first corner of the
      *                    source rectangle.
-     * @param       sx2 the <i>x</i> coordinate of the second corner of the
      *                    source rectangle.
-     * @param       sy2 the <i>y</i> coordinate of the second corner of the
      *                    source rectangle.
-     * @return   {@code false} if the image pixels are still changing;
      *           {@code true} otherwise.
      * @see         java.awt.Image
      * @see         java.awt.image.ImageObserver

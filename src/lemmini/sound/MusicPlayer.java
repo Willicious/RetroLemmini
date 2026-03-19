@@ -24,10 +24,6 @@ public interface MusicPlayer {
 
     /**
      * Load file, initialize player.
-     * @param res resource
-     * @param loop
-     * @throws ResourceException
-     * @throws LemmException
      */
     void load(Resource resource, boolean loop) throws ResourceException, LemmException;
 

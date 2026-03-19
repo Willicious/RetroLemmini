@@ -93,7 +93,6 @@ public class LemmCursor  {
 
     /**
      * Initialization.
-     * @throws ResourceException
      */
     public static void init() throws ResourceException {
         cursor.clear();
@@ -119,8 +118,6 @@ public class LemmCursor  {
 
     /**
      * Get image for a certain cursor type.
-     * @param t cursor type
-     * @return image for the given cursor type
      */
     public static LemmImage getImage(final CursorType t) {
         return cursorImg.get(t.ordinal());
@@ -128,7 +125,6 @@ public class LemmCursor  {
 
     /**
      * Get image for current cursor type.
-     * @return image for current cursor type
      */
     public static LemmImage getImage() {
         return getImage(type);
@@ -136,8 +132,6 @@ public class LemmCursor  {
 
     /**
      * Get box image for a certain cursor type.
-     * @param t cursor type
-     * @return box image for the given cursor type
      */
     public static LemmImage getBoxImage(final CursorType t) {
         return boxImg.get(t.ordinal());
@@ -145,7 +139,6 @@ public class LemmCursor  {
 
     /**
      * Get box image for current cursor type.
-     * @return box image for current cursor type
      */
     public static LemmImage getBoxImage() {
         return getBoxImage(type);
@@ -153,7 +146,6 @@ public class LemmCursor  {
 
     /**
      * Get current cursor as AWT cursor object.
-     * @return current cursor as AWT cursor object
      */
     public static Cursor getCursor() {
         if (box) {
@@ -165,7 +157,6 @@ public class LemmCursor  {
 
     /**
      * Get current cursor type.
-     * @return current cursor type
      */
     public static CursorType getType() {
         return type;
@@ -173,7 +164,6 @@ public class LemmCursor  {
 
     /**
      * Set current cursor type.
-     * @param t cursor type
      */
     public static void setType(final CursorType t) {
         type = t;
@@ -181,7 +171,6 @@ public class LemmCursor  {
 
     /**
      * Returns whether the box version of the cursor is in use.
-     * @return true if the box version of the cursor is in use, false otherwise
      */
     public static boolean isBox() {
         return box;
@@ -189,7 +178,6 @@ public class LemmCursor  {
 
     /**
      * Sets whether the box version of the cursor should be used.
-     * @param b whether the box version of the cursor should be used
      */
     public static void setBox(final boolean b) {
         box = b;
@@ -197,10 +185,6 @@ public class LemmCursor  {
 
     /**
      * Check if a Lemming is under the cursor.
-     * @param l Lemming to check
-     * @param xOfs screen x offset
-     * @param yOfs screen y offset
-     * @return true if the Lemming is under the Cursor, else false.
      */
     public static boolean doesCollide(final Lemming l, final int xOfs, final int yOfs) {
         // get center of lemming
@@ -220,7 +204,6 @@ public class LemmCursor  {
 
     /**
      * Set x position in pixels.
-     * @param x x position in pixels.
      */
     public static void setX(final int x) {
         LemmCursor.x = x;
@@ -228,7 +211,6 @@ public class LemmCursor  {
 
     /**
      * Get x position in pixels.
-     * @return x position in pixels
      */
     public static int getX() {
         return x;
@@ -236,7 +218,6 @@ public class LemmCursor  {
 
     /**
      * Set y position in pixels.
-     * @param y y position in pixels
      */
     public static void setY(final int y) {
         LemmCursor.y = y;
@@ -244,7 +225,6 @@ public class LemmCursor  {
 
     /**
      * Get y position in pixels.
-     * @return y position in pixels
      */
     public static int getY() {
         return y;

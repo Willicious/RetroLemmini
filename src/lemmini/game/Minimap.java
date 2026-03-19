@@ -54,9 +54,6 @@ public class Minimap {
 
     /**
      * init
-     * @param sx X Scale
-     * @param sy Y Scale
-     * @param tint true: apply greenish tint, false: use original colors
      */
     public static void init(final double sx, final double sy, final boolean tint) {
         scaleX = sx;
@@ -78,9 +75,6 @@ public class Minimap {
 
     /**
      * Draw minimap.
-     * @param g Graphics object to draw on
-     * @param x x position in pixels
-     * @param y y position in pixels
      */
     public static void draw(final GraphicsContext g, final int x, final int y) {
         g.drawImage(img, x - xPos, y - ToolBox.scale(GameController.getYPos(), scaleY));
@@ -88,11 +82,6 @@ public class Minimap {
 
     /**
      * Draw Lemming in minimap.
-     * @param g Graphics object to draw on
-     * @param x x position in pixels
-     * @param y y position in pixels
-     * @param lx original lemming x position in pixels
-     * @param ly original lemming y position in pixels
      */
     public static void drawLemming(final GraphicsContext g, final int x, final int y, final int lx, final int ly) {
         int sx = x + ToolBox.scale(lx, scaleX) - xPos - LEMM_DOT_SCALE / 2;
@@ -106,9 +95,6 @@ public class Minimap {
 
     /**
      * Draw minimap frame.
-     * @param g Graphics object to draw on
-     * @param x x position in pixels
-     * @param y y position in pixels
      */
     public static void drawFrame(final GraphicsContext g, final int x, final int y) {
         int wWidth = ToolBox.scale(Core.getDrawWidth(), scaleX);
@@ -123,7 +109,6 @@ public class Minimap {
 
     /**
      * Return current image.
-     * @return current image.
      */
     public static LemmImage getImage() {
         return img;
@@ -151,9 +136,6 @@ public class Minimap {
 
     /**
      * Move screen frame via minimap.
-     * @param x cursor x position relative to minimap in original gfx.
-     * @param y cursor y position relative to minimap in original gfx.
-     * @return new horizontal screen offset
      */
     public static int move(final int x, final int y) {
         int scaledDrawWidth = ToolBox.scale(Core.getDrawWidth(), scaleX);

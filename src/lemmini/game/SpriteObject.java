@@ -97,8 +97,6 @@ public class SpriteObject extends Sprite {
 
     /**
      * Get Type depending on integer value from INI.
-     * @param t integer type
-     * @return Type
      */
     public static Type getType(final int t) {
         switch (t) {
@@ -133,10 +131,6 @@ public class SpriteObject extends Sprite {
 
     /**
      * Constructor.
-     * @param sourceImg Image containing animation frames one above each other.
-     * @param animFrames number of frames.
-     * @param animSpeed number of game frames per sprite frame.
-     * @param modifiable
      */
     public SpriteObject(final LemmImage sourceImg, final int animFrames, final int animSpeed, final boolean modifiable) {
         super(sourceImg, animFrames, animSpeed, modifiable);
@@ -147,10 +141,6 @@ public class SpriteObject extends Sprite {
 
     /**
      * Constructor.
-     * @param obj Level object.
-     * @param orientation
-     * @param modifiable
-     * @throws ResourceException
      */
     public SpriteObject(GraphicSet.LvlObject obj, GraphicSet.Orientation orientation, final boolean modifiable) throws LemmException {
         super(obj.getImages(orientation), obj.getSpeed(), modifiable);
@@ -168,7 +158,6 @@ public class SpriteObject extends Sprite {
 
     /**
      * Constructor. Create Sprite from another Sprite.
-     * @param src Sprite to clone.
      */
     public SpriteObject(final SpriteObject src) {
         super(src);
@@ -188,7 +177,6 @@ public class SpriteObject extends Sprite {
 
     /**
      * Set the collision mask.
-     * @param imgMask image containing the collision mask.
      */
     /*void setMask(final LemmImage imgMask) {
         maskWidth = imgMask.getWidth();
@@ -209,7 +197,6 @@ public class SpriteObject extends Sprite {
 
     /**
      * Set the collision mask.
-     * @param imgMask image containing the collision mask.
      */
     /*void setMask(final LemmImage imgMask, final int xOffset, final int yOffset) {
         if (imgMask != null) {
@@ -232,7 +219,6 @@ public class SpriteObject extends Sprite {
 
     /**
      * Get type of level object.
-     * @return mask as used in Stencil
      */
     int getMaskType() {
         switch (type) {
@@ -265,7 +251,6 @@ public class SpriteObject extends Sprite {
 
     /**
      * Set x position.
-     * @param xi x position in pixels
      */
     public final void setX(final int xi) {
         x = xi;
@@ -273,7 +258,6 @@ public class SpriteObject extends Sprite {
 
     /**
      * Get x position.
-     * @return x position in pixels
      */
     public int getX() {
         return x;
@@ -281,7 +265,6 @@ public class SpriteObject extends Sprite {
 
     /**
      * Gets the x visual mid-point of the object
-     * @return
      */
     public int midX() {
         return x + (width/2);
@@ -289,7 +272,6 @@ public class SpriteObject extends Sprite {
 
     /**
      * Set y position.
-     * @param yi y position in pixels
      */
     public final void setY(final int yi) {
         y = yi;
@@ -297,7 +279,6 @@ public class SpriteObject extends Sprite {
 
     /**
      * Get y position.
-     * @return y position in pixels
      */
     public int getY() {
         return y;
@@ -305,7 +286,6 @@ public class SpriteObject extends Sprite {
 
     /**
      * Gets the x visual mid-point of the object
-     * @return
      */
     public int midY() {
         return y + (height/2);
@@ -329,7 +309,6 @@ public class SpriteObject extends Sprite {
 
     /**
      * Set whether this object is visible only on terrain.
-     * @param vis whether this object is visible only on terrain
      */
     public void setVisOnTerrain(boolean vis) {
         visOnTerrain = vis;
@@ -350,7 +329,6 @@ public class SpriteObject extends Sprite {
 
     /**
      * Set type of level object.
-     * @param t type of level object
      */
     public void setType(final Type t) {
         type = t;
@@ -358,7 +336,6 @@ public class SpriteObject extends Sprite {
 
     /**
      * Get type of level object.
-     * @return type of level object
      */
     public Type getType() {
         return type;
@@ -366,7 +343,6 @@ public class SpriteObject extends Sprite {
 
     /**
      * Get whether this object is visible only on terrain.
-     * @return whether this object is visible only on terrain
      */
     public boolean getVisOnTerrain() {
         return visOnTerrain;
@@ -374,9 +350,6 @@ public class SpriteObject extends Sprite {
 
     /**
      * Get mask value.
-     * @param x x position in pixels
-     * @param y y position in pixels
-     * @return mask value.
      */
     public boolean getMask(final int x, final int y) {
         int tempX = x - maskOffsetX;

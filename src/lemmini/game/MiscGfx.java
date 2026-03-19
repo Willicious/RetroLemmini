@@ -108,8 +108,6 @@ public class MiscGfx {
 
     /**
      * Initialization.
-     * @param mmWidth Minimap width
-     * @throws ResourceException
      */
     public static void init(int mmWidth) throws ResourceException {
         images.clear();
@@ -275,8 +273,6 @@ public class MiscGfx {
 
     /**
      * Get image.
-     * @param idx Index
-     * @return image of the given index
      */
     public static LemmImage getImage(Index idx) {
         return images.get(idx.ordinal());
@@ -284,8 +280,6 @@ public class MiscGfx {
 
     /**
      * Get Visual SFX image.
-     * @param idx Vsfx.Vsfx_Index
-     * @return image of given index
      */
     public static LemmImage getVsfxImage(Vsfx.Vsfx_Index idx) {
         return vsfx_images.get(idx.ordinal());
@@ -293,8 +287,6 @@ public class MiscGfx {
 
     /**
      * Get Visual SFX image.
-     * @param idx
-     * @return
      */
     public static LemmImage getVsfxImage(int idx) {
         return vsfx_images.get(idx);

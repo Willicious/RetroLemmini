@@ -66,7 +66,6 @@ public class MidiMusic implements MusicPlayer {
 
     /**
      * Constructor.
-     * @throws LemmException
      */
     public MidiMusic() throws LemmException {
         try {
@@ -169,7 +168,6 @@ public class MidiMusic implements MusicPlayer {
 
     /**
      * Set gain (volume) of MIDI output
-     * @param gn gain factor: 0.0 (off) - 1.0 (full volume)
      */
     @Override
     public void setGain(final double gn) {

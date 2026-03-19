@@ -46,8 +46,6 @@ public class PlayerDialog extends JDialog {
 
     /**
      * Creates new form PlayerDialog
-     * @param parent
-     * @param modal
      */
     public PlayerDialog(Frame parent, boolean modal) {
         super(parent, modal);
@@ -204,7 +202,6 @@ public class PlayerDialog extends JDialog {
 
     /**
      * Get list of players.
-     * @return list of players.
      */
     public List<String> getPlayers() {
         return players;
@@ -212,7 +209,6 @@ public class PlayerDialog extends JDialog {
 
     /**
      * Get selected list index.
-     * @return selected list index
      */
     public int getSelection() {
         return jListPlayers.getSelectedIndex();

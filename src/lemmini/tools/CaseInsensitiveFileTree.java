@@ -67,8 +67,6 @@ public class CaseInsensitiveFileTree {
 
     /**
      * Clears the file-name cache and re-scans the directory tree.
-     * @param maxDepth
-     * @throws IOException
      */
     public final void refresh(int maxDepth) throws IOException {
         files.clear();
@@ -116,8 +114,6 @@ public class CaseInsensitiveFileTree {
 
     /**
      * Returns a Path that matches the given file name.
-     * @param fileName the name of the file to look for
-     * @return a Path object that matches the given file name
      */
     public Path getPath(String fileName) {
         String normalizedFileName = normalize(fileName);
@@ -155,8 +151,6 @@ public class CaseInsensitiveFileTree {
 
     /**
      * Returns a List of Paths that match the given file name.
-     * @param fileName the name of the file to look for
-     * @return List of Path objects
      */
     public List<Path> getAllPaths(String fileName) {
         return Collections.unmodifiableList(files.getOrDefault(normalize(fileName), Collections.emptyList()));
@@ -164,8 +158,6 @@ public class CaseInsensitiveFileTree {
 
     /**
      * Returns a List of Paths that match the given regular expression.
-     * @param regex
-     * @return List of Path objects
      */
     public List<Path> getAllPathsRegex(String regex) {
         Pattern p = Pattern.compile(regex, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
@@ -181,10 +173,6 @@ public class CaseInsensitiveFileTree {
 
     /**
      * Attempts to open an OutputStream on the given file.
-     * @param fileName name of file to open
-     * @param options
-     * @return
-     * @throws IOException if an I/O error occurs
      */
     public OutputStream newOutputStream(String fileName, OpenOption... options) throws IOException {
         String normalizedFileName = normalize(fileName);
@@ -225,11 +213,6 @@ public class CaseInsensitiveFileTree {
 
     /**
      * Opens a BufferedWriter on the given file using the given encoding.
-     * @param fileName
-     * @param cs
-     * @param options
-     * @return
-     * @throws IOException
      */
     public BufferedWriter newBufferedWriter(String fileName, Charset cs, OpenOption... options) throws IOException {
         String normalizedFileName = normalize(fileName);
@@ -269,10 +252,6 @@ public class CaseInsensitiveFileTree {
 
     /**
      * Opens a BufferedWriter on the given file using the UTF-8 encoding.
-     * @param fileName
-     * @param options
-     * @return
-     * @throws IOException
      */
     public BufferedWriter newBufferedWriter(String fileName, OpenOption... options) throws IOException {
         return newBufferedWriter(fileName, StandardCharsets.UTF_8, options);
@@ -299,11 +278,8 @@ public class CaseInsensitiveFileTree {
     }
 
     /**
-     * Deletes all files and directories that match the given name. If a
-     * directory name is given, then all files and directories in that directory
-     * are also deleted.
-     * @param fileName
-     * @throws IOException
+     * Deletes all files and directories that match the given name.
+     * If a directory name is given, then all files and directories in that directory are also deleted.
      */
     public void delete(String fileName) throws IOException {
         String normalizedFileName = normalize(fileName);
@@ -357,8 +333,6 @@ public class CaseInsensitiveFileTree {
 
     /**
      * Deletes all empty directories that match the given name.
-     * @param fileName
-     * @throws IOException
      */
     public void deleteIfEmpty(String fileName) throws IOException {
         String normalizedFileName = normalize(fileName);

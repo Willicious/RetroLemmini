@@ -728,8 +728,6 @@ public class LemminiPanel extends JPanel implements Runnable {
     
     /**
      * Replaces transparent pixels with black
-     * @param img
-     * @return
      */
     private static LemmImage setFullyOpaque(LemmImage img) {
         int width = img.getWidth();
@@ -751,7 +749,6 @@ public class LemminiPanel extends JPanel implements Runnable {
 
     /**
      * Set cursor type.
-     * @param c Cursor
      */
     public void setCursor(final LemmCursor.CursorType c) {
         LemmCursor.setType(c);
@@ -1500,9 +1497,6 @@ public class LemminiPanel extends JPanel implements Runnable {
 
     /**
      * Debug routine to draw terrain pixels in stencil and foreground image.
-     * @param x x position in pixels
-     * @param y y position in pixels
-     * @param doDraw true: draw, false: erase
      */
     private void debugDraw(final int x, final int y, final boolean doDraw) {
         if (draw && Core.player.isDebugMode()) {
@@ -2176,7 +2170,6 @@ public class LemminiPanel extends JPanel implements Runnable {
 
     /**
      * Get cursor x position in pixels.
-     * @return cursor x position in pixels
      */
     int getCursorX() {
         return xMouse;
@@ -2184,7 +2177,6 @@ public class LemminiPanel extends JPanel implements Runnable {
 
     /**
      * Get cursor y position in pixels.
-     * @return cursor y position in pixels
      */
     int getCursorY() {
         return yMouse;
@@ -2227,7 +2219,6 @@ public class LemminiPanel extends JPanel implements Runnable {
 
     /**
      * Get state of debug draw option.
-     * @return true: debug draw is active, false otherwise
      */
     boolean getDebugDraw() {
         return draw;
@@ -2235,7 +2226,6 @@ public class LemminiPanel extends JPanel implements Runnable {
 
     /**
      * Set state of debug draw option.
-     * @param d true: debug draw is active, false otherwise
      */
     void setDebugDraw(final boolean d) {
         draw = d;
@@ -2243,7 +2233,6 @@ public class LemminiPanel extends JPanel implements Runnable {
 
     /**
      * Get state of debug cursor info visiblity.
-     * @return true if showDebugCursorInfo is true, false otherwise
      */
     boolean debugCursorInfoVisible() {
         return showDebugCursorInfo;
@@ -2251,7 +2240,6 @@ public class LemminiPanel extends JPanel implements Runnable {
 
     /**
      * Set state of debug cursor info visiblity.
-     * @param i true: showDebugCursorInfo is true, false otherwise
      */
     void setDebugCursorInfo(final boolean i) {
         showDebugCursorInfo = i;

@@ -153,8 +153,6 @@ public class LevelDialog extends JDialog {
 
     /**
      * Creates new form LevelDialog
-     * @param parent
-     * @param modal
      */
     public LevelDialog(Frame parent, boolean modal) {
         super(parent, modal);
@@ -810,7 +808,6 @@ public class LevelDialog extends JDialog {
     /**
      * Returns an int array consisting of the indices of the chosen levelIndex pack,
      * rating, and levelIndex. If no levelIndex was chosen, then null is returned.
-     * @return int array or null
      */
     public int[] getSelectedLevel() {
         int[] retArray = null;

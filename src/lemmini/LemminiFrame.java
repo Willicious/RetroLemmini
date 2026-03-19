@@ -1097,8 +1097,6 @@ public class LemminiFrame extends JFrame {
 
     /**
      * The main function. Entry point of the program.
-     * @param args the command line arguments
-     * @throws IOException
      */
     public static void main(String[] args) throws IOException {
     	// get the current commit ID

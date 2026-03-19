@@ -61,9 +61,6 @@ public class Vsfx {
 
     /**
      * Constructor: Create Visual SFX
-     * @param sx x coordinate of sfx source
-     * @param sy y coordinate of sfx source
-     * @param type the SFX being played/shown
      */
     public Vsfx(final int sx, final int sy, final Vsfx.Vsfx_Index type) {
         x = sx - (IMG_WIDTH/2);
@@ -75,9 +72,6 @@ public class Vsfx {
 
     /**
      * Constructor: Create Visual SFX
-     * @param sx x coordinate of sfx source
-     * @param sy y coordinate of sfx source
-     * @param idx the index of the VSFX being shown
      */
     public Vsfx(final int sx, final int sy, final int idx) {
         x = sx - (IMG_WIDTH/2);

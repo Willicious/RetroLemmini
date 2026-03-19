@@ -48,8 +48,6 @@ public class Mask {
 
     /**
      * Constructor.
-     * @param img image which may contain several animation frames one above each other
-     * @param frames number of animation frames
      */
     public Mask(final LemmImage img, final int frames) {
         width = img.getWidth();
@@ -60,11 +58,6 @@ public class Mask {
 
     /**
      * Apply erase mask (to foreground image, minimap and stencil).
-     * @param x0 x position in pixels
-     * @param y0 y position in pixels
-     * @param maskNum index of mask if there are multiple animation frames, else 0
-     * @param eraseMask Stencil attributes to erase
-     * @param checkMask Stencil attributes that make the pixel indestructible
      */
     public void eraseMask(final int x0, final int y0, final int maskNum, final int eraseMask, final int checkMask) {
         LemmImage fgImage = GameController.getFgImage();
@@ -131,9 +124,6 @@ public class Mask {
 
     /**
      * Paint one step (of a stair created by a Builder)
-     * @param x0 x position in pixels
-     * @param y0 y position in pixels
-     * @param maskNum index of mask if there are multiple animation frames, else 0
      */
     public void paintStep(final int x0, final int y0, final int maskNum) {
         LemmImage fgImage = GameController.getFgImage();
@@ -205,8 +195,6 @@ public class Mask {
 
     /**
      * Create blocker mask in the Stencil only (Lemming is assigned a Blocker)
-     * @param x0 x position in pixels
-     * @param y0 y position in pixels
      */
     public void setBlockerMask(final int x0, final int y0) {
         LemmImage fgImage = GameController.getFgImage();
@@ -257,11 +245,6 @@ public class Mask {
 
     /**
      * Use mask to check bitmask properties of Stencil.
-     * @param x0 x position in pixels
-     * @param y0 y position in pixels
-     * @param maskNum index of mask if there are multiple animation frames, else 0
-     * @param type Stencil bitmask to check (may contain several attributes)
-     * @return true if at least one pixel with one of the given attributes is found
      */
     public boolean checkType(final int x0, final int y0, final int maskNum, final int type) {
         Stencil stencil = GameController.getStencil();
@@ -296,10 +279,6 @@ public class Mask {
 
     /**
      * Erase certain properties from Stencil bitmask.
-     * @param x0 x position in pixels
-     * @param y0 y position in pixels
-     * @param maskNum index of mask if there are multiple animation frames, else 0
-     * @param type Stencil bitmask to erase (may contain several attributes)
      */
     public void clearType(final int x0, final int y0, final int maskNum, final int type) {
         LemmImage fgImage = GameController.getFgImage();
@@ -344,7 +323,6 @@ public class Mask {
 
     /**
      * Get width.
-     * @return width in pixels.
      */
     public int getWidth() {
         return width;
@@ -352,7 +330,6 @@ public class Mask {
 
     /**
      * Get height.
-     * @return height in pixels.
      */
     public int getHeight() {
         return height;
@@ -360,7 +337,6 @@ public class Mask {
 
     /**
      * Get the number of mask frames.
-     * @return number of mask frames.
      */
     public int getNumFrames() {
         return mask.size();

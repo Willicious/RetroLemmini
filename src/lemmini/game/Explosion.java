@@ -68,7 +68,6 @@ public class Explosion {
     /**
      * Load explosion image as static resource.
      * Mainly outside constructor for easier handling of ResourceException.
-     * @throws ResourceException
      */
     static void init() throws ResourceException {
         Resource resource = Core.findResource("gfx/misc/explode.png", Core.IMAGE_EXTENSIONS);
@@ -77,8 +76,6 @@ public class Explosion {
 
     /**
      * Constructor.
-     * @param x x position in pixels.
-     * @param y y position in pixels.
      */
     public Explosion(final int x, final int y) {
         xExp = x - expImg.getWidth() / 2;
@@ -126,11 +123,6 @@ public class Explosion {
 
     /**
      * Draw explosion on graphics object.
-     * @param g
-     * @param width
-     * @param height
-     * @param xOfs
-     * @param yOfs
      */
     public void draw(final GraphicsContext g, final int width, final int height, final int xOfs, final int yOfs) {
         if (!finished) {
@@ -162,7 +154,6 @@ public class Explosion {
 
     /**
      * Get finished state.
-     * @return true if the explosion is over, false otherwise
      */
     public boolean isFinished() {
         return finished;
@@ -188,12 +179,6 @@ public class Explosion {
 
         /**
          * Constructor
-         * @param x0 initial x position in pixels
-         * @param y0 initial y position in pixels
-         * @param dx0 x step width (velocity) in pixels per step
-         * @param dy0 y step width (velocity) in pixels per step
-         * @param col particle color
-         * @param lCtr life counter in steps (counting down)
          */
         Particle(double x0, double y0, double dx0, double dy0, int col, int lCtr) {
             x = x0;

@@ -37,7 +37,6 @@ public class NanosecondTimer {
 
     /**
      * Return delta time since last update.
-     * @return delta time since last update.
      */
     public long delta() {
         long t = System.nanoTime();
@@ -54,7 +53,6 @@ public class NanosecondTimer {
 
     /**
      * Return delta time since last update and perform an update.
-     * @return delta time since last update.
      */
     public long deltaUpdate() {
         long t = System.nanoTime();
@@ -71,8 +69,6 @@ public class NanosecondTimer {
 
     /**
      * Returns true if the given time has passed since the last update.
-     * @param dt time delta in nanoseconds
-     * @return true if the given time has passed since the last update.
      */
     public boolean timePassed(final long dt) {
         long delta = delta();
@@ -81,8 +77,6 @@ public class NanosecondTimer {
 
     /**
      * Returns true if the given time has passed since the last update and performs an update.
-     * @param dt time delta in nanoseconds
-     * @return true if the given time has passed since the last update.
      */
     public boolean timePassedUpdate(final long dt) {
         long t = System.nanoTime();
@@ -96,8 +90,6 @@ public class NanosecondTimer {
 
     /**
      * Returns true if the given time has passed since the last update and adds the time delta.
-     * @param dt time delta
-     * @return true if the given time has passed since the last update.
      */
     public boolean timePassedAdd(final long dt) {
         long delta = delta();
@@ -118,7 +110,6 @@ public class NanosecondTimer {
 
     /**
      * Adds a time delta to the internal time base.
-     * @param delta time delta in nanoseconds
      */
     public void update(long delta) {
         timeBase += delta;

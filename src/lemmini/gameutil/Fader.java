@@ -74,7 +74,6 @@ public class Fader {
 
     /**
      * Set color to be used for fading.
-     * @param c RGB color
      */
     public static synchronized void setColor(final int c) {
         color = c & 0xffffff;
@@ -83,7 +82,6 @@ public class Fader {
 
     /**
      * Set alpha value to be used for fading.
-     * @param a 8bit alpha value
      */
     public static synchronized void setAlpha(final int a) {
         alpha = ToolBox.cap(0, a, 0xff);
@@ -108,7 +106,6 @@ public class Fader {
 
     /**
      * Apply fader without changing the fader state.
-     * @param g graphics to apply fader to
      */
     public static synchronized void apply(final GraphicsContext g) {
         int width = Core.getDrawWidth();
@@ -122,7 +119,6 @@ public class Fader {
 
     /**
      * Set fader state.
-     * @param s state
      */
     public static synchronized void setState(final State s) {
         fadeState = s;
@@ -144,7 +140,6 @@ public class Fader {
 
     /**
      * Get fader state.
-     * @return fader state.
      */
     public static synchronized State getState() {
         return fadeState;
@@ -152,7 +147,6 @@ public class Fader {
 
     /**
      * Set step size.
-     * @param step
      */
     public static void setStep(final int step) {
         fadeStep = step;
@@ -160,7 +154,6 @@ public class Fader {
 
     /**
      * Get step size.
-     * @return step size
      */
     public static int getStep() {
         return fadeStep;

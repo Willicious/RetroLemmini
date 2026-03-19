@@ -185,11 +185,6 @@ public class ExtractLevel {
 
     /**
      * Convert one binary LVL file into text file
-     * @param fnIn Name of binary LVL file
-     * @param out Writer to target text file
-     * @param multi Whether this is a multiplayer level
-     * @param classic Whether to convert in classic mode
-     * @throws Exception
      */
     public static void convertLevel(final Path fnIn, final Writer out, final boolean multi, final boolean classic) throws Exception {
         byte[] b;
@@ -210,12 +205,6 @@ public class ExtractLevel {
 
     /**
      * Convert one binary LVL file into text file
-     * @param in Byte array of binary LVL file
-     * @param fName File name
-     * @param out Writer to target text file
-     * @param multi Whether this is a multiplayer level
-     * @param classic Whether to convert in classic mode
-     * @throws Exception
      */
     public static void convertLevel(final byte[] in, final String fName, final Writer out, final boolean multi, final boolean classic) throws Exception {
         int format = 0;
@@ -1093,9 +1082,6 @@ class LvlObject {
 
     /**
      * Constructor.
-     * @param b buffer
-     * @param classic
-     * @param scale Scale
      */
     LvlObject(final byte[] b, final double scale, final boolean classic, final int format) throws Exception {
         switch (format) {
@@ -1279,8 +1265,6 @@ class Terrain {
 
     /**
      * Constructor.
-     * @param b buffer
-     * @param scale Scale
      */
     Terrain(final byte[] b, final double scale, final boolean classic, final int format) throws Exception {
         switch (format) {
@@ -1428,8 +1412,6 @@ class Steel {
 
     /**
      * Constructor.
-     * @param b buffer
-     * @param scale Scale
      */
     Steel(final byte[] b, final double scale, final boolean classic, final int format) throws Exception {
         int steelType;

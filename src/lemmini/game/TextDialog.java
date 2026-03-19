@@ -67,11 +67,6 @@ public class TextDialog {
 
     /**
      * Draw the text screen to the given graphics object.
-     * @param g graphics object to draw the text screen to
-     * @param x
-     * @param y
-     * @param width
-     * @param height
      */
     public void drawScreen(GraphicsContext g, int x, int y, int width, int height) {
         int widthHalf = width / 2;
@@ -114,8 +109,6 @@ public class TextDialog {
 
     /**
      * Set Image as background.
-     * @param image Image to use as background
-     * @param tiled If true, the image will be tiled. Otherwise, the image will
      *              be centered.
      */
     public void setBackground(final LemmImage image, final boolean tiled) {
@@ -125,11 +118,6 @@ public class TextDialog {
 
     /**
      * Draw string.
-     * @param s String
-     * @param group Image group
-     * @param x0 X position relative to center expressed in character widths
-     * @param y0 Y position relative to center expressed in character heights
-     * @param col LemmFont color
      */
     public void addString(final String s, final String group,
             final int x0, final int y0, final LemmFont.LemmColor col) {
@@ -156,10 +144,6 @@ public class TextDialog {
 
     /**
      * Draw string.
-     * @param s String
-     * @param group Image group
-     * @param x X position relative to center expressed in character widths
-     * @param y Y position relative to center expressed in character heights
      */
     public void addString(final String s, final String group, final int x, final int y) {
         addString(s, group, x, y, LemmFont.LemmColor.GREEN);
@@ -167,10 +151,6 @@ public class TextDialog {
 
     /**
      * Draw string horizontally centered.
-     * @param s String
-     * @param group Image group
-     * @param y0 Y position relative to center expressed in character heights
-     * @param col LemmFont color
      */
     public void addStringCentered(final String s, final String group,
             final int y0, final LemmFont.LemmColor col) {
@@ -201,9 +181,6 @@ public class TextDialog {
 
     /**
      * Draw string horizontally centered.
-     * @param s String
-     * @param group Image group
-     * @param y Y position relative to center expressed in character heights
      */
     public void addStringCentered(final String s, final String group, final int y) {
         addStringCentered(s, group, y, LemmFont.LemmColor.GREEN);
@@ -211,10 +188,6 @@ public class TextDialog {
 
     /**
      * Add an image.
-     * @param img Image
-     * @param group Image group
-     * @param x X position relative to center
-     * @param y Y position relative to center
      */
     public void addImage(final LemmImage img, final String group, final int x, final int y) {
         synchronized (images) {
@@ -225,9 +198,6 @@ public class TextDialog {
 
     /**
      * Add a horizontally centered image.
-     * @param img Image
-     * @param group Image group
-     * @param y Y position relative to center
      */
     public void addImage(final LemmImage img, final String group, final int y) {
         int x = -(img.getWidth() / 2);
@@ -239,12 +209,6 @@ public class TextDialog {
 
     /**
      * Add Button.
-     * @param img Button image
-     * @param imgSelected Button selected image
-     * @param group Button group
-     * @param x X position relative to center in pixels
-     * @param y Y position relative to center in pixels
-     * @param type Button type
      */
     public void addButton(final LemmImage img, final LemmImage imgSelected, LemmImage imgPressed, final String group,
             final int x, final int y, final TextScreen.Button type) {
@@ -260,14 +224,6 @@ public class TextDialog {
 
     /**
      * Add text button.
-     * @param type Button type
-     * @param t Button text
-     * @param group Button group
-     * @param x0 X position relative to center (in characters)
-     * @param y0 Y position relative to center (in characters)
-     * @param ts Button selected text
-     * @param col Button text color
-     * @param cols Button selected text color
      */
     public void addTextButton(final String t, final String ts, final String group,
             final int x0, final int y0, final TextScreen.Button type,
@@ -285,9 +241,6 @@ public class TextDialog {
 
     /**
      * React on left click.
-     * @param x X position in pixels relative to center
-     * @param y Y position in pixels relative to center
-     * @return Button type if button clicked, else NONE
      */
     public TextScreen.Button handleLeftClick(final int x, final int y) {
         synchronized (buttons) {
@@ -315,8 +268,6 @@ public class TextDialog {
 
     /**
      * React on mouse hover.
-     * @param x X position relative to center
-     * @param y Y position relative to center
      */
     public void handleMouseMove(final int x, final int y) {
         synchronized (buttons) {
@@ -382,9 +333,6 @@ class Button {
 
     /**
      * Constructor
-     * @param xi x position in pixels
-     * @param yi y position in pixels
-     * @param idi button type
      */
     Button(final int xi, final int yi, final TextScreen.Button typei) {
         x = xi;
@@ -401,7 +349,6 @@ class Button {
 
     /**
      * Set normal button image.
-     * @param img image
      */
     void SetImage(final LemmImage img) {
         image = img;
@@ -415,7 +362,6 @@ class Button {
 
     /**
      * Set selected button image.
-     * @param img image
      */
     void SetImageSelected(final LemmImage img) {
         imgSelected = img;
@@ -429,7 +375,6 @@ class Button {
     
     /**
      * Set selected button image.
-     * @param img image
      */
     void SetImagePressed(final LemmImage img) {
         imgPressed = img;
@@ -443,7 +388,6 @@ class Button {
 
     /**
      * Return current button image (normal or selected, depending on state).
-     * @return current button image
      */
     LemmImage getImage() {
     	if (pressed) {
@@ -457,9 +401,6 @@ class Button {
 
     /**
      * Draw the button.
-     * @param g graphics object to draw on
-     * @param cx
-     * @param cy
      */
     void draw(final GraphicsContext g, final int cx, final int cy) {
         LemmImage img = getImage();
@@ -470,9 +411,6 @@ class Button {
 
     /**
      * Check if a (mouse) position is inside this button.
-     * @param xi
-     * @param yi
-     * @return true if the coordinates are inside this button, false if not
      */
     boolean inside(final int xi, final int yi) {
         return (xi >= x && xi < x + width && yi >= y && yi < y + height);
@@ -486,9 +424,6 @@ class Button {
 class TextButton extends Button {
     /**
      * Constructor
-     * @param xi x position in pixels
-     * @param yi y position in pixels
-     * @param typei button type
      */
     TextButton(final int xi, final int yi, final TextScreen.Button typei) {
         super(xi, yi, typei);
@@ -496,8 +431,6 @@ class TextButton extends Button {
 
     /**
      * Set text which is used as button.
-     * @param s String which contains the button text
-     * @param color Color of the button (LemmFont color!)
      */
     void setText(final String s, final LemmFont.LemmColor color) {
         if (LemmFont.getCharCount(s) <= 0) {
@@ -514,8 +447,6 @@ class TextButton extends Button {
 
     /**
      * Set text for selected button.
-     * @param s String which contains the selected button text
-     * @param color Color of the button (LemmFont color!)
      */
     void setTextSelected(final String s, final LemmFont.LemmColor color) {
         if (LemmFont.getCharCount(s) <= 0) {
@@ -554,9 +485,6 @@ class TextDialogImage {
 
     /**
      * Draw the image.
-     * @param g graphics object to draw on
-     * @param cx
-     * @param cy
      */
     void draw(final GraphicsContext g, final int cx, final int cy) {
         g.drawImage(image, cx + x, cy + y);

@@ -173,7 +173,6 @@ public class Sound {
 
     /**
      * Constructor.
-     * @throws ResourceException
      */
     public Sound() throws ResourceException {
         Props programProps = Core.programProps;
@@ -351,7 +350,6 @@ public class Sound {
 
     /**
      * Get an array of available mixer names.
-     * @return array of available mixer names
      */
     public String[] getMixers() {
         if (mixers == null) {
@@ -362,7 +360,6 @@ public class Sound {
 
     /**
      * Set mixer to be used for sound output.
-     * @param idx index of mixer
      */
     public synchronized void setMixerIdx(final int idx) {
         int oldMixerIdx = mixerIdx;
@@ -390,7 +387,6 @@ public class Sound {
 
     /**
      * Set the current mixer index.
-     * @return index of current mixer
      */
     public synchronized int getMixerIdx() {
         return mixerIdx;
@@ -398,8 +394,6 @@ public class Sound {
 
     /**
      * Return a data line to play a sample.
-     * @param info line info with requirements
-     * @return data line to play a sample
      */
     public final Line getLine(final DataLine.Info info) {
         try {
@@ -412,8 +406,6 @@ public class Sound {
 
     /**
      * Play a given sound.
-     * @param idx index of the sound to be played
-     * @param pan panning
      */
     public void play(final int idx, final double pan) {
         if (idx < 0 || !GameController.isOptionEnabled(GameController.Option.SOUND_ON)) {
@@ -435,7 +427,6 @@ public class Sound {
 
     /**
      * Play a given sound.
-     * @param idx index of the sound to be played
      */
     public void play(final int idx) {
         play(idx, 0.0);
@@ -443,8 +434,6 @@ public class Sound {
 
     /**
      * Play a given sound.
-     * @param e
-     * @param pan panning
      */
     public void play(final Effect e, final double pan) {
         play(effects.get(e), pan);
@@ -452,7 +441,6 @@ public class Sound {
 
     /**
      * Play a given sound.
-     * @param e
      */
     public void play(final Effect e) {
         play(effects.get(e), 0.0);
@@ -460,7 +448,6 @@ public class Sound {
 
     /**
      * Play the sound of the given SpriteObject
-     * @param spr
      */
     public void play(final SpriteObject spr) {
         //System.out.println(spr.getY());
@@ -469,9 +456,6 @@ public class Sound {
 
     /**
      * Displays the VisualSFX (if it exists, and the setting is turned on)
-     * @param idx
-     * @param x
-     * @param y
      */
     public void playVisualSFXSilent(final int idx, final int x, final int y) {
         if (GameController.isOptionEnabled(GameController.SLTooOption.VISUAL_SFX) && idx >= 0 && idx < Vsfx.VSFX_COUNT) {
@@ -482,9 +466,6 @@ public class Sound {
 
     /**
      * Displays the VisualSFX (if it exists, and the setting is turned on)
-     * @param e
-     * @param x
-     * @param y
      */
     public void playVisualSFXSilent(final Effect e, final int x, final int y) {
         playVisualSFXSilent(effects.get(e), x, y);
@@ -492,9 +473,6 @@ public class Sound {
 
     /**
      * Play a given sound, and show the VisualSFX (if it exists)
-     * @param idx index of the sound to be played
-     * @param x x-coordinate to display the VFX
-     * @param y y-coordinate to display the VFX
      */
     public void playVisualSFX(final int idx, final int x, final int y) {
         //first play the sound effect
@@ -505,9 +483,6 @@ public class Sound {
 
     /**
      * Play a given sound, and show the VisualSFX (if it exists)
-     * @param idx index of the sound to be played
-     * @param x x-coordinate to display the VFX
-     * @param y y-coordinate to display the VFX
      */
     public void playVisualSFX(final int idx, final Point xy) {
         playVisualSFX(idx, (int)xy.getX(), (int)xy.getY());
@@ -520,9 +495,6 @@ public class Sound {
 
     /**
      * Play a given sound, and show the VisualSFX (if it exists)
-     * @param e
-     * @param x x-coordinate to display the VFX
-     * @param y y-coordinate to display the VFX
      */
     public void playVisualSFX(final Effect e, int x, int y) {
         playVisualSFX(effects.get(e), x, y);
@@ -530,8 +502,6 @@ public class Sound {
 
     /**
      * Get the distance off-screen left or right to play the sound effect. (Audio panning)
-     * @param x
-     * @return
      */
     public static double getPan(final int x) {
         double panFactor = Core.getDrawWidth();
@@ -541,8 +511,6 @@ public class Sound {
 
     /**
      * Play a pitched sample.
-     * @param pe
-     * @param pitch pitch value
      */
     public void playPitched(final PitchedEffect pe, final int pitch) {
         if (!GameController.isOptionEnabled(GameController.Option.SOUND_ON)) {
@@ -564,11 +532,6 @@ public class Sound {
 
     /**
      * Convert sound to the specified sample rate.
-     * @param buffer byte array containing source sample
-     * @param af
-     * @param newSampleRate
-     * @param quality
-     * @return sample converted to newSampleRate stored in byte array
      */
     public static byte[] resample(final byte[] buffer, final AudioFormat af, final float newSampleRate, final Quality quality) {
         float sampleRate = af.getSampleRate();
@@ -751,12 +714,6 @@ public class Sound {
 
     /**
      * Create a pitched version of a sample.
-     * @param pe
-     * @param af
-     * @param newSampleRate
-     * @param quality
-     * @param oldBuffer
-     * @param newBuffers
      */
     public static void createPitched(final PitchedEffect pe, final AudioFormat af,
             final float newSampleRate, final Quality quality,
@@ -770,8 +727,6 @@ public class Sound {
 
     /**
      * Set gain of a line.
-     * @param line line
-     * @param gn gain (1.0 = 100%)
      */
     public static void setLineGain(final Line line, double gn) {
         if (line != null) {
@@ -793,7 +748,6 @@ public class Sound {
 
     /**
      * Get gain.
-     * @return gain (1.0 == 100%)
      */
     public double getGain() {
         return gain;
@@ -801,7 +755,6 @@ public class Sound {
 
     /**
      * Set gain.
-     * @param gn gain (1.0 == 100%)
      */
     public void setGain(final double gn) {
         gain = gn;

@@ -81,9 +81,6 @@ public class KeyRepeat {
 
     /**
      * Constructor.
-     * @param tfirst time after which a pressed (and not released) key is recognized as key press (nanoseconds)
-     * @param trep time for repeat function (nanoseconds)
-     * @param tdc maximum time between two clicks to be recognized as double click (nanoseconds)
      */
     public KeyRepeat(final long tfirst, final long trep, final long tdc) {
         timer = new NanosecondTimer();
@@ -105,7 +102,6 @@ public class KeyRepeat {
 
     /**
      * Button/Icon was pressed.
-     * @param m trigger mask
      */
     public synchronized void pressed(final int m) {
         // check repeat states
@@ -139,7 +135,6 @@ public class KeyRepeat {
 
     /**
      * Button/Icon was released.
-     * @param m trigger mask
      */
     public synchronized void released(final int m) {
         mask &= ~m;
@@ -150,7 +145,6 @@ public class KeyRepeat {
 
     /**
      * Poll the last event.
-     * @return repeat event
      */
     public synchronized Event fired() {
         // check if there is a pending event stored

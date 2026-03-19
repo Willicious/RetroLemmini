@@ -400,7 +400,6 @@ public class GameController {
 
     /**
      * Initialization.
-     * @throws ResourceException
      */
     public static void init() throws ResourceException {
         System.out.println("initializing GameController...");
@@ -502,10 +501,6 @@ public class GameController {
 
     /**
      * Calculate absolute level number from rating and relative level number
-     * @param lvlPack level pack
-     * @param rating rating
-     * @param level relative level number
-     * @return absolute level number (0-127)
      */
     static int absLevelNum(final int lvlPack, final int rating, final int level) {
         LevelPack lpack = levelPacks.get(lvlPack);
@@ -519,9 +514,6 @@ public class GameController {
 
     /**
      * Calculate rating and relative level number from absolute level number
-     * @param lvlPack level pack
-     * @param lvlAbs absolute level number
-     * @return {rating, relative level number}
      */
     public static int[] relLevelNum(final int lvlPack, final int lvlAbs) {
         int[] retval = new int[2];
@@ -551,7 +543,6 @@ public class GameController {
 
     /**
      * Proceed to next level.
-     * @return true: OK, false: no more levels in this rating
      */
     public static synchronized boolean nextLevel() {
         int num = curLevelNumber + 1;
@@ -566,7 +557,6 @@ public class GameController {
 
     /**
      * Proceed to next rating.
-     * @return true: OK, false: no more ratings in this level pack
      */
     public static synchronized boolean nextRating() {
         int num = curRating + 1;
@@ -823,10 +813,6 @@ public class GameController {
 
     /**
      * Request a new level.
-     * @param lPack index of level pack
-     * @param rating index of rating
-     * @param lNum level number
-     * @param doReplay true: replay, false: play
      */
     public static synchronized void requestChangeLevel(final int lPack, final int rating, final int lNum, final boolean doReplay) {
         nextLevelPack = lPack;
@@ -846,10 +832,6 @@ public class GameController {
 
     /**
      * Start a new level.
-     * @param lPack index of level pack
-     * @param rating index of rating
-     * @param lNum level number
-     * @param doReplay true: replay, false: play
      */
     private static synchronized Level changeLevel(final int lPack, final int rating, final int lNum, final boolean doReplay) throws LemmException, ResourceException {
         timesFailed = 0;
@@ -893,7 +875,6 @@ public class GameController {
 
     /**
      * Get level lost state.
-     * @return true if level was lost, false otherwise
      */
     public static synchronized boolean wasLost() {
         return gameState == State.LEVEL || numExited < numToRescue;
@@ -901,7 +882,6 @@ public class GameController {
 
     /**
      * Get current replay image.
-     * @return current replay image
      */
     public static synchronized LemmImage getReplayImage() {
         if (!replayMode) {
@@ -916,8 +896,6 @@ public class GameController {
 
     /**
      * Get a Lemming under the selection cursor.
-     * @param type cursor type
-     * @return fitting Lemming or null if none found
      */
     public static synchronized Lemming lemmUnderCursor(final LemmCursor.CursorType type) {
         if (lemmSkill != null && !type.isWalkerOnly()) {
@@ -1079,7 +1057,6 @@ public class GameController {
 
     /**
      * Return time as String "minutes-seconds"
-     * @return time as String "minutes-seconds"
      */
     public static synchronized String getTimeString() {
         return String.format(Locale.ROOT, "%d-%02d", time / 60, time % 60);
@@ -1087,7 +1064,6 @@ public class GameController {
     
     /**
      * Get last level played as a string of integer indexes
-     * @return "x,y,z" where x is pack index, y is rating index, z is level index
      */
     public static String getLastLevelPlayedString() {
     	int levelPackIndex = GameController.getCurLevelPackIdx();
@@ -1478,7 +1454,6 @@ public class GameController {
 
     /**
      * Request a skill change for a Lemming (currently selected skill).
-     * @param lemm Lemming
      */
     public static synchronized void requestSkill(final Lemming lemm) {
         if (lemmSkill != null) {
@@ -1492,7 +1467,6 @@ public class GameController {
 
     /**
      * Assign the selected skill to the selected Lemming.
-     * @param delete flag: reset the current skill request
      */
     private static synchronized void assignSkill(final boolean delete) {
         if (lemmSkillRequest == null || lemmSkill == null) {
@@ -1626,7 +1600,6 @@ public class GameController {
 
     /**
      * Handle pressing of an icon button.
-     * @param type icon type
      */
     public static synchronized void handleIconButton(final Icons.IconType type) {
         //Lemming.Type lemmSkillOld = lemmSkill;
@@ -1774,8 +1747,6 @@ public class GameController {
 
     /**
      * Checks whether the given icon button can be pressed.
-     * @param type icon type
-     * @return true if the icon button can be pressed, false otherwise
      */
     private static boolean testIcon(final Icons.IconType type) {
         switch (type) {
@@ -1929,11 +1900,6 @@ public class GameController {
 
     /**
      * Draw the explosions
-     * @param g graphics object
-     * @param width width of screen in pixels
-     * @param height height of screen in pixels
-     * @param xOfs horizontal level offset in pixels
-     * @param yOfs vertical level offset in pixels
      */
     public static synchronized void drawExplosions(final GraphicsContext g,
             final int width, final int height, final int xOfs, final int yOfs) {
@@ -1942,8 +1908,6 @@ public class GameController {
 
     /**
      * Add a new explosion.
-     * @param x x coordinate in pixels.
-     * @param y y coordinate in pixels.
      */
     public static synchronized void addExplosion(final int x, final int y) {
         // create particle explosion
@@ -2009,9 +1973,6 @@ public class GameController {
 
     /**
      * Draw the original SuperLemmini icon bar, and accompanying skill/release rate values
-     * @param g graphics object
-     * @param x x coordinate in pixels
-     * @param y y coordinate in pixels
      */
     public static void drawIconsAndCounters(final GraphicsContext g, final int iconsX, final int iconsY, final int countersX, final int countersY) {
         drawIcons(g, iconsX, iconsY);
@@ -2026,9 +1987,6 @@ public class GameController {
 
     /**
      * Draw icon bar.
-     * @param g graphics object
-     * @param x x coordinate in pixels
-     * @param y y coordinate in pixels
      */
     private static void drawIcons(final GraphicsContext g, final int x, final int y) {
         //System.out.println("drawing IconBar: " + x + "/" + y);
@@ -2038,9 +1996,6 @@ public class GameController {
 
     /**
      * Draw the skill/release rate values
-     * @param g graphics object
-     * @param x x offset in pixels
-     * @param y y offset in pixels
      */
     private static void drawCounters(final GraphicsContext g, final int x, final int y) {
         // draw counters
@@ -2100,7 +2055,6 @@ public class GameController {
 
     /**
      * Get index of current level pack.
-     * @return index of current level pack
      */
     public static int getCurLevelPackIdx() {
         return curLevelPack;
@@ -2108,7 +2062,6 @@ public class GameController {
 
     /**
      * Get current level pack.
-     * @return current level pack
      */
     public static LevelPack getCurLevelPack() {
         return levelPacks.get(curLevelPack);
@@ -2116,7 +2069,6 @@ public class GameController {
 
     /**
      * get number of level packs
-     * @return number of level packs
      */
     public static int getLevelPackCount() {
         return levelPacks.size();
@@ -2124,8 +2076,6 @@ public class GameController {
 
     /**
      * Get level pack via index.
-     * @param i index of level pack
-     * @return LevelPack
      */
     public static LevelPack getLevelPack(final int i) {
         return levelPacks.get(i);
@@ -2133,7 +2083,6 @@ public class GameController {
 
     /**
      * Get index of current rating.
-     * @return index of current rating
      */
     public static int getCurRating() {
         return curRating;
@@ -2141,7 +2090,6 @@ public class GameController {
 
     /**
      * Get number of current level.
-     * @return number of current level
      */
     public static int getCurLevelNumber() {
         return curLevelNumber;
@@ -2262,7 +2210,6 @@ public class GameController {
 
     /**
      * Set horizontal scrolling offset.
-     * @param x horizontal scrolling offset in pixels
      */
     public static void setXPos(final int x) {
         if (width < Core.getDrawWidth()) {
@@ -2278,7 +2225,6 @@ public class GameController {
 
     /**
      * Set vertical scrolling offset.
-     * @param y vertical scrolling offset in pixels
      */
     public static void setYPos(final int y) {
         if (height < LemminiFrame.LEVEL_HEIGHT) {
@@ -2294,7 +2240,6 @@ public class GameController {
 
     /**
      * Get horizontal scrolling offset.
-     * @return horizontal scrolling offset in pixels
      */
     public static int getXPos() {
         return xPos;
@@ -2302,7 +2247,6 @@ public class GameController {
 
     /**
      * Get vertical scrolling offset.
-     * @return vertical scrolling offset in pixels
      */
     public static int getYPos() {
         return yPos;
@@ -2310,7 +2254,6 @@ public class GameController {
 
     /**
      * Set game state.
-     * @param s new game state
      */
     public static void setGameState(final State s) {
         gameState = s;
@@ -2318,7 +2261,6 @@ public class GameController {
 
     /**
      * Get game state.
-     * @return game state
      */
     public static State getGameState() {
         return gameState;
@@ -2330,7 +2272,6 @@ public class GameController {
 
     /**
      * Set transition state.
-     * @param ts TransitionState
      */
     public static void setTransition(final TransitionState ts) {
         transitionState = ts;
@@ -2339,9 +2280,6 @@ public class GameController {
 
     /**
      * Load a replay.
-     * @param fn file name
-     * @return replay level info object
-     * @throws LemmException
      */
     public static ReplayLevelInfo loadReplay(final Path fn) throws LemmException {
         return replay.load(fn);
@@ -2349,8 +2287,6 @@ public class GameController {
 
     /**
      * Save a replay.
-     * @param fn file name
-     * @return true if saved successfully, false otherwise
      */
     public static boolean saveReplay(final Path fn) {
         return replay.save(fn);
@@ -2372,7 +2308,6 @@ public class GameController {
 
     /**
      * Activate/deactivate Superlemming mode.
-     * @param sl true: activate, false: deactivate
      */
     public static void setSuperLemming(final boolean sl) {
         superLemming = sl;
@@ -2380,7 +2315,6 @@ public class GameController {
 
     /**
      * Get Superlemming state.
-     * @return true is Superlemming mode is active, false otherwise
      */
     public static boolean isSuperLemming() {
         return superLemming;
@@ -2388,7 +2322,6 @@ public class GameController {
 
     /**
      * Set cheated detection.
-     * @param c true: debug mode was activated at any time during gameplay, false otherwise
      */
     public static void setWasCheated(final boolean c) {
     	cheatWasActivated = c;
@@ -2400,7 +2333,6 @@ public class GameController {
 
     /**
      * Enable pause mode.
-     * @param p true: pause is active, false otherwise
      */
     public static void setPaused(final boolean p) {
         paused = p;
@@ -2408,7 +2340,6 @@ public class GameController {
 
     /**
      * Get pause state.
-     * @return true if pause is active, false otherwise
      */
     public static boolean isPaused() {
         return paused;
@@ -2416,7 +2347,6 @@ public class GameController {
 
     /**
      * Enable fast forward mode.
-     * @param ff true: fast forward is active, false otherwise
      */
     public static void setFastForward(final boolean ff) {
         fastForward = ff;
@@ -2424,7 +2354,6 @@ public class GameController {
 
     /**
      * Enable turbo mode.
-     * @param ff true: turbo is active, false otherwise
      */
     public static void setTurbo(final boolean t) {
         turbo = t;
@@ -2432,7 +2361,6 @@ public class GameController {
 
     /**
      * Get fast forward state.
-     * @return true if fast forward is active, false otherwise
      */
     public static boolean isFastForward() {
         return fastForward;
@@ -2440,7 +2368,6 @@ public class GameController {
 
     /**
      * Get turbo state.
-     * @return true if turbo is active, false otherwise
      */
     public static boolean isTurbo() {
         return turbo;
@@ -2458,7 +2385,6 @@ public class GameController {
     }
 
     /** get number of lemmings that exited the level
-     * @return number of lemmings that exited the level
      */
     public static int getNumExited() {
         return numExited;
@@ -2466,7 +2392,6 @@ public class GameController {
 
     /**
      * Set number of Lemmings that exited the level.
-     * @param n number of Lemmings that exited the level
      */
     public static void setNumExited(final int n) {
         numExited = n;
@@ -2474,7 +2399,6 @@ public class GameController {
 
     /**
      * Get level object.
-     * @return level object
      */
     public static Level getLevel() {
         return level;
@@ -2482,7 +2406,6 @@ public class GameController {
 
     /**
      * Get the number of Lemmings currently in this level.
-     * @return number of Lemmings currently in this level
      */
     public static int getNumLemmings() {
         return lemmings.size();
@@ -2490,7 +2413,6 @@ public class GameController {
 
     /**
      * Get maximum number of Lemmings for this level.
-     * @return maximum number of Lemmings for this level
      */
     public static int getNumLemmingsMax() {
         return numLemmingsMax;
@@ -2498,7 +2420,6 @@ public class GameController {
     
     /**
      * Get maximum possible number of Lemmings that can still be saved.
-     * @return maximum possible number of Lemmings that can still be saved
      */
     public static int getNumLemmingsPossibleMax() {
         return getNumLemmingsUnreleased() + getNumLemmings() + numExited;
@@ -2506,7 +2427,6 @@ public class GameController {
 
     /**
      * Get the number of lemmings still in the entrance gate.
-     * @return number of lemmings still in the entrance gate.
      */
     public static int getNumLemmingsUnreleased() {
         return getNumLemmingsMax() - numLemmingsOut;
@@ -2515,8 +2435,6 @@ public class GameController {
 
     /**
      * Get icon type from x position.
-     * @param x x position in pixels
-     * @return icon type
      */
     public static Icons.IconType getIconType(final int x) {
         return Icons.getType(x);
@@ -2524,7 +2442,6 @@ public class GameController {
 
     /**
      * Icon was pressed.
-     * @param t icon type
      */
     public static void pressIcon(final Icons.IconType t) {
         Icons.press(t);
@@ -2532,7 +2449,6 @@ public class GameController {
 
     /**
      * Icon was released.
-     * @param t icon type
      */
     public static void releaseIcon(final Icons.IconType t) {
         Icons.release(t);
@@ -2540,7 +2456,6 @@ public class GameController {
 
     /**
      * Plus was pressed.
-     * @param d bitmask: key or icon
      */
     public static void pressPlus(final int d) {
         stopReplayMode();
@@ -2549,7 +2464,6 @@ public class GameController {
 
     /**
      * Plus was released.
-     * @param d bitmask: key or icon
      */
     public static void releasePlus(final int d) {
         plus.released(d);
@@ -2557,7 +2471,6 @@ public class GameController {
 
     /**
      * Minus was pressed.
-     * @param d bitmask: key or icon
      */
     public static void pressMinus(final int d) {
         stopReplayMode();
@@ -2566,7 +2479,6 @@ public class GameController {
 
     /**
      * Minus was released.
-     * @param d bitmask: key or icon
      */
     public static void releaseMinus(final int d) {
         minus.released(d);
@@ -2574,7 +2486,6 @@ public class GameController {
 
     /**
      * Get the number of Lemmings under the mouse cursor.
-     * @return the number of Lemmings under the mouse cursor
      */
     public static int getNumLemmsUnderCursor() {
         return lemmsUnderCursor.size();
@@ -2596,7 +2507,6 @@ public class GameController {
 
     /**
      * Get list of all Lemmings in this level.
-     * @return list of all Lemmings in this level
      */
     public static List<Lemming> getLemmings() {
         return Collections.unmodifiableList(lemmings);
@@ -2608,7 +2518,6 @@ public class GameController {
 
     /**
      * Get list of all Visual SFX in this level.
-     * @return list of all Visual SFX in this level
      */
     public static List<Vsfx> getVsfx() {
         return Collections.unmodifiableList(vsfxs);
@@ -2620,7 +2529,6 @@ public class GameController {
 
     /**
      * Set sound gain.
-     * @param g gain (0-2.0)
      */
     public static void setSoundGain(final double g) {
         soundGain = g;
@@ -2632,7 +2540,6 @@ public class GameController {
 
     /**
      * Get sound gain.
-     * @return sound gain
      */
     public static double getSoundGain() {
         return soundGain;
@@ -2640,7 +2547,6 @@ public class GameController {
 
     /**
      * Set music gain.
-     * @param g gain (0-2.0)
      */
     public static void setMusicGain(final double g) {
         musicGain = g;
@@ -2652,7 +2558,6 @@ public class GameController {
 
     /**
      * Get music gain.
-     * @return music gain
      */
     public static double getMusicGain() {
         return musicGain;
@@ -2753,7 +2658,6 @@ public class GameController {
 
     /**
      * Get foreground image of level.
-     * @return foreground image of level
      */
     public static LemmImage getFgImage() {
         return fgImage;
@@ -2761,7 +2665,6 @@ public class GameController {
 
     /**
      * Get foreground stencil of level.
-     * @return foreground stencil of level
      */
     public static Stencil getStencil() {
         return stencil;
@@ -2769,7 +2672,6 @@ public class GameController {
 
     /**
      * Get small preview image of level.
-     * @return small preview image of level
      */
     public static LemmImage getMapPreview() {
         return mapPreview;
@@ -2777,7 +2679,6 @@ public class GameController {
 
     /**
      * Get number of Lemmings to rescue.
-     * @return number of Lemmings to rescue
      */
     public static int getNumToRescue() {
         return numToRescue;
@@ -2785,7 +2686,6 @@ public class GameController {
 
     /**
      * Get time left in seconds.
-     * @return time left in seconds
      */
     public static int getTime() {
         return time;
@@ -2874,7 +2774,6 @@ public class GameController {
 	
     /**
      * Get flag: Shift key is pressed?
-     * @return true if shift key is pressed, false otherwise
      */
     public static boolean isShiftPressed() {
         return shiftPressed;
@@ -2882,7 +2781,6 @@ public class GameController {
 
     /**
      * Set flag: Shift key is pressed.
-     * @param p true: Shift key is pressed, false otherwise
      */
     public static void setShiftPressed(final boolean p) {
         shiftPressed = p;
@@ -2890,7 +2788,6 @@ public class GameController {
 
     /**
      * Get flag: Ctrl key is pressed?
-     * @return true if ctrl key is pressed, false otherwise
      */
     public static boolean isCtrlPressed() {
         return ctrlPressed;
@@ -2898,7 +2795,6 @@ public class GameController {
 
     /**
      * Set flag: Ctrl key is pressed.
-     * @param p true: ctrl key is pressed, false otherwise
      */
     public static void setCtrlPressed(final boolean p) {
     	ctrlPressed = p;
@@ -2906,7 +2802,6 @@ public class GameController {
 
     /**
      * Get flag: Alt key is pressed?
-     * @return true if control key is pressed, false otherwise
      */
     public static boolean isAltPressed() {
         return altPressed;
@@ -2914,7 +2809,6 @@ public class GameController {
 
     /**
      * Set flag: Alt key is pressed.
-     * @param p true: control key is pressed, false otherwise
      */
     public static void setAltPressed(final boolean p) {
         altPressed = p;
@@ -2995,8 +2889,6 @@ class TrapDoor {
 
     /**
      * Reset to new number of entrances.
-     * @param e number of entrances
-     * @param eOrder order of entrances if not null; otherwise, use default
      */
     static void reset(final int e, final int[] eOrder) throws LemmException {
         if (e == 0) {
@@ -3039,7 +2931,6 @@ class TrapDoor {
 
     /**
      * Get index of next entrance.
-     * @return index of next entrance
      */
     static int getNext() {
         int retVal = entranceOrder[counter++];

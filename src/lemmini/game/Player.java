@@ -52,7 +52,6 @@ public class Player {
 
     /**
      * Constructor.
-     * @param n player's name
      */
     public Player(final String n) {
         System.out.println("    initalizing player: " + n);
@@ -193,9 +192,6 @@ public class Player {
 
     /**
      * Allow a level to be played.
-     * @param pack level pack
-     * @param rating rating
-     * @param num level number
      */
     public void setAvailable(final String pack, final String rating, final int num) {
         String id = LevelPack.getID(pack, rating);
@@ -215,10 +211,6 @@ public class Player {
 
     /**
      * Check if player is allowed to play a level.
-     * @param pack level pack
-     * @param rating rating
-     * @param num level number
-     * @return true if allowed, false if not
      */
     public boolean isAvailable(final String pack, final String rating, final int num) {
         if (GameController.isOptionEnabled(GameController.SLTooOption.UNLOCK_ALL_LEVELS) || isDebugMode()) {
@@ -272,7 +264,6 @@ public class Player {
 
     /**
      * Get player's name.
-     * @return player's name
      */
     public String getName() {
         return name;
@@ -280,7 +271,6 @@ public class Player {
 
     /**
      * Get debug mode state.
-     * @return true if debug mode is enabled
      */
     public boolean isDebugMode() {
         return debugMode;
@@ -288,7 +278,6 @@ public class Player {
 
     /**
      * Get maximum exit physics state.
-     * @return true if maximum exit physics is enabled
      */
     public boolean isMaximumExitPhysics() {
         return maximumExitPhysics;
@@ -327,8 +316,6 @@ public class Player {
     /**
      * Converts certain characters and names to escape sequences to ensure
      * compatibility with various file systems.
-     * @param s
-     * @return
      */
     public static String addEscapes(final String s) {
         int length = s.length();
@@ -420,8 +407,6 @@ public class Player {
     /**
      * Converts every instance of _xxxx or __xxxxxx (where x is a hex digit) to
      * the corresponding Unicode code point.
-     * @param s
-     * @return
      */
     public static String convertEscapes(final String s) {
         int length = s.length();

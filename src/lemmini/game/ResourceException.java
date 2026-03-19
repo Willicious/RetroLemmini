@@ -37,7 +37,6 @@ public class ResourceException extends Exception {
 
     /**
      * Constructor.
-     * @param s Exception string
      */
     public ResourceException(final String s) {
         super(s);
@@ -45,7 +44,6 @@ public class ResourceException extends Exception {
 
     /**
      * Constructor that accepts a resource.
-     * @param res resource
      */
     public ResourceException(final Resource resource) {
         super(resource.getOriginalPath());

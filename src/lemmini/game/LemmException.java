@@ -37,7 +37,6 @@ public class LemmException extends Exception {
 
     /**
      * Constructor.
-     * @param s Exception string
      */
     public LemmException(final String s) {
         super(s);

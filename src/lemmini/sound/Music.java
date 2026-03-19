@@ -84,9 +84,6 @@ public class Music {
 
     /**
      * Load music file.
-     * @param fName file name
-     * @throws ResourceException
-     * @throws LemmException
      */
     public static void load(final String fName) throws ResourceException, LemmException {
         close();
@@ -167,7 +164,6 @@ public class Music {
 
     /**
      * Check if music is currently playing
-     * @return true if music is currently playing, else false
      */
     public static boolean isPlaying() {
         return playing;
@@ -175,7 +171,6 @@ public class Music {
 
     /**
      * Get current music gain (1.0=100%)
-     * @return current music gain (1.0=100%)
      */
     public static double getGain() {
         return gain;
@@ -183,7 +178,6 @@ public class Music {
 
     /**
      * Set music gain
-     * @param gn gain (1.0=100%)
      */
     public static void setGain(final double gn) {
         gain = gn;
@@ -194,7 +188,6 @@ public class Music {
 
     /**
      * Get current music type.
-     * @return music type
      */
     public static Type getType() {
         return type;

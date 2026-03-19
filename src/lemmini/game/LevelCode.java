@@ -65,13 +65,6 @@ public class LevelCode {
 
     /**
      * Create a level code from the given parameters
-     * @param seed The seed string used as base for the level code
-     * @param lvl The level number (0-255)
-     * @param percent Percentage of levels saved in the level won to get this code
-     * @param failed The number of times that the level was failed
-     * @param unknown
-     * @param offset Used to get a higher code for the first level
-     * @return String containing level code
      */
     public static String create(final String seed, final int lvl, int percent,
             int failed, int unknown, final int offset) {
@@ -127,10 +120,6 @@ public class LevelCode {
 
     /**
      * Parse the level info from the level code and seed
-     * @param seed The seed string used as base for the level code
-     * @param code Code that contains the level number (amongst other things)
-     * @param offset Used to get a higher code for the first level
-     * @return Array if ints containing level info (null in case of error)
      */
     public static int[] getLevel(final String seed, final String code, final int offset) {
         byte[] bs;

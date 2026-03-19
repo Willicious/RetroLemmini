@@ -192,7 +192,6 @@ public class LevelInfo {
 
     /**
      * Get the level's resource object.
-     * @return resource object
      */
     public Resource getLevelResource() {
         return levelResource;
@@ -200,7 +199,6 @@ public class LevelInfo {
 
     /**
      * Set name of music.
-     * @param music name of music
      */
     public void setMusic(final String music) {
         this.music = music;
@@ -208,7 +206,6 @@ public class LevelInfo {
 
     /**
      * Get name of music.
-     * @return name of music.
      */
     public String getMusic() {
         return music;
@@ -216,7 +213,6 @@ public class LevelInfo {
 
     /**
      * Set level name.
-     * @param name level name
      */
     public void setName(final String name) {
         this.name = name;
@@ -224,7 +220,6 @@ public class LevelInfo {
 
     /**
      * Get level name.
-     * @return level name
      */
     public String getName() {
         return name;
@@ -232,7 +227,6 @@ public class LevelInfo {
 
     /**
      * Get level author.
-     * @return level author
      */
     public String getAuthor() {
         return author;

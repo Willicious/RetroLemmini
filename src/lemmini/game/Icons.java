@@ -53,7 +53,6 @@ public class Icons {
 
     /**
      * icon width in pixels (of currently selected icon bar)
-     * @return
      */
     public static int getIconWidth() {
         if (GameController.isOptionEnabled(SLTooOption.ENHANCED_ICONBAR)) {
@@ -65,7 +64,6 @@ public class Icons {
 
     /**
      * icon height in pixels (of currently selected icon bar)
-     * @return
      */
     public static int getIconHeight() {
         if (GameController.isOptionEnabled(SLTooOption.ENHANCED_ICONBAR)) {
@@ -102,7 +100,6 @@ public class Icons {
 
     /**
      * The currently chosen order of icons
-     * @return
      */
     public static List<IconType> CurrentIconOrder() {
         List<IconType> rslt;
@@ -121,7 +118,6 @@ public class Icons {
 
     /**
      * List of basic skillset icons, in order.
-     * @return
      */
     public static List<IconType> SkillIconOrder() {
         List<IconType> rslt;
@@ -160,7 +156,6 @@ public class Icons {
 
     /**
      * Initialization.
-     * @throws ResourceException
      */
     public static void init() throws ResourceException {
         //load the hashmap with initial values for each of the IconTypes
@@ -345,8 +340,6 @@ public class Icons {
 
     /**
      * Get icon type by x position.
-     * @param x x position inside bar in pixels
-     * @return Icon type
      */
     public static IconType getType(final int x) {
         List<IconType> iconOrder = CurrentIconOrder();
@@ -358,7 +351,6 @@ public class Icons {
 
     /**
      * Get buffered image that contains the whole icon bar in its current state.
-     * @return image of icon bar
      */
     public static LemmImage getImg() {
         return iconImg;
@@ -366,8 +358,6 @@ public class Icons {
 
     /**
      * Get pressed state of the given icon
-     * @param type
-     * @return
      */
     static boolean isPressed(IconType type) {
         List<IconType> iconOrder = CurrentIconOrder();
@@ -380,7 +370,6 @@ public class Icons {
 
     /**
      * Press down icon.
-     * @param type Icon Type
      */
     static void press(final IconType type) {
         List<IconType> iconOrder = CurrentIconOrder();
@@ -473,7 +462,6 @@ public class Icons {
 
     /**
      * Release icon.
-     * @param type Icon Type
      */
     static void release(final IconType type) {
         List<IconType> iconOrder = CurrentIconOrder();
@@ -502,7 +490,6 @@ public class Icons {
 
     /**
      * Sets the current Sprite Index for the
-     * @param iconIdx the index of the icon, from the CurrentIconOrder()
      */
     private static void setIconFrame(int iconIdx, boolean pressed) {
         if (iconIdx < CurrentIconOrder().size()) {
@@ -515,7 +502,6 @@ public class Icons {
 
     /**
      * Draws the background and icon of the selected icon button.
-     * @param idx
      */
     private static void drawIcon(int idx) {
         if (idx <= CurrentIconOrder().size()) {
@@ -583,7 +569,6 @@ public class Icons {
 
     /**
      * Get the selected skill icon.
-     * @return the selected skill icon if one is pressed, or null if none is pressed
      */
     static IconType getSelectedSkill() {
         return selectedSkill;
@@ -656,8 +641,6 @@ public class Icons {
 
     /**
      * Returns the pitch of the tone to play when clicking the button.
-     * @param type
-     * @return
      */
     static int GetPitch(IconType type) {
         List<IconType> iconOrder = CurrentIconOrder();

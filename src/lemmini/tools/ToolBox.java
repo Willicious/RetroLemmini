@@ -82,7 +82,6 @@ public class ToolBox {
 
     /**
      * Creates a graphics operation
-     * @return the graphics operation
      */
     public static GraphicsOperation createGraphicsOperation() {
         return new GraphicsOperation();
@@ -90,10 +89,6 @@ public class ToolBox {
 
     /**
      * Creates a custom cursor from the image
-     * @param image
-     * @param centerX
-     * @param centerY
-     * @return the cursor
      */
     public static Cursor createCursor(LemmImage image, int centerX, int centerY) {
         return Toolkit.getDefaultToolkit().createCustomCursor(image.getImage(), new Point(centerX, centerY), StringUtils.EMPTY);
@@ -101,10 +96,6 @@ public class ToolBox {
 
     /**
      * Create a compatible buffered image.
-     * @param width width of image in pixels
-     * @param height height of image in pixels
-     * @param transparency {@link Transparency}
-     * @return compatible buffered image
      */
     public static BufferedImage createImage(final int width, final int height, final int transparency) {
         //return GC.createCompatibleImage(width, height, transparency);
@@ -124,9 +115,6 @@ public class ToolBox {
 
     /**
      * Create a compatible buffered image.
-     * @param width width of image in pixels
-     * @param height height of image in pixels
-     * @return compatible buffered image
      */
     public static LemmImage createLemmImage(final int width, final int height) {
         return createLemmImage(width, height, Transparency.TRANSLUCENT);
@@ -134,10 +122,6 @@ public class ToolBox {
 
     /**
      * Create a compatible buffered image.
-     * @param width width of image in pixels
-     * @param height height of image in pixels
-     * @param transparency {@link Transparency}
-     * @return compatible buffered image
      */
     public static LemmImage createLemmImage(final int width, final int height, final int transparency) {
         return new LemmImage(createImage(width, height, transparency));
@@ -163,9 +147,6 @@ public class ToolBox {
 
     /**
      * Return a list of buffered images which contains an animation.
-     * @param img image containing all the frames one above each other
-     * @param frames number of frames
-     * @return a list of images which contains an animation
      */
     public static java.util.List<LemmImage> getAnimation(final LemmImage img, final int frames) {
         return getAnimation(img, frames, img.getWidth());
@@ -173,10 +154,6 @@ public class ToolBox {
 
     /**
      * Return a list of buffered images which contains an animation.
-     * @param img image containing all the frames one above each other
-     * @param frames number of frames
-     * @param width image width
-     * @return a list of images which contains an animation
      */
     public static java.util.List<LemmImage> getAnimation(final LemmImage img, final int frames, final int width) {
         java.util.List<LemmImage> imgList = new ArrayList<>(frames);
@@ -189,8 +166,6 @@ public class ToolBox {
 
     /**
      * Use the Loader to find a file.
-     * @param fname file name
-     * @return URL of the file
      */
     public static URL findFile(final String fname) {
         ClassLoader loader = ToolBox.class.getClassLoader();
@@ -199,12 +174,6 @@ public class ToolBox {
 
     /**
      * Open file dialog.
-     * @param parent parent frame
-     * @param path default file name
-     * @param load true: load, false: save
-     * @param allowDirectories allow directories to be selected if true
-     * @param ext allowed extensions
-     * @return absolute file name of selected file or null
      */
     public static Path getFileName(final Component parent, final Path path, String title,
             final boolean load, final boolean allowDirectories,
@@ -241,12 +210,6 @@ public class ToolBox {
 
     /**
      * Open file dialog.
-     * @param parent parent frame
-     * @param path default file name
-     * @param load true: load, false: save
-     * @param allowDirectories allow directories to be selected if true
-     * @param ext allowed extensions
-     * @return absolute file names of selected files or null
      */
     public static java.util.List<Path> getFileNames(final Component parent, final Path path,
             final boolean load, final boolean allowDirectories,
@@ -279,9 +242,6 @@ public class ToolBox {
 
     /**
      * Checks whether the first few characters of the given file matches the given header.
-     * @param r Reader for the file
-     * @param header
-     * @return True if file begins with the given header, false otherwise
      */
     public static boolean checkFileID(final Reader r, final String header) {
         try {
@@ -354,7 +314,6 @@ public class ToolBox {
 
     /**
      * Show exception message box.
-     * @param ex exception
      */
     public static void showException(final Throwable ex) {
         StringBuilder sb = new StringBuilder(1024);
@@ -421,8 +380,6 @@ public class ToolBox {
 
     /**
      * Parse decimal, hex, or binary number as int
-     * @param s String that contains one number
-     * @return Integer value of string
      */
     public static int parseInt(final String s) {
         if (s.equalsIgnoreCase("Infinity") || s.equalsIgnoreCase("+Infinity")) {
@@ -480,8 +437,6 @@ public class ToolBox {
 
     /**
      * Parse decimal, hex, or binary number as long
-     * @param s String that contains one number
-     * @return Long value of string
      */
     public static long parseLong(final String s) {
         if (s.equalsIgnoreCase("Infinity") || s.equalsIgnoreCase("+Infinity")) {
@@ -538,8 +493,6 @@ public class ToolBox {
 
     /**
      * Parse decimal, hex, or binary number as BigInteger
-     * @param s String that contains one number
-     * @return BigInteger value of string
      */
     public static BigInteger parseBigInteger(final String s) {
         int index = 0;
@@ -599,8 +552,6 @@ public class ToolBox {
 
     /**
      * Checks whether the given character is a sign.
-     * @param c Character to check
-     * @return True if c is an ASCII plus or minus sign, false otherwise
      */
     public static boolean isSign(char c) {
         return c == '+' || c == '-';
@@ -613,9 +564,6 @@ public class ToolBox {
     /**
      * Checks whether two strings are equal after trimming, converting to
      * lowercase, and applying NFKC normalization.
-     * @param s1 first string to check
-     * @param s2 second string to check
-     * @return True if s1 and s2 are equal after conversion, false otherwise
      */
     public static boolean looselyEquals(String s1, String s2) {
         return Normalizer.normalize(s1.trim().toLowerCase(Locale.ROOT), Normalizer.Form.NFKC)

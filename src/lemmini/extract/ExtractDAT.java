@@ -99,9 +99,6 @@ class DATSection {
 
     /**
      * Constructor for DatSection.
-     * @param compressedData
-     * @param numBitsInFirstByte
-     * @param decompressedDataSize
      */
     DATSection(byte[] compressedData, int numBitsInFirstByte, int decompressedDataSize) {
         this.compressedData = compressedData;
@@ -112,9 +109,6 @@ class DATSection {
 
     /**
      * Static method for creating a DATSection from a ByteChannel.
-     * @param bc the ByteChannel to read from
-     * @return DATSection if the section was read successfully, null otherwise.
-     * @throws IOException
      */
     static DATSection getDATSection(ByteChannel bc) throws IOException {
         // Read the header.
@@ -156,7 +150,6 @@ class DATSection {
 
     /**
      * Returns a byte array containing the decompressed data of this section.
-     * @return a byte array containing the decompressed data
      */
     byte[] decompress() {
         byte[] decompressedData = new byte[decompressedDataSize];
@@ -252,7 +245,6 @@ class DATSection {
 
     /**
      * Reads a bit from the compressed data and advances the index.
-     * @return true if the bit is set to 1, false if it's set to 0
      */
     private boolean nextBit() {
         boolean retBool = BooleanUtils.toBoolean(compressedData[index] & (1 << bitIndex));
@@ -269,8 +261,6 @@ class DATSection {
     /**
      * Extracts a value of the specified size from the compressed data and
      * advances the index. The most significant bit is read first.
-     * @param size the number of bits to read
-     * @return the value extracted from the compressed data
      */
     private int nextValue(int size) {
         int retValue = 0;
@@ -283,7 +273,6 @@ class DATSection {
     /**
      * Extracts a byte from the compressed data. Equivalent to calling
      * nextValue(8) and casting to byte.
-     * @return the byte extracted from the compressed data
      */
     private byte nextByte() {
         return (byte) nextValue(8);
@@ -293,9 +282,6 @@ class DATSection {
      * Extracts the specified number of bytes from the compressed data into the
      * given array. The first byte is copied to the specified index, and each
      * subsequent byte is copied to the previous index.
-     * @param data the array to extract bytes to
-     * @param idx the index into the given array to start extracting bytes to
-     * @param count the number of bytes to extract
      */
     private void extractBytes(byte[] data, int idx, int count) {
         for (int i = 0; i < count; i++) {
@@ -308,10 +294,6 @@ class DATSection {
      * to another index. The first byte is copied from the specified offset to
      * the specified index, and each subsequent byte is copied from the
      * previous offset to the previous index.
-     * @param data the array containing bytes to copy
-     * @param idx the first index to copy to
-     * @param count the number of bytes to copy
-     * @param offset the offset from the index to copy from
      */
     private void copyBytes(byte[] data, int idx, int count, int offset) {
         if (offset >= count) {

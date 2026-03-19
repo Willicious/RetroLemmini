@@ -1,14 +1,11 @@
 package lemmini.game;
 
 import java.awt.Desktop;
-//import java.awt.Image;
-//import java.awt.MediaTracker;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
@@ -165,12 +162,7 @@ public class Core {
 	private static String jarDirectory;
 
     /**
-     * Initialize some core elements.
-     * Loads settings from ini file.
-     * @return true if loading was successful
-     * @throws LemmException
-     * @throws IOException
-     * @throws URISyntaxException
+     * Initialize some core elements (settings, resources, etc)
      */
     public static boolean init(String workingFolder) throws LemmException, IOException  {
         System.out.println("\ninitializing Core...");
@@ -497,10 +489,6 @@ public class Core {
 
     /**
      * Get Path to resource in resource path.
-     * @param fname file name (without resource path)
-     * @param searchMods
-     * @return resource object
-     * @throws ResourceException if file is not found
      */
     public static Resource findResource(String fname, boolean searchMods) throws ResourceException {
         String originalExt = FilenameUtils.getExtension(fname);
@@ -509,10 +497,6 @@ public class Core {
 
     /**
      * Get Path to resource in resource path (searches mods and main file by default).
-     * @param fname file name (without resource path)
-     * @param extensions
-     * @return resource object
-     * @throws ResourceException if file is not found
      */
     public static Resource findResource(String fname, String... extensions) throws ResourceException {
         return findResource(fname, true, true, extensions);
@@ -520,11 +504,6 @@ public class Core {
 
     /**
      * Get Path to resource in resource path (searches main file by default).
-     * @param fname file name (without resource path)
-     * @param searchMods are mods included in the search?
-     * @param extensions
-     * @return resource object
-     * @throws ResourceException if file is not found
      */
     public static Resource findResource(String fname, boolean searchMods, String... extensions) throws ResourceException {
         return findResource(fname, searchMods, true, extensions);
@@ -532,12 +511,6 @@ public class Core {
 
     /**
      * Get Path to resource in resource path.
-     * @param fname file name (without resource path)
-     * @param searchMods are mods included in the search?
-     * @param searchMain is the main folder included in the search?
-     * @param extensions
-     * @return resource object
-     * @throws ResourceException if file is not found
      */
     public static Resource findResource(String fname, boolean searchMods, boolean searchMain, String... extensions) throws ResourceException {
         Resource rslt = findResourceEx(fname, searchMods, searchMain, extensions);
@@ -551,11 +524,6 @@ public class Core {
 
     /**
      * Get Path to resource in resource path.
-     * @param fname file name (without resource path)
-     * @param searchMods
-     * @param extensions
-     * @return resource object
-     * @throws ResourceException if file is not found
      */
     public static Resource findResourceEx(String fname, boolean searchMods, boolean searchMain, String... extensions) throws ResourceException {
         String fnameNoExt = FilenameUtils.removeExtension(fname);
@@ -637,7 +605,6 @@ public class Core {
 
     /**
      * Set the title
-     * @param title
      */
     public static void setTitle(String title) {
         LemminiFrame.getFrame().setTitle(title);
@@ -742,10 +709,6 @@ public class Core {
 
     /**
      * Adds the given image to the given tracker.
-     * @param tracker media tracker
-     * @param image image to add
-     * @return given image if operation was successful; null otherwise
-     * @throws ResourceException
      */
 /*    private static Image addToTracker(final MediaTracker tracker, Image image) throws ResourceException {
         if (image != null) {
@@ -764,8 +727,6 @@ public class Core {
     */
     /**
      * Loads an image from the given resource.
-     * @return Image
-     * @throws ResourceException
      */
     public static LemmImage loadLemmImage(final Resource resource) throws ResourceException {
         BufferedImage img = null;
@@ -784,9 +745,6 @@ public class Core {
 
     /**
      * Load an image from inside the JAR or the directory of the main class.
-     * @param fname
-     * @return Image
-     * @throws ResourceException
      */
     public static LemmImage loadLemmImageJar(final String fname) throws ResourceException {
         BufferedImage img;
@@ -800,8 +758,6 @@ public class Core {
 
     /**
      * Get player name via index.
-     * @param idx player index
-     * @return player name
      */
     public static String getPlayer(final int idx) {
         return players.get(idx);
@@ -809,7 +765,6 @@ public class Core {
 
     /**
      * Get number of players.
-     * @return number of player.
      */
     public static int getPlayerCount() {
         if (players == null) {
@@ -820,7 +775,6 @@ public class Core {
 
     /**
      * Delete a player.
-     * @param idx index of player to delete
      */
     public static void deletePlayer(final int idx) {
         Player.deletePlayerINIFile(players.get(idx));
@@ -838,7 +792,6 @@ public class Core {
 
     /**
      * Add player.
-     * @param name player name
      */
     public static void addPlayer(final String name) {
         players.add(name);
@@ -848,7 +801,6 @@ public class Core {
 
     /**
      * Get internal draw width
-     * @return internal draw width
      */
     public static int getDrawWidth() {
         return drawWidth;
@@ -856,7 +808,6 @@ public class Core {
 
     /**
      * Get scaled internal draw width
-     * @return scaled internal draw width
      */
     public static int getScaledDrawWidth() {
         return (scale == 1.0) ? drawWidth : (int) Math.ceil(drawWidth * scale);
@@ -864,7 +815,6 @@ public class Core {
 
     /**
      * Get internal draw height
-     * @return internal draw width
      */
     public static int getDrawHeight() {
         return drawHeight;
@@ -872,7 +822,6 @@ public class Core {
 
     /**
      * Get scaled internal draw height
-     * @return scaled internal draw width
      */
     public static int getScaledDrawHeight() {
         return (scale == 1.0) ? drawHeight : (int) Math.ceil(drawHeight * scale);
@@ -880,8 +829,6 @@ public class Core {
 
     /**
      * Set internal draw size
-     * @param w draw width
-     * @param h draw height
      */
     public static void setDrawSize(int w, int h) {
         drawWidth = w;
@@ -890,7 +837,6 @@ public class Core {
 
     /**
      * Get zoom scale
-     * @return zoom scale
      */
     public static double getScale() {
         return scale;
@@ -898,7 +844,6 @@ public class Core {
 
     /**
      * Set zoom scale
-     * @param s zoom scale
      */
     public static void setScale(double s) {
         scale = s;

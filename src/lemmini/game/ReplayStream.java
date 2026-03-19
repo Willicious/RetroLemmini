@@ -72,8 +72,6 @@ public class ReplayStream {
 
     /**
      * Get next replay event
-     * @param ctr frame counter
-     * @return replay event
      */
     ReplayEvent getNext(final int ctr) {
         if (replayIndex >= events.size()) {
@@ -100,7 +98,6 @@ public class ReplayStream {
 
     /**
      * Clear the replay buffer from a certain frame counter.
-     * @param ctr frame counter
      */
     public void clearFrom(final int ctr) {
         /* Note: there can be multiple replay events for one frame. */
@@ -118,9 +115,6 @@ public class ReplayStream {
 
     /**
      * Load replay buffer from file.
-     * @param fname file name
-     * @return replay information
-     * @throws LemmException
      */
     public ReplayLevelInfo load(final Path fname) throws LemmException {
         try (BufferedReader br = ToolBox.getBufferedReader(fname)) {
@@ -261,8 +255,6 @@ public class ReplayStream {
 
     /**
      * Store replay info.
-     * @param w BufferedWriter
-     * @return true if save OK, false otherwise
      */
     private boolean save(final BufferedWriter w) {
         try {
@@ -292,8 +284,6 @@ public class ReplayStream {
 
     /**
      * Store replay info in a file.
-     * @param fname file name
-     * @return true if save OK, false otherwise
      */
     public boolean save(final Path fname) {
         try (BufferedWriter w = Files.newBufferedWriter(fname)) {
@@ -305,8 +295,6 @@ public class ReplayStream {
 
     /**
      * Store replay info in a file.
-     * @param fname file name
-     * @return true if save OK, false otherwise
      */
     public boolean save(final String fname) {
         try (BufferedWriter w = Core.resourceTree.newBufferedWriter(fname)) {
@@ -318,7 +306,6 @@ public class ReplayStream {
 
     /**
      * Add a NUKE event (all lemmings nuked).
-     * @param ctr frame counter
      */
     public void addNukeEvent(final int ctr) {
         ReplayEvent event = new ReplayEvent(ctr, NUKE);
@@ -327,7 +314,6 @@ public class ReplayStream {
 
     /**
      * Add an END event.
-     * @param ctr frame counter
      */
     public void addEndEvent(final int ctr) {
         removeEndEvent();
@@ -337,10 +323,6 @@ public class ReplayStream {
 
     /**
      * Add ASSIGN_SKILL event (one lemming was assigned a skill).
-     * @param ctr frame counter
-     * @param skill skill assigned
-     * @param lemming Lemming the skill was assigned to
-     * @param isTimedBomber checks whether or not to apply the timer based on current user setting
      */
     public void addAssignSkillEvent(final int ctr, final Lemming.Type skill, final int lemming) {
         boolean isTimedBomber = GameController.isOptionEnabled(GameController.SLTooOption.TIMED_BOMBERS);
@@ -350,9 +332,6 @@ public class ReplayStream {
 
     /**
      * Add SELECT_SKILL event (skill selection button was pressed).
-     * @param ctr frame counter
-     * @param skill skill selected
-     * @param plr player
      */
     public void addSelectSkillEvent(final int ctr, final Lemming.Type skill, final int plr) {
         ReplaySelectSkillEvent event = new ReplaySelectSkillEvent(ctr, skill, plr);
@@ -361,10 +340,6 @@ public class ReplayStream {
 
     /**
      * Add MOVE_POS event (screen moved left/right).
-     * @param ctr frame counter
-     * @param xPos new screen X position
-     * @param yPos new screen Y position
-     * @param plr player
      */
     public void addPosEvent(final int ctr, final int xPos, final int yPos, final int plr) {
         ReplayMovePosEvent event = new ReplayMovePosEvent(ctr, xPos, yPos, plr);
@@ -373,8 +348,6 @@ public class ReplayStream {
 
     /**
      * Add SET_RELEASE_RATE event (release rate was changed).
-     * @param ctr frame counter
-     * @param releaseRate new release rate
      */
     public void addReleaseRateEvent(final int ctr, final int releaseRate) {
         ReplayReleaseRateEvent event = new ReplayReleaseRateEvent(ctr, releaseRate);
@@ -404,8 +377,6 @@ class ReplayEvent {
 
     /**
      * Constructor
-     * @param ctr frame counter
-     * @param t type
      */
     public ReplayEvent(final int ctr, final int t) {
         frameCtr = ctr;
@@ -438,10 +409,6 @@ class ReplayAssignSkillEvent extends ReplayEvent {
 
     /**
      * Skill assigned
-     * @param ctr Frame counter
-     * @param s skill selected
-     * @param lem lemming no. that the skill was assigned
-     * @param isTimedBomber indicates if the Timed Bomber option was enabled at the time of the event
      */
     public ReplayAssignSkillEvent(final int ctr, final Lemming.Type s, final int lem, boolean isTimedBomber) {
         super(ctr, ReplayStream.ASSIGN_SKILL);
@@ -452,7 +419,6 @@ class ReplayAssignSkillEvent extends ReplayEvent {
 
     /**
      * Returns whether the Timed Bomber option was enabled at the time of the event.
-     * @return true if Timed Bomber was enabled, false otherwise
      */
     public boolean isTimedBomber() {
         return isTimedBomber;
@@ -478,9 +444,6 @@ class ReplaySelectSkillEvent extends ReplayEvent {
 
     /**
      * Skill selected
-     * @param ctr Frame counter
-     * @param s skill selected
-     * @param plr player
      */
     public ReplaySelectSkillEvent(final int ctr, final Lemming.Type s, final int plr) {
         super(ctr, ReplayStream.SELECT_SKILL);
@@ -511,10 +474,6 @@ class ReplayMovePosEvent extends ReplayEvent {
 
     /**
      * Screen position changed event
-     * @param ctr Frame counter
-     * @param x release X position
-     * @param y release Y position
-     * @param plr player
      */
     public ReplayMovePosEvent(final int ctr, final int x, final int y, final int plr) {
         super(ctr, ReplayStream.MOVE_POS);
@@ -542,8 +501,6 @@ class ReplayReleaseRateEvent extends ReplayEvent {
 
     /**
      * Release Rate changed event
-     * @param ctr Frame counter
-     * @param rate release rate value
      */
     public ReplayReleaseRateEvent(final int ctr, final int rate) {
         super(ctr, ReplayStream.SET_RELEASE_RATE);

@@ -46,7 +46,6 @@ public class NumFont {
 
     /**
      * Load and initialize the font.
-     * @throws ResourceException
      */
     public static void init() throws ResourceException {
         Resource resource = Core.findResource("gfx/misc/numfont.png", Core.IMAGE_EXTENSIONS);
@@ -115,8 +114,6 @@ public class NumFont {
 
     /**
      * Get an image for a number
-     * @param n number
-     * @return image of the number
      */
     public static LemmImage numImage(Integer n) {
         LemmImage numImgTemp = NUM_IMG_MAP.get(n);

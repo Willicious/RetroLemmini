@@ -173,7 +173,6 @@ public class LegalFrame extends JFrame {
 
     /**
      * OK button was pressed.
-     * @return true: OK button was pressed.
      */
     public boolean isOK() {
         return ok;
