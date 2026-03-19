@@ -11,9 +11,6 @@ import lemmini.tools.Props;
 import lemmini.tools.ToolBox;
 
 /*
- * FILE MODIFIED BY RYAN SAKOWSKI
- *
- *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,6 +30,7 @@ import lemmini.tools.ToolBox;
  * Storage class to store level info.
  *
  * @author Volker Oth
+ * Modified by Ryan Sakowski
  */
 public class LevelInfo {
     /** level name */

@@ -21,7 +21,7 @@ import java.io.InputStream;
 
 /**
  *
- * @author Ryan
+ * @author Ryan Sakowski
  */
 public interface Resource {
 

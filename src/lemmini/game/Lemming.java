@@ -19,9 +19,6 @@ import lemmini.tools.Props;
 import lemmini.tools.ToolBox;
 
 /*
- * FILE MODIFIED BY RYAN SAKOWSKI
- *
- *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -41,6 +38,7 @@ import lemmini.tools.ToolBox;
  * Implements a Lemming.
  *
  * @author Volker Oth
+ * Modified by Ryan Sakowski and Will James
  */
 public class Lemming {
 

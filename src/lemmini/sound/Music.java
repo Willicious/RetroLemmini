@@ -13,9 +13,6 @@ import lemmini.game.Resource;
 import lemmini.game.ResourceException;
 
 /*
- * FILE MODIFIED BY RYAN SAKOWSKI
- *
- *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,6 +32,7 @@ import lemmini.game.ResourceException;
  * Play background music. Abstraction layer for ModMusic and MidiMusic.
  *
  * @author Volker Oth
+ * Modified by Ryan Sakowski
  */
 public class Music {
 

@@ -6,9 +6,6 @@ import lemmini.graphics.GraphicsContext;
 import lemmini.graphics.LemmImage;
 
 /*
- * FILE MODIFIED BY RYAN SAKOWSKI
- *
- *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,6 +24,7 @@ import lemmini.graphics.LemmImage;
 /**
  * Handle the nuke/bomber particle explosion.
  * @author Volker Oth
+ * Modified by Ryan Sakowski
  */
 public class Explosion {
 

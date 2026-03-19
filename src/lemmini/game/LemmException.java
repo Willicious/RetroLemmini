@@ -1,9 +1,6 @@
 package lemmini.game;
 
 /*
- * FILE MODIFIED BY RYAN SAKOWSKI
- *
- *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,6 +20,7 @@ package lemmini.game;
  * Generic exception class.
  *
  * @author Volker Oth
+ * Modified by Ryan Sakowski
  */
 public class LemmException extends Exception {
 

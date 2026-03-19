@@ -60,7 +60,8 @@ import lemmini.tools.ToolBox;
 
 /**
  *
- * @author Ryan Sakowski, William James
+ * @author Ryan Sakowski
+ * Modified by Will James
  */
 public class LevelDialog extends JDialog {
 	

@@ -11,9 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 /*
- * FILE MODIFIED BY RYAN SAKOWSKI
- *
- *
  * Copyright 2010 Arne Limburg
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,6 +26,10 @@ import java.util.Map;
  * limitations under the License.
  */
 
+/**
+ * @author Arne Limburg
+ * Modified by Ryan Sakowski
+ */
 public class GraphicsContext {
 
     private final Graphics2D graphics;

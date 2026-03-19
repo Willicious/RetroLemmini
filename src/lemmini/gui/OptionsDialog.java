@@ -37,6 +37,7 @@ import lemmini.tools.StyleDownloader;
 /**
  *
  * @author Ryan Sakowski
+ * Modified by Charles Irwin and Will James
  */
 public class OptionsDialog extends JDialog {
 

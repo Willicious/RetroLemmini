@@ -27,9 +27,6 @@ import org.apache.commons.lang3.StringUtils;
 import lemmini.tools.ToolBox;
 
 /*
- * FILE MODIFIED BY RYAN SAKOWSKI
- *
- *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -47,6 +44,8 @@ import lemmini.tools.ToolBox;
 
 /**
  * Convert binary "Lemmings for Win95" level files into text format.
+ * @author Volker Oth
+ * Modified by Ryan Sakowski and Will James
  */
 public class ExtractLevel {
 

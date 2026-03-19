@@ -19,9 +19,6 @@ import lemmini.game.ResourceException;
 import lemmini.tools.ToolBox;
 
 /*
- * FILE MODIFIED BY RYAN SAKOWSKI
- *
- *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -41,6 +38,7 @@ import lemmini.tools.ToolBox;
  * Class to play MOD music.
  *
  * @author Volker Oth
+ * Modified by Ryan Sakowski
  */
 public class ModMusic implements Runnable, MusicPlayer {
 

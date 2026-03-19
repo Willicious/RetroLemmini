@@ -15,9 +15,6 @@ import lemmini.game.Core;
 import lemmini.game.Resource;
 
 /*
- * FILE MODIFIED BY RYAN SAKOWSKI
- *
- *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,6 +34,7 @@ import lemmini.game.Resource;
  * Property class to ease use of INI files to save/load properties.
  *
  * @author Volker Oth
+ * Modified by Ryan Sakowski
  */
 public class Props {
 

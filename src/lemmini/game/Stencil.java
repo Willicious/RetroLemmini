@@ -3,9 +3,6 @@ package lemmini.game;
 import org.apache.commons.lang3.ArrayUtils;
 
 /*
- * FILE MODIFIED BY RYAN SAKOWSKI
- *
- *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,6 +21,7 @@ import org.apache.commons.lang3.ArrayUtils;
 /**
  * Defines the stencil which defines the properties of each pixel of the level.
  * @author Volker Oth
+ * Modified by Ryan Sakowski, Will James and Simon Naarman
  */
 public class Stencil {
 

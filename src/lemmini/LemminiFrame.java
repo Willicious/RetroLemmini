@@ -1,7 +1,4 @@
 /*
- * FILE MODIFIED BY RYAN SAKOWSKI
- *
- *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -94,6 +91,7 @@ import lemmini.tools.ToolBox;
  * {@link GameController}, some core components are in {@link Core}.
  *
  * @author Volker Oth
+ * Modified by Ryan Sakowski, Charles Irwin and Will James
  */
 public class LemminiFrame extends JFrame {
 

@@ -5,9 +5,6 @@ import java.awt.image.AffineTransformOp;
 
 
 /*
- * FILE MODIFIED BY RYAN SAKOWSKI
- *
- *
  * Copyright 2010 Arne Limburg
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,6 +20,10 @@ import java.awt.image.AffineTransformOp;
  * limitations under the License.
  */
 
+/**
+ * @author Arne Limburg
+ * Modified by Ryan Sakowski
+ */
 public class GraphicsOperation {
 
     private final AffineTransform affineTransform = new AffineTransform();

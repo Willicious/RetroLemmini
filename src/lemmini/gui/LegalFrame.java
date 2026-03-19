@@ -1,7 +1,4 @@
 /*
- * FILE MODIFIED BY RYAN SAKOWSKI
- *
- *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,6 +29,7 @@ import lemmini.LemminiFrame;
 /**
  * Frame with legal information.
  * @author Volker Oth
+ * Modified by Ryan Sakowski, Charles Irwin and Will James
  */
 public class LegalFrame extends JFrame {
 

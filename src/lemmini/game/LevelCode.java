@@ -7,9 +7,6 @@ import org.apache.commons.lang3.BooleanUtils;
 import lemmini.tools.ToolBox;
 
 /*
- * FILE MODIFIED BY RYAN SAKOWSKI
- *
- *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,6 +24,7 @@ import lemmini.tools.ToolBox;
 
 /**
  * @author Volker Oth
+ * Modified by Ryan Sakowski
  * Create and evaluate lemmings level codes
  * Based on the documentation and Basic code of Herman Perk (LemGen)
  */

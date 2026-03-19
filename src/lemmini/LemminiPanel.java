@@ -1,7 +1,4 @@
 /*
- * FILE MODIFIED BY RYAN SAKOWSKI
- *
- *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -83,6 +80,7 @@ import lemmini.tools.ToolBox;
 /**
  * A graphics panel in which the actual game contents is displayed.
  * @author Volker Oth
+ * Modified by Ryan Sakowski, Charles Irwin and Will James
  */
 public class LemminiPanel extends JPanel implements Runnable {
 

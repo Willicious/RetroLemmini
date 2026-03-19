@@ -29,9 +29,6 @@ import lemmini.game.ResourceException;
 
 
 /*
- * FILE MODIFIED BY RYAN SAKOWSKI
- *
- *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -51,6 +48,7 @@ import lemmini.game.ResourceException;
  * Class to play MIDI music.
  *
  * @author Volker Oth
+ * Modified by Ryan Sakowski
  */
 public class MidiMusic implements MusicPlayer {
 

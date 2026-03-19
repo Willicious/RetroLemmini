@@ -36,6 +36,7 @@ import lemmini.tools.ToolBox;
 /**
  *
  * @author Ryan Sakowski
+ * Modified by Will James
  */
 public class GraphicSet {
 

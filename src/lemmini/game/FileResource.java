@@ -29,7 +29,7 @@ import lemmini.tools.ToolBox;
 
 /**
  *
- * @author Ryan
+ * @author Ryan Sakowski
  */
 public class FileResource implements Resource {
 

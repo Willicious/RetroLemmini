@@ -41,9 +41,6 @@ import lemmini.tools.StyleDownloader;
 import lemmini.tools.ToolBox;
 
 /*
- * FILE MODIFIED BY RYAN SAKOWSKI
- *
- *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -64,6 +61,7 @@ import lemmini.tools.ToolBox;
  * Now lots of the functionality moved to GameController.
  * Would need some cleaning up, maybe remove the whole thing?
  * @author Volker Oth
+ * Modified by Ryan Sakowski, Charles Irwin and Will James
  */
 public class Core {
 

@@ -1,9 +1,6 @@
 package lemmini.game;
 
 /*
- * FILE MODIFIED BY RYAN SAKOWSKI
- *
- *
  * Copyright 2009 Volker Oth
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,6 +19,7 @@ package lemmini.game;
 /**
  * Storage class for replay level info.
  * @author Volker Oth
+ * Modified by Ryan Sakowski
  */
 public class ReplayLevelInfo {
     /** name of level pack */
