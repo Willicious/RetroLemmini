@@ -3,11 +3,11 @@
 # RetroLemmini Level Version 3
 
 # Level stats
-name = It's a tight fit\!
+name = It's a tight fit!
 author = 
 version = 3
 releaseRate = 1
-maxReleaseRate = 1
+maxReleaseRate = 99
 lockReleaseRate = False
 numLemmings = 10
 numToRescue = 10

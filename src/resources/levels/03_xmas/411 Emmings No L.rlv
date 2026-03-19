@@ -3,11 +3,11 @@
 # RetroLemmini Level Version 9
 
 # Level stats
-name =  Emmings\!  (No L)
+name =  Emmings!  (No L)
 author = 
 version = 9
 releaseRate = 50
-maxReleaseRate = 50
+maxReleaseRate = 99
 lockReleaseRate = False
 numLemmings = 70
 numToRescue = 70

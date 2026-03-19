@@ -1,13 +1,13 @@
 ﻿# LVL 118 Let's block and blow.rlv
-# Created with RetroLemmini Editor Version 1.2
-# RetroLemmini Level Version 3
+# Created with RetroLemmini Editor Version 1.4
+# RetroLemmini Level Version 4
 
 # Level stats
 name = Let's block and blow
 author = 
-version = 3
+version = 4
 releaseRate = 80
-maxReleaseRate = 80
+maxReleaseRate = 99
 lockReleaseRate = False
 numLemmings = 70
 numToRescue = 50
@@ -22,6 +22,7 @@ numMiners = 0
 numDiggers = 0
 xPosCenter = 488
 yPosCenter = 160
+directDrop = False
 superlemming = False
 forceNormalTimerSpeed = True
 maxFallDistance = 126

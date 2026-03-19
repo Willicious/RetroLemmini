@@ -3,12 +3,12 @@
 # RetroLemmini Level Version 9
 
 # Level stats
-name =  Up, up, and away\!
+name =  Up, up, and away!
 author = 
 version = 9
 releaseRate = 1
-maxReleaseRate = 1
-lockReleaseRate = True
+maxReleaseRate = 99
+lockReleaseRate = False
 numLemmings = 50
 numToRescue = 50
 timeLimitSeconds = 480

@@ -3,12 +3,12 @@
 # RetroLemmini Level Version 8
 
 # Level stats
-name = \ Sir Edmund Hilemming
+name = Sir Edmund Hilemming
 author = 
 version = 8
 releaseRate = 30
-maxReleaseRate = 30
-lockReleaseRate = True
+maxReleaseRate = 99
+lockReleaseRate = False
 numLemmings = 80
 numToRescue = 80
 timeLimitSeconds = 360
