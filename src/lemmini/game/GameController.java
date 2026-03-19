@@ -147,7 +147,9 @@ public class GameController {
         //** flag: use the mouse wheel to select skills from the panel
         ENABLE_WHEEL_SKILL_SELECT,
         //** flag: use the mouse wheel to change the brush size in debug draw mode
-        ENABLE_WHEEL_BRUSH_SIZE        
+        ENABLE_WHEEL_BRUSH_SIZE,
+        //** FLAG: activate 'direct drop' (aka 'max exit physics': lemmings can exit in midair ad from any fall distance)
+        DIRECT_DROP
     }
 
     // 3-way option for setting the Exit sound
@@ -387,9 +389,10 @@ public class GameController {
 	/** draw fall distance ruler at cursor (or not) */
     public static boolean drawRulerAtCursor;
     
-    /** allow error information to be displayed in the window caption */
+    /** allow information to be displayed in the window caption */
     public static String replayCaption;
     public static String musicCaption;
+    public static String directDropCaption;
     
     /** flag: shift key is pressed */
     private static boolean shiftPressed;
@@ -593,7 +596,7 @@ public class GameController {
         setFastForward(false);
         setVerticalLock(false);
         setSuperLemming(false);
-        setDirectDrop(false);
+        setDirectDrop(GameController.isOptionEnabled(GameController.RetroLemminiOption.DIRECT_DROP));
 
         if (!wasLost() && curLevelPack != 0) {
             LevelPack lvlPack = getCurLevelPack();
@@ -606,6 +609,8 @@ public class GameController {
         }
 
         replayMode = false;
+        replay.setDirectDropActive(false);
+        
         gameState = State.POSTVIEW;
     }
 
@@ -724,7 +729,10 @@ public class GameController {
         mapPreview = level.createMinimap(fgImage, 1.0 / scaleFactor, 1.0 / scaleFactor, true, false, true);
         Minimap.init(1.0 / 16.0, 1.0 / 8.0, !GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_COLOR_MINIMAP));
 
-        setDirectDrop(level.isDirectDrop());
+        boolean directDropActive = GameController.isOptionEnabled(GameController.RetroLemminiOption.DIRECT_DROP);
+        boolean replayIsDirectDrop = replay.isDirectDropActive() && !directDropActive;
+        GameController.directDropCaption = replayIsDirectDrop ? " - Direct Drop Active" : "";
+        setDirectDrop(level.isDirectDrop() || replayIsDirectDrop || directDropActive);
         
         setSuperLemming(level.isSuperLemming());
         forceNormalTimerSpeed = level.getForceNormalTimerSpeed();
@@ -1894,7 +1902,7 @@ public class GameController {
 	                numToRescue,
 	                numLemmings,
 	                lemmingWord);
-	        Core.setTitle(levelTitleCaption + GameController.musicCaption);
+	        Core.setTitle(levelTitleCaption + GameController.directDropCaption + GameController.musicCaption);
     	}
     }
 

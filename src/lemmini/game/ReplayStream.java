@@ -53,6 +53,7 @@ public class ReplayStream {
     private int format;
     private String revision;
     private int players;
+    private static boolean directDropActive = false;
 
     /**
      * Constructor.
@@ -171,6 +172,9 @@ public class ReplayStream {
             } else {
                 rli.setLvlName(null);
             }
+            // read direct drop status
+            line = br.readLine();
+            setDirectDropActive(line.startsWith("#Direct Drop Active"));
             // read events
             while ((line = br.readLine()) != null) {
                 e = line.split(",");
@@ -270,6 +274,10 @@ public class ReplayStream {
             w.write(String.format("#%s, %d, %d, %s, %s",
                     lp.getName().trim(), GameController.getCurRating(), GameController.getCurLevelNumber(),
                     lp.getRatings().get(GameController.getCurRating()).trim(), GameController.getLevel().getLevelName().trim()));
+            if (GameController.isOptionEnabled(GameController.RetroLemminiOption.DIRECT_DROP)) {
+            	w.newLine();
+            	w.write("#Direct Drop Active");
+            }
             w.newLine();
             for (ReplayEvent r : events) {
                 w.write(r.toString()); // will use toString of the correct child object
@@ -362,6 +370,14 @@ public class ReplayStream {
             }
         }
     }
+
+	public boolean isDirectDropActive() {
+		return directDropActive;
+	}
+
+	public void setDirectDropActive(boolean dd) {
+		ReplayStream.directDropActive = dd;
+	}
 }
 
 /**

@@ -271,6 +271,7 @@ public class Core {
         GameController.setOption(GameController.RetroLemminiOption.CLICK_AIR_TO_CANCEL_REPLAY, programProps.getBoolean("clickAirToCancelReplay", true));
         GameController.setOption(GameController.RetroLemminiOption.ENABLE_WHEEL_SKILL_SELECT, programProps.getBoolean("enableWheelSkillSelect", false));
         GameController.setOption(GameController.RetroLemminiOption.ENABLE_WHEEL_BRUSH_SIZE, programProps.getBoolean("enableWheelBrushSize", true));
+        GameController.setOption(GameController.RetroLemminiOption.DIRECT_DROP, programProps.getBoolean("directDrop", false));
         // Exit sound settings
         GameController.setExitSoundOption(ExitSoundOption.valueOf(programProps.get("exitSound", "AUTO")));
         // Menu theme settings
@@ -432,6 +433,7 @@ public class Core {
         programProps.setBoolean("clickAirToCancelReplay", GameController.isOptionEnabled(GameController.RetroLemminiOption.CLICK_AIR_TO_CANCEL_REPLAY));
         programProps.setBoolean("enableWheelSkillSelect", GameController.isOptionEnabled(GameController.RetroLemminiOption.ENABLE_WHEEL_SKILL_SELECT));
         programProps.setBoolean("enableWheelBrushSize", GameController.isOptionEnabled(GameController.RetroLemminiOption.ENABLE_WHEEL_BRUSH_SIZE));
+        programProps.setBoolean("directDrop", GameController.isOptionEnabled(GameController.RetroLemminiOption.DIRECT_DROP));
         // Exit sound
         programProps.set("exitSound", GameController.getExitSoundOption().name());
         // Menu theme

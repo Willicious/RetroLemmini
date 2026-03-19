@@ -104,6 +104,7 @@ public class OptionsDialog extends JDialog {
 		jCheckBoxTimedBombers = new javax.swing.JCheckBox();
 		jCheckBoxUnlockAllLevels = new javax.swing.JCheckBox();
 		jCheckBoxEnableFrameStepping = new javax.swing.JCheckBox();
+		jCheckBoxDirectDrop = new javax.swing.JCheckBox();
 		jCheckBoxVisualSfx = new javax.swing.JCheckBox();
 		jCheckBoxPostviewJingles = new javax.swing.JCheckBox();
 		jCheckBoxEnhancedStatus = new javax.swing.JCheckBox();
@@ -428,6 +429,10 @@ public class OptionsDialog extends JDialog {
 		jCheckBoxEnableFrameStepping.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.ENABLE_FRAME_STEPPING));
 		jCheckBoxEnableFrameStepping.setText("Enable Frame Stepping");
 		jCheckBoxEnableFrameStepping.setToolTipText("Enable advancing the game by a single frame when paused.");
+		
+		jCheckBoxDirectDrop.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.DIRECT_DROP));
+		jCheckBoxDirectDrop.setText("Enable Direct Drop" + (GameController.getGameState() == GameController.State.LEVEL ? " (restarts level)" : ""));
+		jCheckBoxDirectDrop.setToolTipText("'Direct Drop' aka 'Max Exit Physics': Lemmings can exit in midair and from any fall distance");
 
 		javax.swing.GroupLayout jPanelClassicModeLayout = new javax.swing.GroupLayout(jPanelClassicMode);
 		jPanelClassicMode.setLayout(jPanelClassicModeLayout);
@@ -437,7 +442,8 @@ public class OptionsDialog extends JDialog {
 						.addGroup(jPanelClassicModeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 								.addComponent(jCheckBoxAdvanced)
 								.addComponent(jCheckBoxTimedBombers)
-								.addComponent(jCheckBoxEnableFrameStepping))
+								.addComponent(jCheckBoxEnableFrameStepping)
+								.addComponent(jCheckBoxDirectDrop))
 						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		jPanelClassicModeLayout
 				.setVerticalGroup(jPanelClassicModeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -447,6 +453,8 @@ public class OptionsDialog extends JDialog {
 								.addComponent(jCheckBoxTimedBombers)
 								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 								.addComponent(jCheckBoxEnableFrameStepping)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(jCheckBoxDirectDrop)
 								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
 		jPanelControlScheme.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Control Scheme",
@@ -694,6 +702,7 @@ public class OptionsDialog extends JDialog {
 		GameController.setOption(GameController.SLTooOption.TIMED_BOMBERS, jCheckBoxTimedBombers.isSelected());
 		GameController.setOption(GameController.SLTooOption.UNLOCK_ALL_LEVELS, jCheckBoxUnlockAllLevels.isSelected());
 		GameController.setOption(GameController.SLTooOption.ENABLE_FRAME_STEPPING, jCheckBoxEnableFrameStepping.isSelected());
+		GameController.setOption(GameController.RetroLemminiOption.DIRECT_DROP, jCheckBoxDirectDrop.isSelected());
 		GameController.setOption(GameController.SLTooOption.VISUAL_SFX, jCheckBoxVisualSfx.isSelected());
 		GameController.setReplayNameTemplate(jTextFieldReplayTemplate.getText());
 
@@ -720,6 +729,7 @@ public class OptionsDialog extends JDialog {
 	private javax.swing.JCheckBox jCheckBoxTimedBombers;
 	private javax.swing.JCheckBox jCheckBoxUnlockAllLevels;
 	private javax.swing.JCheckBox jCheckBoxEnableFrameStepping;
+	private javax.swing.JCheckBox jCheckBoxDirectDrop;
 	private javax.swing.JCheckBox jCheckBoxVisualSfx;
 	private javax.swing.JCheckBox jCheckBoxPostviewJingles;
 	private javax.swing.JCheckBox jCheckBoxEnhancedStatus;

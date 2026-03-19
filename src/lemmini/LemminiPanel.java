@@ -2066,6 +2066,7 @@ public class LemminiPanel extends JPanel implements Runnable {
 
     void handleOptions() {
         // Store current settings
+    	boolean oldDirectDrop = GameController.isOptionEnabled(GameController.RetroLemminiOption.DIRECT_DROP);
     	boolean oldMinimapOption = GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_COLOR_MINIMAP);
         boolean oldMenuBarVisOption = GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR);
         boolean oldScrollerOption = GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_SCROLLER);
@@ -2089,6 +2090,15 @@ public class LemminiPanel extends JPanel implements Runnable {
         }
         if (oldMenuThemeOption != GameController.getMenuThemeOption()) {
             TextScreen.setMenuTheme();
+        }
+        
+        // handle direct drop change if mid-level
+        if (GameController.getGameState() == GameController.State.LEVEL) {
+        	boolean isDirectDrop = GameController.isOptionEnabled(GameController.RetroLemminiOption.DIRECT_DROP);
+            if (oldDirectDrop != isDirectDrop) {
+            	GameController.requestRestartLevel(true, false); // restart level to apply change (ensures replay stability)
+            }
+            GameController.setDirectDrop(isDirectDrop);
         }
         
         d.dispose();
