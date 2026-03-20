@@ -65,7 +65,7 @@ import keyrepeatfix.RepeatingReleasedEventsFixer;
 import lemmini.game.Core;
 import lemmini.game.LemGame;
 import lemmini.game.Icons;
-import lemmini.game.LemmCursor;
+import lemmini.game.LemCursor;
 import lemmini.game.LemmException;
 import lemmini.game.Lemming;
 import lemmini.game.Level;
@@ -184,7 +184,7 @@ public class LemminiFrame extends JFrame {
             LemGame.init();
 
             lemminiPanelMain.init();
-            lemminiPanelMain.setCursor(LemmCursor.getCursor());
+            lemminiPanelMain.setCursor(LemCursor.getCursor());
 
             toggleMenuBarVisibility();
 
@@ -873,19 +873,19 @@ public class LemminiFrame extends JFrame {
                     break;
                 case HotkeySelectLeft:
                     if (LemGame.isOptionEnabled(LemGame.Option.ADVANCED_SELECT)) {
-                        if (LemmCursor.getType().isWalkerOnly()) {
-                            lemminiPanelMain.setCursor(LemmCursor.CursorType.WALKER_LEFT);
+                        if (LemCursor.getType().isWalkerOnly()) {
+                            lemminiPanelMain.setCursor(LemCursor.CursorType.WALKER_LEFT);
                         } else {
-                            lemminiPanelMain.setCursor(LemmCursor.CursorType.LEFT);
+                            lemminiPanelMain.setCursor(LemCursor.CursorType.LEFT);
                         }
                     }
                     break;
                 case HotkeySelectRight:
                     if (LemGame.isOptionEnabled(LemGame.Option.ADVANCED_SELECT)) {
-                        if (LemmCursor.getType().isWalkerOnly()) {
-                            lemminiPanelMain.setCursor(LemmCursor.CursorType.WALKER_RIGHT);
+                        if (LemCursor.getType().isWalkerOnly()) {
+                            lemminiPanelMain.setCursor(LemCursor.CursorType.WALKER_RIGHT);
                         } else {
-                            lemminiPanelMain.setCursor(LemmCursor.CursorType.RIGHT);
+                            lemminiPanelMain.setCursor(LemCursor.CursorType.RIGHT);
                         }
                     }
                     break;
@@ -1006,19 +1006,19 @@ public class LemminiFrame extends JFrame {
                     break;
                 case HotkeySelectLeft:
                 	if (LemGame.isOptionEnabled(LemGame.Option.ADVANCED_SELECT)) {
-                        if (LemmCursor.getType() == LemmCursor.CursorType.LEFT) {
-                            lemminiPanelMain.setCursor(LemmCursor.CursorType.NORMAL);
-                        } else if (LemmCursor.getType() == LemmCursor.CursorType.WALKER_LEFT) {
-                            lemminiPanelMain.setCursor(LemmCursor.CursorType.WALKER);
+                        if (LemCursor.getType() == LemCursor.CursorType.LEFT) {
+                            lemminiPanelMain.setCursor(LemCursor.CursorType.NORMAL);
+                        } else if (LemCursor.getType() == LemCursor.CursorType.WALKER_LEFT) {
+                            lemminiPanelMain.setCursor(LemCursor.CursorType.WALKER);
                         }
                     }
                 	break;
                 case HotkeySelectRight:
                     if (LemGame.isOptionEnabled(LemGame.Option.ADVANCED_SELECT)) {
-                        if (LemmCursor.getType() == LemmCursor.CursorType.RIGHT) {
-                            lemminiPanelMain.setCursor(LemmCursor.CursorType.NORMAL);
-                        } else if (LemmCursor.getType() == LemmCursor.CursorType.WALKER_RIGHT) {
-                            lemminiPanelMain.setCursor(LemmCursor.CursorType.WALKER);
+                        if (LemCursor.getType() == LemCursor.CursorType.RIGHT) {
+                            lemminiPanelMain.setCursor(LemCursor.CursorType.NORMAL);
+                        } else if (LemCursor.getType() == LemCursor.CursorType.WALKER_RIGHT) {
+                            lemminiPanelMain.setCursor(LemCursor.CursorType.WALKER);
                         }
                     }  
                     break;
@@ -1389,7 +1389,7 @@ public class LemminiFrame extends JFrame {
         }
     }
 
-    public void setCursor(final LemmCursor.CursorType c) {
+    public void setCursor(final LemCursor.CursorType c) {
         lemminiPanelMain.setCursor(c);
     }
 

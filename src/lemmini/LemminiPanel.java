@@ -47,7 +47,7 @@ import lemmini.game.Core;
 import lemmini.game.LemGame;
 import lemmini.game.LemGame.Option;
 import lemmini.game.Icons;
-import lemmini.game.LemmCursor;
+import lemmini.game.LemCursor;
 import lemmini.game.LemmException;
 import lemmini.game.LemmFont;
 import lemmini.game.Lemming;
@@ -278,8 +278,8 @@ public class LemminiPanel extends JPanel implements Runnable {
         mouseDy = 0;
         int x = Core.unscale(evt.getX());
         int y = Core.unscale(evt.getY());
-        LemmCursor.setX(x);
-        LemmCursor.setY(y);
+        LemCursor.setX(x);
+        LemCursor.setY(y);
         if (isFocused) {
             mouseHasEntered = true;
         }
@@ -300,7 +300,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                 xMouseScreen = x;
                 x = Core.unscale(x) + LemGame.getXPos();
                 xMouse = x;
-                LemmCursor.setX(Core.unscale(xMouseScreen));
+                LemCursor.setX(Core.unscale(xMouseScreen));
 
                 int y = yMouseScreen + Core.scale(mouseDy);
                 if (y >= getHeight()) {
@@ -312,7 +312,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                 yMouseScreen = y;
                 y = Core.unscale(y) + LemGame.getYPos();
                 yMouse = y;
-                LemmCursor.setY(Core.unscale(yMouseScreen));
+                LemCursor.setY(Core.unscale(yMouseScreen));
                 evt.consume();
                 break;
             default:
@@ -468,7 +468,7 @@ public class LemminiPanel extends JPanel implements Runnable {
 	                        }
 	                    } else {
 	                        //clicking on lemmings
-	                        Lemming l = LemGame.lemmUnderCursor(LemmCursor.getType());
+	                        Lemming l = LemGame.lemmUnderCursor(LemCursor.getType());
 	                        if (l != null) {
 	                            LemGame.requestSkill(l);
 	                            LemGame.lastAssignedLemming = l;
@@ -636,7 +636,7 @@ public class LemminiPanel extends JPanel implements Runnable {
 
         xMouse = Core.unscale(evt.getX()) + LemGame.getXPos();
         yMouse = Core.unscale(evt.getY()) + LemGame.getYPos();
-        // LemmCursor
+        // LemCursor
         xMouseScreen = evt.getX();
         if (xMouseScreen >= getWidth()) {
             xMouseScreen = getWidth();
@@ -649,8 +649,8 @@ public class LemminiPanel extends JPanel implements Runnable {
         } else if (yMouseScreen < 0) {
             yMouseScreen = 0;
         }
-        LemmCursor.setX(Core.unscale(xMouseScreen));
-        LemmCursor.setY(Core.unscale(yMouseScreen));
+        LemCursor.setX(Core.unscale(xMouseScreen));
+        LemCursor.setY(Core.unscale(yMouseScreen));
 
         if (isFocused) {
             mouseHasEntered = true;
@@ -748,21 +748,21 @@ public class LemminiPanel extends JPanel implements Runnable {
     /**
      * Set cursor type.
      */
-    public void setCursor(final LemmCursor.CursorType c) {
-        LemmCursor.setType(c);
-        super.setCursor(LemmCursor.getCursor());
+    public void setCursor(final LemCursor.CursorType c) {
+        LemCursor.setType(c);
+        super.setCursor(LemCursor.getCursor());
     }
     
     public void pressSelectWalker() {
-    	switch (LemmCursor.getType()) {
+    	switch (LemCursor.getType()) {
 	        case NORMAL:
-	            setCursor(LemmCursor.CursorType.WALKER);
+	            setCursor(LemCursor.CursorType.WALKER);
 	            break;
 	        case LEFT:
-	            setCursor(LemmCursor.CursorType.WALKER_LEFT);
+	            setCursor(LemCursor.CursorType.WALKER_LEFT);
 	            break;
 	        case RIGHT:
-	            setCursor(LemmCursor.CursorType.WALKER_RIGHT);
+	            setCursor(LemCursor.CursorType.WALKER_RIGHT);
 	            break;
 	        default:
 	            break;
@@ -770,15 +770,15 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
     
     public void releaseSelectWalker() {
-    	switch (LemmCursor.getType()) {
+    	switch (LemCursor.getType()) {
 	        case WALKER:
-	            setCursor(LemmCursor.CursorType.NORMAL);
+	            setCursor(LemCursor.CursorType.NORMAL);
 	            break;
 	        case WALKER_LEFT:
-	            setCursor(LemmCursor.CursorType.LEFT);
+	            setCursor(LemCursor.CursorType.LEFT);
 	            break;
 	        case WALKER_RIGHT:
-	            setCursor(LemmCursor.CursorType.RIGHT);
+	            setCursor(LemCursor.CursorType.RIGHT);
 	            break;
 	        default:
 	            break;
@@ -817,8 +817,8 @@ public class LemminiPanel extends JPanel implements Runnable {
         LemGame.releaseIcon(Icons.IconType.PLUS);
         LemGame.releaseIcon(Icons.IconType.NUKE);
         LemGame.releaseIcon(Icons.IconType.RESTART);
-        LemmCursor.setBox(false);
-        setCursor(LemmCursor.CursorType.NORMAL);
+        LemCursor.setBox(false);
+        setCursor(LemCursor.CursorType.NORMAL);
         isFocused = false;
         mouseHasEntered = false;
         holdingMinimap = false;
@@ -952,7 +952,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                         // draw lemmings
                         offGfx.setClip(0, 0, width, levelHeight);
                         LemGame.drawLemmings(offGfx, LemGame.getXPos(), LemGame.getYPos(), false);
-                        Lemming lemmUnderCursor = LemGame.lemmUnderCursor(LemmCursor.getType());
+                        Lemming lemmUnderCursor = LemGame.lemmUnderCursor(LemCursor.getType());
                         offGfx.setClip(0, 0, width, levelHeight);
                         // draw explosions
                         LemGame.drawExplosions(offGfx, width, LemminiFrame.LEVEL_HEIGHT, xOfsTemp, yOfsTemp);
@@ -1181,8 +1181,8 @@ public class LemminiPanel extends JPanel implements Runnable {
                         LemmImage ruler = MiscGfx.getImage(MiscGfx.Index.RULER);
                         if (ruler != null) {
                         	if (LemGame.drawRulerAtCursor == true) {
-                        		int rx = LemmCursor.getX() - ruler.getWidth() / 2;
-                        		int ry = LemmCursor.getY() - ruler.getHeight() / 2;
+                        		int rx = LemCursor.getX() - ruler.getWidth() / 2;
+                        		int ry = LemCursor.getY() - ruler.getHeight() / 2;
                         		int rWidth = ruler.getWidth();
                         		int fallDist = LemGame.getLevel().getMaxFallDistance();
                         		int rHeight = fallDist <= 0 ? ruler.getHeight() : fallDist;
@@ -1199,23 +1199,23 @@ public class LemminiPanel extends JPanel implements Runnable {
                         // draw cursor
                         if (lemmUnderCursor != null) {
                             if (LemGame.isOptionEnabled(LemGame.Option.CLASSIC_CURSOR)) {
-                                if (mouseHasEntered && !LemmCursor.isBox()) {
-                                    LemmCursor.setBox(true);
-                                    setCursor(LemmCursor.getCursor());
+                                if (mouseHasEntered && !LemCursor.isBox()) {
+                                    LemCursor.setBox(true);
+                                    setCursor(LemCursor.getCursor());
                                 }
                             } else {
                                 int lx = lemmUnderCursor.footX() - xOfsTemp; //NOTE: footX() was .midX()
                                 int ly = lemmUnderCursor.midY() - yOfsTemp;
-                                LemmImage cursorImg = LemmCursor.getBoxImage();
+                                LemmImage cursorImg = LemCursor.getBoxImage();
                                 lx -= cursorImg.getWidth() / 2;
                                 ly -= cursorImg.getHeight() / 2;
                                 offGfx.drawImage(cursorImg, lx, ly);
                             }
                         } else {
                             if (LemGame.isOptionEnabled(LemGame.Option.CLASSIC_CURSOR)
-                                    && LemmCursor.isBox()) {
-                                LemmCursor.setBox(false);
-                                setCursor(LemmCursor.getCursor());
+                                    && LemCursor.isBox()) {
+                                LemCursor.setBox(false);
+                                setCursor(LemCursor.getCursor());
                             }
                         }
                     }

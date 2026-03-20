@@ -481,7 +481,7 @@ public class LemGame {
         LemmFont.init();
         TextScreen.init();
         NumFont.init();
-        LemmCursor.init();
+        LemCursor.init();
         Music.init();
         Music.setGain(musicGain);
 
@@ -868,7 +868,7 @@ public class LemGame {
             LemmFont.init();
             TextScreen.init();
             NumFont.init();
-            LemmCursor.init();
+            LemCursor.init();
             Lemming.loadLemmings();
         }
         
@@ -911,7 +911,7 @@ public class LemGame {
     /**
      * Get a Lemming under the selection cursor.
      */
-    public static synchronized Lemming lemmUnderCursor(final LemmCursor.CursorType type) {
+    public static synchronized Lemming lemmUnderCursor(final LemCursor.CursorType type) {
         if (lemmSkill != null && !type.isWalkerOnly()) {
             for (Lemming l : lemmsUnderCursor) {
                 if (type.isLeftOnly() && l.getDirection() != Lemming.Direction.LEFT) {
@@ -1040,7 +1040,7 @@ public class LemGame {
                     break;
             }
         }
-        if (type == LemmCursor.CursorType.NORMAL) {
+        if (type == LemCursor.CursorType.NORMAL) {
             for (Lemming l : lemmsUnderCursor) {
                 if (!l.getLemmingInfo().isEmpty()) {
                     return l;
@@ -1102,7 +1102,7 @@ public class LemGame {
         updateCtr++;
         
     	if (leftMouseButtonHeld && altPressed) {   		
-            Lemming l = LemGame.lemmUnderCursor(LemmCursor.getType());
+            Lemming l = LemGame.lemmUnderCursor(LemCursor.getType());
             if (l != null && l != lastAssignedLemming) {
                 LemGame.requestSkill(l);
                 LemGame.attemptingHoldToAssign = true;
@@ -1815,9 +1815,9 @@ public class LemGame {
             switch (transitionState) {
                 case END_LEVEL:
                     finishLevel();
-                    LemmCursor.setBox(false);
+                    LemCursor.setBox(false);
                     LemGame.replayCaption = null;
-                    LemminiFrame.getFrame().setCursor(LemmCursor.CursorType.NORMAL);
+                    LemminiFrame.getFrame().setCursor(LemCursor.CursorType.NORMAL);
                     break;
                 case TO_PREVIEW:
                     gameState = State.PREVIEW;
@@ -1850,8 +1850,8 @@ public class LemGame {
                         JOptionPane.showMessageDialog(LemminiFrame.getFrame(), ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         System.exit(1);
                     }
-                    LemmCursor.setBox(false);
-                    LemminiFrame.getFrame().setCursor(LemmCursor.CursorType.NORMAL);
+                    LemCursor.setBox(false);
+                    LemminiFrame.getFrame().setCursor(LemCursor.CursorType.NORMAL);
                     setLevelTitle();
                     break;
                 case LOAD_LEVEL:
@@ -1869,7 +1869,7 @@ public class LemGame {
                         Core.returnToMainMenu();
                     }
                 	setLevelTitle();
-                	LemminiFrame.getFrame().setCursor(LemmCursor.CursorType.NORMAL);
+                	LemminiFrame.getFrame().setCursor(LemCursor.CursorType.NORMAL);
                     break;
                 default:
                     break;
@@ -2512,7 +2512,7 @@ public class LemGame {
             int ly = l.screenY();
             if (lx + l.width() >= xPos && lx < xPos + Core.getDrawWidth()
                     && ly + l.height() >= yPos && ly < yPos + LemminiFrame.LEVEL_HEIGHT) {
-                if (LemmCursor.doesCollide(l, xPos, yPos)) {
+                if (LemCursor.doesCollide(l, xPos, yPos)) {
                     lemmsUnderCursor.add(l);
                 }
             }

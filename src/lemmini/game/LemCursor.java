@@ -30,7 +30,7 @@ import lemmini.tools.ToolBox;
  * @author Volker Oth
  * Modified by Ryan Sakowski
  */
-public class LemmCursor  {
+public class LemCursor  {
 
     /** distance from center of cursor to be used to detect Lemmings under the cursor */
     private static final int HIT_DISTANCE = 12;
@@ -204,7 +204,7 @@ public class LemmCursor  {
      * Set x position in pixels.
      */
     public static void setX(final int x) {
-        LemmCursor.x = x;
+        LemCursor.x = x;
     }
 
     /**
@@ -218,7 +218,7 @@ public class LemmCursor  {
      * Set y position in pixels.
      */
     public static void setY(final int y) {
-        LemmCursor.y = y;
+        LemCursor.y = y;
     }
 
     /**
