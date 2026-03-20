@@ -1,13 +1,13 @@
 package lemmini.game;
 
-import static lemmini.game.LemmFont.LemmColor.BLUE;
-import static lemmini.game.LemmFont.LemmColor.GREEN;
-import static lemmini.game.LemmFont.LemmColor.RED;
-import static lemmini.game.LemmFont.LemmColor.TURQUOISE;
-import static lemmini.game.LemmFont.LemmColor.VIOLET;
-import static lemmini.game.LemmFont.LemmColor.YELLOW;
-import static lemmini.game.LemmFont.LemmColor.ORANGE;
-import static lemmini.game.LemmFont.LemmColor.HOT_RED;
+import static lemmini.game.LemFont.LemmColor.BLUE;
+import static lemmini.game.LemFont.LemmColor.GREEN;
+import static lemmini.game.LemFont.LemmColor.RED;
+import static lemmini.game.LemFont.LemmColor.TURQUOISE;
+import static lemmini.game.LemFont.LemmColor.VIOLET;
+import static lemmini.game.LemFont.LemmColor.YELLOW;
+import static lemmini.game.LemFont.LemmColor.ORANGE;
+import static lemmini.game.LemFont.LemmColor.HOT_RED;
 
 import java.awt.Color;
 import java.awt.RenderingHints;
@@ -15,7 +15,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
-import lemmini.game.LemmFont.LemmColor;
+import lemmini.game.LemFont.LemmColor;
 import lemmini.graphics.GraphicsContext;
 import lemmini.graphics.LemmImage;
 import lemmini.sound.Sound;
@@ -691,10 +691,10 @@ public class TextScreen {
     public static void drawScroller() {
         synchronized (getMonitor()) {
             LemmImage tempScrollerImg = ToolBox.createLemmImage(
-                    LemmFont.getWidth() * (LemmFont.getCharCount(SCROLL_TEXT) + SCROLL_PADDING * 2) + SCROLL_WIDTH * 2,
-                    LemmFont.getHeight());
+                    LemFont.getWidth() * (LemFont.getCharCount(SCROLL_TEXT) + SCROLL_PADDING * 2) + SCROLL_WIDTH * 2,
+                    LemFont.getHeight());
             
-            LemmFont.LemmColor textColor = //(LemGame.getMenuThemeOption() == LemGame.MenuThemeOption.AMIGA)
+            LemFont.LemmColor textColor = //(LemGame.getMenuThemeOption() == LemGame.MenuThemeOption.AMIGA)
 			            		           //? 
 			            		           YELLOW
 			            		           //: BLUE
@@ -704,7 +704,7 @@ public class TextScreen {
 	        try {
 	            scrollerGfx = tempScrollerImg.createGraphicsContext();
 	            scrollerGfx.setBackground(new Color(0, 0, 0, 0));
-	            LemmFont.strImage(scrollerGfx, SCROLL_TEXT, SCROLL_WIDTH + LemmFont.getWidth() * SCROLL_PADDING, 0, textColor);
+	            LemFont.strImage(scrollerGfx, SCROLL_TEXT, SCROLL_WIDTH + LemFont.getWidth() * SCROLL_PADDING, 0, textColor);
 	        } finally {
 	            if (scrollerGfx != null) {
 	                scrollerGfx.dispose();

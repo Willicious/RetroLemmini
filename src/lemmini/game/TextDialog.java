@@ -27,7 +27,7 @@ import lemmini.graphics.LemmImage;
 
 /**
  * Class to create text screens which can be navigated with the mouse.
- * Uses {@link LemmFont} as bitmap font.
+ * Uses {@link LemFont} as bitmap font.
  *
  * @author Volker Oth
  * Modified by Ryan Sakowski
@@ -118,13 +118,13 @@ public class TextDialog {
      * Draw string.
      */
     public void addString(final String s, final String group,
-            final int x0, final int y0, final LemmFont.LemmColor col) {
-        if (LemmFont.getCharCount(s) <= 0) {
+            final int x0, final int y0, final LemFont.LemmColor col) {
+        if (LemFont.getCharCount(s) <= 0) {
             return;
         }
-        int width = LemmFont.getWidth();
-        int height = LemmFont.getHeight();
-        List<String> sa = LemmFont.split(s, 0);
+        int width = LemFont.getWidth();
+        int height = LemFont.getHeight();
+        List<String> sa = LemFont.split(s, 0);
         synchronized (images) {
             addImageGroup(group);
             List<TextDialogImage> groupList = images.get(group);
@@ -132,7 +132,7 @@ public class TextDialog {
             for (ListIterator<String> lit = sa.listIterator(); lit.hasNext(); ) {
                 int i = lit.nextIndex();
                 String line = lit.next();
-                if (LemmFont.getCharCount(line) > 0) {
+                if (LemFont.getCharCount(line) > 0) {
                     int y = (y0 + i) * (height + 4);
                     groupList.add(new TextDialogImage(line, x, y, col));
                 }
@@ -144,27 +144,27 @@ public class TextDialog {
      * Draw string.
      */
     public void addString(final String s, final String group, final int x, final int y) {
-        addString(s, group, x, y, LemmFont.LemmColor.GREEN);
+        addString(s, group, x, y, LemFont.LemmColor.GREEN);
     }
 
     /**
      * Draw string horizontally centered.
      */
     public void addStringCentered(final String s, final String group,
-            final int y0, final LemmFont.LemmColor col) {
-        if (LemmFont.getCharCount(s) <= 0) {
+            final int y0, final LemFont.LemmColor col) {
+        if (LemFont.getCharCount(s) <= 0) {
             return;
         }
-        int width = LemmFont.getWidth();
-        int height = LemmFont.getHeight();
-        List<String> sa = LemmFont.split(s, Math.max(1, 800 / width));
+        int width = LemFont.getWidth();
+        int height = LemFont.getHeight();
+        List<String> sa = LemFont.split(s, Math.max(1, 800 / width));
         synchronized (images) {
             addImageGroup(group);
             List<TextDialogImage> groupList = images.get(group);
             for (ListIterator<String> lit = sa.listIterator(); lit.hasNext(); ) {
                 int i = lit.nextIndex();
                 String line = lit.next();
-                int charCount = LemmFont.getCharCount(line);
+                int charCount = LemFont.getCharCount(line);
                 if (charCount > 0) {
                     if (charCount % 2 > 0) {
                         charCount = (charCount + 2) - charCount % 2;
@@ -181,7 +181,7 @@ public class TextDialog {
      * Draw string horizontally centered.
      */
     public void addStringCentered(final String s, final String group, final int y) {
-        addStringCentered(s, group, y, LemmFont.LemmColor.GREEN);
+        addStringCentered(s, group, y, LemFont.LemmColor.GREEN);
     }
 
     /**
@@ -225,9 +225,9 @@ public class TextDialog {
      */
     public void addTextButton(final String t, final String ts, final String group,
             final int x0, final int y0, final TextScreen.Button type,
-            final LemmFont.LemmColor textCol, final LemmFont.LemmColor selectedCol) {
-        int x = x0 * LemmFont.getWidth();
-        int y = y0 * (LemmFont.getHeight() + 4);
+            final LemFont.LemmColor textCol, final LemFont.LemmColor selectedCol) {
+        int x = x0 * LemFont.getWidth();
+        int y = y0 * (LemFont.getHeight() + 4);
         TextButton b = new TextButton(x, y, type);
         b.setText(t, textCol);
         b.setTextSelected(ts, selectedCol);
@@ -430,11 +430,11 @@ class TextButton extends Button {
     /**
      * Set text which is used as button.
      */
-    void setText(final String s, final LemmFont.LemmColor color) {
-        if (LemmFont.getCharCount(s) <= 0) {
+    void setText(final String s, final LemFont.LemmColor color) {
+        if (LemFont.getCharCount(s) <= 0) {
             return;
         }
-        image = LemmFont.strImage(s, color);
+        image = LemFont.strImage(s, color);
         if (image.getHeight() > height) {
             height = image.getHeight();
         }
@@ -446,11 +446,11 @@ class TextButton extends Button {
     /**
      * Set text for selected button.
      */
-    void setTextSelected(final String s, final LemmFont.LemmColor color) {
-        if (LemmFont.getCharCount(s) <= 0) {
+    void setTextSelected(final String s, final LemFont.LemmColor color) {
+        if (LemFont.getCharCount(s) <= 0) {
             return;
         }
-        imgSelected = LemmFont.strImage(s, color);
+        imgSelected = LemFont.strImage(s, color);
         if (imgSelected.getHeight() > height) {
             height = imgSelected.getHeight();
         }
@@ -475,10 +475,10 @@ class TextDialogImage {
         image = img;
     }
 
-    TextDialogImage(final String text, final int xi, final int yi, final LemmFont.LemmColor col) {
+    TextDialogImage(final String text, final int xi, final int yi, final LemFont.LemmColor col) {
         x = xi;
         y = yi;
-        image = LemmFont.strImage(text, col);
+        image = LemFont.strImage(text, col);
     }
 
     /**

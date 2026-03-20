@@ -478,7 +478,7 @@ public class LemGame {
         lemmSkillRequest = null;
 
         MiscGfx.init(ToolBox.scale(width, 1.0 / 16.0));
-        LemmFont.init();
+        LemFont.init();
         TextScreen.init();
         NumFont.init();
         LemCursor.init();
@@ -865,7 +865,7 @@ public class LemGame {
             MiscGfx.init(ToolBox.scale(width, 1.0 / 16.0));
             Icons.init();
             Explosion.init();
-            LemmFont.init();
+            LemFont.init();
             TextScreen.init();
             NumFont.init();
             LemCursor.init();

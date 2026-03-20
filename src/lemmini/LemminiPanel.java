@@ -49,7 +49,7 @@ import lemmini.game.LemGame.Option;
 import lemmini.game.Icons;
 import lemmini.game.LemCursor;
 import lemmini.game.LemException;
-import lemmini.game.LemmFont;
+import lemmini.game.LemFont;
 import lemmini.game.Lemming;
 import lemmini.game.Level;
 import lemmini.game.LevelCode;
@@ -57,7 +57,7 @@ import lemmini.game.LevelPack;
 import lemmini.game.LevelRecord;
 import lemmini.game.Minimap;
 import lemmini.game.MiscGfx;
-//import lemmini.game.LemmFont.Color;
+//import lemmini.game.LemFont.Color;
 import lemmini.game.MiscGfx.Index;
 import lemmini.game.Player;
 import lemmini.game.ReplayLevelInfo;
@@ -983,7 +983,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                                     strObj = StringUtils.EMPTY;
                                 }
                                 String test = String.format("X: %4d, Y: %3d, Mask: %4d%s", xMouse, yMouse, stencilVal, strObj);
-                                LemmFont.strImage(outStrGfx, test);
+                                LemFont.strImage(outStrGfx, test);
                                 offGfx.drawImage(outStrImg, menuOffsetX + 4, yOffset);
                             }
                         } else {
@@ -1014,7 +1014,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                                 String status;
                                 status = String.format("%-15s OUT %-4d IN %-4s TIME %s", lemmingInfo, LemGame.getNumLemmings(), strHome, LemGame.getTimeString());
                                 //use the standard original "text-based" status bar
-                                LemmFont.strImage(outStrGfx, status);
+                                LemFont.strImage(outStrGfx, status);
                                 offGfx.drawImage(outStrImg, menuOffsetX + 4, yOffset);
                                 
                             // enhanced icon-based status display
@@ -1048,7 +1048,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                       		                         - xSpace - iconWidth - padding;                                
                                 
                                 // draw the lemming info status
-                                LemmImage lemmInfo = LemmFont.strImage(String.format("%-15s", lemmingInfo));
+                                LemmImage lemmInfo = LemFont.strImage(String.format("%-15s", lemmingInfo));
                                 offGfx.drawImage(lemmInfo, menuOffsetX + xLemInfo, yOffset);
 
                                 // draw hatch lemmings status (the number of lemmings yet to spawn / the maximum possible from the start)
@@ -1056,11 +1056,11 @@ public class LemminiPanel extends JPanel implements Runnable {
                                 offGfx.drawImage(lemmIconHatch, menuOffsetX + xHatch, yOffset);
                                 int xHatchW = lemmIconHatch.getWidth() + xSpace;
                                
-                                LemmImage lemmHatch = LemmFont.strImage(String.format("%d", hatchLems), LemmFont.LemmColor.GREEN);
+                                LemmImage lemmHatch = LemFont.strImage(String.format("%d", hatchLems), LemFont.LemmColor.GREEN);
                                 offGfx.drawImage(lemmHatch, menuOffsetX + xHatch + xHatchW, yOffset);
                                 
                                 int xMaxLevelLemm = xHatch + xHatchW + lemmHatch.getWidth();
-                                LemmImage lemmLevelMax = LemmFont.strImage("/" + String.format("%d", maxLevelLemm), LemmFont.LemmColor.GREEN);
+                                LemmImage lemmLevelMax = LemFont.strImage("/" + String.format("%d", maxLevelLemm), LemFont.LemmColor.GREEN);
                                 offGfx.drawImage(lemmLevelMax, menuOffsetX + xMaxLevelLemm, yOffset + 12, 0.5);
 
                                 // draw active lemmings status (the number of lemmings active in the level / the maximum currently possible)
@@ -1068,17 +1068,17 @@ public class LemminiPanel extends JPanel implements Runnable {
                                 offGfx.drawImage(lemmIconActive, menuOffsetX + xActive, yOffset);
                                 int xActiveW = lemmIconActive.getWidth() + xSpace;
                                 
-                                LemmFont.LemmColor activeLemColor;
+                                LemFont.LemmColor activeLemColor;
                                 if (maxPossibleLemm < saveRequirement) {
-                                	activeLemColor = LemmFont.LemmColor.RED; // show count in red if there aren't enough lemmings to complete the level
+                                	activeLemColor = LemFont.LemmColor.RED; // show count in red if there aren't enough lemmings to complete the level
                                 } else {
-                                	activeLemColor = LemmFont.LemmColor.GREEN;
+                                	activeLemColor = LemFont.LemmColor.GREEN;
                                 }
-                                LemmImage lemmActive = LemmFont.strImage(String.format("%d", active), activeLemColor);
+                                LemmImage lemmActive = LemFont.strImage(String.format("%d", active), activeLemColor);
                                 offGfx.drawImage(lemmActive, menuOffsetX + xActive + xActiveW, yOffset);
                                 
                                 int xMaxPossibleLemm = xActive + xActiveW + lemmActive.getWidth();
-                                LemmImage lemmPossibleMax = LemmFont.strImage("/" + String.format("%d", maxPossibleLemm), activeLemColor);
+                                LemmImage lemmPossibleMax = LemFont.strImage("/" + String.format("%d", maxPossibleLemm), activeLemColor);
                                 offGfx.drawImage(lemmPossibleMax, menuOffsetX + xMaxPossibleLemm, yOffset + 12, 0.5);
                                 
                                 // draw lemmings home status (the number of lemmings exited / the save requirement)
@@ -1088,14 +1088,14 @@ public class LemminiPanel extends JPanel implements Runnable {
 
                                 LemmImage lemmHome;
                                 if (saveRequirement > exited) {
-                                    lemmHome = LemmFont.strImage(strHome, LemmFont.LemmColor.RED); // not enough saved yet, show as red
+                                    lemmHome = LemFont.strImage(strHome, LemFont.LemmColor.RED); // not enough saved yet, show as red
                                 } else {
-                                    lemmHome = LemmFont.strImage(strHome);
+                                    lemmHome = LemFont.strImage(strHome);
                                 }
                                 offGfx.drawImage(lemmHome, menuOffsetX + xHome + xHomeW, yOffset);
                                 
                                 int xhomeSubValue = xHome + xHomeW + lemmHome.getWidth();
-                                LemmImage lemmHomeSubValue = LemmFont.strImage("/" + String.format("%d", homeSubValue), LemmFont.LemmColor.GREEN);
+                                LemmImage lemmHomeSubValue = LemFont.strImage("/" + String.format("%d", homeSubValue), LemFont.LemmColor.GREEN);
                                 offGfx.drawImage(lemmHomeSubValue, menuOffsetX + xhomeSubValue, yOffset + 12, 0.5);
                                 
                                 // draw time display (for time limit / infinite time)
@@ -1103,22 +1103,22 @@ public class LemminiPanel extends JPanel implements Runnable {
                                 offGfx.drawImage(lemmIconTime, menuOffsetX + xTime, yOffset);
                                 int xTimeW = lemmIconTime.getWidth() + xSpace;
                                 
-                                LemmFont.LemmColor timeColor;
+                                LemFont.LemmColor timeColor;
                                 int time = LemGame.getTime();
                                 String timeString = LemGame.getTimeString();
 
                                 if (LemGame.isTimed()) {
-                                	timeColor = LemmFont.LemmColor.GREEN; // time limit
+                                	timeColor = LemFont.LemmColor.GREEN; // time limit
                                 	
                                 	if (time <= 59)
-                                		timeColor = LemmFont.LemmColor.YELLOW;
+                                		timeColor = LemFont.LemmColor.YELLOW;
                                 	
                                 	if (time <= 10)
-                                		timeColor = LemmFont.LemmColor.RED;
+                                		timeColor = LemFont.LemmColor.RED;
                                 } else
-                                	timeColor = LemmFont.LemmColor.BLUE; // infinite time
+                                	timeColor = LemFont.LemmColor.BLUE; // infinite time
 
-                                LemmImage lemmTime = LemmFont.strImage(String.format("%s", timeString), timeColor);
+                                LemmImage lemmTime = LemFont.strImage(String.format("%s", timeString), timeColor);
                                 offGfx.drawImage(lemmTime, menuOffsetX + xTime + xTimeW, yOffset);
 
                                 lemmIconHatch = null;
@@ -1154,7 +1154,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                                 debugModeOffset += 13 * charWidth;
                             }
 
-                            LemmImage modeImage = LemmFont.strImage(String.format("%s", debugModeString), LemmFont.LemmColor.BLUE);
+                            LemmImage modeImage = LemFont.strImage(String.format("%s", debugModeString), LemFont.LemmColor.BLUE);
                             offGfx.drawImage(modeImage, menuOffsetX + 4, LemminiFrame.LEVEL_HEIGHT + 2, 0.5);
                         }
 
@@ -1163,7 +1163,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                             String maxExitString = "MAX-EXIT ";
                             maxExitOffset += 9 * charWidth;
 
-                            LemmImage maxExitImage = LemmFont.strImage(String.format("%s", maxExitString), LemmFont.LemmColor.VIOLET);
+                            LemmImage maxExitImage = LemFont.strImage(String.format("%s", maxExitString), LemFont.LemmColor.VIOLET);
                             offGfx.drawImage(maxExitImage, menuOffsetX + 4 + debugModeOffset, LemminiFrame.LEVEL_HEIGHT + 2, 0.5);
                         }
 
@@ -1172,7 +1172,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                             String rating = LemGame.getCurLevelPack().getRatings().get(LemGame.getCurRating());
                             int levelNum = LemGame.getCurLevelNumber() + 1;
                             String levelName = rating + " " + levelNum + ": " + level.getLevelName().trim();
-                            LemmImage lemmLevelName = LemmFont.strImage(levelName, LemmFont.LemmColor.GREEN);
+                            LemmImage lemmLevelName = LemFont.strImage(levelName, LemFont.LemmColor.GREEN);
                             offGfx.drawImage(lemmLevelName, menuOffsetX + 4 + debugModeOffset + maxExitOffset, LemminiFrame.LEVEL_HEIGHT + 2, 0.5);
                             lemmLevelName = null;
                         }
@@ -2139,7 +2139,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
 
     private void setBufferSize(int width, int height) {
-        if (width <= 0 || height <= 0 || LemmFont.getHeight() <= 0) {
+        if (width <= 0 || height <= 0 || LemFont.getHeight() <= 0) {
             return;
         }
 
@@ -2151,9 +2151,9 @@ public class LemminiPanel extends JPanel implements Runnable {
             }
 
             if (outStrBuffer == null) {
-                outStrBuffer = new GraphicsBuffer(width, LemmFont.getHeight(), Transparency.TRANSLUCENT, true);
+                outStrBuffer = new GraphicsBuffer(width, LemFont.getHeight(), Transparency.TRANSLUCENT, true);
             } else {
-                outStrBuffer.setSize(width, LemmFont.getHeight());
+                outStrBuffer.setSize(width, LemFont.getHeight());
             }
 
             menuOffsetX = Math.max(0, (width - getMinimumSize().width) / 2);

@@ -42,7 +42,7 @@ import lemmini.tools.ToolBox;
  * @author Volker Oth
  * Modified by Ryan Sakowski
  */
-public class LemmFont {
+public class LemFont {
 
     /** Colors */
     public static enum LemmColor {
