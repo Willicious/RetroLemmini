@@ -100,9 +100,9 @@ public class MouseInput {
     }
     
     private void applyOptionChanges() {
-        GameController.setOption(GameController.RetroLemminiOption.CLICK_AIR_TO_CANCEL_REPLAY, clickAirToCancelReplay);
-        GameController.setOption(GameController.RetroLemminiOption.ENABLE_WHEEL_SKILL_SELECT, enableWheelSkillSelect);
-        GameController.setOption(GameController.RetroLemminiOption.ENABLE_WHEEL_BRUSH_SIZE, enableWheelBrushSize);
+        GameController.setOption(GameController.Option.CLICK_AIR_TO_CANCEL_REPLAY, clickAirToCancelReplay);
+        GameController.setOption(GameController.Option.ENABLE_WHEEL_SKILL_SELECT, enableWheelSkillSelect);
+        GameController.setOption(GameController.Option.ENABLE_WHEEL_BRUSH_SIZE, enableWheelBrushSize);
     }
     
     public void loadFromProgramProps(Props props) {

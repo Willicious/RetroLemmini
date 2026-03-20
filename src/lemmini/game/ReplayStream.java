@@ -252,7 +252,7 @@ public class ReplayStream {
     	if (revision != null && revision.startsWith("0.1"))
     	    return false;
     	
-    	return GameController.isOptionEnabled(GameController.SLTooOption.TIMED_BOMBERS);
+    	return GameController.isOptionEnabled(GameController.Option.TIMED_BOMBERS);
     }
 
     /**
@@ -272,7 +272,7 @@ public class ReplayStream {
             w.write(String.format("#%s, %d, %d, %s, %s",
                     lp.getName().trim(), GameController.getCurRating(), GameController.getCurLevelNumber(),
                     lp.getRatings().get(GameController.getCurRating()).trim(), GameController.getLevel().getLevelName().trim()));
-            if (GameController.isOptionEnabled(GameController.RetroLemminiOption.DIRECT_DROP)) {
+            if (GameController.isOptionEnabled(GameController.Option.DIRECT_DROP)) {
             	w.newLine();
             	w.write("#Direct Drop Active");
             }
@@ -331,7 +331,7 @@ public class ReplayStream {
      * Add ASSIGN_SKILL event (one lemming was assigned a skill).
      */
     public void addAssignSkillEvent(final int ctr, final Lemming.Type skill, final int lemming) {
-        boolean isTimedBomber = GameController.isOptionEnabled(GameController.SLTooOption.TIMED_BOMBERS);
+        boolean isTimedBomber = GameController.isOptionEnabled(GameController.Option.TIMED_BOMBERS);
         ReplayAssignSkillEvent event = new ReplayAssignSkillEvent(ctr, skill, lemming, isTimedBomber);
         events.add(event);
     }

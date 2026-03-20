@@ -250,26 +250,26 @@ public class Core {
         GameController.setOption(GameController.Option.REPLAY_SCROLL, programProps.getBoolean("replayScroll", false));
         GameController.setOption(GameController.Option.UNPAUSE_ON_ASSIGNMENT, programProps.getBoolean("unpauseOnAssignment", false));
         // Settings added in SuperLemminiToo
-        GameController.setOption(GameController.SLTooOption.TIMED_BOMBERS, programProps.getBoolean("timedBombers", true));
-        GameController.setOption(GameController.SLTooOption.UNLOCK_ALL_LEVELS, programProps.getBoolean("unlockAllLevels", true));
-        GameController.setOption(GameController.SLTooOption.ENABLE_FRAME_STEPPING, programProps.getBoolean("enableFrameStepping", false));
-        GameController.setOption(GameController.SLTooOption.VISUAL_SFX, programProps.getBoolean("visualSFX", true));
-        GameController.setOption(GameController.SLTooOption.ENHANCED_STATUS, programProps.getBoolean("enhancedStatus", true));
-        GameController.setOption(GameController.SLTooOption.SHOW_LEVEL_NAME, programProps.getBoolean("showLevelName", true));
-        GameController.setOption(GameController.SLTooOption.ENHANCED_ICONBAR, programProps.getBoolean("enhancedIconBar", true));
-        GameController.setOption(GameController.SLTooOption.ICON_LABELS, programProps.getBoolean("iconLabels", false));
-        GameController.setOption(GameController.SLTooOption.ANIMATED_ICONS, programProps.getBoolean("animatedIcons", true));
-        GameController.setOption(GameController.SLTooOption.CLASSIC_SCROLLER, programProps.getBoolean("classicScroller", true));
-        GameController.setOption(GameController.SLTooOption.DEBUG_VERBOSE_PLAYER_LOAD, programProps.getBoolean("debugVerbosePlayerLoad", false));
+        GameController.setOption(GameController.Option.TIMED_BOMBERS, programProps.getBoolean("timedBombers", true));
+        GameController.setOption(GameController.Option.UNLOCK_ALL_LEVELS, programProps.getBoolean("unlockAllLevels", true));
+        GameController.setOption(GameController.Option.ENABLE_FRAME_STEPPING, programProps.getBoolean("enableFrameStepping", false));
+        GameController.setOption(GameController.Option.VISUAL_SFX, programProps.getBoolean("visualSFX", true));
+        GameController.setOption(GameController.Option.ENHANCED_STATUS, programProps.getBoolean("enhancedStatus", true));
+        GameController.setOption(GameController.Option.SHOW_LEVEL_NAME, programProps.getBoolean("showLevelName", true));
+        GameController.setOption(GameController.Option.ENHANCED_ICONBAR, programProps.getBoolean("enhancedIconBar", true));
+        GameController.setOption(GameController.Option.ICON_LABELS, programProps.getBoolean("iconLabels", false));
+        GameController.setOption(GameController.Option.ANIMATED_ICONS, programProps.getBoolean("animatedIcons", true));
+        GameController.setOption(GameController.Option.CLASSIC_SCROLLER, programProps.getBoolean("classicScroller", true));
+        GameController.setOption(GameController.Option.DEBUG_VERBOSE_PLAYER_LOAD, programProps.getBoolean("debugVerbosePlayerLoad", false));
         // Settings added in RetroLemmini
-        GameController.setOption(GameController.RetroLemminiOption.AUTOSAVE_REPLAYS, programProps.getBoolean("autoSaveReplays", true));
-        GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, programProps.getBoolean("showMenuBar", true));
-        GameController.setOption(GameController.RetroLemminiOption.FULL_COLOR_MINIMAP, programProps.getBoolean("fullColorMinimap", true));
-        GameController.setOption(GameController.RetroLemminiOption.POSTVIEW_JINGLES, programProps.getBoolean("postviewJingles", false));
-        GameController.setOption(GameController.RetroLemminiOption.CLICK_AIR_TO_CANCEL_REPLAY, programProps.getBoolean("clickAirToCancelReplay", true));
-        GameController.setOption(GameController.RetroLemminiOption.ENABLE_WHEEL_SKILL_SELECT, programProps.getBoolean("enableWheelSkillSelect", false));
-        GameController.setOption(GameController.RetroLemminiOption.ENABLE_WHEEL_BRUSH_SIZE, programProps.getBoolean("enableWheelBrushSize", true));
-        GameController.setOption(GameController.RetroLemminiOption.DIRECT_DROP, programProps.getBoolean("directDrop", false));
+        GameController.setOption(GameController.Option.AUTOSAVE_REPLAYS, programProps.getBoolean("autoSaveReplays", true));
+        GameController.setOption(GameController.Option.SHOW_MENU_BAR, programProps.getBoolean("showMenuBar", true));
+        GameController.setOption(GameController.Option.FULL_COLOR_MINIMAP, programProps.getBoolean("fullColorMinimap", true));
+        GameController.setOption(GameController.Option.POSTVIEW_JINGLES, programProps.getBoolean("postviewJingles", false));
+        GameController.setOption(GameController.Option.CLICK_AIR_TO_CANCEL_REPLAY, programProps.getBoolean("clickAirToCancelReplay", true));
+        GameController.setOption(GameController.Option.ENABLE_WHEEL_SKILL_SELECT, programProps.getBoolean("enableWheelSkillSelect", false));
+        GameController.setOption(GameController.Option.ENABLE_WHEEL_BRUSH_SIZE, programProps.getBoolean("enableWheelBrushSize", true));
+        GameController.setOption(GameController.Option.DIRECT_DROP, programProps.getBoolean("directDrop", false));
         // Exit sound settings
         GameController.setExitSoundOption(ExitSoundOption.valueOf(programProps.get("exitSound", "AUTO")));
         // Menu theme settings
@@ -412,26 +412,26 @@ public class Core {
         programProps.setBoolean("replayScroll", GameController.isOptionEnabled(GameController.Option.REPLAY_SCROLL));
         programProps.setBoolean("unpauseOnAssignment", GameController.isOptionEnabled(GameController.Option.UNPAUSE_ON_ASSIGNMENT));
         // Settings added in SuperLemminiToo
-        programProps.setBoolean("timedBombers", GameController.isOptionEnabled(GameController.SLTooOption.TIMED_BOMBERS));
-        programProps.setBoolean("unlockAllLevels", GameController.isOptionEnabled(GameController.SLTooOption.UNLOCK_ALL_LEVELS));
-        programProps.setBoolean("enableFrameStepping", GameController.isOptionEnabled(GameController.SLTooOption.ENABLE_FRAME_STEPPING));
-        programProps.setBoolean("visualSFX", GameController.isOptionEnabled(GameController.SLTooOption.VISUAL_SFX));
-        programProps.setBoolean("enhancedStatus", GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_STATUS));
-        programProps.setBoolean("showLevelName", GameController.isOptionEnabled(GameController.SLTooOption.SHOW_LEVEL_NAME));
-        programProps.setBoolean("enhancedIconBar", GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_ICONBAR));
-        programProps.setBoolean("iconLabels", GameController.isOptionEnabled(GameController.SLTooOption.ICON_LABELS));
-        programProps.setBoolean("animatedIcons", GameController.isOptionEnabled(GameController.SLTooOption.ANIMATED_ICONS));
-        programProps.setBoolean("classicScroller", GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_SCROLLER));
-        programProps.setBoolean("debugVerbosePlayerLoad", GameController.isOptionEnabled(GameController.SLTooOption.DEBUG_VERBOSE_PLAYER_LOAD));
+        programProps.setBoolean("timedBombers", GameController.isOptionEnabled(GameController.Option.TIMED_BOMBERS));
+        programProps.setBoolean("unlockAllLevels", GameController.isOptionEnabled(GameController.Option.UNLOCK_ALL_LEVELS));
+        programProps.setBoolean("enableFrameStepping", GameController.isOptionEnabled(GameController.Option.ENABLE_FRAME_STEPPING));
+        programProps.setBoolean("visualSFX", GameController.isOptionEnabled(GameController.Option.VISUAL_SFX));
+        programProps.setBoolean("enhancedStatus", GameController.isOptionEnabled(GameController.Option.ENHANCED_STATUS));
+        programProps.setBoolean("showLevelName", GameController.isOptionEnabled(GameController.Option.SHOW_LEVEL_NAME));
+        programProps.setBoolean("enhancedIconBar", GameController.isOptionEnabled(GameController.Option.ENHANCED_ICONBAR));
+        programProps.setBoolean("iconLabels", GameController.isOptionEnabled(GameController.Option.ICON_LABELS));
+        programProps.setBoolean("animatedIcons", GameController.isOptionEnabled(GameController.Option.ANIMATED_ICONS));
+        programProps.setBoolean("classicScroller", GameController.isOptionEnabled(GameController.Option.CLASSIC_SCROLLER));
+        programProps.setBoolean("debugVerbosePlayerLoad", GameController.isOptionEnabled(GameController.Option.DEBUG_VERBOSE_PLAYER_LOAD));
         // Settings added in RetroLemmini
-        programProps.setBoolean("autoSaveReplays", GameController.isOptionEnabled(GameController.RetroLemminiOption.AUTOSAVE_REPLAYS));
-        programProps.setBoolean("showMenuBar", GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
-        programProps.setBoolean("fullColorMinimap", GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_COLOR_MINIMAP));
-        programProps.setBoolean("postviewJingles", GameController.isOptionEnabled(GameController.RetroLemminiOption.POSTVIEW_JINGLES));
-        programProps.setBoolean("clickAirToCancelReplay", GameController.isOptionEnabled(GameController.RetroLemminiOption.CLICK_AIR_TO_CANCEL_REPLAY));
-        programProps.setBoolean("enableWheelSkillSelect", GameController.isOptionEnabled(GameController.RetroLemminiOption.ENABLE_WHEEL_SKILL_SELECT));
-        programProps.setBoolean("enableWheelBrushSize", GameController.isOptionEnabled(GameController.RetroLemminiOption.ENABLE_WHEEL_BRUSH_SIZE));
-        programProps.setBoolean("directDrop", GameController.isOptionEnabled(GameController.RetroLemminiOption.DIRECT_DROP));
+        programProps.setBoolean("autoSaveReplays", GameController.isOptionEnabled(GameController.Option.AUTOSAVE_REPLAYS));
+        programProps.setBoolean("showMenuBar", GameController.isOptionEnabled(GameController.Option.SHOW_MENU_BAR));
+        programProps.setBoolean("fullColorMinimap", GameController.isOptionEnabled(GameController.Option.FULL_COLOR_MINIMAP));
+        programProps.setBoolean("postviewJingles", GameController.isOptionEnabled(GameController.Option.POSTVIEW_JINGLES));
+        programProps.setBoolean("clickAirToCancelReplay", GameController.isOptionEnabled(GameController.Option.CLICK_AIR_TO_CANCEL_REPLAY));
+        programProps.setBoolean("enableWheelSkillSelect", GameController.isOptionEnabled(GameController.Option.ENABLE_WHEEL_SKILL_SELECT));
+        programProps.setBoolean("enableWheelBrushSize", GameController.isOptionEnabled(GameController.Option.ENABLE_WHEEL_BRUSH_SIZE));
+        programProps.setBoolean("directDrop", GameController.isOptionEnabled(GameController.Option.DIRECT_DROP));
         // Exit sound
         programProps.set("exitSound", GameController.getExitSoundOption().name());
         // Menu theme

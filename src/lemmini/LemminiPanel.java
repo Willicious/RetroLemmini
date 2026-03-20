@@ -45,7 +45,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import lemmini.game.Core;
 import lemmini.game.GameController;
-import lemmini.game.GameController.SLTooOption;
+import lemmini.game.GameController.Option;
 import lemmini.game.Icons;
 import lemmini.game.LemmCursor;
 import lemmini.game.LemmException;
@@ -113,7 +113,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
 
     private int getIconBarX() {
-        if (GameController.isOptionEnabled(SLTooOption.ENHANCED_ICONBAR) ) {
+        if (GameController.isOptionEnabled(Option.ENHANCED_ICONBAR) ) {
             if (!needVLockIcon())
                 return ICONS_X - 10;
             else
@@ -123,7 +123,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
 
     private int getIconBarY() {
-        if (GameController.isOptionEnabled(SLTooOption.ENHANCED_ICONBAR) ) {
+        if (GameController.isOptionEnabled(Option.ENHANCED_ICONBAR) ) {
             return ICONS_Y - 10;
         }
         return ICONS_Y;
@@ -131,14 +131,14 @@ public class LemminiPanel extends JPanel implements Runnable {
 
 
     private int getSmallX() {
-        if (GameController.isOptionEnabled(SLTooOption.ENHANCED_ICONBAR) ) {
+        if (GameController.isOptionEnabled(Option.ENHANCED_ICONBAR) ) {
             return SMALL_X + 10;
         }
         return SMALL_X;
     }
 
     private int getSmallY() {
-        if (GameController.isOptionEnabled(SLTooOption.ENHANCED_ICONBAR) ) {
+        if (GameController.isOptionEnabled(Option.ENHANCED_ICONBAR) ) {
             return SMALL_Y - 3;
         }
         return SMALL_Y;
@@ -473,9 +473,9 @@ public class LemminiPanel extends JPanel implements Runnable {
 	                            GameController.requestSkill(l);
 	                            GameController.lastAssignedLemming = l;
 	                        } else if (y < LemminiFrame.LEVEL_HEIGHT) {
-	                        	if (GameController.isOptionEnabled(GameController.RetroLemminiOption.CLICK_AIR_TO_CANCEL_REPLAY))
+	                        	if (GameController.isOptionEnabled(GameController.Option.CLICK_AIR_TO_CANCEL_REPLAY))
 	                        		GameController.stopReplayMode();
-	                            if (GameController.isOptionEnabled(GameController.SLTooOption.ENABLE_FRAME_STEPPING))
+	                            if (GameController.isOptionEnabled(GameController.Option.ENABLE_FRAME_STEPPING))
 	                            	GameController.advanceFrame();
 	                        }
 	                    }
@@ -681,8 +681,8 @@ public class LemminiPanel extends JPanel implements Runnable {
         	return;
         
         boolean isDebugDraw = draw && Core.player.isDebugMode();
-        boolean enableWheelBrushSize = isDebugDraw && GameController.isOptionEnabled(GameController.RetroLemminiOption.ENABLE_WHEEL_BRUSH_SIZE);
-        boolean enableWheelSkillSelect = GameController.isOptionEnabled(GameController.RetroLemminiOption.ENABLE_WHEEL_SKILL_SELECT);
+        boolean enableWheelBrushSize = isDebugDraw && GameController.isOptionEnabled(GameController.Option.ENABLE_WHEEL_BRUSH_SIZE);
+        boolean enableWheelSkillSelect = GameController.isOptionEnabled(GameController.Option.ENABLE_WHEEL_SKILL_SELECT);
         
         if (!enableWheelSkillSelect && !enableWheelBrushSize)
         	return;
@@ -905,9 +905,9 @@ public class LemminiPanel extends JPanel implements Runnable {
                         int iconBarY = getIconBarY();
                         int countBarX = menuOffsetX + getIconBarX();
                         int countBarY = COUNTER_Y;
-                        if (GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_ICONBAR)) {
+                        if (GameController.isOptionEnabled(GameController.Option.ENHANCED_ICONBAR)) {
                             countBarY += 7;
-                        } else if (!GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_ICONBAR) && GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_STATUS)) {
+                        } else if (!GameController.isOptionEnabled(GameController.Option.ENHANCED_ICONBAR) && GameController.isOptionEnabled(GameController.Option.ENHANCED_STATUS)) {
 
                             iconBarY += 3;
                             countBarY += 3;
@@ -921,7 +921,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                         int XOffset = 0;
                         int YOffset = 0;
 
-                        if (GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_ICONBAR)) {
+                        if (GameController.isOptionEnabled(GameController.Option.ENHANCED_ICONBAR)) {
                             if (needVLockIcon())
                                 XOffset = 17;
                             else
@@ -943,7 +943,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                         }
 
                         // draw minimap
-                        if (GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_ICONBAR)) {
+                        if (GameController.isOptionEnabled(GameController.Option.ENHANCED_ICONBAR)) {
                             drawMiniMapLarge(offGfx, width, height, minimapXOfsTemp, yOfsTemp);
                         } else {
                             drawMiniMap(offGfx, width, height, minimapXOfsTemp, yOfsTemp);
@@ -966,7 +966,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                         GraphicsContext outStrGfx = outStrBuffer.getGraphicsContext();
                         outStrGfx.clearRect(0, 0, outStrImg.getWidth(), outStrImg.getHeight());
                         int statusBarGap = 8; //8 pixels of padding between the bottom of the level and the top of the status line.
-                        if (GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_STATUS)) {
+                        if (GameController.isOptionEnabled(GameController.Option.ENHANCED_STATUS)) {
                             statusBarGap = 18;
                         }
                         int yOffset = LemminiFrame.LEVEL_HEIGHT + statusBarGap;
@@ -1010,7 +1010,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                             }
 
                             // standard text-based status display
-                            if (!GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_STATUS)) {
+                            if (!GameController.isOptionEnabled(GameController.Option.ENHANCED_STATUS)) {
                                 String status;
                                 status = String.format("%-15s OUT %-4d IN %-4s TIME %s", lemmingInfo, GameController.getNumLemmings(), strHome, GameController.getTimeString());
                                 //use the standard original "text-based" status bar
@@ -1168,7 +1168,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                         }
 
                         // Show the title of the level?
-                        if (GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_STATUS) && GameController.isOptionEnabled(GameController.SLTooOption.SHOW_LEVEL_NAME)) {
+                        if (GameController.isOptionEnabled(GameController.Option.ENHANCED_STATUS) && GameController.isOptionEnabled(GameController.Option.SHOW_LEVEL_NAME)) {
                             String rating = GameController.getCurLevelPack().getRatings().get(GameController.getCurRating());
                             int levelNum = GameController.getCurLevelNumber() + 1;
                             String levelName = rating + " " + levelNum + ": " + level.getLevelName().trim();
@@ -1785,7 +1785,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
 
     private void maybeAutoSaveReplay() {
-        if (!GameController.isOptionEnabled(GameController.RetroLemminiOption.AUTOSAVE_REPLAYS)) return;
+        if (!GameController.isOptionEnabled(GameController.Option.AUTOSAVE_REPLAYS)) return;
 
         if (replaySaved) return;
 
@@ -2064,10 +2064,10 @@ public class LemminiPanel extends JPanel implements Runnable {
 
     void handleOptions() {
         // Store current settings
-    	boolean oldDirectDrop = GameController.isOptionEnabled(GameController.RetroLemminiOption.DIRECT_DROP);
-    	boolean oldMinimapOption = GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_COLOR_MINIMAP);
-        boolean oldMenuBarVisOption = GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR);
-        boolean oldScrollerOption = GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_SCROLLER);
+    	boolean oldDirectDrop = GameController.isOptionEnabled(GameController.Option.DIRECT_DROP);
+    	boolean oldMinimapOption = GameController.isOptionEnabled(GameController.Option.FULL_COLOR_MINIMAP);
+        boolean oldMenuBarVisOption = GameController.isOptionEnabled(GameController.Option.SHOW_MENU_BAR);
+        boolean oldScrollerOption = GameController.isOptionEnabled(GameController.Option.CLASSIC_SCROLLER);
         GameController.MenuThemeOption oldMenuThemeOption = GameController.getMenuThemeOption();
 
         // Show options dialog
@@ -2075,15 +2075,15 @@ public class LemminiPanel extends JPanel implements Runnable {
         d.setVisible(true);
 
         // Update UI if options have changed
-        if (oldMinimapOption != GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_COLOR_MINIMAP)) {
+        if (oldMinimapOption != GameController.isOptionEnabled(GameController.Option.FULL_COLOR_MINIMAP)) {
         	if (GameController.getGameState() == GameController.State.LEVEL) {
         		Minimap.init(1.0 / 16.0, 1.0 / 8.0, oldMinimapOption);
         	}
         }
-        if (oldMenuBarVisOption != GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR)) {
+        if (oldMenuBarVisOption != GameController.isOptionEnabled(GameController.Option.SHOW_MENU_BAR)) {
             getParentFrame().toggleMenuBarVisibility();
         }
-        if (oldScrollerOption != GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_SCROLLER)) {
+        if (oldScrollerOption != GameController.isOptionEnabled(GameController.Option.CLASSIC_SCROLLER)) {
             TextScreen.toggleScrollerType();
         }
         if (oldMenuThemeOption != GameController.getMenuThemeOption()) {
@@ -2092,7 +2092,7 @@ public class LemminiPanel extends JPanel implements Runnable {
         
         // handle direct drop change if mid-level
         if (GameController.getGameState() == GameController.State.LEVEL) {
-        	boolean isDirectDrop = GameController.isOptionEnabled(GameController.RetroLemminiOption.DIRECT_DROP);
+        	boolean isDirectDrop = GameController.isOptionEnabled(GameController.Option.DIRECT_DROP);
             if (oldDirectDrop != isDirectDrop) {
             	GameController.requestRestartLevel(true, false); // restart level to apply change (ensures replay stability)
             }

@@ -155,10 +155,10 @@ public class OptionsDialog extends JDialog {
 
 		jLabelMixer.setText("SFX Mixer");
 
-		jCheckBoxVisualSfx.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.VISUAL_SFX));
+		jCheckBoxVisualSfx.setSelected(GameController.isOptionEnabled(GameController.Option.VISUAL_SFX));
 		jCheckBoxVisualSfx.setText("Visual SFX");
 
-		jCheckBoxPostviewJingles.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.POSTVIEW_JINGLES));
+		jCheckBoxPostviewJingles.setSelected(GameController.isOptionEnabled(GameController.Option.POSTVIEW_JINGLES));
 		jCheckBoxPostviewJingles.setText("Postview Jingles");
 
 		// Radio group for Exit sound
@@ -185,7 +185,7 @@ public class OptionsDialog extends JDialog {
 			break;
 		}
 
-		jCheckBoxEnhancedStatus.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_STATUS));
+		jCheckBoxEnhancedStatus.setSelected(GameController.isOptionEnabled(GameController.Option.ENHANCED_STATUS));
 		jCheckBoxEnhancedStatus.setText("Enhanced Status Bar");
 		jCheckBoxEnhancedStatus.addActionListener(e -> {
 			boolean enabled = jCheckBoxEnhancedStatus.isSelected();
@@ -197,27 +197,27 @@ public class OptionsDialog extends JDialog {
 		});
 
 		jCheckBoxShowLevelName.setEnabled(jCheckBoxEnhancedStatus.isSelected());
-		jCheckBoxShowLevelName.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.SHOW_LEVEL_NAME));
+		jCheckBoxShowLevelName.setSelected(GameController.isOptionEnabled(GameController.Option.SHOW_LEVEL_NAME));
 		jCheckBoxShowLevelName.setText("Show Level Name on the Status Bar");
 
 		jCheckBoxEnhancedIconBar
-				.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_ICONBAR));
+				.setSelected(GameController.isOptionEnabled(GameController.Option.ENHANCED_ICONBAR));
 		jCheckBoxEnhancedIconBar.setText("Enhanced Icon Bar");
 
-		jCheckBoxIconLabels.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.ICON_LABELS));
+		jCheckBoxIconLabels.setSelected(GameController.isOptionEnabled(GameController.Option.ICON_LABELS));
 		jCheckBoxIconLabels.setText("Show Labels on the Icon Bar");
 
 		jCheckBoxFullColorMinimap
-				.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_COLOR_MINIMAP));
+				.setSelected(GameController.isOptionEnabled(GameController.Option.FULL_COLOR_MINIMAP));
 		jCheckBoxFullColorMinimap.setText("Full Color Minimap");
 
 		jCheckBoxClassicScroller
-				.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_SCROLLER));
+				.setSelected(GameController.isOptionEnabled(GameController.Option.CLASSIC_SCROLLER));
 		jCheckBoxClassicScroller.setText("Classic Scroller");
 		jCheckBoxClassicScroller.setToolTipText("Show the classic ticker tape scroller on the title screen");
 
 		jCheckBoxShowMenuBar
-				.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
+				.setSelected(GameController.isOptionEnabled(GameController.Option.SHOW_MENU_BAR));
 		jCheckBoxShowMenuBar.setText("Show Menu Bar (F1)");
 		jCheckBoxShowMenuBar.setToolTipText(
 				"Show the menu bar at the top of the game window. Use F1 to toggle visibility at any time");
@@ -344,7 +344,7 @@ public class OptionsDialog extends JDialog {
 				javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
 		jCheckBoxAutoSaveReplays
-				.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.AUTOSAVE_REPLAYS));
+				.setSelected(GameController.isOptionEnabled(GameController.Option.AUTOSAVE_REPLAYS));
 		jCheckBoxAutoSaveReplays.setText("Auto-Save Successful Replays");
 		jCheckBoxAutoSaveReplays
 				.setToolTipText("Automatically saves replays for succesfully-completed levels to 'resources/replays/'");
@@ -424,14 +424,14 @@ public class OptionsDialog extends JDialog {
 		jCheckBoxAdvanced.setToolTipText(
 				"Hold directional keys to select only Lemmings going in that same direction. Hold Up to select only Walkers.");
 
-		jCheckBoxTimedBombers.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.TIMED_BOMBERS));
+		jCheckBoxTimedBombers.setSelected(GameController.isOptionEnabled(GameController.Option.TIMED_BOMBERS));
 		jCheckBoxTimedBombers.setText("Enable 5 second timed bombers");
 
-		jCheckBoxEnableFrameStepping.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.ENABLE_FRAME_STEPPING));
+		jCheckBoxEnableFrameStepping.setSelected(GameController.isOptionEnabled(GameController.Option.ENABLE_FRAME_STEPPING));
 		jCheckBoxEnableFrameStepping.setText("Enable Frame Stepping");
 		jCheckBoxEnableFrameStepping.setToolTipText("Enable advancing the game by a single frame when paused.");
 		
-		jCheckBoxDirectDrop.setSelected(GameController.isOptionEnabled(GameController.RetroLemminiOption.DIRECT_DROP));
+		jCheckBoxDirectDrop.setSelected(GameController.isOptionEnabled(GameController.Option.DIRECT_DROP));
 		jCheckBoxDirectDrop.setText("Enable Direct Drop" + (GameController.getGameState() == GameController.State.LEVEL ? " (restarts level)" : ""));
 		jCheckBoxDirectDrop.setToolTipText("'Direct Drop' aka 'Max Exit Physics': Lemmings can exit in midair and from any fall distance");
 
@@ -536,7 +536,7 @@ public class OptionsDialog extends JDialog {
 		jCheckBoxNoPercentages.setText("Use Percentage For Rescue Count");
 
 		jCheckBoxUnlockAllLevels
-				.setSelected(GameController.isOptionEnabled(GameController.SLTooOption.UNLOCK_ALL_LEVELS));
+				.setSelected(GameController.isOptionEnabled(GameController.Option.UNLOCK_ALL_LEVELS));
 		jCheckBoxUnlockAllLevels.setText("Unlock all levels");
 		jCheckBoxUnlockAllLevels.setToolTipText("All access to all levels, without having to complete previous ones.");
 
@@ -674,7 +674,7 @@ public class OptionsDialog extends JDialog {
 		GameController.setOption(GameController.Option.SOUND_ON, jCheckBoxEnableSound.isSelected());
 		GameController.setSoundGain(jSliderSoundVolume.getValue() / 100.0);
 		GameController.sound.setMixerIdx(jComboBoxMixer.getSelectedIndex());
-		GameController.setOption(GameController.RetroLemminiOption.POSTVIEW_JINGLES, jCheckBoxPostviewJingles.isSelected());
+		GameController.setOption(GameController.Option.POSTVIEW_JINGLES, jCheckBoxPostviewJingles.isSelected());
 		// apply exit sound setting
 		GameController.setExitSoundOption(jRadioButtonYippee.isSelected() ? GameController.ExitSoundOption.YIPPEE
 				: jRadioButtonBoing.isSelected() ? GameController.ExitSoundOption.BOING
@@ -682,17 +682,17 @@ public class OptionsDialog extends JDialog {
 		// apply graphics settings
 		Core.setBilinear(jCheckBoxBilinear.isSelected());
 		GameController.setOption(GameController.Option.CLASSIC_CURSOR, jCheckBoxClassicCursor.isSelected());
-		GameController.setOption(GameController.SLTooOption.ENHANCED_STATUS, jCheckBoxEnhancedStatus.isSelected());
-		GameController.setOption(GameController.SLTooOption.SHOW_LEVEL_NAME, jCheckBoxShowLevelName.isSelected());
-		GameController.setOption(GameController.SLTooOption.ENHANCED_ICONBAR, jCheckBoxEnhancedIconBar.isSelected());
-		GameController.setOption(GameController.SLTooOption.ICON_LABELS, jCheckBoxIconLabels.isSelected());
-		GameController.setOption(GameController.RetroLemminiOption.FULL_COLOR_MINIMAP, jCheckBoxFullColorMinimap.isSelected());
-		GameController.setOption(GameController.SLTooOption.CLASSIC_SCROLLER, jCheckBoxClassicScroller.isSelected());
+		GameController.setOption(GameController.Option.ENHANCED_STATUS, jCheckBoxEnhancedStatus.isSelected());
+		GameController.setOption(GameController.Option.SHOW_LEVEL_NAME, jCheckBoxShowLevelName.isSelected());
+		GameController.setOption(GameController.Option.ENHANCED_ICONBAR, jCheckBoxEnhancedIconBar.isSelected());
+		GameController.setOption(GameController.Option.ICON_LABELS, jCheckBoxIconLabels.isSelected());
+		GameController.setOption(GameController.Option.FULL_COLOR_MINIMAP, jCheckBoxFullColorMinimap.isSelected());
+		GameController.setOption(GameController.Option.CLASSIC_SCROLLER, jCheckBoxClassicScroller.isSelected());
 		// apply menu theme setting
 		GameController.setMenuThemeOption(jRadioButtonAmigaTheme.isSelected() ? GameController.MenuThemeOption.AMIGA : GameController.MenuThemeOption.WINLEMM);
 		// apply replay settings
-		GameController.setOption(GameController.RetroLemminiOption.AUTOSAVE_REPLAYS, jCheckBoxAutoSaveReplays.isSelected());
-		GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, jCheckBoxShowMenuBar.isSelected());
+		GameController.setOption(GameController.Option.AUTOSAVE_REPLAYS, jCheckBoxAutoSaveReplays.isSelected());
+		GameController.setOption(GameController.Option.SHOW_MENU_BAR, jCheckBoxShowMenuBar.isSelected());
 		// apply miscellaneous settings
 		GameController.setOption(GameController.Option.ADVANCED_SELECT, jCheckBoxAdvanced.isSelected());
 		GameController.setOption(GameController.Option.FASTER_FAST_FORWARD, jCheckBoxFaster.isSelected());
@@ -700,11 +700,11 @@ public class OptionsDialog extends JDialog {
 		GameController.setOption(GameController.Option.NO_PERCENTAGES, !jCheckBoxNoPercentages.isSelected());
 		GameController.setOption(GameController.Option.REPLAY_SCROLL, jCheckBoxReplayScroll.isSelected());
 		GameController.setOption(GameController.Option.UNPAUSE_ON_ASSIGNMENT, jCheckBoxUnpauseOnAssignment.isSelected());
-		GameController.setOption(GameController.SLTooOption.TIMED_BOMBERS, jCheckBoxTimedBombers.isSelected());
-		GameController.setOption(GameController.SLTooOption.UNLOCK_ALL_LEVELS, jCheckBoxUnlockAllLevels.isSelected());
-		GameController.setOption(GameController.SLTooOption.ENABLE_FRAME_STEPPING, jCheckBoxEnableFrameStepping.isSelected());
-		GameController.setOption(GameController.RetroLemminiOption.DIRECT_DROP, jCheckBoxDirectDrop.isSelected());
-		GameController.setOption(GameController.SLTooOption.VISUAL_SFX, jCheckBoxVisualSfx.isSelected());
+		GameController.setOption(GameController.Option.TIMED_BOMBERS, jCheckBoxTimedBombers.isSelected());
+		GameController.setOption(GameController.Option.UNLOCK_ALL_LEVELS, jCheckBoxUnlockAllLevels.isSelected());
+		GameController.setOption(GameController.Option.ENABLE_FRAME_STEPPING, jCheckBoxEnableFrameStepping.isSelected());
+		GameController.setOption(GameController.Option.DIRECT_DROP, jCheckBoxDirectDrop.isSelected());
+		GameController.setOption(GameController.Option.VISUAL_SFX, jCheckBoxVisualSfx.isSelected());
 		GameController.setReplayNameTemplate(jTextFieldReplayTemplate.getText());
 
 		// then commit all those settings to disk

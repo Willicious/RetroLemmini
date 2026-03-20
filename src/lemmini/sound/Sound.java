@@ -456,7 +456,7 @@ public class Sound {
      * Displays the VisualSFX (if it exists, and the setting is turned on)
      */
     public void playVisualSFXSilent(final int idx, final int x, final int y) {
-        if (GameController.isOptionEnabled(GameController.SLTooOption.VISUAL_SFX) && idx >= 0 && idx < Vsfx.VSFX_COUNT) {
+        if (GameController.isOptionEnabled(GameController.Option.VISUAL_SFX) && idx >= 0 && idx < Vsfx.VSFX_COUNT) {
             Vsfx v = new Vsfx(x, y, idx);
             GameController.addVsfx(v);
         }

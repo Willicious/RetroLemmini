@@ -395,7 +395,7 @@ public class TextScreen {
     }
     
     private static void handlePostviewJingles(int rescued, int toRescue) {
-    	if (!GameController.isOptionEnabled(GameController.RetroLemminiOption.POSTVIEW_JINGLES))
+    	if (!GameController.isOptionEnabled(GameController.Option.POSTVIEW_JINGLES))
     		return;
     	
         try {
@@ -720,7 +720,7 @@ public class TextScreen {
             double scaleHeight = 1;
             double scaleWidth = 1;
 
-            if (GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_SCROLLER)) {
+            if (GameController.isOptionEnabled(GameController.Option.CLASSIC_SCROLLER)) {
                 scaleHeight = 0.8;
                 scaleWidth = 0.8;
             }
@@ -734,7 +734,7 @@ public class TextScreen {
                 scrollerGfx = scrollerImg.createGraphicsContext();
                 scrollerGfx.setBackground(new Color(0, 0, 0, 0)); // Transparent background.
 
-                if (GameController.isOptionEnabled(GameController.SLTooOption.CLASSIC_SCROLLER)) {
+                if (GameController.isOptionEnabled(GameController.Option.CLASSIC_SCROLLER)) {
                     int idx = 0;
                     do {
                         scrollerGfx.drawImage(tickerTape, idx, 0);

@@ -740,7 +740,7 @@ public class LemminiFrame extends JFrame {
 	            lemminiPanelMain.handleLoadReplay();
 	            break;
             case HotkeyToggleMenuBar:
-                GameController.setOption(GameController.RetroLemminiOption.SHOW_MENU_BAR, !GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR));
+                GameController.setOption(GameController.Option.SHOW_MENU_BAR, !GameController.isOptionEnabled(GameController.Option.SHOW_MENU_BAR));
                 toggleMenuBarVisibility();
                 Core.saveSettings();
                 break;
@@ -1300,7 +1300,7 @@ public class LemminiFrame extends JFrame {
     }
 
     void toggleMenuBarVisibility() {
-        boolean shouldShowMenuBar = GameController.isOptionEnabled(GameController.RetroLemminiOption.SHOW_MENU_BAR);
+        boolean shouldShowMenuBar = GameController.isOptionEnabled(GameController.Option.SHOW_MENU_BAR);
 
         if (shouldShowMenuBar)
             setJMenuBar(jMenuBarMain);

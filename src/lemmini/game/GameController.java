@@ -120,14 +120,9 @@ public class GameController {
         PAUSE_STOPS_FAST_FORWARD,
         NO_PERCENTAGES,
         REPLAY_SCROLL,
-        UNPAUSE_ON_ASSIGNMENT
-    }
-
-    /**
-     * Options added in SuperLemminiToo
-     * @author Charles
-     */
-    public static enum SLTooOption {
+        UNPAUSE_ON_ASSIGNMENT,
+        
+        /**  Options added in SuperLemminiToo @author Charles Irwin */
         TIMED_BOMBERS,
         UNLOCK_ALL_LEVELS,
         ENABLE_FRAME_STEPPING,
@@ -146,25 +141,24 @@ public class GameController {
         /** flag: show the classic lemmings scroller (as seen in the original Amiga version) */
         CLASSIC_SCROLLER,
         /** flag: show the full details of level stats loaded */
-        DEBUG_VERBOSE_PLAYER_LOAD
-    }
-
-    public static enum RetroLemminiOption {
-        //** flag: automatically save successful replays from postview screen
+        DEBUG_VERBOSE_PLAYER_LOAD,
+        
+        /**  Options added in RetroLemmini @author Will James */
+        /** flag: automatically save successful replays from postview screen */
         AUTOSAVE_REPLAYS,
-        //** flag: show/hide the top menu bar
+        /** flag: show/hide the top menu bar */
         SHOW_MENU_BAR,
-        //** flag: use full color minimap / green-tinted minimap
+        /** flag: use full color minimap / green-tinted minimap */
         FULL_COLOR_MINIMAP,
-        //** flag: play a pass/fail jingle on loading postview screen
+        /** flag: play a pass/fail jingle on loading postview screen */
         POSTVIEW_JINGLES,
-        //** flag: click air (anywhere but a lemming) to cancel replay
+        /** flag: click air (anywhere but a lemming) to cancel replay */
         CLICK_AIR_TO_CANCEL_REPLAY,
-        //** flag: use the mouse wheel to select skills from the panel
+        /** flag: use the mouse wheel to select skills from the panel */
         ENABLE_WHEEL_SKILL_SELECT,
-        //** flag: use the mouse wheel to change the brush size in debug draw mode
+        /** flag: use the mouse wheel to change the brush size in debug draw mode */
         ENABLE_WHEEL_BRUSH_SIZE,
-        //** FLAG: activate 'direct drop' (aka 'max exit physics': lemmings can exit in midair ad from any fall distance)
+        /** FLAG: activate 'direct drop' (aka 'max exit physics': lemmings can exit in midair ad from any fall distance) */
         DIRECT_DROP
     }
 
@@ -245,12 +239,8 @@ public class GameController {
     private static Stencil stencil;
     /** the foreground image */
     private static LemmImage fgImage;
+    /** options set */
     private static final Set<Option> options = EnumSet.noneOf(Option.class);
-    /** Options added in SuperLemminiToo */
-    private static final Set<SLTooOption> SLToptions = EnumSet.noneOf(SLTooOption.class);
-    /** Options added in RetroLemmini */
-    private static final Set<RetroLemminiOption> RLoptions = EnumSet.noneOf(RetroLemminiOption.class);
-
     /** 3-way option for setting the Exit sound */
     private static ExitSoundOption exitSoundOption = ExitSoundOption.AUTO; // Default value
     /** 3-way option for setting the Menu theme */
@@ -612,7 +602,7 @@ public class GameController {
         setFastForward(false);
         setVerticalLock(false);
         setSuperLemming(false);
-        setDirectDrop(GameController.isOptionEnabled(GameController.RetroLemminiOption.DIRECT_DROP));
+        setDirectDrop(GameController.isOptionEnabled(GameController.Option.DIRECT_DROP));
 
         if (!wasLost() && curLevelPack != 0) {
             LevelPack lvlPack = getCurLevelPack();
@@ -743,9 +733,9 @@ public class GameController {
         }
         int scaleFactor = NumberUtils.max(4, scaleFactorWidth, scaleFactorHeight);
         mapPreview = level.createMinimap(fgImage, 1.0 / scaleFactor, 1.0 / scaleFactor, true, false, true);
-        Minimap.init(1.0 / 16.0, 1.0 / 8.0, !GameController.isOptionEnabled(GameController.RetroLemminiOption.FULL_COLOR_MINIMAP));
+        Minimap.init(1.0 / 16.0, 1.0 / 8.0, !GameController.isOptionEnabled(GameController.Option.FULL_COLOR_MINIMAP));
 
-        boolean directDropActive = GameController.isOptionEnabled(GameController.RetroLemminiOption.DIRECT_DROP);
+        boolean directDropActive = GameController.isOptionEnabled(GameController.Option.DIRECT_DROP);
         boolean replayIsDirectDrop = replay.isDirectDropActive() && !directDropActive;
         GameController.directDropCaption = replayIsDirectDrop ? " - Direct Drop Active" : "";
         setDirectDrop(level.isDirectDrop() || replayIsDirectDrop || directDropActive);
@@ -1484,7 +1474,7 @@ public class GameController {
             lemmSkillRequest = lemm;
         }
         stopReplayMode();
-        if (isOptionEnabled(SLTooOption.ENABLE_FRAME_STEPPING)) {
+        if (isOptionEnabled(Option.ENABLE_FRAME_STEPPING)) {
             advanceFrame();
         }
     }
@@ -2002,7 +1992,7 @@ public class GameController {
         drawIcons(g, iconsX, iconsY);
         drawCounters(g, countersX, countersY);
 /*
-        if (!GameController.isOptionEnabled(GameController.SLTooOption.ENHANCED_ICONBAR)) {
+        if (!GameController.isOptionEnabled(GameController.Option.ENHANCED_ICONBAR)) {
             //the enhanced icon bar should have the counters built into it.
             drawCounters(g, countersX, countersY);
         }
@@ -2604,6 +2594,10 @@ public class GameController {
             Music.setGain(Music.getGain() - Fader.getStep() / 255.0 * musicGain * 1.5);
         }
     }
+    
+    public static boolean isOptionEnabled(Option option) {
+        return options.contains(option);
+    }
 
     public static void setOption(Option option, boolean enable) {
         if (enable) {
@@ -2623,21 +2617,9 @@ public class GameController {
                     break;
             }
         }
-    }
-
-    public static boolean isOptionEnabled(Option option) {
-        return options.contains(option);
-    }
-
-    public static void setOption(SLTooOption option, boolean enable) {
-        if (enable) {
-            SLToptions.add(option);
-        } else {
-            SLToptions.remove(option);
-        }
-        if (option == SLTooOption.ICON_LABELS && gameState != null) {
+        if (option == Option.ICON_LABELS && gameState != null) {
             Icons.redraw();
-        } else if(option == SLTooOption.ENHANCED_ICONBAR && gameState != null) {
+        } else if(option == Option.ENHANCED_ICONBAR && gameState != null) {
             try {
                 Icons.LoadIconResources();
             }
@@ -2646,22 +2628,6 @@ public class GameController {
             }
             Icons.redraw();
         }
-    }
-
-    public static boolean isOptionEnabled(SLTooOption option) {
-        return SLToptions.contains(option);
-    }
-
-    public static void setOption(RetroLemminiOption option, boolean enable) {
-        if (enable) {
-            RLoptions.add(option);
-        } else {
-            RLoptions.remove(option);
-        }
-    }
-
-    public static boolean isOptionEnabled(RetroLemminiOption option) {
-        return RLoptions.contains(option);
     }
 
     public static void setExitSoundOption(ExitSoundOption option) {

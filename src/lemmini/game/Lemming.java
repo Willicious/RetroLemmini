@@ -1826,7 +1826,7 @@ public class Lemming {
                     return playSetSkillSound(false, playSound);
                 }
             case FLAPPER:
-                if (GameController.isOptionEnabled(GameController.SLTooOption.TIMED_BOMBERS)) {
+                if (GameController.isOptionEnabled(GameController.Option.TIMED_BOMBERS)) {
                     if (explodeNumCtr == 0) {
                         explodeNumCtr = MAX_BOMB_TIMER;
                         explodeCtr = 0;
