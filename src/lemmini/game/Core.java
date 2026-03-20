@@ -31,7 +31,7 @@ import lemmini.game.LemGame.ExitSoundOption;
 import lemmini.game.LemGame.MenuThemeOption;
 import lemmini.gameutil.Hotkey;
 import lemmini.gameutil.MouseInput;
-import lemmini.gameutil.RetroLemminiHotkeys;
+import lemmini.gameutil.LemHotkeys;
 import lemmini.graphics.LemmImage;
 import lemmini.gui.LegalFrame;
 import lemmini.tools.CaseInsensitiveFileTree;
@@ -322,7 +322,7 @@ public class Core {
     }
 
     public static void loadHotkeys(Path path) {
-        List<Hotkey> hotkeys = RetroLemminiHotkeys.getHotkeys(RetroLemminiHotkeys.HotkeyProfile.DEFAULT);
+        List<Hotkey> hotkeys = LemHotkeys.getHotkeys(LemHotkeys.HotkeyProfile.DEFAULT);
         Path iniPath = path;
 
         if (Files.exists(iniPath)) {
@@ -339,7 +339,7 @@ public class Core {
                     String keyString = parts[1].trim();
 
                     try {
-                        RetroLemminiHotkeys.HotkeyAction action = RetroLemminiHotkeys.HotkeyAction.valueOf(actionName);
+                        LemHotkeys.HotkeyAction action = LemHotkeys.HotkeyAction.valueOf(actionName);
                         Hotkey hk = hotkeys.stream()
                                             .filter(h -> h.getAction() == action)
                                             .findFirst()
@@ -349,10 +349,10 @@ public class Core {
                             String[] keyParts = keyString.split("\\+");
                             if (keyParts.length == 2) {
                                 hk.setModifier(keyParts[0]);
-                                hk.setKey(RetroLemminiHotkeys.getKeyCode(keyParts[1]), keyParts[1]);
+                                hk.setKey(LemHotkeys.getKeyCode(keyParts[1]), keyParts[1]);
                             } else {
                                 hk.setModifier(null);
-                                hk.setKey(RetroLemminiHotkeys.getKeyCode(keyString), keyString);
+                                hk.setKey(LemHotkeys.getKeyCode(keyString), keyString);
                             }
                         }
                     } catch (IllegalArgumentException ex) {

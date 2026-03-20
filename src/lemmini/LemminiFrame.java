@@ -74,8 +74,8 @@ import lemmini.game.ResourceException;
 import lemmini.game.Vsfx;
 import lemmini.gameutil.Fader;
 import lemmini.gameutil.Hotkey;
-import lemmini.gameutil.RetroLemminiHotkeys;
-import lemmini.gameutil.RetroLemminiHotkeys.HotkeyAction;
+import lemmini.gameutil.LemHotkeys;
+import lemmini.gameutil.LemHotkeys.HotkeyAction;
 import lemmini.graphics.GraphicsContext;
 import lemmini.graphics.LemmIcon;
 import lemmini.graphics.LemmImage;
@@ -644,7 +644,7 @@ public class LemminiFrame extends JFrame {
 
     private void formKeyPressed(KeyEvent evt) { //GEN-FIRST:event_formKeyPressed
         int code = evt.getKeyCode();
-        RetroLemminiHotkeys.HotkeyAction action = RetroLemminiHotkeys.getHotkeyActionForEvent(evt, LemGame.activeHotkeys);
+        LemHotkeys.HotkeyAction action = LemHotkeys.getHotkeyActionForEvent(evt, LemGame.activeHotkeys);
 
         boolean isIntro = (LemGame.getGameState() == LemGame.State.INTRO);
         boolean isPreview = (LemGame.getGameState() == LemGame.State.PREVIEW);
@@ -989,8 +989,8 @@ public class LemminiFrame extends JFrame {
             }
         }
         
-        RetroLemminiHotkeys.HotkeyAction action = 
-                RetroLemminiHotkeys.getHotkeyActionForEvent(evt, LemGame.activeHotkeys);
+        LemHotkeys.HotkeyAction action = 
+                LemHotkeys.getHotkeyActionForEvent(evt, LemGame.activeHotkeys);
         
         // Custom hotkeys
         if ((action != null) && isLevel) {

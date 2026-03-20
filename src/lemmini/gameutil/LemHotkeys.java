@@ -28,7 +28,7 @@ import java.util.Objects;
  * App-wide hotkey factory.
  * @ Will James
  */
-public class RetroLemminiHotkeys {
+public class LemHotkeys {
 	
 	/** Hotkey-specific scope */
 	public enum HotkeyScope {
@@ -365,7 +365,7 @@ public class RetroLemminiHotkeys {
     /**
      * Returns the HotkeyAction corresponding to the given KeyEvent, or null if none matches.
      */
-    public static RetroLemminiHotkeys.HotkeyAction getHotkeyActionForEvent(KeyEvent e, List<Hotkey> hotkeys) {
+    public static LemHotkeys.HotkeyAction getHotkeyActionForEvent(KeyEvent e, List<Hotkey> hotkeys) {
         if (hotkeys == null) return null;
 
         int code = e.getKeyCode();

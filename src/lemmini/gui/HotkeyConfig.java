@@ -17,7 +17,7 @@ package lemmini.gui;
 
 import lemmini.game.Core;
 import lemmini.gameutil.Hotkey;
-import lemmini.gameutil.RetroLemminiHotkeys;
+import lemmini.gameutil.LemHotkeys;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,8 +39,8 @@ public class HotkeyConfig extends JDialog {
     private static final long serialVersionUID = 1L;
 
     private final List<Hotkey> hotkeys = new ArrayList<>();
-    private final Map<RetroLemminiHotkeys.HotkeyAction, JButton> actionButtons = new HashMap<>();
-    private final Map<RetroLemminiHotkeys.HotkeyAction, String> currentKeys = new HashMap<>();
+    private final Map<LemHotkeys.HotkeyAction, JButton> actionButtons = new HashMap<>();
+    private final Map<LemHotkeys.HotkeyAction, String> currentKeys = new HashMap<>();
     private final Path hotkeysIniPath = Core.getProgramHotkeysFilePath();
 
     private String pendingModifier = null;
@@ -53,7 +53,7 @@ public class HotkeyConfig extends JDialog {
 
     public HotkeyConfig() {
         hotkeys.clear();
-        List<Hotkey> defaultHotkeys = RetroLemminiHotkeys.getHotkeys(RetroLemminiHotkeys.HotkeyProfile.DEFAULT);
+        List<Hotkey> defaultHotkeys = LemHotkeys.getHotkeys(LemHotkeys.HotkeyProfile.DEFAULT);
         for (Hotkey hk : defaultHotkeys) hotkeys.add(new Hotkey(hk));
 
         setTitle("Hotkey Configuration");
@@ -87,19 +87,19 @@ public class HotkeyConfig extends JDialog {
                 String keyString = parts[1].trim();
 
                 try {
-                    RetroLemminiHotkeys.HotkeyAction action = RetroLemminiHotkeys.HotkeyAction.valueOf(actionName);
+                    LemHotkeys.HotkeyAction action = LemHotkeys.HotkeyAction.valueOf(actionName);
                     Hotkey hk = getHotkey(action);
                     if (hk != null) {
-                        if (RetroLemminiHotkeys.UNDEFINED.equalsIgnoreCase(keyString)) {
+                        if (LemHotkeys.UNDEFINED.equalsIgnoreCase(keyString)) {
                             hk.clearKey(); // sets keyCode = VK_UNDEFINED, modifier = null
                         } else {
                             String[] keyParts = keyString.split("\\+");
                             if (keyParts.length == 2) {
                                 hk.setModifier(keyParts[0]);
-                                hk.setKey(RetroLemminiHotkeys.getKeyCode(keyParts[1]), keyParts[1]);
+                                hk.setKey(LemHotkeys.getKeyCode(keyParts[1]), keyParts[1]);
                             } else {
                                 hk.setModifier(null);
-                                hk.setKey(RetroLemminiHotkeys.getKeyCode(keyString), keyString);
+                                hk.setKey(LemHotkeys.getKeyCode(keyString), keyString);
                             }
                         }
                         currentKeys.put(action, hk.getKeyDescription());
@@ -193,8 +193,8 @@ public class HotkeyConfig extends JDialog {
         JButton btnSave = new JButton("Save and Close");
         JButton btnCancel = new JButton("Cancel");
         btnClearAll.addActionListener(e -> { clearAllHotkeys(); updateButtonColors(); });
-        btnLoadClassic.addActionListener(e -> { loadHotkeys(RetroLemminiHotkeys.HotkeyProfile.CLASSIC); updateButtonColors(); });
-        btnLoadDefaults.addActionListener(e -> { loadHotkeys(RetroLemminiHotkeys.HotkeyProfile.DEFAULT); updateButtonColors(); });
+        btnLoadClassic.addActionListener(e -> { loadHotkeys(LemHotkeys.HotkeyProfile.CLASSIC); updateButtonColors(); });
+        btnLoadDefaults.addActionListener(e -> { loadHotkeys(LemHotkeys.HotkeyProfile.DEFAULT); updateButtonColors(); });
         btnReload.addActionListener(e -> { loadHotkeysFromIni(); initComponents(); updateButtonColors(); });
         btnSave.addActionListener(e -> saveHotkeys());
         btnCancel.addActionListener(e -> dispose());
@@ -292,7 +292,7 @@ public class HotkeyConfig extends JDialog {
             int newKeyCode = code;
 
             for (Hotkey other : hotkeys) {
-                if (RetroLemminiHotkeys.conflicts(
+                if (LemHotkeys.conflicts(
                         hotkey,
                         other,
                         newKeyCode,
@@ -302,13 +302,13 @@ public class HotkeyConfig extends JDialog {
 
                     JButton otherBtn = actionButtons.get(other.getAction());
                     if (otherBtn != null) {
-                        otherBtn.setText(RetroLemminiHotkeys.UNDEFINED);
+                        otherBtn.setText(LemHotkeys.UNDEFINED);
                     }
                 }
             }
 
             // Set the new key
-            String keyName = RetroLemminiHotkeys.getKeyName(code);
+            String keyName = LemHotkeys.getKeyName(code);
             hotkey.setKey(code, keyName);
             hotkey.setModifier(pendingModifier);
             btn.setText(hotkey.getKeyDescription());
@@ -327,12 +327,12 @@ public class HotkeyConfig extends JDialog {
                 .addKeyEventDispatcher(activeDispatcher);
     }
 
-	private String getKeyForAction(RetroLemminiHotkeys.HotkeyAction action) {
-        return currentKeys.getOrDefault(action, RetroLemminiHotkeys.UNDEFINED);
+	private String getKeyForAction(LemHotkeys.HotkeyAction action) {
+        return currentKeys.getOrDefault(action, LemHotkeys.UNDEFINED);
     }
 
     private void restoreOtherListeningButtons(JButton currentBtn) {
-        for (Map.Entry<RetroLemminiHotkeys.HotkeyAction, JButton> entry : actionButtons.entrySet()) {
+        for (Map.Entry<LemHotkeys.HotkeyAction, JButton> entry : actionButtons.entrySet()) {
             JButton btn = entry.getValue();
             if (btn != currentBtn && "Press key...".equals(btn.getText())) {
                 btn.setText(getKeyForAction(entry.getKey()));
@@ -342,7 +342,7 @@ public class HotkeyConfig extends JDialog {
     
     private void updateButtonColors() {
     	for (JButton btn : actionButtons.values()) {
-    		if ((btn.getText().startsWith(RetroLemminiHotkeys.UNDEFINED)) || (btn.getText().startsWith(RetroLemminiHotkeys.UNKNOWN)))
+    		if ((btn.getText().startsWith(LemHotkeys.UNDEFINED)) || (btn.getText().startsWith(LemHotkeys.UNKNOWN)))
     			btn.setForeground(TRANSPARENT);
     		else
     			btn.setForeground(Color.BLACK);
@@ -356,20 +356,20 @@ public class HotkeyConfig extends JDialog {
             hk.clearKey();
             JButton btn = actionButtons.get(hk.getAction());
             if (btn != null)
-                btn.setText(RetroLemminiHotkeys.UNDEFINED);
+                btn.setText(LemHotkeys.UNDEFINED);
         }
     }
     
     /** Load the requested hotkey profile */
-    private void loadHotkeys(RetroLemminiHotkeys.HotkeyProfile profile) {
-        List<Hotkey> profileHotkeys = RetroLemminiHotkeys.getHotkeys(profile);
+    private void loadHotkeys(LemHotkeys.HotkeyProfile profile) {
+        List<Hotkey> profileHotkeys = LemHotkeys.getHotkeys(profile);
 
         currentKeys.clear();
 
         for (Hotkey source : profileHotkeys) {
             Hotkey hk = getHotkey(source.getAction());
             if (hk != null) {
-                hk.setKey(source.getKeyCode(), RetroLemminiHotkeys.getKeyName(source.getKeyCode()));
+                hk.setKey(source.getKeyCode(), LemHotkeys.getKeyName(source.getKeyCode()));
                 hk.setModifier(source.getModifier());
 
                 String keyText = hk.getKeyDescription();
@@ -389,7 +389,7 @@ public class HotkeyConfig extends JDialog {
         try (BufferedWriter writer = Files.newBufferedWriter(hotkeysIniPath)) {
             for (Hotkey hk : hotkeys) {
                 String keyString = hk.getKeyCode() == KeyEvent.VK_UNDEFINED
-                                   ? RetroLemminiHotkeys.UNDEFINED
+                                   ? LemHotkeys.UNDEFINED
                                    : hk.getKeyDescription();
                 writer.write(hk.getAction().name() + "=" + keyString);
                 writer.newLine();
@@ -418,7 +418,7 @@ public class HotkeyConfig extends JDialog {
     }
 
     /** Get hotkey by action */
-    public Hotkey getHotkey(RetroLemminiHotkeys.HotkeyAction action) {
+    public Hotkey getHotkey(LemHotkeys.HotkeyAction action) {
         for (Hotkey hk : hotkeys) {
             if (hk.getAction() == action) return hk;
         }

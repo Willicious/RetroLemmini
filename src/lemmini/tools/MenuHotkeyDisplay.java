@@ -22,7 +22,7 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import lemmini.gameutil.Hotkey;
-import lemmini.gameutil.RetroLemminiHotkeys;
+import lemmini.gameutil.LemHotkeys;
 
 /**
  * Class for displaying hotkeys as text strings.
@@ -31,12 +31,12 @@ import lemmini.gameutil.RetroLemminiHotkeys;
 public class MenuHotkeyDisplay {
 
     /** Apply hotkey to a JMenuItem using the activeHotkeys list */
-    public static void applyHotkey(JMenuItem menuItem, RetroLemminiHotkeys.HotkeyAction action, List<Hotkey> activeHotkeys) {
+    public static void applyHotkey(JMenuItem menuItem, LemHotkeys.HotkeyAction action, List<Hotkey> activeHotkeys) {
         Hotkey hk = getHotkeyForAction(activeHotkeys, action);
         if (hk == null) return;
 
         String keyDescription = hk.getKeyDescription();
-        if (!RetroLemminiHotkeys.UNDEFINED.equalsIgnoreCase(keyDescription)) {
+        if (!LemHotkeys.UNDEFINED.equalsIgnoreCase(keyDescription)) {
             KeyStroke ks = getKeyStrokeFromHotkey(hk);
             if (ks != null) {
                 menuItem.setAccelerator(ks); // puts hotkey string on the right
@@ -45,7 +45,7 @@ public class MenuHotkeyDisplay {
     }
 
     /** Find the Hotkey object for the given action */
-    private static Hotkey getHotkeyForAction(List<Hotkey> hotkeys, RetroLemminiHotkeys.HotkeyAction action) {
+    private static Hotkey getHotkeyForAction(List<Hotkey> hotkeys, LemHotkeys.HotkeyAction action) {
         for (Hotkey hk : hotkeys) {
             if (hk.getAction() == action) return hk;
         }

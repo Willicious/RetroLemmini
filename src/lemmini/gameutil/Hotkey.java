@@ -24,7 +24,7 @@ import java.util.Objects;
  */
 public class Hotkey {
 
-    private final RetroLemminiHotkeys.HotkeyAction action;  // Enum action
+    private final LemHotkeys.HotkeyAction action;  // Enum action
     private final String description;                       // user-friendly description
     private int keyCode;                                    // KeyEvent VK code
     private String keyDescription;                          // human-readable key (plus modifier if applicable)
@@ -32,23 +32,23 @@ public class Hotkey {
 
     /** Constructor without modifier */
     /** Constructor without modifier or keyDescription (uses getKeyName automatically) */
-    public Hotkey(RetroLemminiHotkeys.HotkeyAction action, int keyCode) {
+    public Hotkey(LemHotkeys.HotkeyAction action, int keyCode) {
         this.action = action;
         this.description = action.getDescription();
         this.keyCode = keyCode;
-        this.keyDescription = RetroLemminiHotkeys.getKeyName(keyCode);
+        this.keyDescription = LemHotkeys.getKeyName(keyCode);
         this.modifier = null;
     }
 
     /** Constructor with modifier */
-    public Hotkey(RetroLemminiHotkeys.HotkeyAction action, int keyCode, String modifier) {
+    public Hotkey(LemHotkeys.HotkeyAction action, int keyCode, String modifier) {
         this(action, keyCode);
         this.modifier = modifier;
     }
 
 
     // Getters
-    public RetroLemminiHotkeys.HotkeyAction getAction() { return action; }
+    public LemHotkeys.HotkeyAction getAction() { return action; }
     public String getDescription() { return description; }
     public int getKeyCode() { return keyCode; }
 
@@ -75,7 +75,7 @@ public class Hotkey {
     public void clearKey() {
         this.keyCode = KeyEvent.VK_UNDEFINED;
         this.modifier = null;
-        this.keyDescription = RetroLemminiHotkeys.UNDEFINED;
+        this.keyDescription = LemHotkeys.UNDEFINED;
     }
 
     public void setModifier(String modifier) {
