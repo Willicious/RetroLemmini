@@ -29,7 +29,7 @@ import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import lemmini.game.Core;
-import lemmini.game.GameController;
+import lemmini.game.LemGame;
 import lemmini.game.LemmException;
 import lemmini.game.Resource;
 import lemmini.game.ResourceException;
@@ -87,7 +87,7 @@ public class WaveMusic implements Runnable, MusicPlayer {
                 } else {
                     playIntro = false;
                 }
-                info = new DataLine.Info(SourceDataLine.class, format, GameController.sound.getBufferSize());
+                info = new DataLine.Info(SourceDataLine.class, format, LemGame.sound.getBufferSize());
             }
             din = AudioSystem.getAudioInputStream(format, playIntro ? introIn : in);
             if (loopSong && !playIntro) {
@@ -121,7 +121,7 @@ public class WaveMusic implements Runnable, MusicPlayer {
     @Override
     public void run() {
         try {
-            line = (SourceDataLine) GameController.sound.getLine(info);
+            line = (SourceDataLine) LemGame.sound.getLine(info);
             byte[] data = new byte[line.getBufferSize()];
             line.open();
             line.start();

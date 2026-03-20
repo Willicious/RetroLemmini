@@ -50,7 +50,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import lemmini.LemminiFrame;
 import lemmini.game.Core;
-import lemmini.game.GameController;
+import lemmini.game.LemGame;
 import lemmini.game.LevelInfo;
 import lemmini.game.LevelPack;
 import lemmini.game.LevelRecord;
@@ -527,7 +527,7 @@ public class LevelDialog extends JDialog {
         });
 
         jButtonClearExternalLevels.setText("Clear External Levels");
-        jButtonClearExternalLevels.setEnabled(GameController.externalLevelList.size() > 0);
+        jButtonClearExternalLevels.setEnabled(LemGame.externalLevelList.size() > 0);
         jButtonClearExternalLevels.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonClearExternalLevelsActionPerformed(evt);
@@ -650,7 +650,7 @@ public class LevelDialog extends JDialog {
     private void updatePackLogo(LevelPack pack) {
         if (pack == null) return;
         
-        Path folder = GameController.getLevelPackFolder(GameController.levelPacks.indexOf(pack));
+        Path folder = LemGame.getLevelPackFolder(LemGame.levelPacks.indexOf(pack));
         if (folder == null) return;
         if (folder.equals(currentPackFolder) && jLabelLogoImage.getIcon() != null) return;
         
@@ -727,7 +727,7 @@ public class LevelDialog extends JDialog {
                         return extension.equals("rlv") || extension.equals("ini") || extension.equals("lvl") || extension.equals("dat");
                     })) {
                         for (Path lvl : stream) {
-                            int[] levelPosition = GameController.addExternalLevel(lvl, null, false);
+                            int[] levelPosition = LemGame.addExternalLevel(lvl, null, false);
                             if (levelPosition != null) {
                                 lastLevelPosition = levelPosition;
                             }
@@ -735,7 +735,7 @@ public class LevelDialog extends JDialog {
                     } catch (IOException ex) {
                     }
                 } else {
-                    int[] levelPosition = GameController.addExternalLevel(externLvl, null, false);
+                    int[] levelPosition = LemGame.addExternalLevel(externLvl, null, false);
                     if (levelPosition != null) {
                         lastLevelPosition = levelPosition;
                     }
@@ -745,7 +745,7 @@ public class LevelDialog extends JDialog {
                 refreshLevels();
                 levelModel.reload();
                 selectLevel(lastLevelPosition[0], lastLevelPosition[1], lastLevelPosition[2]);
-                jButtonClearExternalLevels.setEnabled(GameController.externalLevelList.size() > 0);
+                jButtonClearExternalLevels.setEnabled(LemGame.externalLevelList.size() > 0);
             } else {
                 JOptionPane.showMessageDialog(this, "No valid level files were loaded.", "Load Level", JOptionPane.ERROR_MESSAGE);
             }
@@ -753,7 +753,7 @@ public class LevelDialog extends JDialog {
     }//GEN-LAST:event_jButtonAddExternalLevelsActionPerformed
 
     private void jButtonClearExternalLevelsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearExternalLevelsActionPerformed
-        GameController.clearExternalLevelList();
+        LemGame.clearExternalLevelList();
         refreshLevels();
         levelModel.reload();
         jButtonClearExternalLevels.setEnabled(false);
@@ -822,13 +822,13 @@ public class LevelDialog extends JDialog {
     private void refreshLevels() {
         topNode.removeAllChildren();
 
-        int levelPackCount = GameController.getLevelPackCount();
+        int levelPackCount = LemGame.getLevelPackCount();
         levelPackPositionLookup = new int[levelPackCount];
         ratingPositionLookup = new int[levelPackCount][];
         levelPositionLookup = new int[levelPackCount][][];
 
         for (int i = 0, ia = 0; i < levelPackCount; i++) {
-            LevelPack lp = GameController.getLevelPack(i);
+            LevelPack lp = LemGame.getLevelPack(i);
             DefaultMutableTreeNode lpNode = new DefaultMutableTreeNode();
 
             List<String> ratings = lp.getRatings();
@@ -928,10 +928,10 @@ public class LevelDialog extends JDialog {
     }
 
     private void selectCurrentLevel() {
-        GameController.State state = GameController.getGameState();
-        if (state == GameController.State.PREVIEW || state == GameController.State.LEVEL
-                || state == GameController.State.LEVEL_END || state == GameController.State.POSTVIEW) {
-            selectLevel(GameController.getCurLevelPackIdx(), GameController.getCurRating(), GameController.getCurLevelNumber());
+        LemGame.State state = LemGame.getGameState();
+        if (state == LemGame.State.PREVIEW || state == LemGame.State.LEVEL
+                || state == LemGame.State.LEVEL_END || state == LemGame.State.POSTVIEW) {
+            selectLevel(LemGame.getCurLevelPackIdx(), LemGame.getCurRating(), LemGame.getCurLevelNumber());
         }
     }
 
@@ -963,7 +963,7 @@ public class LevelDialog extends JDialog {
         
         if (selPath != null && selPath.getPathCount() >= 4) {
             LevelItem lvlItem = (LevelItem) ((DefaultMutableTreeNode) selPath.getPath()[3]).getUserObject();
-            LevelPack lvlPack = GameController.getLevelPack(lvlItem.levelPack);
+            LevelPack lvlPack = LemGame.getLevelPack(lvlItem.levelPack);
             LevelInfo lvlInfo = lvlPack.getInfo(lvlItem.rating, lvlItem.levelIndex);
             LevelRecord lvlRecord = Core.player.getLevelRecord(lvlPack.getName(), lvlPack.getRatings().get(lvlItem.rating), lvlItem.levelIndex);
             jTextFieldAuthor.setText(lvlInfo.getAuthor());
@@ -971,7 +971,7 @@ public class LevelDialog extends JDialog {
             int numToRescue = lvlInfo.getNumToRescue();
             int timeLimit = lvlInfo.getTimeLimit();
             jTextFieldNumLemmings.setText(Integer.toString(numLemmings));
-            if (GameController.isOptionEnabled(GameController.Option.NO_PERCENTAGES) || numLemmings > 100) {
+            if (LemGame.isOptionEnabled(LemGame.Option.NO_PERCENTAGES) || numLemmings > 100) {
                 jTextFieldNumToRescue.setText(Integer.toString(numToRescue));
             } else {
                 jTextFieldNumToRescue.setText(Integer.toString(numToRescue * 100 / numLemmings) + "%");
@@ -993,7 +993,7 @@ public class LevelDialog extends JDialog {
             if (lvlRecord.isCompleted()) {
                 int lemmingsSaved = lvlRecord.getLemmingsSaved();
                 int timeElapsed = lvlRecord.getTimeElapsed();
-                if (GameController.isOptionEnabled(GameController.Option.NO_PERCENTAGES) || numLemmings > 100) {
+                if (LemGame.isOptionEnabled(LemGame.Option.NO_PERCENTAGES) || numLemmings > 100) {
                     jTextFieldLemmingsSaved.setText(Integer.toString(lvlRecord.getLemmingsSaved()));
                 } else {
                     jTextFieldLemmingsSaved.setText(Integer.toString(lemmingsSaved * 100 / numLemmings) + "%");

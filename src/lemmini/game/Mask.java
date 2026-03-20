@@ -58,9 +58,9 @@ public class Mask {
      * Apply erase mask (to foreground image, minimap and stencil).
      */
     public void eraseMask(final int x0, final int y0, final int maskNum, final int eraseMask, final int checkMask) {
-        LemmImage fgImage = GameController.getFgImage();
+        LemmImage fgImage = LemGame.getFgImage();
         LemmImage fgImageSmall = Minimap.getImage();
-        Stencil stencil = GameController.getStencil();
+        Stencil stencil = LemGame.getStencil();
         LemmImage m = mask.get(maskNum);
         double scaleX = (double) fgImageSmall.getWidth() / (double) fgImage.getWidth();
         double scaleY = (double) fgImageSmall.getHeight() / (double) fgImage.getHeight();
@@ -75,7 +75,7 @@ public class Mask {
             xMax = fgImage.getWidth();
         }
 
-        int bgCol = Minimap.isTinted() ? 0 : GameController.getLevel().getBgColor().getRGB();
+        int bgCol = Minimap.isTinted() ? 0 : LemGame.getLevel().getBgColor().getRGB();
 
         for (int y = y0; y < yMax; y++) {
             if (y < 0) {
@@ -104,7 +104,7 @@ public class Mask {
                     }
                     if (!fgImage.isPixelOpaque(x, y)) {
                         for (int obj : objects) {
-                            SpriteObject spr = GameController.getLevel().getSprObject(obj);
+                            SpriteObject spr = LemGame.getLevel().getSprObject(obj);
                             // remove pixel from all object images that are visible only on terrain
                             if (spr != null && spr.getVisOnTerrain()) {
                                 spr.setPixelVisibility(x - spr.getX(), y - spr.getY(), false);
@@ -124,9 +124,9 @@ public class Mask {
      * Paint one step (of a stair created by a Builder)
      */
     public void paintStep(final int x0, final int y0, final int maskNum) {
-        LemmImage fgImage = GameController.getFgImage();
+        LemmImage fgImage = LemGame.getFgImage();
         LemmImage fgImageSmall = Minimap.getImage();
-        Stencil stencil = GameController.getStencil();
+        Stencil stencil = LemGame.getStencil();
         LemmImage m = mask.get(maskNum);
         double scaleX = (double) fgImageSmall.getWidth() / (double) fgImage.getWidth();
         double scaleY = (double) fgImageSmall.getHeight() / (double) fgImage.getHeight();
@@ -173,10 +173,10 @@ public class Mask {
                 if (fgImage.isPixelOpaque(x, y)) {
                     // get object
                     for (int obj : objects) {
-                        SpriteObject spr = GameController.getLevel().getSprObject(obj);
+                        SpriteObject spr = LemGame.getLevel().getSprObject(obj);
                         // add pixel to all object images that are visible only on terrain
                         if (spr != null && spr.getVisOnTerrain()
-                                && (GameController.getLevel().getClassicSteel()
+                                && (LemGame.getLevel().getClassicSteel()
                                         || !spr.getType().isOneWay())
                                 && !(spr.getType().isOneWay()
                                         && BooleanUtils.toBoolean(stencil.getMask(x, y) & Stencil.MSK_NO_ONE_WAY_DRAW))) {
@@ -195,8 +195,8 @@ public class Mask {
      * Create blocker mask in the Stencil only (Lemming is assigned a Blocker)
      */
     public void setBlockerMask(final int x0, final int y0) {
-        LemmImage fgImage = GameController.getFgImage();
-        Stencil stencil = GameController.getStencil();
+        LemmImage fgImage = LemGame.getFgImage();
+        Stencil stencil = LemGame.getStencil();
         int yMax = y0 + height;
         if (yMax >= fgImage.getHeight()) {
             yMax = fgImage.getHeight();
@@ -245,7 +245,7 @@ public class Mask {
      * Use mask to check bitmask properties of Stencil.
      */
     public boolean checkType(final int x0, final int y0, final int maskNum, final int type) {
-        Stencil stencil = GameController.getStencil();
+        Stencil stencil = LemGame.getStencil();
         LemmImage m = mask.get(maskNum);
         int yMax = y0 + height;
         if (yMax >= stencil.getHeight()) {
@@ -279,8 +279,8 @@ public class Mask {
      * Erase certain properties from Stencil bitmask.
      */
     public void clearType(final int x0, final int y0, final int maskNum, final int type) {
-        LemmImage fgImage = GameController.getFgImage();
-        Stencil stencil = GameController.getStencil();
+        LemmImage fgImage = LemGame.getFgImage();
+        Stencil stencil = LemGame.getStencil();
         LemmImage m = mask.get(maskNum);
         int yMax = y0 + height;
         if (yMax >= fgImage.getHeight()) {

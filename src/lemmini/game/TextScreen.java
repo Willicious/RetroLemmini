@@ -173,7 +173,7 @@ public class TextScreen {
     static void initIntro() {
         textDialog.clear();
         
-        if (GameController.getMenuThemeOption() == GameController.MenuThemeOption.WINLEMM) {
+        if (LemGame.getMenuThemeOption() == LemGame.MenuThemeOption.WINLEMM) {
         	createWinLemmThemeMenu();
         } else {
         	createLemminiThemeMenu();
@@ -282,8 +282,8 @@ public class TextScreen {
         textDialog.clear();
         hintIndex = 0;
         drawBackground();
-        Level level = GameController.getLevel();
-        textDialog.addImage(GameController.getMapPreview(), null, -225);
+        Level level = LemGame.getLevel();
+        textDialog.addImage(LemGame.getMapPreview(), null, -225);
         addLevelName(level);
         showLevelInfo();
         textDialog.addTextButton("Start Level", "Start Level", null, -12, 6, Button.START_LEVEL, BLUE, YELLOW);
@@ -296,9 +296,9 @@ public class TextScreen {
     static void initPostview() {
         textDialog.clear();
         drawBackground();
-        int numLemmings = GameController.getNumLemmingsMax();
-        int toRescue = GameController.getNumToRescue();
-        int rescued = GameController.getNumExited();
+        int numLemmings = LemGame.getNumLemmingsMax();
+        int toRescue = LemGame.getNumToRescue();
+        int rescued = LemGame.getNumExited();
         int toRescuePercent = toRescue * 100 / numLemmings; // % to rescue of total number
         int rescuedPercent = rescued * 100 / numLemmings; // % rescued of total number
         int rescuedOfToRescue; // % rescued of no. to rescue
@@ -307,30 +307,30 @@ public class TextScreen {
         } else {
             rescuedOfToRescue = rescued * 100 / toRescue;
         }
-        int timeElapsed = GameController.getLevelRecord().getTimeElapsed();
-        int skillsUsed = GameController.getLevelRecord().getSkillsUsed();
-        int score = GameController.getScore();
-        if (GameController.getTime() == 0 && GameController.isTimed()) {
+        int timeElapsed = LemGame.getLevelRecord().getTimeElapsed();
+        int skillsUsed = LemGame.getLevelRecord().getSkillsUsed();
+        int score = LemGame.getScore();
+        if (LemGame.getTime() == 0 && LemGame.isTimed()) {
             textDialog.addStringCentered("Time is up.", null, -7, TURQUOISE);
         } else {
-            textDialog.addStringCentered("All " + GameController.getLemmNamesPlural() + " accounted for.", null, -7, TURQUOISE);
+            textDialog.addStringCentered("All " + LemGame.getLemmNamesPlural() + " accounted for.", null, -7, TURQUOISE);
         }
-        if (GameController.isOptionEnabled(GameController.Option.NO_PERCENTAGES) || numLemmings > 100) {
+        if (LemGame.isOptionEnabled(LemGame.Option.NO_PERCENTAGES) || numLemmings > 100) {
             textDialog.addStringCentered(String.format("You needed %d - You rescued %d", toRescue, rescued), null, -5, VIOLET);
         } else {
             textDialog.addStringCentered(String.format("You needed %d%% - You rescued %d%%", toRescuePercent, rescuedPercent), null, -5, VIOLET);
         }
-        if (!GameController.wasLost() && !GameController.getWasCheated()) {
+        if (!LemGame.wasLost() && !LemGame.getWasCheated()) {
             String timeTaken = String.format("%d:%02d", timeElapsed / 60, timeElapsed % 60);
             textDialog.addStringCentered(String.format("Time taken %s - Skills used %d", timeTaken, skillsUsed), null, -4, VIOLET);
             String pointWord = (score == 1) ? "point" : "points";
             textDialog.addStringCentered(String.format("Your score is %d %s", score, pointWord), null, -3, GREEN);
         }
-        LevelPack lp = GameController.getCurLevelPack();
+        LevelPack lp = LemGame.getCurLevelPack();
         List<String> debriefings = lp.getDebriefings();
-        if (GameController.wasLost()) {
+        if (LemGame.wasLost()) {
             String debriefing;
-            if (GameController.getNumExited() <= 0) {
+            if (LemGame.getNumExited() <= 0) {
                 debriefing = debriefings.get(0);
             } else if (rescuedOfToRescue < 50) {
             	debriefing = debriefings.get(1);
@@ -355,24 +355,24 @@ public class TextScreen {
             	debriefing = debriefings.get(8);
             }
             int yPosText = -1;
-            if (GameController.getWasCheated()) {
+            if (LemGame.getWasCheated()) {
             	debriefing = "You cheated!\nCompleting the level in debug mode\ndoesn't count!";
             	yPosText = -2;
             }
             textDialog.addStringCentered(debriefing, null, yPosText, RED);
-            int lpn = GameController.getCurLevelPackIdx();
-            int r = GameController.getCurRating();
-            int ln = GameController.getCurLevelNumber();
+            int lpn = LemGame.getCurLevelPackIdx();
+            int r = LemGame.getCurRating();
+            int ln = LemGame.getCurLevelNumber();
             // Check if ALL levels in this rating are completed
             if (allLevelsCompleted(lp, r)) {
                 List<String> ratings = lp.getRatings();
                 textDialog.addStringCentered("Congratulations!", null, 2, YELLOW);
-                textDialog.addStringCentered(String.format("You finished all the %s levels!", ratings.get(GameController.getCurRating())), null, 3, GREEN);
+                textDialog.addStringCentered(String.format("You finished all the %s levels!", ratings.get(LemGame.getCurRating())), null, 3, GREEN);
             // Now check if there's a next level to display the access code
             } else if (lp.getLevelCount(r) > ln + 1) {
-                int absLevel = GameController.absLevelNum(lpn, r, ln + 1);
+                int absLevel = LemGame.absLevelNum(lpn, r, ln + 1);
                 String code = LevelCode.create(lp.getCodeSeed(), absLevel, rescuedPercent,
-                        GameController.getTimesFailed(), 0, lp.getCodeOffset());
+                        LemGame.getTimesFailed(), 0, lp.getCodeOffset());
                 if (!(lpn == 0 && r == 0) && code != null) {
                     textDialog.addStringCentered(String.format("Your access code for level %d%nis %s", ln + 2, code), null, 2, YELLOW);
                 }
@@ -381,7 +381,7 @@ public class TextScreen {
             	textDialog.addTextButton("Continue", "Continue", null, -11, 5, Button.CONTINUE, BLUE, YELLOW);
             }
         }
-        if (!GameController.getWasCheated()) {
+        if (!LemGame.getWasCheated()) {
             textDialog.addTextButton("View Replay", "View Replay", null, 0, 5, Button.REPLAY, BLUE, YELLOW);
             textDialog.addTextButton("Save Replay", "Save Replay", null, 0, 6, Button.SAVE_REPLAY, BLUE, YELLOW);
         }
@@ -390,18 +390,18 @@ public class TextScreen {
         handlePostviewJingles(rescued, toRescue);
         
         // store the last level played
-        Core.programProps.set("lastLevelPlayed", GameController.getLastLevelPlayedString());
+        Core.programProps.set("lastLevelPlayed", LemGame.getLastLevelPlayedString());
         Core.programProps.save(Core.getProgramPropsFilePath(), false);
     }
     
     private static void handlePostviewJingles(int rescued, int toRescue) {
-    	if (!GameController.isOptionEnabled(GameController.Option.POSTVIEW_JINGLES))
+    	if (!LemGame.isOptionEnabled(LemGame.Option.POSTVIEW_JINGLES))
     		return;
     	
         try {
 			Sound sound = new Sound();
 			sound.load();
-			sound.setGain(GameController.getSoundGain());
+			sound.setGain(LemGame.getSoundGain());
 			
 	        if (rescued >= toRescue)
 	        	sound.play(Sound.Effect.PASS);
@@ -423,7 +423,7 @@ public class TextScreen {
     private static void drawBackground() {
     	LemmImage backgroundImg;
     	
-        if (GameController.getMenuThemeOption() == GameController.MenuThemeOption.WINLEMM)
+        if (LemGame.getMenuThemeOption() == LemGame.MenuThemeOption.WINLEMM)
         	backgroundImg = MiscGfx.getImage(MiscGfx.Index.BACKGROUND_LEVEL_WINLEMM);
         else
         	backgroundImg = MiscGfx.getImage(MiscGfx.Index.BACKGROUND_LEVEL_AMIGA);
@@ -432,7 +432,7 @@ public class TextScreen {
     }
     
     public static void addLevelName(Level level) {
-    	int levelNumber = GameController.getCurLevelNumber() + 1;
+    	int levelNumber = LemGame.getCurLevelNumber() + 1;
     	String levelText = String.format("Level %-3d", levelNumber);
     	textDialog.addString(levelText, null, -21, -4, RED);
     	
@@ -444,16 +444,16 @@ public class TextScreen {
     public static void showLevelInfo() {
         synchronized (getMonitor()) {
             textDialog.clearGroup("info");
-            Level level = GameController.getLevel();
-            String rating = GameController.getCurLevelPack().getRatings().get(GameController.getCurRating());
+            Level level = LemGame.getLevel();
+            String rating = LemGame.getCurLevelPack().getRatings().get(LemGame.getCurRating());
             String lemWord = level.isSuperLemming() ? "Super" : "";
-            lemWord = lemWord + (level.getNumLemmings() == 1 ? GameController.getLemmNames() : GameController.getLemmNamesPlural());
+            lemWord = lemWord + (level.getNumLemmings() == 1 ? LemGame.getLemmNames() : LemGame.getLemmNamesPlural());
             LemmColor lemColor = level.isSuperLemming() ? HOT_RED : BLUE;
             int savePercent = level.getNumToRescue() * 100 / level.getNumLemmings();
             int xPos = -11;
             
             if (level.isDirectDrop()) {
-            	if (GameController.isOptionEnabled(GameController.Option.NO_PERCENTAGES) || level.getNumLemmings() > 100)
+            	if (LemGame.isOptionEnabled(LemGame.Option.NO_PERCENTAGES) || level.getNumLemmings() > 100)
             		textDialog.addString(String.format("Save %d of %d %s", level.getNumToRescue(), level.getNumLemmings(), lemWord), "info", xPos, -2, lemColor);
             	else
             		textDialog.addString(String.format("Save %d%% of %d %s", savePercent, level.getNumLemmings(), lemWord), "info", xPos, -2, lemColor);
@@ -462,7 +462,7 @@ public class TextScreen {
             } else {
             	textDialog.addString(String.format("%d " + lemWord, level.getNumLemmings()), "info", xPos, -2, lemColor);
                 
-            	if (GameController.isOptionEnabled(GameController.Option.NO_PERCENTAGES) || level.getNumLemmings() > 100)
+            	if (LemGame.isOptionEnabled(LemGame.Option.NO_PERCENTAGES) || level.getNumLemmings() > 100)
                     textDialog.addString(String.format("%d to be saved", level.getNumToRescue()), "info", xPos, -1, GREEN);
                 else
                     textDialog.addString(String.format("%d%% to be saved", savePercent), "info", xPos, -1, GREEN);           	
@@ -470,7 +470,7 @@ public class TextScreen {
             textDialog.addString(String.format("Release Rate %d", level.getReleaseRate()), "info", xPos, 0, YELLOW);
             int minutes = level.getTimeLimitSeconds() / 60;
             int seconds = level.getTimeLimitSeconds() % 60;
-            if (!GameController.isTimed())
+            if (!LemGame.isTimed())
                 textDialog.addString("Infinite time", "info", xPos, 1, TURQUOISE);
             else if (seconds == 0) {
                 String minuteWord = (minutes == 1) ? "Minute" : "Minutes";
@@ -486,7 +486,7 @@ public class TextScreen {
             }
             if (level.getMaxFallDistance() != 126)
             	textDialog.addString(String.format("Max fall distance %d", level.getMaxFallDistance()), "info", xPos, n, ORANGE);
-            if (level.getNumHints() > 0 && (Core.player.isDebugMode() || GameController.getTimesFailed() >= FAILURE_THRESHOLD_FOR_HINTS))
+            if (level.getNumHints() > 0 && (Core.player.isDebugMode() || LemGame.getTimesFailed() >= FAILURE_THRESHOLD_FOR_HINTS))
                 textDialog.addTextButton("Show Hint", "Show Hint", "info", -4, 5, Button.SHOW_HINT, BLUE, YELLOW);
         }
     }
@@ -494,7 +494,7 @@ public class TextScreen {
     public static void showHint() {
         synchronized (getMonitor()) {
             textDialog.clearGroup("info");
-            Level level = GameController.getLevel();
+            Level level = LemGame.getLevel();
             textDialog.addString(String.format("Hint %d", hintIndex + 1), "info", -3, -2, TURQUOISE);
             textDialog.addStringCentered(level.getHint(hintIndex), "info", 0, GREEN);
             textDialog.addTextButton("Show Info", "Show Info", "info", -4, 5, Button.SHOW_INFO, BLUE, YELLOW);
@@ -502,7 +502,7 @@ public class TextScreen {
                 textDialog.addTextButton("Previous Hint", "Previous Hint", "info", -19, 5, Button.PREVIOUS_HINT, BLUE, YELLOW);
             }
             if ((Core.player.isDebugMode() && hintIndex < level.getNumHints() - 1)
-                     || (hintIndex < Math.min(level.getNumHints() - 1, GameController.getTimesFailed() - FAILURE_THRESHOLD_FOR_HINTS))) {
+                     || (hintIndex < Math.min(level.getNumHints() - 1, LemGame.getTimesFailed() - FAILURE_THRESHOLD_FOR_HINTS))) {
                 textDialog.addTextButton("Next Hint", "Next Hint", "info", 8, 5, Button.NEXT_HINT, BLUE, YELLOW);
             }
         }
@@ -567,7 +567,7 @@ public class TextScreen {
         textDialog.clearGroup("introAnimation");
         int logoY = -140;
         
-        if (GameController.getMenuThemeOption() == GameController.MenuThemeOption.WINLEMM)
+        if (LemGame.getMenuThemeOption() == LemGame.MenuThemeOption.WINLEMM)
         	logoY = -128;
         
         // manage logo rotation
@@ -648,7 +648,7 @@ public class TextScreen {
     }
     
     private static MiscGfx.Index getLogoImageIndex() {
-    	if (GameController.getMenuThemeOption() == GameController.MenuThemeOption.AMIGA)
+    	if (LemGame.getMenuThemeOption() == LemGame.MenuThemeOption.AMIGA)
     		return MiscGfx.Index.RETROLEMMINI_LOGO_AMIGA;
     	else
     		return MiscGfx.Index.RETROLEMMINI_LOGO_WINLEMM;
@@ -658,8 +658,8 @@ public class TextScreen {
         synchronized (getMonitor()) {
         	MiscGfx.Index img = getLogoImageIndex();
         	
-        	int width = GameController.getMenuThemeOption() == GameController.MenuThemeOption.WINLEMM ? 480 : 560;
-        	int height = GameController.getMenuThemeOption() == GameController.MenuThemeOption.WINLEMM ? 140 : 185;
+        	int width = LemGame.getMenuThemeOption() == LemGame.MenuThemeOption.WINLEMM ? 480 : 560;
+        	int height = LemGame.getMenuThemeOption() == LemGame.MenuThemeOption.WINLEMM ? 140 : 185;
         	 
             rotImg = new LemmImage[ROT_ANIM_LENGTH];
             rotImg[0] = MiscGfx.getImage(img).getScaledInstance(width,  height);
@@ -694,7 +694,7 @@ public class TextScreen {
                     LemmFont.getWidth() * (LemmFont.getCharCount(SCROLL_TEXT) + SCROLL_PADDING * 2) + SCROLL_WIDTH * 2,
                     LemmFont.getHeight());
             
-            LemmFont.LemmColor textColor = //(GameController.getMenuThemeOption() == GameController.MenuThemeOption.AMIGA)
+            LemmFont.LemmColor textColor = //(LemGame.getMenuThemeOption() == LemGame.MenuThemeOption.AMIGA)
 			            		           //? 
 			            		           YELLOW
 			            		           //: BLUE
@@ -711,7 +711,7 @@ public class TextScreen {
 	            }
 	        }
 
-            LemmImage tickerTape = //(GameController.getMenuThemeOption() == GameController.MenuThemeOption.AMIGA)
+            LemmImage tickerTape = //(LemGame.getMenuThemeOption() == LemGame.MenuThemeOption.AMIGA)
             		               //? 
             		               MiscGfx.getImage(MiscGfx.Index.TICKER_TAPE_BLUE)
             		               //: MiscGfx.getImage(MiscGfx.Index.TICKER_TAPE_PINK)
@@ -720,7 +720,7 @@ public class TextScreen {
             double scaleHeight = 1;
             double scaleWidth = 1;
 
-            if (GameController.isOptionEnabled(GameController.Option.CLASSIC_SCROLLER)) {
+            if (LemGame.isOptionEnabled(LemGame.Option.CLASSIC_SCROLLER)) {
                 scaleHeight = 0.8;
                 scaleWidth = 0.8;
             }
@@ -734,7 +734,7 @@ public class TextScreen {
                 scrollerGfx = scrollerImg.createGraphicsContext();
                 scrollerGfx.setBackground(new Color(0, 0, 0, 0)); // Transparent background.
 
-                if (GameController.isOptionEnabled(GameController.Option.CLASSIC_SCROLLER)) {
+                if (LemGame.isOptionEnabled(LemGame.Option.CLASSIC_SCROLLER)) {
                     int idx = 0;
                     do {
                         scrollerGfx.drawImage(tickerTape, idx, 0);

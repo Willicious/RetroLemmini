@@ -237,7 +237,7 @@ public class ReplayStream {
             }
             events = ev;
             if (Core.compareVersions(revision, COMPATIBILITY_REVISION) < 0) {
-            	GameController.replayCaption = "RetroLemmini - Current Version: " + Core.REVISION +
+            	LemGame.replayCaption = "RetroLemmini - Current Version: " + Core.REVISION +
       			      " | Compatibility Version: " + COMPATIBILITY_REVISION +
       			      " | Replay Version: " + revision;
             }
@@ -252,7 +252,7 @@ public class ReplayStream {
     	if (revision != null && revision.startsWith("0.1"))
     	    return false;
     	
-    	return GameController.isOptionEnabled(GameController.Option.TIMED_BOMBERS);
+    	return LemGame.isOptionEnabled(LemGame.Option.TIMED_BOMBERS);
     }
 
     /**
@@ -268,11 +268,11 @@ public class ReplayStream {
             w.newLine();
             w.write("#Players 1");
             w.newLine();
-            LevelPack lp = GameController.getCurLevelPack();
+            LevelPack lp = LemGame.getCurLevelPack();
             w.write(String.format("#%s, %d, %d, %s, %s",
-                    lp.getName().trim(), GameController.getCurRating(), GameController.getCurLevelNumber(),
-                    lp.getRatings().get(GameController.getCurRating()).trim(), GameController.getLevel().getLevelName().trim()));
-            if (GameController.isOptionEnabled(GameController.Option.DIRECT_DROP)) {
+                    lp.getName().trim(), LemGame.getCurRating(), LemGame.getCurLevelNumber(),
+                    lp.getRatings().get(LemGame.getCurRating()).trim(), LemGame.getLevel().getLevelName().trim()));
+            if (LemGame.isOptionEnabled(LemGame.Option.DIRECT_DROP)) {
             	w.newLine();
             	w.write("#Direct Drop Active");
             }
@@ -331,7 +331,7 @@ public class ReplayStream {
      * Add ASSIGN_SKILL event (one lemming was assigned a skill).
      */
     public void addAssignSkillEvent(final int ctr, final Lemming.Type skill, final int lemming) {
-        boolean isTimedBomber = GameController.isOptionEnabled(GameController.Option.TIMED_BOMBERS);
+        boolean isTimedBomber = LemGame.isOptionEnabled(LemGame.Option.TIMED_BOMBERS);
         ReplayAssignSkillEvent event = new ReplayAssignSkillEvent(ctr, skill, lemming, isTimedBomber);
         events.add(event);
     }

@@ -44,8 +44,8 @@ import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import lemmini.game.Core;
-import lemmini.game.GameController;
-import lemmini.game.GameController.Option;
+import lemmini.game.LemGame;
+import lemmini.game.LemGame.Option;
 import lemmini.game.Icons;
 import lemmini.game.LemmCursor;
 import lemmini.game.LemmException;
@@ -108,12 +108,12 @@ public class LemminiPanel extends JPanel implements Runnable {
     static final int SMALL_Y = ICONS_Y;
     
     private boolean needVLockIcon() {
-        return GameController.getLevel() != null &&
-               GameController.getLevel().getHeight() > Level.DEFAULT_HEIGHT;
+        return LemGame.getLevel() != null &&
+               LemGame.getLevel().getHeight() > Level.DEFAULT_HEIGHT;
     }
 
     private int getIconBarX() {
-        if (GameController.isOptionEnabled(Option.ENHANCED_ICONBAR) ) {
+        if (LemGame.isOptionEnabled(Option.ENHANCED_ICONBAR) ) {
             if (!needVLockIcon())
                 return ICONS_X - 10;
             else
@@ -123,7 +123,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
 
     private int getIconBarY() {
-        if (GameController.isOptionEnabled(Option.ENHANCED_ICONBAR) ) {
+        if (LemGame.isOptionEnabled(Option.ENHANCED_ICONBAR) ) {
             return ICONS_Y - 10;
         }
         return ICONS_Y;
@@ -131,14 +131,14 @@ public class LemminiPanel extends JPanel implements Runnable {
 
 
     private int getSmallX() {
-        if (GameController.isOptionEnabled(Option.ENHANCED_ICONBAR) ) {
+        if (LemGame.isOptionEnabled(Option.ENHANCED_ICONBAR) ) {
             return SMALL_X + 10;
         }
         return SMALL_X;
     }
 
     private int getSmallY() {
-        if (GameController.isOptionEnabled(Option.ENHANCED_ICONBAR) ) {
+        if (LemGame.isOptionEnabled(Option.ENHANCED_ICONBAR) ) {
             return SMALL_Y - 3;
         }
         return SMALL_Y;
@@ -199,7 +199,7 @@ public class LemminiPanel extends JPanel implements Runnable {
         isFocused = true;
         mouseHasEntered = true;
         holdingMinimap = false;
-        GameController.resetModifierKeys();
+        LemGame.resetModifierKeys();
         initComponents();
         unmaximizedWidth = getWidth();
         unmaximizedHeight = getHeight();
@@ -286,7 +286,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     }//GEN-LAST:event_formMouseEntered
 
     private void formMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseExited
-        switch (GameController.getGameState()) {
+        switch (LemGame.getGameState()) {
             case PREVIEW:
             case POSTVIEW:
             case LEVEL:
@@ -298,7 +298,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                     x = 0;
                 }
                 xMouseScreen = x;
-                x = Core.unscale(x) + GameController.getXPos();
+                x = Core.unscale(x) + LemGame.getXPos();
                 xMouse = x;
                 LemmCursor.setX(Core.unscale(xMouseScreen));
 
@@ -310,7 +310,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                     y = 0;
                 }
                 yMouseScreen = y;
-                y = Core.unscale(y) + GameController.getYPos();
+                y = Core.unscale(y) + LemGame.getYPos();
                 yMouse = y;
                 LemmCursor.setY(Core.unscale(yMouseScreen));
                 evt.consume();
@@ -332,11 +332,11 @@ public class LemminiPanel extends JPanel implements Runnable {
         boolean rightMousePressed = BooleanUtils.toBoolean(modifiers & InputEvent.BUTTON3_DOWN_MASK);
 
         if (Fader.getState() != Fader.State.OFF
-                && GameController.getGameState() != GameController.State.LEVEL) {
+                && LemGame.getGameState() != LemGame.State.LEVEL) {
             return;
         }
 
-        switch (GameController.getGameState()) {
+        switch (LemGame.getGameState()) {
             case INTRO:
                 if (buttonPressed == MouseEvent.BUTTON1) {
                     TextScreen.Button button = TextScreen.getDialog().handleLeftClick(
@@ -427,15 +427,15 @@ public class LemminiPanel extends JPanel implements Runnable {
                         	findBestLevelToLoad();
                             break;
                         case RESTART:
-                            GameController.requestRestartLevel(false, true);
+                            LemGame.requestRestartLevel(false, true);
                             break;
                         case MENU:
-                            GameController.setTransition(GameController.TransitionState.TO_INTRO);
+                            LemGame.setTransition(LemGame.TransitionState.TO_INTRO);
                             Fader.setState(Fader.State.OUT);
                             Core.setWindowCaption("RetroLemmini");
                             break;
                         case REPLAY:
-                            GameController.requestRestartLevel(true, true);
+                            LemGame.requestRestartLevel(true, true);
                             break;
                         case SAVE_REPLAY:
                             handleSaveReplay();
@@ -459,24 +459,24 @@ public class LemminiPanel extends JPanel implements Runnable {
                     debugDraw(x, y, leftMousePressed);
                 } else {
 	                if (buttonPressed == MouseEvent.BUTTON1) {
-	                	GameController.leftMouseButtonHeld = true;
+	                	LemGame.leftMouseButtonHeld = true;
 	                    if (mouseOverPanel) {
 	                        //clicking on icons
-	                        Icons.IconType type = GameController.getIconType(x - menuOffsetX - getIconBarX());
+	                        Icons.IconType type = LemGame.getIconType(x - menuOffsetX - getIconBarX());
 	                        if (type != null) {
-	                            GameController.handleIconButton(type);
+	                            LemGame.handleIconButton(type);
 	                        }
 	                    } else {
 	                        //clicking on lemmings
-	                        Lemming l = GameController.lemmUnderCursor(LemmCursor.getType());
+	                        Lemming l = LemGame.lemmUnderCursor(LemmCursor.getType());
 	                        if (l != null) {
-	                            GameController.requestSkill(l);
-	                            GameController.lastAssignedLemming = l;
+	                            LemGame.requestSkill(l);
+	                            LemGame.lastAssignedLemming = l;
 	                        } else if (y < LemminiFrame.LEVEL_HEIGHT) {
-	                        	if (GameController.isOptionEnabled(GameController.Option.CLICK_AIR_TO_CANCEL_REPLAY))
-	                        		GameController.stopReplayMode();
-	                            if (GameController.isOptionEnabled(GameController.Option.ENABLE_FRAME_STEPPING))
-	                            	GameController.advanceFrame();
+	                        	if (LemGame.isOptionEnabled(LemGame.Option.CLICK_AIR_TO_CANCEL_REPLAY))
+	                        		LemGame.stopReplayMode();
+	                            if (LemGame.isOptionEnabled(LemGame.Option.ENABLE_FRAME_STEPPING))
+	                            	LemGame.advanceFrame();
 	                        }
 	                    }
 	                    // check minimap mouse move
@@ -490,19 +490,19 @@ public class LemminiPanel extends JPanel implements Runnable {
 	                		Core.getMouseInput().getActionsForButton(buttonPressed)) {
 			                    switch (action) {
 			                        case TOGGLEPAUSE:
-			                            GameController.togglePause();
+			                            LemGame.togglePause();
 			                            break;		
 			                        case SELECTWALKER:
 			                            pressSelectWalker();
 			                            break;		
 			                        case FASTSCROLL:
-			                            GameController.setShiftPressed(true);
+			                            LemGame.setShiftPressed(true);
 			                            break;
 			                        case RELEASERATEDOWN:
-			                        	GameController.pressMinus(GameController.KEYREPEAT_KEY);
+			                        	LemGame.pressMinus(LemGame.KEYREPEAT_KEY);
 			                        	break;
 			                        case RELEASERATEUP:
-			                        	GameController.pressPlus(GameController.KEYREPEAT_KEY);
+			                        	LemGame.pressPlus(LemGame.KEYREPEAT_KEY);
 			                        	break;
 			                        default:
 			                            break;
@@ -517,9 +517,9 @@ public class LemminiPanel extends JPanel implements Runnable {
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
-        GameController.leftMouseButtonHeld = false;
-        GameController.attemptingHoldToAssign = false;
-        GameController.lastAssignedLemming = null;
+        LemGame.leftMouseButtonHeld = false;
+        LemGame.attemptingHoldToAssign = false;
+        LemGame.lastAssignedLemming = null;
     	
     	int x = Core.unscale(evt.getX());
         int y = Core.unscale(evt.getY());
@@ -527,23 +527,23 @@ public class LemminiPanel extends JPanel implements Runnable {
         mouseDy = 0;
         int buttonPressed = evt.getButton();
 
-        switch (GameController.getGameState()) {
+        switch (LemGame.getGameState()) {
             case LEVEL:
                 if (buttonPressed == MouseEvent.BUTTON1) {
                     holdingMinimap = false;
                     if (y > getIconBarY() && y < getIconBarY() + Icons.getIconHeight()) {
-                        Icons.IconType type = GameController.getIconType(x - menuOffsetX - getIconBarX());
+                        Icons.IconType type = LemGame.getIconType(x - menuOffsetX - getIconBarX());
                         if (type != null) {
-                            GameController.releaseIcon(type);
+                            LemGame.releaseIcon(type);
                         }
                     }
                     // always release icons which don't stay pressed
-                    GameController.releasePlus(GameController.KEYREPEAT_ICON);
-                    GameController.releaseMinus(GameController.KEYREPEAT_ICON);
-                    GameController.releaseIcon(Icons.IconType.MINUS);
-                    GameController.releaseIcon(Icons.IconType.PLUS);
-                    GameController.releaseIcon(Icons.IconType.NUKE);
-                    GameController.releaseIcon(Icons.IconType.RESTART);
+                    LemGame.releasePlus(LemGame.KEYREPEAT_ICON);
+                    LemGame.releaseMinus(LemGame.KEYREPEAT_ICON);
+                    LemGame.releaseIcon(Icons.IconType.MINUS);
+                    LemGame.releaseIcon(Icons.IconType.PLUS);
+                    LemGame.releaseIcon(Icons.IconType.NUKE);
+                    LemGame.releaseIcon(Icons.IconType.RESTART);
                 } else {
                 	for (MouseInput.MouseAction action :
                         Core.getMouseInput().getActionsForButton(buttonPressed)) {
@@ -552,13 +552,13 @@ public class LemminiPanel extends JPanel implements Runnable {
 	    	                	releaseSelectWalker();
 	                        	break;
 	                        case FASTSCROLL:
-	    	            	    GameController.setShiftPressed(false);
+	    	            	    LemGame.setShiftPressed(false);
 	                        	break;
 	                        case RELEASERATEDOWN:
-	                        	GameController.releaseMinus(GameController.KEYREPEAT_KEY);
+	                        	LemGame.releaseMinus(LemGame.KEYREPEAT_KEY);
 	                        	break;
 	                        case RELEASERATEUP:
-	                        	GameController.releasePlus(GameController.KEYREPEAT_KEY);
+	                        	LemGame.releasePlus(LemGame.KEYREPEAT_KEY);
 	                        	break;
 	                    	default:
 	                    		break;
@@ -585,7 +585,7 @@ public class LemminiPanel extends JPanel implements Runnable {
         mouseDx = 0;
         mouseDy = 0;
         // check minimap mouse move
-        switch (GameController.getGameState()) {
+        switch (LemGame.getGameState()) {
             case LEVEL:
                 int x = Core.unscale(evt.getX());
                 int y = Core.unscale(evt.getY());
@@ -634,8 +634,8 @@ public class LemminiPanel extends JPanel implements Runnable {
         int oldX = xMouse;
         int oldY = yMouse;
 
-        xMouse = Core.unscale(evt.getX()) + GameController.getXPos();
-        yMouse = Core.unscale(evt.getY()) + GameController.getYPos();
+        xMouse = Core.unscale(evt.getX()) + LemGame.getXPos();
+        yMouse = Core.unscale(evt.getY()) + LemGame.getYPos();
         // LemmCursor
         xMouseScreen = evt.getX();
         if (xMouseScreen >= getWidth()) {
@@ -656,7 +656,7 @@ public class LemminiPanel extends JPanel implements Runnable {
             mouseHasEntered = true;
         }
 
-        switch (GameController.getGameState()) {
+        switch (LemGame.getGameState()) {
             case INTRO:
             case PREVIEW:
             case POSTVIEW:
@@ -677,12 +677,12 @@ public class LemminiPanel extends JPanel implements Runnable {
     }//GEN-LAST:event_formMouseMoved
 
     private void formMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_formMouseWheelMoved
-        if (GameController.getGameState() != GameController.State.LEVEL)
+        if (LemGame.getGameState() != LemGame.State.LEVEL)
         	return;
         
         boolean isDebugDraw = draw && Core.player.isDebugMode();
-        boolean enableWheelBrushSize = isDebugDraw && GameController.isOptionEnabled(GameController.Option.ENABLE_WHEEL_BRUSH_SIZE);
-        boolean enableWheelSkillSelect = GameController.isOptionEnabled(GameController.Option.ENABLE_WHEEL_SKILL_SELECT);
+        boolean enableWheelBrushSize = isDebugDraw && LemGame.isOptionEnabled(LemGame.Option.ENABLE_WHEEL_BRUSH_SIZE);
+        boolean enableWheelSkillSelect = LemGame.isOptionEnabled(LemGame.Option.ENABLE_WHEEL_SKILL_SELECT);
         
         if (!enableWheelSkillSelect && !enableWheelBrushSize)
         	return;
@@ -704,22 +704,22 @@ public class LemminiPanel extends JPanel implements Runnable {
     	} else if (enableWheelSkillSelect) {
             if (wheelUp) {
                 for (int i = 0; i > wheelRotation; i--) {
-                    GameController.previousSkill();
+                    LemGame.previousSkill();
                 }
             } else if (wheelDown) {
                 for (int i = 0; i < wheelRotation; i++) {
-                    GameController.nextSkill();
+                    LemGame.nextSkill();
                 }
             }
         }
     }//GEN-LAST:event_formMouseWheelMoved
     
     private void dragViewArea(int x, int y) {
-        int xOfsTemp = GameController.getXPos() + (x - mouseDragStartX);
-        GameController.setXPos(xOfsTemp);
-        if (!GameController.isVerticalLock()) {
-            int yOfsTemp = GameController.getYPos() + (y - mouseDragStartY);
-            GameController.setYPos(yOfsTemp);
+        int xOfsTemp = LemGame.getXPos() + (x - mouseDragStartX);
+        LemGame.setXPos(xOfsTemp);
+        if (!LemGame.isVerticalLock()) {
+            int yOfsTemp = LemGame.getYPos() + (y - mouseDragStartY);
+            LemGame.setYPos(yOfsTemp);
         }
         Minimap.adjustXPos();
     }
@@ -806,17 +806,17 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
 
     void focusLost() {
-    	GameController.resetModifierKeys();
+    	LemGame.resetModifierKeys();
         nudgeViewLeftPressed = false;
         nudgeViewRightPressed = false;
         nudgeViewUpPressed = false;
         nudgeViewDownPressed = false;
-        GameController.releasePlus(GameController.KEYREPEAT_ICON | GameController.KEYREPEAT_KEY);
-        GameController.releaseMinus(GameController.KEYREPEAT_ICON | GameController.KEYREPEAT_KEY);
-        GameController.releaseIcon(Icons.IconType.MINUS);
-        GameController.releaseIcon(Icons.IconType.PLUS);
-        GameController.releaseIcon(Icons.IconType.NUKE);
-        GameController.releaseIcon(Icons.IconType.RESTART);
+        LemGame.releasePlus(LemGame.KEYREPEAT_ICON | LemGame.KEYREPEAT_KEY);
+        LemGame.releaseMinus(LemGame.KEYREPEAT_ICON | LemGame.KEYREPEAT_KEY);
+        LemGame.releaseIcon(Icons.IconType.MINUS);
+        LemGame.releaseIcon(Icons.IconType.PLUS);
+        LemGame.releaseIcon(Icons.IconType.NUKE);
+        LemGame.releaseIcon(Icons.IconType.RESTART);
         LemmCursor.setBox(false);
         setCursor(LemmCursor.CursorType.NORMAL);
         isFocused = false;
@@ -829,7 +829,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
     
     private int getPadding() {
-        int maxLemmings = GameController.getNumLemmingsMax();
+        int maxLemmings = LemGame.getNumLemmingsMax();
         int numDigits = String.valueOf(maxLemmings).length();
 
         switch (numDigits) {
@@ -855,7 +855,7 @@ public class LemminiPanel extends JPanel implements Runnable {
         synchronized (paintSemaphore) {
             GraphicsContext offGfx = offBuffer.getGraphicsContext();
 
-            switch (GameController.getGameState()) {
+            switch (LemGame.getGameState()) {
                 case INTRO:
                 case PREVIEW:
                 case POSTVIEW:
@@ -864,18 +864,18 @@ public class LemminiPanel extends JPanel implements Runnable {
                     break;
                 case LEVEL:
                 case LEVEL_END:
-                    LemmImage fgImage = GameController.getFgImage();
+                    LemmImage fgImage = LemGame.getFgImage();
                     if (fgImage != null) {
                         // store local copy of offsets to avoid sync problems with AWT threads
-                        int xOfsTemp = GameController.getXPos();
+                        int xOfsTemp = LemGame.getXPos();
                         int minimapXOfsTemp = Minimap.getXPos();
-                        int yOfsTemp = GameController.getYPos();
+                        int yOfsTemp = LemGame.getYPos();
 
                         int width = Core.getDrawWidth();
                         int height = Core.getDrawHeight();
                         int levelHeight = Math.min(LemminiFrame.LEVEL_HEIGHT, height);
 
-                        Level level = GameController.getLevel();
+                        Level level = LemGame.getLevel();
                         if (level != null) {
 
                             // clear screen
@@ -884,16 +884,16 @@ public class LemminiPanel extends JPanel implements Runnable {
                             offGfx.clearRect(0, 0, width, levelHeight);
 
                             // draw background
-                            GameController.getLevel().drawBackground(offGfx, width, levelHeight, xOfsTemp, yOfsTemp);
+                            LemGame.getLevel().drawBackground(offGfx, width, levelHeight, xOfsTemp, yOfsTemp);
 
                             // draw "behind" objects
-                            GameController.getLevel().drawBehindObjects(offGfx, width, height, xOfsTemp, yOfsTemp);
+                            LemGame.getLevel().drawBehindObjects(offGfx, width, height, xOfsTemp, yOfsTemp);
 
                             // draw foreground
                             offGfx.drawImage(fgImage, 0, 0, width, levelHeight, xOfsTemp, yOfsTemp, xOfsTemp + width, yOfsTemp + levelHeight);
 
                             // draw "in front" objects
-                            GameController.getLevel().drawInFrontObjects(offGfx, width, height, xOfsTemp, yOfsTemp);
+                            LemGame.getLevel().drawInFrontObjects(offGfx, width, height, xOfsTemp, yOfsTemp);
                         }
                         // clear parts of the screen for menu etc.
                         offGfx.setClip(0, LemminiFrame.LEVEL_HEIGHT, width, height - LemminiFrame.LEVEL_HEIGHT);
@@ -905,15 +905,15 @@ public class LemminiPanel extends JPanel implements Runnable {
                         int iconBarY = getIconBarY();
                         int countBarX = menuOffsetX + getIconBarX();
                         int countBarY = COUNTER_Y;
-                        if (GameController.isOptionEnabled(GameController.Option.ENHANCED_ICONBAR)) {
+                        if (LemGame.isOptionEnabled(LemGame.Option.ENHANCED_ICONBAR)) {
                             countBarY += 7;
-                        } else if (!GameController.isOptionEnabled(GameController.Option.ENHANCED_ICONBAR) && GameController.isOptionEnabled(GameController.Option.ENHANCED_STATUS)) {
+                        } else if (!LemGame.isOptionEnabled(LemGame.Option.ENHANCED_ICONBAR) && LemGame.isOptionEnabled(LemGame.Option.ENHANCED_STATUS)) {
 
                             iconBarY += 3;
                             countBarY += 3;
                         }
 
-                        GameController.drawIconsAndCounters(offGfx, iconBarX, iconBarY, countBarX, countBarY);
+                        LemGame.drawIconsAndCounters(offGfx, iconBarX, iconBarY, countBarX, countBarY);
 
                         // Draw iconbar filler?
                         // BOOKMARK TODO: the VLock icon is currently hidden behind the filler icon when not needed
@@ -921,7 +921,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                         int XOffset = 0;
                         int YOffset = 0;
 
-                        if (GameController.isOptionEnabled(GameController.Option.ENHANCED_ICONBAR)) {
+                        if (LemGame.isOptionEnabled(LemGame.Option.ENHANCED_ICONBAR)) {
                             if (needVLockIcon())
                                 XOffset = 17;
                             else
@@ -943,7 +943,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                         }
 
                         // draw minimap
-                        if (GameController.isOptionEnabled(GameController.Option.ENHANCED_ICONBAR)) {
+                        if (LemGame.isOptionEnabled(LemGame.Option.ENHANCED_ICONBAR)) {
                             drawMiniMapLarge(offGfx, width, height, minimapXOfsTemp, yOfsTemp);
                         } else {
                             drawMiniMap(offGfx, width, height, minimapXOfsTemp, yOfsTemp);
@@ -951,14 +951,14 @@ public class LemminiPanel extends JPanel implements Runnable {
 
                         // draw lemmings
                         offGfx.setClip(0, 0, width, levelHeight);
-                        GameController.drawLemmings(offGfx, GameController.getXPos(), GameController.getYPos(), false);
-                        Lemming lemmUnderCursor = GameController.lemmUnderCursor(LemmCursor.getType());
+                        LemGame.drawLemmings(offGfx, LemGame.getXPos(), LemGame.getYPos(), false);
+                        Lemming lemmUnderCursor = LemGame.lemmUnderCursor(LemmCursor.getType());
                         offGfx.setClip(0, 0, width, levelHeight);
                         // draw explosions
-                        GameController.drawExplosions(offGfx, width, LemminiFrame.LEVEL_HEIGHT, xOfsTemp, yOfsTemp);
+                        LemGame.drawExplosions(offGfx, width, LemminiFrame.LEVEL_HEIGHT, xOfsTemp, yOfsTemp);
                         offGfx.setClip(0, 0, width, height);
                         //draw Visual SFX
-                        GameController.drawVisualSfx(offGfx);
+                        LemGame.drawVisualSfx(offGfx);
 
 
                         // draw info string
@@ -966,13 +966,13 @@ public class LemminiPanel extends JPanel implements Runnable {
                         GraphicsContext outStrGfx = outStrBuffer.getGraphicsContext();
                         outStrGfx.clearRect(0, 0, outStrImg.getWidth(), outStrImg.getHeight());
                         int statusBarGap = 8; //8 pixels of padding between the bottom of the level and the top of the status line.
-                        if (GameController.isOptionEnabled(GameController.Option.ENHANCED_STATUS)) {
+                        if (LemGame.isOptionEnabled(LemGame.Option.ENHANCED_STATUS)) {
                             statusBarGap = 18;
                         }
                         int yOffset = LemminiFrame.LEVEL_HEIGHT + statusBarGap;
 
                         if (Core.player.isDebugMode() && showDebugCursorInfo) {
-                            Stencil stencil = GameController.getStencil();
+                            Stencil stencil = LemGame.getStencil();
                             if (stencil != null) {
                                 int stencilVal = stencil.getMask(xMouse, yMouse);
                                 int stencilObject = stencil.getMaskObjectID(xMouse, yMouse);
@@ -992,7 +992,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                             if (lemmUnderCursor != null) {
                             	lemmingInfo = lemmUnderCursor.getLemmingInfo();
                                 // display also the total number of lemmings under the cursor
-                                int num = GameController.getNumLemmsUnderCursor();
+                                int num = LemGame.getNumLemmsUnderCursor();
                                 if (num > 1) {
                                 	lemmingInfo += StringUtils.SPACE + num;
                                 }
@@ -1000,33 +1000,33 @@ public class LemminiPanel extends JPanel implements Runnable {
                             	lemmingInfo = StringUtils.EMPTY;
                             }
                             String strHome;
-                            if (GameController.isOptionEnabled(GameController.Option.NO_PERCENTAGES)
-                                    || GameController.getNumLemmingsMax() > 100) {
-                                strHome = Integer.toString(GameController.getNumExited());
+                            if (LemGame.isOptionEnabled(LemGame.Option.NO_PERCENTAGES)
+                                    || LemGame.getNumLemmingsMax() > 100) {
+                                strHome = Integer.toString(LemGame.getNumExited());
                             } else {
-                                int max = GameController.getNumLemmingsMax();
-                                int home = GameController.getNumExited() * 100 / max;
+                                int max = LemGame.getNumLemmingsMax();
+                                int home = LemGame.getNumExited() * 100 / max;
                                 strHome = String.format("%02d%%", home);
                             }
 
                             // standard text-based status display
-                            if (!GameController.isOptionEnabled(GameController.Option.ENHANCED_STATUS)) {
+                            if (!LemGame.isOptionEnabled(LemGame.Option.ENHANCED_STATUS)) {
                                 String status;
-                                status = String.format("%-15s OUT %-4d IN %-4s TIME %s", lemmingInfo, GameController.getNumLemmings(), strHome, GameController.getTimeString());
+                                status = String.format("%-15s OUT %-4d IN %-4s TIME %s", lemmingInfo, LemGame.getNumLemmings(), strHome, LemGame.getTimeString());
                                 //use the standard original "text-based" status bar
                                 LemmFont.strImage(outStrGfx, status);
                                 offGfx.drawImage(outStrImg, menuOffsetX + 4, yOffset);
                                 
                             // enhanced icon-based status display
                             } else {
-                                int hatchLems = GameController.getNumLemmingsUnreleased(); // number of lems still in hatch
-                                int maxLevelLemm = GameController.getNumLemmingsMax(); // maximum number of lems provided from the start of the level
-                                int active = GameController.getNumLemmings(); // number of lems active in the level
-                                int saveRequirement = GameController.getNumToRescue(); // the level's save requirement
-                                int exited = GameController.getNumExited(); // number of lems that have exited
-                                int maxPossibleLemm = GameController.getNumLemmingsPossibleMax(); // maximum number of lems currently possible to save (including Blockers)
+                                int hatchLems = LemGame.getNumLemmingsUnreleased(); // number of lems still in hatch
+                                int maxLevelLemm = LemGame.getNumLemmingsMax(); // maximum number of lems provided from the start of the level
+                                int active = LemGame.getNumLemmings(); // number of lems active in the level
+                                int saveRequirement = LemGame.getNumToRescue(); // the level's save requirement
+                                int exited = LemGame.getNumExited(); // number of lems that have exited
+                                int maxPossibleLemm = LemGame.getNumLemmingsPossibleMax(); // maximum number of lems currently possible to save (including Blockers)
                                 // show save requirement or maximum lems as the home sub-value depending on "use percentages" option
-                                int homeSubValue = GameController.isOptionEnabled(GameController.Option.NO_PERCENTAGES) ? saveRequirement : maxLevelLemm;
+                                int homeSubValue = LemGame.isOptionEnabled(LemGame.Option.NO_PERCENTAGES) ? saveRequirement : maxLevelLemm;
                             	
                             	int charWidthLa = 18;
                             	int charWidthSm = 9;
@@ -1104,10 +1104,10 @@ public class LemminiPanel extends JPanel implements Runnable {
                                 int xTimeW = lemmIconTime.getWidth() + xSpace;
                                 
                                 LemmFont.LemmColor timeColor;
-                                int time = GameController.getTime();
-                                String timeString = GameController.getTimeString();
+                                int time = LemGame.getTime();
+                                String timeString = LemGame.getTimeString();
 
-                                if (GameController.isTimed()) {
+                                if (LemGame.isTimed()) {
                                 	timeColor = LemmFont.LemmColor.GREEN; // time limit
                                 	
                                 	if (time <= 59)
@@ -1149,7 +1149,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                                 debugModeOffset += 5 * charWidth;
                             }
 
-                            if (GameController.isSuperLemming()) {
+                            if (LemGame.isSuperLemming()) {
                                 debugModeString += "SUPERLEMMING ";
                                 debugModeOffset += 13 * charWidth;
                             }
@@ -1168,9 +1168,9 @@ public class LemminiPanel extends JPanel implements Runnable {
                         }
 
                         // Show the title of the level?
-                        if (GameController.isOptionEnabled(GameController.Option.ENHANCED_STATUS) && GameController.isOptionEnabled(GameController.Option.SHOW_LEVEL_NAME)) {
-                            String rating = GameController.getCurLevelPack().getRatings().get(GameController.getCurRating());
-                            int levelNum = GameController.getCurLevelNumber() + 1;
+                        if (LemGame.isOptionEnabled(LemGame.Option.ENHANCED_STATUS) && LemGame.isOptionEnabled(LemGame.Option.SHOW_LEVEL_NAME)) {
+                            String rating = LemGame.getCurLevelPack().getRatings().get(LemGame.getCurRating());
+                            int levelNum = LemGame.getCurLevelNumber() + 1;
                             String levelName = rating + " " + levelNum + ": " + level.getLevelName().trim();
                             LemmImage lemmLevelName = LemmFont.strImage(levelName, LemmFont.LemmColor.GREEN);
                             offGfx.drawImage(lemmLevelName, menuOffsetX + 4 + debugModeOffset + maxExitOffset, LemminiFrame.LEVEL_HEIGHT + 2, 0.5);
@@ -1180,25 +1180,25 @@ public class LemminiPanel extends JPanel implements Runnable {
                         // fall distance ruler
                         LemmImage ruler = MiscGfx.getImage(MiscGfx.Index.RULER);
                         if (ruler != null) {
-                        	if (GameController.drawRulerAtCursor == true) {
+                        	if (LemGame.drawRulerAtCursor == true) {
                         		int rx = LemmCursor.getX() - ruler.getWidth() / 2;
                         		int ry = LemmCursor.getY() - ruler.getHeight() / 2;
                         		int rWidth = ruler.getWidth();
-                        		int fallDist = GameController.getLevel().getMaxFallDistance();
+                        		int fallDist = LemGame.getLevel().getMaxFallDistance();
                         		int rHeight = fallDist <= 0 ? ruler.getHeight() : fallDist;
                         		offGfx.drawImage(ruler, rx, ry, rWidth, rHeight);
                         	}
                         }
 
                         // replay icon
-                        LemmImage replayImage = GameController.getReplayImage();
+                        LemmImage replayImage = LemGame.getReplayImage();
                         if (replayImage != null) {
                             offGfx.drawImage(replayImage, width - 2 * replayImage.getWidth(), replayImage.getHeight());
                         }
 
                         // draw cursor
                         if (lemmUnderCursor != null) {
-                            if (GameController.isOptionEnabled(GameController.Option.CLASSIC_CURSOR)) {
+                            if (LemGame.isOptionEnabled(LemGame.Option.CLASSIC_CURSOR)) {
                                 if (mouseHasEntered && !LemmCursor.isBox()) {
                                     LemmCursor.setBox(true);
                                     setCursor(LemmCursor.getCursor());
@@ -1212,7 +1212,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                                 offGfx.drawImage(cursorImg, lx, ly);
                             }
                         } else {
-                            if (GameController.isOptionEnabled(GameController.Option.CLASSIC_CURSOR)
+                            if (LemGame.isOptionEnabled(LemGame.Option.CLASSIC_CURSOR)
                                     && LemmCursor.isBox()) {
                                 LemmCursor.setBox(false);
                                 setCursor(LemmCursor.getCursor());
@@ -1237,7 +1237,7 @@ public class LemminiPanel extends JPanel implements Runnable {
         offGfx.drawImage(MiscGfx.getMinimapImage(), menuOffsetX + getSmallX() - BORDER_WIDTH, getSmallY() - BORDER_WIDTH);
         offGfx.setClip(menuOffsetX + getSmallX(), getSmallY(), Minimap.getVisibleWidth(), Minimap.getVisibleHeight());
         Minimap.draw(offGfx, menuOffsetX + getSmallX(), getSmallY());
-        GameController.drawMinimapLemmings(offGfx, menuOffsetX + getSmallX(), getSmallY());
+        LemGame.drawMinimapLemmings(offGfx, menuOffsetX + getSmallX(), getSmallY());
         offGfx.setClip(0, 0, width, height);
         Minimap.drawFrame(offGfx, menuOffsetX + getSmallX(), getSmallY());
         // draw minimap arrows
@@ -1247,7 +1247,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                     menuOffsetX + getSmallX() - BORDER_WIDTH - leftArrow.getWidth(),
                     getSmallY() + Minimap.getVisibleHeight() / 2 - leftArrow.getHeight() / 2);
         }
-        if (minimapXOfsTemp < ToolBox.scale(GameController.getWidth(), Minimap.getScaleX()) - Minimap.getVisibleWidth()) {
+        if (minimapXOfsTemp < ToolBox.scale(LemGame.getWidth(), Minimap.getScaleX()) - Minimap.getVisibleWidth()) {
             LemmImage rightArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_RIGHT);
             offGfx.drawImage(rightArrow,
                     menuOffsetX + getSmallX() + Minimap.getVisibleWidth() + BORDER_WIDTH,
@@ -1259,7 +1259,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                     menuOffsetX + getSmallX() + Minimap.getVisibleWidth() / 2 - upArrow.getWidth() / 2,
                     getSmallY() - BORDER_WIDTH - upArrow.getHeight());
         }
-        if (yOfsTemp < GameController.getHeight() - LemminiFrame.LEVEL_HEIGHT) {
+        if (yOfsTemp < LemGame.getHeight() - LemminiFrame.LEVEL_HEIGHT) {
             LemmImage downArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_DOWN);
             offGfx.drawImage(downArrow,
                     menuOffsetX + getSmallX() + Minimap.getVisibleWidth() / 2 - downArrow.getWidth() / 2,
@@ -1276,7 +1276,7 @@ public class LemminiPanel extends JPanel implements Runnable {
         //draw contents of minimap
         Minimap.draw(offGfx, menuOffsetX + getSmallX(), getSmallY());
         //draw lemmings onto minimap
-        GameController.drawMinimapLemmings(offGfx, menuOffsetX + getSmallX(), getSmallY());
+        LemGame.drawMinimapLemmings(offGfx, menuOffsetX + getSmallX(), getSmallY());
         offGfx.setClip(0, 0, width, height);
         //draw the yellow frame around what's visible
         Minimap.drawFrame(offGfx, menuOffsetX + getSmallX(), getSmallY());
@@ -1289,7 +1289,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                     menuOffsetX + getSmallX() - BORDER_WIDTH - leftArrow.getWidth(),
                     getSmallY() + Minimap.getVisibleHeight() / 2 - leftArrow.getHeight() / 2);
         }
-        if (minimapXOfsTemp < ToolBox.scale(GameController.getWidth(), Minimap.getScaleX()) - Minimap.getVisibleWidth()) {
+        if (minimapXOfsTemp < ToolBox.scale(LemGame.getWidth(), Minimap.getScaleX()) - Minimap.getVisibleWidth()) {
             LemmImage rightArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_RIGHT);
             offGfx.drawImage(rightArrow,
                     menuOffsetX + getSmallX() + Minimap.getVisibleWidth() + BORDER_WIDTH,
@@ -1301,7 +1301,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                     menuOffsetX + getSmallX() + Minimap.getVisibleWidth() / 2 - upArrow.getWidth() / 2,
                     getSmallY() - BORDER_WIDTH - upArrow.getHeight());
         }
-        if (yOfsTemp < GameController.getHeight() - LemminiFrame.LEVEL_HEIGHT) {
+        if (yOfsTemp < LemGame.getHeight() - LemminiFrame.LEVEL_HEIGHT) {
             LemmImage downArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_DOWN);
             offGfx.drawImage(downArrow,
                     menuOffsetX + getSmallX() + Minimap.getVisibleWidth() / 2 - downArrow.getWidth() / 2,
@@ -1310,8 +1310,8 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
 
     private void updateFrame() {
-        LemmImage fgImage = GameController.getFgImage();
-        switch (GameController.getGameState()) {
+        LemmImage fgImage = LemGame.getFgImage();
+        switch (LemGame.getGameState()) {
             case INTRO:
                 TextScreen.setMode(TextScreen.Mode.INTRO);
                 TextScreen.update();
@@ -1338,83 +1338,83 @@ public class LemminiPanel extends JPanel implements Runnable {
             case LEVEL:
             case LEVEL_END:
                 if (fgImage != null) {
-                    GameController.update();
+                    LemGame.update();
                     // store local copy of xOfs to avoid sync problems with AWT threads
                     // (scrolling by dragging changes xOfs as well)
-                    int xOfsTemp = GameController.getXPos();
+                    int xOfsTemp = LemGame.getXPos();
                     int minimapXOfsTemp = Minimap.getXPos();
-                    int yOfsTemp = GameController.getYPos();
+                    int yOfsTemp = LemGame.getYPos();
                     // mouse movement
                     if (holdingMinimap) {
                         int framePos = ToolBox.scale(xOfsTemp, Minimap.getScaleX()) - minimapXOfsTemp;
                         if (xMouseScreen < Core.scale(menuOffsetX + getSmallX()) && framePos <= 0) {
                             xOfsTemp -= getStepSize();
-                            GameController.setXPos(xOfsTemp);
+                            LemGame.setXPos(xOfsTemp);
                         } else if (xMouseScreen >= Core.scale(menuOffsetX + getSmallX() + Minimap.getVisibleWidth()) && framePos >= Minimap.getVisibleWidth() - ToolBox.scale(Core.getDrawWidth(), Minimap.getScaleX())) {
                             xOfsTemp += getStepSize();
-                            GameController.setXPos(xOfsTemp);
+                            LemGame.setXPos(xOfsTemp);
                         } else {
                             xOfsTemp = Minimap.move(Core.unscale(xMouseScreen) - getSmallX() - menuOffsetX, Core.unscale(yMouse) - getSmallY());
-                            GameController.setXPos(xOfsTemp);
+                            LemGame.setXPos(xOfsTemp);
                         }
-                        if (!GameController.isVerticalLock()) {
+                        if (!LemGame.isVerticalLock()) {
                             if (yMouseScreen < Core.scale(getSmallY())) {
                                 yOfsTemp -= getStepSize();
-                                GameController.setYPos(yOfsTemp);
+                                LemGame.setYPos(yOfsTemp);
                             } else if (yMouseScreen >= Core.scale(getSmallY() + Minimap.getVisibleHeight())) {
                                 yOfsTemp += getStepSize();
-                                GameController.setYPos(yOfsTemp);
+                                LemGame.setYPos(yOfsTemp);
                             }
                         }
                     } else if (mouseHasEntered) {
                         if (xMouseScreen >= getWidth() - Core.scale(AUTOSCROLL_RANGE)) {
                             xOfsTemp += getStepSize();
-                            int beforeXPos = GameController.getXPos();
-                            GameController.setXPos(xOfsTemp);
-                            int afterXPos = GameController.getXPos();
+                            int beforeXPos = LemGame.getXPos();
+                            LemGame.setXPos(xOfsTemp);
+                            int afterXPos = LemGame.getXPos();
                             xMouse += (afterXPos - beforeXPos);
                         } else if (xMouseScreen < Core.scale(AUTOSCROLL_RANGE)) {
                             xOfsTemp -= getStepSize();
-                            int beforeXPos = GameController.getXPos();
-                            GameController.setXPos(xOfsTemp);
-                            int afterXPos = GameController.getXPos();
+                            int beforeXPos = LemGame.getXPos();
+                            LemGame.setXPos(xOfsTemp);
+                            int afterXPos = LemGame.getXPos();
                             xMouse -= (beforeXPos - afterXPos);
                         }
-                        if (!GameController.isVerticalLock()) {
+                        if (!LemGame.isVerticalLock()) {
                             if (yMouseScreen >= getHeight() - Core.scale(AUTOSCROLL_RANGE)) {
                                 yOfsTemp += getStepSize();
-                                int beforeYPos = GameController.getYPos();
-                                GameController.setYPos(yOfsTemp);
-                                int afterYPos = GameController.getYPos();
+                                int beforeYPos = LemGame.getYPos();
+                                LemGame.setYPos(yOfsTemp);
+                                int afterYPos = LemGame.getYPos();
                                 yMouse += (afterYPos - beforeYPos);
                             } else if (yMouseScreen < Core.scale(AUTOSCROLL_RANGE)) {
                                 yOfsTemp -= getStepSize();
-                                int beforeYPos = GameController.getYPos();
-                                GameController.setYPos(yOfsTemp);
-                                int afterYPos = GameController.getYPos();
+                                int beforeYPos = LemGame.getYPos();
+                                LemGame.setYPos(yOfsTemp);
+                                int afterYPos = LemGame.getYPos();
                                 yMouse -= (beforeYPos - afterYPos);
                             }
                         }
                     }
                     if (nudgeViewRightPressed && !nudgeViewLeftPressed) {
                         xOfsTemp += getStepSize();
-                        GameController.setXPos(xOfsTemp);
+                        LemGame.setXPos(xOfsTemp);
                     } else if (nudgeViewLeftPressed && !nudgeViewRightPressed) {
                         xOfsTemp -= getStepSize();
-                        GameController.setXPos(xOfsTemp);
+                        LemGame.setXPos(xOfsTemp);
                     }
-                    if (!GameController.isVerticalLock()) {
+                    if (!LemGame.isVerticalLock()) {
                         if (nudgeViewDownPressed && !nudgeViewUpPressed) {
                             yOfsTemp += getStepSize();
-                            GameController.setYPos(yOfsTemp);
+                            LemGame.setYPos(yOfsTemp);
                         } else if (nudgeViewUpPressed && !nudgeViewDownPressed) {
                             yOfsTemp -= getStepSize();
-                            GameController.setYPos(yOfsTemp);
+                            LemGame.setYPos(yOfsTemp);
                         }
                     }
                     Minimap.adjustXPos();
 
-                    GameController.updateLemmsUnderCursor();
+                    LemGame.updateLemmsUnderCursor();
                 }
                 break;
             default:
@@ -1422,7 +1422,7 @@ public class LemminiPanel extends JPanel implements Runnable {
         }
 
         // fader
-        GameController.fade();
+        LemGame.fade();
     }
 
     /* (non-Javadoc)
@@ -1438,7 +1438,7 @@ public class LemminiPanel extends JPanel implements Runnable {
         try {
             drawNextFrame = false;
             repaintScheduler.scheduleAtFixedRate(
-                    repaintTask, 0, GameController.NANOSEC_PER_FRAME, TimeUnit.NANOSECONDS);
+                    repaintTask, 0, LemGame.NANOSEC_PER_FRAME, TimeUnit.NANOSECONDS);
             while (true) {
                 synchronized (this) {
                     while (!drawNextFrame) {
@@ -1452,26 +1452,26 @@ public class LemminiPanel extends JPanel implements Runnable {
                 if (drawNextFrame) {
                     drawNextFrame = false;
                     // time passed -> redraw necessary
-                    GameController.State gameState = GameController.getGameState();
+                    LemGame.State gameState = LemGame.getGameState();
                     // special handling for fast forward or super lemming mode only during real gameplay
-                    if (gameState == GameController.State.LEVEL) {
+                    if (gameState == LemGame.State.LEVEL) {
                         // in fast forward or super lemming modes, update the game mechanics
                         // multiple times per (drawn) frame
-                        if (GameController.isFastForward()) {
+                        if (LemGame.isFastForward()) {
                         	int multiplier;
-                        	if (GameController.isTurbo()) {
-                        	    multiplier = GameController.TURBO_MULTI;
-                        	} else if (GameController.isOptionEnabled(GameController.Option.FASTER_FAST_FORWARD)) {
-                        	    multiplier = GameController.FASTER_FAST_FWD_MULTI;
+                        	if (LemGame.isTurbo()) {
+                        	    multiplier = LemGame.TURBO_MULTI;
+                        	} else if (LemGame.isOptionEnabled(LemGame.Option.FASTER_FAST_FORWARD)) {
+                        	    multiplier = LemGame.FASTER_FAST_FWD_MULTI;
                         	} else {
-                        	    multiplier = GameController.FAST_FWD_MULTI;
+                        	    multiplier = LemGame.FAST_FWD_MULTI;
                         	}
                             for (int f = 1; f < multiplier; f++) {
-                                GameController.update();
+                                LemGame.update();
                             }
-                        } else if (GameController.isSuperLemming()) {
-                            for (int f = 1; f < GameController.SUPERLEMM_MULTI; f++) {
-                                GameController.update();
+                        } else if (LemGame.isSuperLemming()) {
+                            for (int f = 1; f < LemGame.SUPERLEMM_MULTI; f++) {
+                                LemGame.update();
                             }
                         }
                     }
@@ -1498,17 +1498,17 @@ public class LemminiPanel extends JPanel implements Runnable {
      */
     private void debugDraw(final int x, final int y, final boolean doDraw) {
         if (draw && Core.player.isDebugMode()) {
-            boolean classicSteel = GameController.getLevel().getClassicSteel();
+            boolean classicSteel = LemGame.getLevel().getClassicSteel();
             int rgbVal = (doDraw) ? 0xffffffff : 0x0;
-            int minimapVal = (doDraw || Minimap.isTinted()) ? rgbVal : GameController.getLevel().getBgColor().getRGB();
+            int minimapVal = (doDraw || Minimap.isTinted()) ? rgbVal : LemGame.getLevel().getBgColor().getRGB();
             if (doDraw && Minimap.isTinted()) {
                 minimapVal = Minimap.tintColor(minimapVal);
             }
-            int xOfs = GameController.getXPos();
-            int yOfs = GameController.getYPos();
-            LemmImage fgImage = GameController.getFgImage();
+            int xOfs = LemGame.getXPos();
+            int yOfs = LemGame.getYPos();
+            LemmImage fgImage = LemGame.getFgImage();
             LemmImage fgImageSmall = Minimap.getImage();
-            Stencil stencil = GameController.getStencil();
+            Stencil stencil = LemGame.getStencil();
             double scaleX = (double) fgImageSmall.getWidth() / (double) fgImage.getWidth();
             double scaleY = (double) fgImageSmall.getHeight() / (double) fgImage.getHeight();
             double scaleXHalf = scaleX / 2.0;
@@ -1532,14 +1532,14 @@ public class LemminiPanel extends JPanel implements Runnable {
                         boolean drawSmallX = (scaledX >= (0.5 - scaleXHalf) % 1.0 && scaledX < (0.5 + scaleXHalf) % 1.0)
                                 || Math.abs(scaleX) >= 1.0;
 
-                        if (xa + xOfs >= 0 && xa + xOfs < GameController.getWidth()
-                                && ya + yOfs >= 0 && ya + yOfs < GameController.getHeight()) {
+                        if (xa + xOfs >= 0 && xa + xOfs < LemGame.getWidth()
+                                && ya + yOfs >= 0 && ya + yOfs < LemGame.getHeight()) {
                             int[] objects = stencil.getIDs(xa + xOfs, ya + yOfs);
                             for (int obj : objects) {
-                                SpriteObject spr = GameController.getLevel().getSprObject(obj);
+                                SpriteObject spr = LemGame.getLevel().getSprObject(obj);
                                 if (spr != null && spr.getVisOnTerrain()) {
                                     if (doDraw) {
-                                        if ((GameController.getLevel().getClassicSteel()
+                                        if ((LemGame.getLevel().getClassicSteel()
                                                         || !spr.getType().isOneWay())
                                                 && !(spr.getType().isOneWay()
                                                         && BooleanUtils.toBoolean(stencil.getMask(xa + xOfs, ya + yOfs) & Stencil.MSK_NO_ONE_WAY_DRAW))) {
@@ -1557,7 +1557,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                                         classicSteel ? ~Stencil.MSK_BRICK
                                                 : ~(Stencil.MSK_BRICK | Stencil.MSK_STEEL | Stencil.MSK_ONE_WAY));
                             }
-                            GameController.getFgImage().setRGB(xa + xOfs, ya + yOfs, rgbVal);
+                            LemGame.getFgImage().setRGB(xa + xOfs, ya + yOfs, rgbVal);
                             if (drawSmallX && drawSmallY) {
                                 fgImageSmall.setRGB(ToolBox.scale(xa + xOfs, scaleX), ToolBox.scale(ya + yOfs, scaleY), minimapVal);
                             }
@@ -1573,8 +1573,8 @@ public class LemminiPanel extends JPanel implements Runnable {
         ld.setVisible(true);
         int[] level = ld.getSelectedLevel();
         if (level != null) {
-        	GameController.replayCaption = null;
-            GameController.requestChangeLevel(level[0], level[1], level[2], false);
+        	LemGame.replayCaption = null;
+            LemGame.requestChangeLevel(level[0], level[1], level[2], false);
             getParentFrame().setRestartEnabled(true);
         }
     }
@@ -1582,7 +1582,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     public void handleHotkeyConfig() {
         HotkeyConfig hc = new HotkeyConfig();
         hc.setVisible(true);
-        GameController.activeHotkeys = hc.getAllHotkeys(); 
+        LemGame.activeHotkeys = hc.getAllHotkeys(); 
     }
     
     public void handleMouseConfig() {
@@ -1606,7 +1606,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                     int levelIndex = Integer.parseInt(parts[2].trim());
 
                     if (isValidLevel(packIndex, ratingIndex, levelIndex)) {
-                        LevelPack pack = GameController.getLevelPack(packIndex);
+                        LevelPack pack = LemGame.getLevelPack(packIndex);
 
                         boolean unbeatenLevelFound = false;
 
@@ -1648,8 +1648,8 @@ public class LemminiPanel extends JPanel implements Runnable {
 
                             // Finally, search all packs for the first unbeaten level
                             if (!unbeatenLevelFound) {
-                                for (int p = 0; p < GameController.getLevelPackCount(); p++) {
-                                    LevelPack nextPack = GameController.getLevelPack(p);
+                                for (int p = 0; p < LemGame.getLevelPackCount(); p++) {
+                                    LevelPack nextPack = LemGame.getLevelPack(p);
                                     for (int r = 0; r < nextPack.getRatings().size(); r++) {
                                         for (int l = 0; l < nextPack.getLevelCount(r); l++) {
                                             if (!Core.player.getLevelRecord(nextPack.getName(), nextPack.getRatings().get(r).toString(), l).isCompleted()) {
@@ -1682,7 +1682,7 @@ public class LemminiPanel extends JPanel implements Runnable {
         }
 
         try {
-            GameController.requestChangeLevel(level[0], level[1], level[2], false);
+            LemGame.requestChangeLevel(level[0], level[1], level[2], false);
             getParentFrame().setRestartEnabled(true);
         } catch (Exception e) {
         	handleChooseLevel();
@@ -1690,40 +1690,40 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
     
     private boolean isValidLevel(int packIndex, int ratingIndex, int levelIndex) {
-        if (packIndex < 0 || packIndex >= GameController.getLevelPackCount())
+        if (packIndex < 0 || packIndex >= LemGame.getLevelPackCount())
             return false;
 
-        if (ratingIndex < 0 || ratingIndex >= GameController.getLevelPack(packIndex).getRatings().size())
+        if (ratingIndex < 0 || ratingIndex >= LemGame.getLevelPack(packIndex).getRatings().size())
             return false;
 
-        if (levelIndex < 0 || levelIndex >= GameController.getLevelPack(packIndex).getLevels(ratingIndex).size())
+        if (levelIndex < 0 || levelIndex >= LemGame.getLevelPack(packIndex).getLevels(ratingIndex).size())
             return false;
 
         return true;
     }
 
     void startLevel() {
-        GameController.setTransition(GameController.TransitionState.TO_LEVEL);
+        LemGame.setTransition(LemGame.TransitionState.TO_LEVEL);
         Fader.setState(Fader.State.OUT);
-        GameController.resetGain();
+        LemGame.resetGain();
     }
 
     void continueToNextLevel() {
-        GameController.nextLevel(); // continue to next level
-        GameController.requestChangeLevel(GameController.getCurLevelPackIdx(), GameController.getCurRating(),
-                GameController.getCurLevelNumber(), false);
+        LemGame.nextLevel(); // continue to next level
+        LemGame.requestChangeLevel(LemGame.getCurLevelPackIdx(), LemGame.getCurRating(),
+                LemGame.getCurLevelNumber(), false);
     }
     
     public void findBestLevelToLoad() {
-        if (GameController.wasLost()) {
-            GameController.requestRestartLevel(false, true);
+        if (LemGame.wasLost()) {
+            LemGame.requestRestartLevel(false, true);
             return;
         }
 
-        int packIndex = GameController.getCurLevelPackIdx();
-        LevelPack pack = GameController.getLevelPack(packIndex);
-        int rating = GameController.getCurRating();
-        int level = GameController.getCurLevelNumber();
+        int packIndex = LemGame.getCurLevelPackIdx();
+        LevelPack pack = LemGame.getLevelPack(packIndex);
+        int rating = LemGame.getCurRating();
+        int level = LemGame.getCurLevelNumber();
 
         while (true) {
             // Try to advance to next level
@@ -1744,14 +1744,14 @@ public class LemminiPanel extends JPanel implements Runnable {
             // Stop looping when the next unsolved level is found
             LevelRecord record = Core.player.getLevelRecord(pack.getName(), pack.getRatings().get(rating), level);
             if (!record.isCompleted()) {
-                GameController.requestChangeLevel(packIndex, rating, level, false);
+                LemGame.requestChangeLevel(packIndex, rating, level, false);
                 return;
             }
         }
     }
 
     void exitToMenu() {
-        GameController.setTransition(GameController.TransitionState.TO_INTRO);
+        LemGame.setTransition(LemGame.TransitionState.TO_INTRO);
         Fader.setState(Fader.State.OUT);
         Core.setWindowCaption("RetroLemmini");
     }
@@ -1785,18 +1785,18 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
 
     private void maybeAutoSaveReplay() {
-        if (!GameController.isOptionEnabled(GameController.Option.AUTOSAVE_REPLAYS)) return;
+        if (!LemGame.isOptionEnabled(LemGame.Option.AUTOSAVE_REPLAYS)) return;
 
         if (replaySaved) return;
 
-        if (GameController.getWasCheated() || GameController.wasLost()) return;
+        if (LemGame.getWasCheated() || LemGame.wasLost()) return;
         
-        if (GameController.cancelAutosave) return;
+        if (LemGame.cancelAutosave) return;
 
-        Level level = GameController.getLevel();
-        LevelPack levelPack = GameController.getCurLevelPack();
-        int curRating = GameController.getCurRating();
-        int curLevelNum = GameController.getCurLevelNumber();
+        Level level = LemGame.getLevel();
+        LevelPack levelPack = LemGame.getCurLevelPack();
+        int curRating = LemGame.getCurRating();
+        int curLevelNum = LemGame.getCurLevelNumber();
 
         if (level == null || levelPack == null) return;
 
@@ -1810,14 +1810,14 @@ public class LemminiPanel extends JPanel implements Runnable {
         String levelPackName = levelPack.getName().replaceAll("[^a-zA-Z0-9_\\-]", "_");
         String ratingName = levelPack.getRatings().get(curRating).replaceAll("[^a-zA-Z0-9_\\-]", "_");
         
-        String template = GameController.getReplayNameTemplate();
+        String template = LemGame.getReplayNameTemplate();
 
         String replayFileName = buildReplayFileName(template, userName, levelPackName, ratingName, levelWithNumber, timestamp);
 
         Path replayPath = Core.resourcePath.resolve(Core.REPLAYS_PATH).resolve(replayFileName);
         System.out.println("replayPath = " + replayPath);
 
-        if (!GameController.saveReplay(replayPath)) {
+        if (!LemGame.saveReplay(replayPath)) {
             JOptionPane.showMessageDialog(getParent(), "Unable to auto-save replay.", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             replaySaved = true;
@@ -1833,7 +1833,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                 if (ext == null || ext.isEmpty()) {
                     replayPath = replayPath.resolveSibling(replayPath.getFileName().toString() + "." + Core.REPLAY_EXTENSIONS[0]);
                 }
-                if (GameController.saveReplay(replayPath)) {
+                if (LemGame.saveReplay(replayPath)) {
                     return;
                 }
                 // else: no success
@@ -1865,14 +1865,14 @@ public class LemminiPanel extends JPanel implements Runnable {
         if (replayPath != null) {
             try {
                 if (FilenameUtils.getExtension(replayPath.getFileName().toString()).equalsIgnoreCase("rpl")) {
-                    ReplayLevelInfo rli = GameController.loadReplay(replayPath);
+                    ReplayLevelInfo rli = LemGame.loadReplay(replayPath);
                     if (rli != null) {
                         int lpn = -1;
                         int rn = -1;
                         int ln = -1;
                         LevelPack lp = null;
-                        for (int i = 0; i < GameController.getLevelPackCount(); i++) {
-                            LevelPack lpTemp = GameController.getLevelPack(i);
+                        for (int i = 0; i < LemGame.getLevelPackCount(); i++) {
+                            LevelPack lpTemp = LemGame.getLevelPack(i);
                             if (ToolBox.looselyEquals(lpTemp.getName(), rli.getLevelPack()) ||
                                     // Handle replays created with the DMA Remastered packs
                                     checkForDMARemasters(rli.getLevelPack(), lpTemp.getName())) {
@@ -1883,7 +1883,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                         
                         // check external levels if no match is found
                         if (lpn < 0) { 
-                        	lp = GameController.getLevelPack(0);
+                        	lp = LemGame.getLevelPack(0);
                         	lpn = 0;
                         }
                         
@@ -1924,10 +1924,10 @@ public class LemminiPanel extends JPanel implements Runnable {
                         
                         // fallback - search by level name only
                         if (lpn < 0 || rn < 0 || ln < 0) {
-                        	GameController.replayCaption = "RetroLemmini - Closest match for '" + rli.getLvlName() + "' (" + rli.getLevelPack() + ")";
+                        	LemGame.replayCaption = "RetroLemmini - Closest match for '" + rli.getLvlName() + "' (" + rli.getLevelPack() + ")";
                             outer:
-                            for (int p = 0; p < GameController.getLevelPackCount(); p++) {
-                                LevelPack pack = GameController.getLevelPack(p);
+                            for (int p = 0; p < LemGame.getLevelPackCount(); p++) {
+                                LevelPack pack = LemGame.getLevelPack(p);
                                 List<String> ratings = pack.getRatings();
 
                                 for (int r = 0; r < ratings.size(); r++) {
@@ -1947,7 +1947,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                         
                         if (lpn >= 0 && rn >= 0 && ln >= 0) {
                             // success
-                            GameController.requestChangeLevel(lpn, rn, ln, true);
+                            LemGame.requestChangeLevel(lpn, rn, ln, true);
                             getParentFrame().setRestartEnabled(true);
                         } else {
                             // no success
@@ -1989,7 +1989,7 @@ public class LemminiPanel extends JPanel implements Runnable {
 
             // real level code -> get absolute level
             levelCode = levelCode.toUpperCase();
-            LevelPack lpack = GameController.getLevelPack(lvlPack);
+            LevelPack lpack = LemGame.getLevelPack(lvlPack);
             int[] codeInfo = LevelCode.getLevel(lpack.getCodeSeed(), levelCode, lpack.getCodeOffset());
             if (codeInfo != null) {
                 if (Core.player.isDebugMode()) {
@@ -2000,12 +2000,12 @@ public class LemminiPanel extends JPanel implements Runnable {
                             JOptionPane.INFORMATION_MESSAGE);
                 }
                 // calculate level pack and relative level number from absolute number
-                int[] l = GameController.relLevelNum(lvlPack, codeInfo[0]);
+                int[] l = LemGame.relLevelNum(lvlPack, codeInfo[0]);
                 int rating = l[0];
                 int lvlRel = l[1];
                 if (rating >= 0 && lvlRel >= 0) {
                     Core.player.setAvailable(lpack.getName(), lpack.getRatings().get(rating), lvlRel);
-                    GameController.requestChangeLevel(lvlPack, rating, lvlRel, false);
+                    LemGame.requestChangeLevel(lvlPack, rating, lvlRel, false);
                     getParentFrame().setRestartEnabled(true);
                     return;
                 }
@@ -2050,11 +2050,11 @@ public class LemminiPanel extends JPanel implements Runnable {
 
             // select new default player
             if (!Core.player.getName().equals(player)
-                    && GameController.getGameState() != GameController.State.INTRO) {
-                if (GameController.getGameState() == GameController.State.LEVEL) {
-                    GameController.setGameState(GameController.State.LEVEL_END);
+                    && LemGame.getGameState() != LemGame.State.INTRO) {
+                if (LemGame.getGameState() == LemGame.State.LEVEL) {
+                    LemGame.setGameState(LemGame.State.LEVEL_END);
                 }
-                GameController.setTransition(GameController.TransitionState.TO_INTRO);
+                LemGame.setTransition(LemGame.TransitionState.TO_INTRO);
                 Fader.setState(Fader.State.OUT);
                 Core.setWindowCaption("RetroLemmini");
             }
@@ -2064,39 +2064,39 @@ public class LemminiPanel extends JPanel implements Runnable {
 
     void handleOptions() {
         // Store current settings
-    	boolean oldDirectDrop = GameController.isOptionEnabled(GameController.Option.DIRECT_DROP);
-    	boolean oldMinimapOption = GameController.isOptionEnabled(GameController.Option.FULL_COLOR_MINIMAP);
-        boolean oldMenuBarVisOption = GameController.isOptionEnabled(GameController.Option.SHOW_MENU_BAR);
-        boolean oldScrollerOption = GameController.isOptionEnabled(GameController.Option.CLASSIC_SCROLLER);
-        GameController.MenuThemeOption oldMenuThemeOption = GameController.getMenuThemeOption();
+    	boolean oldDirectDrop = LemGame.isOptionEnabled(LemGame.Option.DIRECT_DROP);
+    	boolean oldMinimapOption = LemGame.isOptionEnabled(LemGame.Option.FULL_COLOR_MINIMAP);
+        boolean oldMenuBarVisOption = LemGame.isOptionEnabled(LemGame.Option.SHOW_MENU_BAR);
+        boolean oldScrollerOption = LemGame.isOptionEnabled(LemGame.Option.CLASSIC_SCROLLER);
+        LemGame.MenuThemeOption oldMenuThemeOption = LemGame.getMenuThemeOption();
 
         // Show options dialog
         OptionsDialog d = new OptionsDialog(this, getParentFrame(), true);
         d.setVisible(true);
 
         // Update UI if options have changed
-        if (oldMinimapOption != GameController.isOptionEnabled(GameController.Option.FULL_COLOR_MINIMAP)) {
-        	if (GameController.getGameState() == GameController.State.LEVEL) {
+        if (oldMinimapOption != LemGame.isOptionEnabled(LemGame.Option.FULL_COLOR_MINIMAP)) {
+        	if (LemGame.getGameState() == LemGame.State.LEVEL) {
         		Minimap.init(1.0 / 16.0, 1.0 / 8.0, oldMinimapOption);
         	}
         }
-        if (oldMenuBarVisOption != GameController.isOptionEnabled(GameController.Option.SHOW_MENU_BAR)) {
+        if (oldMenuBarVisOption != LemGame.isOptionEnabled(LemGame.Option.SHOW_MENU_BAR)) {
             getParentFrame().toggleMenuBarVisibility();
         }
-        if (oldScrollerOption != GameController.isOptionEnabled(GameController.Option.CLASSIC_SCROLLER)) {
+        if (oldScrollerOption != LemGame.isOptionEnabled(LemGame.Option.CLASSIC_SCROLLER)) {
             TextScreen.toggleScrollerType();
         }
-        if (oldMenuThemeOption != GameController.getMenuThemeOption()) {
+        if (oldMenuThemeOption != LemGame.getMenuThemeOption()) {
             TextScreen.setMenuTheme();
         }
         
         // handle direct drop change if mid-level
-        if (GameController.getGameState() == GameController.State.LEVEL) {
-        	boolean isDirectDrop = GameController.isOptionEnabled(GameController.Option.DIRECT_DROP);
+        if (LemGame.getGameState() == LemGame.State.LEVEL) {
+        	boolean isDirectDrop = LemGame.isOptionEnabled(LemGame.Option.DIRECT_DROP);
             if (oldDirectDrop != isDirectDrop) {
-            	GameController.requestRestartLevel(true, false); // restart level to apply change (ensures replay stability)
+            	LemGame.requestRestartLevel(true, false); // restart level to apply change (ensures replay stability)
             }
-            GameController.setDirectDrop(isDirectDrop);
+            LemGame.setDirectDrop(isDirectDrop);
         }
         
         d.dispose();
@@ -2125,8 +2125,8 @@ public class LemminiPanel extends JPanel implements Runnable {
         Core.setDrawSize(Core.unscale(getWidth()), Core.unscale(getHeight()));
         setBufferSize(Core.getDrawWidth(), Core.getDrawHeight());
         // if possible, make sure that the screen is not positioned outside the level
-        GameController.setXPos(GameController.getXPos());
-        GameController.setYPos(GameController.getYPos());
+        LemGame.setXPos(LemGame.getXPos());
+        LemGame.setYPos(LemGame.getYPos());
     }
 
     private void setScale(int width, int height) {
@@ -2254,7 +2254,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
 
     private int getStepSize() {
-        return (GameController.isShiftPressed() ? X_STEP_FAST : X_STEP);
+        return (LemGame.isShiftPressed() ? X_STEP_FAST : X_STEP);
     }
 
     public int getDrawBrushSize() {

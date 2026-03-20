@@ -83,7 +83,7 @@ public class Explosion {
         for (int i = 0; i < particles.length; i++) {
             double dx = (Math.random() * (MAX_DX - MIN_DX) + MIN_DX);
             double dy = (Math.random() * (MAX_DY - MIN_DY) + MIN_DY);
-            int color = GameController.getLevel().getParticleCol()[(int) (Math.random() * GameController.getLevel().getParticleCol().length)];
+            int color = LemGame.getLevel().getParticleCol()[(int) (Math.random() * LemGame.getLevel().getParticleCol().length)];
             int lifeCtr = LIFE_COUNTER + (int) (Math.random() * 2 * LIFE_VARIANCE) - LIFE_VARIANCE;
             if (lifeCtr > maxCounter) {
                 maxCounter = lifeCtr;

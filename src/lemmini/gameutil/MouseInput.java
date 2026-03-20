@@ -15,7 +15,7 @@
  */
 package lemmini.gameutil;
 
-import lemmini.game.GameController;
+import lemmini.game.LemGame;
 import lemmini.tools.Props;
 
 import java.awt.event.MouseEvent;
@@ -100,9 +100,9 @@ public class MouseInput {
     }
     
     private void applyOptionChanges() {
-        GameController.setOption(GameController.Option.CLICK_AIR_TO_CANCEL_REPLAY, clickAirToCancelReplay);
-        GameController.setOption(GameController.Option.ENABLE_WHEEL_SKILL_SELECT, enableWheelSkillSelect);
-        GameController.setOption(GameController.Option.ENABLE_WHEEL_BRUSH_SIZE, enableWheelBrushSize);
+        LemGame.setOption(LemGame.Option.CLICK_AIR_TO_CANCEL_REPLAY, clickAirToCancelReplay);
+        LemGame.setOption(LemGame.Option.ENABLE_WHEEL_SKILL_SELECT, enableWheelSkillSelect);
+        LemGame.setOption(LemGame.Option.ENABLE_WHEEL_BRUSH_SIZE, enableWheelBrushSize);
     }
     
     public void loadFromProgramProps(Props props) {

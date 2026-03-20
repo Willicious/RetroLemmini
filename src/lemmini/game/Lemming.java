@@ -324,7 +324,7 @@ public class Lemming {
                         newType = Type.FLOATER_START;
                         counter2 = 0; // used for parachute opening "jump" up
                     } else if (free == 0) { // check ground hit
-                        if (counter > GameController.getLevel().getMaxFallDistance()) {
+                        if (counter > LemGame.getLevel().getMaxFallDistance()) {
                             newType = Type.SPLATTER;
                         } else {
                             newType = Type.WALKER;
@@ -566,7 +566,7 @@ public class Lemming {
                                 m = lemRes.getMask(dir);
                                 eraseMask = Stencil.MSK_BRICK;
                                 checkMask = 0;
-                                if (!GameController.getLevel().getClassicSteel()) {
+                                if (!LemGame.getLevel().getClassicSteel()) {
                                     eraseMask |= Stencil.MSK_ONE_WAY;
                                     checkMask |= Stencil.MSK_STEEL;
                                     checkMask |= Stencil.MSK_ONE_WAY_UP;
@@ -592,7 +592,7 @@ public class Lemming {
                                 m = lemRes.getMask(dir);
                                 eraseMask = Stencil.MSK_BRICK;
                                 checkMask = 0;
-                                if (!GameController.getLevel().getClassicSteel()) {
+                                if (!LemGame.getLevel().getClassicSteel()) {
                                     eraseMask |= Stencil.MSK_ONE_WAY;
                                     checkMask |= Stencil.MSK_STEEL;
                                     checkMask |= Stencil.MSK_ONE_WAY_UP;
@@ -666,7 +666,7 @@ public class Lemming {
                             m = lemRes.getMask(dir);
                             int eraseMask = Stencil.MSK_BRICK;
                             int checkMask = 0;
-                            if (!GameController.getLevel().getClassicSteel()) {
+                            if (!LemGame.getLevel().getClassicSteel()) {
                                 eraseMask |= Stencil.MSK_ONE_WAY;
                                 checkMask |= Stencil.MSK_STEEL;
                                 checkMask |= Stencil.MSK_ONE_WAY_UP;
@@ -704,7 +704,7 @@ public class Lemming {
                                 break;
                             }
                             if (!canMine(false, true)) {
-                                if (!GameController.getLevel().getClassicSteel()) {
+                                if (!LemGame.getLevel().getClassicSteel()) {
                                     // needed to ensure that miners don't get stuck
                                     x = oldX;
                                     y = oldY;
@@ -756,7 +756,7 @@ public class Lemming {
                             newType = Type.SHRUGGER;
                             break;
                         }
-                        if (y < GameController.getLevel().getTopBoundary() + 2) {
+                        if (y < LemGame.getLevel().getTopBoundary() + 2) {
                             newType = Type.WALKER;
                             break;
                         }
@@ -832,13 +832,13 @@ public class Lemming {
                 }
                 if (!flapper) {
                     if (dir == Direction.RIGHT) {
-                        if (x < GameController.getWidth() + GameController.getLevel().getRightBoundary() - 16
-                                && !BooleanUtils.toBoolean(GameController.getStencil().getMask(x + 16, y) & Stencil.MSK_BRICK)) {
+                        if (x < LemGame.getWidth() + LemGame.getLevel().getRightBoundary() - 16
+                                && !BooleanUtils.toBoolean(LemGame.getStencil().getMask(x + 16, y) & Stencil.MSK_BRICK)) {
                             x += WALKER_STEP;
                         }
                     } else if (dir == Direction.LEFT) {
-                        if (x >= GameController.getLevel().getLeftBoundary() + 16
-                                && !BooleanUtils.toBoolean(GameController.getStencil().getMask(x - 16, y) & Stencil.MSK_BRICK)) {
+                        if (x >= LemGame.getLevel().getLeftBoundary() + 16
+                                && !BooleanUtils.toBoolean(LemGame.getStencil().getMask(x - 16, y) & Stencil.MSK_BRICK)) {
                             x -= WALKER_STEP;
                         }
                     }
@@ -848,7 +848,7 @@ public class Lemming {
             case FRIER:
                 {
                 	// special case: bubble water is a fire object that makes lems instantly explode (without leaving a crater)
-                	if (GameController.getLevel().getStyleName().equals("bubble")) {
+                	if (LemGame.getLevel().getStyleName().equals("bubble")) {
                 		playVisualSFX(Sound.Effect.EXPLODE);
                 		addExplosion();
                 		hasDied = true;
@@ -864,15 +864,15 @@ public class Lemming {
             case EXPLODER:
                 counter++;
                 if (counter == 1 * TIME_SCALE) {
-                    Stencil stencil = GameController.getStencil();
+                    Stencil stencil = LemGame.getStencil();
                     Mask m = lemRes.getMask(Direction.RIGHT);
                     playVisualSFX(Sound.Effect.EXPLODE);
-                    if (!GameController.getLevel().getClassicSteel()) {
+                    if (!LemGame.getLevel().getClassicSteel()) {
                         m.eraseMask(screenMaskX(), StrictMath.max(screenMaskY(), -8), 0,
                                 Stencil.MSK_BRICK | Stencil.MSK_ONE_WAY, Stencil.MSK_STEEL);
-                    } else if (x >= GameController.getLevel().getLeftBoundary()
-                            && x < GameController.getWidth() + GameController.getLevel().getRightBoundary()
-                            && y < GameController.getHeight()
+                    } else if (x >= LemGame.getLevel().getLeftBoundary()
+                            && x < LemGame.getWidth() + LemGame.getLevel().getRightBoundary()
+                            && y < LemGame.getHeight()
                             && !BooleanUtils.toBoolean(stencil.getMask(x, y) & Stencil.MSK_STEEL)
                             && !BooleanUtils.toBoolean(stencil.getMask(x, y) & Stencil.MSK_EXIT) && !drowner) {
                         m.eraseMask(screenMaskX(), StrictMath.max(screenMaskY(), -8), 0, Stencil.MSK_BRICK, 0);
@@ -890,8 +890,8 @@ public class Lemming {
                 break;
 
         }
-        if (y < GameController.getLevel().getTopBoundary()) {
-            y = GameController.getLevel().getTopBoundary();
+        if (y < LemGame.getLevel().getTopBoundary()) {
+            y = LemGame.getLevel().getTopBoundary();
         }
 
         if (!hasDied && type != Type.EXPLODER) {
@@ -902,7 +902,7 @@ public class Lemming {
             switch (s & (Stencil.MSK_TRAP | Stencil.MSK_EXIT)) {
                 case Stencil.MSK_TRAP_LIQUID:
                     if (type != Type.DROWNER) {
-                        SpriteObject spr = GameController.getLevel().getSprObject(object);
+                        SpriteObject spr = LemGame.getLevel().getSprObject(object);
                         if (spr != null) {
                             boolean triggered = true;
                             if (spr.canBeTriggered() && !spr.trigger(this)) {
@@ -913,7 +913,7 @@ public class Lemming {
                                     // erase blocker mask
                                     eraseBlockerMask();
                                 }
-                                GameController.sound.playVisualSFX(spr);
+                                LemGame.sound.playVisualSFX(spr);
                                 drowner = true;
                                 newType = Type.DROWNER;
                             }
@@ -922,7 +922,7 @@ public class Lemming {
                     break;
                 case Stencil.MSK_TRAP_FIRE:
                     if (type != Type.FRIER) {
-                        SpriteObject spr = GameController.getLevel().getSprObject(object);
+                        SpriteObject spr = LemGame.getLevel().getSprObject(object);
                         if (spr != null) {
                             boolean triggered = true;
                             if (spr.canBeTriggered() && !spr.trigger(this)) {
@@ -933,7 +933,7 @@ public class Lemming {
                                     // erase blocker mask
                                     eraseBlockerMask();
                                 }
-                                GameController.sound.playVisualSFX(spr);
+                                LemGame.sound.playVisualSFX(spr);
                                 newType = Type.FRIER;
                             }
                         }
@@ -941,7 +941,7 @@ public class Lemming {
                     break;
                 case Stencil.MSK_TRAP_REMOVE:
                     {
-                        SpriteObject spr = GameController.getLevel().getSprObject(object);
+                        SpriteObject spr = LemGame.getLevel().getSprObject(object);
                         if (spr != null) {
                             boolean triggered = true;
                             if (spr.canBeTriggered() && !spr.trigger(this)) {
@@ -952,7 +952,7 @@ public class Lemming {
                                     // erase blocker mask
                                     eraseBlockerMask();
                                 }
-                                GameController.sound.playVisualSFX(spr);
+                                LemGame.sound.playVisualSFX(spr);
                                 hasDied = true;
                             }
                         }
@@ -960,7 +960,7 @@ public class Lemming {
                     }
                 case Stencil.MSK_EXIT:
                 	// All lem types exit in maximum exit physics / direct drop mode
-                    if (Core.player.isMaximumExitPhysics() || GameController.isDirectDrop()) {
+                    if (Core.player.isMaximumExitPhysics() || LemGame.isDirectDrop()) {
                         switch (newType) {
                            case FALLER:
                            case SPLATTER:
@@ -990,7 +990,7 @@ public class Lemming {
                         case DIGGER:
                         case DROWNER:
                         case MAX_EXIT_LEM:
-                            SpriteObject spr = GameController.getLevel().getSprObject(object);
+                            SpriteObject spr = LemGame.getLevel().getSprObject(object);
                             if (spr != null) {
                                 boolean triggered = true;
                                 if (spr.canBeTriggered() && !spr.trigger(this)) {
@@ -1001,7 +1001,7 @@ public class Lemming {
                                         // erase blocker mask
                                         eraseBlockerMask();
                                     }
-                                    GameController.sound.playVisualSFX(spr);
+                                    LemGame.sound.playVisualSFX(spr);
                                     newType = Type.HOMER;
                                 }
                             }
@@ -1059,7 +1059,7 @@ public class Lemming {
                         break;
                     case HOMER: {
                             hasExited = true;
-                            GameController.increaseExited();
+                            LemGame.increaseExited();
                         }
                         break;
                     case FLOATER_START:
@@ -1096,7 +1096,7 @@ public class Lemming {
 
                         int eraseMask = Stencil.MSK_BRICK;
                         int checkMask = 0;
-                        if (!GameController.getLevel().getClassicSteel()) {
+                        if (!LemGame.getLevel().getClassicSteel()) {
                             eraseMask |= Stencil.MSK_ONE_WAY;
                             checkMask |= Stencil.MSK_STEEL;
                             checkMask |= Stencil.MSK_ONE_WAY_UP;
@@ -1132,7 +1132,7 @@ public class Lemming {
      * If VisualSFX are enabled, a text-graphic is shown at the lemming's location, too.
      */
     public void playVisualSFX(Sound.Effect e) {
-        GameController.sound.playVisualSFX(e, footX(), midY()); //NOTE: footX was midX
+        LemGame.sound.playVisualSFX(e, footX(), midY()); //NOTE: footX was midX
     }
 
     /**
@@ -1155,8 +1155,8 @@ public class Lemming {
         if (BooleanUtils.toBoolean(s & Stencil.MSK_TURN_LEFT) && dir == Direction.RIGHT) {
             int id = objectFoot();
             if (id >= 0) {
-                SpriteObject spr = GameController.getLevel().getSprObject(id);
-                GameController.sound.playVisualSFX(spr);
+                SpriteObject spr = LemGame.getLevel().getSprObject(id);
+                LemGame.sound.playVisualSFX(spr);
             }
             dir = Direction.LEFT;
             return true;
@@ -1164,8 +1164,8 @@ public class Lemming {
         if (BooleanUtils.toBoolean(s & Stencil.MSK_TURN_RIGHT) && dir == Direction.LEFT) {
             int id = objectFoot();
             if (id >= 0) {
-                SpriteObject spr = GameController.getLevel().getSprObject(id);
-                GameController.sound.playVisualSFX(spr);
+                SpriteObject spr = LemGame.getLevel().getSprObject(id);
+                LemGame.sound.playVisualSFX(spr);
             }
             dir = Direction.RIGHT;
             return true;
@@ -1225,7 +1225,7 @@ public class Lemming {
      * Adds an explosion effect at the Lemming's position.
      */
     private void addExplosion() {
-        GameController.addExplosion(footX(), midY()); //note: footX was midX()
+        LemGame.addExplosion(footX(), midY()); //note: footX was midX()
     }
 
     private Type getExploderType() {
@@ -1257,11 +1257,11 @@ public class Lemming {
         int xm = x;
         int ym = y;
         int retval;
-        if (xm >= GameController.getLevel().getLeftBoundary()
-                && xm < GameController.getWidth() + GameController.getLevel().getRightBoundary()
-                && ym >= GameController.getLevel().getTopBoundary()
-                && ym < GameController.getHeight()) {
-            retval = GameController.getStencil().getMask(xm, ym);
+        if (xm >= LemGame.getLevel().getLeftBoundary()
+                && xm < LemGame.getWidth() + LemGame.getLevel().getRightBoundary()
+                && ym >= LemGame.getLevel().getTopBoundary()
+                && ym < LemGame.getHeight()) {
+            retval = LemGame.getStencil().getMask(xm, ym);
         } else {
             retval = Stencil.MSK_EMPTY;
         }
@@ -1275,11 +1275,11 @@ public class Lemming {
         int xm = x;
         int ym = y;
         int retval;
-        if (xm >= GameController.getLevel().getLeftBoundary()
-                && xm < GameController.getWidth() + GameController.getLevel().getRightBoundary()
-                && ym >= GameController.getLevel().getTopBoundary()
-                && ym < GameController.getHeight()) {
-            retval = GameController.getStencil().getMaskObjectID(xm, ym);
+        if (xm >= LemGame.getLevel().getLeftBoundary()
+                && xm < LemGame.getWidth() + LemGame.getLevel().getRightBoundary()
+                && ym >= LemGame.getLevel().getTopBoundary()
+                && ym < LemGame.getHeight()) {
+            retval = LemGame.getStencil().getMaskObjectID(xm, ym);
         } else {
             retval = -1;
         }
@@ -1300,7 +1300,7 @@ public class Lemming {
             } else {
                 xb = xm - i + 1;
             }
-            if (BooleanUtils.toBoolean(GameController.getStencil().getMask(xb, ypos) & Stencil.MSK_BRICK)) {
+            if (BooleanUtils.toBoolean(LemGame.getStencil().getMask(xb, ypos) & Stencil.MSK_BRICK)) {
                 bricks++;
             }
         }
@@ -1312,7 +1312,7 @@ public class Lemming {
      */
     private boolean canBashSteel(final boolean playSound) {
         int yMin = y - BASHER_CHECK_STEP_STEEL;
-        int yMax = y - (GameController.getLevel().getClassicSteel()
+        int yMax = y - (LemGame.getLevel().getClassicSteel()
                 ? BASHER_CHECK_STEP_STEEL : BASHER_CHECK_STEP_STEEL_LOW);
         int xMin;
         int xMax;
@@ -1325,7 +1325,7 @@ public class Lemming {
         }
         for (int yb = yMin; yb <= yMax; yb++) {
             for (int xb = xMin; xb <= xMax; xb++) {
-                int sval = GameController.getStencil().getMask(xb, yb);
+                int sval = LemGame.getStencil().getMask(xb, yb);
                 boolean hitOneWayLeft = BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_LEFT) && dir == Direction.RIGHT;
                 boolean hitOneWayRight = BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_RIGHT) && dir == Direction.LEFT;
                 boolean hitOneWayUp = BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_UP);
@@ -1333,14 +1333,14 @@ public class Lemming {
                 boolean hitSteel = BooleanUtils.toBoolean(sval & Stencil.MSK_STEEL);
                 if (hitOneWayLeft || hitOneWayRight || hitOneWayUp || hitOneWayDown ||  hitSteel) {
                     if (playSound) {
-                        SpriteObject spr = GameController.getLevel().getSprObject(GameController.getStencil().getMaskObjectID(xb, yb));
+                        SpriteObject spr = LemGame.getLevel().getSprObject(LemGame.getStencil().getMaskObjectID(xb, yb));
                         if (spr != null
                                         && ((hitOneWayLeft && spr.getType() == SpriteObject.Type.ONE_WAY_LEFT)
                                         || (hitOneWayRight && spr.getType() == SpriteObject.Type.ONE_WAY_RIGHT)
                                         || (hitOneWayUp && spr.getType() == SpriteObject.Type.ONE_WAY_UP)
                                         || (hitOneWayDown && spr.getType() == SpriteObject.Type.ONE_WAY_DOWN)
                                         || (hitSteel && spr.getType() == SpriteObject.Type.STEEL))) {
-                            GameController.sound.playVisualSFX(spr);
+                            LemGame.sound.playVisualSFX(spr);
                         } else {
                             playVisualSFX(Sound.Effect.STEEL);
                         }
@@ -1356,19 +1356,19 @@ public class Lemming {
      * Check if digging is possible.
      */
     private boolean canDig(final boolean playSound) {
-        boolean classicSteel = GameController.getLevel().getClassicSteel();
+        boolean classicSteel = LemGame.getLevel().getClassicSteel();
         for (int i = 0; i < 2; i++) {
             for (int j = (classicSteel ? 0 : -4); j < (classicSteel ? 1 : 6); j++) {
                 int ym = y + i;
                 int xm = x + j;
-                int sval = GameController.getStencil().getMask(xm, ym);
+                int sval = LemGame.getStencil().getMask(xm, ym);
                 boolean hitSteel = BooleanUtils.toBoolean(sval & Stencil.MSK_STEEL);
                 boolean hitOneWayUp = BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_UP);
                 if (BooleanUtils.toBoolean(sval & Stencil.MSK_BRICK) && (hitSteel || hitOneWayUp)) {
                     if (playSound) {
-                        SpriteObject spr = GameController.getLevel().getSprObject(GameController.getStencil().getMaskObjectID(xm, ym));
+                        SpriteObject spr = LemGame.getLevel().getSprObject(LemGame.getStencil().getMaskObjectID(xm, ym));
                         if (spr != null && (spr.getType() == SpriteObject.Type.STEEL || spr.getType() == SpriteObject.Type.ONE_WAY_UP)) {
-                            GameController.sound.playVisualSFX(spr);
+                            LemGame.sound.playVisualSFX(spr);
                         } else {
                             playVisualSFX(Sound.Effect.STEEL);
                         }
@@ -1384,8 +1384,8 @@ public class Lemming {
      * Check if mining is possible.
      */
     private boolean canMine(final boolean start, final boolean playSound) {
-        if (x < GameController.getLevel().getLeftBoundary()
-                || x >= GameController.getWidth() + GameController.getLevel().getRightBoundary()) {
+        if (x < LemGame.getLevel().getLeftBoundary()
+                || x >= LemGame.getWidth() + LemGame.getLevel().getRightBoundary()) {
             if (!start && playSound) {
                 playVisualSFX(Sound.Effect.STEEL);
             }
@@ -1405,20 +1405,20 @@ public class Lemming {
         }
         for (int yb = yMin; yb <= yMax; yb++) {
             for (int xb = xMin; xb <= xMax; xb++) {
-                int sval = GameController.getStencil().getMask(xb, yb);
+                int sval = LemGame.getStencil().getMask(xb, yb);
                 boolean hitOneWayLeft = BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_LEFT) && dir == Direction.RIGHT;
                 boolean hitOneWayRight = BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_RIGHT) && dir == Direction.LEFT;
                 boolean hitOneWayUp = BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_UP);
                 boolean hitSteel = BooleanUtils.toBoolean(sval & Stencil.MSK_STEEL);
                 if (hitOneWayLeft || hitOneWayRight || hitOneWayUp || hitSteel) {
                     if (playSound) {
-                        SpriteObject spr = GameController.getLevel().getSprObject(GameController.getStencil().getMaskObjectID(xb, yb));
+                        SpriteObject spr = LemGame.getLevel().getSprObject(LemGame.getStencil().getMaskObjectID(xb, yb));
                         if (spr != null
                                 	    && ((hitOneWayLeft && spr.getType() == SpriteObject.Type.ONE_WAY_LEFT)
                                         || (hitOneWayRight && spr.getType() == SpriteObject.Type.ONE_WAY_RIGHT)
                                         || (hitOneWayUp && spr.getType() == SpriteObject.Type.ONE_WAY_UP)
                                         || (hitSteel && spr.getType() == SpriteObject.Type.STEEL))) {
-                            GameController.sound.playVisualSFX(spr);
+                            LemGame.sound.playVisualSFX(spr);
                         } else {
                             playVisualSFX(Sound.Effect.STEEL);
                         }
@@ -1433,20 +1433,20 @@ public class Lemming {
         xMax = x + 1;
         for (int yb = yMin; yb <= yMax; yb++) {
             for (int xb = xMin; xb <= xMax; xb++) {
-                int sval = GameController.getStencil().getMask(xb, yb);
+                int sval = LemGame.getStencil().getMask(xb, yb);
                 boolean hitOneWayLeft = !start && BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_LEFT) && dir == Direction.RIGHT;
                 boolean hitOneWayRight = !start && BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_RIGHT) && dir == Direction.LEFT;
                 boolean hitOneWayUp = !start && BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_UP);
                 boolean hitSteel = BooleanUtils.toBoolean(sval & Stencil.MSK_STEEL);
                 if (hitOneWayLeft || hitOneWayRight || hitOneWayUp || hitSteel) {
                     if (playSound) {
-                        SpriteObject spr = GameController.getLevel().getSprObject(GameController.getStencil().getMaskObjectID(xb, yb));
+                        SpriteObject spr = LemGame.getLevel().getSprObject(LemGame.getStencil().getMaskObjectID(xb, yb));
                         if (spr != null
                                 	   && ((hitOneWayLeft && spr.getType() == SpriteObject.Type.ONE_WAY_LEFT)
                                         || (hitOneWayRight && spr.getType() == SpriteObject.Type.ONE_WAY_RIGHT)
                                         || (hitOneWayUp && spr.getType() == SpriteObject.Type.ONE_WAY_UP)
                                         || (hitSteel && spr.getType() == SpriteObject.Type.STEEL))) {
-                            GameController.sound.playVisualSFX(spr);
+                            LemGame.sound.playVisualSFX(spr);
                         } else {
                             playVisualSFX(Sound.Effect.STEEL);
                         }
@@ -1462,17 +1462,17 @@ public class Lemming {
      * Get number of free pixels below the lemming (max of step is checked).
      */
     private int freeBelow(final int step) {
-        if (x < GameController.getLevel().getLeftBoundary()
-                || x >= GameController.getWidth() + GameController.getLevel().getRightBoundary()) {
+        if (x < LemGame.getLevel().getLeftBoundary()
+                || x >= LemGame.getWidth() + LemGame.getLevel().getRightBoundary()) {
             return 0;
         }
         int free = 0;
         int pos;
-        Stencil stencil = GameController.getStencil();
+        Stencil stencil = LemGame.getStencil();
         int yb = y;
-        pos = x + yb * GameController.getWidth(); // line below the lemming
+        pos = x + yb * LemGame.getWidth(); // line below the lemming
         for (int i = 0; i < step; i++) {
-            if (yb + i >= GameController.getHeight()) {
+            if (yb + i >= LemGame.getHeight()) {
                 return Integer.MAX_VALUE; // convert most skills to faller
             }
             int s = stencil.getMask(pos);
@@ -1481,7 +1481,7 @@ public class Lemming {
             } else {
                 break;
             }
-            pos += GameController.getWidth();
+            pos += LemGame.getWidth();
         }
         return free;
     }
@@ -1496,12 +1496,12 @@ public class Lemming {
     private boolean flipDirBorder() {
         boolean flip = false;
         if (lemRes.dirs > 1) {
-            if (x < GameController.getLevel().getLeftBoundary() && dir == Direction.LEFT) {
-                x = GameController.getLevel().getLeftBoundary() - 1;
+            if (x < LemGame.getLevel().getLeftBoundary() && dir == Direction.LEFT) {
+                x = LemGame.getLevel().getLeftBoundary() - 1;
                 flip = true;
-            } else if (x >= GameController.getWidth() + GameController.getLevel().getRightBoundary()
+            } else if (x >= LemGame.getWidth() + LemGame.getLevel().getRightBoundary()
                     && dir == Direction.RIGHT) {
-                x = GameController.getWidth() + GameController.getLevel().getRightBoundary();
+                x = LemGame.getWidth() + LemGame.getLevel().getRightBoundary();
                 flip = true;
             }
         }
@@ -1515,8 +1515,8 @@ public class Lemming {
      * Checks whether there are any free pixels above the the builder (max of step is checked).
      */
     private boolean freeAboveBuilder() {
-        if (dir == Direction.LEFT && x - 3 < GameController.getLevel().getLeftBoundary()
-                || dir == Direction.RIGHT && x + 4 >= GameController.getWidth() + GameController.getLevel().getRightBoundary()) {
+        if (dir == Direction.LEFT && x - 3 < LemGame.getLevel().getLeftBoundary()
+                || dir == Direction.RIGHT && x + 4 >= LemGame.getWidth() + LemGame.getLevel().getRightBoundary()) {
             return false;
         }
 
@@ -1528,7 +1528,7 @@ public class Lemming {
         } else {
             xm = x - 3;
         }
-        Stencil stencil = GameController.getStencil();
+        Stencil stencil = LemGame.getStencil();
         for (int yb = yMin; yb <= yMax; yb++) {
             if (BooleanUtils.toBoolean(stencil.getMask(xm, yb) & Stencil.MSK_BRICK)) {
                 return false;
@@ -1541,9 +1541,9 @@ public class Lemming {
      * Get number of free pixels above the lemming (max of step is checked).
      */
     private boolean freeAboveClimber() {
-        if (x < GameController.getLevel().getLeftBoundary()
-                || x >= GameController.getWidth() + GameController.getLevel().getRightBoundary()
-                || x <= GameController.getLevel().getTopBoundary()) {
+        if (x < LemGame.getLevel().getLeftBoundary()
+                || x >= LemGame.getWidth() + LemGame.getLevel().getRightBoundary()
+                || x <= LemGame.getLevel().getTopBoundary()) {
             return false;
         }
 
@@ -1554,7 +1554,7 @@ public class Lemming {
         } else {
             xm -= 1;
         }
-        Stencil stencil = GameController.getStencil();
+        Stencil stencil = LemGame.getStencil();
         return ym >= 0 && !BooleanUtils.toBoolean((stencil.getMask(xm, ym) & Stencil.MSK_BRICK));
     }
 
@@ -1562,7 +1562,7 @@ public class Lemming {
      * Check if Lemming has fallen to/through the bottom of the level.
      */
     private boolean crossedLowerBorder() {
-        if (y >= GameController.getHeight() + GameController.getLevel().getBottomBoundary()) {
+        if (y >= LemGame.getHeight() + LemGame.getLevel().getBottomBoundary()) {
             hasDied = true;
             playVisualSFX(Sound.Effect.DIE);
             return true;
@@ -1574,21 +1574,21 @@ public class Lemming {
      * Get the number of pixels of walkable ground above the Lemming's foot.
      */
     private int aboveGround() {
-        if (x < GameController.getLevel().getLeftBoundary()
-                || x >= GameController.getWidth() + GameController.getLevel().getRightBoundary()) {
-            return GameController.getHeight() + 1;
+        if (x < LemGame.getLevel().getLeftBoundary()
+                || x >= LemGame.getWidth() + LemGame.getLevel().getRightBoundary()) {
+            return LemGame.getHeight() + 1;
         }
 
         int ym = y - 1;
-        if (ym >= GameController.getHeight()) {
+        if (ym >= LemGame.getHeight()) {
             return 0;
         }
         int pos = x;
-        Stencil stencil = GameController.getStencil();
-        pos += ym * GameController.getWidth();
+        Stencil stencil = LemGame.getStencil();
+        pos += ym * LemGame.getWidth();
         int levitation;
-        for (levitation = 0; levitation < WALKER_OBSTACLE_HEIGHT; levitation++, pos -= GameController.getWidth(), ym--) {
-            if (ym < GameController.getLevel().getTopBoundary() - 1) {
+        for (levitation = 0; levitation < WALKER_OBSTACLE_HEIGHT; levitation++, pos -= LemGame.getWidth(), ym--) {
+            if (ym < LemGame.getLevel().getTopBoundary() - 1) {
                 return WALKER_OBSTACLE_HEIGHT + 1; // forbid leaving level to the top
             }
             if (!BooleanUtils.toBoolean(stencil.getMask(pos) & Stencil.MSK_BRICK)) {
@@ -1602,19 +1602,19 @@ public class Lemming {
      * Check if climber reached a plateau he can walk on.
      */
     private boolean reachedPlateau(final int hand) {
-        if (x - 2 < GameController.getLevel().getLeftBoundary()
-                || x + 2 >= GameController.getWidth() + GameController.getLevel().getRightBoundary()) {
+        if (x - 2 < LemGame.getLevel().getLeftBoundary()
+                || x + 2 >= LemGame.getWidth() + LemGame.getLevel().getRightBoundary()) {
             return false;
         }
         int ym = y - hand;
-        if (ym >= GameController.getHeight()) {
+        if (ym >= LemGame.getHeight()) {
             return true;
-        } else if (ym < 0 || ym <= GameController.getLevel().getTopBoundary()) {
+        } else if (ym < 0 || ym <= LemGame.getLevel().getTopBoundary()) {
             return false;
         }
         int pos = x;
-        pos += ym * GameController.getWidth();
-        return !BooleanUtils.toBoolean(GameController.getStencil().getMask(pos) & Stencil.MSK_BRICK);
+        pos += ym * LemGame.getWidth();
+        return !BooleanUtils.toBoolean(LemGame.getStencil().getMask(pos) & Stencil.MSK_BRICK);
     }
 
     private void eraseBlockerMask() {
@@ -1650,8 +1650,8 @@ public class Lemming {
         }
         lemmings.clear();
         // read lemmings
-        GameController.setLemmNames(p.get("names", "Lemming"));
-        GameController.setLemmNamesPlural(p.get("names_plural", "Lemmings"));
+        LemGame.setLemmNames(p.get("names", "Lemming"));
+        LemGame.setLemmNamesPlural(p.get("names_plural", "Lemmings"));
         templateColor = p.getInt("templateColor", DEF_TEMPLATE_COLOR) & 0x00ffffff;
         templateColor2 = p.getInt("templateColor2", templateColor) & 0x00ffffff;
         Type[] lemmTypes = Type.values();
@@ -1826,7 +1826,7 @@ public class Lemming {
                     return playSetSkillSound(false, playSound);
                 }
             case FLAPPER:
-                if (GameController.isOptionEnabled(GameController.Option.TIMED_BOMBERS)) {
+                if (LemGame.isOptionEnabled(LemGame.Option.TIMED_BOMBERS)) {
                     if (explodeNumCtr == 0) {
                         explodeNumCtr = MAX_BOMB_TIMER;
                         explodeCtr = 0;
@@ -1874,7 +1874,7 @@ public class Lemming {
                         return playSetSkillSound(false, playSound);
                     }
                 case BUILDER:
-                    if (y < GameController.getLevel().getTopBoundary() + 2) {
+                    if (y < LemGame.getLevel().getTopBoundary() + 2) {
                         return playSetSkillSound(false, playSound);
                     } else {
                         changeType(type, newSkill);
@@ -1911,11 +1911,11 @@ public class Lemming {
     private boolean playSetSkillSound(boolean validAssign, boolean playSound) {
         if (validAssign) {
             if (playSound) {
-                GameController.sound.play(Sound.Effect.ASSIGN_SKILL, getPan());
+                LemGame.sound.play(Sound.Effect.ASSIGN_SKILL, getPan());
             }
         } else {
-            if (playSound && !GameController.attemptingHoldToAssign) {
-                GameController.sound.play(Sound.Effect.INVALID, getPan());
+            if (playSound && !LemGame.attemptingHoldToAssign) {
+                LemGame.sound.play(Sound.Effect.INVALID, getPan());
             }
         }
         return validAssign;

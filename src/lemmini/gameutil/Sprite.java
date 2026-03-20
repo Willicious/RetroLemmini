@@ -7,7 +7,7 @@ import java.util.ListIterator;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import lemmini.game.GameController;
+import lemmini.game.LemGame;
 import lemmini.game.Lemming;
 import lemmini.graphics.LemmImage;
 import lemmini.tools.ToolBox;
@@ -230,7 +230,7 @@ public class Sprite {
                     }
                     if (frameIdx > 0) {
                         if (counter == 0 && lemming != null) {
-                            GameController.sound.playVisualSFX(sound[frameIdx], lemming.midX(), lemming.midY()); //NOTE: footX() was midX()
+                            LemGame.sound.playVisualSFX(sound[frameIdx], lemming.midX(), lemming.midY()); //NOTE: footX() was midX()
                         }
                     } else {
                         frameIdx = 0;
@@ -332,9 +332,9 @@ public class Sprite {
         }
         lemming = l;
         if (sound.length == 1) {
-            GameController.sound.playVisualSFX(sound[0], l.midX(), l.midY()); //NOTE: footX() was midX()
+            LemGame.sound.playVisualSFX(sound[0], l.midX(), l.midY()); //NOTE: footX() was midX()
         } else if (sound.length > 1) {
-            GameController.sound.playVisualSFX(sound[1], l.midX(), l.midY()); //NOTE: footX() was midX()
+            LemGame.sound.playVisualSFX(sound[1], l.midX(), l.midY()); //NOTE: footX() was midX()
         }
         triggered = true;
         frameIdx = 0;
@@ -372,9 +372,9 @@ public class Sprite {
 
         int currentSound = sound[0];
 
-        if (GameController.getExitSoundOption() == GameController.ExitSoundOption.BOING) {
+        if (LemGame.getExitSoundOption() == LemGame.ExitSoundOption.BOING) {
             return (currentSound == 23) ? 14 : currentSound;
-        } else if (GameController.getExitSoundOption() == GameController.ExitSoundOption.YIPPEE) {
+        } else if (LemGame.getExitSoundOption() == LemGame.ExitSoundOption.YIPPEE) {
             return (currentSound == 14) ? 23 : currentSound;
         }
 
@@ -414,9 +414,9 @@ public class Sprite {
      * Apply user preference to modify sound index.
      */
     private int applySoundPreference(int inputSound) {
-        if (GameController.getExitSoundOption() == GameController.ExitSoundOption.BOING) {
+        if (LemGame.getExitSoundOption() == LemGame.ExitSoundOption.BOING) {
             return (inputSound == 23) ? 14 : inputSound;
-        } else if (GameController.getExitSoundOption() == GameController.ExitSoundOption.YIPPEE) {
+        } else if (LemGame.getExitSoundOption() == LemGame.ExitSoundOption.YIPPEE) {
             return (inputSound == 14) ? 23 : inputSound;
         }
         return inputSound;

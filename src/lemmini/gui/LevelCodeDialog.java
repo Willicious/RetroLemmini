@@ -23,7 +23,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 
 import lemmini.LemminiFrame;
-import lemmini.game.GameController;
+import lemmini.game.LemGame;
 
 /**
  * Dialog for entering level codes.
@@ -60,11 +60,11 @@ public class LevelCodeDialog extends JDialog {
 
         jLabelLvlPack = new javax.swing.JLabel();
         // level pack 0 is the dummy level pack -> not selectable
-        levelPacks = new String[GameController.getLevelPackCount() - 1];
+        levelPacks = new String[LemGame.getLevelPackCount() - 1];
         for (int i = 0; i < levelPacks.length; i++) {
-            levelPacks[i] = GameController.getLevelPack(i + 1).getName();
+            levelPacks[i] = LemGame.getLevelPack(i + 1).getName();
         }
-        levelPackIndex = GameController.getCurLevelPackIdx();
+        levelPackIndex = LemGame.getCurLevelPackIdx();
         if (levelPackIndex == 0) {
             levelPackIndex = 1;
         }

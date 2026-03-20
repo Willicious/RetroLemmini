@@ -27,8 +27,8 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import lemmini.LemminiFrame;
-import lemmini.game.GameController.ExitSoundOption;
-import lemmini.game.GameController.MenuThemeOption;
+import lemmini.game.LemGame.ExitSoundOption;
+import lemmini.game.LemGame.MenuThemeOption;
 import lemmini.gameutil.Hotkey;
 import lemmini.gameutil.MouseInput;
 import lemmini.gameutil.RetroLemminiHotkeys;
@@ -57,9 +57,6 @@ import lemmini.tools.ToolBox;
  */
 
 /**
- * Well, this started as some kind of core class to collect all global stuff
- * Now lots of the functionality moved to GameController.
- * Would need some cleaning up, maybe remove the whole thing?
  * @author Volker Oth
  * Modified by Ryan Sakowski, Charles Irwin and Will James
  */
@@ -238,44 +235,44 @@ public class Core {
         bilinear = programProps.getBoolean("bilinear", true);
 
         // Set options
-        GameController.setOption(GameController.Option.MUSIC_ON, programProps.getBoolean("music", true));
-        GameController.setOption(GameController.Option.SOUND_ON, programProps.getBoolean("sound", true));
-        GameController.setMusicGain(programProps.getDouble("musicGain", 1.0));
-        GameController.setSoundGain(programProps.getDouble("soundGain", 1.0));
-        GameController.setOption(GameController.Option.ADVANCED_SELECT, programProps.getBoolean("advancedSelect", true));
-        GameController.setOption(GameController.Option.CLASSIC_CURSOR, programProps.getBoolean("classicalCursor", false));
-        GameController.setOption(GameController.Option.FASTER_FAST_FORWARD, programProps.getBoolean("fasterFastForward", false));
-        GameController.setOption(GameController.Option.PAUSE_STOPS_FAST_FORWARD, programProps.getBoolean("pauseStopsFastForward", true));
-        GameController.setOption(GameController.Option.NO_PERCENTAGES, programProps.getBoolean("noPercentages", true));
-        GameController.setOption(GameController.Option.REPLAY_SCROLL, programProps.getBoolean("replayScroll", false));
-        GameController.setOption(GameController.Option.UNPAUSE_ON_ASSIGNMENT, programProps.getBoolean("unpauseOnAssignment", false));
+        LemGame.setOption(LemGame.Option.MUSIC_ON, programProps.getBoolean("music", true));
+        LemGame.setOption(LemGame.Option.SOUND_ON, programProps.getBoolean("sound", true));
+        LemGame.setMusicGain(programProps.getDouble("musicGain", 1.0));
+        LemGame.setSoundGain(programProps.getDouble("soundGain", 1.0));
+        LemGame.setOption(LemGame.Option.ADVANCED_SELECT, programProps.getBoolean("advancedSelect", true));
+        LemGame.setOption(LemGame.Option.CLASSIC_CURSOR, programProps.getBoolean("classicalCursor", false));
+        LemGame.setOption(LemGame.Option.FASTER_FAST_FORWARD, programProps.getBoolean("fasterFastForward", false));
+        LemGame.setOption(LemGame.Option.PAUSE_STOPS_FAST_FORWARD, programProps.getBoolean("pauseStopsFastForward", true));
+        LemGame.setOption(LemGame.Option.NO_PERCENTAGES, programProps.getBoolean("noPercentages", true));
+        LemGame.setOption(LemGame.Option.REPLAY_SCROLL, programProps.getBoolean("replayScroll", false));
+        LemGame.setOption(LemGame.Option.UNPAUSE_ON_ASSIGNMENT, programProps.getBoolean("unpauseOnAssignment", false));
         // Settings added in SuperLemminiToo
-        GameController.setOption(GameController.Option.TIMED_BOMBERS, programProps.getBoolean("timedBombers", true));
-        GameController.setOption(GameController.Option.UNLOCK_ALL_LEVELS, programProps.getBoolean("unlockAllLevels", true));
-        GameController.setOption(GameController.Option.ENABLE_FRAME_STEPPING, programProps.getBoolean("enableFrameStepping", false));
-        GameController.setOption(GameController.Option.VISUAL_SFX, programProps.getBoolean("visualSFX", true));
-        GameController.setOption(GameController.Option.ENHANCED_STATUS, programProps.getBoolean("enhancedStatus", true));
-        GameController.setOption(GameController.Option.SHOW_LEVEL_NAME, programProps.getBoolean("showLevelName", true));
-        GameController.setOption(GameController.Option.ENHANCED_ICONBAR, programProps.getBoolean("enhancedIconBar", true));
-        GameController.setOption(GameController.Option.ICON_LABELS, programProps.getBoolean("iconLabels", false));
-        GameController.setOption(GameController.Option.ANIMATED_ICONS, programProps.getBoolean("animatedIcons", true));
-        GameController.setOption(GameController.Option.CLASSIC_SCROLLER, programProps.getBoolean("classicScroller", true));
-        GameController.setOption(GameController.Option.DEBUG_VERBOSE_PLAYER_LOAD, programProps.getBoolean("debugVerbosePlayerLoad", false));
+        LemGame.setOption(LemGame.Option.TIMED_BOMBERS, programProps.getBoolean("timedBombers", true));
+        LemGame.setOption(LemGame.Option.UNLOCK_ALL_LEVELS, programProps.getBoolean("unlockAllLevels", true));
+        LemGame.setOption(LemGame.Option.ENABLE_FRAME_STEPPING, programProps.getBoolean("enableFrameStepping", false));
+        LemGame.setOption(LemGame.Option.VISUAL_SFX, programProps.getBoolean("visualSFX", true));
+        LemGame.setOption(LemGame.Option.ENHANCED_STATUS, programProps.getBoolean("enhancedStatus", true));
+        LemGame.setOption(LemGame.Option.SHOW_LEVEL_NAME, programProps.getBoolean("showLevelName", true));
+        LemGame.setOption(LemGame.Option.ENHANCED_ICONBAR, programProps.getBoolean("enhancedIconBar", true));
+        LemGame.setOption(LemGame.Option.ICON_LABELS, programProps.getBoolean("iconLabels", false));
+        LemGame.setOption(LemGame.Option.ANIMATED_ICONS, programProps.getBoolean("animatedIcons", true));
+        LemGame.setOption(LemGame.Option.CLASSIC_SCROLLER, programProps.getBoolean("classicScroller", true));
+        LemGame.setOption(LemGame.Option.DEBUG_VERBOSE_PLAYER_LOAD, programProps.getBoolean("debugVerbosePlayerLoad", false));
         // Settings added in RetroLemmini
-        GameController.setOption(GameController.Option.AUTOSAVE_REPLAYS, programProps.getBoolean("autoSaveReplays", true));
-        GameController.setOption(GameController.Option.SHOW_MENU_BAR, programProps.getBoolean("showMenuBar", true));
-        GameController.setOption(GameController.Option.FULL_COLOR_MINIMAP, programProps.getBoolean("fullColorMinimap", true));
-        GameController.setOption(GameController.Option.POSTVIEW_JINGLES, programProps.getBoolean("postviewJingles", false));
-        GameController.setOption(GameController.Option.CLICK_AIR_TO_CANCEL_REPLAY, programProps.getBoolean("clickAirToCancelReplay", true));
-        GameController.setOption(GameController.Option.ENABLE_WHEEL_SKILL_SELECT, programProps.getBoolean("enableWheelSkillSelect", false));
-        GameController.setOption(GameController.Option.ENABLE_WHEEL_BRUSH_SIZE, programProps.getBoolean("enableWheelBrushSize", true));
-        GameController.setOption(GameController.Option.DIRECT_DROP, programProps.getBoolean("directDrop", false));
+        LemGame.setOption(LemGame.Option.AUTOSAVE_REPLAYS, programProps.getBoolean("autoSaveReplays", true));
+        LemGame.setOption(LemGame.Option.SHOW_MENU_BAR, programProps.getBoolean("showMenuBar", true));
+        LemGame.setOption(LemGame.Option.FULL_COLOR_MINIMAP, programProps.getBoolean("fullColorMinimap", true));
+        LemGame.setOption(LemGame.Option.POSTVIEW_JINGLES, programProps.getBoolean("postviewJingles", false));
+        LemGame.setOption(LemGame.Option.CLICK_AIR_TO_CANCEL_REPLAY, programProps.getBoolean("clickAirToCancelReplay", true));
+        LemGame.setOption(LemGame.Option.ENABLE_WHEEL_SKILL_SELECT, programProps.getBoolean("enableWheelSkillSelect", false));
+        LemGame.setOption(LemGame.Option.ENABLE_WHEEL_BRUSH_SIZE, programProps.getBoolean("enableWheelBrushSize", true));
+        LemGame.setOption(LemGame.Option.DIRECT_DROP, programProps.getBoolean("directDrop", false));
         // Exit sound settings
-        GameController.setExitSoundOption(ExitSoundOption.valueOf(programProps.get("exitSound", "AUTO")));
+        LemGame.setExitSoundOption(ExitSoundOption.valueOf(programProps.get("exitSound", "AUTO")));
         // Menu theme settings
-        GameController.setMenuThemeOption(MenuThemeOption.valueOf(programProps.get("menuTheme", "WINLEMM")));
+        LemGame.setMenuThemeOption(MenuThemeOption.valueOf(programProps.get("menuTheme", "WINLEMM")));
         // Auto-replay naming template
-        GameController.setReplayNameTemplate(programProps.get("replayNameTemplate", "{user}_{pack}_{rating}_{level}_{time}"));
+        LemGame.setReplayNameTemplate(programProps.get("replayNameTemplate", "{user}_{pack}_{rating}_{level}_{time}"));
 
         System.out.println("      all settings read from config");
 
@@ -366,7 +363,7 @@ public class Core {
                 e.printStackTrace();
             }
         }
-        GameController.activeHotkeys = hotkeys;
+        LemGame.activeHotkeys = hotkeys;
     }
 
 	/***
@@ -398,46 +395,46 @@ public class Core {
      */
     public static void saveSettings() {
         //sound settings
-        programProps.setBoolean("music", GameController.isOptionEnabled(GameController.Option.MUSIC_ON));
-        programProps.setBoolean("sound", GameController.isOptionEnabled(GameController.Option.SOUND_ON));
-        programProps.set("mixerName", GameController.sound.getMixers()[GameController.sound.getMixerIdx()]);
+        programProps.setBoolean("music", LemGame.isOptionEnabled(LemGame.Option.MUSIC_ON));
+        programProps.setBoolean("sound", LemGame.isOptionEnabled(LemGame.Option.SOUND_ON));
+        programProps.set("mixerName", LemGame.sound.getMixers()[LemGame.sound.getMixerIdx()]);
         //graphic settings
         programProps.setBoolean("bilinear", Core.isBilinear());
         //misc settings
-        programProps.setBoolean("advancedSelect", GameController.isOptionEnabled(GameController.Option.ADVANCED_SELECT));
-        programProps.setBoolean("classicalCursor", GameController.isOptionEnabled(GameController.Option.CLASSIC_CURSOR));
-        programProps.setBoolean("fasterFastForward", GameController.isOptionEnabled(GameController.Option.FASTER_FAST_FORWARD));
-        programProps.setBoolean("pauseStopsFastForward", GameController.isOptionEnabled(GameController.Option.PAUSE_STOPS_FAST_FORWARD));
-        programProps.setBoolean("noPercentages", GameController.isOptionEnabled(GameController.Option.NO_PERCENTAGES));
-        programProps.setBoolean("replayScroll", GameController.isOptionEnabled(GameController.Option.REPLAY_SCROLL));
-        programProps.setBoolean("unpauseOnAssignment", GameController.isOptionEnabled(GameController.Option.UNPAUSE_ON_ASSIGNMENT));
+        programProps.setBoolean("advancedSelect", LemGame.isOptionEnabled(LemGame.Option.ADVANCED_SELECT));
+        programProps.setBoolean("classicalCursor", LemGame.isOptionEnabled(LemGame.Option.CLASSIC_CURSOR));
+        programProps.setBoolean("fasterFastForward", LemGame.isOptionEnabled(LemGame.Option.FASTER_FAST_FORWARD));
+        programProps.setBoolean("pauseStopsFastForward", LemGame.isOptionEnabled(LemGame.Option.PAUSE_STOPS_FAST_FORWARD));
+        programProps.setBoolean("noPercentages", LemGame.isOptionEnabled(LemGame.Option.NO_PERCENTAGES));
+        programProps.setBoolean("replayScroll", LemGame.isOptionEnabled(LemGame.Option.REPLAY_SCROLL));
+        programProps.setBoolean("unpauseOnAssignment", LemGame.isOptionEnabled(LemGame.Option.UNPAUSE_ON_ASSIGNMENT));
         // Settings added in SuperLemminiToo
-        programProps.setBoolean("timedBombers", GameController.isOptionEnabled(GameController.Option.TIMED_BOMBERS));
-        programProps.setBoolean("unlockAllLevels", GameController.isOptionEnabled(GameController.Option.UNLOCK_ALL_LEVELS));
-        programProps.setBoolean("enableFrameStepping", GameController.isOptionEnabled(GameController.Option.ENABLE_FRAME_STEPPING));
-        programProps.setBoolean("visualSFX", GameController.isOptionEnabled(GameController.Option.VISUAL_SFX));
-        programProps.setBoolean("enhancedStatus", GameController.isOptionEnabled(GameController.Option.ENHANCED_STATUS));
-        programProps.setBoolean("showLevelName", GameController.isOptionEnabled(GameController.Option.SHOW_LEVEL_NAME));
-        programProps.setBoolean("enhancedIconBar", GameController.isOptionEnabled(GameController.Option.ENHANCED_ICONBAR));
-        programProps.setBoolean("iconLabels", GameController.isOptionEnabled(GameController.Option.ICON_LABELS));
-        programProps.setBoolean("animatedIcons", GameController.isOptionEnabled(GameController.Option.ANIMATED_ICONS));
-        programProps.setBoolean("classicScroller", GameController.isOptionEnabled(GameController.Option.CLASSIC_SCROLLER));
-        programProps.setBoolean("debugVerbosePlayerLoad", GameController.isOptionEnabled(GameController.Option.DEBUG_VERBOSE_PLAYER_LOAD));
+        programProps.setBoolean("timedBombers", LemGame.isOptionEnabled(LemGame.Option.TIMED_BOMBERS));
+        programProps.setBoolean("unlockAllLevels", LemGame.isOptionEnabled(LemGame.Option.UNLOCK_ALL_LEVELS));
+        programProps.setBoolean("enableFrameStepping", LemGame.isOptionEnabled(LemGame.Option.ENABLE_FRAME_STEPPING));
+        programProps.setBoolean("visualSFX", LemGame.isOptionEnabled(LemGame.Option.VISUAL_SFX));
+        programProps.setBoolean("enhancedStatus", LemGame.isOptionEnabled(LemGame.Option.ENHANCED_STATUS));
+        programProps.setBoolean("showLevelName", LemGame.isOptionEnabled(LemGame.Option.SHOW_LEVEL_NAME));
+        programProps.setBoolean("enhancedIconBar", LemGame.isOptionEnabled(LemGame.Option.ENHANCED_ICONBAR));
+        programProps.setBoolean("iconLabels", LemGame.isOptionEnabled(LemGame.Option.ICON_LABELS));
+        programProps.setBoolean("animatedIcons", LemGame.isOptionEnabled(LemGame.Option.ANIMATED_ICONS));
+        programProps.setBoolean("classicScroller", LemGame.isOptionEnabled(LemGame.Option.CLASSIC_SCROLLER));
+        programProps.setBoolean("debugVerbosePlayerLoad", LemGame.isOptionEnabled(LemGame.Option.DEBUG_VERBOSE_PLAYER_LOAD));
         // Settings added in RetroLemmini
-        programProps.setBoolean("autoSaveReplays", GameController.isOptionEnabled(GameController.Option.AUTOSAVE_REPLAYS));
-        programProps.setBoolean("showMenuBar", GameController.isOptionEnabled(GameController.Option.SHOW_MENU_BAR));
-        programProps.setBoolean("fullColorMinimap", GameController.isOptionEnabled(GameController.Option.FULL_COLOR_MINIMAP));
-        programProps.setBoolean("postviewJingles", GameController.isOptionEnabled(GameController.Option.POSTVIEW_JINGLES));
-        programProps.setBoolean("clickAirToCancelReplay", GameController.isOptionEnabled(GameController.Option.CLICK_AIR_TO_CANCEL_REPLAY));
-        programProps.setBoolean("enableWheelSkillSelect", GameController.isOptionEnabled(GameController.Option.ENABLE_WHEEL_SKILL_SELECT));
-        programProps.setBoolean("enableWheelBrushSize", GameController.isOptionEnabled(GameController.Option.ENABLE_WHEEL_BRUSH_SIZE));
-        programProps.setBoolean("directDrop", GameController.isOptionEnabled(GameController.Option.DIRECT_DROP));
+        programProps.setBoolean("autoSaveReplays", LemGame.isOptionEnabled(LemGame.Option.AUTOSAVE_REPLAYS));
+        programProps.setBoolean("showMenuBar", LemGame.isOptionEnabled(LemGame.Option.SHOW_MENU_BAR));
+        programProps.setBoolean("fullColorMinimap", LemGame.isOptionEnabled(LemGame.Option.FULL_COLOR_MINIMAP));
+        programProps.setBoolean("postviewJingles", LemGame.isOptionEnabled(LemGame.Option.POSTVIEW_JINGLES));
+        programProps.setBoolean("clickAirToCancelReplay", LemGame.isOptionEnabled(LemGame.Option.CLICK_AIR_TO_CANCEL_REPLAY));
+        programProps.setBoolean("enableWheelSkillSelect", LemGame.isOptionEnabled(LemGame.Option.ENABLE_WHEEL_SKILL_SELECT));
+        programProps.setBoolean("enableWheelBrushSize", LemGame.isOptionEnabled(LemGame.Option.ENABLE_WHEEL_BRUSH_SIZE));
+        programProps.setBoolean("directDrop", LemGame.isOptionEnabled(LemGame.Option.DIRECT_DROP));
         // Exit sound
-        programProps.set("exitSound", GameController.getExitSoundOption().name());
+        programProps.set("exitSound", LemGame.getExitSoundOption().name());
         // Menu theme
-        programProps.set("menuTheme", GameController.getMenuThemeOption().name());
+        programProps.set("menuTheme", LemGame.getMenuThemeOption().name());
         // Replay name template
-        programProps.set("replayNameTemplate", GameController.getReplayNameTemplate());
+        programProps.set("replayNameTemplate", LemGame.getReplayNameTemplate());
         
         // Update file
         programProps.save(programPropsFilePath, false);
@@ -543,7 +540,7 @@ public class Core {
             overrideFileMap.put("gfx/menu/background_level_retro", "gfx/menu/background_level");
         	
             // Try to load the file from the mod paths with each extension
-            for (String mod : GameController.getModPaths()) {
+            for (String mod : LemGame.getModPaths()) {
                 for (String ext : extensions) {
                     String resString = mod + "/" + fnameNoExt + "." + ext;
 
@@ -586,7 +583,7 @@ public class Core {
         Set<String> resources = new LinkedHashSet<>(64);
 
         if (searchMods) {
-            GameController.getModPaths().stream().forEachOrdered(mod -> {
+            LemGame.getModPaths().stream().forEachOrdered(mod -> {
                 String lowercasePath = ("mods/" + mod + "/" + folder).toLowerCase(Locale.ROOT);
                 resourceTree.getAllPathsRegex(ToolBox.literalToRegex(lowercasePath) + "[^/]+").stream()
                         .map(file -> file.getFileName().toString())
@@ -710,7 +707,7 @@ public class Core {
     }
     
     public static void returnToMainMenu() {
-        GameController.setTransition(GameController.TransitionState.TO_INTRO);
+        LemGame.setTransition(LemGame.TransitionState.TO_INTRO);
     	TextScreen.initIntro();
     }
 

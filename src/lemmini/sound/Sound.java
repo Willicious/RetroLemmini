@@ -27,7 +27,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import org.apache.commons.lang3.StringUtils;
 
 import lemmini.game.Core;
-import lemmini.game.GameController;
+import lemmini.game.LemGame;
 import lemmini.game.Resource;
 import lemmini.game.ResourceException;
 import lemmini.game.SpriteObject;
@@ -406,7 +406,7 @@ public class Sound {
      * Play a given sound.
      */
     public void play(final int idx, final double pan) {
-        if (idx < 0 || !GameController.isOptionEnabled(GameController.Option.SOUND_ON)) {
+        if (idx < 0 || !LemGame.isOptionEnabled(LemGame.Option.SOUND_ON)) {
             return;
         }
 
@@ -456,9 +456,9 @@ public class Sound {
      * Displays the VisualSFX (if it exists, and the setting is turned on)
      */
     public void playVisualSFXSilent(final int idx, final int x, final int y) {
-        if (GameController.isOptionEnabled(GameController.Option.VISUAL_SFX) && idx >= 0 && idx < Vsfx.VSFX_COUNT) {
+        if (LemGame.isOptionEnabled(LemGame.Option.VISUAL_SFX) && idx >= 0 && idx < Vsfx.VSFX_COUNT) {
             Vsfx v = new Vsfx(x, y, idx);
-            GameController.addVsfx(v);
+            LemGame.addVsfx(v);
         }
     }
 
@@ -503,7 +503,7 @@ public class Sound {
      */
     public static double getPan(final int x) {
         double panFactor = Core.getDrawWidth();
-        double retPan = (x - (GameController.getXPos() + Core.getDrawWidth() / 2.0)) / panFactor;
+        double retPan = (x - (LemGame.getXPos() + Core.getDrawWidth() / 2.0)) / panFactor;
         return retPan;
     }
 
@@ -511,7 +511,7 @@ public class Sound {
      * Play a pitched sample.
      */
     public void playPitched(final PitchedEffect pe, final int pitch) {
-        if (!GameController.isOptionEnabled(GameController.Option.SOUND_ON)) {
+        if (!LemGame.isOptionEnabled(LemGame.Option.SOUND_ON)) {
             return;
         }
 

@@ -64,7 +64,7 @@ import lemmini.tools.ToolBox;
  * @author Volker Oth
  * Modified by Ryan Sakowski, Charles Irwin and Will James
  */
-public class GameController {
+public class LemGame {
     /** game state */
     public static enum State {
         /** init state */
@@ -411,7 +411,7 @@ public class GameController {
      * Initialization.
      */
     public static void init() throws ResourceException {
-        System.out.println("initializing GameController...");
+        System.out.println("initializing LemGame...");
         width = Level.DEFAULT_WIDTH;
         height = Level.DEFAULT_HEIGHT;
 
@@ -496,7 +496,7 @@ public class GameController {
 
         cheatWasActivated = Core.player.isDebugMode() || Core.player.isMaximumExitPhysics();
 
-        System.out.println("GameController initialization complete.");
+        System.out.println("LemGame initialization complete.");
     }
     
     public static Path getLevelPackFolder(int levelPackIndex) {
@@ -602,7 +602,7 @@ public class GameController {
         setFastForward(false);
         setVerticalLock(false);
         setSuperLemming(false);
-        setDirectDrop(GameController.isOptionEnabled(GameController.Option.DIRECT_DROP));
+        setDirectDrop(LemGame.isOptionEnabled(LemGame.Option.DIRECT_DROP));
 
         if (!wasLost() && curLevelPack != 0) {
             LevelPack lvlPack = getCurLevelPack();
@@ -733,11 +733,11 @@ public class GameController {
         }
         int scaleFactor = NumberUtils.max(4, scaleFactorWidth, scaleFactorHeight);
         mapPreview = level.createMinimap(fgImage, 1.0 / scaleFactor, 1.0 / scaleFactor, true, false, true);
-        Minimap.init(1.0 / 16.0, 1.0 / 8.0, !GameController.isOptionEnabled(GameController.Option.FULL_COLOR_MINIMAP));
+        Minimap.init(1.0 / 16.0, 1.0 / 8.0, !LemGame.isOptionEnabled(LemGame.Option.FULL_COLOR_MINIMAP));
 
-        boolean directDropActive = GameController.isOptionEnabled(GameController.Option.DIRECT_DROP);
+        boolean directDropActive = LemGame.isOptionEnabled(LemGame.Option.DIRECT_DROP);
         boolean replayIsDirectDrop = replay.isDirectDropActive() && !directDropActive;
-        GameController.directDropCaption = replayIsDirectDrop ? " - Direct Drop Active" : "";
+        LemGame.directDropCaption = replayIsDirectDrop ? " - Direct Drop Active" : "";
         setDirectDrop(level.isDirectDrop() || replayIsDirectDrop || directDropActive);
         
         setSuperLemming(level.isSuperLemming());
@@ -752,7 +752,7 @@ public class GameController {
         if (showPreview) {
 	        String music = level.getMusic();
 	        try {
-	        	GameController.musicCaption = "";
+	        	LemGame.musicCaption = "";
 	            if (music == null) {
 	                music = levelPacks.get(curLevelPack).getInfo(curRating, curLevelNumber).getMusic();
 	            }
@@ -761,7 +761,7 @@ public class GameController {
 	            }
 	            Music.load("music/" + music);
 	        } catch (ResourceException ex) {
-	        	GameController.musicCaption = " - Missing music '" + music + "'";
+	        	LemGame.musicCaption = " - Missing music '" + music + "'";
 	        	try {
 	        		music = Music.getRandomTrack("");
 	        		Music.load("music/" + music);
@@ -1080,9 +1080,9 @@ public class GameController {
      * Get last level played as a string of integer indexes
      */
     public static String getLastLevelPlayedString() {
-    	int levelPackIndex = GameController.getCurLevelPackIdx();
-        int ratingIndex = GameController.getCurRating();
-        int levelIndex = GameController.getCurLevelNumber();
+    	int levelPackIndex = LemGame.getCurLevelPackIdx();
+        int ratingIndex = LemGame.getCurRating();
+        int levelIndex = LemGame.getCurLevelNumber();
 
         return levelPackIndex + "," + ratingIndex + "," + levelIndex;
     }
@@ -1102,10 +1102,10 @@ public class GameController {
         updateCtr++;
         
     	if (leftMouseButtonHeld && altPressed) {   		
-            Lemming l = GameController.lemmUnderCursor(LemmCursor.getType());
+            Lemming l = LemGame.lemmUnderCursor(LemmCursor.getType());
             if (l != null && l != lastAssignedLemming) {
-                GameController.requestSkill(l);
-                GameController.attemptingHoldToAssign = true;
+                LemGame.requestSkill(l);
+                LemGame.attemptingHoldToAssign = true;
                 lastAssignedLemming = l;
             }
     	}
@@ -1816,7 +1816,7 @@ public class GameController {
                 case END_LEVEL:
                     finishLevel();
                     LemmCursor.setBox(false);
-                    GameController.replayCaption = null;
+                    LemGame.replayCaption = null;
                     LemminiFrame.getFrame().setCursor(LemmCursor.CursorType.NORMAL);
                     break;
                 case TO_PREVIEW:
@@ -1859,7 +1859,7 @@ public class GameController {
                     try {
                         changeLevel(nextLevelPack, nextRating, nextLevelNumber, transitionState == TransitionState.LOAD_REPLAY);
                     } catch (ResourceException ex) {
-                    	String pack = GameController.getCurLevelPack().getName();
+                    	String pack = LemGame.getCurLevelPack().getName();
                     	String rating = Integer.toString(nextRating);
                     	String targetlevel = Integer.toString(nextLevelNumber);
                         Core.missingLevelError("[" + pack + "] 'level_" + rating + "_" + targetlevel + "'");
@@ -1891,8 +1891,8 @@ public class GameController {
     }
 
     private static void setLevelTitle() {
-    	if (GameController.replayCaption != null) {
-    		Core.setWindowCaption(GameController.replayCaption);
+    	if (LemGame.replayCaption != null) {
+    		Core.setWindowCaption(LemGame.replayCaption);
     	} else {
 	        int numLemmings = level.getNumLemmings();	
 	        String numToRescue = (isOptionEnabled(Option.NO_PERCENTAGES) || numLemmings > 100) 
@@ -1901,14 +1901,14 @@ public class GameController {
 	        
 	        String lemmingWord = (numLemmings == 1) ? "Lemming" : "Lemmings";
 	        String levelTitleCaption = String.format("RetroLemmini - %s - %s %d - %s - Save %s of %d %s",
-	                GameController.getCurLevelPack().getName(),
-	                GameController.getCurLevelPack().getRatings().get(GameController.getCurRating()),
-	                GameController.curLevelNumber + 1,
+	                LemGame.getCurLevelPack().getName(),
+	                LemGame.getCurLevelPack().getRatings().get(LemGame.getCurRating()),
+	                LemGame.curLevelNumber + 1,
 	                level.getLevelName().trim(),
 	                numToRescue,
 	                numLemmings,
 	                lemmingWord);
-	        Core.setWindowCaption(levelTitleCaption + GameController.directDropCaption + GameController.musicCaption);
+	        Core.setWindowCaption(levelTitleCaption + LemGame.directDropCaption + LemGame.musicCaption);
     	}
     }
 
@@ -1992,7 +1992,7 @@ public class GameController {
         drawIcons(g, iconsX, iconsY);
         drawCounters(g, countersX, countersY);
 /*
-        if (!GameController.isOptionEnabled(GameController.Option.ENHANCED_ICONBAR)) {
+        if (!LemGame.isOptionEnabled(LemGame.Option.ENHANCED_ICONBAR)) {
             //the enhanced icon bar should have the counters built into it.
             drawCounters(g, countersX, countersY);
         }
@@ -2743,7 +2743,7 @@ public class GameController {
 	}
 
 	public static void setLemmNames(String lemmNames) {
-		GameController.lemmNames = lemmNames;
+		LemGame.lemmNames = lemmNames;
 	}
 
 	public static String getLemmNamesPlural() {
@@ -2751,7 +2751,7 @@ public class GameController {
 	}
 
 	public static void setLemmNamesPlural(String lemmNamesPlural) {
-		GameController.lemmNamesPlural = lemmNamesPlural;
+		LemGame.lemmNamesPlural = lemmNamesPlural;
 	}
 
 	public static String getReplayNameTemplate() {
@@ -2759,7 +2759,7 @@ public class GameController {
 	}
 
 	public static void setReplayNameTemplate(String template) {
-		GameController.replayNameTemplate = template;
+		LemGame.replayNameTemplate = template;
 	}
 	
     /**
@@ -2817,15 +2817,15 @@ public class GameController {
 
 class ExternalLevelEntry {
 
-    private final GameController.LevelFormat format;
+    private final LemGame.LevelFormat format;
     private final Path lvlPath;
 
-    ExternalLevelEntry(GameController.LevelFormat newFormat, Path newPath) throws IOException {
+    ExternalLevelEntry(LemGame.LevelFormat newFormat, Path newPath) throws IOException {
         format = newFormat;
         lvlPath = newPath;
     }
 
-    GameController.LevelFormat getFormat() {
+    LemGame.LevelFormat getFormat() {
         return format;
     }
 

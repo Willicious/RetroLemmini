@@ -57,8 +57,8 @@ public class Minimap {
         scaleX = sx;
         scaleY = sy;
         tinted = tint;
-        Level level = GameController.getLevel();
-        LemmImage fgImage = GameController.getFgImage();
+        Level level = LemGame.getLevel();
+        LemmImage fgImage = LemGame.getFgImage();
         img = level.createMinimap(fgImage, scaleX, scaleY, false, tint, false);
         visibleWidth = Math.min(img.getWidth(), MAX_VISIBLE_WIDTH);
         visibleHeight = Math.min(img.getHeight(), MAX_VISIBLE_HEIGHT);
@@ -66,7 +66,7 @@ public class Minimap {
         if (visibleWidth >= img.getWidth()) {
             xPos = 0;
         } else {
-            int xPosTemp = ToolBox.scale(GameController.getLevel().getXPosCenter(), scaleX) - visibleWidth / 2;
+            int xPosTemp = ToolBox.scale(LemGame.getLevel().getXPosCenter(), scaleX) - visibleWidth / 2;
             xPos = ToolBox.cap(0, xPosTemp, img.getWidth() - visibleWidth);
         }
     }
@@ -75,7 +75,7 @@ public class Minimap {
      * Draw minimap.
      */
     public static void draw(final GraphicsContext g, final int x, final int y) {
-        g.drawImage(img, x - xPos, y - ToolBox.scale(GameController.getYPos(), scaleY));
+        g.drawImage(img, x - xPos, y - ToolBox.scale(LemGame.getYPos(), scaleY));
     }
 
     /**
@@ -83,7 +83,7 @@ public class Minimap {
      */
     public static void drawLemming(final GraphicsContext g, final int x, final int y, final int lx, final int ly) {
         int sx = x + ToolBox.scale(lx, scaleX) - xPos - LEMM_DOT_SCALE / 2;
-        int sy = y + ToolBox.scale(ly - GameController.getYPos(), scaleY) - LEMM_DOT_SCALE;
+        int sy = y + ToolBox.scale(ly - LemGame.getYPos(), scaleY) - LEMM_DOT_SCALE;
         if (sx + LEMM_DOT_SCALE > x && sx < x + visibleWidth
                 && sy + LEMM_DOT_SCALE > y && sy < y + visibleHeight) {
             g.setColor(LEMM_COLOR);
@@ -96,10 +96,10 @@ public class Minimap {
      */
     public static void drawFrame(final GraphicsContext g, final int x, final int y) {
         int wWidth = ToolBox.scale(Core.getDrawWidth(), scaleX);
-        int scaledXPos = ToolBox.scale(GameController.getXPos(), scaleX);
+        int scaledXPos = ToolBox.scale(LemGame.getXPos(), scaleX);
         g.setColor(FRAME_COLOR);
-        if (GameController.getWidth() < Core.getDrawWidth()) {
-            g.drawRect(x, y, ToolBox.scale(GameController.getWidth(), scaleX) - 1, visibleHeight - 1);
+        if (LemGame.getWidth() < Core.getDrawWidth()) {
+            g.drawRect(x, y, ToolBox.scale(LemGame.getWidth(), scaleX) - 1, visibleHeight - 1);
         } else {
             g.drawRect(x + scaledXPos - xPos, y, wWidth - 1, visibleHeight - 1);
         }
@@ -146,7 +146,7 @@ public class Minimap {
             xPos = 0;
         } else {
             int scaledDrawWidth = ToolBox.scale(Core.getDrawWidth(), scaleX);
-            int scaledXPos = ToolBox.cap(0, ToolBox.scale(GameController.getXPos(), scaleX), img.getWidth() - scaledDrawWidth);
+            int scaledXPos = ToolBox.cap(0, ToolBox.scale(LemGame.getXPos(), scaleX), img.getWidth() - scaledDrawWidth);
             if (scaledXPos < xPos) {
                 xPos = scaledXPos;
             } else if (scaledXPos > xPos + visibleWidth - scaledDrawWidth) {

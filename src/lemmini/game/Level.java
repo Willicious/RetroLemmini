@@ -195,7 +195,7 @@ public class Level {
         // read level properties from file
         Props p = new Props();
         if (!p.load(resource)) {
-        	System.out.println("Level listed in the levelpack.ini for " + GameController.getCurLevelPack().getName() + " could not be loaded.");
+        	System.out.println("Level listed in the levelpack.ini for " + LemGame.getCurLevelPack().getName() + " could not be loaded.");
         }
         levelProps.add(p);
 
@@ -215,7 +215,7 @@ public class Level {
         if (modsStr != null && modsStr.length > 0)
             levelMods = Arrays.stream(modsStr).map(mod -> "mods/" + mod).collect(Collectors.toList());
         else
-        	levelMods = GameController.getCurLevelPack().getModPaths(); // fallback to level pack mods
+        	levelMods = LemGame.getCurLevelPack().getModPaths(); // fallback to level pack mods
 
         // read name and author
         lvlName = Props.get(levelProps, "name", StringUtils.EMPTY);
@@ -230,7 +230,7 @@ public class Level {
                 break;
             }
         }
-        maxFallDistance = Props.getInt(levelProps, "maxFallDistance", GameController.getCurLevelPack().getMaxFallDistance());
+        maxFallDistance = Props.getInt(levelProps, "maxFallDistance", LemGame.getCurLevelPack().getMaxFallDistance());
         classicSteel = Props.getBoolean(levelProps, "classicSteel", false);
         switch (p.getInt("autosteelMode", 0)) {
             case 0:
@@ -1146,7 +1146,7 @@ public class Level {
      */
     public LemmImage createMinimap(final LemmImage fgImage, final double scaleX, final double scaleY,
             final boolean highQuality, final boolean tint, final boolean drawBackground) {
-        Level level = GameController.getLevel();
+        Level level = LemGame.getLevel();
         LemmImage img = ToolBox.createLemmImage(fgImage.getWidth(), fgImage.getHeight());
 
         GraphicsContext gx = null;

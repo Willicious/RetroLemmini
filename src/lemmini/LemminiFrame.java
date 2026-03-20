@@ -63,7 +63,7 @@ import org.apache.commons.lang3.SystemUtils;
 
 import keyrepeatfix.RepeatingReleasedEventsFixer;
 import lemmini.game.Core;
-import lemmini.game.GameController;
+import lemmini.game.LemGame;
 import lemmini.game.Icons;
 import lemmini.game.LemmCursor;
 import lemmini.game.LemmException;
@@ -88,7 +88,7 @@ import lemmini.tools.ToolBox;
 /**
  * Lemmini - a game engine for Lemmings.<br>
  * This is the main window including input handling. The game logic is located in
- * {@link GameController}, some core components are in {@link Core}.
+ * {@link LemGame}, some core components are in {@link Core}.
  *
  * @author Volker Oth
  * Modified by Ryan Sakowski, Charles Irwin and Will James
@@ -181,7 +181,7 @@ public class LemminiFrame extends JFrame {
         System.out.println("\ninitializing LemminiFrame...");
         try {
             // initialize the game controller and main panel
-            GameController.init();
+            LemGame.init();
 
             lemminiPanelMain.init();
             lemminiPanelMain.setCursor(LemmCursor.getCursor());
@@ -212,25 +212,25 @@ public class LemminiFrame extends JFrame {
             
             if (EditorTestMode.enabled) {
                 try {
-                    int levelIndex = GameController.addExternalTestLevel(
+                    int levelIndex = LemGame.addExternalTestLevel(
                         Paths.get(EditorTestMode.testLevelPath)
                     );
-                    GameController.requestChangeLevel(
+                    LemGame.requestChangeLevel(
                         0,          // pack
                         0,          // rating
                         levelIndex, // newly added level
                         false
                     );
-                    GameController.setGameState(GameController.State.INTRO);
-                    GameController.setTransition(GameController.TransitionState.LOAD_LEVEL);
+                    LemGame.setGameState(LemGame.State.INTRO);
+                    LemGame.setTransition(LemGame.TransitionState.LOAD_LEVEL);
                     Fader.setState(Fader.State.OUT);
                 } catch (Exception ex) {
                     ToolBox.showException(ex);
                     System.exit(1);
                 }
             } else {
-                GameController.setGameState(GameController.State.INTRO);
-                GameController.setTransition(GameController.TransitionState.NONE);
+                LemGame.setGameState(LemGame.State.INTRO);
+                LemGame.setTransition(LemGame.TransitionState.NONE);
                 Fader.setState(Fader.State.IN);
             }
 
@@ -477,7 +477,7 @@ public class LemminiFrame extends JFrame {
         setJMenuBar(jMenuBarMain);
         
         // Add hotkey text
-        List<Hotkey> keys = GameController.activeHotkeys;
+        List<Hotkey> keys = LemGame.activeHotkeys;
         MenuHotkeyDisplay.applyHotkey(jMenuItemExit, HotkeyAction.HotkeyCloseApp, keys);
         MenuHotkeyDisplay.applyHotkey(jMenuItemManagePlayers, HotkeyAction.HotkeyManagePlayers, keys);
         MenuHotkeyDisplay.applyHotkey(jMenuItemChooseLevel, HotkeyAction.HotkeyLevelSelect, keys);
@@ -631,42 +631,42 @@ public class LemminiFrame extends JFrame {
     }//GEN-LAST:event_formComponentMoved
     private void printLevelNameToConsole() {
     	System.out.println("Debug mode toggled for level:");
-        System.out.println("   " + GameController.getLevelPack(GameController.getCurLevelPackIdx()).getInfo(GameController.getCurRating(),
-                                                               GameController.getCurLevelNumber()).getLevelResource());
+        System.out.println("   " + LemGame.getLevelPack(LemGame.getCurLevelPackIdx()).getInfo(LemGame.getCurRating(),
+                                                               LemGame.getCurLevelNumber()).getLevelResource());
     }
     
     private void addLemmingAtCursor() {
         Lemming l = new Lemming(lemminiPanelMain.getCursorX(), lemminiPanelMain.getCursorY(), Lemming.Direction.RIGHT);
-        GameController.addLemming(l);
+        LemGame.addLemming(l);
         Vsfx v = new Vsfx(lemminiPanelMain.getCursorX(), lemminiPanelMain.getCursorY(), Vsfx.Vsfx_Index.YIPPEE);
-        GameController.addVsfx(v);
+        LemGame.addVsfx(v);
     }
 
     private void formKeyPressed(KeyEvent evt) { //GEN-FIRST:event_formKeyPressed
         int code = evt.getKeyCode();
-        RetroLemminiHotkeys.HotkeyAction action = RetroLemminiHotkeys.getHotkeyActionForEvent(evt, GameController.activeHotkeys);
+        RetroLemminiHotkeys.HotkeyAction action = RetroLemminiHotkeys.getHotkeyActionForEvent(evt, LemGame.activeHotkeys);
 
-        boolean isIntro = (GameController.getGameState() == GameController.State.INTRO);
-        boolean isPreview = (GameController.getGameState() == GameController.State.PREVIEW);
-        boolean isLevel = (GameController.getGameState() == GameController.State.LEVEL);
-        boolean isLevelEnd = (GameController.getGameState() == GameController.State.LEVEL_END);
-        boolean isPostview = (GameController.getGameState() == GameController.State.POSTVIEW);
+        boolean isIntro = (LemGame.getGameState() == LemGame.State.INTRO);
+        boolean isPreview = (LemGame.getGameState() == LemGame.State.PREVIEW);
+        boolean isLevel = (LemGame.getGameState() == LemGame.State.LEVEL);
+        boolean isLevelEnd = (LemGame.getGameState() == LemGame.State.LEVEL_END);
+        boolean isPostview = (LemGame.getGameState() == LemGame.State.POSTVIEW);
         
         // Hard-coded keys
         // --- In-game modifier handling --- //
         if (isLevel) {
             switch (code) {
                 case KeyEvent.VK_SHIFT:
-                    GameController.setShiftPressed(true);
+                    LemGame.setShiftPressed(true);
                     break;
                 case KeyEvent.VK_CONTROL:
-                    GameController.setCtrlPressed(true);
+                    LemGame.setCtrlPressed(true);
                     break;
                 case KeyEvent.VK_ALT:
-                    GameController.setAltPressed(true);
+                    LemGame.setAltPressed(true);
                     break;
                 case KeyEvent.VK_ESCAPE:
-                    GameController.endLevel();
+                    LemGame.endLevel();
                     break;
                 default:
                     break;
@@ -740,7 +740,7 @@ public class LemminiFrame extends JFrame {
 	            lemminiPanelMain.handleLoadReplay();
 	            break;
             case HotkeyToggleMenuBar:
-                GameController.setOption(GameController.Option.SHOW_MENU_BAR, !GameController.isOptionEnabled(GameController.Option.SHOW_MENU_BAR));
+                LemGame.setOption(LemGame.Option.SHOW_MENU_BAR, !LemGame.isOptionEnabled(LemGame.Option.SHOW_MENU_BAR));
                 toggleMenuBarVisibility();
                 Core.saveSettings();
                 break;
@@ -816,63 +816,63 @@ public class LemminiFrame extends JFrame {
                     toggleSound();
                     break;
                 case HotkeyPause:
-                    GameController.togglePause();
+                    LemGame.togglePause();
                     break;
                 case HotkeyRestart:
-                    GameController.requestRestartLevel(true, false);
+                    LemGame.requestRestartLevel(true, false);
                     break;
                 case HotkeyNuke:
-                    GameController.handleIconButton(Icons.IconType.NUKE);
+                    LemGame.handleIconButton(Icons.IconType.NUKE);
                     break;
                 case HotkeyDecreaseRR:
-                    GameController.pressMinus(GameController.KEYREPEAT_KEY);
+                    LemGame.pressMinus(LemGame.KEYREPEAT_KEY);
                     break;
                 case HotkeyIncreaseRR:
-                    GameController.pressPlus(GameController.KEYREPEAT_KEY);
+                    LemGame.pressPlus(LemGame.KEYREPEAT_KEY);
                     break;
                 case HotkeySelectClimber:
-                    GameController.handleIconButton(Icons.IconType.CLIMB);
+                    LemGame.handleIconButton(Icons.IconType.CLIMB);
                     break;
                 case HotkeySelectFloater:
-                    GameController.handleIconButton(Icons.IconType.FLOAT);
+                    LemGame.handleIconButton(Icons.IconType.FLOAT);
                     break;
                 case HotkeySelectBomber:
-                    GameController.handleIconButton(Icons.IconType.BOMB);
+                    LemGame.handleIconButton(Icons.IconType.BOMB);
                     break;
                 case HotkeySelectBlocker:
-                    GameController.handleIconButton(Icons.IconType.BLOCK);
+                    LemGame.handleIconButton(Icons.IconType.BLOCK);
                     break;
                 case HotkeySelectBuilder:
-                    GameController.handleIconButton(Icons.IconType.BUILD);
+                    LemGame.handleIconButton(Icons.IconType.BUILD);
                     break;
                 case HotkeySelectBasher:
-                    GameController.handleIconButton(Icons.IconType.BASH);
+                    LemGame.handleIconButton(Icons.IconType.BASH);
                     break;
                 case HotkeySelectMiner:
-                    GameController.handleIconButton(Icons.IconType.MINE);
+                    LemGame.handleIconButton(Icons.IconType.MINE);
                     break;
                 case HotkeySelectDigger:
-                    GameController.handleIconButton(Icons.IconType.DIG);
+                    LemGame.handleIconButton(Icons.IconType.DIG);
                     break;
                 case HotkeyToggleVerticalLock:
-                    GameController.setVerticalLock(!GameController.isVerticalLock());
-                    GameController.pressIcon(Icons.IconType.VLOCK);
+                    LemGame.setVerticalLock(!LemGame.isVerticalLock());
+                    LemGame.pressIcon(Icons.IconType.VLOCK);
                     break;
                 case HotkeyToggleFallDistanceRuler:
-                	GameController.toggleFallDistanceRuler();
+                	LemGame.toggleFallDistanceRuler();
                 	break;
                 case HotkeyFastForward:
-                    GameController.setTurbo(false);
-                    GameController.setFastForward(!GameController.isFastForward());
-                    GameController.pressIcon(Icons.IconType.FFWD);
+                    LemGame.setTurbo(false);
+                    LemGame.setFastForward(!LemGame.isFastForward());
+                    LemGame.pressIcon(Icons.IconType.FFWD);
                     break;
                 case HotkeyTurboForward:
-                    GameController.setTurbo(true);
-                    GameController.setFastForward(!GameController.isFastForward());
-                    GameController.pressIcon(Icons.IconType.FFWD);
+                    LemGame.setTurbo(true);
+                    LemGame.setFastForward(!LemGame.isFastForward());
+                    LemGame.pressIcon(Icons.IconType.FFWD);
                     break;
                 case HotkeySelectLeft:
-                    if (GameController.isOptionEnabled(GameController.Option.ADVANCED_SELECT)) {
+                    if (LemGame.isOptionEnabled(LemGame.Option.ADVANCED_SELECT)) {
                         if (LemmCursor.getType().isWalkerOnly()) {
                             lemminiPanelMain.setCursor(LemmCursor.CursorType.WALKER_LEFT);
                         } else {
@@ -881,7 +881,7 @@ public class LemminiFrame extends JFrame {
                     }
                     break;
                 case HotkeySelectRight:
-                    if (GameController.isOptionEnabled(GameController.Option.ADVANCED_SELECT)) {
+                    if (LemGame.isOptionEnabled(LemGame.Option.ADVANCED_SELECT)) {
                         if (LemmCursor.getType().isWalkerOnly()) {
                             lemminiPanelMain.setCursor(LemmCursor.CursorType.WALKER_RIGHT);
                         } else {
@@ -890,7 +890,7 @@ public class LemminiFrame extends JFrame {
                     }
                     break;
                 case HotkeySelectWalker:
-                    if (GameController.isOptionEnabled(GameController.Option.ADVANCED_SELECT)) {
+                    if (LemGame.isOptionEnabled(LemGame.Option.ADVANCED_SELECT)) {
                     	lemminiPanelMain.pressSelectWalker();
                     }
                     break;
@@ -907,25 +907,25 @@ public class LemminiFrame extends JFrame {
                     lemminiPanelMain.setNudgeViewDownPressed(true);
                     break;
                 case HotkeyEndLevel:
-                    GameController.endLevel();
+                    LemGame.endLevel();
                     break;
                 case HotkeySaveReplay:
                     lemminiPanelMain.handleSaveReplay();
                     break;
                 case HotkeyCancelReplay:
-                    GameController.stopReplayMode();
+                    LemGame.stopReplayMode();
                     break;
                 case HotkeySaveAsImage:
                     saveLevelAsImage();
                     break;
                 case HotkeyDebugToggleDebug:
                     Core.player.setDebugMode(!Core.player.isDebugMode());
-                    GameController.setWasCheated(true); // 'Cheated' flag remains true if debug mode is entered
+                    LemGame.setWasCheated(true); // 'Cheated' flag remains true if debug mode is entered
                     printLevelNameToConsole();
                     break;
                 case HotkeyDebugMaxExitPhysics:
                     Core.player.setMaximumExitPhysics(!Core.player.isMaximumExitPhysics());
-                    GameController.setWasCheated(true); // 'Cheated' flag remains true if maximum exit physics mode is entered
+                    LemGame.setWasCheated(true); // 'Cheated' flag remains true if maximum exit physics mode is entered
                     printLevelNameToConsole();
                     break;
                 default:
@@ -937,14 +937,14 @@ public class LemminiFrame extends JFrame {
         if (isLevel && Core.player.isDebugMode()) {
             switch (action) {
                 case HotkeyDebugSaveAll:
-                    GameController.setNumExited(GameController.getNumLemmingsMax());
-                    GameController.endLevel();
+                    LemGame.setNumExited(LemGame.getNumLemmingsMax());
+                    LemGame.endLevel();
                     break;
                 case HotkeyDebugInvertTimer:
-                    GameController.setTimed(!GameController.isTimed());
+                    LemGame.setTimed(!LemGame.isTimed());
                     break;
                 case HotkeyDebugToggleSuperLemming:
-                    GameController.setSuperLemming(!GameController.isSuperLemming());
+                    LemGame.setSuperLemming(!LemGame.isSuperLemming());
                     break;
                 case HotkeyDebugToggleDrawMode:
                     lemminiPanelMain.setDebugDraw(!lemminiPanelMain.getDebugDraw());
@@ -970,19 +970,19 @@ public class LemminiFrame extends JFrame {
 
     private void formKeyReleased(KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
         int code = evt.getKeyCode();
-        boolean isLevel = GameController.getGameState() == GameController.State.LEVEL;
+        boolean isLevel = LemGame.getGameState() == LemGame.State.LEVEL;
         
         // Hard-coded keys
         if (isLevel) {
             switch (code) {
                 case KeyEvent.VK_SHIFT:
-                    GameController.setShiftPressed(false);
+                    LemGame.setShiftPressed(false);
                     break;
                 case KeyEvent.VK_CONTROL:
-                	GameController.setCtrlPressed(false);
+                	LemGame.setCtrlPressed(false);
                     break;
                 case KeyEvent.VK_ALT:
-                	GameController.setAltPressed(false);
+                	LemGame.setAltPressed(false);
                     break;
                 default:
                     break;
@@ -990,22 +990,22 @@ public class LemminiFrame extends JFrame {
         }
         
         RetroLemminiHotkeys.HotkeyAction action = 
-                RetroLemminiHotkeys.getHotkeyActionForEvent(evt, GameController.activeHotkeys);
+                RetroLemminiHotkeys.getHotkeyActionForEvent(evt, LemGame.activeHotkeys);
         
         // Custom hotkeys
         if ((action != null) && isLevel) {
             switch (action) {
 	            case HotkeyIncreaseRR:
-	                GameController.releasePlus(GameController.KEYREPEAT_KEY);
+	                LemGame.releasePlus(LemGame.KEYREPEAT_KEY);
 	                break;
 	            case HotkeyDecreaseRR:
-	                GameController.releaseMinus(GameController.KEYREPEAT_KEY);
+	                LemGame.releaseMinus(LemGame.KEYREPEAT_KEY);
 	                break;
                 case HotkeyNuke:
-                    GameController.releaseIcon(Icons.IconType.NUKE);
+                    LemGame.releaseIcon(Icons.IconType.NUKE);
                     break;
                 case HotkeySelectLeft:
-                	if (GameController.isOptionEnabled(GameController.Option.ADVANCED_SELECT)) {
+                	if (LemGame.isOptionEnabled(LemGame.Option.ADVANCED_SELECT)) {
                         if (LemmCursor.getType() == LemmCursor.CursorType.LEFT) {
                             lemminiPanelMain.setCursor(LemmCursor.CursorType.NORMAL);
                         } else if (LemmCursor.getType() == LemmCursor.CursorType.WALKER_LEFT) {
@@ -1014,7 +1014,7 @@ public class LemminiFrame extends JFrame {
                     }
                 	break;
                 case HotkeySelectRight:
-                    if (GameController.isOptionEnabled(GameController.Option.ADVANCED_SELECT)) {
+                    if (LemGame.isOptionEnabled(LemGame.Option.ADVANCED_SELECT)) {
                         if (LemmCursor.getType() == LemmCursor.CursorType.RIGHT) {
                             lemminiPanelMain.setCursor(LemmCursor.CursorType.NORMAL);
                         } else if (LemmCursor.getType() == LemmCursor.CursorType.WALKER_RIGHT) {
@@ -1023,7 +1023,7 @@ public class LemminiFrame extends JFrame {
                     }  
                     break;
                 case HotkeySelectWalker:
-                    if (GameController.isOptionEnabled(GameController.Option.ADVANCED_SELECT)) {
+                    if (LemGame.isOptionEnabled(LemGame.Option.ADVANCED_SELECT)) {
                     	lemminiPanelMain.releaseSelectWalker();
                     }
                     break;
@@ -1074,10 +1074,10 @@ public class LemminiFrame extends JFrame {
     }//GEN-LAST:event_jMenuItemChooseLevelActionPerformed
 
     private void jMenuItemRestartLevelActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemRestartLevelActionPerformed
-        if (GameController.getLevel() == null) {
-            GameController.requestChangeLevel(GameController.getCurLevelPackIdx(), GameController.getCurRating(), GameController.getCurLevelNumber(), false);
+        if (LemGame.getLevel() == null) {
+            LemGame.requestChangeLevel(LemGame.getCurLevelPackIdx(), LemGame.getCurRating(), LemGame.getCurLevelNumber(), false);
         } else {
-            GameController.requestRestartLevel(false, true);
+            LemGame.requestRestartLevel(false, true);
         }
     }//GEN-LAST:event_jMenuItemRestartLevelActionPerformed
 
@@ -1197,24 +1197,24 @@ public class LemminiFrame extends JFrame {
 
         if (!EditorTestMode.enabled && level != null) {
             System.out.println("external level loaded. starting up inside level...");
-            int[] levelPosition = GameController.addExternalLevel(level, null, true);
-            GameController.requestChangeLevel(levelPosition[0], levelPosition[1], levelPosition[2], false);
+            int[] levelPosition = LemGame.addExternalLevel(level, null, true);
+            LemGame.requestChangeLevel(levelPosition[0], levelPosition[1], levelPosition[2], false);
         }
     }
     
     private void goToNextAvailableLevel() {
         if (Fader.getState() == Fader.State.OFF) {
-            LevelPack pack = GameController.getCurLevelPack();
+            LevelPack pack = LemGame.getCurLevelPack();
             String packName = pack.getName();
-            int packIdx = GameController.getCurLevelPackIdx();
+            int packIdx = LemGame.getCurLevelPackIdx();
             List<String> ratings = pack.getRatings();
-            int rating = GameController.getCurRating();
+            int rating = LemGame.getCurRating();
             int lvlCount = pack.getLevelCount(rating);
-            int lvlNum = GameController.getCurLevelNumber() + 1;
+            int lvlNum = LemGame.getCurLevelNumber() + 1;
             while (rating < ratings.size()) {
                 while (lvlNum < lvlCount) {
                     if (Core.player.isAvailable(packName, ratings.get(rating), lvlNum)) {
-                        GameController.requestChangeLevel(packIdx, rating, lvlNum, false);
+                        LemGame.requestChangeLevel(packIdx, rating, lvlNum, false);
                         return;
                     }
                     lvlNum++;
@@ -1229,16 +1229,16 @@ public class LemminiFrame extends JFrame {
     
     private void goToPreviousAvailableLevel() {
     	if (Fader.getState() == Fader.State.OFF) {
-	        LevelPack pack = GameController.getCurLevelPack();
+	        LevelPack pack = LemGame.getCurLevelPack();
 	        String packName = pack.getName();
-	        int packIdx = GameController.getCurLevelPackIdx();
+	        int packIdx = LemGame.getCurLevelPackIdx();
 	        List<String> ratings = pack.getRatings();
-	        int rating = GameController.getCurRating();
-	        int lvlNum = GameController.getCurLevelNumber() - 1;
+	        int rating = LemGame.getCurRating();
+	        int lvlNum = LemGame.getCurLevelNumber() - 1;
 	        while (rating >= 0) {
 	            while (lvlNum >= 0) {
 	                if (Core.player.isAvailable(packName, ratings.get(rating), lvlNum)) {
-	                    GameController.requestChangeLevel(packIdx, rating, lvlNum, false);
+	                    LemGame.requestChangeLevel(packIdx, rating, lvlNum, false);
 	                    return;
 	                }
 	                lvlNum--;
@@ -1253,23 +1253,23 @@ public class LemminiFrame extends JFrame {
     
     private void goToNextAvailableGroup() {
         if (Fader.getState() == Fader.State.OFF) {
-            LevelPack pack = GameController.getCurLevelPack();
+            LevelPack pack = LemGame.getCurLevelPack();
             String packName = pack.getName();
-            int packIdx = GameController.getCurLevelPackIdx();
+            int packIdx = LemGame.getCurLevelPackIdx();
             List<String> ratings = pack.getRatings();
-            int rating = GameController.getCurRating() + 1;
-            int lvlNum = GameController.getCurLevelNumber();
+            int rating = LemGame.getCurRating() + 1;
+            int lvlNum = LemGame.getCurLevelNumber();
             while (rating < ratings.size()) {
                 while (lvlNum >= 0) {
                     if (Core.player.isAvailable(packName, ratings.get(rating), lvlNum)) {
-                        GameController.requestChangeLevel(packIdx, rating, lvlNum, false);
+                        LemGame.requestChangeLevel(packIdx, rating, lvlNum, false);
                         return;
                     }
                     lvlNum--;
                 }
                 rating++;
                 if (rating < ratings.size()) {
-                    lvlNum = Math.min(pack.getLevelCount(rating), GameController.getCurLevelNumber());
+                    lvlNum = Math.min(pack.getLevelCount(rating), LemGame.getCurLevelNumber());
                 }
             }
         }
@@ -1277,30 +1277,30 @@ public class LemminiFrame extends JFrame {
     
     private void goToPreviousAvailableGroup() {
     	if (Fader.getState() == Fader.State.OFF) {
-            LevelPack pack = GameController.getCurLevelPack();
+            LevelPack pack = LemGame.getCurLevelPack();
             String packName = pack.getName();
-            int packIdx = GameController.getCurLevelPackIdx();
+            int packIdx = LemGame.getCurLevelPackIdx();
             List<String> ratings = pack.getRatings();
-            int rating = GameController.getCurRating() - 1;
-            int lvlNum = GameController.getCurLevelNumber();
+            int rating = LemGame.getCurRating() - 1;
+            int lvlNum = LemGame.getCurLevelNumber();
             while (rating >= 0) {
                 while (lvlNum >= 0) {
                     if (Core.player.isAvailable(packName, ratings.get(rating), lvlNum)) {
-                        GameController.requestChangeLevel(packIdx, rating, lvlNum, false);
+                        LemGame.requestChangeLevel(packIdx, rating, lvlNum, false);
                         return;
                     }
                     lvlNum--;
                 }
                 rating--;
                 if (rating >= 0) {
-                    lvlNum = Math.min(pack.getLevelCount(rating), GameController.getCurLevelNumber());
+                    lvlNum = Math.min(pack.getLevelCount(rating), LemGame.getCurLevelNumber());
                 }
             }
         }
     }
 
     void toggleMenuBarVisibility() {
-        boolean shouldShowMenuBar = GameController.isOptionEnabled(GameController.Option.SHOW_MENU_BAR);
+        boolean shouldShowMenuBar = LemGame.isOptionEnabled(LemGame.Option.SHOW_MENU_BAR);
 
         if (shouldShowMenuBar)
             setJMenuBar(jMenuBarMain);
@@ -1319,16 +1319,16 @@ public class LemminiFrame extends JFrame {
      * Toggle music volume between user setting & mute.
      */
     void toggleMusic() {
-    	double musicVol = GameController.getMusicGain();
+    	double musicVol = LemGame.getMusicGain();
     	
     	if (musicVol > 0) {
     		userMusicVolume = musicVol;
     	}
     	
     	if (musicVol == 0) {
-    		GameController.setMusicGain(userMusicVolume > 0 ? userMusicVolume : 0.5);
+    		LemGame.setMusicGain(userMusicVolume > 0 ? userMusicVolume : 0.5);
     	} else {
-    		GameController.setMusicGain(0);
+    		LemGame.setMusicGain(0);
     	}
     }
     
@@ -1336,16 +1336,16 @@ public class LemminiFrame extends JFrame {
      * Toggle sound volume between user setting & mute.
      */
     void toggleSound() {
-    	double soundVol = GameController.getSoundGain();
+    	double soundVol = LemGame.getSoundGain();
     	
     	if (soundVol > 0) {
     		userSoundVolume = soundVol;
     	}
     	
     	if (soundVol == 0) {
-    		GameController.setSoundGain(userSoundVolume > 0 ? userSoundVolume : 0.5);
+    		LemGame.setSoundGain(userSoundVolume > 0 ? userSoundVolume : 0.5);
     	} else {
-    		GameController.setSoundGain(0);
+    		LemGame.setSoundGain(0);
     	}    	
     }
 
@@ -1402,15 +1402,15 @@ public class LemminiFrame extends JFrame {
     }
 
     private void saveLevelAsImage() {
-        Level level = GameController.getLevel();
+        Level level = LemGame.getLevel();
         if (level == null) {
             JOptionPane.showMessageDialog(null, "No level loaded",
                     "Save Level Image", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
-        boolean paused = GameController.isPaused();
-        if (!paused) GameController.setPaused(true); // Always pause the game
+        boolean paused = LemGame.isPaused();
+        if (!paused) LemGame.setPaused(true); // Always pause the game
 
         String levelName = level.getLevelName();
         String baseFileName = levelName.replaceAll("[^a-zA-Z0-9._-]", "_");
@@ -1437,7 +1437,7 @@ public class LemminiFrame extends JFrame {
         else return;
         
         if (!showLems) { // Use minimap image if not showing lemmings
-	        LemmImage tmp = GameController.getLevel().createMinimap(GameController.getFgImage(), 1.0, 1.0, true, false, true);
+	        LemmImage tmp = LemGame.getLevel().createMinimap(LemGame.getFgImage(), 1.0, 1.0, true, false, true);
 	        // BOOKMARK TODO: See if there's a way to draw the lemmings to this image as well
 	        //                If there is, maybe show a quick "options" dialog where the user can choose whether or not to include lemmings, background, etc
 	        try (OutputStream out = Files.newOutputStream(filePath, StandardOpenOption.CREATE_NEW)) {
@@ -1453,7 +1453,7 @@ public class LemminiFrame extends JFrame {
 	        }
         } else { // Re-use rendering logic from LemminiPanel redraw method to get the full image including lemmings, explosions, etc.
 	        try {
-	            LemmImage fgImage = GameController.getFgImage();
+	            LemmImage fgImage = LemGame.getFgImage();
 	            if (fgImage == null) {
 	                JOptionPane.showMessageDialog(null, "No foreground image available",
 	                        "Save Level Image", JOptionPane.ERROR_MESSAGE);
@@ -1481,8 +1481,8 @@ public class LemminiFrame extends JFrame {
                 
                 // Add lemmings and explosions
                 g.setClip(0, 0, fullWidth, fullHeight);
-                GameController.drawLemmings(g, 0, 0, true);
-                GameController.drawExplosions(g, fullWidth, fullHeight, 0, 0);
+                LemGame.drawLemmings(g, 0, 0, true);
+                LemGame.drawExplosions(g, fullWidth, fullHeight, 0, 0);
 	
 	            try (OutputStream out = Files.newOutputStream(filePath, StandardOpenOption.CREATE_NEW)) {
 	                ImageIO.write(fullImage.getImage(), "png", out);
@@ -1500,13 +1500,13 @@ public class LemminiFrame extends JFrame {
 	                    "Save Level Image",
 	                    JOptionPane.ERROR_MESSAGE);
 	        }	        
-	        GameController.setPaused(paused); // Restore previous paused state
+	        LemGame.setPaused(paused); // Restore previous paused state
         }
     }
     
     private void saveLevelAsImageFromPreview()
     {
-        LemmImage tmp = GameController.getLevel().createMinimap(GameController.getFgImage(), 1.0, 1.0, true, false, true);
+        LemmImage tmp = LemGame.getLevel().createMinimap(LemGame.getFgImage(), 1.0, 1.0, true, false, true);
             try (OutputStream out = Core.resourceTree.newOutputStream("level.png")) {
                 ImageIO.write(tmp.getImage(), "png", out);
             } catch (IOException ex) {

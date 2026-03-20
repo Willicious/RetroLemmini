@@ -12,7 +12,7 @@ import javax.sound.sampled.SourceDataLine;
 import ibxm.Channel;
 import ibxm.IBXM;
 import ibxm.Module;
-import lemmini.game.GameController;
+import lemmini.game.LemGame;
 import lemmini.game.LemmException;
 import lemmini.game.Resource;
 import lemmini.game.ResourceException;
@@ -70,9 +70,9 @@ public class ModMusic implements Runnable, MusicPlayer {
         } catch (IOException ex) {
             throw new LemmException(resource.getFileName() + " (IO exception)");
         }
-        int sampleRate = ToolBox.cap(8000, (int) GameController.sound.getSampleRate(), 128000);
+        int sampleRate = ToolBox.cap(8000, (int) LemGame.sound.getSampleRate(), 128000);
         ibxm = new IBXM(module, sampleRate);
-        switch (GameController.sound.getResamplingQuality()) {
+        switch (LemGame.sound.getResamplingQuality()) {
             case CUBIC:
                 ibxm.setInterpolation(Channel.SINC);
                 break;
@@ -98,12 +98,12 @@ public class ModMusic implements Runnable, MusicPlayer {
     public void run() {
         try {
             AudioFormat af = new AudioFormat(ibxm.getSampleRate(), 16, 2, true, false);
-            int bufferSize = Math.max(GameController.sound.getBufferSize() / 2, ibxm.getMixBufferLength());
+            int bufferSize = Math.max(LemGame.sound.getBufferSize() / 2, ibxm.getMixBufferLength());
             if (bufferSize % 2 > 0) {
                 bufferSize += 2 - bufferSize % 2;
             }
             DataLine.Info lineInfo = new DataLine.Info(SourceDataLine.class, af, bufferSize * 2);
-            line = (SourceDataLine) GameController.sound.getLine(lineInfo);
+            line = (SourceDataLine) LemGame.sound.getLine(lineInfo);
             int[] ibuf = new int[bufferSize];
             byte[] obuf = new byte[bufferSize * 2];
             line.open();

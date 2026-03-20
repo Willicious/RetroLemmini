@@ -28,9 +28,9 @@ import javax.swing.JOptionPane;
 import lemmini.LemminiFrame;
 import lemmini.LemminiPanel;
 import lemmini.game.Core;
-import lemmini.game.GameController;
-import lemmini.game.GameController.ExitSoundOption;
-import lemmini.game.GameController.MenuThemeOption;
+import lemmini.game.LemGame;
+import lemmini.game.LemGame.ExitSoundOption;
+import lemmini.game.LemGame.MenuThemeOption;
 import lemmini.sound.Music;
 import lemmini.tools.StyleDownloader;
 
@@ -76,7 +76,7 @@ public class OptionsDialog extends JDialog {
 		jLabelSoundVolume = new javax.swing.JLabel();
 		jSliderSoundVolume = new javax.swing.JSlider();
 		jLabelMixer = new javax.swing.JLabel();
-		jComboBoxMixer = new JComboBox<String>(GameController.sound.getMixers());
+		jComboBoxMixer = new JComboBox<String>(LemGame.sound.getMixers());
 		jLabelExitSound = new javax.swing.JLabel();
 		jLabelReplayTemplate = new javax.swing.JLabel();
 		jTextFieldReplayTemplate = new javax.swing.JTextField();
@@ -131,7 +131,7 @@ public class OptionsDialog extends JDialog {
 		jPanelSound.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sound",
 				javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-		jCheckBoxEnableMusic.setSelected(GameController.isOptionEnabled(GameController.Option.MUSIC_ON));
+		jCheckBoxEnableMusic.setSelected(LemGame.isOptionEnabled(LemGame.Option.MUSIC_ON));
 		jCheckBoxEnableMusic.setText("Music");
 
 		jLabelMusicVolume.setLabelFor(jSliderMusicVolume);
@@ -140,9 +140,9 @@ public class OptionsDialog extends JDialog {
 		jSliderMusicVolume.setMajorTickSpacing(10);
 		jSliderMusicVolume.setMaximum(200);
 		jSliderMusicVolume.setPaintTicks(true);
-		jSliderMusicVolume.setValue((int) (100 * GameController.getMusicGain()));
+		jSliderMusicVolume.setValue((int) (100 * LemGame.getMusicGain()));
 
-		jCheckBoxEnableSound.setSelected(GameController.isOptionEnabled(GameController.Option.SOUND_ON));
+		jCheckBoxEnableSound.setSelected(LemGame.isOptionEnabled(LemGame.Option.SOUND_ON));
 		jCheckBoxEnableSound.setText("Sound Effects");
 
 		jLabelSoundVolume.setLabelFor(jSliderSoundVolume);
@@ -151,14 +151,14 @@ public class OptionsDialog extends JDialog {
 		jSliderSoundVolume.setMajorTickSpacing(10);
 		jSliderSoundVolume.setMaximum(200);
 		jSliderSoundVolume.setPaintTicks(true);
-		jSliderSoundVolume.setValue((int) (100 * GameController.getSoundGain()));
+		jSliderSoundVolume.setValue((int) (100 * LemGame.getSoundGain()));
 
 		jLabelMixer.setText("SFX Mixer");
 
-		jCheckBoxVisualSfx.setSelected(GameController.isOptionEnabled(GameController.Option.VISUAL_SFX));
+		jCheckBoxVisualSfx.setSelected(LemGame.isOptionEnabled(LemGame.Option.VISUAL_SFX));
 		jCheckBoxVisualSfx.setText("Visual SFX");
 
-		jCheckBoxPostviewJingles.setSelected(GameController.isOptionEnabled(GameController.Option.POSTVIEW_JINGLES));
+		jCheckBoxPostviewJingles.setSelected(LemGame.isOptionEnabled(LemGame.Option.POSTVIEW_JINGLES));
 		jCheckBoxPostviewJingles.setText("Postview Jingles");
 
 		// Radio group for Exit sound
@@ -171,7 +171,7 @@ public class OptionsDialog extends JDialog {
 		exitSoundGroup.add(jRadioButtonBoing);
 		exitSoundGroup.add(jRadioButtonAuto);
 
-		ExitSoundOption exitSoundOption = GameController.getExitSoundOption();
+		ExitSoundOption exitSoundOption = LemGame.getExitSoundOption();
 		switch (exitSoundOption) {
 		case YIPPEE:
 			jRadioButtonYippee.setSelected(true);
@@ -185,7 +185,7 @@ public class OptionsDialog extends JDialog {
 			break;
 		}
 
-		jCheckBoxEnhancedStatus.setSelected(GameController.isOptionEnabled(GameController.Option.ENHANCED_STATUS));
+		jCheckBoxEnhancedStatus.setSelected(LemGame.isOptionEnabled(LemGame.Option.ENHANCED_STATUS));
 		jCheckBoxEnhancedStatus.setText("Enhanced Status Bar");
 		jCheckBoxEnhancedStatus.addActionListener(e -> {
 			boolean enabled = jCheckBoxEnhancedStatus.isSelected();
@@ -197,27 +197,27 @@ public class OptionsDialog extends JDialog {
 		});
 
 		jCheckBoxShowLevelName.setEnabled(jCheckBoxEnhancedStatus.isSelected());
-		jCheckBoxShowLevelName.setSelected(GameController.isOptionEnabled(GameController.Option.SHOW_LEVEL_NAME));
+		jCheckBoxShowLevelName.setSelected(LemGame.isOptionEnabled(LemGame.Option.SHOW_LEVEL_NAME));
 		jCheckBoxShowLevelName.setText("Show Level Name on the Status Bar");
 
 		jCheckBoxEnhancedIconBar
-				.setSelected(GameController.isOptionEnabled(GameController.Option.ENHANCED_ICONBAR));
+				.setSelected(LemGame.isOptionEnabled(LemGame.Option.ENHANCED_ICONBAR));
 		jCheckBoxEnhancedIconBar.setText("Enhanced Icon Bar");
 
-		jCheckBoxIconLabels.setSelected(GameController.isOptionEnabled(GameController.Option.ICON_LABELS));
+		jCheckBoxIconLabels.setSelected(LemGame.isOptionEnabled(LemGame.Option.ICON_LABELS));
 		jCheckBoxIconLabels.setText("Show Labels on the Icon Bar");
 
 		jCheckBoxFullColorMinimap
-				.setSelected(GameController.isOptionEnabled(GameController.Option.FULL_COLOR_MINIMAP));
+				.setSelected(LemGame.isOptionEnabled(LemGame.Option.FULL_COLOR_MINIMAP));
 		jCheckBoxFullColorMinimap.setText("Full Color Minimap");
 
 		jCheckBoxClassicScroller
-				.setSelected(GameController.isOptionEnabled(GameController.Option.CLASSIC_SCROLLER));
+				.setSelected(LemGame.isOptionEnabled(LemGame.Option.CLASSIC_SCROLLER));
 		jCheckBoxClassicScroller.setText("Classic Scroller");
 		jCheckBoxClassicScroller.setToolTipText("Show the classic ticker tape scroller on the title screen");
 
 		jCheckBoxShowMenuBar
-				.setSelected(GameController.isOptionEnabled(GameController.Option.SHOW_MENU_BAR));
+				.setSelected(LemGame.isOptionEnabled(LemGame.Option.SHOW_MENU_BAR));
 		jCheckBoxShowMenuBar.setText("Show Menu Bar (F1)");
 		jCheckBoxShowMenuBar.setToolTipText(
 				"Show the menu bar at the top of the game window. Use F1 to toggle visibility at any time");
@@ -230,7 +230,7 @@ public class OptionsDialog extends JDialog {
 		menuThemeGroup.add(jRadioButtonAmigaTheme);
 		menuThemeGroup.add(jRadioButtonWinLemmTheme);
 
-		MenuThemeOption menuThemeOption = GameController.getMenuThemeOption();
+		MenuThemeOption menuThemeOption = LemGame.getMenuThemeOption();
 		switch (menuThemeOption) {
 		case AMIGA:
 			jRadioButtonAmigaTheme.setSelected(true);
@@ -241,7 +241,7 @@ public class OptionsDialog extends JDialog {
 			break;
 		}
 
-		jComboBoxMixer.setSelectedIndex(GameController.sound.getMixerIdx());
+		jComboBoxMixer.setSelectedIndex(LemGame.sound.getMixerIdx());
 
 		javax.swing.GroupLayout jPanelSoundLayout = new javax.swing.GroupLayout(jPanelSound);
 		jPanelSound.setLayout(jPanelSoundLayout);
@@ -344,7 +344,7 @@ public class OptionsDialog extends JDialog {
 				javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
 		jCheckBoxAutoSaveReplays
-				.setSelected(GameController.isOptionEnabled(GameController.Option.AUTOSAVE_REPLAYS));
+				.setSelected(LemGame.isOptionEnabled(LemGame.Option.AUTOSAVE_REPLAYS));
 		jCheckBoxAutoSaveReplays.setText("Auto-Save Successful Replays");
 		jCheckBoxAutoSaveReplays
 				.setToolTipText("Automatically saves replays for succesfully-completed levels to 'resources/replays/'");
@@ -366,7 +366,7 @@ public class OptionsDialog extends JDialog {
 		jLabelReplayTemplate.addMouseListener(resetTemplateAdapter);
 		jLabelReplayTemplate.setEnabled(jCheckBoxAutoSaveReplays.isSelected());
 
-		jTextFieldReplayTemplate.setText(GameController.getReplayNameTemplate());
+		jTextFieldReplayTemplate.setText(LemGame.getReplayNameTemplate());
 		jTextFieldReplayTemplate.setColumns(22);
 		jTextFieldReplayTemplate.setToolTipText("Available tags: {user} {pack} {rating} {level} {time}");
 		jTextFieldReplayTemplate.addMouseListener(resetTemplateAdapter);
@@ -419,20 +419,20 @@ public class OptionsDialog extends JDialog {
 		jPanelClassicMode.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Classic Mode",
 				javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-		jCheckBoxAdvanced.setSelected(GameController.isOptionEnabled(GameController.Option.ADVANCED_SELECT));
+		jCheckBoxAdvanced.setSelected(LemGame.isOptionEnabled(LemGame.Option.ADVANCED_SELECT));
 		jCheckBoxAdvanced.setText("Advanced Select");
 		jCheckBoxAdvanced.setToolTipText(
 				"Hold directional keys to select only Lemmings going in that same direction. Hold Up to select only Walkers.");
 
-		jCheckBoxTimedBombers.setSelected(GameController.isOptionEnabled(GameController.Option.TIMED_BOMBERS));
+		jCheckBoxTimedBombers.setSelected(LemGame.isOptionEnabled(LemGame.Option.TIMED_BOMBERS));
 		jCheckBoxTimedBombers.setText("Enable 5 second timed bombers");
 
-		jCheckBoxEnableFrameStepping.setSelected(GameController.isOptionEnabled(GameController.Option.ENABLE_FRAME_STEPPING));
+		jCheckBoxEnableFrameStepping.setSelected(LemGame.isOptionEnabled(LemGame.Option.ENABLE_FRAME_STEPPING));
 		jCheckBoxEnableFrameStepping.setText("Enable Frame Stepping");
 		jCheckBoxEnableFrameStepping.setToolTipText("Enable advancing the game by a single frame when paused.");
 		
-		jCheckBoxDirectDrop.setSelected(GameController.isOptionEnabled(GameController.Option.DIRECT_DROP));
-		jCheckBoxDirectDrop.setText("Enable Direct Drop" + (GameController.getGameState() == GameController.State.LEVEL ? " (restarts level)" : ""));
+		jCheckBoxDirectDrop.setSelected(LemGame.isOptionEnabled(LemGame.Option.DIRECT_DROP));
+		jCheckBoxDirectDrop.setText("Enable Direct Drop" + (LemGame.getGameState() == LemGame.State.LEVEL ? " (restarts level)" : ""));
 		jCheckBoxDirectDrop.setToolTipText("'Direct Drop' aka 'Max Exit Physics': Lemmings can exit in midair and from any fall distance");
 
 		javax.swing.GroupLayout jPanelClassicModeLayout = new javax.swing.GroupLayout(jPanelClassicMode);
@@ -475,25 +475,25 @@ public class OptionsDialog extends JDialog {
 			}
 		});
 
-		jCheckBoxClassicCursor.setSelected(GameController.isOptionEnabled(GameController.Option.CLASSIC_CURSOR));
+		jCheckBoxClassicCursor.setSelected(LemGame.isOptionEnabled(LemGame.Option.CLASSIC_CURSOR));
 		jCheckBoxClassicCursor.setText("Classic Cursor");
 		jCheckBoxClassicCursor.setToolTipText(
 				"The Standard Cursor centers around the selected lemming. The Classic Cursor follows the mouse.");
 
-		jCheckBoxFaster.setSelected(GameController.isOptionEnabled(GameController.Option.FASTER_FAST_FORWARD));
+		jCheckBoxFaster.setSelected(LemGame.isOptionEnabled(LemGame.Option.FASTER_FAST_FORWARD));
 		jCheckBoxFaster.setText("Double Fast-Forward Speed");
 		jCheckBoxFaster.setToolTipText(
 				"Standard Fast-Forward is 3x faster than normal. Doubled Fast-Forward is 6x faster than normal.");
 
 		jCheckBoxPauseStopsFastForward
-				.setSelected(GameController.isOptionEnabled(GameController.Option.PAUSE_STOPS_FAST_FORWARD));
+				.setSelected(LemGame.isOptionEnabled(LemGame.Option.PAUSE_STOPS_FAST_FORWARD));
 		jCheckBoxPauseStopsFastForward.setText("Stop Fast-Forward When Pausing");
 
-		jCheckBoxReplayScroll.setSelected(GameController.isOptionEnabled(GameController.Option.REPLAY_SCROLL));
+		jCheckBoxReplayScroll.setSelected(LemGame.isOptionEnabled(LemGame.Option.REPLAY_SCROLL));
 		jCheckBoxReplayScroll.setText("Scroll Level During Replay");
 
 		jCheckBoxUnpauseOnAssignment
-				.setSelected(GameController.isOptionEnabled(GameController.Option.UNPAUSE_ON_ASSIGNMENT));
+				.setSelected(LemGame.isOptionEnabled(LemGame.Option.UNPAUSE_ON_ASSIGNMENT));
 		jCheckBoxUnpauseOnAssignment.setText("Unpause After Assigning Skill");
 
 		javax.swing.GroupLayout jPanelControlSchemeLayout = new javax.swing.GroupLayout(jPanelControlScheme);
@@ -532,11 +532,11 @@ public class OptionsDialog extends JDialog {
 		jPanelMisc.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Miscellaneous",
 				javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-		jCheckBoxNoPercentages.setSelected(!GameController.isOptionEnabled(GameController.Option.NO_PERCENTAGES));
+		jCheckBoxNoPercentages.setSelected(!LemGame.isOptionEnabled(LemGame.Option.NO_PERCENTAGES));
 		jCheckBoxNoPercentages.setText("Use Percentage For Rescue Count");
 
 		jCheckBoxUnlockAllLevels
-				.setSelected(GameController.isOptionEnabled(GameController.Option.UNLOCK_ALL_LEVELS));
+				.setSelected(LemGame.isOptionEnabled(LemGame.Option.UNLOCK_ALL_LEVELS));
 		jCheckBoxUnlockAllLevels.setText("Unlock all levels");
 		jCheckBoxUnlockAllLevels.setToolTipText("All access to all levels, without having to complete previous ones.");
 
@@ -661,51 +661,51 @@ public class OptionsDialog extends JDialog {
 	private void applyChanges() {
 		// set all game settings based on GUI options first
 		// apply sound settings
-		GameController.setOption(GameController.Option.MUSIC_ON, jCheckBoxEnableMusic.isSelected());
-		if (GameController.getLevel() != null) {
-			if (GameController.isOptionEnabled(GameController.Option.MUSIC_ON)
-					&& GameController.getGameState() == GameController.State.LEVEL) {
+		LemGame.setOption(LemGame.Option.MUSIC_ON, jCheckBoxEnableMusic.isSelected());
+		if (LemGame.getLevel() != null) {
+			if (LemGame.isOptionEnabled(LemGame.Option.MUSIC_ON)
+					&& LemGame.getGameState() == LemGame.State.LEVEL) {
 				Music.play();
 			} else {
 				Music.stop();
 			}
 		}
-		GameController.setMusicGain(jSliderMusicVolume.getValue() / 100.0);
-		GameController.setOption(GameController.Option.SOUND_ON, jCheckBoxEnableSound.isSelected());
-		GameController.setSoundGain(jSliderSoundVolume.getValue() / 100.0);
-		GameController.sound.setMixerIdx(jComboBoxMixer.getSelectedIndex());
-		GameController.setOption(GameController.Option.POSTVIEW_JINGLES, jCheckBoxPostviewJingles.isSelected());
+		LemGame.setMusicGain(jSliderMusicVolume.getValue() / 100.0);
+		LemGame.setOption(LemGame.Option.SOUND_ON, jCheckBoxEnableSound.isSelected());
+		LemGame.setSoundGain(jSliderSoundVolume.getValue() / 100.0);
+		LemGame.sound.setMixerIdx(jComboBoxMixer.getSelectedIndex());
+		LemGame.setOption(LemGame.Option.POSTVIEW_JINGLES, jCheckBoxPostviewJingles.isSelected());
 		// apply exit sound setting
-		GameController.setExitSoundOption(jRadioButtonYippee.isSelected() ? GameController.ExitSoundOption.YIPPEE
-				: jRadioButtonBoing.isSelected() ? GameController.ExitSoundOption.BOING
-				: GameController.ExitSoundOption.AUTO);
+		LemGame.setExitSoundOption(jRadioButtonYippee.isSelected() ? LemGame.ExitSoundOption.YIPPEE
+				: jRadioButtonBoing.isSelected() ? LemGame.ExitSoundOption.BOING
+				: LemGame.ExitSoundOption.AUTO);
 		// apply graphics settings
 		Core.setBilinear(jCheckBoxBilinear.isSelected());
-		GameController.setOption(GameController.Option.CLASSIC_CURSOR, jCheckBoxClassicCursor.isSelected());
-		GameController.setOption(GameController.Option.ENHANCED_STATUS, jCheckBoxEnhancedStatus.isSelected());
-		GameController.setOption(GameController.Option.SHOW_LEVEL_NAME, jCheckBoxShowLevelName.isSelected());
-		GameController.setOption(GameController.Option.ENHANCED_ICONBAR, jCheckBoxEnhancedIconBar.isSelected());
-		GameController.setOption(GameController.Option.ICON_LABELS, jCheckBoxIconLabels.isSelected());
-		GameController.setOption(GameController.Option.FULL_COLOR_MINIMAP, jCheckBoxFullColorMinimap.isSelected());
-		GameController.setOption(GameController.Option.CLASSIC_SCROLLER, jCheckBoxClassicScroller.isSelected());
+		LemGame.setOption(LemGame.Option.CLASSIC_CURSOR, jCheckBoxClassicCursor.isSelected());
+		LemGame.setOption(LemGame.Option.ENHANCED_STATUS, jCheckBoxEnhancedStatus.isSelected());
+		LemGame.setOption(LemGame.Option.SHOW_LEVEL_NAME, jCheckBoxShowLevelName.isSelected());
+		LemGame.setOption(LemGame.Option.ENHANCED_ICONBAR, jCheckBoxEnhancedIconBar.isSelected());
+		LemGame.setOption(LemGame.Option.ICON_LABELS, jCheckBoxIconLabels.isSelected());
+		LemGame.setOption(LemGame.Option.FULL_COLOR_MINIMAP, jCheckBoxFullColorMinimap.isSelected());
+		LemGame.setOption(LemGame.Option.CLASSIC_SCROLLER, jCheckBoxClassicScroller.isSelected());
 		// apply menu theme setting
-		GameController.setMenuThemeOption(jRadioButtonAmigaTheme.isSelected() ? GameController.MenuThemeOption.AMIGA : GameController.MenuThemeOption.WINLEMM);
+		LemGame.setMenuThemeOption(jRadioButtonAmigaTheme.isSelected() ? LemGame.MenuThemeOption.AMIGA : LemGame.MenuThemeOption.WINLEMM);
 		// apply replay settings
-		GameController.setOption(GameController.Option.AUTOSAVE_REPLAYS, jCheckBoxAutoSaveReplays.isSelected());
-		GameController.setOption(GameController.Option.SHOW_MENU_BAR, jCheckBoxShowMenuBar.isSelected());
+		LemGame.setOption(LemGame.Option.AUTOSAVE_REPLAYS, jCheckBoxAutoSaveReplays.isSelected());
+		LemGame.setOption(LemGame.Option.SHOW_MENU_BAR, jCheckBoxShowMenuBar.isSelected());
 		// apply miscellaneous settings
-		GameController.setOption(GameController.Option.ADVANCED_SELECT, jCheckBoxAdvanced.isSelected());
-		GameController.setOption(GameController.Option.FASTER_FAST_FORWARD, jCheckBoxFaster.isSelected());
-		GameController.setOption(GameController.Option.PAUSE_STOPS_FAST_FORWARD, jCheckBoxPauseStopsFastForward.isSelected());
-		GameController.setOption(GameController.Option.NO_PERCENTAGES, !jCheckBoxNoPercentages.isSelected());
-		GameController.setOption(GameController.Option.REPLAY_SCROLL, jCheckBoxReplayScroll.isSelected());
-		GameController.setOption(GameController.Option.UNPAUSE_ON_ASSIGNMENT, jCheckBoxUnpauseOnAssignment.isSelected());
-		GameController.setOption(GameController.Option.TIMED_BOMBERS, jCheckBoxTimedBombers.isSelected());
-		GameController.setOption(GameController.Option.UNLOCK_ALL_LEVELS, jCheckBoxUnlockAllLevels.isSelected());
-		GameController.setOption(GameController.Option.ENABLE_FRAME_STEPPING, jCheckBoxEnableFrameStepping.isSelected());
-		GameController.setOption(GameController.Option.DIRECT_DROP, jCheckBoxDirectDrop.isSelected());
-		GameController.setOption(GameController.Option.VISUAL_SFX, jCheckBoxVisualSfx.isSelected());
-		GameController.setReplayNameTemplate(jTextFieldReplayTemplate.getText());
+		LemGame.setOption(LemGame.Option.ADVANCED_SELECT, jCheckBoxAdvanced.isSelected());
+		LemGame.setOption(LemGame.Option.FASTER_FAST_FORWARD, jCheckBoxFaster.isSelected());
+		LemGame.setOption(LemGame.Option.PAUSE_STOPS_FAST_FORWARD, jCheckBoxPauseStopsFastForward.isSelected());
+		LemGame.setOption(LemGame.Option.NO_PERCENTAGES, !jCheckBoxNoPercentages.isSelected());
+		LemGame.setOption(LemGame.Option.REPLAY_SCROLL, jCheckBoxReplayScroll.isSelected());
+		LemGame.setOption(LemGame.Option.UNPAUSE_ON_ASSIGNMENT, jCheckBoxUnpauseOnAssignment.isSelected());
+		LemGame.setOption(LemGame.Option.TIMED_BOMBERS, jCheckBoxTimedBombers.isSelected());
+		LemGame.setOption(LemGame.Option.UNLOCK_ALL_LEVELS, jCheckBoxUnlockAllLevels.isSelected());
+		LemGame.setOption(LemGame.Option.ENABLE_FRAME_STEPPING, jCheckBoxEnableFrameStepping.isSelected());
+		LemGame.setOption(LemGame.Option.DIRECT_DROP, jCheckBoxDirectDrop.isSelected());
+		LemGame.setOption(LemGame.Option.VISUAL_SFX, jCheckBoxVisualSfx.isSelected());
+		LemGame.setReplayNameTemplate(jTextFieldReplayTemplate.getText());
 
 		// then commit all those settings to disk
 		Core.saveSettings();
