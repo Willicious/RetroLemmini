@@ -34,7 +34,7 @@ import java.util.List;
  * Hotkey configuration dialog.
  * @author Will James
  */
-public class HotkeyConfig extends JDialog {
+public class HotkeyDialog extends JDialog {
 
     private static final long serialVersionUID = 1L;
 
@@ -51,7 +51,7 @@ public class HotkeyConfig extends JDialog {
     private String defaultTip = "TIP: When assigning a modifier key (Ctrl, Shift, Alt), press the modifier first, then the main key";
     JLabel tipLabel = new JLabel(defaultTip);
 
-    public HotkeyConfig() {
+    public HotkeyDialog() {
         hotkeys.clear();
         List<Hotkey> defaultHotkeys = LemHotkeys.getHotkeys(LemHotkeys.HotkeyProfile.DEFAULT);
         for (Hotkey hk : defaultHotkeys) hotkeys.add(new Hotkey(hk));

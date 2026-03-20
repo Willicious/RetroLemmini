@@ -464,7 +464,7 @@ public class OptionsDialog extends JDialog {
 		jButtonConfigureHotkeys.setText("Configure Hotkeys");
 		jButtonConfigureHotkeys.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				parentPanel.handleHotkeyConfig();
+				parentPanel.handleHotkeyDialog();
 			}
 		});
 		

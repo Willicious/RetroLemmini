@@ -69,7 +69,7 @@ import lemmini.gameutil.MouseInput;
 import lemmini.graphics.GraphicsBuffer;
 import lemmini.graphics.GraphicsContext;
 import lemmini.graphics.LemImage;
-import lemmini.gui.HotkeyConfig;
+import lemmini.gui.HotkeyDialog;
 import lemmini.gui.LevelCodeDialog;
 import lemmini.gui.LevelDialog;
 import lemmini.gui.MouseConfig;
@@ -1579,8 +1579,8 @@ public class LemminiPanel extends JPanel implements Runnable {
         }
     }
     
-    public void handleHotkeyConfig() {
-        HotkeyConfig hc = new HotkeyConfig();
+    public void handleHotkeyDialog() {
+        HotkeyDialog hc = new HotkeyDialog();
         hc.setVisible(true);
         LemGame.activeHotkeys = hc.getAllHotkeys(); 
     }
