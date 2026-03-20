@@ -14,7 +14,7 @@ import java.util.Locale;
 import lemmini.game.LemGame.Option;
 import lemmini.gameutil.Sprite;
 import lemmini.graphics.GraphicsContext;
-import lemmini.graphics.LemmImage;
+import lemmini.graphics.LemImage;
 import lemmini.tools.ToolBox;
 
 /*
@@ -132,7 +132,7 @@ public class Icons {
     }
 
     /** buffered image that contains the whole icon bar in its current state */
-    private static LemmImage iconImg;
+    private static LemImage iconImg;
     /** graphics object used to draw on iconImg */
     private static GraphicsContext iconGfx = null;
     /** the currently selected skill */
@@ -246,7 +246,7 @@ public class Icons {
             iconGfx.dispose();
         }
         List<IconType> iconOrder = CurrentIconOrder();
-        iconImg = ToolBox.createLemmImage(getIconWidth() * (iconOrder.size()), getIconHeight());
+        iconImg = ToolBox.createLemImage(getIconWidth() * (iconOrder.size()), getIconHeight());
         iconGfx = iconImg.createGraphicsContext();
 
         boolean bModUsesEnhancedIconBar;
@@ -254,7 +254,7 @@ public class Icons {
 
         //get the background image we're going to use...
         for (int i = 0; i < iconOrder.size(); i++) {
-            LemmImage sourceImg;
+            LemImage sourceImg;
             Resource resource = null;
             Sprite icon;
 
@@ -308,20 +308,20 @@ public class Icons {
             // if we still can't find anything, then this should throw an error.
             if (resource == null)
                 resource = Core.findResource("gfx/iconbar/ticon_" + iconName + ".png", Core.IMAGE_EXTENSIONS);
-            sourceImg = Core.loadLemmImage(resource);
+            sourceImg = Core.loadLemImage(resource);
             int frames = sourceImg.getHeight() / 40;
             icon = new Sprite(sourceImg, frames, 1, false);
             icons.add(icon);
 
             //load standard size backgrounds
             resource = Core.findResource("gfx/icons/icon_empty.png", Core.IMAGE_EXTENSIONS);
-            sourceImg = Core.loadLemmImage(resource);
+            sourceImg = Core.loadLemImage(resource);
             icon = new Sprite(sourceImg, 2, 1, false);
             bgIcons.add(icon);
 
             //load larger background icons
             resource = Core.findResource("gfx/iconbar/icon_empty_large.png", Core.IMAGE_EXTENSIONS);
-            sourceImg = Core.loadLemmImage(resource);
+            sourceImg = Core.loadLemImage(resource);
             icon = new Sprite(sourceImg, 2, 1, false);
             bgIconsLarge.add(icon);
 
@@ -329,7 +329,7 @@ public class Icons {
             resource = Core.findResource(
                     "gfx/icon_labels/label_" + iconName + ".png",
                     Core.IMAGE_EXTENSIONS);
-            sourceImg = Core.loadLemmImage(resource);
+            sourceImg = Core.loadLemImage(resource);
             icon = new Sprite(sourceImg, 2, 1, false);
             iconLabels.add(icon);
         }
@@ -350,7 +350,7 @@ public class Icons {
     /**
      * Get buffered image that contains the whole icon bar in its current state.
      */
-    public static LemmImage getImg() {
+    public static LemImage getImg() {
         return iconImg;
     }
 
@@ -629,7 +629,7 @@ public class Icons {
             iconGfx.dispose();
         }
         List<IconType> iconOrder = CurrentIconOrder();
-        iconImg = ToolBox.createLemmImage(getIconWidth() * (iconOrder.size()), getIconHeight());
+        iconImg = ToolBox.createLemImage(getIconWidth() * (iconOrder.size()), getIconHeight());
         iconGfx = iconImg.createGraphicsContext();
         for (int i = 0; i < iconOrder.size(); i++) {
             drawIcon(i);

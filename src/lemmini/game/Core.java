@@ -32,7 +32,7 @@ import lemmini.game.LemGame.MenuThemeOption;
 import lemmini.gameutil.Hotkey;
 import lemmini.gameutil.MouseInput;
 import lemmini.gameutil.LemHotkeys;
-import lemmini.graphics.LemmImage;
+import lemmini.graphics.LemImage;
 import lemmini.gui.LegalFrame;
 import lemmini.tools.CaseInsensitiveFileTree;
 import lemmini.tools.CommitID;
@@ -732,7 +732,7 @@ public class Core {
     /**
      * Loads an image from the given resource.
      */
-    public static LemmImage loadLemmImage(final Resource resource) throws ResourceException {
+    public static LemImage loadLemImage(final Resource resource) throws ResourceException {
         BufferedImage img = null;
         if (resource != null) {
             try (InputStream in = resource.getInputStream()) {
@@ -744,20 +744,20 @@ public class Core {
         if (img == null) {
             throw new ResourceException(resource);
         }
-        return new LemmImage(img);
+        return new LemImage(img);
     }
 
     /**
      * Load an image from inside the JAR or the directory of the main class.
      */
-    public static LemmImage loadLemmImageJar(final String fname) throws ResourceException {
+    public static LemImage loadLemImageJar(final String fname) throws ResourceException {
         BufferedImage img;
         try {
             img = ImageIO.read(ToolBox.findFile(fname));
         } catch (IOException ex) {
             throw new ResourceException(fname);
         }
-        return new LemmImage(img);
+        return new LemImage(img);
     }
 
     /**

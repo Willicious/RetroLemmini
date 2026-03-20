@@ -51,7 +51,7 @@ import lemmini.gameutil.Hotkey;
 import lemmini.gameutil.KeyRepeat;
 import lemmini.gameutil.Sprite;
 import lemmini.graphics.GraphicsContext;
-import lemmini.graphics.LemmImage;
+import lemmini.graphics.LemImage;
 import lemmini.sound.Music;
 import lemmini.sound.Sound;
 import lemmini.tools.NanosecondTimer;
@@ -238,7 +238,7 @@ public class LemGame {
     /** the foreground stencil */
     private static Stencil stencil;
     /** the foreground image */
-    private static LemmImage fgImage;
+    private static LemImage fgImage;
     /** options set */
     private static final Set<Option> options = EnumSet.noneOf(Option.class);
     /** 3-way option for setting the Exit sound */
@@ -309,7 +309,7 @@ public class LemGame {
     public static List<LevelPack> levelPacks;
     public static Set<ExternalLevelEntry> externalLevelList;
     /** small preview version of level used in preview screen */
-    private static LemmImage mapPreview;
+    private static LemImage mapPreview;
     /** timer used for nuking */
     private static NanosecondTimer timerNuke;
     /** timer used for restart icon */
@@ -415,7 +415,7 @@ public class LemGame {
         width = Level.DEFAULT_WIDTH;
         height = Level.DEFAULT_HEIGHT;
 
-        fgImage = ToolBox.createLemmImage(width, height);
+        fgImage = ToolBox.createLemImage(width, height);
 
         gameState = State.INIT;
 
@@ -897,7 +897,7 @@ public class LemGame {
     /**
      * Get current replay image.
      */
-    public static synchronized LemmImage getReplayImage() {
+    public static synchronized LemImage getReplayImage() {
         if (!replayMode) {
             return null;
         }
@@ -1953,7 +1953,7 @@ public class LemGame {
             }
 
             // Draw countdown graphics if necessary
-            LemmImage cd = l.getCountdown();
+            LemImage cd = l.getCountdown();
             if (cd != null) {
                 int x = mx - cameraX - cd.getWidth() / 2;
                 int y = ly - cameraY - cd.getHeight();
@@ -1964,7 +1964,7 @@ public class LemGame {
             }
 
             // Draw lightbulb for selected lems
-            LemmImage sel = l.getSelectImg();
+            LemImage sel = l.getSelectImg();
             if (sel != null) {
                 int x = mx - cameraX - sel.getWidth() / 2;
                 int y = ly - cameraY - sel.getHeight();
@@ -2058,7 +2058,7 @@ public class LemGame {
                     continue;
                 }
             }
-            LemmImage numImage = NumFont.numImage(val);
+            LemImage numImage = NumFont.numImage(val);
             int centerX = x + Icons.getIconWidth() * i + Icons.getIconWidth() / 2;
             g.setColor(Color.BLACK);
             g.fillRect(centerX-8, y, 16, 11);
@@ -2649,7 +2649,7 @@ public class LemGame {
     /**
      * Get foreground image of level.
      */
-    public static LemmImage getFgImage() {
+    public static LemImage getFgImage() {
         return fgImage;
     }
 
@@ -2663,7 +2663,7 @@ public class LemGame {
     /**
      * Get small preview image of level.
      */
-    public static LemmImage getMapPreview() {
+    public static LemImage getMapPreview() {
         return mapPreview;
     }
 

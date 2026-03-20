@@ -55,7 +55,7 @@ import lemmini.game.LevelInfo;
 import lemmini.game.LevelPack;
 import lemmini.game.LevelRecord;
 import lemmini.game.MiscGfx;
-import lemmini.graphics.LemmImage;
+import lemmini.graphics.LemImage;
 import lemmini.tools.ToolBox;
 
 /**
@@ -251,7 +251,7 @@ public class LevelDialog extends JDialog {
         jScrollPaneLevels.setViewportView(jTreeLevels);
         selectCurrentLevel();
         
-        LemmImage logo = MiscGfx.getImage(MiscGfx.Index.RETROLEMMINI_LOGO_AMIGA);
+        LemImage logo = MiscGfx.getImage(MiscGfx.Index.RETROLEMMINI_LOGO_AMIGA);
         jLabelLogoImage.setIcon(new ImageIcon(getScaledImage(logo.getImage(), 300, 80)));
         jLabelLogoImage.setHorizontalAlignment(SwingConstants.CENTER);
         jLabelLogoImage.setVerticalAlignment(SwingConstants.CENTER);
@@ -458,7 +458,7 @@ public class LevelDialog extends JDialog {
         jTextFieldScore.setEditable(false);
         jTextFieldScore.setHighlighter(null);
         
-        LemmImage floaterLemming = MiscGfx.getImage(MiscGfx.Index.FLOATER_LEMMING);
+        LemImage floaterLemming = MiscGfx.getImage(MiscGfx.Index.FLOATER_LEMMING);
         jLabelFloaterImage.setIcon(new ImageIcon(getScaledImage(floaterLemming.getImage(), 200, 200)));
         jLabelFloaterImage.setHorizontalAlignment(SwingConstants.CENTER);
         jLabelFloaterImage.setVerticalAlignment(SwingConstants.CENTER);
@@ -655,11 +655,11 @@ public class LevelDialog extends JDialog {
         if (folder.equals(currentPackFolder) && jLabelLogoImage.getIcon() != null) return;
         
         currentPackFolder = folder;
-        LemmImage logoImage;
+        LemImage logoImage;
         Path logoPath = folder.resolve("logo.png");
         if (Files.exists(logoPath)) {
             try {
-                logoImage = new LemmImage(ImageIO.read(logoPath.toFile()));
+                logoImage = new LemImage(ImageIO.read(logoPath.toFile()));
             } catch (IOException e) {
                 logoImage = MiscGfx.getImage(MiscGfx.Index.RETROLEMMINI_LOGO_AMIGA);
             }
@@ -671,7 +671,7 @@ public class LevelDialog extends JDialog {
     }
     
     private void updateFloaterLem(boolean full, boolean partial) {
-        LemmImage image =
+        LemImage image =
             full ? MiscGfx.getImage(MiscGfx.Index.LEVEL_COMPLETED_GOLD) :
             partial ? MiscGfx.getImage(MiscGfx.Index.LEVEL_NOT_COMPLETED) :
             MiscGfx.getImage(MiscGfx.Index.FLOATER_LEMMING);

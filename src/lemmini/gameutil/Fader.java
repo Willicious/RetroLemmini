@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import lemmini.game.Core;
 import lemmini.graphics.GraphicsContext;
-import lemmini.graphics.LemmImage;
+import lemmini.graphics.LemImage;
 import lemmini.tools.ToolBox;
 
 /*
@@ -66,7 +66,7 @@ public class Fader {
     /** alpha value of the fading rectangle */
     private static int alpha = 0x80; // half transparent
     /** the image used as fading rectangle */
-    private static LemmImage alphaImg = null;
+    private static LemImage alphaImg = null;
     /** the graphics used as fading rectangle (static to avoid multiple allocation) */
     private static GraphicsContext alphaGfx;
 
@@ -93,7 +93,7 @@ public class Fader {
         Color fillColor; /* ARGB color of the fading rectangle composed from alpha and color */
         // create alpha image if needed
         if (alphaImg == null) {
-            alphaImg = ToolBox.createLemmImage(WIDTH, HEIGHT);
+            alphaImg = ToolBox.createLemImage(WIDTH, HEIGHT);
             alphaGfx = alphaImg.createGraphicsContext();
         }
         // fill with alpha blended color

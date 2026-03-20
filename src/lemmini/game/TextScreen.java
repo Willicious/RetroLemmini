@@ -17,7 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import lemmini.game.LemFont.LemmColor;
 import lemmini.graphics.GraphicsContext;
-import lemmini.graphics.LemmImage;
+import lemmini.graphics.LemImage;
 import lemmini.sound.Sound;
 import lemmini.tools.ToolBox;
 
@@ -132,13 +132,13 @@ public class TextScreen {
     /** TextDialog used as base component */
     private static TextDialog textDialog;
     /** frames for rotation animation */
-    private static LemmImage[] rotImg;
+    private static LemImage[] rotImg;
     /** counter used to trigger the rotation animation (in animation update frames) */
     private static int rotCtr;
     /** counter for scrolled pixels */
     private static int scrollPixCtr;
     /** image used for scroller */
-    private static LemmImage scrollerImg;
+    private static LemImage scrollerImg;
     /** screen type to display */
     private static Mode mode;
     private static int hintIndex;
@@ -183,25 +183,25 @@ public class TextScreen {
     private static void createWinLemmThemeMenu() {
     	textDialog.setBackground(MiscGfx.getImage(MiscGfx.Index.BACKGROUND_MAIN_WINLEMM), true);
     	
-        List<LemmImage> cardChoose = MiscGfx.getAnimation(MiscGfx.Index.CARD_CHOOSE_LEVEL_LEMMING, 2);
+        List<LemImage> cardChoose = MiscGfx.getAnimation(MiscGfx.Index.CARD_CHOOSE_LEVEL_LEMMING, 2);
         textDialog.addButton(cardChoose.get(0), cardChoose.get(0), cardChoose.get(1), "Menu Cards", -339, -24, Button.CHOOSE_LEVEL);
         
-        List<LemmImage> cardPlay = MiscGfx.getAnimation(MiscGfx.Index.CARD_PLAY_LEVEL_LEMMING, 2);
+        List<LemImage> cardPlay = MiscGfx.getAnimation(MiscGfx.Index.CARD_PLAY_LEVEL_LEMMING, 2);
         textDialog.addButton(cardPlay.get(0), cardPlay.get(0), cardPlay.get(1), "Menu Cards", 152, -24, Button.PLAY_LEVEL);
         
-        List<LemmImage> cardOptions = MiscGfx.getAnimation(MiscGfx.Index.CARD_OPTIONS, 2);
+        List<LemImage> cardOptions = MiscGfx.getAnimation(MiscGfx.Index.CARD_OPTIONS, 2);
         textDialog.addButton(cardOptions.get(0), cardOptions.get(0), cardOptions.get(1), "Menu Cards", -132, -24, Button.OPTIONS);
         
-        List<LemmImage> cardReplays = MiscGfx.getAnimation(MiscGfx.Index.CARD_REPLAYS, 2);
+        List<LemImage> cardReplays = MiscGfx.getAnimation(MiscGfx.Index.CARD_REPLAYS, 2);
         textDialog.addButton(cardReplays.get(0), cardReplays.get(0), cardReplays.get(1), "Menu Cards", 0, -24, Button.LOAD_REPLAY);
         
-        List<LemmImage> cardPlayers = MiscGfx.getAnimation(MiscGfx.Index.CARD_PLAYERS, 2);
+        List<LemImage> cardPlayers = MiscGfx.getAnimation(MiscGfx.Index.CARD_PLAYERS, 2);
         textDialog.addButton(cardPlayers.get(0), cardPlayers.get(0), cardPlayers.get(1), "Menu Cards", -132, 35, Button.PLAYERS);
         
-        List<LemmImage> cardCodes = MiscGfx.getAnimation(MiscGfx.Index.CARD_CODES, 2);
+        List<LemImage> cardCodes = MiscGfx.getAnimation(MiscGfx.Index.CARD_CODES, 2);
         textDialog.addButton(cardCodes.get(0), cardCodes.get(0), cardCodes.get(1), "Menu Cards", 0, 35, Button.ENTER_CODE);
         
-    	LemmImage menuLemming = MiscGfx.getImage(MiscGfx.Index.MENU_LEMMING);
+    	LemImage menuLemming = MiscGfx.getImage(MiscGfx.Index.MENU_LEMMING);
     	textDialog.addButton(menuLemming, menuLemming, menuLemming, "Menu Cards", -70, -92, Button.NONE);
     	
     	addWinLemmThemeVersionNumber();
@@ -231,11 +231,11 @@ public class TextScreen {
         int charWidth = 26;
         int totalWidth = revision.length() * charWidth;
 
-        LemmImage versionImg = MiscGfx.getImage(MiscGfx.Index.VERSION_WINLEMM);
+        LemImage versionImg = MiscGfx.getImage(MiscGfx.Index.VERSION_WINLEMM);
         int versionImgX = -(versionImg.getWidth() / 2) - (totalWidth / 2);
         textDialog.addButton(versionImg, versionImg, versionImg, "versionImages", versionImgX, yPosition, Button.ABOUT);
 
-        List<LemmImage> versionNum = MiscGfx.getAnimation(MiscGfx.Index.VERSION_NUMS_WINLEMM, 17);
+        List<LemImage> versionNum = MiscGfx.getAnimation(MiscGfx.Index.VERSION_NUMS_WINLEMM, 17);
         int startX = versionImgX + versionImg.getWidth() - 2; // Start number directly to the right of "version" image
 
         for (char c : revision.toCharArray()) {
@@ -269,7 +269,7 @@ public class TextScreen {
                     break;
             }
 
-            LemmImage img = versionNum.get(frameIndex);
+            LemImage img = versionNum.get(frameIndex);
             textDialog.addButton(img, img, img, "versionImages", startX, yPosition, Button.ABOUT);
             startX += charWidth; // Move to the next character
         }
@@ -421,7 +421,7 @@ public class TextScreen {
     }
     
     private static void drawBackground() {
-    	LemmImage backgroundImg;
+    	LemImage backgroundImg;
     	
         if (LemGame.getMenuThemeOption() == LemGame.MenuThemeOption.WINLEMM)
         	backgroundImg = MiscGfx.getImage(MiscGfx.Index.BACKGROUND_LEVEL_WINLEMM);
@@ -582,17 +582,17 @@ public class TextScreen {
                 rotImgFrameIdx = 0;
                 rotCtr = 0;
             }
-            LemmImage rotImgFrame = rotImg[rotImgFrameIdx];
+            LemImage rotImgFrame = rotImg[rotImgFrameIdx];
             textDialog.addImage(rotImgFrame, "introAnimation", logoY - (int) (rotImgFrame.getHeight() / 2));
         } else {
             // display original image
             textDialog.addImage(rotImg[0], "introAnimation", logoY - rotImg[0].getHeight() / 2);
         }
         // manage scroller
-        LemmImage subimage = scrollerImg.getSubimage(scrollPixCtr, 0, SCROLL_WIDTH, scrollerImg.getHeight());
+        LemImage subimage = scrollerImg.getSubimage(scrollPixCtr, 0, SCROLL_WIDTH, scrollerImg.getHeight());
         textDialog.addImage(subimage, "introAnimation", SCROLL_Y);
-        LemmImage lScrollerLem = MiscGfx.getImage(MiscGfx.Index.SCROLLER_LEMMING_LEFT);
-        LemmImage rScrollerLem = MiscGfx.getImage(MiscGfx.Index.SCROLLER_LEMMING_RIGHT);
+        LemImage lScrollerLem = MiscGfx.getImage(MiscGfx.Index.SCROLLER_LEMMING_LEFT);
+        LemImage rScrollerLem = MiscGfx.getImage(MiscGfx.Index.SCROLLER_LEMMING_RIGHT);
         textDialog.addImage(lScrollerLem, "introAnimation", -(SCROLL_WIDTH / 2) - 16, SCROLL_Y - 16);
         textDialog.addImage(rScrollerLem, "introAnimation", (SCROLL_WIDTH / 2) - 48, SCROLL_Y - 16);
 
@@ -661,7 +661,7 @@ public class TextScreen {
         	int width = LemGame.getMenuThemeOption() == LemGame.MenuThemeOption.WINLEMM ? 480 : 560;
         	int height = LemGame.getMenuThemeOption() == LemGame.MenuThemeOption.WINLEMM ? 140 : 185;
         	 
-            rotImg = new LemmImage[ROT_ANIM_LENGTH];
+            rotImg = new LemImage[ROT_ANIM_LENGTH];
             rotImg[0] = MiscGfx.getImage(img).getScaledInstance(width,  height);
             for (int i = 1; i < rotImg.length; i++) {
                 if (i < ROT_ANIM_LENGTH - (ROT_ANIM_LENGTH / 2)) {
@@ -690,7 +690,7 @@ public class TextScreen {
      */
     public static void drawScroller() {
         synchronized (getMonitor()) {
-            LemmImage tempScrollerImg = ToolBox.createLemmImage(
+            LemImage tempScrollerImg = ToolBox.createLemImage(
                     LemFont.getWidth() * (LemFont.getCharCount(SCROLL_TEXT) + SCROLL_PADDING * 2) + SCROLL_WIDTH * 2,
                     LemFont.getHeight());
             
@@ -711,7 +711,7 @@ public class TextScreen {
 	            }
 	        }
 
-            LemmImage tickerTape = //(LemGame.getMenuThemeOption() == LemGame.MenuThemeOption.AMIGA)
+            LemImage tickerTape = //(LemGame.getMenuThemeOption() == LemGame.MenuThemeOption.AMIGA)
             		               //? 
             		               MiscGfx.getImage(MiscGfx.Index.TICKER_TAPE_BLUE)
             		               //: MiscGfx.getImage(MiscGfx.Index.TICKER_TAPE_PINK)
@@ -726,7 +726,7 @@ public class TextScreen {
             }
 
             double padding = 60;
-            scrollerImg = ToolBox.createLemmImage(
+            scrollerImg = ToolBox.createLemImage(
                     (int) (tempScrollerImg.getWidth() * scaleWidth + padding) + (tickerTape.getWidth() * 2),
                     Math.max((int) (tempScrollerImg.getHeight() * scaleHeight), tickerTape.getHeight()));
 

@@ -78,7 +78,7 @@ import lemmini.gameutil.LemHotkeys;
 import lemmini.gameutil.LemHotkeys.HotkeyAction;
 import lemmini.graphics.GraphicsContext;
 import lemmini.graphics.LemIcon;
-import lemmini.graphics.LemmImage;
+import lemmini.graphics.LemImage;
 import lemmini.sound.Music;
 import lemmini.tools.EditorTestMode;
 import lemmini.tools.MenuHotkeyDisplay;
@@ -1437,7 +1437,7 @@ public class LemminiFrame extends JFrame {
         else return;
         
         if (!showLems) { // Use minimap image if not showing lemmings
-	        LemmImage tmp = LemGame.getLevel().createMinimap(LemGame.getFgImage(), 1.0, 1.0, true, false, true);
+	        LemImage tmp = LemGame.getLevel().createMinimap(LemGame.getFgImage(), 1.0, 1.0, true, false, true);
 	        // BOOKMARK TODO: See if there's a way to draw the lemmings to this image as well
 	        //                If there is, maybe show a quick "options" dialog where the user can choose whether or not to include lemmings, background, etc
 	        try (OutputStream out = Files.newOutputStream(filePath, StandardOpenOption.CREATE_NEW)) {
@@ -1453,7 +1453,7 @@ public class LemminiFrame extends JFrame {
 	        }
         } else { // Re-use rendering logic from LemminiPanel redraw method to get the full image including lemmings, explosions, etc.
 	        try {
-	            LemmImage fgImage = LemGame.getFgImage();
+	            LemImage fgImage = LemGame.getFgImage();
 	            if (fgImage == null) {
 	                JOptionPane.showMessageDialog(null, "No foreground image available",
 	                        "Save Level Image", JOptionPane.ERROR_MESSAGE);
@@ -1465,7 +1465,7 @@ public class LemminiFrame extends JFrame {
 	
 	            int transparency = fgImage.getImage().getTransparency();
 	            BufferedImage buffered = ToolBox.createImage(fullWidth, fullHeight, transparency);
-	            LemmImage fullImage = new LemmImage(buffered);
+	            LemImage fullImage = new LemImage(buffered);
 	            GraphicsContext g = fullImage.createGraphicsContext();
 	
                 // Set camera to 0, 0 and the full width and height of the level
@@ -1506,7 +1506,7 @@ public class LemminiFrame extends JFrame {
     
     private void saveLevelAsImageFromPreview()
     {
-        LemmImage tmp = LemGame.getLevel().createMinimap(LemGame.getFgImage(), 1.0, 1.0, true, false, true);
+        LemImage tmp = LemGame.getLevel().createMinimap(LemGame.getFgImage(), 1.0, 1.0, true, false, true);
             try (OutputStream out = Core.resourceTree.newOutputStream("level.png")) {
                 ImageIO.write(tmp.getImage(), "png", out);
             } catch (IOException ex) {

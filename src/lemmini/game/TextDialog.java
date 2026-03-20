@@ -7,7 +7,7 @@ import java.util.ListIterator;
 import java.util.Map;
 
 import lemmini.graphics.GraphicsContext;
-import lemmini.graphics.LemmImage;
+import lemmini.graphics.LemImage;
 
 /*
  * Copyright 2009 Volker Oth
@@ -39,7 +39,7 @@ public class TextDialog {
     /** list of buttons */
     private final Map<String, List<Button>> buttons;
 
-    private LemmImage backgroundImage;
+    private LemImage backgroundImage;
     private boolean tileBackground;
 
     /**
@@ -109,7 +109,7 @@ public class TextDialog {
      * Set Image as background.
      *              be centered.
      */
-    public void setBackground(final LemmImage image, final boolean tiled) {
+    public void setBackground(final LemImage image, final boolean tiled) {
         backgroundImage = image;
         tileBackground = true;
     }
@@ -187,7 +187,7 @@ public class TextDialog {
     /**
      * Add an image.
      */
-    public void addImage(final LemmImage img, final String group, final int x, final int y) {
+    public void addImage(final LemImage img, final String group, final int x, final int y) {
         synchronized (images) {
             addImageGroup(group);
             images.get(group).add(new TextDialogImage(img, x, y));
@@ -197,7 +197,7 @@ public class TextDialog {
     /**
      * Add a horizontally centered image.
      */
-    public void addImage(final LemmImage img, final String group, final int y) {
+    public void addImage(final LemImage img, final String group, final int y) {
         int x = -(img.getWidth() / 2);
         synchronized (images) {
             addImageGroup(group);
@@ -208,7 +208,7 @@ public class TextDialog {
     /**
      * Add Button.
      */
-    public void addButton(final LemmImage img, final LemmImage imgSelected, LemmImage imgPressed, final String group,
+    public void addButton(final LemImage img, final LemImage imgSelected, LemImage imgPressed, final String group,
             final int x, final int y, final TextScreen.Button type) {
         Button b = new Button(x, y, type);
         b.SetImage(img);
@@ -323,11 +323,11 @@ class Button {
     /** true if button is pressed */
     public boolean pressed;
     /** normal button image */
-    protected LemmImage image;
+    protected LemImage image;
     /** selected button image */
-    protected LemmImage imgSelected;
+    protected LemImage imgSelected;
     /** pressed button image */
-    protected LemmImage imgPressed;
+    protected LemImage imgPressed;
 
     /**
      * Constructor
@@ -348,7 +348,7 @@ class Button {
     /**
      * Set normal button image.
      */
-    void SetImage(final LemmImage img) {
+    void SetImage(final LemImage img) {
         image = img;
         if (image.getHeight() > height) {
             height = image.getHeight();
@@ -361,7 +361,7 @@ class Button {
     /**
      * Set selected button image.
      */
-    void SetImageSelected(final LemmImage img) {
+    void SetImageSelected(final LemImage img) {
         imgSelected = img;
         if (imgSelected.getHeight() > height) {
             height = imgSelected.getHeight();
@@ -374,7 +374,7 @@ class Button {
     /**
      * Set selected button image.
      */
-    void SetImagePressed(final LemmImage img) {
+    void SetImagePressed(final LemImage img) {
         imgPressed = img;
         if (imgPressed.getHeight() > height) {
             height = imgPressed.getHeight();
@@ -387,7 +387,7 @@ class Button {
     /**
      * Return current button image (normal or selected, depending on state).
      */
-    LemmImage getImage() {
+    LemImage getImage() {
     	if (pressed) {
     		return imgPressed;
     	} else if (selected) {
@@ -401,7 +401,7 @@ class Button {
      * Draw the button.
      */
     void draw(final GraphicsContext g, final int cx, final int cy) {
-        LemmImage img = getImage();
+        LemImage img = getImage();
         if (img != null) {
             g.drawImage(getImage(), cx + x, cy + y);
         }
@@ -467,9 +467,9 @@ class TextDialogImage {
     /** y coordinate in pixels */
     private final int y;
     /** string image */
-    protected LemmImage image;
+    protected LemImage image;
 
-    TextDialogImage(final LemmImage img, final int xi, final int yi) {
+    TextDialogImage(final LemImage img, final int xi, final int yi) {
         x = xi;
         y = yi;
         image = img;

@@ -3,7 +3,7 @@ package lemmini.game;
 import java.awt.Color;
 
 import lemmini.graphics.GraphicsContext;
-import lemmini.graphics.LemmImage;
+import lemmini.graphics.LemImage;
 import lemmini.tools.ToolBox;
 
 /*
@@ -38,7 +38,7 @@ public class Minimap {
     private static final int MAX_VISIBLE_HEIGHT = 40;
 
     /** image used for minimap */
-    private static LemmImage img;
+    private static LemImage img;
     /** X scale */
     private static double scaleX;
     /** Y scale */
@@ -58,7 +58,7 @@ public class Minimap {
         scaleY = sy;
         tinted = tint;
         Level level = LemGame.getLevel();
-        LemmImage fgImage = LemGame.getFgImage();
+        LemImage fgImage = LemGame.getFgImage();
         img = level.createMinimap(fgImage, scaleX, scaleY, false, tint, false);
         visibleWidth = Math.min(img.getWidth(), MAX_VISIBLE_WIDTH);
         visibleHeight = Math.min(img.getHeight(), MAX_VISIBLE_HEIGHT);
@@ -108,7 +108,7 @@ public class Minimap {
     /**
      * Return current image.
      */
-    public static LemmImage getImage() {
+    public static LemImage getImage() {
         return img;
     }
 

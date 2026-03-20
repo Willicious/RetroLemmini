@@ -26,8 +26,8 @@ import lemmini.tools.ToolBox;
  */
 public class GraphicsBuffer {
 
-    private LemmImage image;
-    private LemmImage subimage;
+    private LemImage image;
+    private LemImage subimage;
     private GraphicsContext graphics;
     private final int transparency;
     private final boolean resizable;
@@ -60,7 +60,7 @@ public class GraphicsBuffer {
             if (graphics != null) {
                 graphics.dispose();
             }
-            image = ToolBox.createLemmImage(w, h, transparency);
+            image = ToolBox.createLemImage(w, h, transparency);
             graphics = image.createGraphicsContext();
             if (transparency == Transparency.OPAQUE) {
                 graphics.setBackground(new Color(0, 0, 0));
@@ -77,7 +77,7 @@ public class GraphicsBuffer {
         }
     }
 
-    public synchronized LemmImage getImage() {
+    public synchronized LemImage getImage() {
         return subimage;
     }
 

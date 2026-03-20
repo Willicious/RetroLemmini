@@ -36,7 +36,7 @@ public class GraphicsOperation {
         affineTransform.translate(tx, ty);
     }
 
-    public void execute(LemmImage source, LemmImage destination) {
+    public void execute(LemImage source, LemImage destination) {
         AffineTransformOp op = new AffineTransformOp(affineTransform, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
         op.filter(source.getImage(), destination.getImage());
     }

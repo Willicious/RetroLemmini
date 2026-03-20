@@ -6,7 +6,7 @@ import java.util.ListIterator;
 
 import org.apache.commons.lang3.BooleanUtils;
 
-import lemmini.graphics.LemmImage;
+import lemmini.graphics.LemImage;
 import lemmini.tools.ToolBox;
 
 /*
@@ -40,14 +40,14 @@ public class Mask {
     /** height of mask in pixels */
     private final int height;
     /** array of images. Note: masks may be animated and thus contain multiple frames. */
-    private final List<LemmImage> mask;
+    private final List<LemImage> mask;
     /** for recoloring purposes */
-    private final List<LemmImage> originalColorMask;
+    private final List<LemImage> originalColorMask;
 
     /**
      * Constructor.
      */
-    public Mask(final LemmImage img, final int frames) {
+    public Mask(final LemImage img, final int frames) {
         width = img.getWidth();
         height = img.getHeight() / frames;
         mask = ToolBox.getAnimation(img, frames);
@@ -58,10 +58,10 @@ public class Mask {
      * Apply erase mask (to foreground image, minimap and stencil).
      */
     public void eraseMask(final int x0, final int y0, final int maskNum, final int eraseMask, final int checkMask) {
-        LemmImage fgImage = LemGame.getFgImage();
-        LemmImage fgImageSmall = Minimap.getImage();
+        LemImage fgImage = LemGame.getFgImage();
+        LemImage fgImageSmall = Minimap.getImage();
         Stencil stencil = LemGame.getStencil();
-        LemmImage m = mask.get(maskNum);
+        LemImage m = mask.get(maskNum);
         double scaleX = (double) fgImageSmall.getWidth() / (double) fgImage.getWidth();
         double scaleY = (double) fgImageSmall.getHeight() / (double) fgImage.getHeight();
         double scaleXHalf = scaleX / 2.0;
@@ -124,10 +124,10 @@ public class Mask {
      * Paint one step (of a stair created by a Builder)
      */
     public void paintStep(final int x0, final int y0, final int maskNum) {
-        LemmImage fgImage = LemGame.getFgImage();
-        LemmImage fgImageSmall = Minimap.getImage();
+        LemImage fgImage = LemGame.getFgImage();
+        LemImage fgImageSmall = Minimap.getImage();
         Stencil stencil = LemGame.getStencil();
-        LemmImage m = mask.get(maskNum);
+        LemImage m = mask.get(maskNum);
         double scaleX = (double) fgImageSmall.getWidth() / (double) fgImage.getWidth();
         double scaleY = (double) fgImageSmall.getHeight() / (double) fgImage.getHeight();
         double scaleXHalf = scaleX / 2.0;
@@ -195,7 +195,7 @@ public class Mask {
      * Create blocker mask in the Stencil only (Lemming is assigned a Blocker)
      */
     public void setBlockerMask(final int x0, final int y0) {
-        LemmImage fgImage = LemGame.getFgImage();
+        LemImage fgImage = LemGame.getFgImage();
         Stencil stencil = LemGame.getStencil();
         int yMax = y0 + height;
         if (yMax >= fgImage.getHeight()) {
@@ -206,12 +206,12 @@ public class Mask {
             xMax = fgImage.getWidth();
         }
 
-        for (ListIterator<LemmImage> lit = mask.listIterator(); lit.hasNext(); ) {
+        for (ListIterator<LemImage> lit = mask.listIterator(); lit.hasNext(); ) {
             int i = lit.nextIndex();
             if (i >= 3) {
                 break;
             }
-            LemmImage m = lit.next();
+            LemImage m = lit.next();
             for (int y = y0; y < yMax; y++) {
                 if (y < 0) {
                     continue;
@@ -246,7 +246,7 @@ public class Mask {
      */
     public boolean checkType(final int x0, final int y0, final int maskNum, final int type) {
         Stencil stencil = LemGame.getStencil();
-        LemmImage m = mask.get(maskNum);
+        LemImage m = mask.get(maskNum);
         int yMax = y0 + height;
         if (yMax >= stencil.getHeight()) {
             yMax = stencil.getHeight();
@@ -279,9 +279,9 @@ public class Mask {
      * Erase certain properties from Stencil bitmask.
      */
     public void clearType(final int x0, final int y0, final int maskNum, final int type) {
-        LemmImage fgImage = LemGame.getFgImage();
+        LemImage fgImage = LemGame.getFgImage();
         Stencil stencil = LemGame.getStencil();
-        LemmImage m = mask.get(maskNum);
+        LemImage m = mask.get(maskNum);
         int yMax = y0 + height;
         if (yMax >= fgImage.getHeight()) {
             yMax = fgImage.getHeight();
@@ -309,10 +309,10 @@ public class Mask {
 
     void replaceColors(final int templateCol, final int replaceCol,
             final int templateCol2, final int replaceCol2) {
-        for (ListIterator<LemmImage> itf = originalColorMask.listIterator();
+        for (ListIterator<LemImage> itf = originalColorMask.listIterator();
                 itf.hasNext(); ) { // go through all frames
             int fi = itf.nextIndex();
-            LemmImage i = ToolBox.copyLemmImage(itf.next());
+            LemImage i = ToolBox.copyLemImage(itf.next());
             i.replaceColor(templateCol, replaceCol);
             i.replaceColor(templateCol2, replaceCol2);
             mask.set(fi, i);

@@ -42,7 +42,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import lemmini.graphics.GraphicsContext;
 import lemmini.graphics.GraphicsOperation;
-import lemmini.graphics.LemmImage;
+import lemmini.graphics.LemImage;
 
 /*
  * Copyright 2009 Volker Oth
@@ -88,7 +88,7 @@ public class ToolBox {
     /**
      * Creates a custom cursor from the image
      */
-    public static Cursor createCursor(LemmImage image, int centerX, int centerY) {
+    public static Cursor createCursor(LemImage image, int centerX, int centerY) {
         return Toolkit.getDefaultToolkit().createCustomCursor(image.getImage(), new Point(centerX, centerY), StringUtils.EMPTY);
     }
 
@@ -114,23 +114,23 @@ public class ToolBox {
     /**
      * Create a compatible buffered image.
      */
-    public static LemmImage createLemmImage(final int width, final int height) {
-        return createLemmImage(width, height, Transparency.TRANSLUCENT);
+    public static LemImage createLemImage(final int width, final int height) {
+        return createLemImage(width, height, Transparency.TRANSLUCENT);
     }
 
     /**
      * Create a compatible buffered image.
      */
-    public static LemmImage createLemmImage(final int width, final int height, final int transparency) {
-        return new LemmImage(createImage(width, height, transparency));
+    public static LemImage createLemImage(final int width, final int height, final int transparency) {
+        return new LemImage(createImage(width, height, transparency));
     }
 
-    public static LemmImage copyLemmImage(LemmImage img) {
-        return copyLemmImage(img, Transparency.TRANSLUCENT);
+    public static LemImage copyLemImage(LemImage img) {
+        return copyLemImage(img, Transparency.TRANSLUCENT);
     }
 
-    public static LemmImage copyLemmImage(LemmImage img, int transparency) {
-        LemmImage newImg = ToolBox.createLemmImage(img.getWidth(), img.getHeight(), transparency);
+    public static LemImage copyLemImage(LemImage img, int transparency) {
+        LemImage newImg = ToolBox.createLemImage(img.getWidth(), img.getHeight(), transparency);
         GraphicsContext g = null;
         try {
             g = newImg.createGraphicsContext();
@@ -146,15 +146,15 @@ public class ToolBox {
     /**
      * Return a list of buffered images which contains an animation.
      */
-    public static java.util.List<LemmImage> getAnimation(final LemmImage img, final int frames) {
+    public static java.util.List<LemImage> getAnimation(final LemImage img, final int frames) {
         return getAnimation(img, frames, img.getWidth());
     }
 
     /**
      * Return a list of buffered images which contains an animation.
      */
-    public static java.util.List<LemmImage> getAnimation(final LemmImage img, final int frames, final int width) {
-        java.util.List<LemmImage> imgList = new ArrayList<>(frames);
+    public static java.util.List<LemImage> getAnimation(final LemImage img, final int frames, final int width) {
+        java.util.List<LemImage> imgList = new ArrayList<>(frames);
         int height = img.getHeight() / frames;
         for (int i = 0, y0 = 0; i < frames; i++, y0 += height) {
             imgList.add(img.getSubimage(0, y0, width, height));

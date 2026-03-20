@@ -3,7 +3,7 @@ package lemmini.game;
 import java.awt.Color;
 
 import lemmini.graphics.GraphicsContext;
-import lemmini.graphics.LemmImage;
+import lemmini.graphics.LemImage;
 
 /*
  * Copyright 2009 Volker Oth
@@ -61,7 +61,7 @@ public class Explosion {
     /** flag: explosion is finished */
     private boolean finished;
     /** explosion image used for the first few frames */
-    private static LemmImage expImg;
+    private static LemImage expImg;
 
     /**
      * Load explosion image as static resource.
@@ -69,7 +69,7 @@ public class Explosion {
      */
     static void init() throws ResourceException {
         Resource resource = Core.findResource("gfx/misc/explode.png", Core.IMAGE_EXTENSIONS);
-        expImg = Core.loadLemmImage(resource);
+        expImg = Core.loadLemImage(resource);
     }
 
     /**

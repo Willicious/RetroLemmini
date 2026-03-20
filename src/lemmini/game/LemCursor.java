@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import lemmini.graphics.LemmImage;
+import lemmini.graphics.LemImage;
 import lemmini.tools.ToolBox;
 
 /*
@@ -80,9 +80,9 @@ public class LemCursor  {
     /** current cursor type */
     private static CursorType type;
     /** list of images - one for each cursor type */
-    private static List<LemmImage> cursorImg;
+    private static List<LemImage> cursorImg;
     /** list of images - one for each box type */
-    private static List<LemmImage> boxImg;
+    private static List<LemImage> boxImg;
     /** list of AWT cursor Objects */
     private static final List<Cursor> cursor = new ArrayList<>(CursorType.values().length);
     /** list of AWT box cursor Objects */
@@ -97,13 +97,13 @@ public class LemCursor  {
         boxCursor.clear();
         CursorType[] cursorTypes = CursorType.values();
         Resource resource = Core.findResource("gfx/misc/cursor.png", Core.IMAGE_EXTENSIONS);
-        cursorImg = ToolBox.getAnimation(Core.loadLemmImage(resource), cursorTypes.length);
+        cursorImg = ToolBox.getAnimation(Core.loadLemImage(resource), cursorTypes.length);
         resource = Core.findResource("gfx/misc/box.png", Core.IMAGE_EXTENSIONS);
-        boxImg = ToolBox.getAnimation(Core.loadLemmImage(resource), cursorTypes.length);
-        LemmImage firstCursorImg = cursorImg.get(0);
+        boxImg = ToolBox.getAnimation(Core.loadLemImage(resource), cursorTypes.length);
+        LemImage firstCursorImg = cursorImg.get(0);
         int cx = firstCursorImg.getWidth() / 2;
         int cy = firstCursorImg.getHeight() / 2;
-        for (Iterator<LemmImage> cursorIt = cursorImg.iterator(), boxIt = boxImg.iterator(); cursorIt.hasNext() && boxIt.hasNext(); ) {
+        for (Iterator<LemImage> cursorIt = cursorImg.iterator(), boxIt = boxImg.iterator(); cursorIt.hasNext() && boxIt.hasNext(); ) {
             cursor.add(ToolBox.createCursor(cursorIt.next(), cx, cy));
             boxCursor.add(ToolBox.createCursor(boxIt.next(), cx, cy));
         }
@@ -117,28 +117,28 @@ public class LemCursor  {
     /**
      * Get image for a certain cursor type.
      */
-    public static LemmImage getImage(final CursorType t) {
+    public static LemImage getImage(final CursorType t) {
         return cursorImg.get(t.ordinal());
     }
 
     /**
      * Get image for current cursor type.
      */
-    public static LemmImage getImage() {
+    public static LemImage getImage() {
         return getImage(type);
     }
 
     /**
      * Get box image for a certain cursor type.
      */
-    public static LemmImage getBoxImage(final CursorType t) {
+    public static LemImage getBoxImage(final CursorType t) {
         return boxImg.get(t.ordinal());
     }
 
     /**
      * Get box image for current cursor type.
      */
-    public static LemmImage getBoxImage() {
+    public static LemImage getBoxImage() {
         return getBoxImage(type);
     }
 

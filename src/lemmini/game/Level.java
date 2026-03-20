@@ -20,7 +20,7 @@ import org.apache.commons.lang3.StringUtils;
 import lemmini.gameutil.Sprite;
 import lemmini.graphics.GraphicsBuffer;
 import lemmini.graphics.GraphicsContext;
-import lemmini.graphics.LemmImage;
+import lemmini.graphics.LemImage;
 import lemmini.tools.Props;
 import lemmini.tools.ToolBox;
 
@@ -106,9 +106,9 @@ public class Level {
     /** the foreground stencil */
     private Stencil stencil;
     /** the foreground image */
-    private LemmImage fgImage;
+    private LemImage fgImage;
     /** the background images */
-    private LemmImage[] bgImages;
+    private LemImage[] bgImages;
     /** array of normal sprite objects - drawn behind foreground image */
     private SpriteObject[] sprObjBehind;
     /** array of special sprite objects - drawn in front of foreground image */
@@ -459,14 +459,14 @@ public class Level {
                 }
             }
         } else {
-            fgImage = ToolBox.createLemmImage(levelWidth, levelHeight);
+            fgImage = ToolBox.createLemImage(levelWidth, levelHeight);
         }
     }
 
     void createStencil() {
-        bgImages = new LemmImage[backgrounds.length];
+        bgImages = new LemImage[backgrounds.length];
         for (int i = 0; i < backgrounds.length; i++) {
-            bgImages[i] = ToolBox.createLemmImage(
+            bgImages[i] = ToolBox.createLemImage(
                     backgrounds[i].width + BG_BUFFER_PADDING * 2, backgrounds[i].height + BG_BUFFER_PADDING * 2);
         }
         if (stencil != null && stencil.getWidth() == levelWidth && stencil.getHeight() == levelHeight) {
@@ -487,7 +487,7 @@ public class Level {
             }
             GraphicSet terrainStyle = styles.get(styleLowerCase);
 
-            LemmImage i;
+            LemImage i;
             boolean[][] mask;
             boolean[][] steelMask;
             int width;
@@ -805,8 +805,8 @@ public class Level {
             List<SpriteObject> bgOBehind = new ArrayList<>(32);
             for (int m = 0; m < backgrounds.length; m++) {
                 Background bg = backgrounds[m];
-                LemmImage targetBg = bgImages[m];
-                LemmImage unpaddedBg = ToolBox.createLemmImage(
+                LemImage targetBg = bgImages[m];
+                LemImage unpaddedBg = ToolBox.createLemImage(
                         targetBg.getWidth() - BG_BUFFER_PADDING * 2,
                         targetBg.getHeight() - BG_BUFFER_PADDING * 2);
                 bgOCombined.clear();
@@ -823,7 +823,7 @@ public class Level {
                     }
                     GraphicSet terrainStyle = styles.get(styleLowerCase);
 
-                    LemmImage i = terrainStyle.getTerrain(t.id).getImage();
+                    LemImage i = terrainStyle.getTerrain(t.id).getImage();
                     int width = i.getWidth();
                     int height = i.getHeight();
 
@@ -989,7 +989,7 @@ public class Level {
         System.gc();
     }
 
-    public LemmImage getFgImage() {
+    public LemImage getFgImage() {
         return fgImage;
     }
 
@@ -1006,7 +1006,7 @@ public class Level {
         if (sprObjBehind != null) {
             for (int n = sprObjBehind.length - 1; n >= 0; n--) {
                 SpriteObject spr = sprObjBehind[n];
-                LemmImage img = spr.getImage();
+                LemImage img = spr.getImage();
                 if (spr.getX() + spr.getWidth() > xOfs && spr.getX() < xOfs + width
                         && spr.getY() + spr.getHeight() > yOfs && spr.getY() < yOfs + height) {
                     g.drawImage(img, spr.getX() - xOfs, spr.getY() - yOfs);
@@ -1023,7 +1023,7 @@ public class Level {
         // draw "in front" objects
         if (sprObjFront != null) {
             for (SpriteObject spr : sprObjFront) {
-                LemmImage img = spr.getImage();
+                LemImage img = spr.getImage();
                 if (spr.getX() + spr.getWidth() > xOfs && spr.getX() < xOfs + width
                         && spr.getY() + spr.getHeight() > yOfs && spr.getY() < yOfs + height) {
                     g.drawImage(img, spr.getX() - xOfs, spr.getY() - yOfs);
@@ -1042,7 +1042,7 @@ public class Level {
         }
 
         for (int i = backgrounds.length - 1; i >= 0; i--) {
-            LemmImage bgImage = bgImages[i];
+            LemImage bgImage = bgImages[i];
             Background bg = backgrounds[i];
             GraphicsBuffer[] buffers = bgBuffers[i];
 
@@ -1056,7 +1056,7 @@ public class Level {
                 continue;
             }
 
-            LemmImage unscaledBufferImg = buffers[BG_BUFFER_UNSCALED_INDEX].getImage();
+            LemImage unscaledBufferImg = buffers[BG_BUFFER_UNSCALED_INDEX].getImage();
             GraphicsContext unscaledBufferGfx = buffers[BG_BUFFER_UNSCALED_INDEX].getGraphicsContext();
             unscaledBufferGfx.clearRect(0, 0, unscaledBufferImg.getWidth(), unscaledBufferImg.getHeight());
 
@@ -1066,7 +1066,7 @@ public class Level {
                     if (bg.sprObjBehind != null) {
                         for (int n = bg.sprObjBehind.length - 1; n >= 0; n--) {
                             SpriteObject spr = bg.sprObjBehind[n];
-                            LemmImage img = spr.getImage();
+                            LemImage img = spr.getImage();
                             unscaledBufferGfx.drawImage(img, x + spr.getX(), y + spr.getY());
                         }
                     }
@@ -1080,14 +1080,14 @@ public class Level {
                     // draw "in front" objects
                     if (bg.sprObjFront != null) {
                         for (SpriteObject spr : bg.sprObjFront) {
-                            LemmImage img = spr.getImage();
+                            LemImage img = spr.getImage();
                             unscaledBufferGfx.drawImage(img, x + spr.getX(), y + spr.getY());
                         }
                     }
                 }
             }
 
-            LemmImage scaledBufferImg = buffers[BG_BUFFER_SCALED_INDEX].getImage();
+            LemImage scaledBufferImg = buffers[BG_BUFFER_SCALED_INDEX].getImage();
             GraphicsContext scaledBufferGfx = buffers[BG_BUFFER_SCALED_INDEX].getGraphicsContext();
             scaledBufferGfx.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                     Core.isBilinear()
@@ -1144,10 +1144,10 @@ public class Level {
     /**
      * Create a minimap for this level.
      */
-    public LemmImage createMinimap(final LemmImage fgImage, final double scaleX, final double scaleY,
+    public LemImage createMinimap(final LemImage fgImage, final double scaleX, final double scaleY,
             final boolean highQuality, final boolean tint, final boolean drawBackground) {
         Level level = LemGame.getLevel();
-        LemmImage img = ToolBox.createLemmImage(fgImage.getWidth(), fgImage.getHeight());
+        LemImage img = ToolBox.createLemImage(fgImage.getWidth(), fgImage.getHeight());
 
         GraphicsContext gx = null;
         try {
@@ -1167,7 +1167,7 @@ public class Level {
             if (level != null && level.sprObjBehind != null) {
                 for (int n = level.sprObjBehind.length - 1; n >= 0; n--) {
                     SpriteObject spr = level.sprObjBehind[n];
-                    LemmImage sprImg = spr.getImage();
+                    LemImage sprImg = spr.getImage();
                     gx.drawImage(sprImg, spr.getX(), spr.getY());
                 }
             }
@@ -1176,7 +1176,7 @@ public class Level {
             // draw "in front" objects
             if (level != null && level.sprObjFront != null) {
                 for (SpriteObject spr : level.sprObjFront) {
-                    LemmImage sprImg = spr.getImage();
+                    LemImage sprImg = spr.getImage();
                     gx.drawImage(sprImg, spr.getX(), spr.getY());
                 }
             }

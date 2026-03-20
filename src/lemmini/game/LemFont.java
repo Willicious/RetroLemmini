@@ -16,7 +16,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import lemmini.graphics.GraphicsContext;
-import lemmini.graphics.LemmImage;
+import lemmini.graphics.LemImage;
 import lemmini.tools.Props;
 import lemmini.tools.ToolBox;
 
@@ -104,10 +104,10 @@ public class LemFont {
 
             String name = FilenameUtils.removeExtension(fileName);
 
-            LemmImage sourceImg = Core.loadLemmImage(resource);
-            List<LemmImage> glyphImg = ToolBox.getAnimation(sourceImg, numChars, sourceImg.getWidth());
+            LemImage sourceImg = Core.loadLemImage(resource);
+            List<LemImage> glyphImg = ToolBox.getAnimation(sourceImg, numChars, sourceImg.getWidth());
             List<Glyph> glyphs = new ArrayList<>(numChars);
-            for (ListIterator<LemmImage> lit = glyphImg.listIterator(); lit.hasNext(); ) {
+            for (ListIterator<LemImage> lit = glyphImg.listIterator(); lit.hasNext(); ) {
                 int c = lit.nextIndex();
                 glyphs.add(new Glyph(lit.next()));
                 int codePoint = p.getInt("subset_" + i + "_char_" + c + "_codePoint", -1);
@@ -118,7 +118,7 @@ public class LemFont {
             subsets.put(name, new Subset(glyphs));
         }
 
-        LemmImage img = ToolBox.createLemmImage(width, height);
+        LemImage img = ToolBox.createLemImage(width, height);
         GraphicsContext g = null;
         try {
             g = img.createGraphicsContext();
@@ -131,8 +131,8 @@ public class LemFont {
         }
         missingChar = new Glyph(img);
 
-        img = Core.loadLemmImageJar("missing_char_font.png");
-        List<LemmImage> missingGlyphFontImg = ToolBox.getAnimation(img, 16);
+        img = Core.loadLemImageJar("missing_char_font.png");
+        List<LemImage> missingGlyphFontImg = ToolBox.getAnimation(img, 16);
         missingGlyphFontImg.stream().forEachOrdered(missingGlyphImg -> {
             missingCharFont.add(new Glyph(missingGlyphImg));
         });
@@ -168,8 +168,8 @@ public class LemFont {
     /**
      * Create image of string in given color.
      */
-    public static LemmImage strImage(final String s, final LemmColor color) {
-        LemmImage image = ToolBox.createLemmImage(getCharCount(s) * width, height);
+    public static LemImage strImage(final String s, final LemmColor color) {
+        LemImage image = ToolBox.createLemImage(getCharCount(s) * width, height);
         GraphicsContext g = image.createGraphicsContext();
         try {
             g = image.createGraphicsContext();
@@ -185,7 +185,7 @@ public class LemFont {
     /**
      * Create image of string in default color (green).
      */
-    public static LemmImage strImage(final String s) {
+    public static LemImage strImage(final String s) {
         return strImage(s, LemmColor.GREEN);
     }
 
@@ -211,7 +211,7 @@ public class LemFont {
         int digitsPerRow = (bmpCodePoint ? 2 : 3);
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < digitsPerRow; j++) {
-                LemmImage hexDigit = missingCharFont.get((c >>> ((digitsPerRow * 2 - 1 - (i * digitsPerRow + j)) * 4)) & 0xF).getColor(color);
+                LemImage hexDigit = missingCharFont.get((c >>> ((digitsPerRow * 2 - 1 - (i * digitsPerRow + j)) * 4)) & 0xF).getColor(color);
                 g.drawImage(hexDigit,
                         x + (width / 2 + (j - 1) * hexDigit.getWidth()) - (bmpCodePoint ? 0 : hexDigit.getWidth() / 2),
                         y + (height / 2 + (i - 1) * hexDigit.getHeight()));
@@ -379,21 +379,21 @@ public class LemFont {
 
     private static class Glyph {
 
-        private final List<LemmImage> glyphColors;
+        private final List<LemImage> glyphColors;
 
-        Glyph(LemmImage glyph) {
+        Glyph(LemImage glyph) {
             int width = glyph.getWidth();
             int height = glyph.getHeight();
 
-            LemmImage[] glyphColorsArray = {
+            LemImage[] glyphColorsArray = {
                 glyph,
-                ToolBox.createLemmImage(width, height),
-                ToolBox.createLemmImage(width, height),
-                ToolBox.createLemmImage(width, height),
-                ToolBox.createLemmImage(width, height),
-                ToolBox.createLemmImage(width, height),
-                ToolBox.createLemmImage(width, height),
-                ToolBox.createLemmImage(width, height)
+                ToolBox.createLemImage(width, height),
+                ToolBox.createLemImage(width, height),
+                ToolBox.createLemImage(width, height),
+                ToolBox.createLemImage(width, height),
+                ToolBox.createLemImage(width, height),
+                ToolBox.createLemImage(width, height),
+                ToolBox.createLemImage(width, height)
             };
 
             for (int xp = 0; xp < width; xp++) {
@@ -436,7 +436,7 @@ public class LemFont {
             glyphColors = Arrays.asList(glyphColorsArray);
         }
 
-        LemmImage getColor(LemmColor color) {
+        LemImage getColor(LemmColor color) {
             return glyphColors.get(color.ordinal());
         }
     }

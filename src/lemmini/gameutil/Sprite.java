@@ -9,7 +9,7 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import lemmini.game.LemGame;
 import lemmini.game.Lemming;
-import lemmini.graphics.LemmImage;
+import lemmini.graphics.LemImage;
 import lemmini.tools.ToolBox;
 
 /*
@@ -68,7 +68,7 @@ public class Sprite {
     /** boolean flag: animation was triggered */
     private boolean triggered;
     /** list of animation frames */
-    protected List<LemmImage> frames;
+    protected List<LemImage> frames;
     protected boolean modifiable;
     protected int[][] origColors;
     private Lemming lemming;
@@ -92,7 +92,7 @@ public class Sprite {
     /**
      * Constructor.
      */
-    public Sprite(final LemmImage sourceImg, final int animFrames, final int animSpeed, final boolean modifiable) {
+    public Sprite(final LemImage sourceImg, final int animFrames, final int animSpeed, final boolean modifiable) {
         numFrames = animFrames;
         width = sourceImg.getWidth();
         height = sourceImg.getHeight() / numFrames;
@@ -107,9 +107,9 @@ public class Sprite {
         this.modifiable = modifiable;
         if (modifiable) {
             origColors = new int[numFrames][];
-            for (ListIterator<LemmImage> lit = frames.listIterator(); lit.hasNext(); ) {
+            for (ListIterator<LemImage> lit = frames.listIterator(); lit.hasNext(); ) {
                 int i = lit.nextIndex();
-                LemmImage frame = ToolBox.copyLemmImage(lit.next());
+                LemImage frame = ToolBox.copyLemImage(lit.next());
                 lit.set(frame);
                 origColors[i] = frame.getRGB(0, 0, width, height, null, 0, width);
             }
@@ -122,7 +122,7 @@ public class Sprite {
     /**
      * Constructor.
      */
-    public Sprite(final List<LemmImage> frames, final int animSpeed, final boolean modifiable) {
+    public Sprite(final List<LemImage> frames, final int animSpeed, final boolean modifiable) {
         numFrames = frames.size();
         width = frames.get(0).getWidth();
         height = frames.get(0).getHeight();
@@ -136,9 +136,9 @@ public class Sprite {
         if (modifiable) {
             this.frames = new ArrayList<>(frames);
             origColors = new int[numFrames][];
-            for (ListIterator<LemmImage> lit = this.frames.listIterator(); lit.hasNext(); ) {
+            for (ListIterator<LemImage> lit = this.frames.listIterator(); lit.hasNext(); ) {
                 int i = lit.nextIndex();
-                LemmImage frame = ToolBox.copyLemmImage(lit.next());
+                LemImage frame = ToolBox.copyLemImage(lit.next());
                 lit.set(frame);
                 origColors[i] = frame.getRGB(0, 0, width, height, null, 0, width);
             }
@@ -163,8 +163,8 @@ public class Sprite {
         sound = src.sound.clone();
         triggered = src.triggered;
         frames = new ArrayList<>(src.frames);
-        for (ListIterator<LemmImage> lit = frames.listIterator(); lit.hasNext(); ) {
-            LemmImage frame = new LemmImage(lit.next());
+        for (ListIterator<LemImage> lit = frames.listIterator(); lit.hasNext(); ) {
+            LemImage frame = new LemImage(lit.next());
             lit.set(frame);
         }
         modifiable = src.modifiable;
@@ -180,14 +180,14 @@ public class Sprite {
     /**
      * Get given animation frame.
      */
-    public LemmImage getImage(final int idx) {
+    public LemImage getImage(final int idx) {
         return frames.get(idx);
     }
 
     /**
      * Get current animation frame.
      */
-    public LemmImage getImage() {
+    public LemImage getImage() {
         return getImage(frameIdx);
     }
 
@@ -195,14 +195,14 @@ public class Sprite {
      * Replace one animation frame.
      * Note: replacing with an image of different size will create problems.
      */
-    public void setImage(final int idx, final LemmImage img) {
+    public void setImage(final int idx, final LemImage img) {
         frames.set(idx, img);
     }
 
     /**
      * Get current animation frame and animate.
      */
-    public LemmImage getImageAnim() {
+    public LemImage getImageAnim() {
         switch (animMode) {
             case LOOP:
                 if (++counter >= speed) {
@@ -257,7 +257,7 @@ public class Sprite {
             return;
         }
         if (x >= 0 && x < width && y >= 0 && y < height) {
-            for (ListIterator<LemmImage> lit = frames.listIterator(); lit.hasNext(); ) {
+            for (ListIterator<LemImage> lit = frames.listIterator(); lit.hasNext(); ) {
                 int i = lit.nextIndex();
                 lit.next().setRGB(x, y, visible ? origColors[i][y * width + x] : 0);
             }
@@ -268,9 +268,9 @@ public class Sprite {
         if (!modifiable || (!horizontal && !vertical)) {
             return;
         }
-        for (ListIterator<LemmImage> lit = frames.listIterator(); lit.hasNext(); ) {
+        for (ListIterator<LemImage> lit = frames.listIterator(); lit.hasNext(); ) {
             int i = lit.nextIndex();
-            LemmImage imgSpr = lit.next().transform(false, horizontal, vertical);
+            LemImage imgSpr = lit.next().transform(false, horizontal, vertical);
             lit.set(imgSpr);
 
             int[] buffer = origColors[i].clone();
@@ -287,12 +287,12 @@ public class Sprite {
             return;
         }
 
-        for (ListIterator<LemmImage> lit = frames.listIterator(); lit.hasNext(); ) {
+        for (ListIterator<LemImage> lit = frames.listIterator(); lit.hasNext(); ) {
             int i = lit.nextIndex();
             lit.next().applyTint(tint);
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
-                    origColors[i][y * width + x] = LemmImage.applyTint(origColors[i][y * width + x], tint);
+                    origColors[i][y * width + x] = LemImage.applyTint(origColors[i][y * width + x], tint);
                 }
             }
         }

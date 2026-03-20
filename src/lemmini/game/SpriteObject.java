@@ -7,7 +7,7 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import lemmini.gameutil.Sprite;
 //import lemmini.graphics.GraphicsContext;
-import lemmini.graphics.LemmImage;
+import lemmini.graphics.LemImage;
 import lemmini.tools.ToolBox;
 
 /*
@@ -130,7 +130,7 @@ public class SpriteObject extends Sprite {
     /**
      * Constructor.
      */
-    public SpriteObject(final LemmImage sourceImg, final int animFrames, final int animSpeed, final boolean modifiable) {
+    public SpriteObject(final LemImage sourceImg, final int animFrames, final int animSpeed, final boolean modifiable) {
         super(sourceImg, animFrames, animSpeed, modifiable);
         type = Type.PASSIVE;
         x = 0;
@@ -176,7 +176,7 @@ public class SpriteObject extends Sprite {
     /**
      * Set the collision mask.
      */
-    /*void setMask(final LemmImage imgMask) {
+    /*void setMask(final LemImage imgMask) {
         maskWidth = imgMask.getWidth();
         maskHeight = imgMask.getHeight();
         mask = new int[maskWidth * maskHeight];
@@ -196,7 +196,7 @@ public class SpriteObject extends Sprite {
     /**
      * Set the collision mask.
      */
-    /*void setMask(final LemmImage imgMask, final int xOffset, final int yOffset) {
+    /*void setMask(final LemImage imgMask, final int xOffset, final int yOffset) {
         if (imgMask != null) {
             maskWidth = imgMask.getWidth();
             maskHeight = imgMask.getHeight();
@@ -313,9 +313,9 @@ public class SpriteObject extends Sprite {
         if (vis && !modifiable) {
             frames = new ArrayList<>(frames);
             origColors = new int[numFrames][];
-            for (ListIterator<LemmImage> lit = frames.listIterator(); lit.hasNext(); ) {
+            for (ListIterator<LemImage> lit = frames.listIterator(); lit.hasNext(); ) {
                 int i = lit.nextIndex();
-                LemmImage frame = ToolBox.copyLemmImage(lit.next());
+                LemImage frame = ToolBox.copyLemImage(lit.next());
                 lit.set(frame);
                 origColors[i] = frame.getRGB(0, 0, width, height, null, 0, width);
             }

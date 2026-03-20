@@ -29,15 +29,15 @@ import lemmini.tools.ToolBox;
  * limitations under the License.
  */
 
-public class LemmImage {
+public class LemImage {
 
     private final BufferedImage image;
 
-    public LemmImage(BufferedImage image) {
+    public LemImage(BufferedImage image) {
         this.image = image;
     }
 
-    public LemmImage(LemmImage image) {
+    public LemImage(LemImage image) {
         BufferedImage oldBufferedImage = image.getImage();
         this.image = new BufferedImage(oldBufferedImage.getColorModel(),
                 oldBufferedImage.copyData(null),
@@ -62,7 +62,7 @@ public class LemmImage {
         }
     }
 
-    public LemmImage getScaledInstance(int targetWidth, int targetHeight) {
+    public LemImage getScaledInstance(int targetWidth, int targetHeight) {
         Map<RenderingHints.Key,Object> hints = new HashMap<>();
         hints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         hints.put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -72,7 +72,7 @@ public class LemmImage {
         return getScaledInstance(targetWidth, targetHeight, RenderingHints.VALUE_INTERPOLATION_BILINEAR, false);
     }
 
-    public LemmImage getScaledInstance(int targetWidth, int targetHeight,
+    public LemImage getScaledInstance(int targetWidth, int targetHeight,
             Object interpolationHint, boolean multipass) {
         int transparency = image.getTransparency();
         BufferedImage img = image;
@@ -106,10 +106,10 @@ public class LemmImage {
             img = tmp;
         } while (w != targetWidth || h != targetHeight);
 
-        return new LemmImage(img);
+        return new LemImage(img);
     }
 
-    public LemmImage transform(boolean rotate, boolean flipHoriz, boolean flipVert) {
+    public LemImage transform(boolean rotate, boolean flipHoriz, boolean flipVert) {
         int width = image.getWidth();
         int height = image.getHeight();
         BufferedImage tmp;
@@ -142,15 +142,15 @@ public class LemmImage {
             }
         }
 
-        return new LemmImage(tmp);
+        return new LemImage(tmp);
     }
 
     public GraphicsContext createGraphicsContext() {
         return new GraphicsContext(image.createGraphics());
     }
 
-    public LemmImage getSubimage(int x, int y, int w, int h) {
-        return new LemmImage(image.getSubimage(x, y, w, h));
+    public LemImage getSubimage(int x, int y, int w, int h) {
+        return new LemImage(image.getSubimage(x, y, w, h));
     }
 
     public int getWidth() {

@@ -29,7 +29,7 @@ import java.util.Map;
 import org.apache.commons.lang3.ArrayUtils;
 
 import lemmini.gameutil.Sprite;
-import lemmini.graphics.LemmImage;
+import lemmini.graphics.LemImage;
 import lemmini.tools.Props;
 import lemmini.tools.ToolBox;
 
@@ -241,7 +241,7 @@ public class GraphicSet {
         private final int maskOffsetX;
         private final int maskOffsetY;
         private final int[] sound;
-        private final Map<Orientation, List<LemmImage>> images = new EnumMap<>(Orientation.class);
+        private final Map<Orientation, List<LemImage>> images = new EnumMap<>(Orientation.class);
         private boolean[][] mask = null;
 
         private LvlObject(Props props, String pathPrefix, int idx) {
@@ -310,19 +310,19 @@ public class GraphicSet {
             return sound;
         }
 
-        public List<LemmImage> getImages(Orientation orientation) throws LemException {
+        public List<LemImage> getImages(Orientation orientation) throws LemException {
         	try {
 	            if (!images.containsKey(Orientation.NORMAL)) {
 	                Resource resource = Core.findResource(
 	                        pathPrefix + "o_" + index + ".png",
 	                        Core.IMAGE_EXTENSIONS);
-	                LemmImage sourceImage = Core.loadLemmImage(resource);
+	                LemImage sourceImage = Core.loadLemImage(resource);
 	                images.put(Orientation.NORMAL, ToolBox.getAnimation(sourceImage, numFrames));
 	            }
 	            if (!images.containsKey(orientation)) {
-	                List<LemmImage> newImages = new ArrayList<>(images.get(Orientation.NORMAL));
-	                for (ListIterator<LemmImage> lit = newImages.listIterator(); lit.hasNext(); ) {
-	                    LemmImage image = lit.next().transform(orientation.rotate(), orientation.flipHoriz(), orientation.flipVert());
+	                List<LemImage> newImages = new ArrayList<>(images.get(Orientation.NORMAL));
+	                for (ListIterator<LemImage> lit = newImages.listIterator(); lit.hasNext(); ) {
+	                    LemImage image = lit.next().transform(orientation.rotate(), orientation.flipHoriz(), orientation.flipVert());
 	                    lit.set(image);
 	                }
 	                images.put(orientation, newImages);
@@ -351,7 +351,7 @@ public class GraphicSet {
 	                        Resource resource = Core.findResource(
 	                                pathPrefix + "om_" + index + ".png",
 	                                Core.IMAGE_EXTENSIONS);
-	                        LemmImage sourceImage = Core.loadLemmImage(resource);
+	                        LemImage sourceImage = Core.loadLemImage(resource);
 	                        mask = new boolean[sourceImage.getHeight()][sourceImage.getWidth()];
 	                        for (int y = 0; y < mask.length; y++) {
 	                            for (int x = 0; x < mask[y].length; x++) {
@@ -376,7 +376,7 @@ public class GraphicSet {
         private final int index;
         private final String pathPrefix;
         private final boolean steel;
-        private LemmImage image = null;
+        private LemImage image = null;
         private boolean[][] mask = null;
         private boolean[][] steelMask = null;
 
@@ -390,7 +390,7 @@ public class GraphicSet {
             return steel;
         }
 
-        public LemmImage getImage() throws LemException {
+        public LemImage getImage() throws LemException {
         	try {
 	            if (image == null) {
 	                Resource resource;
@@ -402,7 +402,7 @@ public class GraphicSet {
 	                    resource = Core.findResource(pathPrefix + ".png",
 	                            Core.IMAGE_EXTENSIONS);
 	                }
-	                image = Core.loadLemmImage(resource);
+	                image = Core.loadLemImage(resource);
 	            }
 	            return image;
         	} catch (ResourceException ex) {
@@ -412,12 +412,12 @@ public class GraphicSet {
 
         public boolean[][] getMask() throws LemException {
             if (mask != null) return mask;
-            LemmImage sourceImage;
+            LemImage sourceImage;
             try {
                 Resource resource = (index >= 0)
                         ? Core.findResource(pathPrefix + "m_" + index + ".png", Core.IMAGE_EXTENSIONS)
                         : Core.findResource(pathPrefix + "m.png", Core.IMAGE_EXTENSIONS);
-                sourceImage = Core.loadLemmImage(resource);
+                sourceImage = Core.loadLemImage(resource);
             } catch (ResourceException ex) {
                 try {
                     sourceImage = getImage();
@@ -437,7 +437,7 @@ public class GraphicSet {
         public boolean[][] getSteelMask() throws LemException {
             if (steelMask == null) {
                 if (steel) {
-                    LemmImage sourceImage = getImage();
+                    LemImage sourceImage = getImage();
                     steelMask = new boolean[sourceImage.getHeight()][sourceImage.getWidth()];
                     for (int y = 0; y < steelMask.length; y++) {
                         for (int x = 0; x < steelMask[y].length; x++) {

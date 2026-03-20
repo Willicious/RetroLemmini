@@ -68,12 +68,12 @@ public class GraphicsContext {
      * space. Transparent pixels in the image do not affect whatever
      * pixels are already there.
      */
-    public void drawImage(LemmImage image, int x, int y) {
+    public void drawImage(LemImage image, int x, int y) {
         graphics.drawImage(image.getImage(), x, y, null);
     }
 
 
-    public void drawImage(LemmImage image, int x, int y, double scale) {
+    public void drawImage(LemImage image, int x, int y, double scale) {
         BufferedImage origImage = image.getImage();
         BufferedImage newResized = resize(origImage, (int)(image.getWidth() * scale), (int)(image.getHeight() * scale));
         graphics.drawImage(newResized, x, y, null);
@@ -129,7 +129,7 @@ public class GraphicsContext {
      * @see      java.awt.image.ImageObserver
      * @see      java.awt.image.ImageObserver#imageUpdate(java.awt.Image, int, int, int, int, int)
      */
-    public void drawImage(LemmImage image, int x, int y, int width, int height) {
+    public void drawImage(LemImage image, int x, int y, int width, int height) {
         graphics.drawImage(image.getImage(), x, y, width, height, null);
     }
 
@@ -171,7 +171,7 @@ public class GraphicsContext {
      * @see         java.awt.image.ImageObserver#imageUpdate(java.awt.Image, int, int, int, int, int)
      * @since       1.1
      */
-    public void drawImage(LemmImage image, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2) {
+    public void drawImage(LemImage image, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2) {
         graphics.drawImage(image.getImage(), dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, null);
     }
 
@@ -179,7 +179,7 @@ public class GraphicsContext {
         graphics.setRenderingHint(hintKey, hintValue);
     }
 
-    public void grabPixels(LemmImage image, int x, int y, int w, int h, int[] pix, int off, int scanSize) {
+    public void grabPixels(LemImage image, int x, int y, int w, int h, int[] pix, int off, int scanSize) {
         PixelGrabber pixelgrabber = new PixelGrabber(image.getImage(), x, y, w, h, pix, off, scanSize);
         try {
             pixelgrabber.grabPixels();
@@ -187,7 +187,7 @@ public class GraphicsContext {
         }
     }
 
-    public void copy(LemmImage source, LemmImage target) {
+    public void copy(LemImage source, LemImage target) {
         WritableRaster rImgSpr = target.getImage().getRaster();
         rImgSpr.setRect(source.getImage().getRaster()); // just copy
     }

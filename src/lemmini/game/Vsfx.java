@@ -1,6 +1,6 @@
 package lemmini.game;
 
-import lemmini.graphics.LemmImage;
+import lemmini.graphics.LemImage;
 
 /**
  * Implements Visual SFX
@@ -49,7 +49,7 @@ public class Vsfx {
     private int y;
     private int counter;
     private int subCounter;
-    private LemmImage image;
+    private LemImage image;
     private boolean isFinished;
 
     /** Lemmini runs at 33.33fps instead of 16.67fps */
@@ -109,7 +109,7 @@ public class Vsfx {
         return 48;
     }
 
-    public LemmImage getImage() {
+    public LemImage getImage() {
         return image;
     }
 

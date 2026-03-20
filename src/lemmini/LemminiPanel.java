@@ -68,7 +68,7 @@ import lemmini.gameutil.Fader;
 import lemmini.gameutil.MouseInput;
 import lemmini.graphics.GraphicsBuffer;
 import lemmini.graphics.GraphicsContext;
-import lemmini.graphics.LemmImage;
+import lemmini.graphics.LemImage;
 import lemmini.gui.HotkeyConfig;
 import lemmini.gui.LevelCodeDialog;
 import lemmini.gui.LevelDialog;
@@ -727,7 +727,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     /**
      * Replaces transparent pixels with black
      */
-    private static LemmImage setFullyOpaque(LemmImage img) {
+    private static LemImage setFullyOpaque(LemImage img) {
         int width = img.getWidth();
         int height = img.getHeight();
 
@@ -864,7 +864,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                     break;
                 case LEVEL:
                 case LEVEL_END:
-                    LemmImage fgImage = LemGame.getFgImage();
+                    LemImage fgImage = LemGame.getFgImage();
                     if (fgImage != null) {
                         // store local copy of offsets to avoid sync problems with AWT threads
                         int xOfsTemp = LemGame.getXPos();
@@ -936,7 +936,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                         }
 
                         if (XOffset > 0) {
-                            LemmImage filler = MiscGfx.getImage(MiscGfx.Index.ICONBAR_FILLER);
+                            LemImage filler = MiscGfx.getImage(MiscGfx.Index.ICONBAR_FILLER);
                             filler = setFullyOpaque(filler); // Overwrite transparency to ensure that vlock icon is hidden when not needed
                             offGfx.drawImage(filler, menuOffsetX + SMALL_X - XOffset, getIconBarY() - YOffset);
                             filler = null;
@@ -962,7 +962,7 @@ public class LemminiPanel extends JPanel implements Runnable {
 
 
                         // draw info string
-                        LemmImage outStrImg = outStrBuffer.getImage();
+                        LemImage outStrImg = outStrBuffer.getImage();
                         GraphicsContext outStrGfx = outStrBuffer.getGraphicsContext();
                         outStrGfx.clearRect(0, 0, outStrImg.getWidth(), outStrImg.getHeight());
                         int statusBarGap = 8; //8 pixels of padding between the bottom of the level and the top of the status line.
@@ -1048,23 +1048,23 @@ public class LemminiPanel extends JPanel implements Runnable {
                       		                         - xSpace - iconWidth - padding;                                
                                 
                                 // draw the lemming info status
-                                LemmImage lemmInfo = LemFont.strImage(String.format("%-15s", lemmingInfo));
+                                LemImage lemmInfo = LemFont.strImage(String.format("%-15s", lemmingInfo));
                                 offGfx.drawImage(lemmInfo, menuOffsetX + xLemInfo, yOffset);
 
                                 // draw hatch lemmings status (the number of lemmings yet to spawn / the maximum possible from the start)
-                                LemmImage lemmIconHatch = MiscGfx.getImage(Index.STATUS_HATCH);
+                                LemImage lemmIconHatch = MiscGfx.getImage(Index.STATUS_HATCH);
                                 offGfx.drawImage(lemmIconHatch, menuOffsetX + xHatch, yOffset);
                                 int xHatchW = lemmIconHatch.getWidth() + xSpace;
                                
-                                LemmImage lemmHatch = LemFont.strImage(String.format("%d", hatchLems), LemFont.LemmColor.GREEN);
+                                LemImage lemmHatch = LemFont.strImage(String.format("%d", hatchLems), LemFont.LemmColor.GREEN);
                                 offGfx.drawImage(lemmHatch, menuOffsetX + xHatch + xHatchW, yOffset);
                                 
                                 int xMaxLevelLemm = xHatch + xHatchW + lemmHatch.getWidth();
-                                LemmImage lemmLevelMax = LemFont.strImage("/" + String.format("%d", maxLevelLemm), LemFont.LemmColor.GREEN);
+                                LemImage lemmLevelMax = LemFont.strImage("/" + String.format("%d", maxLevelLemm), LemFont.LemmColor.GREEN);
                                 offGfx.drawImage(lemmLevelMax, menuOffsetX + xMaxLevelLemm, yOffset + 12, 0.5);
 
                                 // draw active lemmings status (the number of lemmings active in the level / the maximum currently possible)
-                                LemmImage lemmIconActive = MiscGfx.getImage(Index.STATUS_ACTIVE);
+                                LemImage lemmIconActive = MiscGfx.getImage(Index.STATUS_ACTIVE);
                                 offGfx.drawImage(lemmIconActive, menuOffsetX + xActive, yOffset);
                                 int xActiveW = lemmIconActive.getWidth() + xSpace;
                                 
@@ -1074,19 +1074,19 @@ public class LemminiPanel extends JPanel implements Runnable {
                                 } else {
                                 	activeLemColor = LemFont.LemmColor.GREEN;
                                 }
-                                LemmImage lemmActive = LemFont.strImage(String.format("%d", active), activeLemColor);
+                                LemImage lemmActive = LemFont.strImage(String.format("%d", active), activeLemColor);
                                 offGfx.drawImage(lemmActive, menuOffsetX + xActive + xActiveW, yOffset);
                                 
                                 int xMaxPossibleLemm = xActive + xActiveW + lemmActive.getWidth();
-                                LemmImage lemmPossibleMax = LemFont.strImage("/" + String.format("%d", maxPossibleLemm), activeLemColor);
+                                LemImage lemmPossibleMax = LemFont.strImage("/" + String.format("%d", maxPossibleLemm), activeLemColor);
                                 offGfx.drawImage(lemmPossibleMax, menuOffsetX + xMaxPossibleLemm, yOffset + 12, 0.5);
                                 
                                 // draw lemmings home status (the number of lemmings exited / the save requirement)
-                                LemmImage lemmIconHome = MiscGfx.getImage(Index.STATUS_HOME);
+                                LemImage lemmIconHome = MiscGfx.getImage(Index.STATUS_HOME);
                                 offGfx.drawImage(lemmIconHome, menuOffsetX + xHome, yOffset);
                                 int xHomeW = lemmIconHome.getWidth() + xSpace;
 
-                                LemmImage lemmHome;
+                                LemImage lemmHome;
                                 if (saveRequirement > exited) {
                                     lemmHome = LemFont.strImage(strHome, LemFont.LemmColor.RED); // not enough saved yet, show as red
                                 } else {
@@ -1095,11 +1095,11 @@ public class LemminiPanel extends JPanel implements Runnable {
                                 offGfx.drawImage(lemmHome, menuOffsetX + xHome + xHomeW, yOffset);
                                 
                                 int xhomeSubValue = xHome + xHomeW + lemmHome.getWidth();
-                                LemmImage lemmHomeSubValue = LemFont.strImage("/" + String.format("%d", homeSubValue), LemFont.LemmColor.GREEN);
+                                LemImage lemmHomeSubValue = LemFont.strImage("/" + String.format("%d", homeSubValue), LemFont.LemmColor.GREEN);
                                 offGfx.drawImage(lemmHomeSubValue, menuOffsetX + xhomeSubValue, yOffset + 12, 0.5);
                                 
                                 // draw time display (for time limit / infinite time)
-                                LemmImage lemmIconTime = MiscGfx.getImage(Index.STATUS_TIME);
+                                LemImage lemmIconTime = MiscGfx.getImage(Index.STATUS_TIME);
                                 offGfx.drawImage(lemmIconTime, menuOffsetX + xTime, yOffset);
                                 int xTimeW = lemmIconTime.getWidth() + xSpace;
                                 
@@ -1118,7 +1118,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                                 } else
                                 	timeColor = LemFont.LemmColor.BLUE; // infinite time
 
-                                LemmImage lemmTime = LemFont.strImage(String.format("%s", timeString), timeColor);
+                                LemImage lemmTime = LemFont.strImage(String.format("%s", timeString), timeColor);
                                 offGfx.drawImage(lemmTime, menuOffsetX + xTime + xTimeW, yOffset);
 
                                 lemmIconHatch = null;
@@ -1154,7 +1154,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                                 debugModeOffset += 13 * charWidth;
                             }
 
-                            LemmImage modeImage = LemFont.strImage(String.format("%s", debugModeString), LemFont.LemmColor.BLUE);
+                            LemImage modeImage = LemFont.strImage(String.format("%s", debugModeString), LemFont.LemmColor.BLUE);
                             offGfx.drawImage(modeImage, menuOffsetX + 4, LemminiFrame.LEVEL_HEIGHT + 2, 0.5);
                         }
 
@@ -1163,7 +1163,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                             String maxExitString = "MAX-EXIT ";
                             maxExitOffset += 9 * charWidth;
 
-                            LemmImage maxExitImage = LemFont.strImage(String.format("%s", maxExitString), LemFont.LemmColor.VIOLET);
+                            LemImage maxExitImage = LemFont.strImage(String.format("%s", maxExitString), LemFont.LemmColor.VIOLET);
                             offGfx.drawImage(maxExitImage, menuOffsetX + 4 + debugModeOffset, LemminiFrame.LEVEL_HEIGHT + 2, 0.5);
                         }
 
@@ -1172,13 +1172,13 @@ public class LemminiPanel extends JPanel implements Runnable {
                             String rating = LemGame.getCurLevelPack().getRatings().get(LemGame.getCurRating());
                             int levelNum = LemGame.getCurLevelNumber() + 1;
                             String levelName = rating + " " + levelNum + ": " + level.getLevelName().trim();
-                            LemmImage lemmLevelName = LemFont.strImage(levelName, LemFont.LemmColor.GREEN);
+                            LemImage lemmLevelName = LemFont.strImage(levelName, LemFont.LemmColor.GREEN);
                             offGfx.drawImage(lemmLevelName, menuOffsetX + 4 + debugModeOffset + maxExitOffset, LemminiFrame.LEVEL_HEIGHT + 2, 0.5);
                             lemmLevelName = null;
                         }
                         
                         // fall distance ruler
-                        LemmImage ruler = MiscGfx.getImage(MiscGfx.Index.RULER);
+                        LemImage ruler = MiscGfx.getImage(MiscGfx.Index.RULER);
                         if (ruler != null) {
                         	if (LemGame.drawRulerAtCursor == true) {
                         		int rx = LemCursor.getX() - ruler.getWidth() / 2;
@@ -1191,7 +1191,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                         }
 
                         // replay icon
-                        LemmImage replayImage = LemGame.getReplayImage();
+                        LemImage replayImage = LemGame.getReplayImage();
                         if (replayImage != null) {
                             offGfx.drawImage(replayImage, width - 2 * replayImage.getWidth(), replayImage.getHeight());
                         }
@@ -1206,7 +1206,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                             } else {
                                 int lx = lemmUnderCursor.footX() - xOfsTemp; //NOTE: footX() was .midX()
                                 int ly = lemmUnderCursor.midY() - yOfsTemp;
-                                LemmImage cursorImg = LemCursor.getBoxImage();
+                                LemImage cursorImg = LemCursor.getBoxImage();
                                 lx -= cursorImg.getWidth() / 2;
                                 ly -= cursorImg.getHeight() / 2;
                                 offGfx.drawImage(cursorImg, lx, ly);
@@ -1242,25 +1242,25 @@ public class LemminiPanel extends JPanel implements Runnable {
         Minimap.drawFrame(offGfx, menuOffsetX + getSmallX(), getSmallY());
         // draw minimap arrows
         if (minimapXOfsTemp > 0) {
-            LemmImage leftArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_LEFT);
+            LemImage leftArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_LEFT);
             offGfx.drawImage(leftArrow,
                     menuOffsetX + getSmallX() - BORDER_WIDTH - leftArrow.getWidth(),
                     getSmallY() + Minimap.getVisibleHeight() / 2 - leftArrow.getHeight() / 2);
         }
         if (minimapXOfsTemp < ToolBox.scale(LemGame.getWidth(), Minimap.getScaleX()) - Minimap.getVisibleWidth()) {
-            LemmImage rightArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_RIGHT);
+            LemImage rightArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_RIGHT);
             offGfx.drawImage(rightArrow,
                     menuOffsetX + getSmallX() + Minimap.getVisibleWidth() + BORDER_WIDTH,
                     getSmallY() + Minimap.getVisibleHeight() / 2 - rightArrow.getHeight() / 2);
         }
         if (yOfsTemp > 0) {
-            LemmImage upArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_UP);
+            LemImage upArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_UP);
             offGfx.drawImage(upArrow,
                     menuOffsetX + getSmallX() + Minimap.getVisibleWidth() / 2 - upArrow.getWidth() / 2,
                     getSmallY() - BORDER_WIDTH - upArrow.getHeight());
         }
         if (yOfsTemp < LemGame.getHeight() - LemminiFrame.LEVEL_HEIGHT) {
-            LemmImage downArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_DOWN);
+            LemImage downArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_DOWN);
             offGfx.drawImage(downArrow,
                     menuOffsetX + getSmallX() + Minimap.getVisibleWidth() / 2 - downArrow.getWidth() / 2,
                     getSmallY() + Minimap.getVisibleHeight() + BORDER_WIDTH);
@@ -1284,25 +1284,25 @@ public class LemminiPanel extends JPanel implements Runnable {
         //if the minimap goes off screen??
         // draw minimap arrows
         if (minimapXOfsTemp > 0) {
-            LemmImage leftArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_LEFT);
+            LemImage leftArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_LEFT);
             offGfx.drawImage(leftArrow,
                     menuOffsetX + getSmallX() - BORDER_WIDTH - leftArrow.getWidth(),
                     getSmallY() + Minimap.getVisibleHeight() / 2 - leftArrow.getHeight() / 2);
         }
         if (minimapXOfsTemp < ToolBox.scale(LemGame.getWidth(), Minimap.getScaleX()) - Minimap.getVisibleWidth()) {
-            LemmImage rightArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_RIGHT);
+            LemImage rightArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_RIGHT);
             offGfx.drawImage(rightArrow,
                     menuOffsetX + getSmallX() + Minimap.getVisibleWidth() + BORDER_WIDTH,
                     getSmallY() + Minimap.getVisibleHeight() / 2 - rightArrow.getHeight() / 2);
         }
         if (yOfsTemp > 0) {
-            LemmImage upArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_UP);
+            LemImage upArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_UP);
             offGfx.drawImage(upArrow,
                     menuOffsetX + getSmallX() + Minimap.getVisibleWidth() / 2 - upArrow.getWidth() / 2,
                     getSmallY() - BORDER_WIDTH - upArrow.getHeight());
         }
         if (yOfsTemp < LemGame.getHeight() - LemminiFrame.LEVEL_HEIGHT) {
-            LemmImage downArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_DOWN);
+            LemImage downArrow = MiscGfx.getImage(MiscGfx.Index.MINIMAP_ARROW_DOWN);
             offGfx.drawImage(downArrow,
                     menuOffsetX + getSmallX() + Minimap.getVisibleWidth() / 2 - downArrow.getWidth() / 2,
                     getSmallY() + Minimap.getVisibleHeight() + BORDER_WIDTH);
@@ -1310,7 +1310,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
 
     private void updateFrame() {
-        LemmImage fgImage = LemGame.getFgImage();
+        LemImage fgImage = LemGame.getFgImage();
         switch (LemGame.getGameState()) {
             case INTRO:
                 TextScreen.setMode(TextScreen.Mode.INTRO);
@@ -1506,8 +1506,8 @@ public class LemminiPanel extends JPanel implements Runnable {
             }
             int xOfs = LemGame.getXPos();
             int yOfs = LemGame.getYPos();
-            LemmImage fgImage = LemGame.getFgImage();
-            LemmImage fgImageSmall = Minimap.getImage();
+            LemImage fgImage = LemGame.getFgImage();
+            LemImage fgImageSmall = Minimap.getImage();
             Stencil stencil = LemGame.getStencil();
             double scaleX = (double) fgImageSmall.getWidth() / (double) fgImage.getWidth();
             double scaleY = (double) fgImageSmall.getHeight() / (double) fgImage.getHeight();
