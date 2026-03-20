@@ -7,13 +7,13 @@ import java.awt.Image;
 
 import javax.swing.Icon;
 
-public class LemmIcon implements Icon {
+public class LemIcon implements Icon {
 
     private final Image img10x;
     private final Image img15x;
     private final Image img20x;
 
-    public LemmIcon(Image img10x, Image img15x, Image img20x) {
+    public LemIcon(Image img10x, Image img15x, Image img20x) {
         this.img10x = img10x;
         this.img15x = img15x;
         this.img20x = img20x;

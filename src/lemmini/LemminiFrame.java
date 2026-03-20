@@ -77,7 +77,7 @@ import lemmini.gameutil.Hotkey;
 import lemmini.gameutil.LemHotkeys;
 import lemmini.gameutil.LemHotkeys.HotkeyAction;
 import lemmini.graphics.GraphicsContext;
-import lemmini.graphics.LemmIcon;
+import lemmini.graphics.LemIcon;
 import lemmini.graphics.LemmImage;
 import lemmini.sound.Music;
 import lemmini.tools.EditorTestMode;
@@ -540,7 +540,7 @@ public class LemminiFrame extends JFrame {
             BufferedImage img48 = sheet.getSubimage(0, 32, 48, 48);
             BufferedImage img64 = sheet.getSubimage(0, 80, 64, 64);
 
-            return new LemmIcon(img32, img48, img64);
+            return new LemIcon(img32, img48, img64);
 
         } catch (IOException e) {
             e.printStackTrace();
