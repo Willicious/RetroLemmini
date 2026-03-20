@@ -38,7 +38,7 @@ import lemmini.tools.ToolBox;
  * @author Ryan Sakowski
  * Modified by Will James
  */
-public class GraphicSet {
+public class LemStyle {
 
     public enum Orientation {
         NORMAL (false, false, false),
@@ -124,7 +124,7 @@ public class GraphicSet {
     private final List<LvlObject> objects;
     private final List<Terrain> terrain;
 
-    public GraphicSet(String name) throws LemException, ResourceException {
+    public LemStyle(String name) throws LemException, ResourceException {
         this.name = name;
         props = new Props();
 

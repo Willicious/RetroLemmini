@@ -140,7 +140,7 @@ public class SpriteObject extends Sprite {
     /**
      * Constructor.
      */
-    public SpriteObject(GraphicSet.LvlObject obj, GraphicSet.Orientation orientation, final boolean modifiable) throws LemException {
+    public SpriteObject(LemStyle.LvlObject obj, LemStyle.Orientation orientation, final boolean modifiable) throws LemException {
         super(obj.getImages(orientation), obj.getSpeed(), modifiable);
         animMode = obj.getAnimationMode();
         type = obj.getType();

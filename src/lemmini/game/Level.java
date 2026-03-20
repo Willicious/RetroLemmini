@@ -102,7 +102,7 @@ public class Level {
     }
 
     private final List<Props> levelProps;
-    private Map<String, GraphicSet> styles;
+    private Map<String, LemStyle> styles;
     /** the foreground stencil */
     private Stencil stencil;
     /** the foreground image */
@@ -165,7 +165,7 @@ public class Level {
     private final boolean forceNormalTimerSpeed;
     /** objects like doors - originally 32 objects where each consists of 8 bytes */
     private final List<LvlObject> objects;
-    private final GraphicSet mainStyle;
+    private final LemStyle mainStyle;
     private final String music;
     /** terrain the Lemmings walk on etc. - originally 400 tiles, 4 bytes each */
     private final List<Terrain> terrain;
@@ -339,7 +339,7 @@ public class Level {
         forceNormalTimerSpeed = Props.getBoolean(levelProps, "forceNormalTimerSpeed", false);
 
         styles = new HashMap<>(16);
-        mainStyle = new GraphicSet(styleName);
+        mainStyle = new LemStyle(styleName);
         styles.put(styleName.toLowerCase(Locale.ROOT), mainStyle);
 
         // read objects
@@ -483,9 +483,9 @@ public class Level {
             }
             String styleLowerCase = t.style.toLowerCase(Locale.ROOT);
             if (!styles.containsKey(styleLowerCase)) {
-                styles.put(styleLowerCase, new GraphicSet(t.style));
+                styles.put(styleLowerCase, new LemStyle(t.style));
             }
-            GraphicSet terrainStyle = styles.get(styleLowerCase);
+            LemStyle terrainStyle = styles.get(styleLowerCase);
 
             LemImage i;
             boolean[][] mask;
@@ -498,7 +498,7 @@ public class Level {
             int steelMaskHeight;
             boolean isSteel;
             
-            GraphicSet.Terrain t2 = terrainStyle.getTerrain(t.id);
+            LemStyle.Terrain t2 = terrainStyle.getTerrain(t.id);
             i = t2.getImage();
             mask = t2.getMask();
             steelMask = t2.getSteelMask();
@@ -674,9 +674,9 @@ public class Level {
             }
             String styleLowerCase = o.style.toLowerCase(Locale.ROOT);
             if (!styles.containsKey(styleLowerCase)) {
-                styles.put(styleLowerCase, new GraphicSet(o.style));
+                styles.put(styleLowerCase, new LemStyle(o.style));
             }
-            GraphicSet objectStyle = styles.get(styleLowerCase);
+            LemStyle objectStyle = styles.get(styleLowerCase);
 
             // flags
             boolean rotate = BooleanUtils.toBoolean(o.flags & LvlObject.FLAG_ROTATE);
@@ -685,7 +685,7 @@ public class Level {
             boolean upsideDownMask = BooleanUtils.toBoolean(o.flags & LvlObject.FLAG_UPSIDE_DOWN_MASK);
             boolean flipHorizontally = BooleanUtils.toBoolean(o.flags & LvlObject.FLAG_FLIP_HORIZONTALLY);
             // determine object by its ID
-            GraphicSet.LvlObject o2 = objectStyle.getObject(o.id);
+            LemStyle.LvlObject o2 = objectStyle.getObject(o.id);
             // check for one-way arrows (these are always drawn on terrain regardless of draw flags, and ignore transform data)
             boolean isOneWay = (o2.getType() == SpriteObject.Type.ONE_WAY_LEFT) || (o2.getType() == SpriteObject.Type.ONE_WAY_RIGHT)
             		        || (o2.getType() == SpriteObject.Type.ONE_WAY_DOWN) || (o2.getType() == SpriteObject.Type.ONE_WAY_UP);
@@ -697,7 +697,7 @@ public class Level {
             	flipHorizontally = false;
             }
             // create sprite object
-            SpriteObject spr = new SpriteObject(o2, GraphicSet.Orientation.getOrientation(flipHorizontally, upsideDown, rotate), false);
+            SpriteObject spr = new SpriteObject(o2, LemStyle.Orientation.getOrientation(flipHorizontally, upsideDown, rotate), false);
             spr.setX(o.xPos);
             spr.setY(o.yPos);
             // check for entrances
@@ -819,9 +819,9 @@ public class Level {
                     }
                     String styleLowerCase = t.style.toLowerCase(Locale.ROOT);
                     if (!styles.containsKey(styleLowerCase)) {
-                        styles.put(styleLowerCase, new GraphicSet(t.style));
+                        styles.put(styleLowerCase, new LemStyle(t.style));
                     }
-                    GraphicSet terrainStyle = styles.get(styleLowerCase);
+                    LemStyle terrainStyle = styles.get(styleLowerCase);
 
                     LemImage i = terrainStyle.getTerrain(t.id).getImage();
                     int width = i.getWidth();
@@ -899,17 +899,17 @@ public class Level {
                     }
                     String styleLowerCase = o.style.toLowerCase(Locale.ROOT);
                     if (!styles.containsKey(styleLowerCase)) {
-                        styles.put(styleLowerCase, new GraphicSet(o.style));
+                        styles.put(styleLowerCase, new LemStyle(o.style));
                     }
-                    GraphicSet objectStyle = styles.get(styleLowerCase);
+                    LemStyle objectStyle = styles.get(styleLowerCase);
 
                     // flags
                     boolean rotate = BooleanUtils.toBoolean(o.flags & LvlObject.FLAG_ROTATE);
                     boolean upsideDown = BooleanUtils.toBoolean(o.flags & LvlObject.FLAG_UPSIDE_DOWN);
                     boolean flipHorizontally = BooleanUtils.toBoolean(o.flags & LvlObject.FLAG_FLIP_HORIZONTALLY);
                     // create sprite object
-                    GraphicSet.LvlObject o2 = objectStyle.getObject(o.id);
-                    SpriteObject spr = new SpriteObject(o2, GraphicSet.Orientation.getOrientation(flipHorizontally, upsideDown, rotate), false);
+                    LemStyle.LvlObject o2 = objectStyle.getObject(o.id);
+                    SpriteObject spr = new SpriteObject(o2, LemStyle.Orientation.getOrientation(flipHorizontally, upsideDown, rotate), false);
                     spr.setX(o.xPos);
                     spr.setY(o.yPos);
                     // animated
