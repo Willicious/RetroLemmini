@@ -31,7 +31,7 @@ import lemmini.LemminiFrame;
  * @author Volker Oth
  * Modified by Ryan Sakowski, Charles Irwin and Will James
  */
-public class LegalFrame extends JFrame {
+public class DisclaimerDialog extends JFrame {
 
     /**
      *
@@ -41,9 +41,9 @@ public class LegalFrame extends JFrame {
     private URL thisURL;
 
     /**
-     * Creates new form LegalFrame
+     * Creates new form DisclaimerDialog
      */
-    public LegalFrame() {
+    public DisclaimerDialog() {
         initComponents();
         setMinimumSize(getSize());
     }
@@ -71,7 +71,7 @@ public class LegalFrame extends JFrame {
             }
         });
 
-        ClassLoader loader = LegalFrame.class.getClassLoader();
+        ClassLoader loader = DisclaimerDialog.class.getClassLoader();
         thisURL = loader.getResource("disclaimer.htm");
         jEditorPaneLegal.setEditable(false);
         try {

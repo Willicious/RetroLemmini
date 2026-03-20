@@ -33,7 +33,7 @@ import lemmini.gameutil.Hotkey;
 import lemmini.gameutil.MouseInput;
 import lemmini.gameutil.LemHotkeys;
 import lemmini.graphics.LemImage;
-import lemmini.gui.LegalFrame;
+import lemmini.gui.DisclaimerDialog;
 import lemmini.tools.CaseInsensitiveFileTree;
 import lemmini.tools.CommitID;
 import lemmini.tools.Props;
@@ -191,7 +191,7 @@ public class Core {
             // might exist or not - if not, it's created
             // show the Legal Disclaimer. And force the user to choose "I Agree."
             // NOTE: the Legal Disclaimer is loaded from "disclaimer.htm"
-            LegalFrame ld = new LegalFrame();
+            DisclaimerDialog ld = new DisclaimerDialog();
             ld.setVisible(true);
             ld.waitUntilClosed();
             if (!ld.isOK()) {
