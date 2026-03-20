@@ -32,7 +32,7 @@ import java.util.*;
  * Mouse input configuration dialog.
  * @author Will James
  */
-public class MouseConfig extends JDialog {
+public class MouseDialog extends JDialog {
 
     private static final long serialVersionUID = 1L;
 
@@ -46,7 +46,7 @@ public class MouseConfig extends JDialog {
     JCheckBox checkWheelBrushSize;
     JCheckBox checkClickAirToCancelReplay;
 
-    public MouseConfig(MouseInput mouseInput) {
+    public MouseDialog(MouseInput mouseInput) {
 
         this.mouseInput = mouseInput;
 
@@ -250,7 +250,7 @@ public class MouseConfig extends JDialog {
         MouseInput mi = new MouseInput();
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new MouseConfig(mi).setVisible(true);
+                new MouseDialog(mi).setVisible(true);
             }
         });
     }

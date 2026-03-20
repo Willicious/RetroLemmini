@@ -471,7 +471,7 @@ public class OptionsDialog extends JDialog {
 		jButtonConfigureMouse.setText("Configure Mouse");
 		jButtonConfigureMouse.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				parentPanel.handleMouseConfig();
+				parentPanel.handleMouseDialog();
 			}
 		});
 

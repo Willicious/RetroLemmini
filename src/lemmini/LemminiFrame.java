@@ -431,7 +431,7 @@ public class LemminiFrame extends JFrame {
         jMenuItemMouse.setText("Mouse" + padding);
         jMenuItemMouse.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-            	lemminiPanelMain.handleMouseConfig();
+            	lemminiPanelMain.handleMouseDialog();
             }
         });
 
@@ -760,7 +760,7 @@ public class LemminiFrame extends JFrame {
                 lemminiPanelMain.handleHotkeyDialog();
                 break;
             case HotkeyManageMouse:
-                lemminiPanelMain.handleMouseConfig();
+                lemminiPanelMain.handleMouseDialog();
                 break;
             case HotkeyAbout:
                 handleAbout();
