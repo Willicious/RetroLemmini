@@ -66,7 +66,7 @@ import lemmini.game.Core;
 import lemmini.game.LemGame;
 import lemmini.game.Icons;
 import lemmini.game.LemCursor;
-import lemmini.game.LemmException;
+import lemmini.game.LemException;
 import lemmini.game.Lemming;
 import lemmini.game.Level;
 import lemmini.game.LevelPack;
@@ -140,7 +140,7 @@ public class LemminiFrame extends JFrame {
             if (!successful) {
                 System.exit(0);
             }
-        } catch (LemmException ex) {
+        } catch (LemException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         } catch (Throwable ex) {

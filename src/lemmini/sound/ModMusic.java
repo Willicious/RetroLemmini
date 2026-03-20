@@ -13,7 +13,7 @@ import ibxm.Channel;
 import ibxm.IBXM;
 import ibxm.Module;
 import lemmini.game.LemGame;
-import lemmini.game.LemmException;
+import lemmini.game.LemException;
 import lemmini.game.Resource;
 import lemmini.game.ResourceException;
 import lemmini.tools.ToolBox;
@@ -57,7 +57,7 @@ public class ModMusic implements Runnable, MusicPlayer {
      * Load MOD file, initialize player.
      */
     @Override
-    public void load(final Resource resource, final boolean loop) throws ResourceException, LemmException {
+    public void load(final Resource resource, final boolean loop) throws ResourceException, LemException {
         if (modThread != null) {
             close();
         }
@@ -68,7 +68,7 @@ public class ModMusic implements Runnable, MusicPlayer {
         } catch (FileNotFoundException ex) {
             throw new ResourceException(resource);
         } catch (IOException ex) {
-            throw new LemmException(resource.getFileName() + " (IO exception)");
+            throw new LemException(resource.getFileName() + " (IO exception)");
         }
         int sampleRate = ToolBox.cap(8000, (int) LemGame.sound.getSampleRate(), 128000);
         ibxm = new IBXM(module, sampleRate);

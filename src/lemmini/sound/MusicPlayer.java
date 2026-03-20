@@ -16,7 +16,7 @@
 
 package lemmini.sound;
 
-import lemmini.game.LemmException;
+import lemmini.game.LemException;
 import lemmini.game.Resource;
 import lemmini.game.ResourceException;
 
@@ -25,7 +25,7 @@ public interface MusicPlayer {
     /**
      * Load file, initialize player.
      */
-    void load(Resource resource, boolean loop) throws ResourceException, LemmException;
+    void load(Resource resource, boolean loop) throws ResourceException, LemException;
 
     void stop();
     void play();

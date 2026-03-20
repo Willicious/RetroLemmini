@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.io.FilenameUtils;
 
 import lemmini.game.Core;
-import lemmini.game.LemmException;
+import lemmini.game.LemException;
 import lemmini.game.Resource;
 import lemmini.game.ResourceException;
 
@@ -75,7 +75,7 @@ public class Music {
         try {
             midiMusic = new MidiMusic();
             midiAvailable = true;
-        } catch (LemmException e) {
+        } catch (LemException e) {
             midiAvailable = false;
         }
     }
@@ -83,14 +83,14 @@ public class Music {
     /**
      * Load music file.
      */
-    public static void load(final String fName) throws ResourceException, LemmException {
+    public static void load(final String fName) throws ResourceException, LemException {
         close();
         playing = false;
         Resource resource = Core.findResource(fName, Core.MUSIC_EXTENSIONS);
         switch (FilenameUtils.getExtension(resource.getFileName()).toLowerCase(Locale.ROOT)) {
             case "mid":
                 if (!midiAvailable) {
-                    throw new LemmException("MIDI not supported.");
+                    throw new LemException("MIDI not supported.");
                 }
                 musicPlayer = midiMusic;
                 type = Type.MIDI;

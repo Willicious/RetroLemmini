@@ -23,7 +23,7 @@ import javax.sound.midi.Track;
 import javax.sound.midi.Transmitter;
 
 import lemmini.game.Core;
-import lemmini.game.LemmException;
+import lemmini.game.LemException;
 import lemmini.game.Resource;
 import lemmini.game.ResourceException;
 
@@ -65,21 +65,21 @@ public class MidiMusic implements MusicPlayer {
     /**
      * Constructor.
      */
-    public MidiMusic() throws LemmException {
+    public MidiMusic() throws LemException {
         try {
             canPlay = false;
             sequencer = MidiSystem.getSequencer(false);
             synthesizer = MidiSystem.getSynthesizer();
             if (sequencer == null || synthesizer == null) {
-                throw new LemmException("MIDI not supported.");
+                throw new LemException("MIDI not supported.");
             }
         } catch (MidiUnavailableException ex) {
-            throw new LemmException("MIDI not supported.");
+            throw new LemException("MIDI not supported.");
         }
     }
 
     @Override
-    public void load(final Resource resource, final boolean loop) throws ResourceException, LemmException {
+    public void load(final Resource resource, final boolean loop) throws ResourceException, LemException {
     close();
         try {
             synthesizer = MidiSystem.getSynthesizer();
@@ -119,13 +119,13 @@ public class MidiMusic implements MusicPlayer {
                 //});
             }
         } catch (InvalidMidiDataException ex) {
-            throw new LemmException(resource.getFileName() + " (Invalid MIDI data)");
+            throw new LemException(resource.getFileName() + " (Invalid MIDI data)");
         } catch (FileNotFoundException ex) {
             throw new ResourceException(resource);
         } catch (IOException ex) {
-            throw new LemmException(resource.getFileName() + " (IO exception)");
+            throw new LemException(resource.getFileName() + " (IO exception)");
         } catch (MidiUnavailableException ex) {
-            throw new LemmException("MIDI not supported.");
+            throw new LemException("MIDI not supported.");
         }
     }
 

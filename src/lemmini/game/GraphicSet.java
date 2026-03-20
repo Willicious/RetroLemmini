@@ -124,7 +124,7 @@ public class GraphicSet {
     private final List<LvlObject> objects;
     private final List<Terrain> terrain;
 
-    public GraphicSet(String name) throws LemmException, ResourceException {
+    public GraphicSet(String name) throws LemException, ResourceException {
         this.name = name;
         props = new Props();
 
@@ -134,7 +134,7 @@ public class GraphicSet {
         String pathPrefix = "styles/" + name + "/" + name;
         Resource resource = Core.findResource(pathPrefix + ".ini", true);
         if (!props.load(resource)) {
-            throw new LemmException("Unable to read " + name + ".ini.");
+            throw new LemException("Unable to read " + name + ".ini.");
         }
 
         // first some global settings
@@ -214,19 +214,19 @@ public class GraphicSet {
         return particleColor;
     }
 
-    public LvlObject getObject(int idx) throws LemmException {
+    public LvlObject getObject(int idx) throws LemException {
         try {
             return objects.get(idx);
         } catch (IndexOutOfBoundsException e) {
-            throw new LemmException(Core.stylePieceIndexError(name, "object", idx));
+            throw new LemException(Core.stylePieceIndexError(name, "object", idx));
         }
     }
 
-    public Terrain getTerrain(int idx) throws LemmException {
+    public Terrain getTerrain(int idx) throws LemException {
         try {
             return terrain.get(idx);
         } catch (IndexOutOfBoundsException e) {
-            throw new LemmException(Core.stylePieceIndexError(name, "terrain", idx));
+            throw new LemException(Core.stylePieceIndexError(name, "terrain", idx));
         }
     }
 
@@ -310,7 +310,7 @@ public class GraphicSet {
             return sound;
         }
 
-        public List<LemmImage> getImages(Orientation orientation) throws LemmException {
+        public List<LemmImage> getImages(Orientation orientation) throws LemException {
         	try {
 	            if (!images.containsKey(Orientation.NORMAL)) {
 	                Resource resource = Core.findResource(
@@ -329,11 +329,11 @@ public class GraphicSet {
 	            }
 	            return images.get(orientation);
         	} catch (ResourceException ex) {
-                throw new LemmException(Core.stylePieceResourceError(name, "object", index));
+                throw new LemException(Core.stylePieceResourceError(name, "object", index));
             }
         }
 
-        public boolean[][] getMask() throws LemmException {
+        public boolean[][] getMask() throws LemException {
         	try {
 	            if (mask == null) {
 	                switch (type) {
@@ -366,7 +366,7 @@ public class GraphicSet {
 	            }
 	            return mask;
 	        } catch  (ResourceException ex) {
-	            throw new LemmException(Core.stylePieceResourceError(name, "object", index));
+	            throw new LemException(Core.stylePieceResourceError(name, "object", index));
 	        }
         }
     }
@@ -390,7 +390,7 @@ public class GraphicSet {
             return steel;
         }
 
-        public LemmImage getImage() throws LemmException {
+        public LemmImage getImage() throws LemException {
         	try {
 	            if (image == null) {
 	                Resource resource;
@@ -406,11 +406,11 @@ public class GraphicSet {
 	            }
 	            return image;
         	} catch (ResourceException ex) {
-                throw new LemmException(Core.stylePieceResourceError(name, "terrain", index));
+                throw new LemException(Core.stylePieceResourceError(name, "terrain", index));
         	}
         }
 
-        public boolean[][] getMask() throws LemmException {
+        public boolean[][] getMask() throws LemException {
             if (mask != null) return mask;
             LemmImage sourceImage;
             try {
@@ -421,8 +421,8 @@ public class GraphicSet {
             } catch (ResourceException ex) {
                 try {
                     sourceImage = getImage();
-                } catch (LemmException e) {
-                    throw new LemmException(Core.stylePieceResourceError(name, "terrain", index));
+                } catch (LemException e) {
+                    throw new LemException(Core.stylePieceResourceError(name, "terrain", index));
                 }
             }
             mask = new boolean[sourceImage.getHeight()][sourceImage.getWidth()];
@@ -434,7 +434,7 @@ public class GraphicSet {
             return mask;
         }
 
-        public boolean[][] getSteelMask() throws LemmException {
+        public boolean[][] getSteelMask() throws LemException {
             if (steelMask == null) {
                 if (steel) {
                     LemmImage sourceImage = getImage();

@@ -115,37 +115,37 @@ public class ReplayStream {
     /**
      * Load replay buffer from file.
      */
-    public ReplayLevelInfo load(final Path fname) throws LemmException {
+    public ReplayLevelInfo load(final Path fname) throws LemException {
         try (BufferedReader br = ToolBox.getBufferedReader(fname)) {
             List<ReplayEvent> ev = new ArrayList<>(256);
             String line = br.readLine();
             if (!line.equals("#REPLAY NEW")) {
-                throw new LemmException("First line of replay does not equal \"#REPLAY NEW\".");
+                throw new LemException("First line of replay does not equal \"#REPLAY NEW\".");
             }
             line = br.readLine();
             if (line.startsWith("#FORMAT ")) {
                 format = Integer.parseInt(line.substring(8).trim());
                 if (format > CURRENT_FORMAT) {
-                    throw new LemmException(String.format("Unsupported replay format: %d", format));
+                    throw new LemException(String.format("Unsupported replay format: %d", format));
                 }
             } else {
-                throw new LemmException("Replay file does not specify a format.");
+                throw new LemException("Replay file does not specify a format.");
             }
 
             line = br.readLine();
             if (line.startsWith("#REVISION ")) {
                 revision = line.substring(10).trim();
             } else {
-                throw new LemmException("Replay file does not specify a revision.");
+                throw new LemException("Replay file does not specify a revision.");
             }
             line = br.readLine();
             if (line.startsWith("#Players ")) {
                 players = Integer.parseInt(line.substring(9).trim());
                 if (players != 1) {
-                    throw new LemmException("Replay file does not contain exactly one player.");
+                    throw new LemException("Replay file does not contain exactly one player.");
                 }
             } else {
-                throw new LemmException("Replay file does not specify a player count.");
+                throw new LemException("Replay file does not specify a player count.");
             }
             // read level info
             line = br.readLine();
@@ -154,7 +154,7 @@ public class ReplayStream {
                 e[j] = e[j].trim();
             }
             if (e.length < 3 || e[0].charAt(0) != '#') {
-                throw new LemmException("Replay file does not specify a level.");
+                throw new LemException("Replay file does not specify a level.");
             }
             ReplayLevelInfo rli = new ReplayLevelInfo();
             rli.setLevelPack(e[0].substring(1));
@@ -180,13 +180,13 @@ public class ReplayStream {
                     e[i] = e[i].trim();
                 }
                 if (e.length < 2) {
-                    throw new LemmException("Not enough values in replay event.");
+                    throw new LemException("Not enough values in replay event.");
                 }
 
                 switch (Integer.parseInt(e[1])) { /* type */
                 case ASSIGN_SKILL:
                         if (e.length < 4) { // 4 values for backwards-compatibility with old replays
-                            throw new LemmException("Not enough values in replay event for ASSIGN_SKILL.");
+                            throw new LemException("Not enough values in replay event for ASSIGN_SKILL.");
                         }
 
                         // If 5th value (Timed/Untimed Bomber) is missing, use the current user setting
@@ -203,7 +203,7 @@ public class ReplayStream {
                         break;
                     case MOVE_POS:
                         if (e.length < 5) {
-                            throw new LemmException("Not enough values in replay event.");
+                            throw new LemException("Not enough values in replay event.");
                         }
                         ev.add(new ReplayMovePosEvent(Integer.parseInt(e[0]),
                                 Integer.parseInt(e[2]),
@@ -212,7 +212,7 @@ public class ReplayStream {
                         break;
                     case SELECT_SKILL:
                         if (e.length < 4) {
-                            throw new LemmException("Not enough values in replay event.");
+                            throw new LemException("Not enough values in replay event.");
                         }
                         ev.add(new ReplaySelectSkillEvent(Integer.parseInt(e[0]),
                                 Lemming.Type.valueOf(e[2]),
@@ -220,7 +220,7 @@ public class ReplayStream {
                         break;
                     case SET_RELEASE_RATE:
                         if (e.length < 3) {
-                            throw new LemmException("Not enough values in replay event.");
+                            throw new LemException("Not enough values in replay event.");
                         }
                         ev.add(new ReplayReleaseRateEvent(Integer.parseInt(e[0]),
                                 Integer.parseInt(e[2])));
@@ -232,7 +232,7 @@ public class ReplayStream {
                         ev.add(new ReplayEvent(Integer.parseInt(e[0]), END));
                         break;
                     default:
-                        throw new LemmException(String.format("Unsupported event found: %s", e[1]));
+                        throw new LemException(String.format("Unsupported event found: %s", e[1]));
                 }
             }
             events = ev;
@@ -243,7 +243,7 @@ public class ReplayStream {
             }
             return rli;
         } catch (IOException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new LemmException("Error reading replay file.");
+            throw new LemException("Error reading replay file.");
         }
     }
     

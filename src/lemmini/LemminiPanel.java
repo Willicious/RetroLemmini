@@ -48,7 +48,7 @@ import lemmini.game.LemGame;
 import lemmini.game.LemGame.Option;
 import lemmini.game.Icons;
 import lemmini.game.LemCursor;
-import lemmini.game.LemmException;
+import lemmini.game.LemException;
 import lemmini.game.LemmFont;
 import lemmini.game.Lemming;
 import lemmini.game.Level;
@@ -1960,7 +1960,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                 }
                 // else: no success
                 JOptionPane.showMessageDialog(getParent(), "Wrong format!", "Load Replay", JOptionPane.ERROR_MESSAGE);
-            } catch (LemmException ex) {
+            } catch (LemException ex) {
                 JOptionPane.showMessageDialog(getParent(), ex.getMessage(), "Load Replay", JOptionPane.ERROR_MESSAGE);
             } catch (Exception ex) {
                 ToolBox.showException(ex);

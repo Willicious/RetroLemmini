@@ -189,7 +189,7 @@ public class Level {
     /**
      * Load a level and all level resources.
      */
-    public Level(final Resource resource, final Level level2) throws ResourceException, LemmException {
+    public Level(final Resource resource, final Level level2) throws ResourceException, LemException {
         levelProps = new ArrayList<>(4);
         hints = new ArrayList<>(4);
         // read level properties from file
@@ -261,7 +261,7 @@ public class Level {
         numLemmings = Props.getInt(levelProps, "numLemmings", 1);
         // sanity check: ensure that there are lemmings in the level to avoid division by 0
         if (numLemmings <= 0) {
-            throw new LemmException("No lemmings in level.");
+            throw new LemException("No lemmings in level.");
         }
         //out("numLemmings = " + numLemmings);
         numToRescue = Props.getInt(levelProps, "numToRescue", 0);
@@ -476,7 +476,7 @@ public class Level {
         }
     }
 
-    void paintTerrain() throws ResourceException, LemmException {
+    void paintTerrain() throws ResourceException, LemException {
         for (Terrain t : terrain) {
             if (t.id < 0) {
                 continue;
@@ -664,7 +664,7 @@ public class Level {
         });
     }
 
-    void paintObjects() throws ResourceException, LemmException {
+    void paintObjects() throws ResourceException, LemException {
         for (ListIterator<LvlObject> lit = objects.listIterator(); lit.hasNext(); ) {
             int n = lit.nextIndex();
             LvlObject o = lit.next();
@@ -798,7 +798,7 @@ public class Level {
         }
     }
 
-    void paintBackground() throws ResourceException, LemmException {
+    void paintBackground() throws ResourceException, LemException {
         if (ArrayUtils.isNotEmpty(bgImages)) {
             List<SpriteObject> bgOCombined = new ArrayList<>(32);
             List<SpriteObject> bgOFront = new ArrayList<>(32);
@@ -961,7 +961,7 @@ public class Level {
     /**
      * Paint a level.
      */
-    void paintLevel() throws ResourceException, LemmException {
+    void paintLevel() throws ResourceException, LemException {
         // flush all resources
         sprObjFront = null;
         sprObjBehind = null;

@@ -22,21 +22,21 @@ package lemmini.game;
  * @author Volker Oth
  * Modified by Ryan Sakowski
  */
-public class LemmException extends Exception {
+public class LemException extends Exception {
 
     private static final long serialVersionUID = 0x00000001L;
 
     /**
      * Constructor.
      */
-    public LemmException() {
+    public LemException() {
         super();
     }
 
     /**
      * Constructor.
      */
-    public LemmException(final String s) {
+    public LemException(final String s) {
         super(s);
     }
 }

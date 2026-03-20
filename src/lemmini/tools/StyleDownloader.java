@@ -30,7 +30,7 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 
 import lemmini.game.Core;
-import lemmini.game.LemmException;
+import lemmini.game.LemException;
 
 /**
  * Downloads the latest styles from the specified URL.
@@ -127,7 +127,7 @@ public class StyleDownloader {
 	public static void reInitializeCore() {
         try {
 			Core.init(Core.getJarDirectory());
-		} catch (LemmException e) {
+		} catch (LemException e) {
 		} catch (IOException e) {
 		}
 	}

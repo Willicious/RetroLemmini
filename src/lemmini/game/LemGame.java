@@ -623,7 +623,7 @@ public class LemGame {
     /**
      * Restart level.
      */
-    private static synchronized void restartLevel(final boolean doReplay, final boolean showPreview) throws LemmException, ResourceException {
+    private static synchronized void restartLevel(final boolean doReplay, final boolean showPreview) throws LemException, ResourceException {
         if (!replayMode && wasLost() && (gameState == State.LEVEL
                 || gameState == State.LEVEL_END
                 || gameState == State.POSTVIEW)) {
@@ -643,7 +643,7 @@ public class LemGame {
     /**
      * Initialize a level after it was loaded.
      */
-    private static synchronized void initLevel(boolean showPreview) throws LemmException, ResourceException {
+    private static synchronized void initLevel(boolean showPreview) throws LemException, ResourceException {
         if (showPreview) {
         	Music.stop();
         }
@@ -768,7 +768,7 @@ public class LemGame {
 	        	} catch (ResourceException ex2) {
 	        		music = "";
 	        	}
-	        } catch (LemmException ex) {
+	        } catch (LemException ex) {
 	            if (music==null) {
 	                music = "";
 	            }
@@ -785,7 +785,7 @@ public class LemGame {
 	            } catch (ResourceException ex2) {
 	                Core.musicResourceError(music);
 	                return;
-	            } catch (LemmException ex2) {
+	            } catch (LemException ex2) {
 	                JOptionPane.showMessageDialog(null, "Unable to load music resource:\n" + ex2.getMessage() + "\n\nNo music will play for this level.", "Error Loading Music", JOptionPane.ERROR_MESSAGE);
 	            }
 	        }
@@ -847,7 +847,7 @@ public class LemGame {
     /**
      * Start a new level.
      */
-    private static synchronized Level changeLevel(final int lPack, final int rating, final int lNum, final boolean doReplay) throws LemmException, ResourceException {
+    private static synchronized Level changeLevel(final int lPack, final int rating, final int lNum, final boolean doReplay) throws LemException, ResourceException {
         timesFailed = 0;
 
         curLevelPack = lPack;
@@ -1846,7 +1846,7 @@ public class LemGame {
                     } catch (ResourceException ex) {
                         Core.resourceError(ex.getMessage());
                         return;
-                    } catch (LemmException ex) {
+                    } catch (LemException ex) {
                         JOptionPane.showMessageDialog(LemminiFrame.getFrame(), ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         System.exit(1);
                     }
@@ -1864,7 +1864,7 @@ public class LemGame {
                     	String targetlevel = Integer.toString(nextLevelNumber);
                         Core.missingLevelError("[" + pack + "] 'level_" + rating + "_" + targetlevel + "'");
                         return;
-                    } catch (LemmException ex) {
+                    } catch (LemException ex) {
                         JOptionPane.showMessageDialog(LemminiFrame.getFrame(), ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         Core.returnToMainMenu();
                     }
@@ -2295,7 +2295,7 @@ public class LemGame {
     /**
      * Load a replay.
      */
-    public static ReplayLevelInfo loadReplay(final Path fn) throws LemmException {
+    public static ReplayLevelInfo loadReplay(final Path fn) throws LemException {
         return replay.load(fn);
     }
 
@@ -2880,9 +2880,9 @@ class TrapDoor {
     /**
      * Reset to new number of entrances.
      */
-    static void reset(final int e, final int[] eOrder) throws LemmException {
+    static void reset(final int e, final int[] eOrder) throws LemException {
         if (e == 0) {
-            throw new LemmException("Level does not have any entrances.");
+            throw new LemException("Level does not have any entrances.");
         }
         if (eOrder == null) {
             if (e == 3) {
@@ -2902,7 +2902,7 @@ class TrapDoor {
                 }
             }
             if (newSize == 0) {
-                throw new LemmException("No entrances in this level are used.");
+                throw new LemException("No entrances in this level are used.");
             }
             if (newSize == eOrder.length) {
                 entranceOrder = eOrder.clone();

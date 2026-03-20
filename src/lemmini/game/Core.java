@@ -159,7 +159,7 @@ public class Core {
     /**
      * Initialize some core elements (settings, resources, etc)
      */
-    public static boolean init(String workingFolder) throws LemmException, IOException  {
+    public static boolean init(String workingFolder) throws LemException, IOException  {
         System.out.println("\ninitializing Core...");
         String tmp;// = java.net.URLDecoder.decode(workingFolder, "UTF-8");
         tmp = new java.io.File(workingFolder).getPath();
@@ -283,7 +283,7 @@ public class Core {
                 System.out.println("    resourcePath is invalid...");
             }
             System.out.println("    quitting...");
-            throw new LemmException(String.format("Resources folder is missing from " + gamePath + ". The program will now quit.", (Object[])null));
+            throw new LemException(String.format("Resources folder is missing from " + gamePath + ". The program will now quit.", (Object[])null));
         }
 
         // Create folders (if they don't already exist)

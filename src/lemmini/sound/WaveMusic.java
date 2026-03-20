@@ -30,7 +30,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import lemmini.game.Core;
 import lemmini.game.LemGame;
-import lemmini.game.LemmException;
+import lemmini.game.LemException;
 import lemmini.game.Resource;
 import lemmini.game.ResourceException;
 
@@ -50,7 +50,7 @@ public class WaveMusic implements Runnable, MusicPlayer {
     private Thread waveThread;
 
     @Override
-    public void load(final Resource resource, final boolean loop) throws ResourceException, LemmException {
+    public void load(final Resource resource, final boolean loop) throws ResourceException, LemException {
         if (waveThread != null) {
             close();
         }
@@ -96,9 +96,9 @@ public class WaveMusic implements Runnable, MusicPlayer {
         } catch (FileNotFoundException ex) {
             throw new ResourceException(resource);
         } catch (IOException ex) {
-            throw new LemmException(resource + " (IO exception)");
+            throw new LemException(resource + " (IO exception)");
         } catch (UnsupportedAudioFileException ex) {
-            throw new LemmException(resource.getFileName() + " (Unsupported Audio File)");
+            throw new LemException(resource.getFileName() + " (Unsupported Audio File)");
         }
         waveThread = new Thread(this);
         waveThread.start();
