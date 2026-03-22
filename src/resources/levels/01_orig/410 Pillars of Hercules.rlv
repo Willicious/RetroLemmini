@@ -1,11 +1,11 @@
 ﻿# LVL 410 Pillars of Hercules.rlv
-# Created with RetroLemmini Editor Version 1.2
-# RetroLemmini Level Version 3
+# Created with RetroLemmini Editor Version 1.4
+# RetroLemmini Level Version 5
 
 # Level stats
 name = Pillars of Hercules
 author = 
-version = 3
+version = 5
 releaseRate = 1
 maxReleaseRate = 99
 lockReleaseRate = False
@@ -22,6 +22,7 @@ numMiners = 0
 numDiggers = 2
 xPosCenter = 796
 yPosCenter = 160
+directDrop = False
 superlemming = False
 forceNormalTimerSpeed = True
 maxFallDistance = 126
@@ -39,13 +40,13 @@ rightBoundary = -16
 # ID, X pos, Y pos, paint mode, flags, (optional) object-specific modifier
 # Paint modes (one value only): 0 = full, 2 = invisible, 4 = no overwrite, 8 = only on terrain
 # Flags (combining allowed): 1 = inverted, 2 = fake, 4 = inverted trigger, 8 = flipped, 16 = rotated
-object_0 = 1, 748, 16, 4, 0, 0
+object_0 = 1, 749, 16, 4, 0, 0
 object_1 = 5, 844, 248, 4, 0, 0
 object_2 = 5, 620, 248, 4, 0, 0
 object_3 = 5, 492, 248, 4, 0, 0
 object_4 = 5, 972, 248, 4, 0, 0
-object_5 = 6, 1324, 64, 4, 0, 0
-object_6 = 6, 172, 64, 4, 0, 0
+object_5 = 6, 1320, 64, 4, 0, 0
+object_6 = 6, 170, 64, 4, 0, 0
 
 # Terrain
 # ID, X pos, Y pos, flags
