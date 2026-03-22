@@ -172,9 +172,15 @@ public class ReplayStream {
             }
             // read direct drop status
             line = br.readLine();
-            setDirectDropActive(line.startsWith("#Direct Drop Active"));
+            if (line != null && line.startsWith("#Direct Drop")) {
+                setDirectDropActive(line.trim().equalsIgnoreCase("#Direct Drop Active"));
+                line = br.readLine(); // move to first event
+            } else {
+            	setDirectDropActive(false);
+            	// backwards compatibility - do NOT move to first event, this line *IS* the first event
+            }
             // read events
-            while ((line = br.readLine()) != null) {
+            while (line  != null) {
                 e = line.split(",");
                 for (int i = 0; i < e.length; i++) {
                     e[i] = e[i].trim();
@@ -182,13 +188,11 @@ public class ReplayStream {
                 if (e.length < 2) {
                     throw new LemException("Not enough values in replay event.");
                 }
-
                 switch (Integer.parseInt(e[1])) { /* type */
                 case ASSIGN_SKILL:
                         if (e.length < 4) { // 4 values for backwards-compatibility with old replays
                             throw new LemException("Not enough values in replay event for ASSIGN_SKILL.");
                         }
-
                         // If 5th value (Timed/Untimed Bomber) is missing, use the current user setting
                         boolean isTimedBomber = (e.length >= 5)
                             ? Boolean.parseBoolean(e[4])
@@ -234,6 +238,7 @@ public class ReplayStream {
                     default:
                         throw new LemException(String.format("Unsupported event found: %s", e[1]));
                 }
+                line = br.readLine(); // move to next line
             }
             events = ev;
             if (Core.compareVersions(revision, COMPATIBILITY_REVISION) < 0) {
@@ -272,10 +277,8 @@ public class ReplayStream {
             w.write(String.format("#%s, %d, %d, %s, %s",
                     lp.getName().trim(), LemGame.getCurRating(), LemGame.getCurLevelNumber(),
                     lp.getRatings().get(LemGame.getCurRating()).trim(), LemGame.getLevel().getLevelName().trim()));
-            if (LemGame.isOptionEnabled(LemGame.Option.DIRECT_DROP)) {
-            	w.newLine();
-            	w.write("#Direct Drop Active");
-            }
+            w.newLine();
+            w.write(LemGame.isOptionEnabled(LemGame.Option.DIRECT_DROP) ? "#Direct Drop Active" : "#Direct Drop Inactive");
             w.newLine();
             for (ReplayEvent r : events) {
                 w.write(r.toString()); // will use toString of the correct child object
