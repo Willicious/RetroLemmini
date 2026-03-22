@@ -969,25 +969,9 @@ public class LemminiFrame extends JFrame {
     }//GEN-LAST:event_formKeyPressed
 
     private void formKeyReleased(KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
-        int code = evt.getKeyCode();
-        boolean isLevel = LemGame.getGameState() == LemGame.State.LEVEL;
-        
-        // Hard-coded keys
-        if (isLevel) {
-            switch (code) {
-                case KeyEvent.VK_SHIFT:
-                    LemGame.setShiftPressed(false);
-                    break;
-                case KeyEvent.VK_CONTROL:
-                	LemGame.setCtrlPressed(false);
-                    break;
-                case KeyEvent.VK_ALT:
-                	LemGame.setAltPressed(false);
-                    break;
-                default:
-                    break;
-            }
-        }
+        //int code = evt.getKeyCode();
+        boolean isLevel = LemGame.getGameState() == LemGame.State.LEVEL;       
+        if (isLevel) LemGame.resetModifierKeys();
         
         LemHotkeys.HotkeyAction action = 
                 LemHotkeys.getHotkeyActionForEvent(evt, LemGame.activeHotkeys);
