@@ -8,6 +8,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Properties;
 import java.util.Set;
@@ -463,4 +464,12 @@ public class Props {
         return max;
     }
 
+    public void eraseKeysStartingWith(String prefix) {
+        Set<String> keys = new HashSet<>(keySet());
+        for (String key : keys) {
+            if (key.startsWith(prefix)) {
+                hash.remove(key);
+            }
+        }
+    }
 }

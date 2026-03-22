@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -163,6 +164,29 @@ public class Player {
                 }
             }
         }
+        // create backup
+        Path ini = getPlayerINIFilePath(name);
+        Path backup = ini.resolveSibling(ini.getFileName() + ".bak");
+        try {
+            Files.copy(ini, backup, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            return; // abort migration silently, new format will be appended (or original INI will remain as-is)
+        }
+
+//        try {
+            // remove legacy keys & save without reloading
+            props.eraseKeysStartingWith("group");
+            props.save(ini, false);
+
+            // immediately save new-format records
+            storePlayerRecords();
+
+//            // all successful - backup can be deleted
+//            Files.deleteIfExists(backup);
+//        } catch (IOException e) {
+//            return; // fail silently
+//        }
+        
         System.out.println("      migration to PlayerRecords complete");
     }
     
