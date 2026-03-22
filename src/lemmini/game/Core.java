@@ -257,7 +257,6 @@ public class Core {
         LemGame.setOption(LemGame.Option.ICON_LABELS, programProps.getBoolean("iconLabels", false));
         LemGame.setOption(LemGame.Option.ANIMATED_ICONS, programProps.getBoolean("animatedIcons", true));
         LemGame.setOption(LemGame.Option.CLASSIC_SCROLLER, programProps.getBoolean("classicScroller", true));
-        LemGame.setOption(LemGame.Option.DEBUG_VERBOSE_PLAYER_LOAD, programProps.getBoolean("debugVerbosePlayerLoad", false));
         // Settings added in RetroLemmini
         LemGame.setOption(LemGame.Option.AUTOSAVE_REPLAYS, programProps.getBoolean("autoSaveReplays", true));
         LemGame.setOption(LemGame.Option.SHOW_MENU_BAR, programProps.getBoolean("showMenuBar", true));
@@ -419,7 +418,6 @@ public class Core {
         programProps.setBoolean("iconLabels", LemGame.isOptionEnabled(LemGame.Option.ICON_LABELS));
         programProps.setBoolean("animatedIcons", LemGame.isOptionEnabled(LemGame.Option.ANIMATED_ICONS));
         programProps.setBoolean("classicScroller", LemGame.isOptionEnabled(LemGame.Option.CLASSIC_SCROLLER));
-        programProps.setBoolean("debugVerbosePlayerLoad", LemGame.isOptionEnabled(LemGame.Option.DEBUG_VERBOSE_PLAYER_LOAD));
         // Settings added in RetroLemmini
         programProps.setBoolean("autoSaveReplays", LemGame.isOptionEnabled(LemGame.Option.AUTOSAVE_REPLAYS));
         programProps.setBoolean("showMenuBar", LemGame.isOptionEnabled(LemGame.Option.SHOW_MENU_BAR));
@@ -621,7 +619,7 @@ public class Core {
         programProps.save(programPropsFilePath, true);
         playerProps.set("defaultPlayer", player.getName());
         playerProps.save(playerPropsFilePath, true);
-        player.store();
+        player.storePlayerRecords();
     }
     
     public static void missingLevelError(final String rsrc) {

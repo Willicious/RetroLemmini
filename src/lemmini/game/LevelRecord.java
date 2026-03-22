@@ -56,4 +56,15 @@ public class LevelRecord {
     public int getScore() {
         return score;
     }
+    
+    @Override
+    public String toString() {
+        return "LevelRecord{" +
+                "completed=" + completed +
+                ", saved=" + lemmingsSaved +
+                ", skills=" + skillsUsed +
+                ", time=" + timeElapsed +
+                ", score=" + score +
+                '}';
+    }
 }

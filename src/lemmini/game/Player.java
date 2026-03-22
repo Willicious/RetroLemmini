@@ -7,10 +7,11 @@ import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.io.FilenameUtils;
 
+import lemmini.game.PlayerRecords.GroupRecord;
+import lemmini.game.PlayerRecords.PackRecord;
 import lemmini.tools.Props;
 import lemmini.tools.ToolBox;
 
@@ -39,8 +40,12 @@ public class Player {
 
     /** property class to store player settings persistently */
     private Props props;
-    /** used to store level progress */
+    
+    /** LEGACY: stores player progress */
     private Map<String, LevelGroup> lvlGroups;
+    /** NEW: stores player progress */
+    private PlayerRecords records = new PlayerRecords();
+    
     /** debug mode enabled? */
     private boolean debugMode;
     /** maximum exit physics enabled? */
@@ -53,91 +58,16 @@ public class Player {
      */
     public Player(final String n) {
         System.out.println("    initalizing player: " + n);
-
         name = n;
         lvlGroups = new LinkedHashMap<>();
-        // read main ini file
         props = new Props();
         Path iniFilePath = getPlayerINIFilePath(name);
+        
         System.out.println("    loading player level stats: " + iniFilePath);
-
-        if (props.load(iniFilePath)) { // might exist or not - if not, it's created
-            // file exists, now parse entries
-            for (int idx = 0; true; idx++) {
-                System.out.print("    loading level group " + idx);
-                // first string is the level group key identifier
-                // second string is a BigInteger used as bitfield to store available levels
-                String[] s = props.getArray("group" + idx, null);
-                if (s == null || s.length < 2 || s[0] == null) {
-                    System.out.println(": <no valid group data found. skipping...>");
-                    break;
-                }
-                String s1 = s[s.length-1]; // get the last
-                String groupName = "";
-                // due to a bug in the ini property "Array" saving, commas are not escaped, and so they're treated as you would any column separator
-                // because the getArray function above trims out any spaces, knowledge if there was or was not a space after a comma is lost
-                // so let's just assume there's always a space after it, because that's better grammar.
-                for (int a = 0; a < s.length-1; a++) {
-                    groupName += s[a];
-                    if (a < s.length-2 ) {
-                        groupName +=", "; //we're assuming there's always a space after any comma
-                    }
-                }
-                System.out.print(": �" + groupName + "�");
-
-                // note: unlockedLevels are stored as bits. a bit 1 indicates the level is unlocked; bit 0 indicates the level is locked.
-                // unlocked means it is either completed, or is after a group of uncompleted levels.
-                BigInteger unlockedLevels = ToolBox.parseBigInteger(s1);
-                System.out.println("  [" + unlockedLevels.bitLength() + ":" + unlockedLevels.toString(16) + "]");
-                Map<Integer, LevelRecord> levelRecords = new LinkedHashMap<>();
-
-
-                System.out.print("    building level stats map...");
-
-                if (LemGame.isOptionEnabled(LemGame.Option.DEBUG_VERBOSE_PLAYER_LOAD))
-                    System.out.println();
-
-                int compCount = 0;
-
-                int maxLevel = props.getHighestLevel(idx) + 1;
-                maxLevel = Math.max(maxLevel, unlockedLevels.bitLength());
-                for (int j = 0; j < maxLevel; j++) {
-                    if (LemGame.isOptionEnabled(LemGame.Option.DEBUG_VERBOSE_PLAYER_LOAD))
-                        System.out.print("     level " + j + ": ");
-
-                    String levelSetting = "group" + idx + "_level" + j;
-                    String completedKey = levelSetting + "_completed";
-                    // BOOKMARK TODO: check if we're on the last level, and there is no compKey...
-                    // props.containsKey(completedKey);
-                    boolean completed = props.getBoolean(completedKey, false);
-                    if (completed) {
-                        compCount++;
-                        int lemmingsSaved = props.getInt(levelSetting + "_lemmingsSaved", -1);
-                        int skillsUsed = props.getInt(levelSetting + "_skillsUsed", -1);
-                        int timeElapsed = props.getInt(levelSetting + "_timeElapsed", -1);
-                        int score = props.getInt(levelSetting + "_score", -1);
-                        levelRecords.put(j, new LevelRecord(completed, lemmingsSaved, skillsUsed, timeElapsed, score));
-                        if (LemGame.isOptionEnabled(LemGame.Option.DEBUG_VERBOSE_PLAYER_LOAD)) {
-                            // BOOKMARK TODO: ALso show if a level has been attempted?
-                            System.out.print("[completed]");
-                            System.out.print(" saved: " + lemmingsSaved);
-                            System.out.print(" skills: " + skillsUsed);
-                            System.out.print(" time: " + timeElapsed);
-                            System.out.print(" score: " + score);
-                        }
-                    } else {
-                        levelRecords.put(j, LevelRecord.BLANK_LEVEL_RECORD);
-                        if (LemGame.isOptionEnabled(LemGame.Option.DEBUG_VERBOSE_PLAYER_LOAD))
-                            System.out.print("[incomplete] ... creating blank records.");
-                    }
-                    if (LemGame.isOptionEnabled(LemGame.Option.DEBUG_VERBOSE_PLAYER_LOAD))
-                        System.out.println();
-                }
-                lvlGroups.put(groupName, new LevelGroup(levelRecords));
-                //and finally print out the summary of this level.
-                //this gets printed regardless if verbose or not.
-                System.out.println("     Highest recorded level: " + maxLevel + ", Total completed: " + compCount);
-            }
+        if (props.load(iniFilePath)) {
+        	loadLegacyPlayerRecords(); // BOOKMARK TODO
+            migrateRecords();          // These can eventually be removed altogether
+            loadPlayerRecords();
         } else {
             System.out.println("    ini file not found... new one created.");
         }
@@ -161,29 +91,145 @@ public class Player {
     public void setMaximumExitPhysics(final boolean e) {
         maximumExitPhysics = e;
     }
+    
+    /**
+     * Load legacy player records from INI.
+     */
+    private void loadLegacyPlayerRecords() {
+        for (int idx = 0; true; idx++) {
+            String[] s = props.getArray("group" + idx, null);
+            if (s == null || s.length < 2 || s[0] == null) break;
+            
+            String s1 = s[s.length-1];
+            String groupName = "";
+            for (int a = 0; a < s.length-1; a++) {
+                groupName += s[a];
+                if (a < s.length-2 )
+                    groupName +=", ";
+            }
+            BigInteger unlockedLevels = ToolBox.parseBigInteger(s1);
+            Map<Integer, LevelRecord> levelRecords = new LinkedHashMap<>();
+            int maxLevel = props.getHighestLevel(idx) + 1;
+            maxLevel = Math.max(maxLevel, unlockedLevels.bitLength());
+            for (int j = 0; j < maxLevel; j++) {
+                String levelSetting = "group" + idx + "_level" + j;
+                String completedKey = levelSetting + "_completed";
+                // BOOKMARK TODO: check if we're on the last level, and there is no compKey...
+                // props.containsKey(completedKey);
+                boolean completed = props.getBoolean(completedKey, false);
+                if (completed) {
+                    int lemmingsSaved = props.getInt(levelSetting + "_lemmingsSaved", -1);
+                    int skillsUsed = props.getInt(levelSetting + "_skillsUsed", -1);
+                    int timeElapsed = props.getInt(levelSetting + "_timeElapsed", -1);
+                    int score = props.getInt(levelSetting + "_score", -1);
+                    levelRecords.put(j, new LevelRecord(completed, lemmingsSaved, skillsUsed, timeElapsed, score));
+                } else {
+                    levelRecords.put(j, LevelRecord.BLANK_LEVEL_RECORD);
+                }
+            }
+            lvlGroups.put(groupName, new LevelGroup(levelRecords));
+        }
+    }
+    
+    /**
+     * Migrate existing lvlGroups data into PlayerRecords.
+     */
+    private void migrateRecords() {
+        if (lvlGroups == null || lvlGroups.isEmpty()) return;
+        
+        System.out.println("      migrating player records from lvlGroups to PlayerRecords...");
+        for (Map.Entry<String, LevelGroup> groupEntry : lvlGroups.entrySet()) {
+            String groupName = groupEntry.getKey();
+            LevelGroup oldGroup = groupEntry.getValue();
+            String pack, rating;
+            
+            int idx = groupName.lastIndexOf('-');
+            if (idx != -1) {
+                pack = groupName.substring(0, idx).trim();
+                rating = groupName.substring(idx + 1).trim();
+            } else {
+                pack = groupName;
+                rating = "default";
+            }
+            
+            PlayerRecords.PackRecord packRecord = records.getOrCreatePack(pack);
+            PlayerRecords.GroupRecord groupRecord = packRecord.getOrCreateGroup(rating);
+
+            for (Map.Entry<Integer, LevelRecord> levelEntry : oldGroup.levelRecords.entrySet()) {
+                int levelNum = levelEntry.getKey();
+                LevelRecord record = levelEntry.getValue();
+                if (record.isCompleted()) {
+                    groupRecord.setLevelRecord(levelNum, record);
+                }
+            }
+        }
+        System.out.println("      migration to PlayerRecords complete");
+    }
+    
+    /**
+     * Load player records from INI.
+     */
+    private void loadPlayerRecords() {
+        if (!props.load(getPlayerINIFilePath(name))) return;
+
+        for (String key : props.keySet()) {
+            if (!key.startsWith("pack.")) continue;
+
+            String[] parts = key.split("\\.");
+            if (parts.length < 4) continue;
+
+            String pack = parts[1].toLowerCase(Locale.ROOT);
+            String rating = parts[2].toLowerCase(Locale.ROOT);
+            String levelPart = parts[3];
+
+            int levelNum;
+            try {
+                levelNum = Integer.parseInt(levelPart.substring(5));
+            } catch (NumberFormatException e) {
+                continue;
+            }
+
+            boolean completed = props.getBoolean(key, false);
+            LevelRecord record = LevelRecord.BLANK_LEVEL_RECORD;
+            if (completed) {
+                int lemmingsSaved = props.getInt("pack." + pack + "." + rating + ".level" + levelNum + ".lemmingsSaved", 0);
+                int skillsUsed = props.getInt("pack." + pack + "." + rating + ".level" + levelNum + ".skillsUsed", 0);
+                int timeElapsed = props.getInt("pack." + pack + "." + rating + ".level" + levelNum + ".timeElapsed", 0);
+                int score = props.getInt("pack." + pack + "." + rating + ".level" + levelNum + ".score", 0);
+                record = new LevelRecord(true, lemmingsSaved, skillsUsed, timeElapsed, score);
+            }
+
+            records.getOrCreatePack(pack).getOrCreateGroup(rating).setLevelRecord(levelNum, record);
+        }
+    }
 
     /**
      * Store player's progress.
      */
-    public void store() {
-        Set<String> groupKeys = lvlGroups.keySet();
-        int idx = 0;
-        for (String s : groupKeys) {
-            LevelGroup lg = lvlGroups.get(s);
-            String sout = s + ", " + lg.getBitField();
-            props.set("group" + idx, sout);
-            Set<Integer> availableLevels = lg.levelRecords.keySet();
-            for (Integer lvlNum : availableLevels) {
-                LevelRecord lr = lg.levelRecords.get(lvlNum);
-                if (lr.isCompleted()) {
-                    props.setBoolean("group" + idx + "_level" + lvlNum + "_completed", true);
-                    props.setInt("group" + idx + "_level" + lvlNum + "_lemmingsSaved", lr.getLemmingsSaved());
-                    props.setInt("group" + idx + "_level" + lvlNum + "_skillsUsed", lr.getSkillsUsed());
-                    props.setInt("group" + idx + "_level" + lvlNum + "_timeElapsed", lr.getTimeElapsed());
-                    props.setInt("group" + idx + "_level" + lvlNum + "_score", lr.getScore());
+    public void storePlayerRecords() {
+        for (Map.Entry<String, PlayerRecords.PackRecord> packEntry : records.getPacks().entrySet()) {
+            String pack = packEntry.getKey();
+            PlayerRecords.PackRecord packRecord = packEntry.getValue();
+
+            for (Map.Entry<String, PlayerRecords.GroupRecord> groupEntry : packRecord.getGroups().entrySet()) {
+                String rating = groupEntry.getKey();
+                PlayerRecords.GroupRecord groupRecord = groupEntry.getValue();
+
+                String section = "pack." + pack + "." + rating;
+                for (Map.Entry<Integer, LevelRecord> levelEntry : groupRecord.getLevels().entrySet()) {
+                    int lvl = levelEntry.getKey();
+                    LevelRecord rec = levelEntry.getValue();
+
+                    String prefix = section + ".level" + lvl;
+                    props.setBoolean(prefix + ".completed", rec.isCompleted());
+                    if (rec.isCompleted()) {
+                        props.setInt(prefix + ".lemmingsSaved", rec.getLemmingsSaved());
+                        props.setInt(prefix + ".skillsUsed", rec.getSkillsUsed());
+                        props.setInt(prefix + ".timeElapsed", rec.getTimeElapsed());
+                        props.setInt(prefix + ".score", rec.getScore());
+                    }
                 }
             }
-            idx++;
         }
         props.save(getPlayerINIFilePath(name), true);
     }
@@ -192,72 +238,74 @@ public class Player {
      * Allow a level to be played.
      */
     public void setAvailable(final String pack, final String rating, final int num) {
-        String id = LevelPack.getID(pack, rating);
-        LevelGroup lg = lvlGroups.get(id);
-        if (lg == null) {
-            // first level is always available
-            Map<Integer, LevelRecord> records = new LinkedHashMap<>();
-            records.put(0, LevelRecord.BLANK_LEVEL_RECORD);
-            lg = new LevelGroup(records);
-            lvlGroups.put(id, lg);
-        }
-        if (!lg.levelRecords.containsKey(num)) {
-            // add level record to level group
-            lg.levelRecords.put(num, LevelRecord.BLANK_LEVEL_RECORD);
+        PlayerRecords.PackRecord packRecord = records.getOrCreatePack(pack);
+        PlayerRecords.GroupRecord groupRecord = packRecord.getOrCreateGroup(rating);
+
+        if (!groupRecord.hasLevel(num)) {
+            groupRecord.setLevelRecord(num, LevelRecord.BLANK_LEVEL_RECORD);
         }
     }
 
     /**
-     * Check if player is allowed to play a level.
+     * Check if a player is allowed to play a level.
      */
     public boolean isAvailable(final String pack, final String rating, final int num) {
         if (LemGame.isOptionEnabled(LemGame.Option.UNLOCK_ALL_LEVELS) || isDebugMode()) {
             return true;
         }
-        String id = LevelPack.getID(pack, rating);
-        LevelGroup lg = lvlGroups.get(id);
-        if (lg == null) {
-            return num == 0; // first level is always available
+        PlayerRecords.PackRecord packRecord = records.getPack(pack.toLowerCase(Locale.ROOT));
+        if (packRecord == null) {
+            return num == 0;
         }
-        return (lg.levelRecords.containsKey(num));
+        PlayerRecords.GroupRecord groupRecord = packRecord.getGroup(rating.toLowerCase(Locale.ROOT));
+        if (groupRecord == null) {
+            return num == 0;
+        }
+        // first level is always available
+        if (num == 0) return true;
+        
+        // If level is already completed, always consider it available
+        LevelRecord thisRecord = groupRecord.getLevel(num);
+        if (thisRecord != null && thisRecord.isCompleted()) return true;
+
+        // previous level must be completed to unlock this one
+        LevelRecord prevRecord = groupRecord.getLevel(num - 1);
+        return prevRecord != null && prevRecord.isCompleted();
     }
 
+    /**
+     * Store a completed level record.
+     */
     public void setLevelRecord(final String pack, final String rating, final int num, final LevelRecord record) {
-        String id = LevelPack.getID(pack, rating);
-        LevelGroup lg = lvlGroups.get(id);
-        if (lg == null) {
-            // first level is always available
-            Map<Integer, LevelRecord> records = new LinkedHashMap<>();
-            records.put(0, LevelRecord.BLANK_LEVEL_RECORD);
-            lg = new LevelGroup(records);
-            lvlGroups.put(id, lg);
-        }
-        // Only store the record if the level is completed
-        if (record.isCompleted()) {
-            LevelRecord oldRecord = lg.levelRecords.get(num);
-            // If there's an old record, merge the new record keeping the best result for each value
-            if (oldRecord != null) {
-                lg.levelRecords.put(num, new LevelRecord(
-                        true,
-                        Math.max(oldRecord.getLemmingsSaved(), record.getLemmingsSaved()),
-                        Math.min(oldRecord.getSkillsUsed(), record.getSkillsUsed()),
-                        Math.min(oldRecord.getTimeElapsed(), record.getTimeElapsed()),
-                        Math.max(oldRecord.getScore(), record.getScore())));
-            } else {
-                // If no old record exists, store the new one
-                lg.levelRecords.put(num, record);
-            }
+        if (!record.isCompleted()) return;
+
+        PlayerRecords.PackRecord packRecord = records.getOrCreatePack(pack);
+        PlayerRecords.GroupRecord groupRecord = packRecord.getOrCreateGroup(rating);
+        LevelRecord oldRecord = groupRecord.getLevel(num);
+
+        if (oldRecord != null && oldRecord.isCompleted()) {
+            groupRecord.setLevelRecord(num, new LevelRecord(
+                true,
+                Math.max(oldRecord.getLemmingsSaved(), record.getLemmingsSaved()),
+                Math.min(oldRecord.getSkillsUsed(), record.getSkillsUsed()),
+                Math.min(oldRecord.getTimeElapsed(), record.getTimeElapsed()),
+                Math.max(oldRecord.getScore(), record.getScore())
+            ));
+        } else {
+            groupRecord.setLevelRecord(num, record);
         }
     }
-
-    public LevelRecord getLevelRecord(final String pack, final String rating, final int num) {
-        String id = LevelPack.getID(pack, rating);
-        LevelGroup lg = lvlGroups.get(id);
-        if (lg == null || !lg.levelRecords.containsKey(num)) {
+    
+    public LevelRecord getLevelRecord(final String pack, final String rating, final int num) {  	
+        PackRecord packRecord = records.getPack(pack.toLowerCase(Locale.ROOT));
+        if (packRecord == null) {
             return LevelRecord.BLANK_LEVEL_RECORD;
-        } else {
-            return lg.levelRecords.get(num);
         }
+        GroupRecord groupRecord = packRecord.getGroup(rating.toLowerCase(Locale.ROOT));
+        if (groupRecord == null) {
+            return LevelRecord.BLANK_LEVEL_RECORD;
+        }
+        return groupRecord.getLevelOrDefault(num);
     }
 
     /**
@@ -449,15 +497,6 @@ public class Player {
 
         private LevelGroup(Map<Integer, LevelRecord> levelRecords) {
             this.levelRecords = levelRecords;
-        }
-
-        private BigInteger getBitField() {
-            Set<Integer> availableLevels = levelRecords.keySet();
-            BigInteger bf = BigInteger.ZERO;
-            for (Integer lvlNum : availableLevels) {
-                bf = bf.setBit(lvlNum);
-            }
-            return bf;
         }
     }
 }

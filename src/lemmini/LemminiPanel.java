@@ -1788,9 +1788,7 @@ public class LemminiPanel extends JPanel implements Runnable {
         if (!LemGame.isOptionEnabled(LemGame.Option.AUTOSAVE_REPLAYS)) return;
 
         if (replaySaved) return;
-
-        if (LemGame.getWasCheated() || LemGame.wasLost()) return;
-        
+        if (LemGame.getWasCheated() || LemGame.wasLost()) return;        
         if (LemGame.cancelAutosave) return;
 
         Level level = LemGame.getLevel();
@@ -1811,11 +1809,8 @@ public class LemminiPanel extends JPanel implements Runnable {
         String ratingName = levelPack.getRatings().get(curRating).replaceAll("[^a-zA-Z0-9_\\-]", "_");
         
         String template = LemGame.getReplayNameTemplate();
-
         String replayFileName = buildReplayFileName(template, userName, levelPackName, ratingName, levelWithNumber, timestamp);
-
         Path replayPath = Core.resourcePath.resolve(Core.REPLAYS_PATH).resolve(replayFileName);
-        System.out.println("replayPath = " + replayPath);
 
         if (!LemGame.saveReplay(replayPath)) {
             JOptionPane.showMessageDialog(getParent(), "Unable to auto-save replay.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -2018,7 +2013,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
 
     void handlePlayers() {
-        Core.player.store(); // save player in case it is changed
+        Core.player.storePlayerRecords(); // save player in case it is changed
         PlayerDialog d = new PlayerDialog(getParentFrame(), true);
         d.setVisible(true);
         // blocked until dialog returns

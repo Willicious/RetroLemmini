@@ -8,6 +8,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.Properties;
 import java.util.Set;
 
@@ -34,7 +35,7 @@ import lemmini.game.Resource;
  * Property class to ease use of INI files to save/load properties.
  *
  * @author Volker Oth
- * Modified by Ryan Sakowski
+ * Modified by Ryan Sakowski and William James
  */
 public class Props {
 
@@ -330,6 +331,14 @@ public class Props {
 
     public boolean containsKey(final String key) {
         return hash.containsKey(key);
+    }
+    
+    public Set<String> keySet() {
+        Set<String> keys = new LinkedHashSet<>();
+        for (Object k : hash.keySet()) {
+            keys.add(k.toString());
+        }
+        return keys;
     }
 
     /**

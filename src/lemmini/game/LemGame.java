@@ -140,8 +140,6 @@ public class LemGame {
         ANIMATED_ICONS,
         /** flag: show the classic lemmings scroller (as seen in the original Amiga version) */
         CLASSIC_SCROLLER,
-        /** flag: show the full details of level stats loaded */
-        DEBUG_VERBOSE_PLAYER_LOAD,
         
         /**  Options added in RetroLemmini @author Will James */
         /** flag: automatically save successful replays from postview screen */
@@ -611,7 +609,7 @@ public class LemGame {
             if (curLevelNumber + 1 < lvlPack.getLevelCount(curRating)) {
                 Core.player.setAvailable(lvlPack.getName(), curRatingString, curLevelNumber + 1);
             }
-            Core.player.store();
+            Core.player.storePlayerRecords();
         }
 
         replayMode = false;
