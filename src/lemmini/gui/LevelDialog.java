@@ -881,9 +881,8 @@ public class LevelDialog extends JDialog {
         List<String> levels = lp.getLevels(ratingIndex);
         String rating = lp.getRatings().get(ratingIndex);
         for (int k = 0; k < levels.size(); k++) {
-            if (lp.getAllLevelsUnlocked() || Core.player.isAvailable(lp.getName(), rating, k))
-                if (!Core.player.getLevelRecord(lp.getName(), rating, k).isCompleted())
-                    return true;
+            if (!Core.player.getLevelRecord(lp.getName(), rating, k).isCompleted())
+                return true;
         }
         return false;
     }
@@ -893,9 +892,8 @@ public class LevelDialog extends JDialog {
         List<String> levels = lp.getLevels(ratingIndex);
         String rating = lp.getRatings().get(ratingIndex);
         for (int k = 0; k < levels.size(); k++) {
-            if (lp.getAllLevelsUnlocked() || Core.player.isAvailable(lp.getName(), rating, k))
-                if (Core.player.getLevelRecord(lp.getName(), rating, k).isCompleted())
-                    return true;
+        	if (Core.player.getLevelRecord(lp.getName(), rating, k).isCompleted())
+        		return true;
         }
         return false;
     }
@@ -966,6 +964,7 @@ public class LevelDialog extends JDialog {
             LevelPack lvlPack = LemGame.getLevelPack(lvlItem.levelPack);
             LevelInfo lvlInfo = lvlPack.getInfo(lvlItem.rating, lvlItem.levelIndex);
             LevelRecord lvlRecord = Core.player.getLevelRecord(lvlPack.getName(), lvlPack.getRatings().get(lvlItem.rating), lvlItem.levelIndex);
+
             jTextFieldAuthor.setText(lvlInfo.getAuthor());
             int numLemmings = lvlInfo.getNumLemmings();
             int numToRescue = lvlInfo.getNumToRescue();
