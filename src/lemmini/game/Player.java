@@ -193,7 +193,7 @@ public class Player {
     /**
      * Load player records from INI.
      */
-    private void loadPlayerRecords() {
+    public void loadPlayerRecords() {
         if (!props.load(getPlayerINIFilePath(name))) return;
 
         for (String key : props.keySet()) {
