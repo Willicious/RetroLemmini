@@ -7,7 +7,7 @@ uses
   System.SysUtils, System.Variants, System.Classes, System.IOUtils,
   System.Types, System.UITypes, System.RegularExpressions,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
-  Vcl.ComCtrls;
+  Vcl.ComCtrls, Vcl.ExtCtrls;
 
 type
   TMainForm = class(TForm)
@@ -40,6 +40,7 @@ type
     lblAuthor: TLabel;
     edPackAuthor: TEdit;
     btnLoadLevelPackINI: TButton;
+    rgPlaylistMode: TRadioGroup;
     procedure FormCreate(Sender: TObject);
     procedure TextInputClick(Sender: TObject);
     procedure btnGenerateSeedClick(Sender: TObject);
@@ -648,14 +649,32 @@ procedure TMainForm.GenerateLevelPackINI(const FileName: string);
       Result := cbMods.Text + #13#10;
   end;
 
+  procedure ShuffleList(List: TList);
+  var
+    i, j: Integer;
+    Temp: Pointer;
+  begin
+    for i := List.Count - 1 downto 1 do
+    begin
+      j := Random(i + 1);
+      Temp := List[i];
+      List[i] := List[j];
+      List[j] := Temp;
+    end;
+  end;
+
 var
   SL: TStringList;
   i, j: Integer;
   Tab: TTabSheet;
   List: TListBox;
   MusicIndex: Integer;
+  GlobalMusicIndex: Integer;
+  ShuffledPlaylist: TList;
+  ShufflePos: Integer;
 begin
   SL := TStringList.Create;
+  ShuffledPlaylist := TList.Create;
   try
     // General Info
     SL.Add('# levelpack.ini generated with LemminiLevelPackCompiler ' + GetVersion);
@@ -680,6 +699,18 @@ begin
     SL.Add('# Levels: name, music ID');
     SL.Add('');
 
+    // Init playlist handling
+    GlobalMusicIndex := 0;
+    ShufflePos := 0;
+
+    if (rgPlaylistMode.ItemIndex = 2) and (lbMusic.Items.Count > 0) then
+    begin
+      for i := 0 to lbMusic.Items.Count - 1 do
+        ShuffledPlaylist.Add(Pointer(i));
+
+      ShuffleList(ShuffledPlaylist);
+    end;
+
     // Levels in each group
     for i := 0 to pcLevels.PageCount - 1 do
     begin
@@ -694,7 +725,33 @@ begin
       for j := 0 to List.Items.Count - 1 do
       begin
         if lbMusic.Items.Count > 0 then
-          MusicIndex := j mod lbMusic.Items.Count
+        begin
+          case rgPlaylistMode.ItemIndex of
+            0: // Restart each group
+              MusicIndex := j mod lbMusic.Items.Count;
+
+            1: // Continuous
+              begin
+                MusicIndex := GlobalMusicIndex mod lbMusic.Items.Count;
+                Inc(GlobalMusicIndex);
+              end;
+
+            2: // Randomized
+              begin
+                if ShufflePos >= ShuffledPlaylist.Count then
+                begin
+                  ShuffleList(ShuffledPlaylist);
+                  ShufflePos := 0;
+                end;
+
+                MusicIndex := Integer(ShuffledPlaylist[ShufflePos]);
+                Inc(ShufflePos);
+              end;
+
+          else
+            MusicIndex := 0;
+          end;
+        end
         else
           MusicIndex := -1;
 
@@ -713,6 +770,7 @@ begin
     ShowMessage('levelpack.ini saved successfully!');
 
   finally
+    ShuffledPlaylist.Free;
     SL.Free;
   end;
 end;

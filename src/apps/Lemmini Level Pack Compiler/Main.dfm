@@ -4,7 +4,7 @@ object MainForm: TMainForm
   BorderStyle = bsSingle
   Caption = 'Lemmini Level Pack Compiler'
   ClientHeight = 537
-  ClientWidth = 728
+  ClientWidth = 770
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,60 +19,73 @@ object MainForm: TMainForm
   object gbMusic: TGroupBox
     Left = 8
     Top = 196
-    Width = 305
+    Width = 353
     Height = 299
     Caption = 'Music'
     TabOrder = 0
     object lbMusic: TListBox
       Left = 16
       Top = 27
-      Width = 180
+      Width = 202
       Height = 254
       ItemHeight = 13
       MultiSelect = True
       TabOrder = 0
     end
     object btnAddMusicTrack: TButton
-      Left = 202
+      Left = 224
       Top = 27
-      Width = 90
+      Width = 118
       Height = 25
       Caption = 'Add Track(s)'
       TabOrder = 1
       OnClick = btnAddMusicTrackClick
     end
     object btnDeleteSelectedMusicTrack: TButton
-      Left = 202
+      Left = 224
       Top = 58
-      Width = 87
+      Width = 118
       Height = 25
       Caption = 'Delete Track(s)'
       TabOrder = 2
       OnClick = btnDeleteSelectedMusicTrackClick
     end
     object btnMoveMusicTrackUp: TButton
-      Left = 202
+      Left = 224
       Top = 89
-      Width = 87
+      Width = 118
       Height = 25
       Caption = 'Move Up'
       TabOrder = 3
       OnClick = btnMoveMusicTrackUpClick
     end
     object btnMoveMusicTrackDown: TButton
-      Left = 202
+      Left = 224
       Top = 120
-      Width = 87
+      Width = 115
       Height = 25
       Caption = 'Move Down'
       TabOrder = 4
       OnClick = btnMoveMusicTrackDownClick
     end
+    object rgPlaylistMode: TRadioGroup
+      Left = 224
+      Top = 199
+      Width = 118
+      Height = 82
+      Caption = 'Playlist Mode'
+      ItemIndex = 1
+      Items.Strings = (
+        'Restart at Group'
+        'Continuous'
+        'Randomized')
+      TabOrder = 5
+    end
   end
   object gbGeneralInfo: TGroupBox
     Left = 8
     Top = 8
-    Width = 305
+    Width = 353
     Height = 169
     Caption = 'General Info'
     TabOrder = 1
@@ -107,7 +120,7 @@ object MainForm: TMainForm
     object edPackTitle: TEdit
       Left = 88
       Top = 29
-      Width = 201
+      Width = 254
       Height = 21
       TabOrder = 0
       OnClick = TextInputClick
@@ -126,7 +139,7 @@ object MainForm: TMainForm
     object cbMods: TComboBox
       Left = 88
       Top = 131
-      Width = 201
+      Width = 254
       Height = 21
       Style = csDropDownList
       TabOrder = 2
@@ -134,7 +147,7 @@ object MainForm: TMainForm
     object btnGenerateSeed: TButton
       Left = 202
       Top = 90
-      Width = 87
+      Width = 140
       Height = 25
       Caption = 'Generate'
       TabOrder = 3
@@ -143,14 +156,14 @@ object MainForm: TMainForm
     object edPackAuthor: TEdit
       Left = 88
       Top = 60
-      Width = 201
+      Width = 254
       Height = 21
       TabOrder = 4
       OnClick = TextInputClick
     end
   end
   object gbLevels: TGroupBox
-    Left = 319
+    Left = 367
     Top = 8
     Width = 394
     Height = 487
