@@ -271,7 +271,7 @@ public class Core {
         // Menu theme settings
         LemGame.setMenuThemeOption(MenuThemeOption.valueOf(programProps.get("menuTheme", "WINLEMM")));
         // Auto-replay naming template
-        LemGame.setReplayNameTemplate(programProps.get("replayNameTemplate", "{user}_{pack}_{rating}_{level}_{time}"));
+        LemGame.setReplayNameTemplate(programProps.get("replayNameTemplate", "{user}_{pack}_{rating}{level}_{time}"));
 
         System.out.println("      all settings read from config");
 

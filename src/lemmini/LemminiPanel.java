@@ -1769,31 +1769,13 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
     
     public static String buildReplayFileName(String template, String user, String pack, String rating, String level, String time) {
-		Map<String, String> tags = new HashMap<>();
-		tags.put("{user}", user);
-		tags.put("{pack}", pack);
-		tags.put("{rating}", rating);
-		tags.put("{level}", level);
-		tags.put("{time}", time);
-		
-		List<String> values = new ArrayList<>();
-		
-		int index = 0;
-		while (index < template.length()) {
-			boolean found = false;
-			for (String key : tags.keySet()) {
-				if (template.startsWith(key, index)) {
-					values.add(tags.get(key));
-					index += key.length();
-					found = true;
-					break;
-				}
-			}
-			if (!found)
-				index++;
-		}
-		String name = String.join("__", values);
-		return name + "." + Core.REPLAY_EXTENSIONS[0];
+        return template
+            .replace("{user}", user)
+            .replace("{pack}", pack)
+            .replace("{rating}", rating)
+            .replace("{level}", level)
+            .replace("{time}", time)
+            + "." + Core.REPLAY_EXTENSIONS[0];
     }
 
     private void maybeAutoSaveReplay() {
@@ -1811,14 +1793,14 @@ public class LemminiPanel extends JPanel implements Runnable {
         if (level == null || levelPack == null) return;
 
         LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH_mm_ss__dd_MM_yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH-mm-ss_dd-MM-yy");
         String timestamp = now.format(formatter);
 
         String userName = Core.player.getName();
-        String levelName = level.getLevelName().replaceAll("[^a-zA-Z0-9_\\-]", "_");
+        String levelName = level.getLevelName().replaceAll("[^a-zA-Z0-9_\\-]", "");
         String levelWithNumber = String.format("%02d_%s", curLevelNum + 1, levelName);
-        String levelPackName = levelPack.getName().replaceAll("[^a-zA-Z0-9_\\-]", "_");
-        String ratingName = levelPack.getRatings().get(curRating).replaceAll("[^a-zA-Z0-9_\\-]", "_");
+        String levelPackName = levelPack.getName().replaceAll("[^a-zA-Z0-9_\\-]", "");
+        String ratingName = levelPack.getRatings().get(curRating).replaceAll("[^a-zA-Z0-9_\\-]", "");
         
         String template = LemGame.getReplayNameTemplate();
         String replayFileName = buildReplayFileName(template, userName, levelPackName, ratingName, levelWithNumber, timestamp);
