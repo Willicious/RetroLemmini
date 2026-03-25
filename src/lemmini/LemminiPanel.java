@@ -25,6 +25,8 @@ import java.awt.RenderingHints;
 import java.awt.Transparency;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -1804,7 +1806,14 @@ public class LemminiPanel extends JPanel implements Runnable {
         
         String template = LemGame.getReplayNameTemplate();
         String replayFileName = buildReplayFileName(template, userName, levelPackName, ratingName, levelWithNumber, timestamp);
-        Path replayPath = Core.resourcePath.resolve(Core.REPLAYS_PATH).resolve(replayFileName);
+        Path replayPath = Core.resourcePath.resolve(Core.REPLAYS_PATH).resolve(levelPackName).resolve(replayFileName);
+
+        try {
+            Files.createDirectories(replayPath.getParent());
+        } catch (IOException e) {
+        	System.err.println("Could not create subfolder for level pack, saving in main replays folder: " + e.getMessage());
+            replayPath = Core.resourcePath.resolve(Core.REPLAYS_PATH).resolve(replayFileName);
+        }
 
         if (!LemGame.saveReplay(replayPath)) {
             JOptionPane.showMessageDialog(getParent(), "Unable to auto-save replay.", "Error", JOptionPane.ERROR_MESSAGE);
