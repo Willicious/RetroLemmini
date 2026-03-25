@@ -130,7 +130,7 @@ public class MouseDialog extends JDialog {
         // Ctrl + LMB for 'hold to assign' tip
         JPanel tipsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         tipsPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
-        JLabel labelHoldToAssignTip = new JLabel("TIP: Press Alt and hold LMB to auto-assign skills to lemmings under the cursor");
+        JLabel labelHoldToAssignTip = new JLabel("TIP: Press Ctrl and hold LMB to auto-assign skills to lemmings under the cursor");
         tipsPanel.add(labelHoldToAssignTip);
         optionsPanel.add(tipsPanel);
 

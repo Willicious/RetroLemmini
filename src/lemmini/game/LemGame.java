@@ -1099,7 +1099,7 @@ public class LemGame {
 
         updateCtr++;
         
-    	if (leftMouseButtonHeld && altPressed) {   		
+    	if (leftMouseButtonHeld && ctrlPressed) {   		
             Lemming l = LemGame.lemmUnderCursor(LemCursor.getType());
             if (l != null && l != lastAssignedLemming) {
                 LemGame.requestSkill(l);
