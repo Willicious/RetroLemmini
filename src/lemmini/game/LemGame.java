@@ -775,7 +775,7 @@ public class LemGame {
 	            String ext = FilenameUtils.getExtension(resource.getFileName()).toLowerCase(Locale.ROOT);
 	            // only show the error if it's not .ogg (.ogg not playing properly is the result of missing dependencies)
 	            if(!ext.equals("ogg")) {
-	                JOptionPane.showMessageDialog(null, "Unable to load music resource:\n" + ex.getMessage() + "\n\nAttempting midi fallback.", "Error Loading Music", JOptionPane.ERROR_MESSAGE);
+	                JOptionPane.showMessageDialog(null, "Unable to load music resource:\n" + ex.getMessage() + "\n\nAttempting fallback.", "Error Loading Music", JOptionPane.ERROR_MESSAGE);
 	            }
 	            try {
 	                music = Music.getRandomTrack(level.getStyleName());
