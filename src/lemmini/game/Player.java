@@ -144,7 +144,7 @@ public class Player {
             LevelGroup oldGroup = groupEntry.getValue();
             String pack, rating;
             
-            int idx = groupName.lastIndexOf('-');
+            int idx = groupName.indexOf('-');
             if (idx != -1) {
                 pack = groupName.substring(0, idx).trim();
                 rating = groupName.substring(idx + 1).trim();
