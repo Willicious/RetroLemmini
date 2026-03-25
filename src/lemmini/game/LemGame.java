@@ -2464,6 +2464,17 @@ public class LemGame {
      */
     public static void releaseIcon(final Icons.IconType t) {
         Icons.release(t);
+        
+        switch (t) {
+        case PLUS:
+            releasePlus(KEYREPEAT_ICON);
+            break;
+        case MINUS:
+            releaseMinus(KEYREPEAT_ICON);
+            break;
+        default:
+            break;
+        }
     }
 
     /**

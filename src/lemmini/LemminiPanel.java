@@ -144,7 +144,9 @@ public class LemminiPanel extends JPanel implements Runnable {
         return SMALL_Y;
     }
 
-
+    /** which skill panel icon is currently pressed */
+    private Icons.IconType curPressedIcon = null;
+    
     private int menuOffsetX;
     /** start x position of mouse drag (for mouse scrolling) */
     private int mouseDragStartX;
@@ -464,6 +466,7 @@ public class LemminiPanel extends JPanel implements Runnable {
 	                        //clicking on icons
 	                        Icons.IconType type = LemGame.getIconType(x - menuOffsetX - getIconBarX());
 	                        if (type != null) {
+	                            curPressedIcon = type;
 	                            LemGame.handleIconButton(type);
 	                        }
 	                    } else {
@@ -521,29 +524,18 @@ public class LemminiPanel extends JPanel implements Runnable {
         LemGame.attemptingHoldToAssign = false;
         LemGame.lastAssignedLemming = null;
     	
-    	int x = Core.unscale(evt.getX());
-        int y = Core.unscale(evt.getY());
         mouseDx = 0;
         mouseDy = 0;
         int buttonPressed = evt.getButton();
 
         switch (LemGame.getGameState()) {
-            case LEVEL:
+            case LEVEL:           	
                 if (buttonPressed == MouseEvent.BUTTON1) {
                     holdingMinimap = false;
-                    if (y > getIconBarY() && y < getIconBarY() + Icons.getIconHeight()) {
-                        Icons.IconType type = LemGame.getIconType(x - menuOffsetX - getIconBarX());
-                        if (type != null) {
-                            LemGame.releaseIcon(type);
-                        }
-                    }
-                    // always release icons which don't stay pressed
-                    LemGame.releasePlus(LemGame.KEYREPEAT_ICON);
-                    LemGame.releaseMinus(LemGame.KEYREPEAT_ICON);
-                    LemGame.releaseIcon(Icons.IconType.MINUS);
-                    LemGame.releaseIcon(Icons.IconType.PLUS);
-                    LemGame.releaseIcon(Icons.IconType.NUKE);
-                    LemGame.releaseIcon(Icons.IconType.RESTART);
+                	if (curPressedIcon != null) {
+                	    LemGame.releaseIcon(curPressedIcon);
+                	    curPressedIcon = null;
+                	}
                 } else {
                 	for (MouseInput.MouseAction action :
                         Core.getMouseInput().getActionsForButton(buttonPressed)) {
@@ -589,6 +581,26 @@ public class LemminiPanel extends JPanel implements Runnable {
             case LEVEL:
                 int x = Core.unscale(evt.getX());
                 int y = Core.unscale(evt.getY());
+                
+                if (leftMousePressed) {
+                    boolean mouseOverPanel = y >= getIconBarY() && y < getIconBarY() + Icons.getIconHeight();
+                    Icons.IconType newType = null;
+                    if (mouseOverPanel) {
+                        newType = LemGame.getIconType(x - menuOffsetX - getIconBarX());
+                    }
+                    // If we moved to a different button
+                    if (newType != curPressedIcon) {
+                        // Release old button
+                    	if (curPressedIcon != null) {
+                    	    LemGame.releaseIcon(curPressedIcon);
+                    	}
+                        // Press new button
+                        if (newType != null) {
+                            LemGame.handleIconButton(newType);
+                        }
+                        curPressedIcon = newType;
+                    }
+                }
                 
             	// debug drawing
                 boolean isDebugDraw = draw && Core.player.isDebugMode(); 
