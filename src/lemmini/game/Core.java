@@ -62,9 +62,9 @@ import lemmini.tools.ToolBox;
  */
 public class Core {
 
-    public static final String REVISION = "2.9.3";
+    public static final String REVISION = "2.9.4";
     public static final String COMMIT_ID = CommitID.ID;
-    public static final String REV_DATE = "March 2026";
+    public static final String REV_DATE = "April 2026";
 
     /** extensions accepted for level files in file dialog */
     public static final String[] LEVEL_EXTENSIONS = {"rlv", "ini", "lvl", "dat"};
