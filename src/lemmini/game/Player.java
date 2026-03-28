@@ -91,6 +91,18 @@ public class Player {
         maximumExitPhysics = e;
     }
     
+    private boolean backupPlayerProgress(Path ini) {
+    	if (!Files.exists(ini)) return true;
+	    Path backup = ini.resolveSibling(ini.getFileName() + ".bak");
+	    try {
+	        Files.copy(ini, backup, StandardCopyOption.REPLACE_EXISTING);
+	        return true;
+	    } catch (IOException e) {
+	    	System.err.println("Failed to back up player INI: " + e.getMessage());
+	        return false;
+	    }
+    }
+    
     /**
      * Load legacy player records from INI.
      */
@@ -134,19 +146,14 @@ public class Player {
     }
     
     private void migrateLegacyRecords() {
+    	Path ini = getPlayerINIFilePath(name);
+    	if (!backupPlayerProgress(ini))
+    		return; // abort migration silently if backup fails; new format will be appended (or original INI will remain as-is)
+    	
         boolean hasLegacyKeys = props.keySet().stream().anyMatch(k -> k.startsWith("group"));
         if (!hasLegacyKeys) return;
 
         System.out.println("      migrating legacy player records to new format...");
-
-	    // create backup
-	    Path ini = getPlayerINIFilePath(name);
-	    Path backup = ini.resolveSibling(ini.getFileName() + ".bak");
-	    try {
-	        Files.copy(ini, backup, StandardCopyOption.REPLACE_EXISTING);
-	    } catch (IOException e) {
-	        return; // abort migration silently, new format will be appended (or original INI will remain as-is)
-	    }
 	
 	//      try {
 	          // remove legacy keys & save without reloading
