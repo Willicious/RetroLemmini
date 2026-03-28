@@ -11,8 +11,8 @@ import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
 
-import lemmini.game.PlayerRecords.GroupRecord;
-import lemmini.game.PlayerRecords.PackRecord;
+//import lemmini.game.PlayerRecords.GroupRecord;
+//import lemmini.game.PlayerRecords.PackRecord;
 import lemmini.tools.Props;
 import lemmini.tools.ToolBox;
 
@@ -42,10 +42,8 @@ public class Player {
     /** property class to store player settings persistently */
     private Props props;
     
-    /** LEGACY: stores player progress */
-    private Map<String, LevelGroup> lvlGroups;
-    /** NEW: stores player progress */
-    private PlayerRecords records = new PlayerRecords();
+    /** stores player progress */
+    private Map<String, PlayerProgress> playerProgress;
     
     /** debug mode enabled? */
     private boolean debugMode;
@@ -60,14 +58,14 @@ public class Player {
     public Player(final String n) {
         System.out.println("    initalizing player: " + n);
         name = n;
-        lvlGroups = new LinkedHashMap<>();
+        playerProgress = new LinkedHashMap<>();
         props = new Props();
         Path iniFilePath = getPlayerINIFilePath(name);
         
         System.out.println("    loading player level stats: " + iniFilePath);
         if (props.load(iniFilePath)) {
-        	loadLegacyPlayerRecords(); // BOOKMARK TODO
-            migrateRecords();          // These can eventually be removed altogether
+        	loadLegacyPlayerRecords();
+            migrateLegacyRecords();
             loadPlayerRecords();
         } else {
             System.out.println("    ini file not found... new one created.");
@@ -128,102 +126,82 @@ public class Player {
                     levelRecords.put(j, LevelRecord.BLANK_LEVEL_RECORD);
                 }
             }
-            lvlGroups.put(groupName, new LevelGroup(levelRecords));
+            int legacyName = groupName.lastIndexOf('-');
+            String pack = groupName.substring(0, legacyName).trim();
+            String rating = groupName.substring(legacyName + 1).trim();
+            playerProgress.put(LevelPack.getID(pack, rating), new PlayerProgress(levelRecords));
         }
     }
     
-    /**
-     * Migrate existing lvlGroups data into PlayerRecords.
-     */
-    private void migrateRecords() {
-        if (lvlGroups == null || lvlGroups.isEmpty()) return;
-        
-        System.out.println("      migrating player records from lvlGroups to PlayerRecords...");
-        for (Map.Entry<String, LevelGroup> groupEntry : lvlGroups.entrySet()) {
-            String groupName = groupEntry.getKey();
-            LevelGroup oldGroup = groupEntry.getValue();
-            String pack, rating;
-            
-            int idx = groupName.indexOf('-');
-            if (idx != -1) {
-                pack = groupName.substring(0, idx).trim();
-                rating = groupName.substring(idx + 1).trim();
-            } else {
-                pack = groupName;
-                rating = "default";
-            }
-            
-            PlayerRecords.PackRecord packRecord = records.getOrCreatePack(pack);
-            PlayerRecords.GroupRecord groupRecord = packRecord.getOrCreateGroup(rating);
+    private void migrateLegacyRecords() {
+        boolean hasLegacyKeys = props.keySet().stream().anyMatch(k -> k.startsWith("group"));
+        if (!hasLegacyKeys) return;
 
-            for (Map.Entry<Integer, LevelRecord> levelEntry : oldGroup.levelRecords.entrySet()) {
-                int levelNum = levelEntry.getKey();
-                LevelRecord record = levelEntry.getValue();
-                if (record.isCompleted()) {
-                    groupRecord.setLevelRecord(levelNum, record);
-                }
-            }
-        }
-        // create backup
-        Path ini = getPlayerINIFilePath(name);
-        Path backup = ini.resolveSibling(ini.getFileName() + ".bak");
-        try {
-            Files.copy(ini, backup, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            return; // abort migration silently, new format will be appended (or original INI will remain as-is)
-        }
+        System.out.println("      migrating legacy player records to new format...");
 
-//        try {
-            // remove legacy keys & save without reloading
-            props.eraseKeysStartingWith("group");
-            props.save(ini, false);
-
-            // immediately save new-format records
-            storePlayerRecords();
-
-//            // all successful - backup can be deleted
-//            Files.deleteIfExists(backup);
-//        } catch (IOException e) {
-//            return; // fail silently
-//        }
-        
-        System.out.println("      migration to PlayerRecords complete");
+	    // create backup
+	    Path ini = getPlayerINIFilePath(name);
+	    Path backup = ini.resolveSibling(ini.getFileName() + ".bak");
+	    try {
+	        Files.copy(ini, backup, StandardCopyOption.REPLACE_EXISTING);
+	    } catch (IOException e) {
+	        return; // abort migration silently, new format will be appended (or original INI will remain as-is)
+	    }
+	
+	//      try {
+	          // remove legacy keys & save without reloading
+	        props.eraseKeysStartingWith("group");
+	        props.save(ini, false);
+	
+	          // immediately save new-format records
+	        storePlayerRecords();
+	
+	//          // all successful - backup can be deleted
+	//          Files.deleteIfExists(backup);
+	//      } catch (IOException e) {
+	//          return; // fail silently
+	//      }
+	      
+	    System.out.println("      migration to PlayerRecords complete");
     }
     
     /**
      * Load player records from INI.
      */
     public void loadPlayerRecords() {
-        if (!props.load(getPlayerINIFilePath(name))) return;
-
         for (String key : props.keySet()) {
             if (!key.startsWith("pack.")) continue;
 
             String[] parts = key.split("\\.");
-            if (parts.length < 4) continue;
+            if (parts.length < 5) continue;
 
-            String pack = parts[1].toLowerCase(Locale.ROOT);
-            String rating = parts[2].toLowerCase(Locale.ROOT);
-            String levelPart = parts[3];
+            String pack = parts[1];
+            String rating = parts[2];
+            int levelNum = Integer.parseInt(parts[3].replace("level", ""));
+            String field = parts[4];
 
-            int levelNum;
-            try {
-                levelNum = Integer.parseInt(levelPart.substring(5));
-            } catch (NumberFormatException e) {
-                continue;
-            }
+            String id = LevelPack.getID(pack, rating);
+            PlayerProgress prog = playerProgress.computeIfAbsent(id, k -> new PlayerProgress());
+            LevelRecord oldRecord = prog.records.getOrDefault(levelNum, LevelRecord.BLANK_LEVEL_RECORD);
 
-            boolean completed = props.getBoolean(key, false);
-            LevelRecord record = LevelRecord.BLANK_LEVEL_RECORD;
-            if (completed) {
-                int lemmingsSaved = props.getInt("pack." + pack + "." + rating + ".level" + levelNum + ".lemmingsSaved", 0);
-                int skillsUsed = props.getInt("pack." + pack + "." + rating + ".level" + levelNum + ".skillsUsed", 0);
-                int timeElapsed = props.getInt("pack." + pack + "." + rating + ".level" + levelNum + ".timeElapsed", 0);
-                int score = props.getInt("pack." + pack + "." + rating + ".level" + levelNum + ".score", 0);
-                record = new LevelRecord(true, lemmingsSaved, skillsUsed, timeElapsed, score);
-            }
+            boolean completed = oldRecord.isCompleted();
+            int lemmingsSaved = oldRecord.getLemmingsSaved();
+            int skillsUsed = oldRecord.getSkillsUsed();
+            int timeElapsed = oldRecord.getTimeElapsed();
+            int score = oldRecord.getScore();
 
-            records.getOrCreatePack(pack).getOrCreateGroup(rating).setLevelRecord(levelNum, record);
+            if ("completed".equals(field))
+                completed = props.getBoolean(key, false);
+            else if ("lemmingsSaved".equals(field))
+                lemmingsSaved = props.getInt(key, -1);
+            else if ("skillsUsed".equals(field))
+                skillsUsed = props.getInt(key, -1);
+            else if ("timeElapsed".equals(field))
+                timeElapsed = props.getInt(key, -1);
+            else if ("score".equals(field))
+                score = props.getInt(key, -1);
+
+            prog.records.put(levelNum, new LevelRecord(completed, lemmingsSaved, skillsUsed, timeElapsed, score));
         }
     }
 
@@ -231,44 +209,35 @@ public class Player {
      * Store player's progress.
      */
     public void storePlayerRecords() {
-        for (Map.Entry<String, PlayerRecords.PackRecord> packEntry : records.getPacks().entrySet()) {
-            String pack = packEntry.getKey();
-            PlayerRecords.PackRecord packRecord = packEntry.getValue();
+        for (Map.Entry<String, PlayerProgress> entry : playerProgress.entrySet()) {
+            String groupId = entry.getKey();
+            PlayerProgress prog = entry.getValue();
 
-            for (Map.Entry<String, PlayerRecords.GroupRecord> groupEntry : packRecord.getGroups().entrySet()) {
-                String rating = groupEntry.getKey();
-                PlayerRecords.GroupRecord groupRecord = groupEntry.getValue();
+            for (Map.Entry<Integer, LevelRecord> levelEntry : prog.records.entrySet()) {
+                int lvlNum = levelEntry.getKey();
+                LevelRecord lr = levelEntry.getValue();
 
-                String section = "pack." + pack + "." + rating;
-                for (Map.Entry<Integer, LevelRecord> levelEntry : groupRecord.getLevels().entrySet()) {
-                    int lvl = levelEntry.getKey();
-                    LevelRecord rec = levelEntry.getValue();
-
-                    String prefix = section + ".level" + lvl;
-                    props.setBoolean(prefix + ".completed", rec.isCompleted());
-                    if (rec.isCompleted()) {
-                        props.setInt(prefix + ".lemmingsSaved", rec.getLemmingsSaved());
-                        props.setInt(prefix + ".skillsUsed", rec.getSkillsUsed());
-                        props.setInt(prefix + ".timeElapsed", rec.getTimeElapsed());
-                        props.setInt(prefix + ".score", rec.getScore());
-                    }
+                String prefix = "pack." + groupId + ".level" + lvlNum + ".";
+                props.setBoolean(prefix + "completed", lr.isCompleted());
+                if (lr.isCompleted()) {
+                    props.setInt(prefix + "lemmingsSaved", lr.getLemmingsSaved());
+                    props.setInt(prefix + "skillsUsed", lr.getSkillsUsed());
+                    props.setInt(prefix + "timeElapsed", lr.getTimeElapsed());
+                    props.setInt(prefix + "score", lr.getScore());
                 }
             }
         }
         props.save(getPlayerINIFilePath(name), true);
     }
-
-    /**
-     * Allow a level to be played.
-     */
+    
+	/**
+	 * Allow a level to be played.
+	 */
     public void setAvailable(final String pack, final String rating, final int num) {
-        PlayerRecords.PackRecord packRecord = records.getOrCreatePack(pack);
-        PlayerRecords.GroupRecord groupRecord = packRecord.getOrCreateGroup(rating);
-
-        if (!groupRecord.hasLevel(num)) {
-            groupRecord.setLevelRecord(num, LevelRecord.BLANK_LEVEL_RECORD);
-        }
+    	PlayerProgress prog = playerProgress.computeIfAbsent(LevelPack.getID(pack, rating), k -> new PlayerProgress(new LinkedHashMap<>()));
+    	prog.records.computeIfAbsent(num, k -> LevelRecord.BLANK_LEVEL_RECORD);
     }
+
 
     /**
      * Check if a player is allowed to play a level.
@@ -277,38 +246,41 @@ public class Player {
         if (LemGame.isOptionEnabled(LemGame.Option.UNLOCK_ALL_LEVELS) || isDebugMode()) {
             return true;
         }
-        PlayerRecords.PackRecord packRecord = records.getPack(pack.toLowerCase(Locale.ROOT));
-        if (packRecord == null) {
-            return num == 0;
-        }
-        PlayerRecords.GroupRecord groupRecord = packRecord.getGroup(rating.toLowerCase(Locale.ROOT));
-        if (groupRecord == null) {
-            return num == 0;
-        }
-        // first level is always available
-        if (num == 0) return true;
-        
-        // If level is already completed, always consider it available
-        LevelRecord thisRecord = groupRecord.getLevel(num);
-        if (thisRecord != null && thisRecord.isCompleted()) return true;
 
-        // previous level must be completed to unlock this one
-        LevelRecord prevRecord = groupRecord.getLevel(num - 1);
+        String id = LevelPack.getID(pack, rating);
+        PlayerProgress prog = playerProgress.get(id);
+
+        if (prog == null) {
+            return num == 0;
+        }
+
+        // First level is always available
+        if (num == 0) {
+            return true;
+        }
+
+        // If this level is completed, it's always available
+        LevelRecord thisRecord = prog.records.get(num);
+        if (thisRecord != null && thisRecord.isCompleted()) {
+            return true;
+        }
+
+        // Otherwise, previous level must be completed
+        LevelRecord prevRecord = prog.records.get(num - 1);
         return prevRecord != null && prevRecord.isCompleted();
     }
 
-    /**
-     * Store a completed level record.
-     */
+	/**
+	 * Store a completed level record.
+	 */
     public void setLevelRecord(final String pack, final String rating, final int num, final LevelRecord record) {
-        if (!record.isCompleted()) return;
+        if (!record.isCompleted()) return; // only store completed levels
+        PlayerProgress prog = playerProgress.computeIfAbsent(LevelPack.getID(pack, rating), k -> new PlayerProgress());
 
-        PlayerRecords.PackRecord packRecord = records.getOrCreatePack(pack);
-        PlayerRecords.GroupRecord groupRecord = packRecord.getOrCreateGroup(rating);
-        LevelRecord oldRecord = groupRecord.getLevel(num);
-
-        if (oldRecord != null && oldRecord.isCompleted()) {
-            groupRecord.setLevelRecord(num, new LevelRecord(
+        // Merge with existing record if it exists
+        LevelRecord oldRecord = prog.records.get(num);
+        if (oldRecord != null) {
+        	prog.records.put(num, new LevelRecord(
                 true,
                 Math.max(oldRecord.getLemmingsSaved(), record.getLemmingsSaved()),
                 Math.min(oldRecord.getSkillsUsed(), record.getSkillsUsed()),
@@ -316,20 +288,23 @@ public class Player {
                 Math.max(oldRecord.getScore(), record.getScore())
             ));
         } else {
-            groupRecord.setLevelRecord(num, record);
+        	prog.records.put(num, record);
         }
     }
     
-    public LevelRecord getLevelRecord(final String pack, final String rating, final int num) {  	
-        PackRecord packRecord = records.getPack(pack.toLowerCase(Locale.ROOT));
-        if (packRecord == null) {
+	/**
+	 * Retrieve a completed level record.
+	 */
+    public LevelRecord getLevelRecord(final String pack, final String rating, final int num) {
+    	String id = LevelPack.getID(pack, rating);
+    	PlayerProgress prog = playerProgress.get(id);
+        if (prog == null) {
             return LevelRecord.BLANK_LEVEL_RECORD;
         }
-        GroupRecord groupRecord = packRecord.getGroup(rating.toLowerCase(Locale.ROOT));
-        if (groupRecord == null) {
+        if (!prog.records.containsKey(num)) {
             return LevelRecord.BLANK_LEVEL_RECORD;
         }
-        return groupRecord.getLevelOrDefault(num);
+        return prog.records.get(num);
     }
 
     /**
@@ -515,12 +490,17 @@ public class Player {
         return (sb == null) ? s : sb.toString();
     }
 
-    private class LevelGroup {
+    private class PlayerProgress {
+        private final Map<Integer, LevelRecord> records;
 
-        private final Map<Integer, LevelRecord> levelRecords;
+        // Constructor
+        private PlayerProgress(Map<Integer, LevelRecord> records) {
+            this.records = records;
+        }
 
-        private LevelGroup(Map<Integer, LevelRecord> levelRecords) {
-            this.levelRecords = levelRecords;
+        // Convenience constructor for blank records
+        private PlayerProgress() {
+            this(new LinkedHashMap<>());
         }
     }
 }

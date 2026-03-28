@@ -157,7 +157,6 @@ public class LevelDialog extends JDialog {
      */
     public LevelDialog(Frame parent, boolean modal) {
         super(parent, modal);
-        Core.player.loadPlayerRecords();
         initComponents();
         setMinimumSize(getSize());
         setLocationRelativeTo(parent);

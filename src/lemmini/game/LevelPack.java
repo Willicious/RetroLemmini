@@ -198,10 +198,9 @@ public class LevelPack {
      * Assemble level pack and rating to string.
      */
     public static String getID(String pack, String rating) {
-        pack = Normalizer.normalize(pack.toLowerCase(Locale.ROOT), Normalizer.Form.NFKC);
-        rating = Normalizer.normalize(rating.toLowerCase(Locale.ROOT), Normalizer.Form.NFKC);
-
-        return pack + "-" + rating;
+        pack = Normalizer.normalize(pack, Normalizer.Form.NFKC).toLowerCase();
+        rating = Normalizer.normalize(rating, Normalizer.Form.NFKC).toLowerCase();
+        return pack + "." + rating;
     }
 
     /**
