@@ -242,7 +242,6 @@ public class Player {
 	 */
     public void setAvailable(final String pack, final String rating, final int num) {
     	PlayerProgress prog = playerProgress.computeIfAbsent(LevelPack.getID(pack, rating), k -> new PlayerProgress(new LinkedHashMap<>()));
-    	prog.records.computeIfAbsent(num, k -> LevelRecord.BLANK_LEVEL_RECORD);
     }
 
 
