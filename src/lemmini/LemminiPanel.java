@@ -1798,7 +1798,7 @@ public class LemminiPanel extends JPanel implements Runnable {
         String userName = Core.player.getName();
         String levelName = level.getLevelName().replaceAll("[^a-zA-Z0-9_\\-]", "");
         String levelWithNumber = String.format("%02d_%s", curLevelNum + 1, levelName);
-        String levelPackName = levelPack.getName().replaceAll("[^a-zA-Z0-9_\\-]", "");
+        String levelPackName = levelPack.getName().replaceAll("[^a-zA-Z0-9_\\-! ]", "");
         String ratingName = levelPack.getRatings().get(curRating).replaceAll("[^a-zA-Z0-9_\\-]", "");
         
         String template = LemGame.getReplayNameTemplate();
