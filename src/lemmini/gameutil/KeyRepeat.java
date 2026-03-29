@@ -28,7 +28,7 @@ import lemmini.tools.NanosecondTimer;
  *   nanoseconds, a DOUBLE_CLICK is fired.
  *
  * @author Volker Oth
- * Modified by Ryan Sakowski
+ * Modified by Ryan Sakowski and Will James
  */
 public class KeyRepeat {
 
@@ -131,6 +131,18 @@ public class KeyRepeat {
         timer.update(); // set up lock timer
     }
 
+    /**
+     * Button/Icon was continually pressed (used for switching between -/+ RR).
+     */
+    public synchronized void pressedContinue(final int m) {
+        if ((mask & m) == m) {
+            return;
+        }
+        mask |= m;
+        state = State.REPEAT;
+        timer.update();
+    }
+    
     /**
      * Button/Icon was released.
      */

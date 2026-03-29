@@ -595,7 +595,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                     	}
                         // Press new button
                         if (newType != null) {
-                            LemGame.handleIconButton(newType);
+                            LemGame.handleIconButtonDrag(newType);
                         }
                         curPressedIcon = newType;
                     }

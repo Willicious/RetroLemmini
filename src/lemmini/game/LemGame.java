@@ -216,7 +216,7 @@ public class LemGame {
     /** +/- icons: maximum time between two mouse clicks for double click detection (in nanoseconds) */
     private static final long NANOSEC_RELEASE_DOUBLE_CLICK = 200_000_000;
     /** +/- icons: time for key repeat to kick in */
-    private static final long NANOSEC_KEYREPEAT_START = 250_000_000;
+    private static final long NANOSEC_KEYREPEAT_START = 88_000_000;
     /** +/- icons: time for key repeat rate */
     private static final long NANOSEC_KEYREPEAT_REPEAT = 39_000_000;
 
@@ -1608,6 +1608,25 @@ public class LemGame {
         // Lemmini runs at 30ms/33ms, so the term has to be multiplied by 2
         // 107-releaseRate should be correct
         releaseBase = 107 - releaseRate;
+    }
+    
+    /**
+     * Handle dragging mouse across icon buttons.
+     */
+    public static synchronized void handleIconButtonDrag(final Icons.IconType type) {
+        if (testIcon(type)) {
+            switch (type) {
+                case PLUS:
+                    plus.pressedContinue(KEYREPEAT_ICON);
+                    break;
+                case MINUS:
+                    minus.pressedContinue(KEYREPEAT_ICON);
+                    break;
+                default:
+                    handleIconButton(type);
+                    break;
+            }
+        }
     }
 
     /**
