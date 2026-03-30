@@ -21,6 +21,8 @@ import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -342,8 +344,10 @@ public class LemGame {
     private static boolean replayMode;
     /** flag: replay mode should be stopped */
     private static boolean stopReplayMode;
-    /** flag: cancel autosave if replay mode is active at the end of the level*/
+    /** flag: cancel autosave if replay mode is active at the end of the level */
     public static boolean cancelAutosave;
+    /** flag: replay autosaved successfully */
+    private static boolean replayAutosaved;
     /** number of Lemmings which exited the level */
     private static int numExited;
     /** release rate */
@@ -490,7 +494,6 @@ public class LemGame {
         replay = new ReplayStream();
         replayMode = false;
         stopReplayMode = false;
-        cancelAutosave = false;
 
         cheatWasActivated = Core.player.isDebugMode() || Core.player.isMaximumExitPhysics();
 
@@ -743,6 +746,8 @@ public class LemGame {
 
         replayFrame = 0;
         stopReplayMode = false;
+        replayAutosaved = false;
+        cancelAutosave = false;
         releaseRateOld = releaseRate;
         lemmSkillOld = lemmSkill;
         nukeOld = false;
@@ -1832,6 +1837,7 @@ public class LemGame {
             switch (transitionState) {
                 case END_LEVEL:
                     finishLevel();
+                    maybeAutoSaveReplay();
                     LemCursor.setBox(false);
                     LemGame.replayCaption = null;
                     LemminiFrame.getFrame().setCursor(LemCursor.CursorType.NORMAL);
@@ -1905,6 +1911,58 @@ public class LemGame {
                 || (gameState == State.LEVEL && transitionState != TransitionState.NONE)) {
             fadeSound(showPreview);
         }
+    }
+    
+    private static void maybeAutoSaveReplay() {  	
+        if (!LemGame.isOptionEnabled(LemGame.Option.AUTOSAVE_REPLAYS)) return;
+
+        if (replayAutosaved || cancelAutosave) return;
+        if (getWasCheated() || wasLost()) return;        
+
+        Level level = getLevel();
+        LevelPack levelPack = getCurLevelPack();
+        int curRating = getCurRating();
+        int curLevelNum = getCurLevelNumber();
+
+        if (level == null || levelPack == null) return;
+
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH-mm-ss_dd-MM-yy");
+        String timestamp = now.format(formatter);
+
+        String userName = Core.player.getName();
+        String levelName = level.getLevelName().replaceAll("[^a-zA-Z0-9_\\-]", "");
+        String levelWithNumber = String.format("%02d_%s", curLevelNum + 1, levelName);
+        String packName = levelPack.getName().replaceAll("[^a-zA-Z0-9_\\-! ]", "");
+        String packNameConcatenated = packName.replaceAll(" ", "");
+        String ratingName = levelPack.getRatings().get(curRating).replaceAll("[^a-zA-Z0-9_\\-]", "");
+        
+        String template = getReplayNameTemplate();
+        String replayFileName = buildReplayFileName(template, userName, packNameConcatenated, ratingName, levelWithNumber, timestamp);
+        Path replayPath = Core.resourcePath.resolve(Core.REPLAYS_PATH).resolve(packName).resolve(replayFileName);
+
+        try {
+            Files.createDirectories(replayPath.getParent());
+        } catch (IOException e) {
+        	System.err.println("Could not create subfolder for level pack, saving in main replays folder: " + e.getMessage());
+            replayPath = Core.resourcePath.resolve(Core.REPLAYS_PATH).resolve(replayFileName);
+        }
+
+        if (!LemGame.saveReplay(replayPath)) {
+            JOptionPane.showMessageDialog(null, "Unable to auto-save replay.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+        	replayAutosaved = true;
+        }
+    }
+    
+    public static String buildReplayFileName(String template, String user, String pack, String rating, String level, String time) {
+        return template
+            .replace("{user}", user)
+            .replace("{pack}", pack)
+            .replace("{rating}", rating)
+            .replace("{level}", level)
+            .replace("{time}", time)
+            + "." + Core.REPLAY_EXTENSIONS[0];
     }
 
     private static void setLevelTitle() {

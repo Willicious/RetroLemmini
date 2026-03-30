@@ -25,11 +25,7 @@ import java.awt.RenderingHints;
 import java.awt.Transparency;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -190,8 +186,6 @@ public class LemminiPanel extends JPanel implements Runnable {
     private boolean drawNextFrame;
     private int unmaximizedWidth = 0;
     private int unmaximizedHeight = 0;
-
-    private boolean replaySaved = false;
 
     /**
      * Creates new form LemminiPanel
@@ -1336,7 +1330,6 @@ public class LemminiPanel extends JPanel implements Runnable {
                 TextScreen.getDialog().handleMouseMove(
                         Core.unscale(xMouseScreen) - Core.getDrawWidth() / 2,
                         Core.unscale(yMouseScreen) - Core.getDrawHeight() / 2);
-                replaySaved = false;
                 break;
             case POSTVIEW:
                 TextScreen.setMode(TextScreen.Mode.POSTVIEW);
@@ -1344,7 +1337,6 @@ public class LemminiPanel extends JPanel implements Runnable {
                 TextScreen.getDialog().handleMouseMove(
                         Core.unscale(xMouseScreen) - Core.getDrawWidth() / 2,
                         Core.unscale(yMouseScreen) - Core.getDrawHeight() / 2);
-                maybeAutoSaveReplay();
                 break;
             case LEVEL:
             case LEVEL_END:
@@ -1765,59 +1757,6 @@ public class LemminiPanel extends JPanel implements Runnable {
         LemGame.setTransition(LemGame.TransitionState.TO_INTRO);
         Fader.setState(Fader.State.OUT);
         Core.setWindowCaption("RetroLemmini");
-    }
-    
-    public static String buildReplayFileName(String template, String user, String pack, String rating, String level, String time) {
-        return template
-            .replace("{user}", user)
-            .replace("{pack}", pack)
-            .replace("{rating}", rating)
-            .replace("{level}", level)
-            .replace("{time}", time)
-            + "." + Core.REPLAY_EXTENSIONS[0];
-    }
-
-    private void maybeAutoSaveReplay() {
-        if (!LemGame.isOptionEnabled(LemGame.Option.AUTOSAVE_REPLAYS)) return;
-
-        if (replaySaved) return;
-        if (LemGame.getWasCheated() || LemGame.wasLost()) return;        
-        if (LemGame.cancelAutosave) return;
-
-        Level level = LemGame.getLevel();
-        LevelPack levelPack = LemGame.getCurLevelPack();
-        int curRating = LemGame.getCurRating();
-        int curLevelNum = LemGame.getCurLevelNumber();
-
-        if (level == null || levelPack == null) return;
-
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH-mm-ss_dd-MM-yy");
-        String timestamp = now.format(formatter);
-
-        String userName = Core.player.getName();
-        String levelName = level.getLevelName().replaceAll("[^a-zA-Z0-9_\\-]", "");
-        String levelWithNumber = String.format("%02d_%s", curLevelNum + 1, levelName);
-        String packName = levelPack.getName().replaceAll("[^a-zA-Z0-9_\\-! ]", "");
-        String packNameConcatenated = packName.replaceAll(" ", "");
-        String ratingName = levelPack.getRatings().get(curRating).replaceAll("[^a-zA-Z0-9_\\-]", "");
-        
-        String template = LemGame.getReplayNameTemplate();
-        String replayFileName = buildReplayFileName(template, userName, packNameConcatenated, ratingName, levelWithNumber, timestamp);
-        Path replayPath = Core.resourcePath.resolve(Core.REPLAYS_PATH).resolve(packName).resolve(replayFileName);
-
-        try {
-            Files.createDirectories(replayPath.getParent());
-        } catch (IOException e) {
-        	System.err.println("Could not create subfolder for level pack, saving in main replays folder: " + e.getMessage());
-            replayPath = Core.resourcePath.resolve(Core.REPLAYS_PATH).resolve(replayFileName);
-        }
-
-        if (!LemGame.saveReplay(replayPath)) {
-            JOptionPane.showMessageDialog(getParent(), "Unable to auto-save replay.", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            replaySaved = true;
-        }
     }
 
     void handleSaveReplay() {
