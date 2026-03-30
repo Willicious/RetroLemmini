@@ -1798,12 +1798,13 @@ public class LemminiPanel extends JPanel implements Runnable {
         String userName = Core.player.getName();
         String levelName = level.getLevelName().replaceAll("[^a-zA-Z0-9_\\-]", "");
         String levelWithNumber = String.format("%02d_%s", curLevelNum + 1, levelName);
-        String levelPackName = levelPack.getName().replaceAll("[^a-zA-Z0-9_\\-! ]", "");
+        String packName = levelPack.getName().replaceAll("[^a-zA-Z0-9_\\-! ]", "");
+        String packNameConcatenated = packName.replaceAll(" ", "");
         String ratingName = levelPack.getRatings().get(curRating).replaceAll("[^a-zA-Z0-9_\\-]", "");
         
         String template = LemGame.getReplayNameTemplate();
-        String replayFileName = buildReplayFileName(template, userName, levelPackName, ratingName, levelWithNumber, timestamp);
-        Path replayPath = Core.resourcePath.resolve(Core.REPLAYS_PATH).resolve(levelPackName).resolve(replayFileName);
+        String replayFileName = buildReplayFileName(template, userName, packNameConcatenated, ratingName, levelWithNumber, timestamp);
+        Path replayPath = Core.resourcePath.resolve(Core.REPLAYS_PATH).resolve(packName).resolve(replayFileName);
 
         try {
             Files.createDirectories(replayPath.getParent());
