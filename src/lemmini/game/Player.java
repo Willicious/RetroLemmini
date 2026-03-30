@@ -223,10 +223,10 @@ public class Player {
             for (Map.Entry<Integer, LevelRecord> levelEntry : prog.records.entrySet()) {
                 int lvlNum = levelEntry.getKey();
                 LevelRecord lr = levelEntry.getValue();
-
-                String prefix = "pack." + groupId + ".level" + lvlNum + ".";
-                props.setBoolean(prefix + "completed", lr.isCompleted());
+                
                 if (lr.isCompleted()) {
+                	String prefix = "pack." + groupId + ".level" + lvlNum + ".";
+                	props.setBoolean(prefix + "completed", lr.isCompleted());
                     props.setInt(prefix + "lemmingsSaved", lr.getLemmingsSaved());
                     props.setInt(prefix + "skillsUsed", lr.getSkillsUsed());
                     props.setInt(prefix + "timeElapsed", lr.getTimeElapsed());
@@ -238,10 +238,11 @@ public class Player {
     }
     
 	/**
-	 * Allow a level to be played.
+	 * Unlock a level via code.
 	 */
-    public void setAvailable(final String pack, final String rating, final int num) {
-    	PlayerProgress prog = playerProgress.computeIfAbsent(LevelPack.getID(pack, rating), k -> new PlayerProgress(new LinkedHashMap<>()));
+    public void unlockLevel(final String pack, final String rating, final int num) {
+        PlayerProgress prog = playerProgress.computeIfAbsent(LevelPack.getID(pack, rating), k -> new PlayerProgress());
+        prog.records.putIfAbsent(num, LevelRecord.BLANK_LEVEL_RECORD);
     }
 
 
@@ -265,11 +266,9 @@ public class Player {
             return true;
         }
 
-        // If this level is completed, it's always available
+        // Levels with an existing record are always available
         LevelRecord thisRecord = prog.records.get(num);
-        if (thisRecord != null && thisRecord.isCompleted()) {
-            return true;
-        }
+        if (thisRecord != null) return true;
 
         // Otherwise, previous level must be completed
         LevelRecord prevRecord = prog.records.get(num - 1);

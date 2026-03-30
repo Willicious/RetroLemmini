@@ -1939,7 +1939,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                 int rating = l[0];
                 int lvlRel = l[1];
                 if (rating >= 0 && lvlRel >= 0) {
-                    Core.player.setAvailable(lpack.getName(), lpack.getRatings().get(rating), lvlRel);
+                    Core.player.unlockLevel(lpack.getName(), lpack.getRatings().get(rating), lvlRel);
                     LemGame.requestChangeLevel(lvlPack, rating, lvlRel, false);
                     getParentFrame().setRestartEnabled(true);
                     return;

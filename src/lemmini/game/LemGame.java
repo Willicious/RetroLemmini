@@ -609,9 +609,6 @@ public class LemGame {
             LevelPack lvlPack = getCurLevelPack();
             String curRatingString = lvlPack.getRatings().get(curRating);
             Core.player.setLevelRecord(lvlPack.getName(), curRatingString, curLevelNumber, getLevelRecord());
-            if (curLevelNumber + 1 < lvlPack.getLevelCount(curRating)) {
-                Core.player.setAvailable(lvlPack.getName(), curRatingString, curLevelNumber + 1);
-            }
             Core.player.storePlayerRecords();
         }
 
