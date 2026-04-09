@@ -24,6 +24,7 @@ import javax.swing.GroupLayout;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JSlider;
 
 import lemmini.LemminiFrame;
 import lemmini.LemminiPanel;
@@ -131,27 +132,41 @@ public class OptionsDialog extends JDialog {
 		jPanelSound.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sound",
 				javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
+		// Music controls
 		jCheckBoxEnableMusic.setSelected(LemGame.isOptionEnabled(LemGame.Option.MUSIC_ON));
 		jCheckBoxEnableMusic.setText("Music");
 
 		jLabelMusicVolume.setLabelFor(jSliderMusicVolume);
-		jLabelMusicVolume.setText("Music Volume");
-
 		jSliderMusicVolume.setMajorTickSpacing(10);
 		jSliderMusicVolume.setMaximum(200);
 		jSliderMusicVolume.setPaintTicks(true);
-		jSliderMusicVolume.setValue((int) (100 * LemGame.getMusicGain()));
+		//jSliderMusicVolume.setSnapToTicks(true);
+		double musicGain = LemGame.getMusicGain();
+		double musicNormalized = Math.sqrt(musicGain / 1.5);
+		jSliderMusicVolume.setValue((int) (musicNormalized * 200));
+		jSliderMusicVolume.addChangeListener(e -> {
+		    int value = jSliderMusicVolume.getValue();
+		    jLabelMusicVolume.setText("Music Volume " + value);
+		});
+		jLabelMusicVolume.setText("Music Volume: " + jSliderMusicVolume.getValue());
 
+		// Sound controls
 		jCheckBoxEnableSound.setSelected(LemGame.isOptionEnabled(LemGame.Option.SOUND_ON));
 		jCheckBoxEnableSound.setText("Sound Effects");
 
 		jLabelSoundVolume.setLabelFor(jSliderSoundVolume);
-		jLabelSoundVolume.setText("Sound Effects Volume");
-
 		jSliderSoundVolume.setMajorTickSpacing(10);
 		jSliderSoundVolume.setMaximum(200);
 		jSliderSoundVolume.setPaintTicks(true);
-		jSliderSoundVolume.setValue((int) (100 * LemGame.getSoundGain()));
+		//jSliderSoundVolume.setSnapToTicks(true);
+		double soundGain = LemGame.getSoundGain();
+		double soundNormalized = Math.sqrt(soundGain / 1.5);
+		jSliderSoundVolume.setValue((int) (soundNormalized * 200));
+		jSliderSoundVolume.addChangeListener(e -> {
+		    int value = jSliderSoundVolume.getValue();
+		    jLabelSoundVolume.setText("Music Volume " + value);
+		});
+		jLabelSoundVolume.setText("Sound Effects Volume: " + jSliderSoundVolume.getValue());
 
 		jLabelMixer.setText("SFX Mixer");
 
@@ -659,23 +674,27 @@ public class OptionsDialog extends JDialog {
 	}// GEN-LAST:event_jButtonCancelActionPerformed
 
 	private void applyChanges() {
-		// set all game settings based on GUI options first
-		// apply sound settings
-		LemGame.setOption(LemGame.Option.MUSIC_ON, jCheckBoxEnableMusic.isSelected());
-		if (LemGame.getLevel() != null) {
-			if (LemGame.isOptionEnabled(LemGame.Option.MUSIC_ON)
-					&& LemGame.getGameState() == LemGame.State.LEVEL) {
-				Music.play();
-			} else {
-				Music.stop();
-			}
-		}
-		LemGame.setMusicGain(jSliderMusicVolume.getValue() / 100.0);
-		LemGame.setOption(LemGame.Option.SOUND_ON, jCheckBoxEnableSound.isSelected());
-		LemGame.setSoundGain(jSliderSoundVolume.getValue() / 100.0);
+	    // set all game settings based on GUI options first
+	    // apply music settings
+	    LemGame.setOption(LemGame.Option.MUSIC_ON, jCheckBoxEnableMusic.isSelected());
+	    if (LemGame.getLevel() != null) {
+	        if (LemGame.isOptionEnabled(LemGame.Option.MUSIC_ON)
+	                && LemGame.getGameState() == LemGame.State.LEVEL) {
+	            Music.play();
+	        } else {
+	            Music.stop();
+	        }
+	    }
+	    double musicNormalized = jSliderMusicVolume.getValue() / 200.0;
+	    double musicGain = Math.pow(musicNormalized, 2.0) * 1.5;
+	    LemGame.setMusicGain(musicGain);
+	    // apply sound settings
+	    LemGame.setOption(LemGame.Option.SOUND_ON, jCheckBoxEnableSound.isSelected());
+	    double soundNormalized = jSliderSoundVolume.getValue() / 200.0;
+	    double soundGain = Math.pow(soundNormalized, 2.0) * 1.5;
+	    LemGame.setSoundGain(soundGain);
 		LemGame.sound.setMixerIdx(jComboBoxMixer.getSelectedIndex());
 		LemGame.setOption(LemGame.Option.POSTVIEW_JINGLES, jCheckBoxPostviewJingles.isSelected());
-		// apply exit sound setting
 		LemGame.setExitSoundOption(jRadioButtonYippee.isSelected() ? LemGame.ExitSoundOption.YIPPEE
 				: jRadioButtonBoing.isSelected() ? LemGame.ExitSoundOption.BOING
 				: LemGame.ExitSoundOption.AUTO);
