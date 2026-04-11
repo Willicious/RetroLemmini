@@ -1,4 +1,4 @@
-  CHANGED: sugar.zip
+  CHANGED: sega.zip
 UNCHANGED: brick.zip
 UNCHANGED: bubble.zip
 UNCHANGED: classic.zip
@@ -11,8 +11,8 @@ UNCHANGED: lemminas_pink.zip
 UNCHANGED: marble.zip
 UNCHANGED: pillar.zip
 UNCHANGED: rock.zip
-UNCHANGED: sega.zip
 UNCHANGED: snow.zip
 UNCHANGED: special.zip
 UNCHANGED: starlight.zip
+UNCHANGED: sugar.zip
 UNCHANGED: xmas.zip
