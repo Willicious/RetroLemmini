@@ -675,9 +675,20 @@ public class Lemming {
                             m.eraseMask(screenMaskX(), screenMaskY(), idx / TIME_SCALE - 1, eraseMask, checkMask);
                             break;
                         case 3 * TIME_SCALE:
-                            y += 2;
-                            /* falls through */
                         case 15 * TIME_SCALE:
+                            if (!canMine(false, true)) {
+                                if (!LemGame.getLevel().getClassicSteel()) {
+                                	x = oldX;
+                                    y = oldY - 2;
+                                }
+                                flipDir();
+                                newType = Type.WALKER;
+                                break;
+                            }
+                            
+                            if (idx == 3 * TIME_SCALE)
+                            	y += 2;
+
                             if (dir == Direction.RIGHT) {
                                 x += 4;
                             } else {
