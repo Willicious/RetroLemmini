@@ -44,7 +44,7 @@ public class ReplayStream {
 
     static final int CURRENT_FORMAT = 1;
     static final String CURRENT_REVISION = Core.REVISION;
-    static final String COMPATIBILITY_REVISION = "2.6"; // Tracks last physics update, prevents unnecessary pop-ups when loading replays between revisions
+    static final String COMPATIBILITY_REVISION = "3.0"; // Tracks last physics update, prevents unnecessary pop-ups when loading replays between revisions
 
     private List<ReplayEvent> events;
     private int replayIndex;
