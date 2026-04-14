@@ -49,9 +49,9 @@ public class Stencil {
     public static final int MSK_ONE_WAY_LEFT = 1 << 10;
     /** right arrows - no bashing to the left */
     public static final int MSK_ONE_WAY_RIGHT = 1 << 11;
-    /** left arrows - no digging, bashing or mining (bombers only) */
+    /** up arrows - no digging, bashing or mining (bombers only) */
     public static final int MSK_ONE_WAY_UP = 1 << 12;
-    /** right arrows - no bashing in either direction */
+    /** down arrows - no bashing in either direction */
     public static final int MSK_ONE_WAY_DOWN = 1 << 13;
     /** no bashing - either left or right */
     public static final int MSK_ONE_WAY = MSK_ONE_WAY_LEFT | MSK_ONE_WAY_RIGHT | MSK_ONE_WAY_UP | MSK_ONE_WAY_DOWN;
@@ -341,16 +341,21 @@ class StencilPixel {
     }
 
     public void addGadget(final int aMask, final int aID) {
-        final int existingGadget = mask & ~(Stencil.MSK_BRICK
-                                          | Stencil.MSK_STEEL_BRICK
-                                          | Stencil.MSK_NO_ONE_WAY
-                                          | Stencil.MSK_NO_ONE_WAY_DRAW
-                                          | Stencil.MSK_ONE_WAY);
-        if (existingGadget > aMask) {
-            return;
-        }
-        mask &= ~existingGadget;
-        mask |= aMask;
-        maskObjectID = aID;
+    	// Never override exits
+    	if ((mask & Stencil.MSK_EXIT) != 0) {
+    	    return;
+    	}
+
+    	// Exits override all other gadgets (terrain bits are preserved)
+    	if ((aMask & Stencil.MSK_EXIT) != 0) {
+    	    mask &= (Stencil.MSK_BRICK
+    	           | Stencil.MSK_STEEL_BRICK
+    	           | Stencil.MSK_NO_ONE_WAY
+    	           | Stencil.MSK_NO_ONE_WAY_DRAW);
+    	}
+
+    	// Otherwise, let the gadget override whatever is already there
+    	mask |= aMask;
+    	maskObjectID = aID;
     }
 }
