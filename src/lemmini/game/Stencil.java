@@ -37,6 +37,7 @@ public class Stencil {
     public static final int MSK_NO_ONE_WAY_DRAW = 1 << 4;
     public static final int MSK_TURN_LEFT = 1 << 5;
     public static final int MSK_TURN_RIGHT = 1 << 6;
+    public static final int MSK_TURN = MSK_TURN_LEFT | MSK_TURN_RIGHT;
     /** right side of blocker mask - reflects to the right */
     public static final int MSK_BLOCKER_LEFT = 1 << 7;
     /** center of blocker mask */
@@ -339,22 +340,43 @@ class StencilPixel {
     public int[] getObjectIDs() {
         return objectIDs;
     }
+    
+    static final int TERRAIN_MASK =
+    		Stencil.MSK_BRICK
+          | Stencil.MSK_STEEL_BRICK
+          | Stencil.MSK_NO_ONE_WAY
+          | Stencil.MSK_NO_ONE_WAY_DRAW;
+    
+    static final int PRIORITY_GADGET_MASK =
+    		Stencil.MSK_EXIT
+          | Stencil.MSK_BLOCKER
+          | Stencil.MSK_TURN
+          | Stencil.MSK_TRAP_FIRE
+          | Stencil.MSK_TRAP_REMOVE
+          | Stencil.MSK_TRAP_LIQUID
+          | Stencil.MSK_ONE_WAY;
+    
+    private static int getPriority(int mask) {
+        if ((mask & Stencil.MSK_EXIT) != 0) return 7;
+        if ((mask & Stencil.MSK_BLOCKER) != 0) return 6;
+        if ((mask & Stencil.MSK_TURN) != 0) return 5;
+        if ((mask & Stencil.MSK_TRAP_FIRE) != 0) return 4;
+        if ((mask & Stencil.MSK_TRAP_REMOVE) != 0) return 3;
+        if ((mask & Stencil.MSK_TRAP_LIQUID) != 0) return 2;
+        if ((mask & Stencil.MSK_ONE_WAY) != 0) return 1;
+        return 0;
+    }
 
     public void addGadget(final int aMask, final int aID) {
-    	// Never override exits
-    	if ((mask & Stencil.MSK_EXIT) != 0) {
-    	    return;
-    	}
+    	// Add gadget masks according to priority
+        int existingGadget = mask & PRIORITY_GADGET_MASK;
+        if (getPriority(existingGadget) > getPriority(aMask))
+            return;
 
-    	// Exits override all other gadgets (terrain bits are preserved)
-    	if ((aMask & Stencil.MSK_EXIT) != 0) {
-    	    mask &= (Stencil.MSK_BRICK
-    	           | Stencil.MSK_STEEL_BRICK
-    	           | Stencil.MSK_NO_ONE_WAY
-    	           | Stencil.MSK_NO_ONE_WAY_DRAW);
-    	}
+        // Keep terrain pixels
+    	mask &= TERRAIN_MASK;
 
-    	// Otherwise, let the gadget override whatever is already there
+    	// Let the incoming gadget override whatever is already there
     	mask |= aMask;
     	maskObjectID = aID;
     }
