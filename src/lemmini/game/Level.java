@@ -554,13 +554,14 @@ public class Level {
                     int col = i.getRGB(x2, y2);
                     int alpha = (col >>> 24) & 0xff;
                     boolean isPixelOpaque = alpha >= 0x80;
+                    boolean wasEmpty = !fgImage.isPixelOpaque(x + tx, y + ty);
                     // ignore transparent pixels
                     if (!invisible && (col & 0xff000000) != 0) {
-                        if (noOverwrite) {
-                            if (noOneWay && isPixelOpaque && !fgImage.isPixelOpaque(x + tx, y + ty)) {
-                                stencil.orMask(x + tx, y + ty, Stencil.MSK_NO_ONE_WAY_DRAW);
-                            }
-                            fgImage.addRGBBehind(x + tx, y + ty, col);
+                    	if (noOverwrite) {
+                    	    if (noOneWay && isPixelOpaque && wasEmpty) {
+                    	        stencil.orMask(x + tx, y + ty, Stencil.MSK_NO_ONE_WAY_DRAW);
+                    	    }
+                    	    fgImage.addRGBBehind(x + tx, y + ty, col);
                         } else if (remove) {
                             if (noOneWay && isPixelOpaque) {
                                 stencil.andMask(x + tx, y + ty, ~Stencil.MSK_NO_ONE_WAY_DRAW);
@@ -582,9 +583,13 @@ public class Level {
                         if (remove) {
                             newMask = stencil.getMask(x + tx, y + ty) & Stencil.MSK_NO_ONE_WAY_DRAW;
                         } else if (noOverwrite) {
-                            newMask = stencil.getMask(x + tx, y + ty) | Stencil.MSK_BRICK;
-                            if (noOneWay) {
-                                newMask |= Stencil.MSK_NO_ONE_WAY;
+                        	if (wasEmpty) {
+                                newMask = stencil.getMask(x + tx, y + ty) | Stencil.MSK_BRICK;
+                                if (noOneWay) {
+                                    newMask |= Stencil.MSK_NO_ONE_WAY;
+                                }
+                            } else {
+                                newMask = stencil.getMask(x + tx, y + ty);
                             }
                         } else {
                             newMask = stencil.getMask(x + tx, y + ty) | Stencil.MSK_BRICK;
