@@ -657,6 +657,7 @@ public class LemGame {
 
         lemmings.clear();
         explosions.clear();
+        vsfxs.clear();
         Icons.reset();
 
         plus.init();
