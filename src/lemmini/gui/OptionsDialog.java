@@ -24,7 +24,6 @@ import javax.swing.GroupLayout;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JSlider;
 
 import lemmini.LemminiFrame;
 import lemmini.LemminiPanel;
