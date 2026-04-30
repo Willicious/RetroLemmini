@@ -606,17 +606,17 @@ procedure TMainForm.GenerateLevelPackINI(const FileName: string);
   function ValidateAuthor: String;
   begin
     if (edPackAuthor.Text = '') then
-      Result := '' + #13#10
+      Result := ''
     else
-      Result := ' by ' + edPackAuthor.Text + #13#10;
+      Result := ' by ' + edPackAuthor.Text;
   end;
 
   function ValidateName: String;
   begin
     if (edPackTitle.Text = '') then
-      Result := 'Untitled' + #13#10
+      Result := 'Untitled'
     else
-      Result := edPackTitle.Text + #13#10;
+      Result := edPackTitle.Text;
   end;
 
   function ValidateCodeSeed: string;
@@ -638,7 +638,7 @@ procedure TMainForm.GenerateLevelPackINI(const FileName: string);
     if not IsValidCodeSeed then
       Result := GenerateRandomCodeSeed
     else
-      Result := edCodeSeed.Text + #13#10;
+      Result := edCodeSeed.Text;
   end;
 
   function ValidateMods: string;
@@ -646,7 +646,7 @@ procedure TMainForm.GenerateLevelPackINI(const FileName: string);
     if (cbMods.Text = '') or (cbMods.Text = NO_MODS_TEXT) then
       Result := ''
     else
-      Result := cbMods.Text + #13#10;
+      Result := cbMods.Text;
   end;
 
   procedure ShuffleList(List: TList);
@@ -678,10 +678,10 @@ begin
   try
     // General Info
     SL.Add('# levelpack.ini generated with LemminiLevelPackCompiler ' + GetVersion);
-    SL.Add('# ' + ValidateName + ValidateAuthor);
-    SL.Add('name = ' + ValidateName);
-    SL.Add('codeSeed = ' + ValidateCodeSeed);
-    SL.Add('mods = ' + ValidateMods);
+    SL.Add('# ' + ValidateName + ValidateAuthor + #13#10);
+    SL.Add('name = ' + ValidateName + #13#10);
+    SL.Add('codeSeed = ' + ValidateCodeSeed + #13#10);
+    SL.Add('mods = ' + ValidateMods + #13#10);
 
     // Music
     SL.Add('# Music selection');
