@@ -1,6 +1,6 @@
+  CHANGED: bubble.zip
   CHANGED: special.zip
 UNCHANGED: brick.zip
-UNCHANGED: bubble.zip
 UNCHANGED: classic.zip
 UNCHANGED: crystal.zip
 UNCHANGED: crystal_md.zip
