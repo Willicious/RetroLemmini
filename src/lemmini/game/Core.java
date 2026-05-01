@@ -64,7 +64,7 @@ public class Core {
 
     public static final String REVISION = "3.0";
     public static final String COMMIT_ID = CommitID.ID;
-    public static final String REV_DATE = "April 2026";
+    public static final String REV_DATE = "May 2026";
 
     /** extensions accepted for level files in file dialog */
     public static final String[] LEVEL_EXTENSIONS = {"rlv", "ini", "lvl", "dat"};
