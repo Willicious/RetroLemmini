@@ -2036,15 +2036,16 @@ public class LemGame {
                 return false;
         }
     }
+    
+    public static int getEffectX(Lemming l) {
+    	return isLeftAndBidirectional(l) ? l.footX() : l.midX();
+    }
 
     public static synchronized void drawLemmings(final GraphicsContext g, int cameraX, int cameraY, boolean isScreenshot) {
         lemmings.stream().forEachOrdered(l -> {
             // Draw lemmings
         	int lx = l.screenX();
             int ly = l.screenY();
-            int mx = l.midX();
-            int fx = l.footX();
-            int effectX = isLeftAndBidirectional(l) ? fx : mx; // TODO: Ideally, midX and footX should be direction-aware
 
             if (isScreenshot || (lx + l.width() > cameraX && lx < cameraX + Core.getDrawWidth() &&
                                  ly + l.height() > cameraY && ly < cameraY + LemminiFrame.LEVEL_HEIGHT)) {
@@ -2054,7 +2055,7 @@ public class LemGame {
             // Draw countdown graphics if necessary
             LemImage cd = l.getCountdown();
             if (cd != null) {
-                int x = effectX - cameraX - cd.getWidth() / 2;
+                int x = getEffectX(l) - cameraX - cd.getWidth() / 2;
                 int y = ly - cameraY - cd.getHeight();
                 if (isScreenshot || (x + cd.getHeight() > 0 && x < Core.getDrawWidth() &&
                                      y + cd.getHeight() > 0 && y < LemminiFrame.LEVEL_HEIGHT)) {
@@ -2065,7 +2066,7 @@ public class LemGame {
             // Draw lightbulb for selected lems
             LemImage sel = l.getSelectImg();
             if (sel != null) {
-                int x = effectX - cameraX - sel.getWidth() / 2;
+                int x = getEffectX(l) - cameraX - sel.getWidth() / 2;
                 int y = ly - cameraY - sel.getHeight();
                 if (isScreenshot || (x + sel.getHeight() > 0 && x < Core.getDrawWidth() &&
                                      y + sel.getHeight() > 0 && y < LemminiFrame.LEVEL_HEIGHT)) {
