@@ -48,6 +48,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import lemmini.LemminiFrame;
 import lemmini.extract.ExtractDAT;
 import lemmini.extract.ExtractLevel;
+import lemmini.game.Lemming.Direction;
 import lemmini.gameutil.Fader;
 import lemmini.gameutil.Hotkey;
 import lemmini.gameutil.KeyRepeat;
@@ -2012,6 +2013,29 @@ public class LemGame {
             }
         });
     }
+    
+    private static boolean isLeftAndBidirectional(Lemming l) {
+        if (l.getDirection() != Direction.LEFT)
+            return false;
+
+        switch (l.getSkill()) {
+        case WALKER:
+        case JUMPER:
+        case FALLER:
+        case MAX_EXIT_LEM:
+        case FLOATER:
+        case FLOATER_START:
+        case CLIMBER:
+        case FLIPPER:
+        case BASHER:
+        case BUILDER:
+        case SHRUGGER:
+        case MINER:
+                return true;
+            default:
+                return false;
+        }
+    }
 
     public static synchronized void drawLemmings(final GraphicsContext g, int cameraX, int cameraY, boolean isScreenshot) {
         lemmings.stream().forEachOrdered(l -> {
@@ -2019,6 +2043,8 @@ public class LemGame {
         	int lx = l.screenX();
             int ly = l.screenY();
             int mx = l.midX();
+            int fx = l.footX();
+            int effectX = isLeftAndBidirectional(l) ? fx : mx; // TODO: Ideally, midX and footX should be direction-aware
 
             if (isScreenshot || (lx + l.width() > cameraX && lx < cameraX + Core.getDrawWidth() &&
                                  ly + l.height() > cameraY && ly < cameraY + LemminiFrame.LEVEL_HEIGHT)) {
@@ -2028,7 +2054,7 @@ public class LemGame {
             // Draw countdown graphics if necessary
             LemImage cd = l.getCountdown();
             if (cd != null) {
-                int x = mx - cameraX - cd.getWidth() / 2;
+                int x = effectX - cameraX - cd.getWidth() / 2;
                 int y = ly - cameraY - cd.getHeight();
                 if (isScreenshot || (x + cd.getHeight() > 0 && x < Core.getDrawWidth() &&
                                      y + cd.getHeight() > 0 && y < LemminiFrame.LEVEL_HEIGHT)) {
@@ -2039,7 +2065,7 @@ public class LemGame {
             // Draw lightbulb for selected lems
             LemImage sel = l.getSelectImg();
             if (sel != null) {
-                int x = mx - cameraX - sel.getWidth() / 2;
+                int x = effectX - cameraX - sel.getWidth() / 2;
                 int y = ly - cameraY - sel.getHeight();
                 if (isScreenshot || (x + sel.getHeight() > 0 && x < Core.getDrawWidth() &&
                                      y + sel.getHeight() > 0 && y < LemminiFrame.LEVEL_HEIGHT)) {
