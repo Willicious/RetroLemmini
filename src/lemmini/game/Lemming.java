@@ -141,6 +141,8 @@ public class Lemming {
         ONCE
     }
 
+    /** default level top boundary (prevent builders going beyond this limit) */
+    private static final int LEVEL_TOP_LIMIT = 8;
     /** a walker walks one pixel per frame */
     private static final int WALKER_STEP = 1;
     /** a climber climbs up 1 pixel per frame during the second half of the animation */
@@ -767,7 +769,7 @@ public class Lemming {
                             newType = Type.SHRUGGER;
                             break;
                         }
-                        if (y < LemGame.getLevel().getTopBoundary() + 2) {
+                        if ((y < LemGame.getLevel().getTopBoundary() + 2) || (y <= LEVEL_TOP_LIMIT)) {
                             newType = Type.WALKER;
                             break;
                         }
