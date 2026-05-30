@@ -223,7 +223,7 @@ public class LemGame {
     /** +/- icons: time for key repeat rate */
     private static final long NANOSEC_KEYREPEAT_REPEAT = 39_000_000;
     
-    private static final int TOP_BOUNDARY = 8;
+    private static final int TOP_BOUNDARY = 2;
     private static final int BOTTOM_BOUNDARY = 20;
     private static final int LEFT_BOUNDARY = 0;
     private static final int RIGHT_BOUNDARY = -16;
