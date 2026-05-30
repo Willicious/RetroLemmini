@@ -379,7 +379,7 @@ public class Lemming {
                     boolean ignoreBlockers = false;
                     int levitation = aboveGround();
                     // check for flip direction
-                    if (levitation < WALKER_OBSTACLE_HEIGHT && y >= 8) {
+                    if (levitation < WALKER_OBSTACLE_HEIGHT && y >= LemGame.getTopBoundary()) {
                         if (levitation >= HOPPER_HOP) {
                             y -= HOPPER_STEP;
                             newType = Type.HOPPER;
