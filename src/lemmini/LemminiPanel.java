@@ -996,6 +996,10 @@ public class LemminiPanel extends JPanel implements Runnable {
                             String lemmingInfo;
                             if (lemmUnderCursor != null) {
                             	lemmingInfo = lemmUnderCursor.getLemmingInfo();
+                            	if (Core.player.isDebugMode()) {
+                            		// show position of lem when in debug mode
+                            		lemmingInfo += " (" + lemmUnderCursor.footX() + "/" + lemmUnderCursor.footY() + ")";
+                            	}
                                 // display also the total number of lemmings under the cursor
                                 int num = LemGame.getNumLemmsUnderCursor();
                                 if (num > 1) {
