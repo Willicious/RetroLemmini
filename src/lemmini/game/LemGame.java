@@ -222,6 +222,11 @@ public class LemGame {
     private static final long NANOSEC_KEYREPEAT_START = 88_000_000;
     /** +/- icons: time for key repeat rate */
     private static final long NANOSEC_KEYREPEAT_REPEAT = 39_000_000;
+    
+    private static final int TOP_BOUNDARY = 8;
+    private static final int BOTTOM_BOUNDARY = 20;
+    private static final int LEFT_BOUNDARY = 0;
+    private static final int RIGHT_BOUNDARY = -16;
 
     private static final String LEVEL_DIR_REGEX = "levels/[^/]+/levelpack.ini";
     private static final String LEVEL_CACHE_INI = "$levelcache.ini";
@@ -2824,6 +2829,22 @@ public class LemGame {
 
     public static int getHeight() {
         return height;
+    }
+    
+    public static int getTopBoundary() {
+        return TOP_BOUNDARY;
+    }
+
+    public static int getBottomBoundary() {
+        return BOTTOM_BOUNDARY;
+    }
+
+    public static int getLeftBoundary() {
+        return LEFT_BOUNDARY;
+    }
+
+    public static int getRightBoundary() {
+        return RIGHT_BOUNDARY;
     }
 
     public static List<String> getModPaths() {

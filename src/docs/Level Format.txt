@@ -58,14 +58,6 @@ width: (integer) (ignored if mainLevel is set) The width of the level in pixels.
 
 height: (integer) (ignored if mainLevel is set) The height of the level in pixels. (Default: 320)
 
-topBoundary: (integer) (ignored if mainLevel is set) The highest that a lemming is allowed to be, expressed as a number of pixels below the top of the level. Walkers will turn around if they encounter terrain that goes higher than this, and builders will stop building and walk on (without turning around) if they reach this height. (Default: 8)
-
-bottomBoundary: (integer) (ignored if mainLevel is set) The lowest that a lemming is allowed to be, expressed as a number of pixels below the bottom of the level. Lemmings that reach this boundary will die. (Default: 20)
-
-leftBoundary: (integer) (ignored if mainLevel is set) The farthest left that a lemming is allowed to be, expressed as a number of pixels right of the left edge of the level. Left-facing lemmings that reach this boundary will stop whatever skill they are using turn around. (Default: 0)
-
-rightBoundary: (integer) (ignored if mainLevel is set) The farthest right that a lemming is allowed to be, expressed as a number of pixels right of the right edge of the level. Right-facing lemmings that reach this boundary will stop whatever skill they are using turn around. (Note that this usually needs to be negative!) (Default: -16)
-
 
 Objects (section ignored if mainLevel is set):
 

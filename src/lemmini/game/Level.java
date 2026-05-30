@@ -68,10 +68,6 @@ public class Level {
     @SuppressWarnings("unused")
     private static final List<String> STYLES = Arrays.asList("dirt", "fire", "marble", "pillar", "crystal",
         "brick", "rock", "snow", "bubble", "xmas");
-    private static final int DEFAULT_TOP_BOUNDARY = 8;
-    private static final int DEFAULT_BOTTOM_BOUNDARY = 20;
-    private static final int DEFAULT_LEFT_BOUNDARY = 0;
-    private static final int DEFAULT_RIGHT_BOUNDARY = -16;
     private static final int BG_BUFFER_PADDING = 4;
     private static final int BG_BUFFER_UNSCALED_INDEX = 0;
     private static final int BG_BUFFER_SCALED_INDEX = 1;
@@ -180,11 +176,6 @@ public class Level {
     private final List<String> hints;
     private final int levelWidth;
     private final int levelHeight;
-    private final int topBoundary;
-    private final int bottomBoundary;
-    private final int leftBoundary;
-    private final int rightBoundary;
-
 
     /**
      * Load a level and all level resources.
@@ -246,10 +237,6 @@ public class Level {
         }
         levelWidth = p.getInt("width", DEFAULT_WIDTH);
         levelHeight = p.getInt("height", DEFAULT_HEIGHT);
-        topBoundary = p.getInt("topBoundary", DEFAULT_TOP_BOUNDARY);
-        bottomBoundary = p.getInt("bottomBoundary", DEFAULT_BOTTOM_BOUNDARY);
-        leftBoundary = p.getInt("leftBoundary", DEFAULT_LEFT_BOUNDARY);
-        rightBoundary = p.getInt("rightBoundary", DEFAULT_RIGHT_BOUNDARY);
         releaseRate = ToolBox.cap(MIN_RELEASE_RATE, Props.getInt(levelProps, "releaseRate", 0), MAX_MAX_RELEASE_RATE);
         //out("releaseRate = " + releaseRate);
         maxReleaseRate = ToolBox.cap(releaseRate, Props.getInt(levelProps, "maxReleaseRate", DEFAULT_MAX_RELEASE_RATE), MAX_MAX_RELEASE_RATE);
@@ -1411,22 +1398,6 @@ public class Level {
 
     public int getHeight() {
         return levelHeight;
-    }
-
-    public int getTopBoundary() {
-        return topBoundary;
-    }
-
-    public int getBottomBoundary() {
-        return bottomBoundary;
-    }
-
-    public int getLeftBoundary() {
-        return leftBoundary;
-    }
-
-    public int getRightBoundary() {
-        return rightBoundary;
     }
 
     public String getMusic() {
