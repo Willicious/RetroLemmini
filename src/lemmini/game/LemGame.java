@@ -1014,7 +1014,7 @@ public class LemGame {
                     break;
                 case FALLER:
                 case CLIMBER:
-                case FLIPPER:
+                case HOISTER:
                 case FLOATER:
                 case HOPPER:
                     if (lemmSkill != null && l.getSkill() != lemmSkill && !l.getLemmingInfo().isEmpty()) {
@@ -2031,7 +2031,7 @@ public class LemGame {
         case FLOATER:
         case FLOATER_START:
         case CLIMBER:
-        case FLIPPER:
+        case HOISTER:
         case BASHER:
         case BUILDER:
         case SHRUGGER:

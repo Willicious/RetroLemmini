@@ -58,7 +58,7 @@ public class Lemming {
         /** a climbing Lemming */
         CLIMBER ("CLIMBER", 8, true, true, 0, 0),
         /** a climbing Lemming returning to the ground */
-        FLIPPER ("FLIPPER", 8, true, false, 0, 0),
+        HOISTER ("HOISTER", 8, true, false, 0, 0),
         /** a Lemming with a parachute */
         FLOATER ("FLOATER", 16, true, false, 0, 0),
         /** a Lemming blowing itself up */
@@ -291,7 +291,7 @@ public class Lemming {
         // lemming state machine
         switch (type) {
 
-            case FLIPPER:
+            case HOISTER:
                 {
                     if (explode) {
                         newType = getExploderType();
@@ -505,7 +505,7 @@ public class Lemming {
                             if (reachedPlateau(idx + 13)) {
                                 counter = 0;
                                 y += -idx + 4;
-                                newType = Type.FLIPPER;
+                                newType = Type.HOISTER;
                             }
                             break;
                         case 8:
@@ -978,7 +978,7 @@ public class Lemming {
                            case FALLER:
                            case SPLATTER:
                            case CLIMBER:
-                           case FLIPPER:
+                           case HOISTER:
                            case BLOCKER:
                            case DROWNER:
                            case FRIER:
@@ -1081,7 +1081,7 @@ public class Lemming {
                     case FLOATER:
                         frameIdx = 16;
                         break;
-                    case FLIPPER:
+                    case HOISTER:
                         newType = Type.WALKER;
                         break;
                     case DIGGER: {
@@ -1243,7 +1243,7 @@ public class Lemming {
 
     private Type getExploderType() {
         switch (type) {
-            case FLIPPER:
+            case HOISTER:
             case HOPPER:
             case WALKER:
             case DIGGER:
@@ -1737,7 +1737,7 @@ public class Lemming {
         	}
             if (canClimb && canFloat) {
                 n += " (A)";
-            } else if (canClimb && type != Type.CLIMBER && type != Type.FLIPPER) {
+            } else if (canClimb && type != Type.CLIMBER && type != Type.HOISTER) {
                 n += " (C)";
             } else if (canFloat && type != Type.FLOATER && type != Type.FLOATER_START) {
                 n += " (F)";
