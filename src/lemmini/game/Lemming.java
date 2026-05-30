@@ -62,7 +62,7 @@ public class Lemming {
         /** a Lemming with a parachute */
         FLOATER ("FLOATER", 16, true, false, 0, 0),
         /** a Lemming blowing itself up */
-        FLAPPER ("FLAPPER", 16, false, false, 0, 0),
+        OHNOER ("OHNOER", 16, false, false, 0, 0),
         /** a Lemming dying from a fall */
         SPLATTER ("SPLATTER", 16, false, false, 0, 0),
         /** a Lemming blocking the way for the other Lemmings */
@@ -90,7 +90,7 @@ public class Lemming {
         /** a Lemming that is nuked */
         NUKE (StringUtils.EMPTY, 0, false, false, 0, 0),
         /** a blocker that is told to explode */
-        FLAPPER_BLOCKER ("FLAPPER", 0, false, false, 0, 0),
+        OHNOER_BLOCKER ("OHNOER", 0, false, false, 0, 0),
         /** a floater before the parachute opened completely */
         FLOATER_START ("FLOATER", 0, false, false, 0, 0),
         /** allows faller to exit in direct drop mode */
@@ -210,7 +210,7 @@ public class Lemming {
     private boolean canClimb;
     /** Lemming can change its skill */
     private boolean canChangeSkill;
-    private boolean flapper;
+    private boolean ohnoer;
     private boolean drowner;
     /** Lemming is to be nuked */
     private boolean nuke;
@@ -248,7 +248,7 @@ public class Lemming {
         canChangeSkill = false; // a faller can not change the skill to e.g. builder
         hasDied = false;  // not yet
         hasExited = false;  // not yet
-        flapper = false;
+        ohnoer = false;
         drowner = false;
         nuke = false;
     }
@@ -258,8 +258,8 @@ public class Lemming {
      */
     public static int getOrdinal(final Type t) {
         switch (t) {
-            case FLAPPER_BLOCKER:
-                return Type.FLAPPER.ordinal();
+            case OHNOER_BLOCKER:
+                return Type.OHNOER.ordinal();
             case FLOATER_START:
                 return Type.FLOATER.ordinal();
             default:
@@ -811,13 +811,13 @@ public class Lemming {
                     break;
                 }
 
-            case FLAPPER_BLOCKER:
+            case OHNOER_BLOCKER:
                 // don't erase blocker mask before blocker finally explodes or falls
                 free = freeBelow(FALLER_STEP);
                 if (free > 0) {
                     // blocker falls -> erase mask and convert to normal blocker.
                     eraseBlockerMask();
-                    type = Type.FLAPPER;
+                    type = Type.OHNOER;
                     // fall through
                 } else {
                     int idx = frameIdx + 1;
@@ -827,7 +827,7 @@ public class Lemming {
                     break;
                 }
                 /* falls through */
-            case FLAPPER:
+            case OHNOER:
                 {
                     int idx = frameIdx + 1;
                     if (idx == 5 * TIME_SCALE && !nuke) {
@@ -843,7 +843,7 @@ public class Lemming {
                     newType = getExploderType();
                     break;
                 }
-                if (!flapper) {
+                if (!ohnoer) {
                     if (dir == Direction.RIGHT) {
                         if (x < LemGame.getWidth() + LemGame.getRightBoundary() - 16
                                 && !BooleanUtils.toBoolean(LemGame.getStencil().getMask(x + 16, y) & Stencil.MSK_BRICK)) {
@@ -922,7 +922,7 @@ public class Lemming {
                                 triggered = false;
                             }
                             if (triggered) {
-                                if (type == Type.BLOCKER || type == Type.FLAPPER_BLOCKER) {
+                                if (type == Type.BLOCKER || type == Type.OHNOER_BLOCKER) {
                                     // erase blocker mask
                                     eraseBlockerMask();
                                 }
@@ -942,7 +942,7 @@ public class Lemming {
                                 triggered = false;
                             }
                             if (triggered) {
-                                if (type == Type.BLOCKER || type == Type.FLAPPER_BLOCKER) {
+                                if (type == Type.BLOCKER || type == Type.OHNOER_BLOCKER) {
                                     // erase blocker mask
                                     eraseBlockerMask();
                                 }
@@ -961,7 +961,7 @@ public class Lemming {
                                 triggered = false;
                             }
                             if (triggered) {
-                                if (type == Type.BLOCKER || type == Type.FLAPPER_BLOCKER) {
+                                if (type == Type.BLOCKER || type == Type.OHNOER_BLOCKER) {
                                     // erase blocker mask
                                     eraseBlockerMask();
                                 }
@@ -992,7 +992,7 @@ public class Lemming {
                         }
                     }
                     switch (newType) {
-                        case FLAPPER:
+                        case OHNOER:
                         case WALKER:
                         case FLOATER:
                         case FLOATER_START:
@@ -1010,7 +1010,7 @@ public class Lemming {
                                     triggered = false;
                                 }
                                 if (triggered) {
-                                    if (type == Type.BLOCKER || type == Type.FLAPPER_BLOCKER) {
+                                    if (type == Type.BLOCKER || type == Type.OHNOER_BLOCKER) {
                                         // erase blocker mask
                                         eraseBlockerMask();
                                     }
@@ -1052,17 +1052,17 @@ public class Lemming {
             if (trigger) {
                 // Trigger condition reached?
                 switch (type) {
-                    case FLAPPER_BLOCKER:
+                    case OHNOER_BLOCKER:
                         eraseBlockerMask();
                         /* falls through */
-                    case FLAPPER:
+                    case OHNOER:
                         newType = Type.EXPLODER;
                         break;
                     case DROWNER:
                         playVisualSFX(Sound.Effect.DROWN);
                         /* falls through */
                     case FRIER:
-                        if (flapper) {
+                        if (ohnoer) {
                             newType = Type.EXPLODER;
                             break;
                         }
@@ -1204,9 +1204,9 @@ public class Lemming {
                     explodeNumCtr = 0;
                     playVisualSFX(Sound.Effect.SPLAT);
                     break;
-                case FLAPPER:
-                case FLAPPER_BLOCKER:
-                    flapper = true;
+                case OHNOER:
+                case OHNOER_BLOCKER:
+                    ohnoer = true;
                     break;
                 case EXPLODER:
                     counter = 0;
@@ -1251,13 +1251,13 @@ public class Lemming {
             case MINER:
             case SHRUGGER:
             case BUILDER:
-            case FLAPPER:
+            case OHNOER:
             case HOMER:
-                return Type.FLAPPER;
+                return Type.OHNOER;
             case BLOCKER:
-            case FLAPPER_BLOCKER:
+            case OHNOER_BLOCKER:
                 // don't erase blocker mask!
-                return Type.FLAPPER_BLOCKER;
+                return Type.OHNOER_BLOCKER;
             default: // CLIMBER, DROWNER, FALLER, FLOATER, FLOATER_START, FRIER, SHRUGGER
                 return Type.EXPLODER;
         }
@@ -1732,7 +1732,7 @@ public class Lemming {
     public String getLemmingInfo() {
         String n = type.name;
         if (!n.isEmpty()) {
-        	if ((explodeNumCtr > 0) || (type.name == "FLAPPER")) {
+        	if ((explodeNumCtr > 0) || (type.name == "OHNOER")) {
         		n = "BOMBER";
         	}
             if (canClimb && canFloat) {
@@ -1757,7 +1757,7 @@ public class Lemming {
      * Set new skill/type of this Lemming.
      */
     public boolean setSkill(final Type newSkill, boolean playSound, ReplayEvent r) {
-        if (r == null || newSkill != Type.FLAPPER) {
+        if (r == null || newSkill != Type.OHNOER) {
             return setSkill(newSkill, playSound);
         }
 
@@ -1796,7 +1796,7 @@ public class Lemming {
             case DROWNER:
             case HOMER:
             case FRIER:
-            case FLAPPER:
+            case OHNOER:
                 if (newSkill != Type.NUKE) {
                     return playSetSkillSound(false, playSound);
                 }
@@ -1838,7 +1838,7 @@ public class Lemming {
                 } else {
                     return playSetSkillSound(false, playSound);
                 }
-            case FLAPPER:
+            case OHNOER:
                 if (LemGame.isOptionEnabled(LemGame.Option.TIMED_BOMBERS)) {
                     if (explodeNumCtr == 0) {
                         explodeNumCtr = MAX_BOMB_TIMER;

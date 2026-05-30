@@ -931,7 +931,7 @@ public class LemGame {
                     case BLOCKER:
                         if (l.getSkill() != lemmSkill && !l.getLemmingInfo().isEmpty()) {
                             switch (lemmSkill) {
-                                case FLAPPER:
+                                case OHNOER:
                                     if (!l.hasTimer()) {
                                         return l;
                                     }
@@ -958,7 +958,7 @@ public class LemGame {
                                         return l;
                                     }
                                     break;
-                                case FLAPPER:
+                                case OHNOER:
                                     if (!l.hasTimer()) {
                                         return l;
                                     }
@@ -1001,7 +1001,7 @@ public class LemGame {
                                         return l;
                                     }
                                     break;
-                                case FLAPPER:
+                                case OHNOER:
                                     if (!l.hasTimer()) {
                                         return l;
                                     }
@@ -1032,7 +1032,7 @@ public class LemGame {
                                         return l;
                                     }
                                     break;
-                                case FLAPPER:
+                                case OHNOER:
                                     if (!l.hasTimer()) {
                                         return l;
                                     }
@@ -1214,7 +1214,7 @@ public class LemGame {
                                     numSkillsUsed++;
                                 }
                                 break;
-                            case FLAPPER:
+                            case OHNOER:
                                 if (numBombers != Integer.MAX_VALUE) {
                                     numBombers--;
                                     numSkillsUsed++;
@@ -1291,7 +1291,7 @@ public class LemGame {
                                 case FLOATER:
                                     pressIcon(Icons.IconType.FLOAT);
                                     break;
-                                case FLAPPER:
+                                case OHNOER:
                                     pressIcon(Icons.IconType.BOMB);
                                     break;
                                 case BLOCKER:
@@ -1518,7 +1518,7 @@ public class LemGame {
                         canSet = true;
                     }
                     break;
-                case FLAPPER:
+                case OHNOER:
                     if (tryAssignSkill(lemm, lemmSkill, numBombers)) {
                         if (numBombers != Integer.MAX_VALUE) numBombers--;
                         canSet = true;
@@ -1662,7 +1662,7 @@ public class LemGame {
                     stopReplayMode();
                     break;
                 case BOMB:
-                    lemmSkill = Lemming.Type.FLAPPER;
+                    lemmSkill = Lemming.Type.OHNOER;
                     stopReplayMode();
                     break;
                 case BLOCK:
