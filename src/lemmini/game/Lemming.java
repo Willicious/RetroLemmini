@@ -84,7 +84,7 @@ public class Lemming {
         /** a Lemming digging a mine with a pick */
         MINER ("MINER", 24, true, true, 2, 12),
         /** a Lemming jumping over a small obstacle */
-        JUMPER ("JUMPER", 1, true, true, 0, 0),
+        HOPPER ("HOPPER", 1, true, true, 0, 0),
         EXPLODER ("EXPLODER", 0, false, false, 1, 0),
         /* types without a separate animation */
         /** a Lemming that is nuked */
@@ -164,10 +164,10 @@ public class Lemming {
     /** a floater falls down two pixels per frame */
     private static final int FLOATER_STEP = 2;
     private static final int FLOATER_STEP_SLOW = 1;
-    /** a jumper moves up two pixels per frame */
-    private static final int JUMPER_STEP = 2;
-    /** if a walker jumps up 6 pixels, it becomes a jumper */
-    private static final int JUMPER_JUMP = 6;
+    /** a hopper moves up two pixels per frame */
+    private static final int HOPPER_STEP = 2;
+    /** if a walker steps up 6 pixels, it becomes an hopper */
+    private static final int HOPPER_HOP = 6;
     private static final int DIGGER_STEP = 2;
     /** pixels a floater falls before the parachute begins to open */
     private static final int FALL_DISTANCE_FLOAT = 32;
@@ -337,15 +337,15 @@ public class Lemming {
                 turnedByBlocker();
                 break;
 
-            case JUMPER:
+            case HOPPER:
                 {
                     if (explode) {
                         newType = getExploderType();
                         break;
                     }
                     int levitation = aboveGround();
-                    if (levitation > JUMPER_STEP) {
-                        y -= JUMPER_STEP;
+                    if (levitation > HOPPER_STEP) {
+                        y -= HOPPER_STEP;
                     } else {
                         // conversion to walker
                         y -= levitation;
@@ -380,9 +380,9 @@ public class Lemming {
                     int levitation = aboveGround();
                     // check for flip direction
                     if (levitation < WALKER_OBSTACLE_HEIGHT && y >= 8) {
-                        if (levitation >= JUMPER_JUMP) {
-                            y -= JUMPER_STEP;
-                            newType = Type.JUMPER;
+                        if (levitation >= HOPPER_HOP) {
+                            y -= HOPPER_STEP;
+                            newType = Type.HOPPER;
                             break;
                         } else {
                             y -= levitation;
@@ -996,7 +996,7 @@ public class Lemming {
                         case WALKER:
                         case FLOATER:
                         case FLOATER_START:
-                        case JUMPER:
+                        case HOPPER:
                         case BASHER:
                         case MINER:
                         case BUILDER:
@@ -1244,7 +1244,7 @@ public class Lemming {
     private Type getExploderType() {
         switch (type) {
             case FLIPPER:
-            case JUMPER:
+            case HOPPER:
             case WALKER:
             case DIGGER:
             case BASHER:

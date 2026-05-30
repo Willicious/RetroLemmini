@@ -1016,7 +1016,7 @@ public class LemGame {
                 case CLIMBER:
                 case FLIPPER:
                 case FLOATER:
-                case JUMPER:
+                case HOPPER:
                     if (lemmSkill != null && l.getSkill() != lemmSkill && !l.getLemmingInfo().isEmpty()) {
                         if (lemmSkill == null) {
                             return l;
@@ -2025,7 +2025,7 @@ public class LemGame {
 
         switch (l.getSkill()) {
         case WALKER:
-        case JUMPER:
+        case HOPPER:
         case FALLER:
         case MAX_EXIT_LEM:
         case FLOATER:
