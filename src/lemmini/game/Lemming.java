@@ -1556,7 +1556,7 @@ public class Lemming {
     private boolean freeAboveClimber() {
         if (x < LemGame.getLeftBoundary()
                 || x >= LemGame.getWidth() + LemGame.getRightBoundary()
-                || x <= LemGame.getTopBoundary()) {
+                || y <= LemGame.getTopBoundary()) {
             return false;
         }
 
