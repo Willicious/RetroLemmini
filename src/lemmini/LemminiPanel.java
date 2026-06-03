@@ -1722,7 +1722,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
     
     public void findBestLevelToLoad() {
-        if (LemGame.wasLost()) {
+        if (!LemGame.levelPassed()) {
             LemGame.requestRestartLevel(false, true);
             return;
         }

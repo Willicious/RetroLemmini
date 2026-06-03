@@ -320,7 +320,7 @@ public class TextScreen {
         } else {
             textDialog.addStringCentered(String.format("You needed %d%% - You rescued %d%%", toRescuePercent, rescuedPercent), null, -5, VIOLET);
         }
-        if (!LemGame.wasLost() && !LemGame.getWasCheated()) {
+        if (LemGame.levelPassed() && !LemGame.getWasCheated()) {
             String timeTaken = String.format("%d:%02d", timeElapsed / 60, timeElapsed % 60);
             textDialog.addStringCentered(String.format("Time taken %s - Skills used %d", timeTaken, skillsUsed), null, -4, VIOLET);
             String pointWord = (score == 1) ? "point" : "points";
@@ -328,7 +328,7 @@ public class TextScreen {
         }
         LevelPack lp = LemGame.getCurLevelPack();
         List<String> debriefings = lp.getDebriefings();
-        if (LemGame.wasLost()) {
+        if (!LemGame.levelPassed()) {
             String debriefing;
             if (LemGame.getNumExited() <= 0) {
                 debriefing = debriefings.get(0);

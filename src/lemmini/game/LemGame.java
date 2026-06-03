@@ -611,7 +611,7 @@ public class LemGame {
         setSuperLemming(false);
         setDirectDrop(LemGame.isOptionEnabled(LemGame.Option.DIRECT_DROP));
 
-        if (!wasLost() && curLevelPack != 0) {
+        if (levelPassed() && curLevelPack != 0) {
             LevelPack lvlPack = getCurLevelPack();
             String curRatingString = lvlPack.getRatings().get(curRating);
             Core.player.setLevelRecord(lvlPack.getName(), curRatingString, curLevelNumber, getLevelRecord());
@@ -628,7 +628,7 @@ public class LemGame {
      * Restart level.
      */
     private static synchronized void restartLevel(final boolean doReplay, final boolean showPreview) throws LemException, ResourceException {
-        if (!replayMode && wasLost() && (gameState == State.LEVEL
+        if (!replayMode && !levelPassed() && (gameState == State.LEVEL
                 || gameState == State.LEVEL_END
                 || gameState == State.POSTVIEW)) {
             timesFailed++;
@@ -895,10 +895,10 @@ public class LemGame {
     }
 
     /**
-     * Get level lost state.
+     * Get level passed state.
      */
-    public static synchronized boolean wasLost() {
-        return gameState == State.LEVEL || numExited < numToRescue;
+    public static synchronized boolean levelPassed() {
+        return gameState != State.LEVEL && numExited >= numToRescue;
     }
 
     /**
@@ -1921,7 +1921,7 @@ public class LemGame {
         if (!LemGame.isOptionEnabled(LemGame.Option.AUTOSAVE_REPLAYS)) return;
 
         if (replayAutosaved || cancelAutosave) return;
-        if (getWasCheated() || wasLost()) return;        
+        if (getWasCheated() || !levelPassed()) return;        
 
         Level level = getLevel();
         LevelPack levelPack = getCurLevelPack();
@@ -2811,7 +2811,7 @@ public class LemGame {
     }
 
     public static LevelRecord getLevelRecord() {
-        if (!wasLost() && !cheatWasActivated) {
+        if (levelPassed() && !cheatWasActivated) {
             return new LevelRecord(true, numExited, numSkillsUsed,
                     timed ? (timeLimit - timeElapsedTillLastExited) : time, getScore());
         } else {
