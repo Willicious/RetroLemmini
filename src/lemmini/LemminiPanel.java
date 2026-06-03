@@ -55,6 +55,7 @@ import lemmini.game.MiscGfx;
 //import lemmini.game.LemFont.Color;
 import lemmini.game.MiscGfx.Index;
 import lemmini.game.Player;
+import lemmini.game.ReplayChecker;
 import lemmini.game.ReplayLevelInfo;
 import lemmini.game.SpriteObject;
 import lemmini.game.Stencil;
@@ -1886,7 +1887,8 @@ public class LemminiPanel extends JPanel implements Runnable {
                         
                         if (lpn >= 0 && rn >= 0 && ln >= 0) {
                             // success
-                            LemGame.requestChangeLevel(lpn, rn, ln, true);
+                        	checkReplay(lpn, rn, ln);
+                        	LemGame.requestChangeLevel(lpn, rn, ln, true);
                             getParentFrame().setRestartEnabled(true);
                         } else {
                             // no success
@@ -1905,6 +1907,45 @@ public class LemminiPanel extends JPanel implements Runnable {
                 ToolBox.showException(ex);
             }
         }
+    }
+    
+    private void checkReplay(final int lPack, final int rating, final int lNum) {
+    	try {
+    		LemGame.changeLevelDirect(lPack, rating, lNum);
+    		ReplayChecker.ReplayResult result = ReplayChecker.check();
+    		Core.updateReplayCaption(result.toString());
+//	        switch (result) {
+//			  case PASS:
+//			      JOptionPane.showMessageDialog(
+//			          getParent(),
+//			          "Replay result: PASS",
+//			          "Replay Check",
+//			          JOptionPane.INFORMATION_MESSAGE
+//			      );
+//			      break;
+//			  case FAIL:
+//			      JOptionPane.showMessageDialog(
+//			          getParent(),
+//			          "Replay result: FAIL",
+//			          "Replay Check",
+//			          JOptionPane.ERROR_MESSAGE
+//			      );
+//			      break;
+//			  case UNDETERMINED:
+//			  default:
+//			      JOptionPane.showMessageDialog(
+//			          getParent(),
+//			          "Replay result: UNDETERMINED (simulation timed out or error)",
+//			          "Replay Check",
+//			              JOptionPane.WARNING_MESSAGE
+//			          );
+//			          break;
+//			  }
+    	} catch (LemException ex) {
+    		JOptionPane.showMessageDialog(getParent(), ex.getMessage(), "Load Replay", JOptionPane.ERROR_MESSAGE);
+    	} catch (Exception ex) {
+    		ToolBox.showException(ex);
+    	}
     }
 
     void handleEnterCode() {

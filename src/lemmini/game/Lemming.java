@@ -1921,13 +1921,13 @@ public class Lemming {
     /**
      * Play either the ASSIGN_SKILL sfx, or the INVALID sfx.
      */
-    private boolean playSetSkillSound(boolean validAssign, boolean playSound) {
+    private boolean playSetSkillSound(boolean validAssign, boolean playSound) {       
         if (validAssign) {
-            if (playSound) {
+            if (playSound && !LemGame.isReplayCheck()) {
                 LemGame.sound.play(Sound.Effect.ASSIGN_SKILL, getPan());
             }
         } else {
-            if (playSound && !LemGame.attemptingHoldToAssign) {
+            if (playSound && !LemGame.attemptingHoldToAssign && !LemGame.isReplayCheck()) {
                 LemGame.sound.play(Sound.Effect.INVALID, getPan());
             }
         }

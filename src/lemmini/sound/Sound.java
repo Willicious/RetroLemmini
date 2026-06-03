@@ -406,7 +406,7 @@ public class Sound {
      * Play a given sound.
      */
     public void play(final int idx, final double pan) {
-        if (idx < 0 || !LemGame.isOptionEnabled(LemGame.Option.SOUND_ON)) {
+        if (idx < 0 || !LemGame.isOptionEnabled(LemGame.Option.SOUND_ON) || LemGame.isReplayCheck()) {
             return;
         }
 
@@ -456,7 +456,7 @@ public class Sound {
      * Displays the VisualSFX (if it exists, and the setting is turned on)
      */
     public void playVisualSFXSilent(final int idx, final int x, final int y) {
-        if (LemGame.isOptionEnabled(LemGame.Option.VISUAL_SFX) && idx >= 0 && idx < Vsfx.VSFX_COUNT) {
+        if ((LemGame.isOptionEnabled(LemGame.Option.VISUAL_SFX) && idx >= 0 && idx < Vsfx.VSFX_COUNT) && !LemGame.isReplayCheck()) {
             Vsfx v = new Vsfx(x, y, idx);
             LemGame.addVsfx(v);
         }
@@ -511,7 +511,7 @@ public class Sound {
      * Play a pitched sample.
      */
     public void playPitched(final PitchedEffect pe, final int pitch) {
-        if (!LemGame.isOptionEnabled(LemGame.Option.SOUND_ON)) {
+        if (!LemGame.isOptionEnabled(LemGame.Option.SOUND_ON) || LemGame.isReplayCheck()) {
             return;
         }
 

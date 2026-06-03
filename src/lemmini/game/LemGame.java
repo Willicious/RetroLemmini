@@ -183,6 +183,15 @@ public class LemGame {
         DAT
     }
     
+    /** Replay checking */
+    public enum GameMode {
+        NORMAL,
+        REPLAY_CHECK
+    }
+
+    private static GameMode gameMode = GameMode.NORMAL;
+    private static ReplayChecker.ReplayResult replayResult;
+    
     /** list of currently-active hotkeys */
     public static List<Hotkey> activeHotkeys;
 
@@ -590,6 +599,10 @@ public class LemGame {
      * Fade out at end of level.
      */
     public static synchronized void endLevel() {
+    	if (isReplayCheck()) {
+    		setReplayResult(saveRequirementMet() ? ReplayChecker.ReplayResult.PASS : ReplayChecker.ReplayResult.FAIL);
+    	}
+    	
         if (!replayMode && !cheatWasActivated)
             replay.addEndEvent(replayFrame);
         
@@ -893,12 +906,26 @@ public class LemGame {
 
         return level;
     }
+    
+    public static void changeLevelDirect(final int lPack, final int rating, final int lNum) throws LemException, ResourceException {
+        curLevelPack = lPack;
+        curRating = rating;
+        curLevelNumber = lNum;
+
+        Resource lvlRes = levelPacks.get(curLevelPack).getInfo(curRating, curLevelNumber).getLevelResource();
+        level = new Level(lvlRes, level);
+        initLevel(false);
+    }
 
     /**
      * Get level passed state.
      */
+    public static synchronized boolean saveRequirementMet() {
+    	return numExited >= numToRescue;
+    }
+    
     public static synchronized boolean levelPassed() {
-        return gameState != State.LEVEL && numExited >= numToRescue;
+        return gameState != State.LEVEL && saveRequirementMet();
     }
 
     /**
@@ -1075,6 +1102,10 @@ public class LemGame {
             stopReplayMode = false;
         }
     }
+    
+    public static void setReplayMode(boolean b) {
+    	replayMode = b;
+    }
 
     /**
      * Return time as String "minutes-seconds"
@@ -1108,7 +1139,7 @@ public class LemGame {
 
         updateCtr++;
         
-    	if (leftMouseButtonHeld && ctrlPressed) {   		
+    	if ((leftMouseButtonHeld && ctrlPressed) && !isReplayCheck()) {   		
             Lemming l = LemGame.lemmUnderCursor(LemCursor.getType());
             if (l != null && l != lastAssignedLemming) {
                 LemGame.requestSkill(l);
@@ -2563,6 +2594,9 @@ public class LemGame {
      * Icon was pressed.
      */
     public static void pressIcon(final Icons.IconType t) {
+        if (isReplayCheck())
+        	return;
+        
         Icons.press(t);
     }
 
@@ -2644,6 +2678,17 @@ public class LemGame {
 
     public static synchronized void addLemming(Lemming l) {
         lemmings.add(l);
+    }
+    
+    /**
+     * Setter/helper for GameMode
+     */
+    public static void setGameMode(GameMode mode) {
+        gameMode = mode;
+    }
+
+    public static boolean isReplayCheck() {
+        return gameMode == GameMode.REPLAY_CHECK;
     }
 
     /**
@@ -2892,6 +2937,14 @@ public class LemGame {
 
 	public static void setReplayNameTemplate(String template) {
 		LemGame.replayNameTemplate = template;
+	}
+	
+	public static void setReplayResult(ReplayChecker.ReplayResult r) {
+	    replayResult = r;
+	}
+
+	public static ReplayChecker.ReplayResult getReplayResult() {
+	    return replayResult;
 	}
 	
     /**

@@ -9,6 +9,7 @@ import org.apache.commons.io.FilenameUtils;
 
 import lemmini.game.Core;
 import lemmini.game.LemException;
+import lemmini.game.LemGame;
 import lemmini.game.Resource;
 import lemmini.game.ResourceException;
 
@@ -134,6 +135,9 @@ public class Music {
      * Play music.
      */
     public static void play() {
+    	if (LemGame.isReplayCheck())
+    		return;
+    	
         if (musicPlayer != null) {
             musicPlayer.play();
             playing = true;

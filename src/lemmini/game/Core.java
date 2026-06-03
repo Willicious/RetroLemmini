@@ -65,6 +65,7 @@ public class Core {
     public static final String REVISION = "3.0";
     public static final String COMMIT_ID = CommitID.ID;
     public static final String REV_DATE = "May 2026";
+    public static final String COMPATIBILITY_REVISION = "3.0"; // Tracks last physics update
 
     /** extensions accepted for level files in file dialog */
     public static final String[] LEVEL_EXTENSIONS = {"rlv", "ini", "lvl", "dat"};
@@ -610,6 +611,23 @@ public class Core {
      */
     public static String getWindowCaption() {
         return LemminiFrame.getFrame().getTitle();
+    }
+    
+    /**
+     * Update replay-related caption
+     */
+    public static void updateReplayCaption(String result) {
+    	String revision = ReplayStream.getRevision();
+    	String caption = "RetroLemmini - ";
+		if ((compareVersions(revision, COMPATIBILITY_REVISION) < 0) && !result.equals("PASS")) {
+			caption += "Current Version: " + REVISION +
+			      " | Compatibility Version: " + COMPATIBILITY_REVISION +
+			      " | Replay Version: " + revision + " - ";
+		} else {
+			caption += LemGame.getLevel().getLevelName() + " - ";
+		}
+		caption += result;
+		LemGame.replayCaption = caption;
     }
 
     /**

@@ -44,12 +44,11 @@ public class ReplayStream {
 
     static final int CURRENT_FORMAT = 1;
     static final String CURRENT_REVISION = Core.REVISION;
-    static final String COMPATIBILITY_REVISION = "3.0"; // Tracks last physics update, prevents unnecessary pop-ups when loading replays between revisions
 
     private List<ReplayEvent> events;
     private int replayIndex;
     private int format;
-    private String revision;
+    private static String revision;
     private int players;
     private static boolean directDropActive = false;
 
@@ -241,15 +240,14 @@ public class ReplayStream {
                 line = br.readLine(); // move to next line
             }
             events = ev;
-            if (Core.compareVersions(revision, COMPATIBILITY_REVISION) < 0) {
-            	LemGame.replayCaption = "RetroLemmini - Current Version: " + Core.REVISION +
-      			      " | Compatibility Version: " + COMPATIBILITY_REVISION +
-      			      " | Replay Version: " + revision;
-            }
             return rli;
         } catch (IOException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new LemException("Error reading replay file.");
         }
+    }
+    
+    public static String getRevision() {
+    	return revision;
     }
     
     private boolean getIsTimedBomber(String revision) {
