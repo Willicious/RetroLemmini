@@ -643,7 +643,7 @@ public class LemGame {
     /**
      * Restart level.
      */
-    private static synchronized void restartLevel(final boolean doReplay, final boolean showPreview) throws LemException, ResourceException {
+    public static synchronized void restartLevel(final boolean doReplay, final boolean showPreview) throws LemException, ResourceException {
         if (!replayMode && !levelPassed() && (gameState == State.LEVEL
                 || gameState == State.LEVEL_END
                 || gameState == State.POSTVIEW)) {
@@ -909,16 +909,6 @@ public class LemGame {
 
         return level;
     }
-    
-    public static void changeLevelDirect(final int lPack, final int rating, final int lNum) throws LemException, ResourceException {
-        curLevelPack = lPack;
-        curRating = rating;
-        curLevelNumber = lNum;
-
-        Resource lvlRes = levelPacks.get(curLevelPack).getInfo(curRating, curLevelNumber).getLevelResource();
-        level = new Level(lvlRes, level);
-        initLevel(false);
-    }
 
     /**
      * Get level passed state.
@@ -1136,7 +1126,7 @@ public class LemGame {
      * Update the whole game state by one frame.
      */
     public static synchronized void update() {
-        if (gameState != State.LEVEL) {
+        if ((gameState != State.LEVEL) && !isReplayCheck()) {
             return;
         }
 
@@ -1918,7 +1908,11 @@ public class LemGame {
                 case LOAD_LEVEL:
                 case LOAD_REPLAY:
                     try {
-                        changeLevel(nextLevelPack, nextRating, nextLevelNumber, transitionState == TransitionState.LOAD_REPLAY);
+                    	boolean isLoadReplay = transitionState == TransitionState.LOAD_REPLAY; 	
+                        changeLevel(nextLevelPack, nextRating, nextLevelNumber, isLoadReplay);
+                        if (isLoadReplay) {
+                        	checkReplay(nextLevelPack, nextRating, nextLevelNumber);
+                        }
                     } catch (ResourceException ex) {
                     	String pack = LemGame.getCurLevelPack().getName();
                     	String rating = Integer.toString(nextRating);
@@ -1949,6 +1943,15 @@ public class LemGame {
                 || (gameState == State.LEVEL && transitionState != TransitionState.NONE)) {
             fadeSound(showPreview);
         }
+    }
+    
+    private static void checkReplay(final int lPack, final int rating, final int lNum) throws LemException {
+    	try {
+    		ReplayChecker.ReplayResult result = ReplayChecker.check();
+    		Core.updateReplayCaption(result.toString());
+    	} catch (Exception ex) {
+    		ToolBox.showException(ex);
+    	}
     }
     
     private static void maybeAutoSaveReplay() {  	
