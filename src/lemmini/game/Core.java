@@ -616,7 +616,7 @@ public class Core {
     /**
      * Update replay-related caption
      */
-    public static void updateReplayCaption(String result) {
+    public static void updateReplayCaption(String result, int numExited) {
     	String revision = ReplayStream.getRevision();
     	String caption = "RetroLemmini - ";
 		if ((compareVersions(revision, COMPATIBILITY_REVISION) < 0) && !result.equals("PASS")) {
@@ -627,6 +627,7 @@ public class Core {
 			caption += LemGame.getLevel().getLevelName() + " - ";
 		}
 		caption += result;
+		caption += " (" + numExited + " saved)";
 		LemGame.replayCaption = caption;
     }
 

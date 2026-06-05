@@ -1948,7 +1948,7 @@ public class LemGame {
     private static void checkReplay(final int lPack, final int rating, final int lNum) throws LemException {
     	try {
     		ReplayChecker.ReplayResult result = ReplayChecker.check();
-    		Core.updateReplayCaption(result.toString());
+    		Core.updateReplayCaption(result.toString(), numExited);
     		restartLevel(true, true);
     	} catch (Exception ex) {
     		ToolBox.showException(ex);
