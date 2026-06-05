@@ -49,7 +49,7 @@ public class ReplayStream {
     private int replayIndex;
     private int format;
     private static String revision;
-    private int players;
+    private String replayPlayerName = "Default";
     private static boolean directDropActive = false;
 
     /**
@@ -130,7 +130,6 @@ public class ReplayStream {
             } else {
                 throw new LemException("Replay file does not specify a format.");
             }
-
             line = br.readLine();
             if (line.startsWith("#REVISION ")) {
                 revision = line.substring(10).trim();
@@ -138,13 +137,13 @@ public class ReplayStream {
                 throw new LemException("Replay file does not specify a revision.");
             }
             line = br.readLine();
-            if (line.startsWith("#Players ")) {
-                players = Integer.parseInt(line.substring(9).trim());
-                if (players != 1) {
-                    throw new LemException("Replay file does not contain exactly one player.");
-                }
+            if (line.startsWith("#PLAYER ")) {
+            	replayPlayerName = line.substring(8).trim();
+            	if (replayPlayerName.isEmpty()) {
+            	    replayPlayerName = "Default";
+            	}
             } else {
-                throw new LemException("Replay file does not specify a player count.");
+            	replayPlayerName = "Default";
             }
             // read level info
             line = br.readLine();
@@ -250,6 +249,10 @@ public class ReplayStream {
     	return revision;
     }
     
+    public String getReplayPlayerName() {
+        return replayPlayerName;
+    }
+    
     private boolean getIsTimedBomber(String revision) {
     	// Backwards compatibility with SuperLemmini replays - timed bombers were removed in version 0.103
     	if (revision != null && revision.startsWith("0.1"))
@@ -269,7 +272,7 @@ public class ReplayStream {
             w.newLine();
             w.write("#REVISION " + CURRENT_REVISION);
             w.newLine();
-            w.write("#Players 1");
+            w.write("#PLAYER " + Core.player.getName().trim());
             w.newLine();
             LevelPack lp = LemGame.getCurLevelPack();
             w.write(String.format("#%s, %d, %d, %s, %s",
