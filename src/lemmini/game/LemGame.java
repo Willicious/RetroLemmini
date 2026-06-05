@@ -643,7 +643,7 @@ public class LemGame {
     /**
      * Restart level.
      */
-    public static synchronized void restartLevel(final boolean doReplay, final boolean showPreview) throws LemException, ResourceException {
+    private static synchronized void restartLevel(final boolean doReplay, final boolean showPreview) throws LemException, ResourceException {
         if (!replayMode && !levelPassed() && (gameState == State.LEVEL
                 || gameState == State.LEVEL_END
                 || gameState == State.POSTVIEW)) {
@@ -1949,6 +1949,7 @@ public class LemGame {
     	try {
     		ReplayChecker.ReplayResult result = ReplayChecker.check();
     		Core.updateReplayCaption(result.toString());
+    		restartLevel(true, true);
     	} catch (Exception ex) {
     		ToolBox.showException(ex);
     	}

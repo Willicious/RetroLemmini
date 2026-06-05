@@ -31,7 +31,7 @@ public final class ReplayChecker {
 
     public static final int MAX_FRAMES = 200_000;
 
-    public static ReplayResult check() throws LemException, ResourceException {
+    public static ReplayResult check() {
     	ReplayResult result = ReplayResult.UNDETERMINED;    	
         try {
             prepareSimulation();
@@ -48,9 +48,8 @@ public final class ReplayChecker {
         	ToolBox.showException(ex); // TODO: Add the exception message to the output
             return ReplayResult.UNDETERMINED; // Some error occurred
         } finally {
-            // ALWAYS restore normal mode and restart the level
+            // ALWAYS restore normal mode
             LemGame.setGameMode(LemGame.GameMode.NORMAL);
-            LemGame.restartLevel(true, true);
         }
     }
 
