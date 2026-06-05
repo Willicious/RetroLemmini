@@ -634,7 +634,10 @@ public class LemGame {
         replayMode = false;
         replay.setDirectDropActive(false);
         
-        gameState = State.POSTVIEW;
+        
+        if (!isReplayCheck()) {
+        	gameState = State.POSTVIEW;
+        }
     }
 
     /**
