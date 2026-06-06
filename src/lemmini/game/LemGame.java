@@ -1093,6 +1093,8 @@ public class LemGame {
             replay.clearFrom(replayFrame);
             replayMode = false;
             stopReplayMode = false;
+            replayCaption = null;
+            setLevelTitle();
         }
     }
     
