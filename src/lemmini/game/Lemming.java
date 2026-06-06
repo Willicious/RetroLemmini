@@ -2024,6 +2024,10 @@ public class Lemming {
     public Direction getDirection() {
         return dir;
     }
+    
+    public int getFrameIndex() {
+    	return frameIdx;
+    }
 
     /**
      * Get current animation frame for this Lemming.

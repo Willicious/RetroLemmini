@@ -967,6 +967,10 @@ public class LemminiPanel extends JPanel implements Runnable {
 
 
                         // draw info string
+                    	int charWidthLa = 18;
+                    	int charWidthSm = 9;
+                    	int maxWidth = 800;
+                        
                         LemImage outStrImg = outStrBuffer.getImage();
                         GraphicsContext outStrGfx = outStrBuffer.getGraphicsContext();
                         outStrGfx.clearRect(0, 0, outStrImg.getWidth(), outStrImg.getHeight());
@@ -975,6 +979,29 @@ public class LemminiPanel extends JPanel implements Runnable {
                             statusBarGap = 18;
                         }
                         int yOffset = LemminiFrame.LEVEL_HEIGHT + statusBarGap;
+                        
+                        // always show lemming info
+                        String lemmingInfo;
+                        if (lemmUnderCursor != null) {
+                        	if (Core.player.isDebugMode()) {
+                        		// show frame index and position of lem when in debug mode
+                        		lemmingInfo = "F:" + lemmUnderCursor.getFrameIndex() + " X:" + lemmUnderCursor.footX() + " Y:" + lemmUnderCursor.footY();
+                        	} else {
+                        		lemmingInfo = lemmUnderCursor.getLemmingInfo();
+                        	}
+                            // display also the total number of lemmings under the cursor
+                            int num = LemGame.getNumLemmsUnderCursor();
+                            if (num > 1) {
+                            	lemmingInfo += StringUtils.SPACE + num;
+                            }
+                        } else {
+                        	lemmingInfo = StringUtils.EMPTY;
+                        }
+                        
+                        // draw the lemming info status
+                        int xLemInfo = 4;
+                        LemImage lemmInfo = LemFont.strImage(String.format("%-15s", lemmingInfo));
+                        offGfx.drawImage(lemmInfo, menuOffsetX + xLemInfo, yOffset);
 
                         if (Core.player.isDebugMode() && showDebugCursorInfo) {
                             Stencil stencil = LemGame.getStencil();
@@ -983,31 +1010,16 @@ public class LemminiPanel extends JPanel implements Runnable {
                                 int stencilObject = stencil.getMaskObjectID(xMouse, yMouse);
                                 String strObj;
                                 if (stencilObject >= 0) {
-                                    strObj = ", Obj: " + stencilObject;
+                                    strObj = " Obj:" + stencilObject;
                                 } else {
                                     strObj = StringUtils.EMPTY;
                                 }
-                                String test = String.format("X: %4d, Y: %3d, Mask: %4d%s", xMouse, yMouse, stencilVal, strObj);
+                                String test = String.format("X:%d Y:%d Mask:%d%s", xMouse, yMouse, stencilVal, strObj);
                                 LemFont.strImage(outStrGfx, test);
-                                offGfx.drawImage(outStrImg, menuOffsetX + 4, yOffset);
+                                offGfx.drawImage(outStrImg, menuOffsetX + maxWidth - (String.valueOf(test).length() * charWidthLa), yOffset);
                             }
                         } else {
                             //otherwise show the standard info set
-                            String lemmingInfo;
-                            if (lemmUnderCursor != null) {
-                            	lemmingInfo = lemmUnderCursor.getLemmingInfo();
-                            	if (Core.player.isDebugMode()) {
-                            		// show position of lem when in debug mode
-                            		lemmingInfo += " (" + lemmUnderCursor.footX() + "/" + lemmUnderCursor.footY() + ")";
-                            	}
-                                // display also the total number of lemmings under the cursor
-                                int num = LemGame.getNumLemmsUnderCursor();
-                                if (num > 1) {
-                                	lemmingInfo += StringUtils.SPACE + num;
-                                }
-                            } else {
-                            	lemmingInfo = StringUtils.EMPTY;
-                            }
                             String strHome;
                             if (LemGame.isOptionEnabled(LemGame.Option.NO_PERCENTAGES)
                                     || LemGame.getNumLemmingsMax() > 100) {
@@ -1037,13 +1049,10 @@ public class LemminiPanel extends JPanel implements Runnable {
                                 // show save requirement or maximum lems as the home sub-value depending on "use percentages" option
                                 int homeSubValue = LemGame.isOptionEnabled(LemGame.Option.NO_PERCENTAGES) ? saveRequirement : maxLevelLemm;
                             	
-                            	int charWidthLa = 18;
-                            	int charWidthSm = 9;
                             	int iconWidth = 32;
                             	int padding = getPadding();
                             	int xSpace = 4; // space between icon and value
                             	
-                                int xLemInfo = 4;
                                 int xTime = 638;
                                 // draw everything else in reverse order from xTime, expanding to the left if necessary
                                 int xHome = xTime - ((String.valueOf(homeSubValue).length() + 1) * charWidthSm)
@@ -1055,10 +1064,6 @@ public class LemminiPanel extends JPanel implements Runnable {
                                 int xHatch = xActive - ((String.valueOf(maxPossibleLemm).length() + 1) * charWidthSm)
                                 		             - (String.valueOf(hatchLems).length() * charWidthLa)
                       		                         - xSpace - iconWidth - padding;                                
-                                
-                                // draw the lemming info status
-                                LemImage lemmInfo = LemFont.strImage(String.format("%-15s", lemmingInfo));
-                                offGfx.drawImage(lemmInfo, menuOffsetX + xLemInfo, yOffset);
 
                                 // draw hatch lemmings status (the number of lemmings yet to spawn / the maximum possible from the start)
                                 LemImage lemmIconHatch = MiscGfx.getImage(Index.STATUS_HATCH);
