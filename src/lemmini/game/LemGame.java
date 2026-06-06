@@ -2085,22 +2085,27 @@ public class LemGame {
     public static int getEffectX(Lemming l) {
     	return isLeftAndBidirectional(l) ? l.footX() : l.midX();
     }
+    
+    public static int getBlockerOffset(Lemming l) {
+    	return ((l.getSkill() == Lemming.Type.BLOCKER) && (l.getDirection() == Direction.LEFT)) ? 2 : 0;
+    }
 
     public static synchronized void drawLemmings(final GraphicsContext g, int cameraX, int cameraY, boolean isScreenshot) {
         lemmings.stream().forEachOrdered(l -> {
             // Draw lemmings
         	int lx = l.screenX();
             int ly = l.screenY();
+            int bx = getBlockerOffset(l);
 
             if (isScreenshot || (lx + l.width() > cameraX && lx < cameraX + Core.getDrawWidth() &&
                                  ly + l.height() > cameraY && ly < cameraY + LemminiFrame.LEVEL_HEIGHT)) {
-                g.drawImage(l.getImage(), lx - cameraX, ly - cameraY);
+                g.drawImage(l.getImage(), lx - bx - cameraX, ly - cameraY);
             }
 
             // Draw countdown graphics if necessary
             LemImage cd = l.getCountdown();
             if (cd != null) {
-                int x = getEffectX(l) - cameraX - cd.getWidth() / 2;
+                int x = getEffectX(l) - bx - cameraX - cd.getWidth() / 2;
                 int y = ly - cameraY - cd.getHeight();
                 if (isScreenshot || (x + cd.getHeight() > 0 && x < Core.getDrawWidth() &&
                                      y + cd.getHeight() > 0 && y < LemminiFrame.LEVEL_HEIGHT)) {
