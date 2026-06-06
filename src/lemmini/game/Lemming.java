@@ -1809,6 +1809,7 @@ public class Lemming {
             case HOMER:
             case FRIER:
             case OHNOER:
+            case OHNOER_BLOCKER:
                 if (newSkill != Type.NUKE) {
                     return playSetSkillSound(false, playSound);
                 }
