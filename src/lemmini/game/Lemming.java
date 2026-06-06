@@ -196,6 +196,8 @@ public class Lemming {
     private int y;
     /** Lemming's heading */
     private Direction dir;
+    /** Lemming's direction whilst laying a builder step */
+    private Direction stepDir;
     /** Lemming's skill/type */
     private Type type;
     /** counter used for internal state changes */
@@ -774,14 +776,13 @@ public class Lemming {
                             break;
                         }
                     } else if (idx == 9 * TIME_SCALE) {
-                        // stair mask is the same height as a lemming
-                        Mask m;
-                        m = lemRes.getMask(dir);
-                        m.paintStep(screenMaskX(), screenMaskY(), 0);
+                    	paintBuilderStep();
                     } else if (idx == 10 * TIME_SCALE) {
                         if (counter >= STEPS_WARNING) {
                             playVisualSFX(Sound.Effect.STEP_WARNING);
                         }
+                    } else if ((idx >= 12 * TIME_SCALE) && (dir != stepDir)) {
+                    	paintBuilderStep();
                     }
                     turnedByBlocker();
                     break;
@@ -1232,6 +1233,17 @@ public class Lemming {
                     break;
             }
         }
+    }
+    
+    /**
+     * Paints a Builder step relative to the Lemming's position.
+     */
+    private void paintBuilderStep() {
+        // stair mask is the same height as a lemming
+        Mask m;
+        m = lemRes.getMask(dir);
+        m.paintStep(screenMaskX(), screenMaskY(), 0);
+        stepDir = dir; // record direction at time of placement
     }
 
     /**
