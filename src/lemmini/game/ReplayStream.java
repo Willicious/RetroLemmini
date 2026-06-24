@@ -198,7 +198,7 @@ public class ReplayStream {
 
                         ev.add(new ReplayAssignSkillEvent(
                             Integer.parseInt(e[0]),
-                            Lemming.Type.valueOf(e[2]),
+                            parseLemmingType(e[2]),
                             Integer.parseInt(e[3]),
                             isTimedBomber
                         ));
@@ -217,7 +217,7 @@ public class ReplayStream {
                             throw new LemException("Not enough values in replay event.");
                         }
                         ev.add(new ReplaySelectSkillEvent(Integer.parseInt(e[0]),
-                                Lemming.Type.valueOf(e[2]),
+                                parseLemmingType(e[2]),
                                 Integer.parseInt(e[3])));
                         break;
                     case SET_RELEASE_RATE:
@@ -259,6 +259,15 @@ public class ReplayStream {
     	    return false;
     	
     	return LemGame.isOptionEnabled(LemGame.Option.TIMED_BOMBERS);
+    }
+    
+    private static Lemming.Type parseLemmingType(String typeName) {
+        switch (typeName) {
+            case "FLAPPER": // backwards compatibility
+                return Lemming.Type.OHNOER;
+            default:
+                return Lemming.Type.valueOf(typeName);
+        }
     }
 
     /**
