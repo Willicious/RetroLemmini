@@ -560,7 +560,7 @@ public class LemminiFrame extends JFrame {
                 "<html>"
                 + "RetroLemmini Version " + Core.REVISION + "<br>"
                 + "By William James<br><br>"
-                + "Based on<br><br>"
+                + "Based on:<br><br>"
                 + "SuperLemminiToo by Charles Irwin<br>"
                 + "SuperLemmini by Ryan Sakowski<br>"
                 + "Original Lemmini by Volker Oth<br><br>"
@@ -569,6 +569,11 @@ public class LemminiFrame extends JFrame {
                 + "Lemmini website: <a href='" + urlLemmini + "'>" + urlLemmini + "</a><br><br>"
                 + "<a href='" + urlLevelsCatalog + "'>" + "Get more levels here" + "</a><br>"
                 + "<a href='" + urlMusicCatalog + "'>" + "Get more music here" + "</a><br><br>"
+                + "Special thanks to:<br><br>"
+                + "Eric Derkovits and hrb264 for much-needed bug testing, feedback and extra pairs of eyes<br>"
+                + "Simon Naarman and Pooty Limbo for help with navigating the lemmini codebase<br>"
+                + "Zanzindorf for the awesome menu bar icons<br>"
+                + "<br>"
                 + "Revision Commit ID: " + getGitCommitSHA(7) + "</a><br>"
                 + "Java Version: " + System.getProperty("java.version")
                 + "</html>");
