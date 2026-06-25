@@ -25,7 +25,11 @@ import java.awt.RenderingHints;
 import java.awt.Transparency;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -55,6 +59,7 @@ import lemmini.game.MiscGfx;
 //import lemmini.game.LemFont.Color;
 import lemmini.game.MiscGfx.Index;
 import lemmini.game.Player;
+import lemmini.game.ReplayChecker;
 import lemmini.game.ReplayLevelInfo;
 import lemmini.game.SpriteObject;
 import lemmini.game.Stencil;
@@ -1926,6 +1931,38 @@ public class LemminiPanel extends JPanel implements Runnable {
                 ToolBox.showException(ex);
             }
         }
+    }
+    
+    void handleBatchReplayCheck() {
+        Path folder = ToolBox.getDirectory(getParentFrame(), Core.resourcePath, "Batch Replay Checker - Choose A Folder Containing Replays");        
+        if (folder == null) return;
+        
+        List<ReplayChecker.ReplayResult> results = new ArrayList<>();
+
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(folder, "*.rpl")) {
+            for (Path replayPath : stream) {
+                try {
+                    ReplayLevelInfo rli = LemGame.loadReplay(replayPath);
+                    if (rli == null) continue;
+
+                    int[] level = findReplayLevel(rli);
+                    if (level == null) continue;
+
+                    LemGame.changeLevel(level[0], level[1], level[2], true);
+
+                    ReplayChecker.ReplayResult resultCheck = ReplayChecker.check();
+                    results.add(resultCheck);
+
+                    System.out.println(replayPath.getFileName() + " -> " + resultCheck);
+
+                } catch (Exception ex) {
+                    System.out.println(replayPath.getFileName() + " -> ERROR: " + ex.getMessage());
+                }
+            }
+        } catch (IOException e) { // TODO: Use LemException instead
+            e.printStackTrace();
+        }
+        // TODO: show results in UI / export report
     }
 
     void handleEnterCode() {

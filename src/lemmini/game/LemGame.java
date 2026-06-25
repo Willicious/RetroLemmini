@@ -870,8 +870,8 @@ public class LemGame {
     /**
      * Start a new level.
      */
-    private static synchronized Level changeLevel(final int lPack, final int rating, final int lNum, final boolean doReplay) throws LemException, ResourceException {
-        timesFailed = 0;
+    public static synchronized Level changeLevel(final int lPack, final int rating, final int lNum, final boolean doReplay) throws LemException, ResourceException {   	
+    	timesFailed = 0;
 
         curLevelPack = lPack;
         curRating = rating;

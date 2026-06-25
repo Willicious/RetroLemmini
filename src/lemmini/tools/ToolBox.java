@@ -161,6 +161,28 @@ public class ToolBox {
         }
         return imgList;
     }
+    
+    /**
+     * Open directory chooser dialog.
+     */
+    public static Path getDirectory(final Component parent, final Path path, final String title) {
+        JFileChooser jf = new JFileChooser(path.toFile());
+
+        jf.setDialogTitle(title != null ? title : "Select Directory");
+        jf.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        jf.setAcceptAllFileFilterUsed(false);
+
+        int returnVal = jf.showOpenDialog(parent);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File f = jf.getSelectedFile();
+            if (f != null) {
+                return f.toPath().toAbsolutePath();
+            }
+        }
+
+        return null;
+    }
 
     /**
      * Use the Loader to find a file.

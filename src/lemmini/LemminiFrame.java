@@ -743,6 +743,7 @@ public class LemminiFrame extends JFrame {
         switch (action) {
 	        case HotkeyLoadReplay:
 	            lemminiPanelMain.handleLoadReplay();
+	            //lemminiPanelMain.handleBatchReplayCheck(); // TODO: Add hotkey & menu item for this
 	            break;
             case HotkeyToggleMenuBar:
                 LemGame.setOption(LemGame.Option.SHOW_MENU_BAR, !LemGame.isOptionEnabled(LemGame.Option.SHOW_MENU_BAR));
