@@ -1802,6 +1802,92 @@ public class LemminiPanel extends JPanel implements Runnable {
         }
         return false;
     }
+    
+    private int[] findReplayLevel(ReplayLevelInfo rli) {
+        int lpn = -1;
+        int rn = -1;
+        int ln = -1;
+        LevelPack lp = null;
+        for (int i = 0; i < LemGame.getLevelPackCount(); i++) {
+            LevelPack lpTemp = LemGame.getLevelPack(i);
+            if (ToolBox.looselyEquals(lpTemp.getName(), rli.getLevelPack()) ||
+                    // Handle replays created with the DMA Remastered packs
+                    checkForDMARemasters(rli.getLevelPack(), lpTemp.getName())) {
+                lpn = i;
+                lp = lpTemp;
+            }
+        }
+        
+        // check external levels if no match is found
+        if (lpn < 0) { 
+        	lp = LemGame.getLevelPack(0);
+        	lpn = 0;
+        }
+        
+        if (lp != null && lpn >= 0) {
+            java.util.List<String> ratings = lp.getRatings();
+            int rnTemp = rli.getRatingNumber();
+            if (rnTemp < ratings.size()) {
+                rn = rnTemp;
+            }
+            if (rn < 0 || ToolBox.looselyEquals(ratings.get(rn), rli.getRatingName())) {
+                for (int i = 0; i < ratings.size(); i++) {
+                    if (ToolBox.looselyEquals(ratings.get(i), rli.getRatingName())) {
+                        rn = i;
+                    }
+                }
+            }
+            
+            // check external levels if no match is found
+            if (rn < 0) { 
+            	rn = 0;
+            }
+            
+            if (rn >= 0) {
+                java.util.List<String> levels = lp.getLevels(rn);
+                int lnTemp = rli.getLvlNumber();
+                if (lnTemp < levels.size()) {
+                    ln = lnTemp;
+                }
+                if (ln < 0 || ToolBox.looselyEquals(levels.get(ln), rli.getLvlName())) {
+                    for (int i = 0; i < levels.size(); i++) {
+                        if (ToolBox.looselyEquals(levels.get(i), rli.getLvlName())) {
+                            ln = i;
+                        }
+                    }
+                }
+            }
+        }
+        
+        // fallback - search by level name only
+        if (lpn < 0 || rn < 0 || ln < 0) {
+        	LemGame.replayCaption = "RetroLemmini - Closest match for '" + rli.getLvlName() + "' (" + rli.getLevelPack() + ")";
+            outer:
+            for (int p = 0; p < LemGame.getLevelPackCount(); p++) {
+                LevelPack pack = LemGame.getLevelPack(p);
+                List<String> ratings = pack.getRatings();
+
+                for (int r = 0; r < ratings.size(); r++) {
+                    List<String> levels = pack.getLevels(r);
+
+                    for (int l = 0; l < levels.size(); l++) {
+                        if (ToolBox.looselyEquals(levels.get(l), rli.getLvlName())) {
+                            lpn = p;
+                            rn = r;
+                            ln = l;
+                            break outer; // first match wins
+                        }
+                    }
+                }
+            }
+        }
+        
+        if (lpn >= 0 && rn >= 0 && ln >= 0) {
+            return new int[] { lpn, rn, ln };
+        }
+
+        return null;
+    }
 
     void handleLoadReplay() {
         Path replayPath = ToolBox.getFileName(getParent(), Core.resourcePath.resolve(Core.REPLAYS_PATH),
@@ -1811,94 +1897,24 @@ public class LemminiPanel extends JPanel implements Runnable {
                 if (FilenameUtils.getExtension(replayPath.getFileName().toString()).equalsIgnoreCase("rpl")) {
                     ReplayLevelInfo rli = LemGame.loadReplay(replayPath);
                     if (rli != null) {
-                        int lpn = -1;
-                        int rn = -1;
-                        int ln = -1;
-                        LevelPack lp = null;
-                        for (int i = 0; i < LemGame.getLevelPackCount(); i++) {
-                            LevelPack lpTemp = LemGame.getLevelPack(i);
-                            if (ToolBox.looselyEquals(lpTemp.getName(), rli.getLevelPack()) ||
-                                    // Handle replays created with the DMA Remastered packs
-                                    checkForDMARemasters(rli.getLevelPack(), lpTemp.getName())) {
-                                lpn = i;
-                                lp = lpTemp;
-                            }
-                        }
-                        
-                        // check external levels if no match is found
-                        if (lpn < 0) { 
-                        	lp = LemGame.getLevelPack(0);
-                        	lpn = 0;
-                        }
-                        
-                        if (lp != null && lpn >= 0) {
-                            java.util.List<String> ratings = lp.getRatings();
-                            int rnTemp = rli.getRatingNumber();
-                            if (rnTemp < ratings.size()) {
-                                rn = rnTemp;
-                            }
-                            if (rn < 0 || ToolBox.looselyEquals(ratings.get(rn), rli.getRatingName())) {
-                                for (int i = 0; i < ratings.size(); i++) {
-                                    if (ToolBox.looselyEquals(ratings.get(i), rli.getRatingName())) {
-                                        rn = i;
-                                    }
-                                }
-                            }
-                            
-                            // check external levels if no match is found
-                            if (rn < 0) { 
-                            	rn = 0;
-                            }
-                            
-                            if (rn >= 0) {
-                                java.util.List<String> levels = lp.getLevels(rn);
-                                int lnTemp = rli.getLvlNumber();
-                                if (lnTemp < levels.size()) {
-                                    ln = lnTemp;
-                                }
-                                if (ln < 0 || ToolBox.looselyEquals(levels.get(ln), rli.getLvlName())) {
-                                    for (int i = 0; i < levels.size(); i++) {
-                                        if (ToolBox.looselyEquals(levels.get(i), rli.getLvlName())) {
-                                            ln = i;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        
-                        // fallback - search by level name only
-                        if (lpn < 0 || rn < 0 || ln < 0) {
-                        	LemGame.replayCaption = "RetroLemmini - Closest match for '" + rli.getLvlName() + "' (" + rli.getLevelPack() + ")";
-                            outer:
-                            for (int p = 0; p < LemGame.getLevelPackCount(); p++) {
-                                LevelPack pack = LemGame.getLevelPack(p);
-                                List<String> ratings = pack.getRatings();
+                    	int[] level = findReplayLevel(rli);
 
-                                for (int r = 0; r < ratings.size(); r++) {
-                                    List<String> levels = pack.getLevels(r);
-
-                                    for (int l = 0; l < levels.size(); l++) {
-                                        if (ToolBox.looselyEquals(levels.get(l), rli.getLvlName())) {
-                                            lpn = p;
-                                            rn = r;
-                                            ln = l;
-                                            break outer; // first match wins
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        
-                        if (lpn >= 0 && rn >= 0 && ln >= 0) {
-                            // success
-                        	LemGame.requestChangeLevel(lpn, rn, ln, true);
-                            getParentFrame().setRestartEnabled(true);
-                        } else {
-                            // no success
-                            JOptionPane.showMessageDialog(getParent(),
-                                    "Level specified in replay file does not exist.",
-                                    "Load Replay", JOptionPane.ERROR_MESSAGE);
-                        }
+                    	if (level != null) {
+                    	    LemGame.requestChangeLevel(
+                    	        level[0], // pack
+                    	        level[1], // rating
+                    	        level[2], // level
+                    	        true
+                    	    );
+                    	    getParentFrame().setRestartEnabled(true);
+                    	} else {
+                    	    JOptionPane.showMessageDialog(
+                    	        getParent(),
+                    	        "Level specified in replay file does not exist.",
+                    	        "Load Replay",
+                    	        JOptionPane.ERROR_MESSAGE
+                    	    );
+                    	}
                         return;
                     }
                 }
