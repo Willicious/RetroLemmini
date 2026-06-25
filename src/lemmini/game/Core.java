@@ -62,7 +62,7 @@ import lemmini.tools.ToolBox;
  */
 public class Core {
 
-    public static final String REVISION = "3.1";
+    public static final String REVISION = "3.1.1";
     public static final String COMMIT_ID = CommitID.ID;
     public static final String REV_DATE = "June 2026";
     public static final String COMPATIBILITY_REVISION = "3.1"; // Tracks last physics update
