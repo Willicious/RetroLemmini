@@ -1954,21 +1954,29 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
     
     void handleBatchReplayCheck() {
+    	// TODO: Find a way to show progress whilst keeping the main menu visible (or even just showing a blank screen)
+    	
         Path folder = ToolBox.getDirectory(getParentFrame(), Core.resourcePath, "Batch Replay Check - Choose A Folder Containing Replays");        
         if (folder == null) return;
 
-        javax.swing.JProgressBar bar = new javax.swing.JProgressBar();
-        bar.setIndeterminate(true);
-        bar.setPreferredSize(new Dimension(350, 30));
-        
-        javax.swing.JDialog progress = new javax.swing.JDialog(getParentFrame(), "Checking replays. Please wait...", false);
-        progress.setLayout(new java.awt.BorderLayout());
-        progress.add(bar, java.awt.BorderLayout.CENTER);
-        progress.pack();
-        progress.setLocationRelativeTo(getParentFrame());
-        progress.setVisible(true);
+	        javax.swing.JDialog progress = new javax.swing.JDialog(getParentFrame(), "Batch Replay Check", false);
+	        progress.setLayout(new java.awt.BorderLayout());
+//	        javax.swing.JProgressBar bar = new javax.swing.JProgressBar();
+//	        bar.setIndeterminate(true);
+//	        bar.setPreferredSize(new Dimension(300, 30));
+//	        progress.add(bar, java.awt.BorderLayout.CENTER);
+	        javax.swing.JLabel label = new javax.swing.JLabel("   Checking replays. Please wait...");
+	        label.setPreferredSize(new Dimension(300, 30));
+	        progress.add(label, java.awt.BorderLayout.CENTER);
+	        progress.pack();
+	        progress.setLocationRelativeTo(getParentFrame());
+	        progress.setVisible(true);
+	        progress.paint(progress.getGraphics());
+	        java.awt.Toolkit.getDefaultToolkit().sync();
 
-        new Thread(() -> {
+//        new Thread(() -> { // TODO: The multi-thread version causes the UI to update in the background
+	                         // so we see preview screens and levels being rendered briefly,
+	                         // which shows progress but looks very unpolished
             List<ReplayChecker.ReplayCheckResult> results = new ArrayList<>();
 
             try (DirectoryStream<Path> stream = Files.newDirectoryStream(folder, "*.rpl")) {
@@ -1999,12 +2007,13 @@ public class LemminiPanel extends JPanel implements Runnable {
                 e.printStackTrace();
             }
             
-            javax.swing.SwingUtilities.invokeLater(() -> {
+//            javax.swing.SwingUtilities.invokeLater(() -> {
                 progress.dispose();
                 Core.returnToMainMenu();
                 handleReplayCheckResultDialog(results);
-            });
-        }).start();
+//            });
+//        }).start();
+//        }
     }
     
     void handleReplayCheckResultDialog(List<ReplayChecker.ReplayCheckResult> results) {
