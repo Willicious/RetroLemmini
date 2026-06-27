@@ -742,7 +742,7 @@ public class LemminiFrame extends JFrame {
         // --- Available anywhere --- //
         switch (action) {
 	        case HotkeyLoadReplay:
-	            lemminiPanelMain.handleLoadReplay();
+	            lemminiPanelMain.handleLoadReplay(null);
 	            break;
             case HotkeyToggleMenuBar:
                 LemGame.setOption(LemGame.Option.SHOW_MENU_BAR, !LemGame.isOptionEnabled(LemGame.Option.SHOW_MENU_BAR));
@@ -1082,7 +1082,7 @@ public class LemminiFrame extends JFrame {
     }//GEN-LAST:event_jMenuItemRestartLevelActionPerformed
 
     private void jMenuItemLoadReplayActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemLoadReplayActionPerformed
-        lemminiPanelMain.handleLoadReplay();
+        lemminiPanelMain.handleLoadReplay(null);
     }//GEN-LAST:event_jMenuItemLoadReplayActionPerformed
 
     private void jMenuItemEnterLevelCodeActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemEnterLevelCodeActionPerformed

@@ -15,6 +15,8 @@
  */
 package lemmini.game;
 
+import java.nio.file.Path;
+
 import lemmini.tools.ToolBox;
 
 /**
@@ -27,6 +29,42 @@ public final class ReplayChecker {
         PASS,
         FAIL,
         UNDETERMINED
+    }
+    
+    public static class ReplayCheckResult {
+        private final Path replayPath;
+        private final ReplayResult result;
+        private final int lemsSaved;
+        private final int saveRequirement;
+        private final int timeElapsed;
+
+        public ReplayCheckResult(Path replayPath, ReplayResult result, int lemsSaved, int saveRequirement, int timeElapsed) {
+            this.replayPath = replayPath;
+            this.result = result;
+            this.lemsSaved = lemsSaved;
+            this.saveRequirement = saveRequirement;
+            this.timeElapsed = timeElapsed;
+        }
+
+        public Path getReplayPath() {
+            return replayPath;
+        }
+
+        public ReplayResult getReplayResult() {
+            return result;
+        }
+        
+        public int getLemsSaved() {
+        	return lemsSaved;
+        }
+        
+        public int getSaveRequirement() {
+        	return saveRequirement;
+        }
+        
+        public int getTimeElapsed() {
+        	return timeElapsed;
+        }
     }
 
     public static final int MAX_FRAMES = 200_000;
