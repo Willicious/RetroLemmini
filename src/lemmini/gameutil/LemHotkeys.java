@@ -34,6 +34,7 @@ public class LemHotkeys {
 	public enum HotkeyScope {
 	    ANYWHERE,
 	    IN_GAME,
+	    MENU,
 	    PREVIEW,
 	    POSTVIEW,
 	    DEBUG
@@ -77,6 +78,7 @@ public class LemHotkeys {
 	    HotkeySaveReplay("(In-Game + Postview) Save replay", HotkeyScope.IN_GAME, HotkeyScope.POSTVIEW),
 	    HotkeyLoadReplay("(Anywhere) Load replay", HotkeyScope.ANYWHERE),
 	    HotkeyCancelReplay("(In-Game) Cancel replay", HotkeyScope.IN_GAME),
+	    HotkeyBatchReplayCheck("(Main Menu) Batch Replay Check", HotkeyScope.MENU),
 	    HotkeyNextLevel("(Preview) Next level", HotkeyScope.PREVIEW),
 	    HotkeyPreviousLevel("(Preview) Previous level", HotkeyScope.PREVIEW),
 	    HotkeyNextGroup("(Preview) Next group", HotkeyScope.PREVIEW),
@@ -160,6 +162,7 @@ public class LemHotkeys {
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySaveReplay, KeyEvent.VK_S, "Ctrl"));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyLoadReplay, KeyEvent.VK_L, "Ctrl"));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyCancelReplay, KeyEvent.VK_C));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyBatchReplayCheck, KeyEvent.VK_B, "Ctrl"));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySaveAsImage, KeyEvent.VK_I, "Ctrl"));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNextLevel, KeyEvent.VK_RIGHT));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyPreviousLevel, KeyEvent.VK_LEFT));
@@ -216,6 +219,7 @@ public class LemHotkeys {
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySaveReplay, KeyEvent.VK_S, "Ctrl"));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyLoadReplay, KeyEvent.VK_L, "Ctrl"));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyCancelReplay, KeyEvent.VK_X));
+	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyBatchReplayCheck, KeyEvent.VK_UNDEFINED));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeySaveAsImage, KeyEvent.VK_V));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyNextLevel, KeyEvent.VK_RIGHT));
 	    	    hotkeys.add(new Hotkey(HotkeyAction.HotkeyPreviousLevel, KeyEvent.VK_LEFT));

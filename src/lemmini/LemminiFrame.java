@@ -743,7 +743,6 @@ public class LemminiFrame extends JFrame {
         switch (action) {
 	        case HotkeyLoadReplay:
 	            lemminiPanelMain.handleLoadReplay();
-	            //lemminiPanelMain.handleBatchReplayCheck(); // TODO: Add hotkey & menu item for this
 	            break;
             case HotkeyToggleMenuBar:
                 LemGame.setOption(LemGame.Option.SHOW_MENU_BAR, !LemGame.isOptionEnabled(LemGame.Option.SHOW_MENU_BAR));
@@ -777,6 +776,17 @@ public class LemminiFrame extends JFrame {
             default:
             	break;
         	}
+        
+        // --- Available on main menu --- //
+        if (isIntro) {
+            switch (action) {
+	            case HotkeyBatchReplayCheck:
+	            	lemminiPanelMain.handleBatchReplayCheck(); // TODO: Add menu item for this
+	                break;
+                default:
+                	break;
+            }
+        }
         
         // --- Available on preview screen --- //
         if (isPreview) {
