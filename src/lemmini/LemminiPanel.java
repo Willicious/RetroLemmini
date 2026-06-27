@@ -1956,36 +1956,55 @@ public class LemminiPanel extends JPanel implements Runnable {
     void handleBatchReplayCheck() {
         Path folder = ToolBox.getDirectory(getParentFrame(), Core.resourcePath, "Batch Replay Check - Choose A Folder Containing Replays");        
         if (folder == null) return;
+
+        javax.swing.JProgressBar bar = new javax.swing.JProgressBar();
+        bar.setIndeterminate(true);
+        bar.setPreferredSize(new Dimension(350, 30));
         
-        List<ReplayChecker.ReplayCheckResult> results = new ArrayList<>();
+        javax.swing.JDialog progress = new javax.swing.JDialog(getParentFrame(), "Checking replays. Please wait...", false);
+        progress.setLayout(new java.awt.BorderLayout());
+        progress.add(bar, java.awt.BorderLayout.CENTER);
+        progress.pack();
+        progress.setLocationRelativeTo(getParentFrame());
+        progress.setVisible(true);
 
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(folder, "*.rpl")) {
-            for (Path replayPath : stream) {
-                try {
-                    ReplayLevelInfo rli = LemGame.loadReplay(replayPath);
-                    if (rli == null) continue;
+        new Thread(() -> {
+            List<ReplayChecker.ReplayCheckResult> results = new ArrayList<>();
 
-                    int[] level = findReplayLevel(rli);
-                    if (level == null) continue;
+            try (DirectoryStream<Path> stream = Files.newDirectoryStream(folder, "*.rpl")) {
+                for (Path replayPath : stream) {
+                    try {
+                        ReplayLevelInfo rli = LemGame.loadReplay(replayPath);
+                        if (rli == null) continue;
 
-                    LemGame.changeLevel(level[0], level[1], level[2], true);
+                        int[] level = findReplayLevel(rli);
+                        if (level == null) continue;
 
-                    ReplayChecker.ReplayResult resultCheck = ReplayChecker.check();
-                    int lemsSaved = LemGame.getNumExited();
-                    int saveReq = LemGame.getNumToRescue();
-                    int timeElapsed = LemGame.getLevelRecord().getTimeElapsed();
-                    results.add(new ReplayChecker.ReplayCheckResult(replayPath, resultCheck, lemsSaved, saveReq, timeElapsed));
-                    
-                } catch (Exception ex) {
-                    System.out.println(replayPath.getFileName() + " -> ERROR: " + ex.getMessage());
+                        LemGame.changeLevel(level[0], level[1], level[2], true);
+
+                        ReplayChecker.ReplayResult resultCheck = ReplayChecker.check();
+
+                        int lemsSaved = LemGame.getNumExited();
+                        int saveReq = LemGame.getNumToRescue();
+                        int timeElapsed = LemGame.getLevelRecord().getTimeElapsed();
+
+                        results.add(new ReplayChecker.ReplayCheckResult(
+                            replayPath, resultCheck, lemsSaved, saveReq, timeElapsed
+                        ));
+                    } catch (Exception ex) {
+                        System.out.println(replayPath.getFileName() + " -> ERROR: " + ex.getMessage());
+                    }
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        Core.returnToMainMenu();
-        handleReplayCheckResultDialog(results);
+            
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                progress.dispose();
+                Core.returnToMainMenu();
+                handleReplayCheckResultDialog(results);
+            });
+        }).start();
     }
     
     void handleReplayCheckResultDialog(List<ReplayChecker.ReplayCheckResult> results) {
