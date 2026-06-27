@@ -75,6 +75,7 @@ import lemmini.gui.LevelDialog;
 import lemmini.gui.MouseDialog;
 import lemmini.gui.OptionsDialog;
 import lemmini.gui.PlayerDialog;
+import lemmini.gui.ReplayDialog;
 import lemmini.tools.ToolBox;
 
 /**
@@ -351,8 +352,8 @@ public class LemminiPanel extends JPanel implements Runnable {
                         	handleChooseLevel();
                         	TextScreen.getDialog().handleMouseReleased();
                         	break;
-                        case LOAD_REPLAY:
-                            handleLoadReplay();
+                        case REPLAY_DIALOG:
+                            handleReplayDialog();
                             TextScreen.getDialog().handleMouseReleased();
                             break;
                         case ENTER_CODE:
@@ -1596,6 +1597,23 @@ public class LemminiPanel extends JPanel implements Runnable {
         }
     }
     
+    public void handleReplayDialog() {
+        ReplayDialog dlg = new ReplayDialog(getParentFrame(), true);
+        dlg.setVisible(true);
+        switch (dlg.getResult()) {
+            case LOAD_REPLAY:
+                handleLoadReplay();
+                break;
+            case BATCH_REPLAY_CHECK:
+                handleBatchReplayCheck();
+                break;
+            case CANCEL:
+            	// do nothing
+            default:
+                break;
+        }
+    }
+    
     public void handleHotkeyDialog() {
         HotkeyDialog hc = new HotkeyDialog();
         hc.setVisible(true);
@@ -1934,7 +1952,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
     
     void handleBatchReplayCheck() {
-        Path folder = ToolBox.getDirectory(getParentFrame(), Core.resourcePath, "Batch Replay Checker - Choose A Folder Containing Replays");        
+        Path folder = ToolBox.getDirectory(getParentFrame(), Core.resourcePath, "Batch Replay Check - Choose A Folder Containing Replays");        
         if (folder == null) return;
         
         List<ReplayChecker.ReplayResult> results = new ArrayList<>();

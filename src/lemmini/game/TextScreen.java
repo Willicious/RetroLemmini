@@ -63,8 +63,8 @@ public class TextScreen {
         PLAY_LEVEL,
         /** choose level */
         CHOOSE_LEVEL,
-        /** load replay */
-        LOAD_REPLAY,
+        /** open replay dialog */
+        REPLAY_DIALOG,
         /** enter code */
         ENTER_CODE,
         /** players */
@@ -193,7 +193,7 @@ public class TextScreen {
         textDialog.addButton(cardOptions.get(0), cardOptions.get(0), cardOptions.get(1), "Menu Cards", -132, -24, Button.OPTIONS);
         
         List<LemImage> cardReplays = MiscGfx.getAnimation(MiscGfx.Index.CARD_REPLAYS, 2);
-        textDialog.addButton(cardReplays.get(0), cardReplays.get(0), cardReplays.get(1), "Menu Cards", 0, -24, Button.LOAD_REPLAY);
+        textDialog.addButton(cardReplays.get(0), cardReplays.get(0), cardReplays.get(1), "Menu Cards", 0, -24, Button.REPLAY_DIALOG);
         
         List<LemImage> cardPlayers = MiscGfx.getAnimation(MiscGfx.Index.CARD_PLAYERS, 2);
         textDialog.addButton(cardPlayers.get(0), cardPlayers.get(0), cardPlayers.get(1), "Menu Cards", -132, 35, Button.PLAYERS);
@@ -214,10 +214,10 @@ public class TextScreen {
         textDialog.addTextButton("Play", "Play", null, -3, -1, Button.PLAY_LEVEL, TURQUOISE, YELLOW);
         textDialog.addTextButton("Options", "Options", null, 7, -1, Button.OPTIONS, GREEN, YELLOW);
 
-        textDialog.addTextButton("Enter Code", "Enter Code", null, -15, 1, Button.ENTER_CODE, BLUE, YELLOW);
-        textDialog.addTextButton("Load Replay", "Load Replay", null, 3, 1, Button.LOAD_REPLAY, BLUE, YELLOW);
+        textDialog.addTextButton("Players", "Players", null, -15, 1, Button.PLAYERS, BLUE, YELLOW);
+        textDialog.addTextButton("Replays", "Replays", null, 7, 1, Button.REPLAY_DIALOG, BLUE, YELLOW);
 
-        textDialog.addTextButton("Players", "Players", null, -15, 2, Button.PLAYERS, BLUE, YELLOW);
+        textDialog.addTextButton("Code", "Code", null, -15, 2, Button.ENTER_CODE, BLUE, YELLOW);
         textDialog.addTextButton("Exit", "Exit", null, 10, 2, Button.EXIT, BLUE, YELLOW);
         
         String revision = "Version " + Core.REVISION;
