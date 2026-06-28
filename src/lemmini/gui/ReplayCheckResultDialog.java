@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JDialog;
@@ -76,6 +78,7 @@ public class ReplayCheckResultDialog extends JDialog {
      */
     private void initComponents() {
         jScrollPaneReplays = new javax.swing.JScrollPane();
+        
         replayTableModel = new javax.swing.table.DefaultTableModel(new Object[] {"Replay", "Result", "Saved", "Time"}, 0) {
 			private static final long serialVersionUID = 1L;
 				@Override
@@ -84,6 +87,9 @@ public class ReplayCheckResultDialog extends JDialog {
         	    }
         	};
         jTableReplays = new javax.swing.JTable(replayTableModel);
+        javax.swing.table.TableRowSorter<javax.swing.table.DefaultTableModel> sorter = new javax.swing.table.TableRowSorter<>(replayTableModel);
+        jTableReplays.setRowSorter(sorter);
+        
         jButtonLoadReplay = new javax.swing.JButton();
         jButtonMoveReplays = new javax.swing.JButton();
         jButtonClose = new javax.swing.JButton();
@@ -196,9 +202,11 @@ public class ReplayCheckResultDialog extends JDialog {
     }//GEN-LAST:event_formWindowClosing
     
     private void jButtonLoadReplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoadReplayActionPerformed
-        int row = jTableReplays.getSelectedRow();
-        if (row < 0 || row >= replayResults.size()) return;
-        selectedResult = replayResults.get(row);
+    	int viewRow = jTableReplays.getSelectedRow();
+    	if (viewRow < 0) return;
+    	int modelRow = jTableReplays.convertRowIndexToModel(viewRow);
+    	if (modelRow < 0) return;
+        selectedResult = replayResults.get(modelRow);
         dispose();
     }//GEN-LAST:event_jButtonLoadReplayActionPerformed
     
@@ -210,14 +218,25 @@ public class ReplayCheckResultDialog extends JDialog {
 	    if (targetFolder == null) return;
 
 	    try {
-	        for (int i = rows.length - 1; i >= 0; i--) {
-	            int row = rows[i];
-	            ReplayChecker.ReplayCheckResult replayResult = replayResults.get(row);
-	            Files.move(replayResult.getReplayPath(), targetFolder.resolve(replayResult.getReplayPath().getFileName()), StandardCopyOption.REPLACE_EXISTING);
-	            replayResults.remove(row);
+	        // Convert view rows -> model rows
+	        List<Integer> modelRows = new ArrayList<>();
+	        for (int r : rows) {
+	            modelRows.add(jTableReplays.convertRowIndexToModel(r));
 	        }
-	        // Repopulate table
+
+	        // Sort descending so removals are safe
+	        modelRows.sort(Collections.reverseOrder());
+
+	        // Move files
+	        for (int modelRow : modelRows) {
+	            ReplayChecker.ReplayCheckResult replayResult = replayResults.get(modelRow);
+	            Files.move(replayResult.getReplayPath(), targetFolder.resolve(replayResult.getReplayPath().getFileName()), StandardCopyOption.REPLACE_EXISTING);
+	            replayResults.remove(modelRow);
+	        }
+
+	        // Refresh table
 	        populateTable();
+	        
 	    } catch (IOException ex) {
 	        ToolBox.showException(ex);
 	    }
