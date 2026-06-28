@@ -101,8 +101,8 @@ public class ReplayCheckResultDialog extends JDialog {
         });
         
         jTableReplays.getSelectionModel().addListSelectionListener(e -> {
-            boolean selected = jTableReplays.getSelectedRow() >= 0;
-            jButtonLoadReplay.setEnabled(selected);
+            boolean oneRowSelected = jTableReplays.getSelectedRowCount() == 1;
+            jButtonLoadReplay.setEnabled(oneRowSelected);
         });    
         javax.swing.table.TableColumnModel columnModel = jTableReplays.getColumnModel();     
         jTableReplays.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
