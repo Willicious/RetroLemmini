@@ -193,15 +193,12 @@ public class ReplayCheckResultDialog extends JDialog {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
     	replayResults.clear();
-    	replayResults = null;
     }//GEN-LAST:event_formWindowClosing
     
     private void jButtonLoadReplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoadReplayActionPerformed
         int row = jTableReplays.getSelectedRow();
         if (row < 0 || row >= replayResults.size()) return;
         selectedResult = replayResults.get(row);
-    	replayResults.clear();
-    	replayResults = null;
         dispose();
     }//GEN-LAST:event_jButtonLoadReplayActionPerformed
     
@@ -227,8 +224,6 @@ public class ReplayCheckResultDialog extends JDialog {
 	}//GEN-LAST:event_jButtonMoveReplaysActionPerformed
 
     private void jButtonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
-    	replayResults.clear();
-    	replayResults = null;
         dispose();
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
