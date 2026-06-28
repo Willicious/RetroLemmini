@@ -18,11 +18,17 @@ package lemmini.gui;
 
 import java.awt.Frame;
 import java.awt.Toolkit;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 import lemmini.LemminiFrame;
+import lemmini.game.Core;
 import lemmini.game.ReplayChecker;
 
 /**
@@ -79,6 +85,7 @@ public class ReplayCheckResultDialog extends JDialog {
         	};
         jTableReplays = new javax.swing.JTable(replayTableModel);
         jButtonLoadReplay = new javax.swing.JButton();
+        jButtonDeleteReplays = new javax.swing.JButton();
         jButtonCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -100,10 +107,23 @@ public class ReplayCheckResultDialog extends JDialog {
             }
         });
         
+        jButtonDeleteReplays.setText("Delete Replay");
+        jButtonDeleteReplays.setEnabled(false);
+        jButtonDeleteReplays.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteReplaysActionPerformed(evt);
+            }
+        });
+        
         jTableReplays.getSelectionModel().addListSelectionListener(e -> {
-            boolean oneRowSelected = jTableReplays.getSelectedRowCount() == 1;
-            jButtonLoadReplay.setEnabled(oneRowSelected);
-        });    
+            if (e.getValueIsAdjusting()) {
+                return;
+            }
+            int count = jTableReplays.getSelectedRowCount();
+            jButtonLoadReplay.setEnabled(count == 1);
+            jButtonDeleteReplays.setEnabled(count > 0);
+            jButtonDeleteReplays.setText(count == 1 ? "Delete Replay" : "Delete Replays");
+        });  
         javax.swing.table.TableColumnModel columnModel = jTableReplays.getColumnModel();     
         jTableReplays.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
         columnModel.getColumn(0).setPreferredWidth(300);
@@ -128,6 +148,8 @@ public class ReplayCheckResultDialog extends JDialog {
                     .addComponent(jScrollPaneReplays)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonLoadReplay)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonDeleteReplays)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
                         .addComponent(jButtonCancel)))
                 .addContainerGap())
@@ -140,6 +162,7 @@ public class ReplayCheckResultDialog extends JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonLoadReplay)
+                    .addComponent(jButtonDeleteReplays)
                     .addComponent(jButtonCancel))
                 .addContainerGap())
         );
@@ -181,6 +204,40 @@ public class ReplayCheckResultDialog extends JDialog {
     	replayResults = null;
         dispose();
     }//GEN-LAST:event_jButtonLoadReplayActionPerformed
+    
+    private void jButtonDeleteReplaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteReplaysActionPerformed
+        int[] rows = jTableReplays.getSelectedRows();
+        if (rows.length == 0) {
+            return;
+        }
+        
+        // Confirm
+        String message = (rows.length == 1)
+                ? "Are you sure you want to move the selected replay to\n\n resources/replays/deleted_replays?"
+                : "Are you sure you want to move the " + rows.length + " selected replays to\n\n resources/replays/deleted_replays?";
+        int response = JOptionPane.showConfirmDialog(this, message, "Confirm Delete", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (response != JOptionPane.YES_OPTION) return;
+
+        // Delete
+        try {
+        	Path deletedFolder = Core.resourcePath.resolve(Core.REPLAYS_PATH).resolve("deleted_replays");
+            Files.createDirectories(deletedFolder);
+            for (int i = rows.length - 1; i >= 0; i--) {
+                int row = rows[i];
+                ReplayChecker.ReplayCheckResult result = replayResults.get(row);
+                Path source = result.getReplayPath();
+                Path target = deletedFolder.resolve(source.getFileName());
+                Files.move(source, target, StandardCopyOption.REPLACE_EXISTING);
+                replayResults.remove(row);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "One or more replay files could not be moved.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        // Repopulate table
+        populateTable();
+    }//GEN-LAST:event_jButtonDeleteReplaysActionPerformed
 
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
     	replayResults.clear();
@@ -199,6 +256,7 @@ public class ReplayCheckResultDialog extends JDialog {
     private javax.swing.JScrollPane jScrollPaneReplays;
     private javax.swing.JButton jButtonCancel;
     private javax.swing.JButton jButtonLoadReplay;
+    private javax.swing.JButton jButtonDeleteReplays;
     private javax.swing.JList<String> jListReplays;
     private javax.swing.JTable jTableReplays;
     private javax.swing.table.DefaultTableModel replayTableModel;
