@@ -296,8 +296,8 @@ public class Core {
         // create music folder
         System.out.println("    creating music folder: " + Paths.get(resourceTree.getRoot().toString(), MUSIC_PATH).toString());
         resourceTree.createDirectories(MUSIC_PATH);
-        // create music folder
-        System.out.println("    creating music folder: " + Paths.get(resourceTree.getRoot().toString(), MUSIC_PATH).toString());
+        // create replays folder
+        System.out.println("    creating replays folder: " + Paths.get(resourceTree.getRoot().toString(), MUSIC_PATH).toString());
         resourceTree.createDirectories(REPLAYS_PATH);
         // create sound folder
         System.out.println("    creating sound folder: " + Paths.get(resourceTree.getRoot().toString(), SOUND_PATH).toString());
