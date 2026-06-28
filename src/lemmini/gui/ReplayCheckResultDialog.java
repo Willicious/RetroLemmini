@@ -86,7 +86,7 @@ public class ReplayCheckResultDialog extends JDialog {
         jTableReplays = new javax.swing.JTable(replayTableModel);
         jButtonLoadReplay = new javax.swing.JButton();
         jButtonDeleteReplays = new javax.swing.JButton();
-        jButtonCancel = new javax.swing.JButton();
+        jButtonClose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Batch Replay Check Results");
@@ -131,10 +131,10 @@ public class ReplayCheckResultDialog extends JDialog {
         columnModel.getColumn(2).setPreferredWidth(80);
         columnModel.getColumn(3).setPreferredWidth(80);
 
-        jButtonCancel.setText("Cancel");
-        jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
+        jButtonClose.setText("Close");
+        jButtonClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCancelActionPerformed(evt);
+                jButtonCloseActionPerformed(evt);
             }
         });
 
@@ -151,7 +151,7 @@ public class ReplayCheckResultDialog extends JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonDeleteReplays)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
-                        .addComponent(jButtonCancel)))
+                        .addComponent(jButtonClose)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -163,7 +163,7 @@ public class ReplayCheckResultDialog extends JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonLoadReplay)
                     .addComponent(jButtonDeleteReplays)
-                    .addComponent(jButtonCancel))
+                    .addComponent(jButtonClose))
                 .addContainerGap())
         );
 
@@ -239,7 +239,7 @@ public class ReplayCheckResultDialog extends JDialog {
         populateTable();
     }//GEN-LAST:event_jButtonDeleteReplaysActionPerformed
 
-    private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
+    private void jButtonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
     	replayResults.clear();
     	replayResults = null;
         dispose();
@@ -254,7 +254,7 @@ public class ReplayCheckResultDialog extends JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPaneReplays;
-    private javax.swing.JButton jButtonCancel;
+    private javax.swing.JButton jButtonClose;
     private javax.swing.JButton jButtonLoadReplay;
     private javax.swing.JButton jButtonDeleteReplays;
     private javax.swing.JList<String> jListReplays;
