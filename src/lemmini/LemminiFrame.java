@@ -271,6 +271,7 @@ public class LemminiFrame extends JFrame {
         jMenuItemChooseLevel = new javax.swing.JMenuItem();
         jMenuItemRestartLevel = new javax.swing.JMenuItem();
         jMenuItemLoadReplay = new javax.swing.JMenuItem();
+        jMenuItemBatchReplayCheck = new javax.swing.JMenuItem();
         jMenuItemEnterLevelCode = new javax.swing.JMenuItem();
         jMenuOptions = new javax.swing.JMenu();
         jMenuItemOptions = new javax.swing.JMenuItem();
@@ -397,6 +398,15 @@ public class LemminiFrame extends JFrame {
             }
         });
         jMenuLevel.add(jMenuItemLoadReplay);
+        
+        jMenuItemBatchReplayCheck.setIcon(loadMenuIcon(Core.iconsPath, "IconBatchReplayCheck"));
+        jMenuItemBatchReplayCheck.setText("Batch Replay Check" + padding);
+        jMenuItemBatchReplayCheck.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jMenuItemBatchReplayCheckActionPerformed(evt);
+            }
+        });
+        jMenuLevel.add(jMenuItemBatchReplayCheck);
 
         jMenuItemEnterLevelCode.setIcon(loadMenuIcon(Core.iconsPath, "IconCodes"));
         jMenuItemEnterLevelCode.setText("Enter Level Code" + padding);
@@ -484,6 +494,7 @@ public class LemminiFrame extends JFrame {
         MenuHotkeyDisplay.applyHotkey(jMenuItemRestartLevel, HotkeyAction.HotkeyRestart, keys);
         MenuHotkeyDisplay.applyHotkey(jMenuItemEnterLevelCode, HotkeyAction.HotkeyEnterCode, keys);
         MenuHotkeyDisplay.applyHotkey(jMenuItemLoadReplay, HotkeyAction.HotkeyLoadReplay, keys);
+        MenuHotkeyDisplay.applyHotkey(jMenuItemBatchReplayCheck, HotkeyAction.HotkeyBatchReplayCheck, keys);
         MenuHotkeyDisplay.applyHotkey(jMenuItemOptions, HotkeyAction.HotkeyOpenSettings, keys);
         MenuHotkeyDisplay.applyHotkey(jMenuItemHotkeys, HotkeyAction.HotkeyManageHotkeys, keys);
         MenuHotkeyDisplay.applyHotkey(jMenuItemMouse, HotkeyAction.HotkeyManageMouse, keys);
@@ -1084,6 +1095,10 @@ public class LemminiFrame extends JFrame {
     private void jMenuItemLoadReplayActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemLoadReplayActionPerformed
         lemminiPanelMain.handleLoadReplay(null);
     }//GEN-LAST:event_jMenuItemLoadReplayActionPerformed
+    
+    private void jMenuItemBatchReplayCheckActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemBatchReplayCheckActionPerformed
+        lemminiPanelMain.handleBatchReplayCheck();
+    }//GEN-LAST:event_jMenuItemBatchReplayCheckActionPerformed
 
     private void jMenuItemEnterLevelCodeActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemEnterLevelCodeActionPerformed
         lemminiPanelMain.handleEnterCode();
@@ -1522,6 +1537,7 @@ public class LemminiFrame extends JFrame {
     private javax.swing.JMenuItem jMenuItemEnterLevelCode;
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemLoadReplay;
+    private javax.swing.JMenuItem jMenuItemBatchReplayCheck;
     private javax.swing.JMenuItem jMenuItemManagePlayers;
     private javax.swing.JMenuItem jMenuItemOptions;
     private javax.swing.JMenuItem jMenuItemHotkeys;
