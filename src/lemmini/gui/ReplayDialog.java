@@ -16,10 +16,17 @@
 
 package lemmini.gui;
 
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Toolkit;
 
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JPanel;
 
 import lemmini.LemminiFrame;
 
@@ -49,7 +56,8 @@ public class ReplayDialog extends JDialog {
     public ReplayDialog(Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setMinimumSize(getSize());
+        pack();
+        setResizable(false);
         setLocationRelativeTo(parent);
     }
 
@@ -57,67 +65,46 @@ public class ReplayDialog extends JDialog {
      * This method is called from within the constructor to initialize the form.
      */
     private void initComponents() {
-        jButtonLoadReplay = new javax.swing.JButton();
-        jButtonBatchReplayCheck = new javax.swing.JButton();
-        jButtonCancel = new javax.swing.JButton();
+	    jButtonLoadReplay = new JButton();
+	    jButtonBatchReplayCheck = new JButton();
+	    jButtonCancel = new JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Manage Replays");
-        setIconImage(Toolkit.getDefaultToolkit().getImage(LemminiFrame.class.getClassLoader().getResource("icon_256.png")));
+	    setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+	    setTitle("Manage Replays");
+	    setIconImage(Toolkit.getDefaultToolkit().getImage(
+	        LemminiFrame.class.getClassLoader().getResource("icon_256.png")
+	    ));
 
-        jButtonLoadReplay.setText("Load Replay");
-        jButtonLoadReplay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLoadReplayActionPerformed(evt);
-            }
-        });
+	    jButtonLoadReplay.setText("Load Replay");
+	    jButtonBatchReplayCheck.setText("Batch Replay Check");
+	    jButtonCancel.setText("Cancel");
 
-        jButtonBatchReplayCheck.setText("Batch Replay Check");
-        jButtonBatchReplayCheck.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonBatchReplayCheckActionPerformed(evt);
-            }
-        });
+	    jButtonLoadReplay.addActionListener(evt -> jButtonLoadReplayActionPerformed(evt));
+	    jButtonBatchReplayCheck.addActionListener(evt -> jButtonBatchReplayCheckActionPerformed(evt));
+	    jButtonCancel.addActionListener(evt -> jButtonCancelActionPerformed(evt));
 
-        jButtonCancel.setText("Cancel");
-        jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCancelActionPerformed(evt);
-            }
-        });
+	    JPanel panel = new JPanel();
+	    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-    	    layout.createSequentialGroup()
-    	        .addContainerGap()
-    	        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-    	            .addComponent(jButtonLoadReplay)
-    	            .addComponent(jButtonBatchReplayCheck)
-    	            .addComponent(jButtonCancel))
-    	        .addContainerGap()
-        );
+	    Dimension btnSize = new Dimension(240, 40);
 
-    	layout.setVerticalGroup(
-    	    layout.createSequentialGroup()
-    	    .addContainerGap()
-    	    .addComponent(jButtonLoadReplay)
-    	    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-    	    .addComponent(jButtonBatchReplayCheck)
-    	    .addGap(12)
-    	    .addComponent(jButtonCancel)
-    	    .addContainerGap()
-    	);
-    	
-    	layout.linkSize(
-		    javax.swing.SwingConstants.HORIZONTAL,
-		    jButtonLoadReplay,
-		    jButtonBatchReplayCheck,
-		    jButtonCancel
-    	);
-    	
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+	    for (JButton b : new JButton[]{jButtonLoadReplay, jButtonBatchReplayCheck, jButtonCancel}) {
+	        b.setAlignmentX(Component.CENTER_ALIGNMENT);
+	        b.setMaximumSize(btnSize);
+	        b.setPreferredSize(btnSize);
+	    }
+	    
+	    panel.add(jButtonLoadReplay);
+	    panel.add(Box.createVerticalStrut(12));
+
+	    panel.add(jButtonBatchReplayCheck);
+	    panel.add(Box.createVerticalStrut(36));
+
+	    panel.add(jButtonCancel);
+
+	    panel.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
+	    setContentPane(panel);
+	}// </editor-fold>//GEN-END:initComponents
     
     private void jButtonLoadReplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoadReplayActionPerformed
     	dialogResult = DialogResult.LOAD_REPLAY;
