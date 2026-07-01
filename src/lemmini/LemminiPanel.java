@@ -15,18 +15,22 @@
  */
 package lemmini;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.HeadlessException;
 import java.awt.RenderingHints;
+import java.awt.Toolkit;
 import java.awt.Transparency;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -35,8 +39,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRootPane;
+import javax.swing.SwingUtilities;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.BooleanUtils;
@@ -1953,67 +1960,149 @@ public class LemminiPanel extends JPanel implements Runnable {
         }
     }
     
+    /**
+     * Class specifically for displaying an overlay whilst the replay checker is working 
+     */
+    public class ReplayCheckOverlay extends JComponent {
+		private static final long serialVersionUID = 1L;
+		private final BufferedImage screenshot;
+        private volatile String message = "";
+
+        public ReplayCheckOverlay(BufferedImage screenshot) {
+            this.screenshot = screenshot;
+            setOpaque(false);
+            setVisible(false);
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+            repaint();
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            try {
+                int w = getWidth();
+                int h = getHeight();
+                
+                // Draw screenshot over black background
+                g2.setColor(Color.BLACK);
+                g2.fillRect(0, 0, w, h);
+                if (screenshot != null) {
+                	g2.drawImage(screenshot, 0, 0, null);
+                }
+                
+                // Dim overlay
+                g2.setColor(new Color(0, 0, 0, 120));
+                g2.fillRect(0, 0, w, h);
+                
+                // Draw text
+                g2.setColor(Color.WHITE);
+                g2.setFont(getFont().deriveFont(Font.BOLD, 16f));
+                int x = 20;
+                int y = 40;
+                for (String line : message.split("\n")) {
+                    g2.drawString(line, x, y);
+                    y += 18;
+                }
+            } finally {
+                g2.dispose();
+            }
+        }
+    }
+    
     void handleBatchReplayCheck() {
-    	// TODO: Find a way to show progress whilst keeping the main menu visible (or even just showing a blank screen)
-    	
-        Path folder = ToolBox.getDirectory(getParentFrame(), Core.resourcePath, "Batch Replay Check - Choose A Folder Containing Replays");        
+        Path folder = ToolBox.getDirectory(getParentFrame(), Core.resourcePath, "Batch Replay Check - Choose A Folder Containing Replays");
         if (folder == null) return;
 
-	        javax.swing.JDialog progress = new javax.swing.JDialog(getParentFrame(), "Batch Replay Check", false);
-	        progress.setLayout(new java.awt.BorderLayout());
-//	        javax.swing.JProgressBar bar = new javax.swing.JProgressBar();
-//	        bar.setIndeterminate(true);
-//	        bar.setPreferredSize(new Dimension(300, 30));
-//	        progress.add(bar, java.awt.BorderLayout.CENTER);
-	        javax.swing.JLabel label = new javax.swing.JLabel("   Checking replays. Please wait...");
-	        label.setPreferredSize(new Dimension(300, 30));
-	        progress.add(label, java.awt.BorderLayout.CENTER);
-	        progress.pack();
-	        progress.setLocationRelativeTo(getParentFrame());
-	        progress.setVisible(true);
-	        progress.paint(progress.getGraphics());
-	        java.awt.Toolkit.getDefaultToolkit().sync();
+        List<Path> replayFiles;
 
-//        new Thread(() -> { // TODO: The multi-thread version causes the UI to update in the background
-	                         // so we see preview screens and levels being rendered briefly,
-	                         // which shows progress but looks very unpolished
+        try (java.util.stream.Stream<Path> stream = Files.list(folder)) {
+            replayFiles = stream
+                .filter(p -> p.getFileName().toString().toLowerCase().endsWith(".rpl"))
+                .sorted()
+                .collect(java.util.stream.Collectors.toList());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        final int totalReplays = replayFiles.size();
+
+        // Capture current frame as a screenshot
+        LemminiFrame frame = getParentFrame();
+        JRootPane root = frame.getRootPane();
+        BufferedImage screenshot = new BufferedImage(
+            frame.getWidth(),
+            frame.getHeight(),
+            BufferedImage.TYPE_INT_ARGB
+        );
+        Graphics2D g = screenshot.createGraphics();
+        root.paintAll(g);
+        g.dispose();
+
+        // Draw overlay (hides UI transitions during replay check)
+        ReplayCheckOverlay overlay = new ReplayCheckOverlay(screenshot);
+        frame.setGlassPane(overlay);
+        overlay.setVisible(true);      
+        overlay.repaint();
+        Toolkit.getDefaultToolkit().sync();
+
+        // Show progress dialog
+        javax.swing.JDialog progress = new javax.swing.JDialog(frame, "Batch Replay Check", false);
+        progress.setLayout(new BorderLayout());
+        javax.swing.JProgressBar bar = new javax.swing.JProgressBar(0, totalReplays);
+        bar.setValue(0);
+        bar.setStringPainted(true);
+        bar.setPreferredSize(new Dimension(350, 30));
+        progress.add(bar, BorderLayout.CENTER);
+        progress.pack();
+        progress.setLocationRelativeTo(frame);
+        progress.setVisible(true);
+
+        // Perform batch replay check
+        new Thread(() -> {
             List<ReplayChecker.ReplayCheckResult> results = new ArrayList<>();
+            int count = 0;
 
-            try (DirectoryStream<Path> stream = Files.newDirectoryStream(folder, "*.rpl")) {
-                for (Path replayPath : stream) {
-                    try {
-                        ReplayLevelInfo rli = LemGame.loadReplay(replayPath);
-                        if (rli == null) continue;
-
-                        int[] level = findReplayLevel(rli);
-                        if (level == null) continue;
-
-                        LemGame.changeLevel(level[0], level[1], level[2], true);
-
-                        ReplayChecker.ReplayResult resultCheck = ReplayChecker.check();
-
-                        int lemsSaved = LemGame.getNumExited();
-                        int saveReq = LemGame.getNumToRescue();
-                        int timeElapsed = LemGame.getLevelRecord().getTimeElapsed();
-
-                        results.add(new ReplayChecker.ReplayCheckResult(
-                            replayPath, resultCheck, lemsSaved, saveReq, timeElapsed
-                        ));
-                    } catch (Exception ex) {
-                        System.out.println(replayPath.getFileName() + " -> ERROR: " + ex.getMessage());
-                    }
+            for (Path replayPath : replayFiles) {
+                try {
+                	// Update progress UI
+                    count++;
+                    final int current = count;
+                    final String fileName = replayPath.getFileName().toString();
+                    SwingUtilities.invokeLater(() -> {
+                        overlay.setMessage(String.format("Checking replay %d of %d\n%s", current, totalReplays, fileName));
+                        bar.setValue(current);
+                    });
+                    
+                    // Move to next replay and level
+                    ReplayLevelInfo rli = LemGame.loadReplay(replayPath);
+                    if (rli == null) continue;
+                    int[] level = findReplayLevel(rli);
+                    if (level == null) continue;
+                    LemGame.changeLevel(level[0], level[1], level[2], true);
+                    
+                    // Get replay results
+                    ReplayChecker.ReplayResult resultCheck = ReplayChecker.check();
+                    int lemsSaved = LemGame.getNumExited();
+                    int saveReq = LemGame.getNumToRescue();
+                    int timeElapsed = LemGame.getLevelRecord().getTimeElapsed();
+                    results.add(new ReplayChecker.ReplayCheckResult(replayPath, resultCheck, lemsSaved, saveReq, timeElapsed));
+                } catch (Exception ex) {
+                    System.out.println(replayPath.getFileName() + " -> ERROR: " + ex.getMessage());
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
-            
-//            javax.swing.SwingUtilities.invokeLater(() -> {
+
+            SwingUtilities.invokeLater(() -> {
+                overlay.setVisible(false);
                 progress.dispose();
                 Core.returnToMainMenu();
                 handleReplayCheckResultDialog(results);
-//            });
-//        }).start();
-//        }
+            });
+            
+        }).start();
     }
     
     void handleReplayCheckResultDialog(List<ReplayChecker.ReplayCheckResult> results) {
