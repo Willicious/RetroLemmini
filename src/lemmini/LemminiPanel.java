@@ -15,7 +15,6 @@
  */
 package lemmini;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -24,13 +23,17 @@ import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.HeadlessException;
+import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.TexturePaint;
 import java.awt.Toolkit;
 import java.awt.Transparency;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -42,7 +45,6 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 
 import org.apache.commons.io.FilenameUtils;
@@ -1965,18 +1967,31 @@ public class LemminiPanel extends JPanel implements Runnable {
      */
     public class ReplayCheckOverlay extends JComponent {
 		private static final long serialVersionUID = 1L;
-		private final BufferedImage screenshot;
-        private volatile String message = "";
+		private final BufferedImage background;
+		private final Image lemming;
+	    private volatile String message = "";
+	    private volatile int current = 0;
+	    private volatile int total = 1;
 
-        public ReplayCheckOverlay(BufferedImage screenshot) {
-            this.screenshot = screenshot;
+	    public void setProgress(int current, int total, String message) {
+	        this.current = current;
+	        this.total = total;
+	        this.message = message;
+	        repaint();
+	    }
+
+        public ReplayCheckOverlay() {
+            BufferedImage b = MiscGfx.getImage(MiscGfx.Index.BACKGROUND_MAIN_WINLEMM).getImage();
+            Image l = null;
+			try {
+				l = Toolkit.getDefaultToolkit().createImage(Core.resourcePath.resolve("gfx/misc/walking_lemming.gif").toUri().toURL());
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+            this.background = b;
+            this.lemming = l;
             setOpaque(false);
             setVisible(false);
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-            repaint();
         }
 
         @Override
@@ -1985,26 +2000,36 @@ public class LemminiPanel extends JPanel implements Runnable {
             try {
                 int w = getWidth();
                 int h = getHeight();
+                float uiScale = Math.min(w / 800f, h / 600f);
                 
-                // Draw screenshot over black background
-                g2.setColor(Color.BLACK);
-                g2.fillRect(0, 0, w, h);
-                if (screenshot != null) {
-                	g2.drawImage(screenshot, 0, 0, null);
-                }
-                
-                // Dim overlay
-                g2.setColor(new Color(0, 0, 0, 120));
-                g2.fillRect(0, 0, w, h);
+                // Draw background
+                TexturePaint tp = new TexturePaint(background, new Rectangle(0, 0, background.getWidth(), background.getHeight()));
+            	g2.setPaint(tp);
+            	g2.fillRect(0, 0, w, h);
                 
                 // Draw text
-                g2.setColor(Color.WHITE);
                 g2.setFont(getFont().deriveFont(Font.BOLD, 16f));
                 int x = 20;
                 int y = 40;
                 for (String line : message.split("\n")) {
+                	g2.setColor(Color.BLACK);
+                    g2.drawString(line, x + 1, y + 1);
+                	g2.setColor(Color.WHITE);
                     g2.drawString(line, x, y);
                     y += 18;
+                }
+                
+                // Draw progress lemmings
+                int stepSize = 5;
+                int percent = (int)((current * 100.0f) / total);
+                int icons = percent / stepSize;
+                int iconSize = Math.max(16, (int)(36 * uiScale));
+                int spacing = (int)(14 * uiScale);
+                int margin = (int)(20 * uiScale);
+                int startX = margin;
+                int startY = h - margin - iconSize;
+                for (int i = 0; i < icons; i++) {
+                    g2.drawImage(lemming, startX + i * (iconSize + spacing), startY, this);
                 }
             } finally {
                 g2.dispose();
@@ -2030,36 +2055,13 @@ public class LemminiPanel extends JPanel implements Runnable {
 
         final int totalReplays = replayFiles.size();
 
-        // Capture current frame as a screenshot
-        LemminiFrame frame = getParentFrame();
-        JRootPane root = frame.getRootPane();
-        BufferedImage screenshot = new BufferedImage(
-            frame.getWidth(),
-            frame.getHeight(),
-            BufferedImage.TYPE_INT_ARGB
-        );
-        Graphics2D g = screenshot.createGraphics();
-        root.paintAll(g);
-        g.dispose();
-
         // Draw overlay (hides UI transitions during replay check)
-        ReplayCheckOverlay overlay = new ReplayCheckOverlay(screenshot);
+        LemminiFrame frame = getParentFrame();
+        ReplayCheckOverlay overlay = new ReplayCheckOverlay();
         frame.setGlassPane(overlay);
         overlay.setVisible(true);      
         overlay.repaint();
         Toolkit.getDefaultToolkit().sync();
-
-        // Show progress dialog
-        javax.swing.JDialog progress = new javax.swing.JDialog(frame, "Batch Replay Check", false);
-        progress.setLayout(new BorderLayout());
-        javax.swing.JProgressBar bar = new javax.swing.JProgressBar(0, totalReplays);
-        bar.setValue(0);
-        bar.setStringPainted(true);
-        bar.setPreferredSize(new Dimension(350, 30));
-        progress.add(bar, BorderLayout.CENTER);
-        progress.pack();
-        progress.setLocationRelativeTo(frame);
-        progress.setVisible(true);
 
         // Perform batch replay check
         new Thread(() -> {
@@ -2073,8 +2075,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                     final int current = count;
                     final String fileName = replayPath.getFileName().toString();
                     SwingUtilities.invokeLater(() -> {
-                        overlay.setMessage(String.format("Checking replay %d of %d\n%s", current, totalReplays, fileName));
-                        bar.setValue(current);
+                        overlay.setProgress(current, totalReplays, String.format("Checking replay %d of %d\n%s", current, totalReplays, fileName));
                     });
                     
                     // Move to next replay and level
@@ -2097,7 +2098,6 @@ public class LemminiPanel extends JPanel implements Runnable {
 
             SwingUtilities.invokeLater(() -> {
                 overlay.setVisible(false);
-                progress.dispose();
                 Core.returnToMainMenu();
                 handleReplayCheckResultDialog(results);
             });
