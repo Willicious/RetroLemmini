@@ -2047,7 +2047,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
     
     void handleBatchReplayCheck() {
-        Path folder = ToolBox.getDirectory(getParentFrame(), Core.resourcePath, "Batch Replay Check - Choose A Folder Containing Replays");
+        Path folder = ToolBox.getDirectory(getParentFrame(), Core.resourcePath.resolve(Core.REPLAYS_PATH), "Batch Replay Check - Choose A Folder Containing Replays");
         if (folder == null) return;
 
         List<Path> replayFiles;
