@@ -203,6 +203,8 @@ public class LemminiPanel extends JPanel implements Runnable {
     private boolean drawNextFrame;
     private int unmaximizedWidth = 0;
     private int unmaximizedHeight = 0;
+    /** pause/resume rendering */
+    private volatile boolean doRender = true;
 
     /**
      * Creates new form LemminiPanel
@@ -1504,8 +1506,10 @@ public class LemminiPanel extends JPanel implements Runnable {
                             }
                         }
                     }
-                    updateFrame();
-                    redraw();
+                    if (doRender) {
+                    	updateFrame();
+                    	redraw();
+                    }
                 }
             }
         } catch (Throwable ex) {
@@ -2064,49 +2068,59 @@ public class LemminiPanel extends JPanel implements Runnable {
         LemminiFrame frame = getParentFrame();
         ReplayCheckOverlay overlay = new ReplayCheckOverlay();
         frame.setGlassPane(overlay);
-        overlay.setVisible(true);      
+        overlay.setVisible(true);
         overlay.repaint();
         Toolkit.getDefaultToolkit().sync();
+
+        // Pause all rendering on the game thread
+        pauseRendering();
 
         // Perform batch replay check
         new Thread(() -> {
             List<ReplayChecker.ReplayCheckResult> results = new ArrayList<>();
             int count = 0;
 
-            for (Path replayPath : replayFiles) {
-                try {
-                	// Update progress UI
-                    count++;
-                    final int current = count;
-                    final String fileName = replayPath.getFileName().toString();
-                    SwingUtilities.invokeLater(() -> {
-                        overlay.setProgress(current, totalReplays, String.format("Checking replay %d of %d\n%s", current, totalReplays, fileName));
-                    });
-                    
-                    // Move to next replay and level
-                    ReplayLevelInfo rli = LemGame.loadReplay(replayPath);
-                    if (rli == null) continue;
-                    int[] level = findReplayLevel(rli);
-                    if (level == null) continue;
-                    LemGame.changeLevel(level[0], level[1], level[2], true);
-                    
-                    // Get replay results
-                    ReplayChecker.ReplayResult resultCheck = ReplayChecker.check();
-                    int lemsSaved = LemGame.getNumExited();
-                    int saveReq = LemGame.getNumToRescue();
-                    int timeElapsed = LemGame.getLevelRecord().getTimeElapsed();
-                    results.add(new ReplayChecker.ReplayCheckResult(replayPath, resultCheck, lemsSaved, saveReq, timeElapsed));
-                } catch (Exception ex) {
-                    System.out.println(replayPath.getFileName() + " -> ERROR: " + ex.getMessage());
-                }
-            }
+            try {
+                for (Path replayPath : replayFiles) {
+                    try {
+                        // Update progress UI
+                        count++;
+                        final int current = count;
+                        final String fileName = replayPath.getFileName().toString();
 
-            SwingUtilities.invokeLater(() -> {
-                overlay.setVisible(false);
-                Core.returnToMainMenu();
-                handleReplayCheckResultDialog(results);
-            });
-            
+                        SwingUtilities.invokeLater(() -> {
+                            overlay.setProgress(current, totalReplays, String.format("Checking replay %d of %d\n%s", current, totalReplays, fileName));
+                        });
+
+                        // Move to next replay and level
+                        ReplayLevelInfo rli = LemGame.loadReplay(replayPath);
+                        if (rli == null) continue;
+                        int[] level = findReplayLevel(rli);
+                        if (level == null) continue;
+                        LemGame.changeLevel(level[0], level[1], level[2], true);
+                        
+                        // Get replay results
+                        ReplayChecker.ReplayResult resultCheck = ReplayChecker.check();
+                        int lemsSaved = LemGame.getNumExited();
+                        int saveReq = LemGame.getNumToRescue();
+                        int timeElapsed = LemGame.getLevelRecord().getTimeElapsed();
+                        results.add(new ReplayChecker.ReplayCheckResult(replayPath, resultCheck, lemsSaved, saveReq, timeElapsed));
+                    } catch (Exception ex) {
+                        System.out.println(replayPath.getFileName() + " -> ERROR: " + ex.getMessage());
+                    }
+                }
+            } finally {
+                SwingUtilities.invokeLater(() -> {
+                    try {
+                        overlay.setVisible(false);
+                        Core.returnToMainMenu();
+                        handleReplayCheckResultDialog(results);
+                    } finally {
+                    	// Resume all rendering on the game thread
+                        resumeRendering();
+                    }
+                });
+            }
         }).start();
     }
     
@@ -2425,6 +2439,14 @@ public class LemminiPanel extends JPanel implements Runnable {
 
     public void decreaseDrawBrushSize() {
         setDrawBrushSize(drawBrushSize - 1);
+    }
+    
+    public void pauseRendering() {
+    	doRender = false;
+    }
+    
+    public void resumeRendering() {
+    	doRender = true;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
