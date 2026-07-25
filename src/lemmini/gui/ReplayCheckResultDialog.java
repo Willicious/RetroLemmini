@@ -136,6 +136,38 @@ public class ReplayCheckResultDialog extends JDialog {
         columnModel.getColumn(1).setPreferredWidth(80);
         columnModel.getColumn(2).setPreferredWidth(80);
         columnModel.getColumn(3).setPreferredWidth(80);
+        
+        jTableReplays.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
+            private static final long serialVersionUID = 1L;
+            @Override
+            public java.awt.Component getTableCellRendererComponent(javax.swing.JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+            	
+                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                // Preserve the normal selection colours.
+                if (!isSelected) {
+                    int modelRow = table.convertRowIndexToModel(row);
+                    ReplayChecker.ReplayCheckResult result = replayResults.get(modelRow);
+
+                    switch (result.getReplayResult()) {
+                        case PASS:
+                            setForeground(new java.awt.Color(0, 128, 0)); // Green
+                            break;
+                        case FAIL:
+                            setForeground(java.awt.Color.RED);
+                            break;
+                        case UNDETERMINED:
+                            setForeground(new java.awt.Color(70, 70, 180)); // Blue
+                            break;
+                        default:
+                            setForeground(table.getForeground());
+                            break;
+                    }
+                }
+                return this;
+            }
+        });
 
         jButtonClose.setText("Close");
         jButtonClose.addActionListener(new java.awt.event.ActionListener() {
