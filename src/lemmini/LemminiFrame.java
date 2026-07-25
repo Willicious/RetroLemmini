@@ -792,7 +792,7 @@ public class LemminiFrame extends JFrame {
         if (isIntro) {
             switch (action) {
 	            case HotkeyBatchReplayCheck:
-	            	lemminiPanelMain.handleBatchReplayCheck(); // TODO: Add menu item for this
+	            	lemminiPanelMain.handleBatchReplayCheck();
 	                break;
                 default:
                 	break;
