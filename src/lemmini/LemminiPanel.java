@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -2008,16 +2009,20 @@ public class LemminiPanel extends JPanel implements Runnable {
             	g2.fillRect(0, 0, w, h);
                 
                 // Draw text
-                g2.setFont(getFont().deriveFont(Font.BOLD, 16f));
-                int x = 20;
-                int y = 40;
-                for (String line : message.split("\n")) {
-                	g2.setColor(Color.BLACK);
-                    g2.drawString(line, x + 1, y + 1);
-                	g2.setColor(Color.WHITE);
-                    g2.drawString(line, x, y);
-                    y += 18;
-                }
+            	String[] lines = message.split("\n");
+            	g2.setFont(getFont().deriveFont(Font.BOLD, 16f));
+            	FontMetrics fm = g2.getFontMetrics();
+            	int lineHeight = fm.getHeight();
+            	int totalHeight = lines.length * lineHeight;
+            	int y = (h - totalHeight) / 2 + fm.getAscent();
+            	for (String line : lines) {
+            	    int x = (w - fm.stringWidth(line)) / 2;
+            	    g2.setColor(Color.BLACK);
+            	    g2.drawString(line, x + 1, y + 1);
+            	    g2.setColor(Color.WHITE);
+            	    g2.drawString(line, x, y);
+            	    y += lineHeight;
+            	}
                 
                 // Draw progress lemmings
                 int stepSize = 5;
