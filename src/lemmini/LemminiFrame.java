@@ -81,6 +81,7 @@ import lemmini.gameutil.LemHotkeys;
 import lemmini.gameutil.LemHotkeys.HotkeyAction;
 import lemmini.graphics.GraphicsContext;
 import lemmini.graphics.LemImage;
+import lemmini.graphics.LemMenuItem;
 import lemmini.sound.Music;
 import lemmini.tools.EditorTestMode;
 import lemmini.tools.MenuHotkeyDisplay;
@@ -112,6 +113,7 @@ public class LemminiFrame extends JFrame {
     public enum FrameColor {
         DEEP_BLUE,
         AMIGA_BLUE,
+        HIGHLIGHT_BLUE,
         CHARCOAL,
         CHALK,
         MENU_TEXT,
@@ -122,6 +124,7 @@ public class LemminiFrame extends JFrame {
             switch (fc) {
                 case DEEP_BLUE: return new Color(20, 50, 110); // 20, 80, 140 ? // 20, 40, 100
                 case AMIGA_BLUE: return new Color(0, 0, 51);
+                case HIGHLIGHT_BLUE: return new Color(12, 88, 170);
                 case CHARCOAL: return new Color(20, 20, 20);
                 case CHALK: return new Color (160, 160, 160);
                 case MENU_TEXT: return new Color(210, 210, 210);
@@ -257,14 +260,7 @@ public class LemminiFrame extends JFrame {
      */
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    @SuppressWarnings("serial")
-    private void initComponents() {
-        Color bgColor = ColorPalette.getColor(FrameColor.DEEP_BLUE);
-        Color fgColor = ColorPalette.getColor(FrameColor.MENU_TEXT);
-        Color hkColor = ColorPalette.getColor(FrameColor.CHALK);
-        UIManager.put("MenuItem.acceleratorForeground", hkColor);
-        UIManager.put("MenuItem.acceleratorSelectionForeground", hkColor);
-        
+    private void initComponents() {       
         lemminiPanelMain = new lemmini.LemminiPanel();
         jMenuApp = new javax.swing.JMenu();
         jMenuItemExit = new javax.swing.JMenuItem();
@@ -282,6 +278,9 @@ public class LemminiFrame extends JFrame {
         jMenuHelp = new javax.swing.JMenu();
         jMenuItemUpdateStyles = new javax.swing.JMenuItem();
         jMenuItemAbout = new javax.swing.JMenuItem();
+        
+        Color bgColor = ColorPalette.getColor(FrameColor.DEEP_BLUE);
+        Color fgColor = ColorPalette.getColor(FrameColor.MENU_TEXT);
         
         jMenuBarMain = new javax.swing.JMenuBar() {
             @Override
@@ -346,13 +345,11 @@ public class LemminiFrame extends JFrame {
             lemminiPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 450, Short.MAX_VALUE)
         );
-        
-        String padding = "     ";
 
         jMenuApp.setText("Application");
         
         jMenuItemManagePlayers.setIcon(loadMenuIcon(Core.iconsPath, "IconPlayers"));
-        jMenuItemManagePlayers.setText("Manage Players" + padding);
+        jMenuItemManagePlayers.setText("Manage Players");
         jMenuItemManagePlayers.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 jMenuItemManagePlayersActionPerformed(evt);
@@ -361,7 +358,7 @@ public class LemminiFrame extends JFrame {
         jMenuApp.add(jMenuItemManagePlayers);
 
         jMenuItemExit.setIcon(loadMenuIcon(Core.iconsPath, "IconExit"));
-        jMenuItemExit.setText("Exit" + padding);
+        jMenuItemExit.setText("Exit");
         jMenuItemExit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 jMenuItemExitActionPerformed(evt);
@@ -374,7 +371,7 @@ public class LemminiFrame extends JFrame {
         jMenuLevel.setText("Level");
         
         jMenuItemChooseLevel.setIcon(loadMenuIcon(Core.iconsPath, "IconEntrance"));
-        jMenuItemChooseLevel.setText("Choose Level" + padding);
+        jMenuItemChooseLevel.setText("Choose Level");
         jMenuItemChooseLevel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 jMenuItemChooseLevelActionPerformed(evt);
@@ -383,7 +380,7 @@ public class LemminiFrame extends JFrame {
         jMenuLevel.add(jMenuItemChooseLevel);
 
         jMenuItemRestartLevel.setIcon(loadMenuIcon(Core.iconsPath, "IconRestart"));
-        jMenuItemRestartLevel.setText("Restart Level" + padding);
+        jMenuItemRestartLevel.setText("Restart Level");
         jMenuItemRestartLevel.setVisible(false);
         jMenuItemRestartLevel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -393,7 +390,7 @@ public class LemminiFrame extends JFrame {
         jMenuLevel.add(jMenuItemRestartLevel);
 
         jMenuItemLoadReplay.setIcon(loadMenuIcon(Core.iconsPath, "IconReplay"));
-        jMenuItemLoadReplay.setText("Load Replay" + padding);
+        jMenuItemLoadReplay.setText("Load Replay");
         jMenuItemLoadReplay.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 jMenuItemLoadReplayActionPerformed(evt);
@@ -402,7 +399,7 @@ public class LemminiFrame extends JFrame {
         jMenuLevel.add(jMenuItemLoadReplay);
         
         jMenuItemBatchReplayCheck.setIcon(loadMenuIcon(Core.iconsPath, "IconBatchReplayCheck"));
-        jMenuItemBatchReplayCheck.setText("Batch Replay Check" + padding);
+        jMenuItemBatchReplayCheck.setText("Batch Replay Check");
         jMenuItemBatchReplayCheck.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 jMenuItemBatchReplayCheckActionPerformed(evt);
@@ -411,7 +408,7 @@ public class LemminiFrame extends JFrame {
         jMenuLevel.add(jMenuItemBatchReplayCheck);
 
         jMenuItemEnterLevelCode.setIcon(loadMenuIcon(Core.iconsPath, "IconCodes"));
-        jMenuItemEnterLevelCode.setText("Enter Level Code" + padding);
+        jMenuItemEnterLevelCode.setText("Enter Level Code");
         jMenuItemEnterLevelCode.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 jMenuItemEnterLevelCodeActionPerformed(evt);
@@ -424,7 +421,7 @@ public class LemminiFrame extends JFrame {
         jMenuOptions.setText("Options");
 
         jMenuItemOptions.setIcon(loadMenuIcon(Core.iconsPath, "IconOptions"));
-        jMenuItemOptions.setText("Options" + padding);
+        jMenuItemOptions.setText("Options");
         jMenuItemOptions.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 jMenuItemOptionsActionPerformed(evt);
@@ -432,7 +429,7 @@ public class LemminiFrame extends JFrame {
         });
 
         jMenuItemHotkeys.setIcon(loadMenuIcon(Core.iconsPath, "IconHotkeys"));
-        jMenuItemHotkeys.setText("Hotkeys" + padding);
+        jMenuItemHotkeys.setText("Hotkeys");
         jMenuItemHotkeys.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
             	lemminiPanelMain.handleHotkeyDialog();
@@ -440,7 +437,7 @@ public class LemminiFrame extends JFrame {
         });
         
         jMenuItemMouse.setIcon(loadMenuIcon(Core.iconsPath, "IconMouse"));
-        jMenuItemMouse.setText("Mouse" + padding);
+        jMenuItemMouse.setText("Mouse");
         jMenuItemMouse.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
             	lemminiPanelMain.handleMouseDialog();
@@ -456,7 +453,7 @@ public class LemminiFrame extends JFrame {
         jMenuHelp.setText("Help");
 
         jMenuItemUpdateStyles.setIcon(loadMenuIcon(Core.iconsPath, "IconStyles"));
-        jMenuItemUpdateStyles.setText("Update Styles" + padding);
+        jMenuItemUpdateStyles.setText("Update Styles");
         jMenuItemUpdateStyles.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 int result = JOptionPane.showConfirmDialog(
@@ -474,7 +471,7 @@ public class LemminiFrame extends JFrame {
         });
         
         jMenuItemAbout.setIcon(loadMenuIcon(Core.iconsPath, "IconAbout"));
-        jMenuItemAbout.setText("About" + padding);
+        jMenuItemAbout.setText("About");
         jMenuItemAbout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 handleAbout();
@@ -520,10 +517,9 @@ public class LemminiFrame extends JFrame {
             // Style all sub-items
             for (int j = 0; j < menu.getItemCount(); j++) {
                 JMenuItem item = menu.getItem(j);
-                if (item != null) { // skip separators
-                    item.setForeground(fgColor);
-                    item.setBackground(bgColor);
-                    item.setOpaque(true);
+
+                if (item != null) {
+                    item.setUI(new LemMenuItem());
                 }
             }
         }

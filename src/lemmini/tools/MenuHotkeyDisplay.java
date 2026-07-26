@@ -31,18 +31,19 @@ import lemmini.gameutil.LemHotkeys;
 public class MenuHotkeyDisplay {
 
     /** Apply hotkey to a JMenuItem using the activeHotkeys list */
-    public static void applyHotkey(JMenuItem menuItem, LemHotkeys.HotkeyAction action, List<Hotkey> activeHotkeys) {
-        Hotkey hk = getHotkeyForAction(activeHotkeys, action);
-        if (hk == null) return;
+	public static void applyHotkey(JMenuItem menuItem, LemHotkeys.HotkeyAction action, List<Hotkey> activeHotkeys) {
+	    Hotkey hk = getHotkeyForAction(activeHotkeys, action);
+	    if (hk == null) return;
 
-        String keyDescription = hk.getKeyDescription();
-        if (!LemHotkeys.UNDEFINED.equalsIgnoreCase(keyDescription)) {
-            KeyStroke ks = getKeyStrokeFromHotkey(hk);
-            if (ks != null) {
-                menuItem.setAccelerator(ks); // puts hotkey string on the right
-            }
-        }
-    }
+	    String keyDescription = hk.getKeyDescription();
+	    if (!LemHotkeys.UNDEFINED.equalsIgnoreCase(keyDescription)) {
+	        KeyStroke ks = getKeyStrokeFromHotkey(hk);
+	        if (ks != null) {
+	            menuItem.setAccelerator(ks);
+	            menuItem.putClientProperty("HotkeyString", getHotkeyDisplay(hk));
+	        }
+	    }
+	}
 
     /** Find the Hotkey object for the given action */
     private static Hotkey getHotkeyForAction(List<Hotkey> hotkeys, LemHotkeys.HotkeyAction action) {
@@ -64,5 +65,10 @@ public class MenuHotkeyDisplay {
         if ("Meta".equalsIgnoreCase(mod)) modifiers |= KeyEvent.META_DOWN_MASK;
 
         return KeyStroke.getKeyStroke(hk.getKeyCode(), modifiers);
+    }
+    
+    /** Get display string */
+    private static String getHotkeyDisplay(Hotkey hk) {
+        return hk.getKeyDescription().replace("+", " + ");
     }
 }
