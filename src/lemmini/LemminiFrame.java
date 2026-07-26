@@ -18,6 +18,7 @@ package lemmini;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
@@ -30,6 +31,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
+import java.awt.image.BaseMultiResolutionImage;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -44,6 +46,7 @@ import java.util.Locale;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -77,7 +80,6 @@ import lemmini.gameutil.Hotkey;
 import lemmini.gameutil.LemHotkeys;
 import lemmini.gameutil.LemHotkeys.HotkeyAction;
 import lemmini.graphics.GraphicsContext;
-import lemmini.graphics.LemIcon;
 import lemmini.graphics.LemImage;
 import lemmini.sound.Music;
 import lemmini.tools.EditorTestMode;
@@ -547,15 +549,16 @@ public class LemminiFrame extends JFrame {
             // Load the sprite sheet
             BufferedImage sheet = ImageIO.read(iconsPath.resolve(baseName + ".png").toFile());
 
-            BufferedImage img32 = sheet.getSubimage(0, 0,  32, 32);
-            BufferedImage img48 = sheet.getSubimage(0, 32, 48, 48);
-            BufferedImage img64 = sheet.getSubimage(0, 80, 64, 64);
+            Image image = new BaseMultiResolutionImage(
+                sheet.getSubimage(0, 0, 32, 32),
+                sheet.getSubimage(0, 32, 48, 48),
+                sheet.getSubimage(0, 80, 64, 64));
 
-            return new LemIcon(img32, img48, img64);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            return new ImageIcon(image);
+            
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return UIManager.getIcon("OptionPane.warningIcon");
         }
     }
 
