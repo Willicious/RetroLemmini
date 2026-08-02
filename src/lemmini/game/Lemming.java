@@ -814,7 +814,7 @@ public class Lemming {
                 // don't erase blocker mask before blocker finally explodes or falls
                 free = freeBelow(FALLER_STEP);
                 if (free > 0) {
-                    // blocker falls -> erase mask and convert to normal blocker.
+                    // blocker falls -> erase mask
                     eraseBlockerMask();
                     type = Type.OHNOER;
                     // fall through
@@ -922,7 +922,6 @@ public class Lemming {
                             }
                             if (triggered) {
                                 if (type == Type.BLOCKER || type == Type.OHNOER_BLOCKER) {
-                                    // erase blocker mask
                                     eraseBlockerMask();
                                 }
                                 LemGame.sound.playVisualSFX(spr);
@@ -942,7 +941,6 @@ public class Lemming {
                             }
                             if (triggered) {
                                 if (type == Type.BLOCKER || type == Type.OHNOER_BLOCKER) {
-                                    // erase blocker mask
                                     eraseBlockerMask();
                                 }
                                 LemGame.sound.playVisualSFX(spr);
@@ -961,7 +959,6 @@ public class Lemming {
                             }
                             if (triggered) {
                                 if (type == Type.BLOCKER || type == Type.OHNOER_BLOCKER) {
-                                    // erase blocker mask
                                     eraseBlockerMask();
                                 }
                                 LemGame.sound.playVisualSFX(spr);
@@ -1010,7 +1007,6 @@ public class Lemming {
                                 }
                                 if (triggered) {
                                     if (type == Type.BLOCKER || type == Type.OHNOER_BLOCKER) {
-                                        // erase blocker mask
                                         eraseBlockerMask();
                                     }
                                     LemGame.sound.playVisualSFX(spr);
@@ -1642,6 +1638,9 @@ public class Lemming {
         return !BooleanUtils.toBoolean(LemGame.getStencil().getMask(pos) & Stencil.MSK_BRICK);
     }
 
+    /**
+     * Stop a lemming from being a blocker by removing the mask
+     */
     private void eraseBlockerMask() {
         LemmingResource res = getResource(Type.BLOCKER);
         Mask m = res.getMask(dir);
