@@ -1465,6 +1465,20 @@ public class Lemming {
         if (!checkMineArea(x, x + 1, y, y + 1, !start, playSound)) {
             return false;
         }
+        
+        if (!start) {
+            if (dir == Direction.RIGHT) {
+                xMin = x + 4;
+                xMax = x + 6;
+            } else {
+                xMin = x - 6;
+                xMax = x - 4;
+            }
+
+            if (!checkMineArea(xMin, xMax, y, y + 1, true, playSound)) {
+                return false;
+            }
+        }
 
         return true;
     }
