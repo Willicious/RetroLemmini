@@ -17,7 +17,7 @@ package lemmini.tools;
 
 import java.awt.Frame;
 import java.io.*;
-import java.net.URL;
+import java.net.URI;
 import java.nio.file.*;
 import java.util.function.Consumer;
 import java.util.zip.ZipEntry;
@@ -44,7 +44,7 @@ public class StyleDownloader {
 	    progressCallback.accept("Downloading styles...");
 
 	    Path tempZip = Files.createTempFile("styles", ".zip");
-	    try (InputStream in = new URL(STYLES_ZIP).openStream()) {
+	    try (InputStream in = URI.create(STYLES_ZIP).toURL().openStream()) {
 	        Files.copy(in, tempZip, StandardCopyOption.REPLACE_EXISTING);
 	    }
 
