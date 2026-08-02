@@ -690,14 +690,12 @@ public class Lemming {
                                 break;
                             }
                             
+                            // move miner downwards and forwards
                             if (idx == 3 * TIME_SCALE)
                             	y += 2;
-
-                            if (dir == Direction.RIGHT) {
-                                x += 4;
-                            } else {
-                                x -= 4;
-                            }
+                            
+                            x += (dir == Direction.RIGHT) ? 4 : -4;
+                            
                             // check for conversion to faller
                             free = freeBelow(MINER_FALL_DISTANCE);
                             int free2;
