@@ -1406,6 +1406,36 @@ public class Lemming {
     /**
      * Check if mining is possible.
      */
+    private boolean checkMineArea(int xMin, int xMax, int yMin, int yMax, boolean checkOneWay, boolean playSound) {
+		for (int yb = yMin; yb <= yMax; yb++) {
+			for (int xb = Math.min(xMin, xMax); xb <= Math.max(xMin, xMax); xb++) {
+				int sval = LemGame.getStencil().getMask(xb, yb);
+
+				boolean hitOneWayLeft = checkOneWay && (sval & Stencil.MSK_ONE_WAY_LEFT) != 0 && dir == Direction.RIGHT;
+				boolean hitOneWayRight = checkOneWay && (sval & Stencil.MSK_ONE_WAY_RIGHT) != 0 && dir == Direction.LEFT;
+				boolean hitOneWayUp = checkOneWay && (sval & Stencil.MSK_ONE_WAY_UP) != 0;
+				boolean hitSteel = (sval & Stencil.MSK_STEEL) != 0;
+
+				if (hitOneWayLeft || hitOneWayRight || hitOneWayUp || hitSteel) {
+					if (playSound) {
+						SpriteObject spr = LemGame.getLevel().getSprObject(LemGame.getStencil().getMaskObjectID(xb, yb));
+
+						if (spr != null && ((hitOneWayLeft && spr.getType() == SpriteObject.Type.ONE_WAY_LEFT)
+								        || (hitOneWayRight && spr.getType() == SpriteObject.Type.ONE_WAY_RIGHT)
+								        || (hitOneWayUp && spr.getType() == SpriteObject.Type.ONE_WAY_UP)
+								        || (hitSteel && spr.getType() == SpriteObject.Type.STEEL))) {
+							LemGame.sound.playVisualSFX(spr);
+						} else {
+							playVisualSFX(Sound.Effect.STEEL);
+						}
+					}
+					return false;
+				}
+			}
+		}
+		return true;
+    }
+    
     private boolean canMine(final boolean start, final boolean playSound) {
         if (x < LemGame.getLeftBoundary()
                 || x >= LemGame.getWidth() + LemGame.getRightBoundary()) {
@@ -1416,68 +1446,26 @@ public class Lemming {
         }
 
         int yMin = y - MINER_CHECK_STEP_STEEL;
-        int yMax = y - MINER_CHECK_STEP_STEEL + 1;
-        int xMin;
-        int xMax;
+        int yMax = yMin + 1;
+        int xMin = x;
+        int xMax = x;
+
         if (dir == Direction.RIGHT) {
             xMin = x + 4;
-            xMax = x + 4 + 1;
+            xMax = x + 5;
         } else {
-            xMin = x - 4;
-            xMax = x - 4 + 1;
+            xMin = x - 5;
+            xMax = x - 4;
         }
-        for (int yb = yMin; yb <= yMax; yb++) {
-            for (int xb = xMin; xb <= xMax; xb++) {
-                int sval = LemGame.getStencil().getMask(xb, yb);
-                boolean hitOneWayLeft = BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_LEFT) && dir == Direction.RIGHT;
-                boolean hitOneWayRight = BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_RIGHT) && dir == Direction.LEFT;
-                boolean hitOneWayUp = BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_UP);
-                boolean hitSteel = BooleanUtils.toBoolean(sval & Stencil.MSK_STEEL);
-                if (hitOneWayLeft || hitOneWayRight || hitOneWayUp || hitSteel) {
-                    if (playSound) {
-                        SpriteObject spr = LemGame.getLevel().getSprObject(LemGame.getStencil().getMaskObjectID(xb, yb));
-                        if (spr != null
-                                	    && ((hitOneWayLeft && spr.getType() == SpriteObject.Type.ONE_WAY_LEFT)
-                                        || (hitOneWayRight && spr.getType() == SpriteObject.Type.ONE_WAY_RIGHT)
-                                        || (hitOneWayUp && spr.getType() == SpriteObject.Type.ONE_WAY_UP)
-                                        || (hitSteel && spr.getType() == SpriteObject.Type.STEEL))) {
-                            LemGame.sound.playVisualSFX(spr);
-                        } else {
-                            playVisualSFX(Sound.Effect.STEEL);
-                        }
-                    }
-                    return false;
-                }
-            }
+
+        if (!checkMineArea(xMin, xMax, yMin, yMax, true, playSound)) {
+            return false;
         }
-        yMin = y;
-        yMax = y + 1;
-        xMin = x;
-        xMax = x + 1;
-        for (int yb = yMin; yb <= yMax; yb++) {
-            for (int xb = xMin; xb <= xMax; xb++) {
-                int sval = LemGame.getStencil().getMask(xb, yb);
-                boolean hitOneWayLeft = !start && BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_LEFT) && dir == Direction.RIGHT;
-                boolean hitOneWayRight = !start && BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_RIGHT) && dir == Direction.LEFT;
-                boolean hitOneWayUp = !start && BooleanUtils.toBoolean(sval & Stencil.MSK_ONE_WAY_UP);
-                boolean hitSteel = BooleanUtils.toBoolean(sval & Stencil.MSK_STEEL);
-                if (hitOneWayLeft || hitOneWayRight || hitOneWayUp || hitSteel) {
-                    if (playSound) {
-                        SpriteObject spr = LemGame.getLevel().getSprObject(LemGame.getStencil().getMaskObjectID(xb, yb));
-                        if (spr != null
-                                	   && ((hitOneWayLeft && spr.getType() == SpriteObject.Type.ONE_WAY_LEFT)
-                                        || (hitOneWayRight && spr.getType() == SpriteObject.Type.ONE_WAY_RIGHT)
-                                        || (hitOneWayUp && spr.getType() == SpriteObject.Type.ONE_WAY_UP)
-                                        || (hitSteel && spr.getType() == SpriteObject.Type.STEEL))) {
-                            LemGame.sound.playVisualSFX(spr);
-                        } else {
-                            playVisualSFX(Sound.Effect.STEEL);
-                        }
-                    }
-                    return false;
-                }
-            }
+
+        if (!checkMineArea(x, x + 1, y, y + 1, !start, playSound)) {
+            return false;
         }
+
         return true;
     }
 
