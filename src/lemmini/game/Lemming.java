@@ -1637,6 +1637,14 @@ public class Lemming {
         pos += ym * LemGame.getWidth();
         return !BooleanUtils.toBoolean(LemGame.getStencil().getMask(pos) & Stencil.MSK_BRICK);
     }
+    
+//    /**
+//     * Check for a solid pixel relative to the lemming
+//     */    
+//    private boolean hasPixelAt(int x, int y) {
+//        Stencil stencil = LemGame.getStencil();
+//        return (stencil.getMask(x, y) & Stencil.MSK_BRICK) == 0;
+//    }
 
     /**
      * Stop a lemming from being a blocker by removing the mask
