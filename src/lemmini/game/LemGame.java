@@ -2121,6 +2121,12 @@ public class LemGame {
                 g.drawImage(l.getImage(), lx - lfo - cameraX, ly - cameraY);
             }
 
+            // Draw lemming position in debug mode
+            if (Core.player.isDebugMode()) {
+	            g.setColor(new Color(255, 0, 255)); // Magenta
+	            g.fillRect(l.footX() - cameraX, l.footY() - cameraY, 2, 2);
+            }
+
             // Draw countdown graphics if necessary
             LemImage cd = l.getCountdown();
             if (cd != null) {
