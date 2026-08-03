@@ -121,6 +121,8 @@ public class OptionsDialog extends JDialog {
 		jButtonConfigureMouse = new javax.swing.JButton();
 		jButtonOK = new javax.swing.JButton();
 		jButtonCancel = new javax.swing.JButton();
+		
+		boolean isMidLevel = LemGame.getGameState() == LemGame.State.LEVEL;
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 		setTitle("Options");
@@ -214,27 +216,22 @@ public class OptionsDialog extends JDialog {
 		jCheckBoxShowLevelName.setSelected(LemGame.isOptionEnabled(LemGame.Option.SHOW_LEVEL_NAME));
 		jCheckBoxShowLevelName.setText("Show Level Name on the Status Bar");
 
-		jCheckBoxEnhancedIconBar
-				.setSelected(LemGame.isOptionEnabled(LemGame.Option.ENHANCED_ICONBAR));
+		jCheckBoxEnhancedIconBar.setSelected(LemGame.isOptionEnabled(LemGame.Option.ENHANCED_ICONBAR));
 		jCheckBoxEnhancedIconBar.setText("Enhanced Icon Bar");
 
 		jCheckBoxIconLabels.setSelected(LemGame.isOptionEnabled(LemGame.Option.ICON_LABELS));
 		jCheckBoxIconLabels.setText("Show Labels on the Icon Bar");
 
-		jCheckBoxFullColorMinimap
-				.setSelected(LemGame.isOptionEnabled(LemGame.Option.FULL_COLOR_MINIMAP));
+		jCheckBoxFullColorMinimap.setSelected(LemGame.isOptionEnabled(LemGame.Option.FULL_COLOR_MINIMAP));
 		jCheckBoxFullColorMinimap.setText("Full Color Minimap");
 
-		jCheckBoxClassicScroller
-				.setSelected(LemGame.isOptionEnabled(LemGame.Option.CLASSIC_SCROLLER));
+		jCheckBoxClassicScroller.setSelected(LemGame.isOptionEnabled(LemGame.Option.CLASSIC_SCROLLER));
 		jCheckBoxClassicScroller.setText("Classic Scroller");
 		jCheckBoxClassicScroller.setToolTipText("Show the classic ticker tape scroller on the title screen");
 
-		jCheckBoxShowMenuBar
-				.setSelected(LemGame.isOptionEnabled(LemGame.Option.SHOW_MENU_BAR));
+		jCheckBoxShowMenuBar.setSelected(LemGame.isOptionEnabled(LemGame.Option.SHOW_MENU_BAR));
 		jCheckBoxShowMenuBar.setText("Show Menu Bar (F1)");
-		jCheckBoxShowMenuBar.setToolTipText(
-				"Show the menu bar at the top of the game window. Use F1 to toggle visibility at any time");
+		jCheckBoxShowMenuBar.setToolTipText("Show the menu bar at the top of the game window. Use F1 to toggle visibility at any time");
 
 		// Radio group for Exit sound
 		jLabelMenuTheme.setText("Menu Theme");
@@ -357,11 +354,9 @@ public class OptionsDialog extends JDialog {
 		jPanelReplays.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Replays",
 				javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-		jCheckBoxAutoSaveReplays
-				.setSelected(LemGame.isOptionEnabled(LemGame.Option.AUTOSAVE_REPLAYS));
+		jCheckBoxAutoSaveReplays.setSelected(LemGame.isOptionEnabled(LemGame.Option.AUTOSAVE_REPLAYS));
 		jCheckBoxAutoSaveReplays.setText("Auto-Save Successful Replays");
-		jCheckBoxAutoSaveReplays
-				.setToolTipText("Automatically saves replays for succesfully-completed levels to 'resources/replays/'");
+		jCheckBoxAutoSaveReplays.setToolTipText("Automatically saves replays for succesfully-completed levels to 'resources/replays/'");
 		jCheckBoxAutoSaveReplays.addActionListener(e -> updateAutoSaveControls());
 		
 		final String defaultTemplate = "{user}_{pack}_{rating}_{level}_{time}";
@@ -446,7 +441,7 @@ public class OptionsDialog extends JDialog {
 		jCheckBoxEnableFrameStepping.setToolTipText("Enable advancing the game by a single frame when paused.");
 		
 		jCheckBoxDirectDrop.setSelected(LemGame.isOptionEnabled(LemGame.Option.DIRECT_DROP));
-		jCheckBoxDirectDrop.setText("Enable Direct Drop" + (LemGame.getGameState() == LemGame.State.LEVEL ? " (restarts level)" : ""));
+		jCheckBoxDirectDrop.setText("Enable Direct Drop" + (isMidLevel ? " (restarts level)" : ""));
 		jCheckBoxDirectDrop.setToolTipText("'Direct Drop' aka 'Max Exit Physics': Lemmings can exit in midair and from any fall distance");
 
 		javax.swing.GroupLayout jPanelClassicModeLayout = new javax.swing.GroupLayout(jPanelClassicMode);
