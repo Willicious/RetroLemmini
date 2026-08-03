@@ -1607,7 +1607,7 @@ public class LemminiPanel extends JPanel implements Runnable {
         int[] level = ld.getSelectedLevel();
         if (level != null) {
         	LemGame.replayCaption = null;
-            LemGame.requestChangeLevel(level[0], level[1], level[2], false);
+            LemGame.requestChangeLevel(level[0], level[1], level[2], LemGame.LevelChangeMode.NORMAL);
             getParentFrame().setRestartEnabled(true);
         }
     }
@@ -1732,7 +1732,7 @@ public class LemminiPanel extends JPanel implements Runnable {
         }
 
         try {
-            LemGame.requestChangeLevel(level[0], level[1], level[2], false);
+            LemGame.requestChangeLevel(level[0], level[1], level[2], LemGame.LevelChangeMode.NORMAL);
             getParentFrame().setRestartEnabled(true);
         } catch (Exception e) {
         	handleChooseLevel();
@@ -1760,8 +1760,7 @@ public class LemminiPanel extends JPanel implements Runnable {
 
     void continueToNextLevel() {
         LemGame.nextLevel(); // continue to next level
-        LemGame.requestChangeLevel(LemGame.getCurLevelPackIdx(), LemGame.getCurRating(),
-                LemGame.getCurLevelNumber(), false);
+        LemGame.requestChangeLevel(LemGame.getCurLevelPackIdx(), LemGame.getCurRating(), LemGame.getCurLevelNumber(), LemGame.LevelChangeMode.NORMAL);
     }
     
     public void findBestLevelToLoad() {
@@ -1794,7 +1793,7 @@ public class LemminiPanel extends JPanel implements Runnable {
             // Stop looping when the next unsolved level is found
             LevelRecord record = Core.player.getLevelRecord(pack.getName(), pack.getRatings().get(rating), level);
             if (!record.isCompleted()) {
-                LemGame.requestChangeLevel(packIndex, rating, level, false);
+                LemGame.requestChangeLevel(packIndex, rating, level, LemGame.LevelChangeMode.NORMAL);
                 return;
             }
         }
@@ -1943,7 +1942,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                     	        level[0], // pack
                     	        level[1], // rating
                     	        level[2], // level
-                    	        true
+                    	        LemGame.LevelChangeMode.REPLAY_CHECK // load and check replay
                     	    );
                     	    getParentFrame().setRestartEnabled(true);
                     	} else {
@@ -2171,7 +2170,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                 int lvlRel = l[1];
                 if (rating >= 0 && lvlRel >= 0) {
                     Core.player.unlockLevel(lpack.getName(), lpack.getRatings().get(rating), lvlRel);
-                    LemGame.requestChangeLevel(lvlPack, rating, lvlRel, false);
+                    LemGame.requestChangeLevel(lvlPack, rating, lvlRel, LemGame.LevelChangeMode.NORMAL);
                     getParentFrame().setRestartEnabled(true);
                     return;
                 }

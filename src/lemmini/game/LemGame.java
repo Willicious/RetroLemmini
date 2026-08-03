@@ -98,6 +98,8 @@ public class LemGame {
         LOAD_LEVEL,
         /** load replay: fade out, fade in preview */
         LOAD_REPLAY,
+        /** check replay: fade out, fade in preview, check replay */
+        CHECK_REPLAY,
         /** level finished: fade out */
         END_LEVEL,
         /** go to intro: fade in intro */
@@ -108,6 +110,15 @@ public class LemGame {
         TO_POSTVIEW,
         /** go to level: fade in level */
         TO_LEVEL
+    }
+    
+    public enum LevelChangeMode {
+    	/** change level without loading replay */
+        NORMAL,
+        /** change level and load replay */
+        REPLAY_LOAD,
+        /** change level, load and check replay */
+        REPLAY_CHECK
     }
 
     public static enum Option {
@@ -851,16 +862,23 @@ public class LemGame {
     /**
      * Request a new level.
      */
-    public static synchronized void requestChangeLevel(final int lPack, final int rating, final int lNum, final boolean doReplay) {
+    public static synchronized void requestChangeLevel(final int lPack, final int rating, final int lNum, LevelChangeMode mode) {
         nextLevelPack = lPack;
         nextRating = rating;
         nextLevelNumber = lNum;
 
-        if (doReplay) {
-            transitionState = TransitionState.LOAD_REPLAY;
-        } else {
+        switch (mode) {
+        case NORMAL:
             transitionState = TransitionState.LOAD_LEVEL;
+            break;
+        case REPLAY_LOAD:
+            transitionState = TransitionState.LOAD_REPLAY;
+            break;
+        case REPLAY_CHECK:
+            transitionState = TransitionState.CHECK_REPLAY;
+            break;
         }
+    
         if (gameState == State.LEVEL) {
             gameState = State.LEVEL_END;
         }
@@ -1909,10 +1927,11 @@ public class LemGame {
                     break;
                 case LOAD_LEVEL:
                 case LOAD_REPLAY:
+                case CHECK_REPLAY:
                     try {
-                    	boolean isLoadReplay = transitionState == TransitionState.LOAD_REPLAY; 	
-                        changeLevel(nextLevelPack, nextRating, nextLevelNumber, isLoadReplay);
-                        if (isLoadReplay) {
+                    	boolean isReplayTransition = transitionState != TransitionState.LOAD_LEVEL;
+                        changeLevel(nextLevelPack, nextRating, nextLevelNumber, isReplayTransition);
+                        if (transitionState == TransitionState.CHECK_REPLAY) {
                         	checkReplay(nextLevelPack, nextRating, nextLevelNumber);
                         }
                     } catch (ResourceException ex) {

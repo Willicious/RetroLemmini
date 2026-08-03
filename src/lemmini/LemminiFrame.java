@@ -224,7 +224,7 @@ public class LemminiFrame extends JFrame {
                         0,          // pack
                         0,          // rating
                         levelIndex, // newly added level
-                        false
+                        LemGame.LevelChangeMode.NORMAL
                     );
                     LemGame.setGameState(LemGame.State.INTRO);
                     LemGame.setTransition(LemGame.TransitionState.LOAD_LEVEL);
@@ -1085,7 +1085,7 @@ public class LemminiFrame extends JFrame {
 
     private void jMenuItemRestartLevelActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemRestartLevelActionPerformed
         if (LemGame.getLevel() == null) {
-            LemGame.requestChangeLevel(LemGame.getCurLevelPackIdx(), LemGame.getCurRating(), LemGame.getCurLevelNumber(), false);
+            LemGame.requestChangeLevel(LemGame.getCurLevelPackIdx(), LemGame.getCurRating(), LemGame.getCurLevelNumber(), LemGame.LevelChangeMode.NORMAL);
         } else {
             LemGame.requestRestartLevel(false, true);
         }
@@ -1212,7 +1212,7 @@ public class LemminiFrame extends JFrame {
         if (!EditorTestMode.enabled && level != null) {
             System.out.println("external level loaded. starting up inside level...");
             int[] levelPosition = LemGame.addExternalLevel(level, null, true);
-            LemGame.requestChangeLevel(levelPosition[0], levelPosition[1], levelPosition[2], false);
+            LemGame.requestChangeLevel(levelPosition[0], levelPosition[1], levelPosition[2], LemGame.LevelChangeMode.NORMAL);
         }
     }
     
@@ -1228,7 +1228,7 @@ public class LemminiFrame extends JFrame {
             while (rating < ratings.size()) {
                 while (lvlNum < lvlCount) {
                     if (Core.player.isAvailable(packName, ratings.get(rating), lvlNum)) {
-                        LemGame.requestChangeLevel(packIdx, rating, lvlNum, false);
+                        LemGame.requestChangeLevel(packIdx, rating, lvlNum, LemGame.LevelChangeMode.NORMAL);
                         return;
                     }
                     lvlNum++;
@@ -1252,7 +1252,7 @@ public class LemminiFrame extends JFrame {
 	        while (rating >= 0) {
 	            while (lvlNum >= 0) {
 	                if (Core.player.isAvailable(packName, ratings.get(rating), lvlNum)) {
-	                    LemGame.requestChangeLevel(packIdx, rating, lvlNum, false);
+	                    LemGame.requestChangeLevel(packIdx, rating, lvlNum, LemGame.LevelChangeMode.NORMAL);
 	                    return;
 	                }
 	                lvlNum--;
@@ -1276,7 +1276,7 @@ public class LemminiFrame extends JFrame {
             while (rating < ratings.size()) {
                 while (lvlNum >= 0) {
                     if (Core.player.isAvailable(packName, ratings.get(rating), lvlNum)) {
-                        LemGame.requestChangeLevel(packIdx, rating, lvlNum, false);
+                        LemGame.requestChangeLevel(packIdx, rating, lvlNum, LemGame.LevelChangeMode.NORMAL);
                         return;
                     }
                     lvlNum--;
@@ -1300,7 +1300,7 @@ public class LemminiFrame extends JFrame {
             while (rating >= 0) {
                 while (lvlNum >= 0) {
                     if (Core.player.isAvailable(packName, ratings.get(rating), lvlNum)) {
-                        LemGame.requestChangeLevel(packIdx, rating, lvlNum, false);
+                        LemGame.requestChangeLevel(packIdx, rating, lvlNum, LemGame.LevelChangeMode.NORMAL);
                         return;
                     }
                     lvlNum--;
