@@ -459,6 +459,8 @@ public class Core {
      * Compares revisions stringa
      */
     public static int compareVersions(String a, String b) {
+    	if ((a == null) || (b == null)) return 0;
+    	
         String[] aParts = a.split("\\.");
         String[] bParts = b.split("\\.");
 
