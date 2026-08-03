@@ -162,6 +162,8 @@ public class LemGame {
         SHOW_MENU_BAR,
         /** flag: use full color minimap / green-tinted minimap */
         FULL_COLOR_MINIMAP,
+        /** flag: use PG sprite variants (if provided by the style author) */
+        USE_PG_SPRITES,
         /** flag: play a pass/fail jingle on loading postview screen */
         POSTVIEW_JINGLES,
         /** flag: click air (anywhere but a lemming) to cancel replay */

@@ -113,6 +113,7 @@ public class OptionsDialog extends JDialog {
 		jCheckBoxEnhancedIconBar = new javax.swing.JCheckBox();
 		jCheckBoxIconLabels = new javax.swing.JCheckBox();
 		jCheckBoxFullColorMinimap = new javax.swing.JCheckBox();
+		jCheckBoxUsePGSprites = new javax.swing.JCheckBox();
 		jCheckBoxClassicScroller = new javax.swing.JCheckBox();
 		jCheckBoxShowMenuBar = new javax.swing.JCheckBox();
 		jCheckBoxAutoSaveReplays = new javax.swing.JCheckBox();
@@ -224,6 +225,10 @@ public class OptionsDialog extends JDialog {
 
 		jCheckBoxFullColorMinimap.setSelected(LemGame.isOptionEnabled(LemGame.Option.FULL_COLOR_MINIMAP));
 		jCheckBoxFullColorMinimap.setText("Full Color Minimap");
+		
+		jCheckBoxUsePGSprites.setSelected(LemGame.isOptionEnabled(LemGame.Option.USE_PG_SPRITES));
+		jCheckBoxUsePGSprites.setText("Use family-friendly sprites if available" + (isMidLevel ? " (restarts level)" : ""));
+		jCheckBoxUsePGSprites.setToolTipText("Use family-friendly alternative versions of trap animation sprites (if provided by the style author)");
 
 		jCheckBoxClassicScroller.setSelected(LemGame.isOptionEnabled(LemGame.Option.CLASSIC_SCROLLER));
 		jCheckBoxClassicScroller.setText("Classic Scroller");
@@ -322,7 +327,7 @@ public class OptionsDialog extends JDialog {
 						.addComponent(jCheckBoxClassicScroller).addComponent(jCheckBoxEnhancedStatus)
 						.addComponent(jCheckBoxShowLevelName).addComponent(jCheckBoxEnhancedIconBar)
 						.addComponent(jCheckBoxIconLabels).addComponent(jCheckBoxFullColorMinimap)
-						.addComponent(jLabelMenuTheme)
+						.addComponent(jCheckBoxUsePGSprites).addComponent(jLabelMenuTheme)
 						.addGroup(jPanelGraphicsLayout.createSequentialGroup().addComponent(jRadioButtonAmigaTheme)
 								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 								.addComponent(jRadioButtonWinLemmTheme)
@@ -345,6 +350,8 @@ public class OptionsDialog extends JDialog {
 						.addComponent(jCheckBoxIconLabels)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 						.addComponent(jCheckBoxFullColorMinimap)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+						.addComponent(jCheckBoxUsePGSprites)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 						.addComponent(jLabelMenuTheme)
 						.addGroup(jPanelGraphicsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -700,6 +707,7 @@ public class OptionsDialog extends JDialog {
 		LemGame.setOption(LemGame.Option.ENHANCED_ICONBAR, jCheckBoxEnhancedIconBar.isSelected());
 		LemGame.setOption(LemGame.Option.ICON_LABELS, jCheckBoxIconLabels.isSelected());
 		LemGame.setOption(LemGame.Option.FULL_COLOR_MINIMAP, jCheckBoxFullColorMinimap.isSelected());
+		LemGame.setOption(LemGame.Option.USE_PG_SPRITES, jCheckBoxUsePGSprites.isSelected());
 		LemGame.setOption(LemGame.Option.CLASSIC_SCROLLER, jCheckBoxClassicScroller.isSelected());
 		// apply menu theme setting
 		LemGame.setMenuThemeOption(jRadioButtonAmigaTheme.isSelected() ? LemGame.MenuThemeOption.AMIGA : LemGame.MenuThemeOption.WINLEMM);
@@ -751,6 +759,7 @@ public class OptionsDialog extends JDialog {
 	private javax.swing.JCheckBox jCheckBoxEnhancedIconBar;
 	private javax.swing.JCheckBox jCheckBoxIconLabels;
 	private javax.swing.JCheckBox jCheckBoxFullColorMinimap;
+	private javax.swing.JCheckBox jCheckBoxUsePGSprites;
 	private javax.swing.JCheckBox jCheckBoxClassicScroller;
 	private javax.swing.JCheckBox jCheckBoxShowMenuBar;
 	private javax.swing.JCheckBox jCheckBoxAutoSaveReplays;

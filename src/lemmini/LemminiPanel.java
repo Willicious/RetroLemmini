@@ -2230,6 +2230,7 @@ public class LemminiPanel extends JPanel implements Runnable {
     void handleOptions() {
         // Store current settings
     	boolean oldDirectDrop = LemGame.isOptionEnabled(LemGame.Option.DIRECT_DROP);
+    	boolean oldUsePGSprites = LemGame.isOptionEnabled(LemGame.Option.USE_PG_SPRITES);
     	boolean oldMinimapOption = LemGame.isOptionEnabled(LemGame.Option.FULL_COLOR_MINIMAP);
         boolean oldMenuBarVisOption = LemGame.isOptionEnabled(LemGame.Option.SHOW_MENU_BAR);
         boolean oldScrollerOption = LemGame.isOptionEnabled(LemGame.Option.CLASSIC_SCROLLER);
@@ -2255,15 +2256,24 @@ public class LemminiPanel extends JPanel implements Runnable {
             TextScreen.setMenuTheme();
         }
         
-        // handle direct drop change if mid-level
+        // handle direct drop / PG sprites if mid-level
         if (LemGame.getGameState() == LemGame.State.LEVEL) {
         	boolean isDirectDrop = LemGame.isOptionEnabled(LemGame.Option.DIRECT_DROP);
-            if (oldDirectDrop != isDirectDrop) {
+        	boolean isUsePGSprites = LemGame.isOptionEnabled(LemGame.Option.USE_PG_SPRITES);
+            
+        	if (oldDirectDrop != isDirectDrop) {
             	LemGame.requestRestartLevel(true, false); // restart level to apply change (ensures replay stability)
             }
             LemGame.setDirectDrop(isDirectDrop);
-        }
-        
+            
+            if (oldUsePGSprites != isUsePGSprites) {
+            	// fully reload level to apply changes, load replay but don't check it
+            	int pack = LemGame.getCurLevelPackIdx();
+            	int rating = LemGame.getCurRating();
+            	int level = LemGame.getCurLevelNumber();
+            	LemGame.requestChangeLevel(pack, rating, level, LemGame.LevelChangeMode.REPLAY_LOAD);
+            }
+        }        
         d.dispose();
     }
 

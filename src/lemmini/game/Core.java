@@ -262,6 +262,7 @@ public class Core {
         LemGame.setOption(LemGame.Option.AUTOSAVE_REPLAYS, programProps.getBoolean("autoSaveReplays", true));
         LemGame.setOption(LemGame.Option.SHOW_MENU_BAR, programProps.getBoolean("showMenuBar", true));
         LemGame.setOption(LemGame.Option.FULL_COLOR_MINIMAP, programProps.getBoolean("fullColorMinimap", true));
+        LemGame.setOption(LemGame.Option.USE_PG_SPRITES, programProps.getBoolean("usePGSprites", false));
         LemGame.setOption(LemGame.Option.POSTVIEW_JINGLES, programProps.getBoolean("postviewJingles", false));
         LemGame.setOption(LemGame.Option.CLICK_AIR_TO_CANCEL_REPLAY, programProps.getBoolean("clickAirToCancelReplay", true));
         LemGame.setOption(LemGame.Option.ENABLE_WHEEL_SKILL_SELECT, programProps.getBoolean("enableWheelSkillSelect", false));
@@ -423,6 +424,7 @@ public class Core {
         programProps.setBoolean("autoSaveReplays", LemGame.isOptionEnabled(LemGame.Option.AUTOSAVE_REPLAYS));
         programProps.setBoolean("showMenuBar", LemGame.isOptionEnabled(LemGame.Option.SHOW_MENU_BAR));
         programProps.setBoolean("fullColorMinimap", LemGame.isOptionEnabled(LemGame.Option.FULL_COLOR_MINIMAP));
+        programProps.setBoolean("usePGSprites", LemGame.isOptionEnabled(LemGame.Option.USE_PG_SPRITES));
         programProps.setBoolean("postviewJingles", LemGame.isOptionEnabled(LemGame.Option.POSTVIEW_JINGLES));
         programProps.setBoolean("clickAirToCancelReplay", LemGame.isOptionEnabled(LemGame.Option.CLICK_AIR_TO_CANCEL_REPLAY));
         programProps.setBoolean("enableWheelSkillSelect", LemGame.isOptionEnabled(LemGame.Option.ENABLE_WHEEL_SKILL_SELECT));
@@ -566,13 +568,23 @@ public class Core {
                 }
             }
         }
-        // file not found in mod folders or mods not searched,
-        // so look for it in the main folders, again with each extension
+        // file not found in mod folders or mods not searched -> look for it in the main folders, again with each extension
+        // search also for built-in image variants (set per-style by the author)
         if (searchMain) {
+            List<String> imageVariants = new ArrayList<>();
+
             for (String ext : extensions) {
-                String resString = fnameNoExt + "." + ext;
-                if (resourceTree.exists(resString)) {
-                    return new FileResource(fname, resString, resourceTree);
+                if (LemGame.isOptionEnabled(LemGame.Option.USE_PG_SPRITES)) {
+                	imageVariants.add(fnameNoExt + "_pg." + ext);
+                }
+                
+                // Always fall back to the standard image.
+                imageVariants.add(fnameNoExt + "." + ext);
+
+                for (String resource : imageVariants) {
+                    if (resourceTree.exists(resource)) {
+                        return new FileResource(fname, resource, resourceTree);
+                    }
                 }
             }
         }
