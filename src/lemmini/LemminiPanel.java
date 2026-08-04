@@ -1040,8 +1040,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                         } else {
                             //otherwise show the standard info set
                             String strHome;
-                            if (LemGame.isOptionEnabled(LemGame.Option.NO_PERCENTAGES)
-                                    || LemGame.getNumLemmingsMax() > 100) {
+                            if (!LemGame.isOptionEnabled(LemGame.Option.USE_PERCENTAGES) || LemGame.getNumLemmingsMax() > 100) {
                                 strHome = Integer.toString(LemGame.getNumExited());
                             } else {
                                 int max = LemGame.getNumLemmingsMax();
@@ -1066,7 +1065,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                                 int exited = LemGame.getNumExited(); // number of lems that have exited
                                 int maxPossibleLemm = LemGame.getNumLemmingsPossibleMax(); // maximum number of lems currently possible to save (including Blockers)
                                 // show save requirement or maximum lems as the home sub-value depending on "use percentages" option
-                                int homeSubValue = LemGame.isOptionEnabled(LemGame.Option.NO_PERCENTAGES) ? saveRequirement : maxLevelLemm;
+                                int homeSubValue = LemGame.isOptionEnabled(LemGame.Option.USE_PERCENTAGES) ? maxLevelLemm : saveRequirement;
                             	
                             	int iconWidth = 32;
                             	int padding = getPadding();

@@ -970,7 +970,7 @@ public class LevelDialog extends JDialog {
             int numToRescue = lvlInfo.getNumToRescue();
             int timeLimit = lvlInfo.getTimeLimit();
             jTextFieldNumLemmings.setText(Integer.toString(numLemmings));
-            if (LemGame.isOptionEnabled(LemGame.Option.NO_PERCENTAGES) || numLemmings > 100) {
+            if (!LemGame.isOptionEnabled(LemGame.Option.USE_PERCENTAGES) || numLemmings > 100) {
                 jTextFieldNumToRescue.setText(Integer.toString(numToRescue));
             } else {
                 jTextFieldNumToRescue.setText(Integer.toString(numToRescue * 100 / numLemmings) + "%");
@@ -992,7 +992,7 @@ public class LevelDialog extends JDialog {
             if (lvlRecord.isCompleted()) {
                 int lemmingsSaved = lvlRecord.getLemmingsSaved();
                 int timeElapsed = lvlRecord.getTimeElapsed();
-                if (LemGame.isOptionEnabled(LemGame.Option.NO_PERCENTAGES) || numLemmings > 100) {
+                if (!LemGame.isOptionEnabled(LemGame.Option.USE_PERCENTAGES) || numLemmings > 100) {
                     jTextFieldLemmingsSaved.setText(Integer.toString(lvlRecord.getLemmingsSaved()));
                 } else {
                     jTextFieldLemmingsSaved.setText(Integer.toString(lemmingsSaved * 100 / numLemmings) + "%");

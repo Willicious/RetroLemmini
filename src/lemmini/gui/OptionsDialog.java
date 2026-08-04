@@ -101,7 +101,7 @@ public class OptionsDialog extends JDialog {
 		jCheckBoxClassicCursor = new javax.swing.JCheckBox();
 		jCheckBoxFaster = new javax.swing.JCheckBox();
 		jCheckBoxPauseStopsFastForward = new javax.swing.JCheckBox();
-		jCheckBoxNoPercentages = new javax.swing.JCheckBox();
+		jCheckBoxUsePercentages = new javax.swing.JCheckBox();
 		jCheckBoxReplayScroll = new javax.swing.JCheckBox();
 		jCheckBoxUnpauseOnAssignment = new javax.swing.JCheckBox();
 		jCheckBoxTimedBombers = new javax.swing.JCheckBox();
@@ -571,9 +571,9 @@ public class OptionsDialog extends JDialog {
 		jPanelMisc.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Miscellaneous",
 				javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-		jCheckBoxNoPercentages.setSelected(!LemGame.isOptionEnabled(LemGame.Option.NO_PERCENTAGES));
-		jCheckBoxNoPercentages.setText("Use Percentage For Rescue Count");
-		setHint(jCheckBoxNoPercentages, "Show rescue count as a percentage (e.g. 90%) rather than rescued/total (e.g. 9/10)");
+		jCheckBoxUsePercentages.setSelected(LemGame.isOptionEnabled(LemGame.Option.USE_PERCENTAGES));
+		jCheckBoxUsePercentages.setText("Use Percentage For Rescue Count");
+		setHint(jCheckBoxUsePercentages, "Show rescue count as a percentage (e.g. 90%) rather than rescued/total (e.g. 9/10)");
 
 		jCheckBoxUnlockAllLevels
 				.setSelected(LemGame.isOptionEnabled(LemGame.Option.UNLOCK_ALL_LEVELS));
@@ -586,12 +586,12 @@ public class OptionsDialog extends JDialog {
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(jPanelMiscLayout.createSequentialGroup().addContainerGap()
 						.addGroup(jPanelMiscLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addComponent(jCheckBoxNoPercentages).addComponent(jCheckBoxUnlockAllLevels))
+								.addComponent(jCheckBoxUsePercentages).addComponent(jCheckBoxUnlockAllLevels))
 						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		jPanelMiscLayout
 				.setVerticalGroup(jPanelMiscLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 						.addGroup(jPanelMiscLayout.createSequentialGroup().addContainerGap()
-								.addComponent(jCheckBoxNoPercentages)
+								.addComponent(jCheckBoxUsePercentages)
 								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 								.addComponent(jCheckBoxUnlockAllLevels)
 								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
@@ -762,7 +762,7 @@ public class OptionsDialog extends JDialog {
 		LemGame.setOption(LemGame.Option.ADVANCED_SELECT, jCheckBoxAdvanced.isSelected());
 		LemGame.setOption(LemGame.Option.FASTER_FAST_FORWARD, jCheckBoxFaster.isSelected());
 		LemGame.setOption(LemGame.Option.PAUSE_STOPS_FAST_FORWARD, jCheckBoxPauseStopsFastForward.isSelected());
-		LemGame.setOption(LemGame.Option.NO_PERCENTAGES, !jCheckBoxNoPercentages.isSelected());
+		LemGame.setOption(LemGame.Option.USE_PERCENTAGES, jCheckBoxUsePercentages.isSelected());
 		LemGame.setOption(LemGame.Option.REPLAY_SCROLL, jCheckBoxReplayScroll.isSelected());
 		LemGame.setOption(LemGame.Option.UNPAUSE_ON_ASSIGNMENT, jCheckBoxUnpauseOnAssignment.isSelected());
 		LemGame.setOption(LemGame.Option.TIMED_BOMBERS, jCheckBoxTimedBombers.isSelected());
@@ -789,7 +789,7 @@ public class OptionsDialog extends JDialog {
 	private javax.swing.JCheckBox jCheckBoxEnableMusic;
 	private javax.swing.JCheckBox jCheckBoxEnableSound;
 	private javax.swing.JCheckBox jCheckBoxFaster;
-	private javax.swing.JCheckBox jCheckBoxNoPercentages;
+	private javax.swing.JCheckBox jCheckBoxUsePercentages;
 	private javax.swing.JCheckBox jCheckBoxPauseStopsFastForward;
 	private javax.swing.JCheckBox jCheckBoxReplayScroll;
 	private javax.swing.JCheckBox jCheckBoxUnpauseOnAssignment;

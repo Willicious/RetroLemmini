@@ -258,7 +258,7 @@
                       <Component id="jCheckBoxClassicCursor" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jCheckBoxSwap" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jCheckBoxFaster" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jCheckBoxNoPercentages" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jCheckBoxUsePercentages" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jCheckBoxReplayScroll" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jCheckBoxPauseStopsFastForward" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jCheckBoxUnpauseOnAssignment" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -281,7 +281,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jCheckBoxPauseStopsFastForward" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jCheckBoxNoPercentages" min="-2" max="-2" attributes="0"/>
+                  <Component id="jCheckBoxUsePercentages" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jCheckBoxReplayScroll" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -332,10 +332,10 @@
             <Property name="text" type="java.lang.String" value="Stop Fast-Forward When Pausing"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JCheckBox" name="jCheckBoxNoPercentages">
+        <Component class="javax.swing.JCheckBox" name="jCheckBoxUsePercentages">
           <Properties>
             <Property name="selected" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="GameController.isOptionEnabled(GameController.Option.NO_PERCENTAGES)" type="code"/>
+              <Connection code="GameController.isOptionEnabled(GameController.Option.USE_PERCENTAGES)" type="code"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Never Show Percentages"/>
           </Properties>

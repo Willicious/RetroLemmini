@@ -315,7 +315,7 @@ public class TextScreen {
         } else {
             textDialog.addStringCentered("All " + LemGame.getLemmNamesPlural() + " accounted for.", null, -7, TURQUOISE);
         }
-        if (LemGame.isOptionEnabled(LemGame.Option.NO_PERCENTAGES) || numLemmings > 100) {
+        if (!LemGame.isOptionEnabled(LemGame.Option.USE_PERCENTAGES) || numLemmings > 100) {
             textDialog.addStringCentered(String.format("You needed %d - You rescued %d", toRescue, rescued), null, -5, VIOLET);
         } else {
             textDialog.addStringCentered(String.format("You needed %d%% - You rescued %d%%", toRescuePercent, rescuedPercent), null, -5, VIOLET);
@@ -453,7 +453,7 @@ public class TextScreen {
             int xPos = -11;
             
             if (level.isDirectDrop()) {
-            	if (LemGame.isOptionEnabled(LemGame.Option.NO_PERCENTAGES) || level.getNumLemmings() > 100)
+            	if (!LemGame.isOptionEnabled(LemGame.Option.USE_PERCENTAGES) || level.getNumLemmings() > 100)
             		textDialog.addString(String.format("Save %d of %d %s", level.getNumToRescue(), level.getNumLemmings(), lemWord), "info", xPos, -2, lemColor);
             	else
             		textDialog.addString(String.format("Save %d%% of %d %s", savePercent, level.getNumLemmings(), lemWord), "info", xPos, -2, lemColor);
@@ -462,7 +462,7 @@ public class TextScreen {
             } else {
             	textDialog.addString(String.format("%d " + lemWord, level.getNumLemmings()), "info", xPos, -2, lemColor);
                 
-            	if (LemGame.isOptionEnabled(LemGame.Option.NO_PERCENTAGES) || level.getNumLemmings() > 100)
+            	if (!LemGame.isOptionEnabled(LemGame.Option.USE_PERCENTAGES) || level.getNumLemmings() > 100)
                     textDialog.addString(String.format("%d to be saved", level.getNumToRescue()), "info", xPos, -1, GREEN);
                 else
                     textDialog.addString(String.format("%d%% to be saved", savePercent), "info", xPos, -1, GREEN);           	

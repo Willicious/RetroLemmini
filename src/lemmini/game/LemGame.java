@@ -132,7 +132,7 @@ public class LemGame {
         CLASSIC_CURSOR,
         FASTER_FAST_FORWARD,
         PAUSE_STOPS_FAST_FORWARD,
-        NO_PERCENTAGES,
+        USE_PERCENTAGES,
         REPLAY_SCROLL,
         UNPAUSE_ON_ASSIGNMENT,
         
@@ -2035,7 +2035,7 @@ public class LemGame {
     		Core.setWindowCaption(LemGame.replayCaption);
     	} else {
 	        int numLemmings = level.getNumLemmings();	
-	        String numToRescue = (isOptionEnabled(Option.NO_PERCENTAGES) || numLemmings > 100) 
+	        String numToRescue = (!isOptionEnabled(Option.USE_PERCENTAGES) || numLemmings > 100) 
 	                ? String.valueOf(level.getNumToRescue())
 	                : (level.getNumToRescue() * 100 / numLemmings) + "%";
 	        
@@ -2826,7 +2826,7 @@ public class LemGame {
         } else {
             options.remove(option);
         }
-        if (option == Option.NO_PERCENTAGES && gameState != null) {
+        if (option == Option.USE_PERCENTAGES && gameState != null) {
             switch (gameState) {
                 case PREVIEW:
                 case LEVEL:

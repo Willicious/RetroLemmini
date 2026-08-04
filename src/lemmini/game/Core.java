@@ -244,7 +244,7 @@ public class Core {
         LemGame.setOption(LemGame.Option.CLASSIC_CURSOR, programProps.getBoolean("classicalCursor", false));
         LemGame.setOption(LemGame.Option.FASTER_FAST_FORWARD, programProps.getBoolean("fasterFastForward", false));
         LemGame.setOption(LemGame.Option.PAUSE_STOPS_FAST_FORWARD, programProps.getBoolean("pauseStopsFastForward", true));
-        LemGame.setOption(LemGame.Option.NO_PERCENTAGES, programProps.getBoolean("noPercentages", true));
+        LemGame.setOption(LemGame.Option.USE_PERCENTAGES, programProps.getBoolean("usePercentages", false));
         LemGame.setOption(LemGame.Option.REPLAY_SCROLL, programProps.getBoolean("replayScroll", false));
         LemGame.setOption(LemGame.Option.UNPAUSE_ON_ASSIGNMENT, programProps.getBoolean("unpauseOnAssignment", false));
         // Settings added in SuperLemminiToo
@@ -406,7 +406,7 @@ public class Core {
         programProps.setBoolean("classicalCursor", LemGame.isOptionEnabled(LemGame.Option.CLASSIC_CURSOR));
         programProps.setBoolean("fasterFastForward", LemGame.isOptionEnabled(LemGame.Option.FASTER_FAST_FORWARD));
         programProps.setBoolean("pauseStopsFastForward", LemGame.isOptionEnabled(LemGame.Option.PAUSE_STOPS_FAST_FORWARD));
-        programProps.setBoolean("noPercentages", LemGame.isOptionEnabled(LemGame.Option.NO_PERCENTAGES));
+        programProps.setBoolean("usePercentages", LemGame.isOptionEnabled(LemGame.Option.USE_PERCENTAGES));
         programProps.setBoolean("replayScroll", LemGame.isOptionEnabled(LemGame.Option.REPLAY_SCROLL));
         programProps.setBoolean("unpauseOnAssignment", LemGame.isOptionEnabled(LemGame.Option.UNPAUSE_ON_ASSIGNMENT));
         // Settings added in SuperLemminiToo
