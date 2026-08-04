@@ -15,6 +15,7 @@
  */
 package lemmini.gui;
 
+import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
@@ -22,6 +23,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.GroupLayout;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -122,6 +124,7 @@ public class OptionsDialog extends JDialog {
 		jButtonConfigureMouse = new javax.swing.JButton();
 		jButtonOK = new javax.swing.JButton();
 		jButtonCancel = new javax.swing.JButton();
+		jLabelHints = new javax.swing.JLabel();
 		
 		boolean isMidLevel = LemGame.getGameState() == LemGame.State.LEVEL;
 
@@ -134,9 +137,9 @@ public class OptionsDialog extends JDialog {
 		jPanelSound.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sound",
 				javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-		// Music controls
 		jCheckBoxEnableMusic.setSelected(LemGame.isOptionEnabled(LemGame.Option.MUSIC_ON));
 		jCheckBoxEnableMusic.setText("Music");
+		setHint(jCheckBoxEnableMusic, "Mute / unmute music");
 
 		jLabelMusicVolume.setLabelFor(jSliderMusicVolume);
 		jSliderMusicVolume.setMajorTickSpacing(10);
@@ -151,10 +154,11 @@ public class OptionsDialog extends JDialog {
 		    jLabelMusicVolume.setText("Music Volume " + value);
 		});
 		jLabelMusicVolume.setText("Music Volume: " + jSliderMusicVolume.getValue());
+		setHint(jSliderMusicVolume, "Adjust music volume");
 
-		// Sound controls
 		jCheckBoxEnableSound.setSelected(LemGame.isOptionEnabled(LemGame.Option.SOUND_ON));
 		jCheckBoxEnableSound.setText("Sound Effects");
+		setHint(jCheckBoxEnableSound, "Mute / unmute sound effects");
 
 		jLabelSoundVolume.setLabelFor(jSliderSoundVolume);
 		jSliderSoundVolume.setMajorTickSpacing(10);
@@ -166,23 +170,27 @@ public class OptionsDialog extends JDialog {
 		jSliderSoundVolume.setValue((int) (soundNormalized * 200));
 		jSliderSoundVolume.addChangeListener(e -> {
 		    int value = jSliderSoundVolume.getValue();
-		    jLabelSoundVolume.setText("Music Volume " + value);
+		    jLabelSoundVolume.setText("Sound Effects Volume " + value);
 		});
 		jLabelSoundVolume.setText("Sound Effects Volume: " + jSliderSoundVolume.getValue());
-
-		jLabelMixer.setText("SFX Mixer");
+		setHint(jSliderSoundVolume, "Adjust sound effects volume");
 
 		jCheckBoxVisualSfx.setSelected(LemGame.isOptionEnabled(LemGame.Option.VISUAL_SFX));
 		jCheckBoxVisualSfx.setText("Visual SFX");
+		setHint(jCheckBoxVisualSfx, "Show visual sound effects (cheerful cartoon words which accompany the sound effects) in-game");
 
 		jCheckBoxPostviewJingles.setSelected(LemGame.isOptionEnabled(LemGame.Option.POSTVIEW_JINGLES));
 		jCheckBoxPostviewJingles.setText("Postview Jingles");
+		setHint(jCheckBoxPostviewJingles, "Play a pass/fail jingle after playing a level");
 
-		// Radio group for Exit sound
 		jLabelExitSound.setText("Exit Sound");
 		jRadioButtonYippee.setText("Yippee");
 		jRadioButtonBoing.setText("Boing");
 		jRadioButtonAuto.setText("Auto");
+		setHint(jLabelExitSound, "Choose which sound effect is played when a lemming exits");
+		setHint(jRadioButtonYippee, "Play the 'Yippee!' sound effect when a lemming exits");
+		setHint(jRadioButtonBoing, "Play the 'Boing!' sound effect when a lemming exits");
+		setHint(jRadioButtonAuto, "Let the level's style / mod select the sound effect for an exiting lemming");
 
 		exitSoundGroup.add(jRadioButtonYippee);
 		exitSoundGroup.add(jRadioButtonBoing);
@@ -201,64 +209,11 @@ public class OptionsDialog extends JDialog {
 			jRadioButtonAuto.setSelected(true);
 			break;
 		}
-
-		jCheckBoxEnhancedStatus.setSelected(LemGame.isOptionEnabled(LemGame.Option.ENHANCED_STATUS));
-		jCheckBoxEnhancedStatus.setText("Enhanced Status Bar");
-		jCheckBoxEnhancedStatus.addActionListener(e -> {
-			boolean enabled = jCheckBoxEnhancedStatus.isSelected();
-			jCheckBoxShowLevelName.setEnabled(enabled);
-
-			if (!enabled) {
-				jCheckBoxShowLevelName.setSelected(false);
-			}
-		});
-
-		jCheckBoxShowLevelName.setEnabled(jCheckBoxEnhancedStatus.isSelected());
-		jCheckBoxShowLevelName.setSelected(LemGame.isOptionEnabled(LemGame.Option.SHOW_LEVEL_NAME));
-		jCheckBoxShowLevelName.setText("Show Level Name on the Status Bar");
-
-		jCheckBoxEnhancedIconBar.setSelected(LemGame.isOptionEnabled(LemGame.Option.ENHANCED_ICONBAR));
-		jCheckBoxEnhancedIconBar.setText("Enhanced Icon Bar");
-
-		jCheckBoxIconLabels.setSelected(LemGame.isOptionEnabled(LemGame.Option.ICON_LABELS));
-		jCheckBoxIconLabels.setText("Show Labels on the Icon Bar");
-
-		jCheckBoxFullColorMinimap.setSelected(LemGame.isOptionEnabled(LemGame.Option.FULL_COLOR_MINIMAP));
-		jCheckBoxFullColorMinimap.setText("Full Color Minimap");
 		
-		jCheckBoxUsePGSprites.setSelected(LemGame.isOptionEnabled(LemGame.Option.USE_PG_SPRITES));
-		jCheckBoxUsePGSprites.setText("Use family-friendly sprites if available" + (isMidLevel ? " (restarts level)" : ""));
-		jCheckBoxUsePGSprites.setToolTipText("Use family-friendly alternative versions of trap animation sprites (if provided by the style author)");
-
-		jCheckBoxClassicScroller.setSelected(LemGame.isOptionEnabled(LemGame.Option.CLASSIC_SCROLLER));
-		jCheckBoxClassicScroller.setText("Classic Scroller");
-		jCheckBoxClassicScroller.setToolTipText("Show the classic ticker tape scroller on the title screen");
-
-		jCheckBoxShowMenuBar.setSelected(LemGame.isOptionEnabled(LemGame.Option.SHOW_MENU_BAR));
-		jCheckBoxShowMenuBar.setText("Show Menu Bar (F1)");
-		jCheckBoxShowMenuBar.setToolTipText("Show the menu bar at the top of the game window. Use F1 to toggle visibility at any time");
-
-		// Radio group for Exit sound
-		jLabelMenuTheme.setText("Menu Theme");
-		jRadioButtonAmigaTheme.setText("Amiga");
-		jRadioButtonWinLemmTheme.setText("WinLemm");
-
-		menuThemeGroup.add(jRadioButtonAmigaTheme);
-		menuThemeGroup.add(jRadioButtonWinLemmTheme);
-
-		MenuThemeOption menuThemeOption = LemGame.getMenuThemeOption();
-		switch (menuThemeOption) {
-		case AMIGA:
-			jRadioButtonAmigaTheme.setSelected(true);
-			break;
-		case WINLEMM:
-		default:
-			jRadioButtonWinLemmTheme.setSelected(true);
-			break;
-		}
-
+		jLabelMixer.setText("Audio Output");
 		jComboBoxMixer.setSelectedIndex(LemGame.sound.getMixerIdx());
-
+		setHint(jComboBoxMixer, "Choose which mixer to use for audio output");
+		
 		javax.swing.GroupLayout jPanelSoundLayout = new javax.swing.GroupLayout(jPanelSound);
 		jPanelSound.setLayout(jPanelSoundLayout);
 		jPanelSoundLayout
@@ -313,9 +268,73 @@ public class OptionsDialog extends JDialog {
 
 		jPanelGraphics.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Graphics",
 				javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-
+		
+		jCheckBoxShowMenuBar.setSelected(LemGame.isOptionEnabled(LemGame.Option.SHOW_MENU_BAR));
+		jCheckBoxShowMenuBar.setText("Show Menu Bar (F1)");
+		setHint(jCheckBoxShowMenuBar, "Show the menu bar at the top of the game window. Use F1 to toggle visibility at any time");
+		
 		jCheckBoxBilinear.setSelected(Core.isBilinear());
-		jCheckBoxBilinear.setText("Bilinear Filtering");
+		jCheckBoxBilinear.setText("Graphics Smoothing");
+		setHint(jCheckBoxBilinear, "Apply a bilinear sampling filter to make graphics appear smoother");
+		
+		jCheckBoxClassicScroller.setSelected(LemGame.isOptionEnabled(LemGame.Option.CLASSIC_SCROLLER));
+		jCheckBoxClassicScroller.setText("Classic Scroller");
+		setHint(jCheckBoxClassicScroller, "Show the classic ticker tape scroller on the title screen");
+
+		jCheckBoxEnhancedStatus.setSelected(LemGame.isOptionEnabled(LemGame.Option.ENHANCED_STATUS));
+		jCheckBoxEnhancedStatus.setText("Enhanced Status Bar");
+		jCheckBoxEnhancedStatus.addActionListener(e -> {
+			boolean enabled = jCheckBoxEnhancedStatus.isSelected();
+			jCheckBoxShowLevelName.setEnabled(enabled);
+
+			if (!enabled) {
+				jCheckBoxShowLevelName.setSelected(false);
+			}
+		});
+		setHint(jCheckBoxEnhancedStatus, "On the status bar (above the skill panel), show additional info and use icons rather than text");
+
+		jCheckBoxShowLevelName.setEnabled(jCheckBoxEnhancedStatus.isSelected());
+		jCheckBoxShowLevelName.setSelected(LemGame.isOptionEnabled(LemGame.Option.SHOW_LEVEL_NAME));
+		jCheckBoxShowLevelName.setText("Show Level Name on the Status Bar");
+		setHint(jCheckBoxShowLevelName, "Show the name of the current level on the status bar");
+
+		jCheckBoxEnhancedIconBar.setSelected(LemGame.isOptionEnabled(LemGame.Option.ENHANCED_ICONBAR));
+		jCheckBoxEnhancedIconBar.setText("Enhanced Skill Panel");
+		setHint(jCheckBoxEnhancedIconBar, "Make the Skill Panel buttons larger, and use animated icons");
+
+		jCheckBoxIconLabels.setSelected(LemGame.isOptionEnabled(LemGame.Option.ICON_LABELS));
+		jCheckBoxIconLabels.setText("Show Labels on the Skill Panel");
+		setHint(jCheckBoxIconLabels, "Show the name of each skill in a text label on each Skill Panel button");
+
+		jCheckBoxFullColorMinimap.setSelected(LemGame.isOptionEnabled(LemGame.Option.FULL_COLOR_MINIMAP));
+		jCheckBoxFullColorMinimap.setText("Full Color Minimap");
+		setHint(jCheckBoxFullColorMinimap, "Show the level in full color in the minimap. When toggled off, the level is shown in monochrome green");
+		
+		jCheckBoxUsePGSprites.setSelected(LemGame.isOptionEnabled(LemGame.Option.USE_PG_SPRITES));
+		jCheckBoxUsePGSprites.setText("Family-Friendly Sprites" + (isMidLevel ? " (restarts level)" : ""));
+		setHint(jCheckBoxUsePGSprites, "Use alternative family-friendly versions of trap animation sprites (if provided by the style author)");
+
+		// Radio group for Menu theme
+		jLabelMenuTheme.setText("Title Screen Theme");
+		jRadioButtonAmigaTheme.setText("Amiga");
+		jRadioButtonWinLemmTheme.setText("WinLemm");
+		setHint(jLabelMenuTheme, "Choose which visual theme to use in the title screens");
+		setHint(jRadioButtonAmigaTheme, "Use the Amiga theme (based on Lemmings for Amiga 500) in the title screens");
+		setHint(jRadioButtonWinLemmTheme, "Use the WinLemm theme (based on Windows '95 Lemmings) in the title screens");
+
+		menuThemeGroup.add(jRadioButtonAmigaTheme);
+		menuThemeGroup.add(jRadioButtonWinLemmTheme);
+
+		MenuThemeOption menuThemeOption = LemGame.getMenuThemeOption();
+		switch (menuThemeOption) {
+		case AMIGA:
+			jRadioButtonAmigaTheme.setSelected(true);
+			break;
+		case WINLEMM:
+		default:
+			jRadioButtonWinLemmTheme.setSelected(true);
+			break;
+		}
 
 		javax.swing.GroupLayout jPanelGraphicsLayout = new javax.swing.GroupLayout(jPanelGraphics);
 		jPanelGraphics.setLayout(jPanelGraphicsLayout);
@@ -363,8 +382,8 @@ public class OptionsDialog extends JDialog {
 
 		jCheckBoxAutoSaveReplays.setSelected(LemGame.isOptionEnabled(LemGame.Option.AUTOSAVE_REPLAYS));
 		jCheckBoxAutoSaveReplays.setText("Auto-Save Successful Replays");
-		jCheckBoxAutoSaveReplays.setToolTipText("Automatically saves replays for succesfully-completed levels to 'resources/replays/'");
 		jCheckBoxAutoSaveReplays.addActionListener(e -> updateAutoSaveControls());
+		setHint(jCheckBoxAutoSaveReplays, "Automatically save replays for successfully-completed levels to 'resources/replays/'");
 		
 		final String defaultTemplate = "{user}_{pack}_{rating}_{level}_{time}";
 
@@ -381,12 +400,13 @@ public class OptionsDialog extends JDialog {
 		jLabelReplayTemplate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		jLabelReplayTemplate.addMouseListener(resetTemplateAdapter);
 		jLabelReplayTemplate.setEnabled(jCheckBoxAutoSaveReplays.isSelected());
+		setHint(jLabelReplayTemplate, "Choose a naming template to apply to auto-saved replays (Ctrl + click to reset to default template)");
 
 		jTextFieldReplayTemplate.setText(LemGame.getReplayNameTemplate());
 		jTextFieldReplayTemplate.setColumns(22);
-		jTextFieldReplayTemplate.setToolTipText("Available tags: {user} {pack} {rating} {level} {time}");
 		jTextFieldReplayTemplate.addMouseListener(resetTemplateAdapter);
 		jTextFieldReplayTemplate.setEnabled(jCheckBoxAutoSaveReplays.isSelected());
+		setHint(jTextFieldReplayTemplate, "{user} username, {pack} title, {rating} (e.g. 'Fun'), {level} number & title, {time} timestamp");
 
 		javax.swing.GroupLayout jPanelReplaysLayout = new javax.swing.GroupLayout(jPanelReplays);
 		jPanelReplays.setLayout(jPanelReplaysLayout);
@@ -421,6 +441,8 @@ public class OptionsDialog extends JDialog {
 				jButtonUpdateStylesActionPerformed(evt);
 			}
 		});
+		setHint(jButtonUpdateStyles, "Download the latest versions of the styles included with RetroLemmini");
+		
 		javax.swing.GroupLayout jPanelStylesLayout = new javax.swing.GroupLayout(jPanelStyles);
 		jPanelStyles.setLayout(jPanelStylesLayout);
 		jPanelStylesLayout.setHorizontalGroup(jPanelStylesLayout.createSequentialGroup().addContainerGap()
@@ -437,19 +459,19 @@ public class OptionsDialog extends JDialog {
 
 		jCheckBoxAdvanced.setSelected(LemGame.isOptionEnabled(LemGame.Option.ADVANCED_SELECT));
 		jCheckBoxAdvanced.setText("Advanced Select");
-		jCheckBoxAdvanced.setToolTipText(
-				"Hold directional keys to select only Lemmings going in that same direction. Hold Up to select only Walkers.");
+		setHint(jCheckBoxAdvanced, "Hold 'Left/Right' keys to select only Left/Right-facing lemmings. Hold 'Up' to select only Walkers");
 
 		jCheckBoxTimedBombers.setSelected(LemGame.isOptionEnabled(LemGame.Option.TIMED_BOMBERS));
-		jCheckBoxTimedBombers.setText("Enable 5 second timed bombers");
+		jCheckBoxTimedBombers.setText("Timed Bombers");
+		setHint(jCheckBoxTimedBombers, "Activate the 5 second countdown timer for Bombers. When toggled off, Bombers detonate instantly");
 
 		jCheckBoxEnableFrameStepping.setSelected(LemGame.isOptionEnabled(LemGame.Option.ENABLE_FRAME_STEPPING));
-		jCheckBoxEnableFrameStepping.setText("Enable Frame Stepping");
-		jCheckBoxEnableFrameStepping.setToolTipText("Enable advancing the game by a single frame when paused.");
+		jCheckBoxEnableFrameStepping.setText("Frame Stepping");
+		setHint(jCheckBoxEnableFrameStepping, "Use Left-Mouse-Button click to advance the game by a single frame when paused");
 		
 		jCheckBoxDirectDrop.setSelected(LemGame.isOptionEnabled(LemGame.Option.DIRECT_DROP));
-		jCheckBoxDirectDrop.setText("Enable Direct Drop" + (isMidLevel ? " (restarts level)" : ""));
-		jCheckBoxDirectDrop.setToolTipText("'Direct Drop' aka 'Max Exit Physics': Lemmings can exit in midair and from any fall distance");
+		jCheckBoxDirectDrop.setText("Direct Drop" + (isMidLevel ? " (restarts level)" : ""));
+		setHint(jCheckBoxDirectDrop, "Allow Lemmings to exit in midair and from any fall distance");
 
 		javax.swing.GroupLayout jPanelClassicModeLayout = new javax.swing.GroupLayout(jPanelClassicMode);
 		jPanelClassicMode.setLayout(jPanelClassicModeLayout);
@@ -483,6 +505,7 @@ public class OptionsDialog extends JDialog {
 				parentPanel.handleHotkeyDialog();
 			}
 		});
+		setHint(jButtonConfigureHotkeys, "Open the hotkey configuration dialog");
 		
 		jButtonConfigureMouse.setText("Configure Mouse");
 		jButtonConfigureMouse.addActionListener(new java.awt.event.ActionListener() {
@@ -490,27 +513,27 @@ public class OptionsDialog extends JDialog {
 				parentPanel.handleMouseDialog();
 			}
 		});
+		setHint(jButtonConfigureMouse, "Open the mouse button configuration dialog");
 
 		jCheckBoxClassicCursor.setSelected(LemGame.isOptionEnabled(LemGame.Option.CLASSIC_CURSOR));
 		jCheckBoxClassicCursor.setText("Classic Cursor");
-		jCheckBoxClassicCursor.setToolTipText(
-				"The Standard Cursor centers around the selected lemming. The Classic Cursor follows the mouse.");
+		setHint(jCheckBoxClassicCursor, "The Standard Cursor anchors to the selected lemming. The Classic Cursor follows the mouse");
 
 		jCheckBoxFaster.setSelected(LemGame.isOptionEnabled(LemGame.Option.FASTER_FAST_FORWARD));
 		jCheckBoxFaster.setText("Double Fast-Forward Speed");
-		jCheckBoxFaster.setToolTipText(
-				"Standard Fast-Forward is 3x faster than normal. Doubled Fast-Forward is 6x faster than normal.");
+		setHint(jCheckBoxFaster, "Standard Fast-Forward is 3x faster than normal. Double Fast-Forward is 6x faster than normal");
 
-		jCheckBoxPauseStopsFastForward
-				.setSelected(LemGame.isOptionEnabled(LemGame.Option.PAUSE_STOPS_FAST_FORWARD));
+		jCheckBoxPauseStopsFastForward.setSelected(LemGame.isOptionEnabled(LemGame.Option.PAUSE_STOPS_FAST_FORWARD));
 		jCheckBoxPauseStopsFastForward.setText("Stop Fast-Forward When Pausing");
+		setHint(jCheckBoxPauseStopsFastForward, "Cancel Fast-Forward when pausing the game");
+		
+		jCheckBoxUnpauseOnAssignment.setSelected(LemGame.isOptionEnabled(LemGame.Option.UNPAUSE_ON_ASSIGNMENT));
+		jCheckBoxUnpauseOnAssignment.setText("Unpause When Assigning Skill");
+		setHint(jCheckBoxUnpauseOnAssignment, "If the game is paused, unpause when assigning a skill to a lemming");
 
 		jCheckBoxReplayScroll.setSelected(LemGame.isOptionEnabled(LemGame.Option.REPLAY_SCROLL));
 		jCheckBoxReplayScroll.setText("Scroll Level During Replay");
-
-		jCheckBoxUnpauseOnAssignment
-				.setSelected(LemGame.isOptionEnabled(LemGame.Option.UNPAUSE_ON_ASSIGNMENT));
-		jCheckBoxUnpauseOnAssignment.setText("Unpause After Assigning Skill");
+		setHint(jCheckBoxReplayScroll, "When replaying, automatically scroll the level according to replay-recorded camera movement");
 
 		javax.swing.GroupLayout jPanelControlSchemeLayout = new javax.swing.GroupLayout(jPanelControlScheme);
 		jPanelControlScheme.setLayout(jPanelControlSchemeLayout);
@@ -550,11 +573,12 @@ public class OptionsDialog extends JDialog {
 
 		jCheckBoxNoPercentages.setSelected(!LemGame.isOptionEnabled(LemGame.Option.NO_PERCENTAGES));
 		jCheckBoxNoPercentages.setText("Use Percentage For Rescue Count");
+		setHint(jCheckBoxNoPercentages, "Show rescue count as a percentage (e.g. 90%) rather than rescued/total (e.g. 9/10)");
 
 		jCheckBoxUnlockAllLevels
 				.setSelected(LemGame.isOptionEnabled(LemGame.Option.UNLOCK_ALL_LEVELS));
-		jCheckBoxUnlockAllLevels.setText("Unlock all levels");
-		jCheckBoxUnlockAllLevels.setToolTipText("All access to all levels, without having to complete previous ones.");
+		jCheckBoxUnlockAllLevels.setText("Unlock All Levels");
+		setHint(jCheckBoxUnlockAllLevels, "Gain access to all levels regardless of completion status. Otherwise, use the Level Code system");
 
 		javax.swing.GroupLayout jPanelMiscLayout = new javax.swing.GroupLayout(jPanelMisc);
 		jPanelMisc.setLayout(jPanelMiscLayout);
@@ -571,6 +595,9 @@ public class OptionsDialog extends JDialog {
 								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 								.addComponent(jCheckBoxUnlockAllLevels)
 								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+		
+		jLabelHints.setText("");
+		jLabelHints.setForeground(Color.BLUE);
 
 		jButtonOK.setText("Save and Close");
 		jButtonOK.addActionListener(new java.awt.event.ActionListener() {
@@ -578,6 +605,7 @@ public class OptionsDialog extends JDialog {
 				jButtonOKActionPerformed(evt);
 			}
 		});
+		setHint(jButtonOK, "Save the current settings and close the dialog");
 
 		jButtonCancel.setText("Cancel");
 		jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -585,6 +613,7 @@ public class OptionsDialog extends JDialog {
 				jButtonCancelActionPerformed(evt);
 			}
 		});
+		setHint(jButtonCancel, "Close the dialog without saving");
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
@@ -593,6 +622,7 @@ public class OptionsDialog extends JDialog {
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 								.addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
 										layout.createSequentialGroup()
+												.addComponent(jLabelHints)
 												.addGap(0, 0, Short.MAX_VALUE).addComponent(jButtonOK)
 												.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 												.addComponent(jButtonCancel))
@@ -643,12 +673,26 @@ public class OptionsDialog extends JDialog {
 										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(jLabelHints)
 								.addComponent(jButtonCancel)
 								.addComponent(jButtonOK))
 						.addContainerGap()));
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
+	
+    private void setHint(JComponent component, String tip) {
+    	component.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            	jLabelHints.setText(tip);
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+            	jLabelHints.setText("");
+            }
+        });
+    }
 
 	private void updateAutoSaveControls() {
 	    boolean doAutosave = jCheckBoxAutoSaveReplays.isSelected();
@@ -733,6 +777,7 @@ public class OptionsDialog extends JDialog {
 	}
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
+	private javax.swing.JLabel jLabelHints;
 	private javax.swing.JButton jButtonCancel;
 	private javax.swing.JButton jButtonOK;
 	private javax.swing.JButton jButtonConfigureHotkeys;
