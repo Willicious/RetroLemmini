@@ -73,10 +73,9 @@ public class Core {
     public static final String[] REPLAY_EXTENSIONS = {"rpl"};
 
     public static final String[] IMAGE_EXTENSIONS = {"png", "bmp", "gif", "jpg", "wbmp"};
-    public static final String[] MUSIC_EXTENSIONS = {"wav", "aiff", "aifc", "au", "snd",
-        "ogg", "xm", "s3m", "mod", "mid"};
+    public static final String[] MUSIC_EXTENSIONS = {"wav", "aiff", "aifc", "au", "snd", "ogg", "xm", "s3m", "mod", "mid"};
     public static final String[] SOUNDBANK_EXTENSIONS = {"sf2", "dls"};
-    public static final String[] SOUND_EXTENSIONS = {"wav", "aiff", "aifc", "au", "snd"};
+    public static final String[] SOUND_EXTENSIONS = {"wav", "aiff", "aifc", "au", "snd", "ogg"};
     /** path of external level cache */
     public static final String EXTERNAL_LEVEL_CACHE_PATH = "levels/$external/";
     /** path for mods */

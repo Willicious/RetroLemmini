@@ -2,6 +2,7 @@ package lemmini.sound;
 
 import java.awt.Point;
 import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
@@ -305,10 +306,29 @@ public class Sound {
                 AudioFormat currentFormat;
 
                 try (InputStream in = new BufferedInputStream(resource.getInputStream());
-                        AudioInputStream ais = AudioSystem.getAudioInputStream(in)) {
-                    currentFormat = ais.getFormat();
-                    soundBuffers[i] = new byte[(int) ais.getFrameLength() * currentFormat.getFrameSize()];
-                    ais.read(soundBuffers[i]);
+                        AudioInputStream source = AudioSystem.getAudioInputStream(in)) {
+
+                    AudioFormat sourceFormat = source.getFormat();
+                    AudioFormat.Encoding encoding = sourceFormat.getEncoding();
+
+                    if (encoding != AudioFormat.Encoding.PCM_SIGNED && encoding != AudioFormat.Encoding.PCM_UNSIGNED) {
+                        AudioFormat targetFormat = new AudioFormat(
+                                AudioFormat.Encoding.PCM_SIGNED,
+                                sourceFormat.getSampleRate(),
+                                16,
+                                sourceFormat.getChannels(),
+                                sourceFormat.getChannels() * 2,
+                                sourceFormat.getSampleRate(),
+                                false);
+
+                        try (AudioInputStream decoded = AudioSystem.getAudioInputStream(targetFormat, source)) {
+                            currentFormat = decoded.getFormat();
+                            soundBuffers[i] = readAudioStream(decoded);
+                        }
+                    } else {
+                        currentFormat = sourceFormat;
+                        soundBuffers[i] = readAudioStream(source);
+                    }
                 }
 
                 soundBuffers[i] = convert(soundBuffers[i], currentFormat, format.getSampleSizeInBits(), format.getFrameSize(),
@@ -344,6 +364,21 @@ public class Sound {
         }
 
         loaded = true;
+    }
+    
+    /**
+     * Read audio stream.
+     */
+    private static byte[] readAudioStream(AudioInputStream ais) throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        byte[] buffer = new byte[8192];
+        int bytesRead;
+
+        while ((bytesRead = ais.read(buffer)) != -1) {
+            out.write(buffer, 0, bytesRead);
+        }
+
+        return out.toByteArray();
     }
 
     /**
