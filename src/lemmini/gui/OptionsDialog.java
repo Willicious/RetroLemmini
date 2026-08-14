@@ -149,7 +149,7 @@ public class OptionsDialog extends JDialog {
 		double musicGain = LemGame.getMusicGain();
 		double musicNormalized = Math.sqrt(musicGain / 1.5);
 		jSliderMusicVolume.setValue((int) (musicNormalized * 200));
-		jSliderMusicVolume.addChangeListener(e -> {
+		jSliderMusicVolume.addChangeListener(_ -> {
 		    int value = jSliderMusicVolume.getValue();
 		    jLabelMusicVolume.setText("Music Volume " + value);
 		});
@@ -168,7 +168,7 @@ public class OptionsDialog extends JDialog {
 		double soundGain = LemGame.getSoundGain();
 		double soundNormalized = Math.sqrt(soundGain / 1.5);
 		jSliderSoundVolume.setValue((int) (soundNormalized * 200));
-		jSliderSoundVolume.addChangeListener(e -> {
+		jSliderSoundVolume.addChangeListener(_ -> {
 		    int value = jSliderSoundVolume.getValue();
 		    jLabelSoundVolume.setText("Sound Effects Volume " + value);
 		});
@@ -283,7 +283,7 @@ public class OptionsDialog extends JDialog {
 
 		jCheckBoxEnhancedStatus.setSelected(LemGame.isOptionEnabled(LemGame.Option.ENHANCED_STATUS));
 		jCheckBoxEnhancedStatus.setText("Enhanced Status Bar");
-		jCheckBoxEnhancedStatus.addActionListener(e -> {
+		jCheckBoxEnhancedStatus.addActionListener(_ -> {
 			boolean enabled = jCheckBoxEnhancedStatus.isSelected();
 			jCheckBoxShowLevelName.setEnabled(enabled);
 
@@ -382,7 +382,7 @@ public class OptionsDialog extends JDialog {
 
 		jCheckBoxAutoSaveReplays.setSelected(LemGame.isOptionEnabled(LemGame.Option.AUTOSAVE_REPLAYS));
 		jCheckBoxAutoSaveReplays.setText("Auto-Save Successful Replays");
-		jCheckBoxAutoSaveReplays.addActionListener(e -> updateAutoSaveControls());
+		jCheckBoxAutoSaveReplays.addActionListener(_ -> updateAutoSaveControls());
 		setHint(jCheckBoxAutoSaveReplays, "Automatically save replays for successfully-completed levels to 'resources/replays/'");
 		
 		final String defaultTemplate = "{user}_{pack}_{rating}_{level}_{time}";

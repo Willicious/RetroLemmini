@@ -97,7 +97,7 @@ public class CaseInsensitiveFileTree {
 
             private void addPath(Path path) {
                 String relativePathStr = pathToString(root.relativize(path));
-                List<Path> pathVariants = filesTemp.computeIfAbsent(relativePathStr,  s -> new ArrayList<>(1));
+                List<Path> pathVariants = filesTemp.computeIfAbsent(relativePathStr, _ -> new ArrayList<>(1));
                 pathVariants.add(path);
             }
         };
@@ -194,7 +194,7 @@ public class CaseInsensitiveFileTree {
                 Path path = possiblePath.resolve(ToolBox.getFileName(fileName));
                 OutputStream out = Files.newOutputStream(path, options);
                 try {
-                    List<Path> pathVariants = files.computeIfAbsent(normalizedFileName,  s -> new ArrayList<>(1));
+                    List<Path> pathVariants = files.computeIfAbsent(normalizedFileName, _ -> new ArrayList<>(1));
                     pathVariants.add(path);
                     return out;
                 } catch (Exception ex) {
@@ -234,7 +234,7 @@ public class CaseInsensitiveFileTree {
                 Path path = possiblePath.resolve(ToolBox.getFileName(fileName));
                 BufferedWriter w = Files.newBufferedWriter(path, cs, options);
                 try {
-                    List<Path> pathVariants = files.computeIfAbsent(normalizedFileName,  s -> new ArrayList<>(1));
+                    List<Path> pathVariants = files.computeIfAbsent(normalizedFileName, _ -> new ArrayList<>(1));
                     pathVariants.add(path);
                     return w;
                 } catch (Exception ex) {
@@ -271,7 +271,7 @@ public class CaseInsensitiveFileTree {
                 directory = parent.resolve(ToolBox.getFileName(fileName));
             }
             Files.createDirectories(directory);
-            List<Path> directoryVariants = files.computeIfAbsent(normalizedFileName, s -> new ArrayList<>(1));
+            List<Path> directoryVariants = files.computeIfAbsent(normalizedFileName, _ -> new ArrayList<>(1));
             directoryVariants.add(directory);
         }
         return directory;

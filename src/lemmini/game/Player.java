@@ -188,7 +188,7 @@ public class Player {
             String field = parts[4];
 
             String id = LevelPack.getID(pack, rating);
-            PlayerProgress prog = playerProgress.computeIfAbsent(id, k -> new PlayerProgress());
+            PlayerProgress prog = playerProgress.computeIfAbsent(id, _ -> new PlayerProgress());
             LevelRecord oldRecord = prog.records.getOrDefault(levelNum, LevelRecord.BLANK_LEVEL_RECORD);
 
             boolean completed = oldRecord.isCompleted();
@@ -241,7 +241,7 @@ public class Player {
 	 * Unlock a level via code.
 	 */
     public void unlockLevel(final String pack, final String rating, final int num) {
-        PlayerProgress prog = playerProgress.computeIfAbsent(LevelPack.getID(pack, rating), k -> new PlayerProgress());
+        PlayerProgress prog = playerProgress.computeIfAbsent(LevelPack.getID(pack, rating), _ -> new PlayerProgress());
         prog.records.putIfAbsent(num, LevelRecord.BLANK_LEVEL_RECORD);
     }
 
@@ -280,7 +280,7 @@ public class Player {
 	 */
     public void setLevelRecord(final String pack, final String rating, final int num, final LevelRecord record) {
         if (!record.isCompleted()) return; // only store completed levels
-        PlayerProgress prog = playerProgress.computeIfAbsent(LevelPack.getID(pack, rating), k -> new PlayerProgress());
+        PlayerProgress prog = playerProgress.computeIfAbsent(LevelPack.getID(pack, rating), _ -> new PlayerProgress());
 
         // Merge with existing record if it exists
         LevelRecord oldRecord = prog.records.get(num);

@@ -176,7 +176,7 @@ public class LemStyle {
         File styleDir = Core.resourcePath.resolve(Core.STYLES_PATH).resolve(styleName).toFile();
         int count = 0;
         if (styleDir.isDirectory()) {
-            String[] files = styleDir.list((dir, name) -> name.toLowerCase(Locale.ROOT).startsWith(styleName + "_"));
+            String[] files = styleDir.list((_, name) -> name.toLowerCase(Locale.ROOT).startsWith(styleName + "_"));
             count = (files != null) ? files.length : 0;
         }
         terrainCountCache.put(styleName, count);

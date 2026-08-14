@@ -167,7 +167,7 @@ public class HotkeyDialog extends JDialog {
             // Store references
             actionButtons.put(hk.getAction(), btn);
             currentKeys.put(hk.getAction(), hk.getKeyDescription());
-            btn.addActionListener(e -> startListening(btn, hk));
+            btn.addActionListener(_ -> startListening(btn, hk));
 
             row++;
             if (row >= maxRows) {
@@ -192,12 +192,12 @@ public class HotkeyDialog extends JDialog {
         JButton btnReload = new JButton("Reload");
         JButton btnSave = new JButton("Save and Close");
         JButton btnCancel = new JButton("Cancel");
-        btnClearAll.addActionListener(e -> { clearAllHotkeys(); updateButtonColors(); });
-        btnLoadClassic.addActionListener(e -> { loadHotkeys(LemHotkeys.HotkeyProfile.CLASSIC); updateButtonColors(); });
-        btnLoadDefaults.addActionListener(e -> { loadHotkeys(LemHotkeys.HotkeyProfile.DEFAULT); updateButtonColors(); });
-        btnReload.addActionListener(e -> { loadHotkeysFromIni(); initComponents(); updateButtonColors(); });
-        btnSave.addActionListener(e -> saveHotkeys());
-        btnCancel.addActionListener(e -> dispose());
+        btnClearAll.addActionListener(_ -> { clearAllHotkeys(); updateButtonColors(); });
+        btnLoadClassic.addActionListener(_ -> { loadHotkeys(LemHotkeys.HotkeyProfile.CLASSIC); updateButtonColors(); });
+        btnLoadDefaults.addActionListener(_ -> { loadHotkeys(LemHotkeys.HotkeyProfile.DEFAULT); updateButtonColors(); });
+        btnReload.addActionListener(_ -> { loadHotkeysFromIni(); initComponents(); updateButtonColors(); });
+        btnSave.addActionListener(_ -> saveHotkeys());
+        btnCancel.addActionListener(_ -> dispose());
         setButtonTip(btnClearAll, "Clear all keys to build a hotkey config from scratch");
         setButtonTip(btnLoadClassic, "Load the hotkeys from previous Lemmini versions");
         setButtonTip(btnLoadDefaults, "Load the RetroLemmini default hotkeys");
