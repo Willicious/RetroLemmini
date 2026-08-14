@@ -1445,20 +1445,23 @@ public class Lemming {
         int yMax = yMin + 1;
         int xMin = x;
         int xMax = x;
+        int lemDX = 0;
 
         if (dir == Direction.RIGHT) {
             xMin = x + 4;
             xMax = x + 5;
+            lemDX = 1;
         } else {
             xMin = x - 5;
             xMax = x - 4;
+            lemDX = -1;
         }
 
         if (!checkMineArea(xMin, xMax, yMin, yMax, true, playSound)) {
             return false;
         }
 
-        if (!checkMineArea(x, x + 1, y, y + 1, !start, playSound)) {
+        if (!checkMineArea(x, x + lemDX, y, y + 1, !start, playSound)) {
             return false;
         }
         
