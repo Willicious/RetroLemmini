@@ -1126,12 +1126,12 @@ public class LemminiFrame extends JFrame {
         /*
          * Check JVM version
          */
-        if (!SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_8)) {
-            System.out.println("JVM >= 1.8 [FAIL]");
-            JOptionPane.showMessageDialog(null, "RetroLemmini requires JVM 1.8 or later.", "Error", JOptionPane.ERROR_MESSAGE);
+        if (!SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_25)) {
+            System.out.println("Java Version >= 25 [FAIL]");
+            JOptionPane.showMessageDialog(null, "RetroLemmini requires Java 25 or later.", "Error", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         } else {
-            System.out.println("JVM >= 1.8 [PASS]");
+            System.out.println("Java Version >= 25 [PASS]");
         }
 
         // check free memory
