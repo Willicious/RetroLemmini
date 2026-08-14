@@ -43,4 +43,3 @@ src/apps/*/Win32/
 src/apps/*/_*/
 src/apps/*/*.identcache
 src/apps/*/*.dproj.local
-/dependencies/
