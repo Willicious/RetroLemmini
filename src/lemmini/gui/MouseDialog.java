@@ -41,10 +41,6 @@ public class MouseDialog extends JDialog {
     // action -> (button -> checkbox)
     private final Map<MouseAction, Map<Integer, JCheckBox>> actionCheckBoxes =
             new EnumMap<MouseAction, Map<Integer, JCheckBox>>(MouseAction.class);
-    
-    JCheckBox checkWheelSkillSelect;
-    JCheckBox checkWheelBrushSize;
-    JCheckBox checkClickAirToCancelReplay;
 
     public MouseDialog(MouseInput mouseInput) {
 
@@ -108,31 +104,6 @@ public class MouseDialog extends JDialog {
         JPanel optionsPanel = new JPanel();
         optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.Y_AXIS));
         optionsPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-        
-        // Click air to cancel replay
-        JPanel cancelReplayPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        checkClickAirToCancelReplay = new JCheckBox("Click Air to Cancel Replay");
-        cancelReplayPanel.add(checkClickAirToCancelReplay);
-        optionsPanel.add(cancelReplayPanel);
-
-        // Scroll wheel to select skills
-        JPanel skillPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        checkWheelSkillSelect = new JCheckBox("Use Scroll Wheel to Select Skills");
-        skillPanel.add(checkWheelSkillSelect);
-        optionsPanel.add(skillPanel);
-
-        // Scroll wheel to change debug brush size
-        JPanel brushPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        checkWheelBrushSize = new JCheckBox("Use Scroll Wheel to Change Debug Draw Paintbrush Size");
-        brushPanel.add(checkWheelBrushSize);
-        optionsPanel.add(brushPanel);
-        
-        // Ctrl + LMB for 'hold to assign' tip
-        JPanel tipsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        tipsPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
-        JLabel labelHoldToAssignTip = new JLabel("TIP: Press Ctrl and hold LMB to auto-assign skills to lemmings under the cursor");
-        tipsPanel.add(labelHoldToAssignTip);
-        optionsPanel.add(tipsPanel);
 
         // Add to main panel
         mainPanel.add(Box.createVerticalStrut(10));
@@ -175,10 +146,6 @@ public class MouseDialog extends JDialog {
                 box.setEnabled(isAllowed(action, button));
             }
         }
-
-        checkClickAirToCancelReplay.setSelected(source.clickAirToCancelReplay);
-        checkWheelSkillSelect.setSelected(source.enableWheelSkillSelect);
-        checkWheelBrushSize.setSelected(source.enableWheelBrushSize);
     }
     
     private void loadUserConfig() {
@@ -230,9 +197,6 @@ public class MouseDialog extends JDialog {
                 }
             }
         }
-        target.clickAirToCancelReplay = checkClickAirToCancelReplay.isSelected();
-        target.enableWheelSkillSelect = checkWheelSkillSelect.isSelected();
-        target.enableWheelBrushSize = checkWheelBrushSize.isSelected();
     }
 
     private void saveConfig(ActionEvent e) {

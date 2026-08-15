@@ -15,7 +15,6 @@
  */
 package lemmini.gameutil;
 
-import lemmini.game.LemGame;
 import lemmini.tools.Props;
 
 import java.awt.event.MouseEvent;
@@ -35,10 +34,6 @@ public class MouseInput {
         RELEASERATEDOWN,
         RELEASERATEUP
     }
-    
-    public boolean clickAirToCancelReplay;
-    public boolean enableWheelSkillSelect;
-    public boolean enableWheelBrushSize;
 
     public final Map<Integer, List<MouseAction>> buttonMap =
             new HashMap<Integer, List<MouseAction>>();
@@ -56,10 +51,6 @@ public class MouseInput {
         addMapping(MouseEvent.BUTTON3, MouseAction.FASTSCROLL);
         addMapping(4, MouseAction.RELEASERATEDOWN);
         addMapping(5, MouseAction.RELEASERATEUP);
-        
-        clickAirToCancelReplay = true;
-        enableWheelSkillSelect = false;
-        enableWheelBrushSize = true;
     }
 
     public void clearMappings() {
@@ -99,18 +90,7 @@ public class MouseInput {
         return buttonMap;
     }
     
-    private void applyOptionChanges() {
-        LemGame.setOption(LemGame.Option.CLICK_AIR_TO_CANCEL_REPLAY, clickAirToCancelReplay);
-        LemGame.setOption(LemGame.Option.ENABLE_WHEEL_SKILL_SELECT, enableWheelSkillSelect);
-        LemGame.setOption(LemGame.Option.ENABLE_WHEEL_BRUSH_SIZE, enableWheelBrushSize);
-    }
-    
     public void loadFromProgramProps(Props props) {
-        clickAirToCancelReplay = props.getBoolean("clickAirToCancelReplay", true);
-        enableWheelSkillSelect = props.getBoolean("enableWheelSkillSelect", false);
-        enableWheelBrushSize = props.getBoolean("enableWheelBrushSize", true);
-        applyOptionChanges();
-
         clearMappings();
 
         for (MouseAction action : MouseAction.values()) {
@@ -130,12 +110,7 @@ public class MouseInput {
         }
     }
     
-    public void saveToProgramProps(Props props) {
-        props.setBoolean("clickAirToCancelReplay", clickAirToCancelReplay);
-        props.setBoolean("enableWheelSkillSelect", enableWheelSkillSelect);
-        props.setBoolean("enableWheelBrushSize", enableWheelBrushSize);
-        applyOptionChanges();
-    	
+    public void saveToProgramProps(Props props) {    	
         for (MouseAction action : MouseAction.values()) {
             props.remove("mouseInput." + action.name());
         }

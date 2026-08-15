@@ -100,6 +100,9 @@ public class OptionsDialog extends JDialog {
 		jCheckBoxClassicCursor = new javax.swing.JCheckBox();
 		jCheckBoxFaster = new javax.swing.JCheckBox();
 		jCheckBoxPauseStopsFastForward = new javax.swing.JCheckBox();
+		jCheckBoxClickToCancelReplay = new javax.swing.JCheckBox();
+		jCheckBoxWheelSkillSelect = new javax.swing.JCheckBox();
+		jCheckBoxWheelBrushSize = new javax.swing.JCheckBox();
 		jCheckBoxUsePercentages = new javax.swing.JCheckBox();
 		jCheckBoxReplayScroll = new javax.swing.JCheckBox();
 		jCheckBoxUnpauseOnAssignment = new javax.swing.JCheckBox();
@@ -377,6 +380,18 @@ public class OptionsDialog extends JDialog {
 		jCheckBoxReplayScroll.setSelected(LemGame.isOptionEnabled(LemGame.Option.REPLAY_SCROLL));
 		jCheckBoxReplayScroll.setText("Scroll Level During Replay");
 		setHint(jCheckBoxReplayScroll, "When replaying, automatically scroll the level according to replay-recorded camera movement");
+		
+		jCheckBoxClickToCancelReplay.setSelected(LemGame.isOptionEnabled(LemGame.Option.CLICK_AIR_TO_CANCEL_REPLAY));
+		jCheckBoxClickToCancelReplay.setText("Click Air to Cancel Replay");
+		setHint(jCheckBoxClickToCancelReplay, "When Replay mode is active, cancel it by clicking air with left-mouse-button");
+		
+		jCheckBoxWheelSkillSelect.setSelected(LemGame.isOptionEnabled(LemGame.Option.ENABLE_WHEEL_SKILL_SELECT));
+		jCheckBoxWheelSkillSelect.setText("Use Mouse Wheel to Select Skills");
+		setHint(jCheckBoxWheelSkillSelect, "Roll the mouse wheel up or down to cycle through the skills");
+		
+		jCheckBoxWheelBrushSize.setSelected(LemGame.isOptionEnabled(LemGame.Option.ENABLE_WHEEL_BRUSH_SIZE));
+		jCheckBoxWheelBrushSize.setText("Use Mouse Wheel to Set Debug Draw Brush Size");
+		setHint(jCheckBoxWheelBrushSize, "When Debug Draw mode is active, roll the mouse wheel up or down to set the paintbrush size");
 
 		javax.swing.GroupLayout jPanelControlSchemeLayout = new javax.swing.GroupLayout(jPanelControlScheme);
 		jPanelControlScheme.setLayout(jPanelControlSchemeLayout);
@@ -391,7 +406,10 @@ public class OptionsDialog extends JDialog {
 										.addComponent(jCheckBoxFaster)
 										.addComponent(jCheckBoxPauseStopsFastForward)
 										.addComponent(jCheckBoxUnpauseOnAssignment)
-										.addComponent(jCheckBoxReplayScroll))
+										.addComponent(jCheckBoxReplayScroll)
+										.addComponent(jCheckBoxClickToCancelReplay)
+										.addComponent(jCheckBoxWheelSkillSelect)
+										.addComponent(jCheckBoxWheelBrushSize))
 								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		jPanelControlSchemeLayout.setVerticalGroup(jPanelControlSchemeLayout
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -409,6 +427,12 @@ public class OptionsDialog extends JDialog {
 						.addComponent(jCheckBoxUnpauseOnAssignment)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 						.addComponent(jCheckBoxReplayScroll)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(jCheckBoxClickToCancelReplay)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(jCheckBoxWheelSkillSelect)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(jCheckBoxWheelBrushSize)
 						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		
 		jPanelSkillPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Skill Panel",
@@ -796,6 +820,7 @@ public class OptionsDialog extends JDialog {
 		LemGame.setOption(LemGame.Option.PAUSE_STOPS_FAST_FORWARD, jCheckBoxPauseStopsFastForward.isSelected());
 		LemGame.setOption(LemGame.Option.USE_PERCENTAGES, jCheckBoxUsePercentages.isSelected());
 		LemGame.setOption(LemGame.Option.REPLAY_SCROLL, jCheckBoxReplayScroll.isSelected());
+		LemGame.setOption(LemGame.Option.CLICK_AIR_TO_CANCEL_REPLAY, jCheckBoxClickToCancelReplay.isSelected());
 		LemGame.setOption(LemGame.Option.UNPAUSE_ON_ASSIGNMENT, jCheckBoxUnpauseOnAssignment.isSelected());
 		LemGame.setOption(LemGame.Option.TIMED_BOMBERS, jCheckBoxTimedBombers.isSelected());
 		LemGame.setOption(LemGame.Option.UNLOCK_ALL_LEVELS, jCheckBoxUnlockAllLevels.isSelected());
@@ -822,6 +847,9 @@ public class OptionsDialog extends JDialog {
 	private javax.swing.JCheckBox jCheckBoxEnableSound;
 	private javax.swing.JCheckBox jCheckBoxFaster;
 	private javax.swing.JCheckBox jCheckBoxUsePercentages;
+	private javax.swing.JCheckBox jCheckBoxClickToCancelReplay;
+	private javax.swing.JCheckBox jCheckBoxWheelSkillSelect;
+	private javax.swing.JCheckBox jCheckBoxWheelBrushSize;
 	private javax.swing.JCheckBox jCheckBoxPauseStopsFastForward;
 	private javax.swing.JCheckBox jCheckBoxReplayScroll;
 	private javax.swing.JCheckBox jCheckBoxUnpauseOnAssignment;
