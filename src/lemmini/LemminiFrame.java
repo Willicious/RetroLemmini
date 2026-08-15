@@ -561,6 +561,7 @@ public class LemminiFrame extends JFrame {
     void handleAbout() {
         String urlLemmini = "http://lemmini.de";
         String urlForumBoard = "https://www.lemmingsforums.net/index.php?board=10.0";
+        String urlRetroLemminiBoard = "https://www.lemmingsforums.net/index.php?board=10.0";
         String urlRetroLemmini = "https://www.lemmingsforums.net/index.php?topic=7030.0";
         String urlLevelsCatalog = "https://www.lemmingsforums.net/index.php?msg=88514";
         String urlMusicCatalog = "https://www.lemmingsforums.net/index.php?msg=108302";
@@ -569,20 +570,24 @@ public class LemminiFrame extends JFrame {
         JEditorPane editorPane = new JEditorPane("text/html",
                 "<html>"
                 + "RetroLemmini Version " + Core.REVISION + "<br>"
-                + "By William James<br><br>"
+                + "by William James<br><br>"
                 + "Based on:<br><br>"
                 + "SuperLemminiToo by Charles Irwin<br>"
                 + "SuperLemmini by Ryan Sakowski<br>"
                 + "Original Lemmini by Volker Oth<br><br>"
+                + "Be sure to visit the <a href='" + urlRetroLemminiBoard + "'>" + "RetroLemmini board on LemmingsForums.net" + "</a> for more information,<br>"
+                + "custom levels, and to make any suggestions or report any bugs. Thanks!<br><br>"
                 + "Get the latest version of RetroLemmini here: <a href='" + urlRetroLemmini + "'>" + "RetroLemmini on LemmingsForums.net" + "</a><br>"
                 + "Join the Forum discussion here: <a href='" + urlForumBoard + "'>" + "Discussion board on LemmingsForums.net" + "</a><br>"
                 + "Lemmini website: <a href='" + urlLemmini + "'>" + urlLemmini + "</a><br><br>"
                 + "<a href='" + urlLevelsCatalog + "'>" + "Get more levels here" + "</a><br>"
                 + "<a href='" + urlMusicCatalog + "'>" + "Get more music here" + "</a><br><br>"
                 + "Special thanks to:<br><br>"
-                + "Eric Derkovits and hrb264 for much-needed bug testing, feedback and extra pairs of eyes<br>"
-                + "Simon Naarman and Pooty Limbo for help with navigating the lemmini codebase<br>"
-                + "Zanzindorf for the awesome menu bar icons<br>"
+                + "Eric Derkovits and hrb264 for much-needed bug testing, feedback and extra pairs of eyes,<br>"
+                + "Simon Naarman and Pooty Limbo for help with navigating the lemmini codebase,<br>"
+                + "William James for drawing ponytails on all the Lemminas sprites,<br>"
+                + "Jeremy Kapp for drawing santa hats on all of the xmas sprites,<br>"
+                + "Zanzindorf for the awesome menu bar icons!<br>"
                 + "<br>"
                 + "Revision Commit ID: " + getGitCommitSHA(7) + "</a><br>"
                 + "Java Version: " + System.getProperty("java.version")
