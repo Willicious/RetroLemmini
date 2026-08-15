@@ -261,6 +261,7 @@ public class Core {
         LemGame.setOption(LemGame.Option.SHOW_MENU_BAR, programProps.getBoolean("showMenuBar", true));
         LemGame.setOption(LemGame.Option.FULL_COLOR_MINIMAP, programProps.getBoolean("fullColorMinimap", true));
         LemGame.setOption(LemGame.Option.USE_PG_SPRITES, programProps.getBoolean("usePGSprites", false));
+        LemGame.setOption(LemGame.Option.FAST_SCROLL, programProps.getBoolean("fastScroll", false));
         LemGame.setOption(LemGame.Option.POSTVIEW_JINGLES, programProps.getBoolean("postviewJingles", false));
         LemGame.setOption(LemGame.Option.CLICK_AIR_TO_CANCEL_REPLAY, programProps.getBoolean("clickAirToCancelReplay", true));
         LemGame.setOption(LemGame.Option.ENABLE_WHEEL_SKILL_SELECT, programProps.getBoolean("enableWheelSkillSelect", false));
@@ -423,6 +424,7 @@ public class Core {
         programProps.setBoolean("showMenuBar", LemGame.isOptionEnabled(LemGame.Option.SHOW_MENU_BAR));
         programProps.setBoolean("fullColorMinimap", LemGame.isOptionEnabled(LemGame.Option.FULL_COLOR_MINIMAP));
         programProps.setBoolean("usePGSprites", LemGame.isOptionEnabled(LemGame.Option.USE_PG_SPRITES));
+        programProps.setBoolean("fastScroll", LemGame.isOptionEnabled(LemGame.Option.FAST_SCROLL));
         programProps.setBoolean("postviewJingles", LemGame.isOptionEnabled(LemGame.Option.POSTVIEW_JINGLES));
         programProps.setBoolean("clickAirToCancelReplay", LemGame.isOptionEnabled(LemGame.Option.CLICK_AIR_TO_CANCEL_REPLAY));
         programProps.setBoolean("enableWheelSkillSelect", LemGame.isOptionEnabled(LemGame.Option.ENABLE_WHEEL_SKILL_SELECT));

@@ -30,7 +30,7 @@ public class MouseInput {
         TOGGLEPAUSE,
         SELECTWALKER,
         DRAGVIEWAREA,
-        FASTSCROLL,
+        MODIFYSCROLLSPEED,
         RELEASERATEDOWN,
         RELEASERATEUP
     }
@@ -48,7 +48,7 @@ public class MouseInput {
         addMapping(MouseEvent.BUTTON2, MouseAction.TOGGLEPAUSE);
         addMapping(MouseEvent.BUTTON3, MouseAction.DRAGVIEWAREA);
         addMapping(MouseEvent.BUTTON3, MouseAction.SELECTWALKER);
-        addMapping(MouseEvent.BUTTON3, MouseAction.FASTSCROLL);
+        addMapping(MouseEvent.BUTTON3, MouseAction.MODIFYSCROLLSPEED);
         addMapping(4, MouseAction.RELEASERATEDOWN);
         addMapping(5, MouseAction.RELEASERATEUP);
     }

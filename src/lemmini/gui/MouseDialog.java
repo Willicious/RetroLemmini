@@ -18,6 +18,7 @@ package lemmini.gui;
 import javax.swing.*;
 
 import lemmini.game.Core;
+import lemmini.game.LemGame;
 import lemmini.gameutil.MouseInput;
 import lemmini.gameutil.MouseInput.MouseAction;
 
@@ -167,7 +168,7 @@ public class MouseDialog extends JDialog {
             case TOGGLEPAUSE: return "Toggle Pause";
             case SELECTWALKER: return "Select Walker Only";
             case DRAGVIEWAREA: return "Drag-to-Scroll View Area";
-            case FASTSCROLL: return "Fast Scroll";
+            case MODIFYSCROLLSPEED: return LemGame.isOptionEnabled(LemGame.Option.FAST_SCROLL) ? "Decrease Scroll Speed" : "Increase Scroll Speed";
             case RELEASERATEDOWN: return "Release Rate (-)";
             case RELEASERATEUP: return "Release Rate (+)";
             default: return action.name();

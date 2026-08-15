@@ -98,7 +98,11 @@ public class OptionsDialog extends JDialog {
 		jPanelParentalSettings = new javax.swing.JPanel();
 		jCheckBoxAdvanced = new javax.swing.JCheckBox();
 		jCheckBoxClassicCursor = new javax.swing.JCheckBox();
-		jCheckBoxFaster = new javax.swing.JCheckBox();
+		jLabelScrollSpeed = new javax.swing.JLabel();
+		jRadioButtonSlowScroll = new javax.swing.JRadioButton();
+		jRadioButtonFastScroll = new javax.swing.JRadioButton();
+		scrollSpeedGroup = new javax.swing.ButtonGroup();
+		jCheckBoxFasterForward = new javax.swing.JCheckBox();
 		jCheckBoxPauseStopsFastForward = new javax.swing.JCheckBox();
 		jCheckBoxClickToCancelReplay = new javax.swing.JCheckBox();
 		jCheckBoxWheelSkillSelect = new javax.swing.JCheckBox();
@@ -356,6 +360,7 @@ public class OptionsDialog extends JDialog {
 		jButtonConfigureMouse.setText("Configure Mouse");
 		jButtonConfigureMouse.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				LemGame.setOption(LemGame.Option.FAST_SCROLL, jRadioButtonFastScroll.isSelected()); // for MouseDialog
 				parentPanel.handleMouseDialog();
 			}
 		});
@@ -365,9 +370,9 @@ public class OptionsDialog extends JDialog {
 		jCheckBoxClassicCursor.setText("Classic Cursor");
 		setHint(jCheckBoxClassicCursor, "The Standard Cursor anchors to the selected lemming. The Classic Cursor follows the mouse");
 
-		jCheckBoxFaster.setSelected(LemGame.isOptionEnabled(LemGame.Option.FASTER_FAST_FORWARD));
-		jCheckBoxFaster.setText("Double Fast-Forward Speed");
-		setHint(jCheckBoxFaster, "Standard Fast-Forward is 3x faster than normal. Double Fast-Forward is 6x faster than normal");
+		jCheckBoxFasterForward.setSelected(LemGame.isOptionEnabled(LemGame.Option.FASTER_FAST_FORWARD));
+		jCheckBoxFasterForward.setText("Double Fast-Forward Speed");
+		setHint(jCheckBoxFasterForward, "Standard Fast-Forward is 3x faster than normal. Double Fast-Forward is 6x faster than normal");
 
 		jCheckBoxPauseStopsFastForward.setSelected(LemGame.isOptionEnabled(LemGame.Option.PAUSE_STOPS_FAST_FORWARD));
 		jCheckBoxPauseStopsFastForward.setText("Stop Fast-Forward When Pausing");
@@ -392,6 +397,21 @@ public class OptionsDialog extends JDialog {
 		jCheckBoxWheelBrushSize.setSelected(LemGame.isOptionEnabled(LemGame.Option.ENABLE_WHEEL_BRUSH_SIZE));
 		jCheckBoxWheelBrushSize.setText("Use Mouse Wheel to Set Debug Draw Brush Size");
 		setHint(jCheckBoxWheelBrushSize, "When Debug Draw mode is active, roll the mouse wheel up or down to set the paintbrush size");
+		
+		// Radio group for Scroll speed
+		jLabelScrollSpeed.setText("Default Scroll Speed: ");
+		jRadioButtonSlowScroll.setText("Slow");		
+		jRadioButtonFastScroll.setText("Fast");
+		setHint(jLabelScrollSpeed, "Set the default camera speed when scrolling");
+		setHint(jRadioButtonSlowScroll, "Scroll the camera slowly by default (hold Shift or RMB at any time to access the fast speed)");
+		setHint(jRadioButtonFastScroll, "Scroll the camera quickly by default (hold Shift or RMB at any time to access the slow speed)");
+
+		scrollSpeedGroup.add(jRadioButtonSlowScroll);
+		scrollSpeedGroup.add(jRadioButtonFastScroll);
+
+		boolean useFastScroll = LemGame.isOptionEnabled(LemGame.Option.FAST_SCROLL);
+		jRadioButtonSlowScroll.setSelected(!useFastScroll);
+		jRadioButtonFastScroll.setSelected(useFastScroll);
 
 		javax.swing.GroupLayout jPanelControlSchemeLayout = new javax.swing.GroupLayout(jPanelControlScheme);
 		jPanelControlScheme.setLayout(jPanelControlSchemeLayout);
@@ -403,13 +423,19 @@ public class OptionsDialog extends JDialog {
 										.addComponent(jButtonConfigureHotkeys, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 										.addComponent(jButtonConfigureMouse, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 										.addComponent(jCheckBoxClassicCursor)
-										.addComponent(jCheckBoxFaster)
+										.addComponent(jCheckBoxFasterForward)
 										.addComponent(jCheckBoxPauseStopsFastForward)
 										.addComponent(jCheckBoxUnpauseOnAssignment)
 										.addComponent(jCheckBoxReplayScroll)
 										.addComponent(jCheckBoxClickToCancelReplay)
 										.addComponent(jCheckBoxWheelSkillSelect)
-										.addComponent(jCheckBoxWheelBrushSize))
+										.addComponent(jCheckBoxWheelBrushSize)
+										.addGroup(jPanelControlSchemeLayout.createSequentialGroup()
+											    .addComponent(jLabelScrollSpeed)
+											    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+											    .addComponent(jRadioButtonSlowScroll)
+											    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+											    .addComponent(jRadioButtonFastScroll)))
 								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		jPanelControlSchemeLayout.setVerticalGroup(jPanelControlSchemeLayout
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -420,7 +446,7 @@ public class OptionsDialog extends JDialog {
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 						.addComponent(jCheckBoxClassicCursor)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(jCheckBoxFaster)
+						.addComponent(jCheckBoxFasterForward)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 						.addComponent(jCheckBoxPauseStopsFastForward)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -433,6 +459,11 @@ public class OptionsDialog extends JDialog {
 						.addComponent(jCheckBoxWheelSkillSelect)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 						.addComponent(jCheckBoxWheelBrushSize)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addGroup(jPanelControlSchemeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+							    .addComponent(jLabelScrollSpeed)
+							    .addComponent(jRadioButtonSlowScroll)
+							    .addComponent(jRadioButtonFastScroll))
 						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		
 		jPanelSkillPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Skill Panel",
@@ -443,7 +474,6 @@ public class OptionsDialog extends JDialog {
 		jCheckBoxEnhancedStatus.addActionListener(_ -> {
 			boolean enabled = jCheckBoxEnhancedStatus.isSelected();
 			jCheckBoxShowLevelName.setEnabled(enabled);
-
 			if (!enabled) {
 				jCheckBoxShowLevelName.setSelected(false);
 			}
@@ -816,10 +846,11 @@ public class OptionsDialog extends JDialog {
 		LemGame.setOption(LemGame.Option.SHOW_MENU_BAR, jCheckBoxShowMenuBar.isSelected());
 		// apply miscellaneous settings
 		LemGame.setOption(LemGame.Option.ADVANCED_SELECT, jCheckBoxAdvanced.isSelected());
-		LemGame.setOption(LemGame.Option.FASTER_FAST_FORWARD, jCheckBoxFaster.isSelected());
+		LemGame.setOption(LemGame.Option.FASTER_FAST_FORWARD, jCheckBoxFasterForward.isSelected());
 		LemGame.setOption(LemGame.Option.PAUSE_STOPS_FAST_FORWARD, jCheckBoxPauseStopsFastForward.isSelected());
 		LemGame.setOption(LemGame.Option.USE_PERCENTAGES, jCheckBoxUsePercentages.isSelected());
 		LemGame.setOption(LemGame.Option.REPLAY_SCROLL, jCheckBoxReplayScroll.isSelected());
+		LemGame.setOption(LemGame.Option.FAST_SCROLL, jRadioButtonFastScroll.isSelected());
 		LemGame.setOption(LemGame.Option.CLICK_AIR_TO_CANCEL_REPLAY, jCheckBoxClickToCancelReplay.isSelected());
 		LemGame.setOption(LemGame.Option.UNPAUSE_ON_ASSIGNMENT, jCheckBoxUnpauseOnAssignment.isSelected());
 		LemGame.setOption(LemGame.Option.TIMED_BOMBERS, jCheckBoxTimedBombers.isSelected());
@@ -845,7 +876,7 @@ public class OptionsDialog extends JDialog {
 	private javax.swing.JCheckBox jCheckBoxClassicCursor;
 	private javax.swing.JCheckBox jCheckBoxEnableMusic;
 	private javax.swing.JCheckBox jCheckBoxEnableSound;
-	private javax.swing.JCheckBox jCheckBoxFaster;
+	private javax.swing.JCheckBox jCheckBoxFasterForward;
 	private javax.swing.JCheckBox jCheckBoxUsePercentages;
 	private javax.swing.JCheckBox jCheckBoxClickToCancelReplay;
 	private javax.swing.JCheckBox jCheckBoxWheelSkillSelect;
@@ -881,6 +912,10 @@ public class OptionsDialog extends JDialog {
 	private javax.swing.JRadioButton jRadioButtonAmigaTheme;
 	private javax.swing.JRadioButton jRadioButtonWinLemmTheme;
 	private javax.swing.ButtonGroup menuThemeGroup;
+	private javax.swing.JLabel jLabelScrollSpeed;
+	private javax.swing.JRadioButton jRadioButtonSlowScroll;
+	private javax.swing.JRadioButton jRadioButtonFastScroll;
+	private javax.swing.ButtonGroup scrollSpeedGroup;
 	private javax.swing.JPanel jPanelGraphics;
 	private javax.swing.JPanel jPanelSkillPanel;
 	private javax.swing.JPanel jPanelClassicMode;

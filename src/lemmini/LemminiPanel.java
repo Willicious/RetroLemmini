@@ -510,7 +510,7 @@ public class LemminiPanel extends JPanel implements Runnable {
 			                        case SELECTWALKER:
 			                            pressSelectWalker();
 			                            break;		
-			                        case FASTSCROLL:
+			                        case MODIFYSCROLLSPEED:
 			                            LemGame.setShiftPressed(true);
 			                            break;
 			                        case RELEASERATEDOWN:
@@ -555,7 +555,7 @@ public class LemminiPanel extends JPanel implements Runnable {
 	                        case SELECTWALKER:
 	    	                	releaseSelectWalker();
 	                        	break;
-	                        case FASTSCROLL:
+	                        case MODIFYSCROLLSPEED:
 	    	            	    LemGame.setShiftPressed(false);
 	                        	break;
 	                        case RELEASERATEDOWN:
@@ -2428,7 +2428,10 @@ public class LemminiPanel extends JPanel implements Runnable {
     }
 
     private int getStepSize() {
-        return (LemGame.isShiftPressed() ? X_STEP_FAST : X_STEP);
+    	if (LemGame.isOptionEnabled(LemGame.Option.FAST_SCROLL))
+    		return (LemGame.isShiftPressed() ? X_STEP : X_STEP_FAST);
+    	else
+    		return (LemGame.isShiftPressed() ? X_STEP_FAST : X_STEP);
     }
 
     public int getDrawBrushSize() {

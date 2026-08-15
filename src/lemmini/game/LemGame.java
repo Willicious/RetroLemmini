@@ -164,6 +164,8 @@ public class LemGame {
         FULL_COLOR_MINIMAP,
         /** flag: use PG sprite variants (if provided by the style author) */
         USE_PG_SPRITES,
+        /** flag: choose which scroll speed to use as the default */
+        FAST_SCROLL,
         /** flag: play a pass/fail jingle on loading postview screen */
         POSTVIEW_JINGLES,
         /** flag: click air (anywhere but a lemming) to cancel replay */
