@@ -171,7 +171,8 @@ public class TextScreen {
      * Initialize the intro screen.
      */
     static void initIntro() {
-        textDialog.clear();
+    	if (textDialog != null)
+    		textDialog.clear();
         
         if (LemGame.getMenuThemeOption() == LemGame.MenuThemeOption.WINLEMM) {
         	createWinLemmThemeMenu();

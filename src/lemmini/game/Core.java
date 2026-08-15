@@ -690,7 +690,7 @@ public class Core {
                 }
             }
         });
-        JOptionPane.showMessageDialog(null, pane, "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, pane, "Error", JOptionPane.ERROR_MESSAGE);     
         returnToMainMenu();
     }
     
