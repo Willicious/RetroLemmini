@@ -33,7 +33,7 @@ import lemmini.gameutil.Hotkey;
 import lemmini.gameutil.MouseInput;
 import lemmini.gameutil.LemHotkeys;
 import lemmini.graphics.LemImage;
-import lemmini.gui.DisclaimerDialog;
+import lemmini.gui.WelcomeDialog;
 import lemmini.tools.CaseInsensitiveFileTree;
 import lemmini.tools.CommitID;
 import lemmini.tools.Props;
@@ -188,13 +188,12 @@ public class Core {
 
         if (!programProps.load(programPropsFilePath)) {
             System.out.println("    unable to read config file... prompting disclaimer agreement ...");
-            // might exist or not - if not, it's created
-            // show the Legal Disclaimer. And force the user to choose "I Agree."
-            // NOTE: the Legal Disclaimer is loaded from "disclaimer.htm"
-            DisclaimerDialog ld = new DisclaimerDialog();
-            ld.setVisible(true);
-            ld.waitUntilClosed();
-            if (!ld.isOK()) {
+            // if config does not exist, show the Legal Disclaimer (which is loaded from "disclaimer.htm")
+            // User must agree with the Legal disclaimer to use the program.
+            WelcomeDialog wd = new WelcomeDialog();
+            wd.setVisible(true);
+            wd.waitUntilClosed();
+            if (!wd.isOK()) {
                 // user does not agree, so we exit.
                 System.out.println("    user declined agreement. quitting...");
                 return false;

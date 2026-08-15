@@ -31,7 +31,7 @@ import lemmini.LemminiFrame;
  * @author Volker Oth
  * Modified by Ryan Sakowski, Charles Irwin and Will James
  */
-public class DisclaimerDialog extends JFrame {
+public class WelcomeDialog extends JFrame {
 
     /**
      *
@@ -43,7 +43,7 @@ public class DisclaimerDialog extends JFrame {
     /**
      * Creates new form DisclaimerDialog
      */
-    public DisclaimerDialog() {
+    public WelcomeDialog() {
         initComponents();
         setMinimumSize(getSize());
     }
@@ -56,8 +56,7 @@ public class DisclaimerDialog extends JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
-        jScrollPaneLegal = new javax.swing.JScrollPane();
+    	jScrollPaneLegal = new javax.swing.JScrollPane();
         jEditorPaneLegal = new javax.swing.JEditorPane();
         jButtonOK = new javax.swing.JButton();
         jButtonCancel = new javax.swing.JButton();
@@ -71,7 +70,7 @@ public class DisclaimerDialog extends JFrame {
             }
         });
 
-        ClassLoader loader = DisclaimerDialog.class.getClassLoader();
+        ClassLoader loader = WelcomeDialog.class.getClassLoader();
         thisURL = loader.getResource("disclaimer.htm");
         jEditorPaneLegal.setEditable(false);
         try {
@@ -86,14 +85,14 @@ public class DisclaimerDialog extends JFrame {
         });
         jScrollPaneLegal.setViewportView(jEditorPaneLegal);
 
-        jButtonOK.setText("I agree");
+        jButtonOK.setText("Agree & Continue");
         jButtonOK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonOKActionPerformed(evt);
             }
         });
 
-        jButtonCancel.setText("I disagree");
+        jButtonCancel.setText("Disagree & Close");
         jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancelActionPerformed(evt);
@@ -119,7 +118,7 @@ public class DisclaimerDialog extends JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPaneLegal, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
+                .addComponent(jScrollPaneLegal, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonOK)
