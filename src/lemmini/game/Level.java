@@ -778,8 +778,8 @@ public class Level {
                             // now read terrain image
                             boolean opaque = fgImage.isPixelOpaque(x + spr.getX(), y + spr.getY());
                             int stencilMask = stencil.getMask(x + spr.getX(), y + spr.getY());
-                            paint = (drawFull || (opaque && drawOnVis))
-                                    && !(spr.getType().isOneWay() && BooleanUtils.toBoolean(stencilMask & Stencil.MSK_NO_ONE_WAY_DRAW));
+                            boolean disallowOneWay = BooleanUtils.toBoolean(stencilMask & (Stencil.MSK_NO_ONE_WAY_DRAW | Stencil.MSK_STEEL_BRICK));
+                            paint = (drawFull || (opaque && drawOnVis)) && !(spr.getType().isOneWay() && disallowOneWay);
                         }
                         if (!paint) {
                             spr.setPixelVisibility(x, y, false); // set transparent
