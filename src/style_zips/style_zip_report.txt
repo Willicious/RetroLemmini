@@ -1,17 +1,17 @@
+  CHANGED: brick.zip
   CHANGED: classic.zip
-UNCHANGED: brick.zip
+  CHANGED: crystal.zip
+  CHANGED: crystal_md.zip
+  CHANGED: dirt.zip
+  CHANGED: dirt_md.zip
+  CHANGED: pillar.zip
+  CHANGED: rock.zip
+  CHANGED: snow.zip
 UNCHANGED: bubble.zip
-UNCHANGED: crystal.zip
-UNCHANGED: crystal_md.zip
-UNCHANGED: dirt.zip
-UNCHANGED: dirt_md.zip
 UNCHANGED: fire.zip
 UNCHANGED: lemminas_pink.zip
 UNCHANGED: marble.zip
-UNCHANGED: pillar.zip
-UNCHANGED: rock.zip
 UNCHANGED: sega.zip
-UNCHANGED: snow.zip
 UNCHANGED: special.zip
 UNCHANGED: starlight.zip
 UNCHANGED: sugar.zip
