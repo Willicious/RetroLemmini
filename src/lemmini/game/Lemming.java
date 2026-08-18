@@ -662,7 +662,7 @@ public class Lemming {
                     int oldY = y;
                     switch (idx) {
                         case 0 * TIME_SCALE:
-                            y += 2; // TODO: why the 2px vertical movement ??
+                            y += 2;
                             break;
                         case 1 * TIME_SCALE:
                         case 2 * TIME_SCALE:
@@ -729,7 +729,8 @@ public class Lemming {
                         default:
                             break;
                     }
-                    turnedByBlocker();
+                    if (turnedByBlocker())
+                    	frameIdx = 0; // reset to start of action when turned by a Blocker (prevents clipping through terrain)
                     break;
                 }
 
@@ -1895,7 +1896,7 @@ public class Lemming {
                     }
                 case MINER:
                     if (canMine(true, playSound)) {
-                        y += 2; // TODO: why the vertical movement at the start ??
+                        y += 2;
                         changeType(type, newSkill);
                         counter = 0;
                         return playSetSkillSound(true, playSound);
