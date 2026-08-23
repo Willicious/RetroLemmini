@@ -316,16 +316,17 @@ public class TextScreen {
         } else {
             textDialog.addStringCentered("All " + LemGame.getLemmNamesPlural() + " accounted for.", null, -7, TURQUOISE);
         }
-        if (!LemGame.isOptionEnabled(LemGame.Option.USE_PERCENTAGES) || numLemmings > 100) {
-            textDialog.addStringCentered(String.format("You needed %d - You rescued %d", toRescue, rescued), null, -5, VIOLET);
+        boolean usePercent = LemGame.isOptionEnabled(LemGame.Option.USE_PERCENTAGES) && numLemmings <= 100;
+        boolean levelPassed = LemGame.levelPassed() && !LemGame.getWasCheated();
+        String youSaved = usePercent ? String.format("You saved %d%%", rescuedPercent) : String.format("You saved %d", rescued);
+        String inTimeTaken = levelPassed ? String.format(" in %d:%02d", timeElapsed / 60, timeElapsed % 60) : "";
+        String usingSkills = levelPassed ? String.format(" using %d %s", skillsUsed, ((skillsUsed == 1) ? "skill" : "skills")) : "";       
+        textDialog.addStringCentered(youSaved + inTimeTaken + usingSkills, null, -5, VIOLET);      
+        if (!levelPassed) {
+        	String youNeeded = usePercent ? String.format("You needed %d%%", toRescuePercent) : String.format("You needed %d", toRescue);
+        	textDialog.addStringCentered(youNeeded, null, -4, VIOLET);
         } else {
-            textDialog.addStringCentered(String.format("You needed %d%% - You rescued %d%%", toRescuePercent, rescuedPercent), null, -5, VIOLET);
-        }
-        if (LemGame.levelPassed() && !LemGame.getWasCheated()) {
-            String timeTaken = String.format("%d:%02d", timeElapsed / 60, timeElapsed % 60);
-            textDialog.addStringCentered(String.format("Time taken %s - Skills used %d", timeTaken, skillsUsed), null, -4, VIOLET);
-            String pointWord = (score == 1) ? "point" : "points";
-            textDialog.addStringCentered(String.format("Your score is %d %s", score, pointWord), null, -3, GREEN);
+            textDialog.addStringCentered(String.format("Score %d", score), null, -3, GREEN);
         }
         LevelPack lp = LemGame.getCurLevelPack();
         List<String> debriefings = lp.getDebriefings();
