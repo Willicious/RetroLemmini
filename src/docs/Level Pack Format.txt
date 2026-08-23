@@ -71,6 +71,10 @@ Each entry of the level list is as follows:
 
 level_n_m = Level file, Music index
 
+Or, if the music is specified by the level file, there's no need to include the Music index:
+
+level_n_m = Level file
+
 --n: The index number of the rating that this level will be part of.
 
 --m: The index number of this level entry. Index numbers of all entries must start at 0, must not be zero-padded, and must be contiguous.

@@ -170,7 +170,7 @@ public class LevelPack {
                     levelStr = props.getArray(rating + "_" + idx, null);
                 }
                 // filename, music number
-                if (levelStr != null && levelStr.length >= 2) {
+                if (levelStr != null && levelStr.length >= 1) {
 					String msg = null;
 					if (levelStr.length >= 2) {
 					    try {
@@ -183,13 +183,14 @@ public class LevelPack {
 					        msg = "Music index out of range: " + levelStr[1] + " (" + name + ")";
 					    }
 					} else {
-					    msg = "Invalid level data format (" + name + ")";
+						LevelInfo info = new LevelInfo(path + levelStr[0], null);
+						levels.add(info);
 					}
 					if (msg != null)
 						Core.generalError(msg);
                 }
                 idx++;
-            } while (levelStr != null && levelStr.length >= 2);
+            } while (levelStr != null && levelStr.length >= 1);
             lvlInfo.add(levels);
         }
     }
