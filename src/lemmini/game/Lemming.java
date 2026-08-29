@@ -748,6 +748,10 @@ public class Lemming {
                     }
                     int idx = frameIdx + 1;
                     if (idx >= lemRes.frames * TIME_SCALE) {
+                    	// re-paint step if the lem has turned
+                    	if (dir != stepDir) {
+                    		paintBuilderStep();
+                    	}
                         // step created -> move up
                         counter++; // step counter;
                         y -= 2; // step up
