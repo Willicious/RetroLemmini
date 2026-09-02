@@ -52,6 +52,7 @@ import lemmini.game.Lemming.Direction;
 import lemmini.gameutil.Fader;
 import lemmini.gameutil.Hotkey;
 import lemmini.gameutil.KeyRepeat;
+import lemmini.gameutil.MouseInput;
 import lemmini.gameutil.Sprite;
 import lemmini.graphics.GraphicsContext;
 import lemmini.graphics.LemImage;
@@ -209,6 +210,9 @@ public class LemGame {
     
     /** list of currently-active hotkeys */
     public static List<Hotkey> activeHotkeys;
+    
+    /** currently-active mouse button input */
+    public static MouseInput activeMouseInput;    
 
     /** key repeat bitmask for icons */
     public static final int KEYREPEAT_ICON = 1;

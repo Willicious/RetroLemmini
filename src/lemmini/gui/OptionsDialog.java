@@ -33,6 +33,9 @@ import lemmini.game.Core;
 import lemmini.game.LemGame;
 import lemmini.game.LemGame.ExitSoundOption;
 import lemmini.game.LemGame.MenuThemeOption;
+import lemmini.gameutil.LemHotkeys;
+import lemmini.gameutil.MouseInput;
+import lemmini.gameutil.MouseInput.MouseAction;
 import lemmini.sound.Music;
 import lemmini.tools.StyleDownloader;
 
@@ -281,8 +284,6 @@ public class OptionsDialog extends JDialog {
 				javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 		
 		jCheckBoxShowMenuBar.setSelected(LemGame.isOptionEnabled(LemGame.Option.SHOW_MENU_BAR));
-		jCheckBoxShowMenuBar.setText("Show Menu Bar (F1)");
-		setHint(jCheckBoxShowMenuBar, "Show the menu bar at the top of the game window. Use F1 to toggle visibility at any time");
 		
 		jCheckBoxBilinear.setSelected(Core.isBilinear());
 		jCheckBoxBilinear.setText("Graphics Smoothing");
@@ -353,6 +354,7 @@ public class OptionsDialog extends JDialog {
 		jButtonConfigureHotkeys.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				parentPanel.handleHotkeyDialog();
+				updateHotkeyLabels();
 			}
 		});
 		setHint(jButtonConfigureHotkeys, "Open the hotkey configuration dialog");
@@ -362,6 +364,7 @@ public class OptionsDialog extends JDialog {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				LemGame.setOption(LemGame.Option.FAST_SCROLL, jRadioButtonFastScroll.isSelected()); // for MouseDialog
 				parentPanel.handleMouseDialog();
+				updateHotkeyLabels();
 			}
 		});
 		setHint(jButtonConfigureMouse, "Open the mouse button configuration dialog");
@@ -403,8 +406,6 @@ public class OptionsDialog extends JDialog {
 		jRadioButtonSlowScroll.setText("Slow");		
 		jRadioButtonFastScroll.setText("Fast");
 		setHint(jLabelScrollSpeed, "Set the default camera speed when scrolling");
-		setHint(jRadioButtonSlowScroll, "Scroll the camera slowly by default (hold Shift or RMB at any time to access the fast speed)");
-		setHint(jRadioButtonFastScroll, "Scroll the camera quickly by default (hold Shift or RMB at any time to access the slow speed)");
 
 		scrollSpeedGroup.add(jRadioButtonSlowScroll);
 		scrollSpeedGroup.add(jRadioButtonFastScroll);
@@ -613,7 +614,6 @@ public class OptionsDialog extends JDialog {
 
 		jCheckBoxAdvanced.setSelected(LemGame.isOptionEnabled(LemGame.Option.ADVANCED_SELECT));
 		jCheckBoxAdvanced.setText("Advanced Select");
-		setHint(jCheckBoxAdvanced, "Hold 'Left/Right' keys to select only Left/Right-facing lemmings. Hold 'Up' to select only Walkers");
 
 		jCheckBoxTimedBombers.setSelected(LemGame.isOptionEnabled(LemGame.Option.TIMED_BOMBERS));
 		jCheckBoxTimedBombers.setText("Timed Bombers");
@@ -763,7 +763,8 @@ public class OptionsDialog extends JDialog {
 								.addComponent(jButtonCancel)
 								.addComponent(jButtonOK))
 						.addContainerGap()));
-
+		
+		updateHotkeyLabels();
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 	
@@ -784,6 +785,22 @@ public class OptionsDialog extends JDialog {
 	    boolean doAutosave = jCheckBoxAutoSaveReplays.isSelected();
 	    jLabelReplayTemplate.setEnabled(doAutosave);
 	    jTextFieldReplayTemplate.setEnabled(doAutosave);
+	}
+	
+	private void updateHotkeyLabels() {
+		String menuBarHotkey = LemHotkeys.getHotkeyDescription(LemHotkeys.HotkeyAction.HotkeyToggleMenuBar);
+		jCheckBoxShowMenuBar.setText("Show Menu Bar (" + menuBarHotkey +")");
+		setHint(jCheckBoxShowMenuBar, "Show the menu bar at the top of the game window. Use " + menuBarHotkey + " to toggle visibility at any time");
+		
+		String keyLeft = LemHotkeys.getHotkeyDescription(LemHotkeys.HotkeyAction.HotkeySelectLeft);
+		String keyRight = LemHotkeys.getHotkeyDescription(LemHotkeys.HotkeyAction.HotkeySelectRight);
+		String keyWalker = LemHotkeys.getHotkeyDescription(LemHotkeys.HotkeyAction.HotkeySelectWalker);
+		setHint(jCheckBoxAdvanced, "Hold " + keyLeft + "/" + keyRight + " keys to select only Left/Right-facing lemmings. Hold " + keyWalker + " to select only Walkers");
+		
+		MouseInput mouseInput = Core.getMouseInput();
+		String scrollSpeedButton = mouseInput.getButtonDescription(MouseAction.MODIFYSCROLLSPEED);
+		setHint(jRadioButtonSlowScroll, "Scroll the camera slowly by default (hold Shift or " + scrollSpeedButton + " at any time to access the fast speed)");
+		setHint(jRadioButtonFastScroll, "Scroll the camera quickly by default (hold Shift or " + scrollSpeedButton + " at any time to access the slow speed)");
 	}
 
 	private void jButtonUpdateStylesActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonUpdateStylesActionPerformed

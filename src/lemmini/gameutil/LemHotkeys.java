@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lemmini.game.LemGame;
+
 /**
  * App-wide hotkey factory.
  * @ Will James
@@ -385,5 +387,34 @@ public class LemHotkeys {
             }
         }
         return null;
+    }
+    
+    /**
+     * Returns an assigned hotkey object
+     */
+    public static Hotkey getHotkey(HotkeyAction action) {
+        if (LemGame.activeHotkeys == null)
+            return null;
+
+        for (Hotkey hk : LemGame.activeHotkeys) {
+            if (hk.getAction() == action)
+                return hk;
+        }
+        return null;
+    }
+    
+    /**
+     * Returns an assigned hotkey description
+     */
+    public static String getHotkeyDescription(HotkeyAction action) {
+        if (LemGame.activeHotkeys == null)
+            return UNDEFINED;
+
+        for (Hotkey hk : LemGame.activeHotkeys) {
+            if (hk.getAction() == action)
+                return hk.getKeyDescription();
+        }
+
+        return UNDEFINED;
     }
 }

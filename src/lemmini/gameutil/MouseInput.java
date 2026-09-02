@@ -127,4 +127,31 @@ public class MouseInput {
             }
         }
     }
+    
+    public static String getButtonName(int button) {
+        switch (button) {
+            case MouseEvent.BUTTON2:
+                return "MMB";
+            case MouseEvent.BUTTON3:
+                return "RMB";
+            case 4:
+                return "X1";
+            case 5:
+                return "X2";
+            default:
+                return "Unknown";
+        }
+    }
+    
+    public String getButtonDescription(MouseAction action) {
+        StringBuilder result = new StringBuilder();
+        for (Map.Entry<Integer, List<MouseAction>> entry : buttonMap.entrySet()) {
+            if (entry.getValue().contains(action)) {
+                if (result.length() > 0)
+                    result.append(" / ");
+                result.append(getButtonName(entry.getKey()));
+            }
+        }
+        return result.length() > 0 ? result.toString() : "None";
+    }
 }
