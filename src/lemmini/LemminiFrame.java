@@ -61,8 +61,6 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
 import org.apache.commons.lang3.BooleanUtils;
-import org.apache.commons.lang3.JavaVersion;
-import org.apache.commons.lang3.SystemUtils;
 
 import keyrepeatfix.RepeatingReleasedEventsFixer;
 import lemmini.game.Core;
@@ -1127,17 +1125,6 @@ public class LemminiFrame extends JFrame {
     	
         // write opening console log
         consoleInit();
-
-        /*
-         * Check JVM version
-         */
-        if (!SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_25)) {
-            System.out.println("Java Version >= 25 [FAIL]");
-            JOptionPane.showMessageDialog(null, "RetroLemmini requires Java 25 or later.", "Error", JOptionPane.ERROR_MESSAGE);
-            System.exit(1);
-        } else {
-            System.out.println("Java Version >= 25 [PASS]");
-        }
 
         // check free memory
         long free = Runtime.getRuntime().maxMemory();
