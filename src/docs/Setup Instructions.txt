@@ -4,15 +4,9 @@ A clone of the DMA Design game Lemmings(TM) with graphics from Lemmings For Wind
 
 Instructions for installation:
 
-1) Ensure that you have a copy of the latest version of Java installed on your system.
+Windows / Mac:
 
-For the JRE (good if you just want to run Java applications), go here:
-https://www.java.com/en/download/manual.jsp
-
-For the JDK (good if you intend to do some Java programming of your own!), go here:
-https://www.oracle.com/java/technologies/downloads/
-
-2) Copy across any levels, mods, music, player data, replays, sounds and styles
+1) Copy across any levels, mods, music, player data, replays, sounds and styles
    from your existing (Super)Lemmini(Too) installation into the relevant folder
    within the "resources" folder
    
@@ -27,26 +21,19 @@ https://www.oracle.com/java/technologies/downloads/
    (NOTE: The "lib" folder contains all of the library dependencies
    that RetroLemmini needs to run, you don't need to do anything with these)
    
-3) Run RetroLemmini.jar
+   (NOTE: The "custom-runtime" folder contains a lightweight Java runtime
+   that RetroLemmini needs to run, you don't need to do anything with this)
 
-4) Enjoy!
+Windows:
+ 
+2) Run RetroLemmini.exe
 
-Optional:
+3) Enjoy!
 
-Pin RetroLemmini to the Windows taskbar for quick access:
-1.	Right-click on the desktop and navitage to New>Shortcut
-2.	In the window that pops up, Browse to the RetroLemmini.jar Executable Jar File
-3.	Name the shortcut RetroLemmini
-4.	Check that the shortcut opens RetroLemmini
-5.	Right-click the shortcut and select Properties
-6.	In the Target field, type the following at the start, before the “C:\path\to\jar” text: javaw.exe[SPACE]-jar[SPACE]
-7.	Press Apply, OK
-8.	Check that the shortcut opens RetroLemmini
-9.	Now, when you right-click the Shortcut, it will give you the option to pin it to the Taskbar
+Mac:
 
-If you want to change the icon:
-1.	Right-click the Taskbar icon
-2.	Right-click RetroLemmini in the pop-up menu
-3.	Select Properties
-4.	Select Change Icon
-5.	Navigate to the desired Icon (the default ones are available in the "icons" folder) and click OK
+2) Open Terminal and type the following:
+
+./custom-runtime/bin/java -jar RetroLemmini.jar &
+
+3) Enjoy!
