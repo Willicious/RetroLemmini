@@ -681,8 +681,9 @@ public class Level {
             // check for one-way arrows (these are always drawn on terrain regardless of draw flags, and ignore transform data)
             boolean isOneWay = (o2.getType() == SpriteObject.Type.ONE_WAY_LEFT) || (o2.getType() == SpriteObject.Type.ONE_WAY_RIGHT)
             		        || (o2.getType() == SpriteObject.Type.ONE_WAY_DOWN) || (o2.getType() == SpriteObject.Type.ONE_WAY_UP);
-            // disallow one-way arrow transforms
-            if (isOneWay) {
+            boolean isForceField = (o2.getType() == SpriteObject.Type.TURN_LEFT) || (o2.getType() == SpriteObject.Type.TURN_RIGHT);
+            // disallow transforms for one-way arrows and forcefields
+            if (isOneWay || isForceField) {
             	rotate = false;
             	upsideDown = false;
             	upsideDownMask = false;
