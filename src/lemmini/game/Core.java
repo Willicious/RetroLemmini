@@ -655,10 +655,25 @@ public class Core {
         player.storePlayerRecords();
     }
     
-    public static void missingLevelError(final String rsrc) {
-        String message = String.format("Missing level:<br><br>"
-        		+ "The level listed in the levelpack.ini for %s could not be loaded.<br><br>"
-                + "Please visit <a href='https://www.lemmingsforums.net/index.php?msg=105737'>this help topic</a> on the Lemmings Forums for help.", rsrc);
+    public static void levelError(final String rsrc, final String exMessage) {
+        String message = String.format(
+        		  "The level listed in the levelpack.ini for %s could not be loaded.<br><br>"
+        		+ "Missing Resource: %s<br><br>"
+                + "Please visit <a href='https://www.lemmingsforums.net/index.php?msg=105737'>this help topic</a> on the Lemmings Forums for help.",
+                rsrc, exMessage);
+        showLevelError(message);
+    }
+    
+    public static void levelError(final String exMessage) {
+        String message = String.format(
+        		  "The level could not be loaded.<br><br>"
+        		+ "Missing Resource: %s<br><br>"
+                + "Please visit <a href='https://www.lemmingsforums.net/index.php?msg=105737'>this help topic</a> on the Lemmings Forums for help.",
+                exMessage);
+        showLevelError(message);
+    }
+    
+    public static void showLevelError(final String message) {
         JEditorPane pane = new JEditorPane("text/html", "<html><body style='font-family:sans-serif;'>" + message + "</body></html>");
         pane.setEditable(false);
         pane.setOpaque(false);
@@ -671,7 +686,6 @@ public class Core {
                 }
             }
         });
-
         JOptionPane.showMessageDialog(null, pane, "Error", JOptionPane.ERROR_MESSAGE);
         returnToMainMenu();
     }

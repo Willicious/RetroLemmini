@@ -1946,7 +1946,10 @@ public class LemGame {
                     	String pack = LemGame.getCurLevelPack().getName();
                     	String rating = Integer.toString(nextRating);
                     	String targetlevel = Integer.toString(nextLevelNumber);
-                        Core.missingLevelError("[" + pack + "] 'level_" + rating + "_" + targetlevel + "'");
+                    	if (pack == "External Levels")
+                    		Core.levelError(ex.getMessage());
+                    	else
+                    		Core.levelError("[" + pack + "] 'level_" + rating + "_" + targetlevel + "'", ex.getMessage());
                         return;
                     } catch (LemException ex) {
                         JOptionPane.showMessageDialog(LemminiFrame.getFrame(), ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
