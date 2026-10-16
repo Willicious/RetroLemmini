@@ -432,6 +432,19 @@ public class Level {
             level2.stencil = null;
         }
     }
+    
+    public void drawTriggerAreas(GraphicsContext g, int xOfs, int yOfs) {
+        g.setColor(new Color(0xFF00FF));
+
+        for (SpriteObject spr : sprObjects) {
+            if (spr == null || spr.getType() == SpriteObject.Type.PASSIVE
+                    || spr.getType() == SpriteObject.Type.ENTRANCE) {
+                continue;
+            }
+
+            g.fillRect(spr.getX() + spr.getMaskX() - xOfs, spr.getY() + spr.getMaskY() - yOfs, spr.getMaskWidth(), spr.getMaskHeight());
+        }
+    }
 
     void createLevelImage() {
         if (fgImage != null && fgImage.getWidth() == levelWidth && fgImage.getHeight() == levelHeight) {

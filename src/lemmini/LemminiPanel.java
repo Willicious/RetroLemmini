@@ -918,6 +918,10 @@ public class LemminiPanel extends JPanel implements Runnable {
 
                             // draw "in front" objects
                             level.drawInFrontObjects(offGfx, width, height, xOfsTemp, yOfsTemp);
+                            
+                            // draw trigger areas in debug mode
+                            if (Core.player.isDebugMode())
+                            	level.drawTriggerAreas(offGfx, xOfsTemp, yOfsTemp);
                         }
                         // clear parts of the screen for menu etc.
                         offGfx.setClip(0, LemminiFrame.LEVEL_HEIGHT, width, height - LemminiFrame.LEVEL_HEIGHT);
