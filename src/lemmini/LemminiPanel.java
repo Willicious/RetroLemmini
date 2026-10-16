@@ -980,7 +980,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                         // draw lemmings
                         offGfx.setClip(0, 0, width, levelHeight);
                         LemGame.drawLemmings(offGfx, LemGame.getXPos(), LemGame.getYPos(), false);
-                        Lemming lemmUnderCursor = LemGame.lemmUnderCursor(LemCursor.getType());
+                        Lemming cursorLem = LemGame.lemmUnderCursor(LemCursor.getType());
                         offGfx.setClip(0, 0, width, levelHeight);
                         // draw explosions
                         LemGame.drawExplosions(offGfx, width, LemminiFrame.LEVEL_HEIGHT, xOfsTemp, yOfsTemp);
@@ -992,7 +992,7 @@ public class LemminiPanel extends JPanel implements Runnable {
                         // draw info string
                     	int charWidthLa = 18;
                     	int charWidthSm = 9;
-                    	int maxWidth = 800;
+                    	int charHeightSm = 14;
                         
                         LemImage outStrImg = outStrBuffer.getImage();
                         GraphicsContext outStrGfx = outStrBuffer.getGraphicsContext();
@@ -1005,18 +1005,23 @@ public class LemminiPanel extends JPanel implements Runnable {
                         
                         // always show lemming info
                         String lemmingInfo;
-                        if (lemmUnderCursor != null) {
+                        double fontSize = 1;
+                        if (cursorLem != null) {
                         	if (Core.player.isDebugMode()) {
                         		// show frame index and position of lem when in debug mode
-                        		lemmingInfo = "F:" + lemmUnderCursor.getFrameIndex() + " X:" + lemmUnderCursor.footX() + " Y:" + lemmUnderCursor.footY();
+                        		lemmingInfo = String.format("LemX:%d LemY:%d Frame:%d", cursorLem.footX(), cursorLem.footY(), cursorLem.getFrameIndex());
+                        		fontSize = 0.5;
                         	} else {
-                        		lemmingInfo = lemmUnderCursor.getLemmingInfo();
+                        		// show lemming action
+                        		lemmingInfo = cursorLem.getLemmingInfo();
+                        		fontSize = 1;
+
+	                            // ahow the total number of lemmings under the cursor
+	                            int num = LemGame.getNumLemmsUnderCursor();
+	                            if (num > 1) {
+	                            	lemmingInfo += StringUtils.SPACE + num;
+	                            }
                         	}
-                            // display also the total number of lemmings under the cursor
-                            int num = LemGame.getNumLemmsUnderCursor();
-                            if (num > 1) {
-                            	lemmingInfo += StringUtils.SPACE + num;
-                            }
                         } else {
                         	lemmingInfo = StringUtils.EMPTY;
                         }
@@ -1024,150 +1029,150 @@ public class LemminiPanel extends JPanel implements Runnable {
                         // draw the lemming info status
                         int xLemInfo = 4;
                         LemImage lemmInfo = LemFont.strImage(String.format("%-15s", lemmingInfo));
-                        offGfx.drawImage(lemmInfo, menuOffsetX + xLemInfo, yOffset);
+                        offGfx.drawImage(lemmInfo, menuOffsetX + xLemInfo, yOffset, fontSize);
 
                         if (Core.player.isDebugMode() && showDebugCursorInfo) {
                             Stencil stencil = LemGame.getStencil();
                             if (stencil != null) {
-                                int stencilVal = stencil.getMask(xMouse, yMouse);
-                                int stencilObject = stencil.getMaskObjectID(xMouse, yMouse);
+                            	int stencilObject = stencil.getMaskObjectID(xMouse, yMouse);
+                            	int stencilVal = stencil.getMask(xMouse, yMouse);
+                            	String stencilType = stencil.getMaskString(stencilVal);
                                 String strObj;
-                                if (stencilObject >= 0) {
-                                    strObj = " Obj:" + stencilObject;
-                                } else {
+                                if (stencilObject >= 0)
+                                    strObj = String.format("Obj:%d(%s)", stencilObject, stencilType);
+                                else
                                     strObj = StringUtils.EMPTY;
-                                }
-                                String test = String.format("X:%d Y:%d Mask:%d%s", xMouse, yMouse, stencilVal, strObj);
+                                String test = String.format("PosX:%d PosY:%d %s", xMouse, yMouse, strObj);
                                 LemFont.strImage(outStrGfx, test);
-                                offGfx.drawImage(outStrImg, menuOffsetX + maxWidth - (String.valueOf(test).length() * charWidthLa), yOffset);
+                                offGfx.drawImage(outStrImg, menuOffsetX + xLemInfo, yOffset + charHeightSm, 0.5);
                             }
+                        }
+                        
+                        //show the standard info set
+                        String strHome;
+                        if (!LemGame.isOptionEnabled(LemGame.Option.USE_PERCENTAGES) || LemGame.getNumLemmingsMax() > 100) {
+                            strHome = Integer.toString(LemGame.getNumExited());
                         } else {
-                            //otherwise show the standard info set
-                            String strHome;
-                            if (!LemGame.isOptionEnabled(LemGame.Option.USE_PERCENTAGES) || LemGame.getNumLemmingsMax() > 100) {
-                                strHome = Integer.toString(LemGame.getNumExited());
+                            int max = LemGame.getNumLemmingsMax();
+                            int home = LemGame.getNumExited() * 100 / max;
+                            strHome = String.format("%02d%%", home);
+                        }
+
+                        // standard text-based status display
+                        if (!LemGame.isOptionEnabled(LemGame.Option.ENHANCED_STATUS)) {
+                            String status;
+                            status = String.format("%-15s OUT %-4d IN %-4s TIME %s", lemmingInfo, LemGame.getNumLemmings(), strHome, LemGame.getTimeString());
+                            //use the standard original "text-based" status bar
+                            LemFont.strImage(outStrGfx, status);
+                            offGfx.drawImage(outStrImg, menuOffsetX + 4, yOffset);
+                            
+                        // enhanced icon-based status display
+                        } else {
+                            int hatchLems = LemGame.getNumLemmingsUnreleased(); // number of lems still in hatch
+                            int maxLevelLemm = LemGame.getNumLemmingsMax(); // maximum number of lems provided from the start of the level
+                            int active = LemGame.getNumLemmings(); // number of lems active in the level
+                            int saveRequirement = LemGame.getNumToRescue(); // the level's save requirement
+                            int exited = LemGame.getNumExited(); // number of lems that have exited
+                            int maxPossibleLemm = LemGame.getNumLemmingsPossibleMax(); // maximum number of lems currently possible to save (including Blockers)
+                            // show save requirement or maximum lems as the home sub-value depending on "use percentages" option
+                            int homeSubValue = LemGame.isOptionEnabled(LemGame.Option.USE_PERCENTAGES) ? maxLevelLemm : saveRequirement;
+                        	
+                        	int iconWidth = 32;
+                        	int padding = getPadding();
+                        	int xSpace = 4; // space between icon and value
+                        	
+                            int xTime = 638;
+                            // draw everything else in reverse order from xTime, expanding to the left if necessary
+                            int xHome = xTime - ((String.valueOf(homeSubValue).length() + 1) * charWidthSm)
+                            		          - (strHome.length() * charWidthLa)
+                            		          - xSpace - iconWidth - padding;
+                            int xActive = xHome - ((String.valueOf(maxLevelLemm).length() + 1) * charWidthSm)
+                  		                        - (String.valueOf(active).length() * charWidthLa)
+                  		                        - xSpace - iconWidth - padding;
+                            int xHatch = xActive - ((String.valueOf(maxPossibleLemm).length() + 1) * charWidthSm)
+                            		             - (String.valueOf(hatchLems).length() * charWidthLa)
+                  		                         - xSpace - iconWidth - padding;                                
+
+                            // draw hatch lemmings status (the number of lemmings yet to spawn / the maximum possible from the start)
+                            LemImage lemmIconHatch = MiscGfx.getImage(Index.STATUS_HATCH);
+                            offGfx.drawImage(lemmIconHatch, menuOffsetX + xHatch, yOffset);
+                            int xHatchW = lemmIconHatch.getWidth() + xSpace;
+                           
+                            LemImage lemmHatch = LemFont.strImage(String.format("%d", hatchLems), LemFont.LemmColor.GREEN);
+                            offGfx.drawImage(lemmHatch, menuOffsetX + xHatch + xHatchW, yOffset);
+                            
+                            int xMaxLevelLemm = xHatch + xHatchW + lemmHatch.getWidth();
+                            LemImage lemmLevelMax = LemFont.strImage("/" + String.format("%d", maxLevelLemm), LemFont.LemmColor.GREEN);
+                            offGfx.drawImage(lemmLevelMax, menuOffsetX + xMaxLevelLemm, yOffset + 12, 0.5);
+
+                            // draw active lemmings status (the number of lemmings active in the level / the maximum currently possible)
+                            LemImage lemmIconActive = MiscGfx.getImage(Index.STATUS_ACTIVE);
+                            offGfx.drawImage(lemmIconActive, menuOffsetX + xActive, yOffset);
+                            int xActiveW = lemmIconActive.getWidth() + xSpace;
+                            
+                            LemFont.LemmColor activeLemColor;
+                            if (maxPossibleLemm < saveRequirement) {
+                            	activeLemColor = LemFont.LemmColor.RED; // show count in red if there aren't enough lemmings to complete the level
                             } else {
-                                int max = LemGame.getNumLemmingsMax();
-                                int home = LemGame.getNumExited() * 100 / max;
-                                strHome = String.format("%02d%%", home);
+                            	activeLemColor = LemFont.LemmColor.GREEN;
                             }
+                            LemImage lemmActive = LemFont.strImage(String.format("%d", active), activeLemColor);
+                            offGfx.drawImage(lemmActive, menuOffsetX + xActive + xActiveW, yOffset);
+                            
+                            int xMaxPossibleLemm = xActive + xActiveW + lemmActive.getWidth();
+                            LemImage lemmPossibleMax = LemFont.strImage("/" + String.format("%d", maxPossibleLemm), activeLemColor);
+                            offGfx.drawImage(lemmPossibleMax, menuOffsetX + xMaxPossibleLemm, yOffset + 12, 0.5);
+                            
+                            // draw lemmings home status (the number of lemmings exited / the save requirement)
+                            LemImage lemmIconHome = MiscGfx.getImage(Index.STATUS_HOME);
+                            offGfx.drawImage(lemmIconHome, menuOffsetX + xHome, yOffset);
+                            int xHomeW = lemmIconHome.getWidth() + xSpace;
 
-                            // standard text-based status display
-                            if (!LemGame.isOptionEnabled(LemGame.Option.ENHANCED_STATUS)) {
-                                String status;
-                                status = String.format("%-15s OUT %-4d IN %-4s TIME %s", lemmingInfo, LemGame.getNumLemmings(), strHome, LemGame.getTimeString());
-                                //use the standard original "text-based" status bar
-                                LemFont.strImage(outStrGfx, status);
-                                offGfx.drawImage(outStrImg, menuOffsetX + 4, yOffset);
-                                
-                            // enhanced icon-based status display
+                            LemImage lemmHome;
+                            if (saveRequirement > exited) {
+                                lemmHome = LemFont.strImage(strHome, LemFont.LemmColor.RED); // not enough saved yet, show as red
                             } else {
-                                int hatchLems = LemGame.getNumLemmingsUnreleased(); // number of lems still in hatch
-                                int maxLevelLemm = LemGame.getNumLemmingsMax(); // maximum number of lems provided from the start of the level
-                                int active = LemGame.getNumLemmings(); // number of lems active in the level
-                                int saveRequirement = LemGame.getNumToRescue(); // the level's save requirement
-                                int exited = LemGame.getNumExited(); // number of lems that have exited
-                                int maxPossibleLemm = LemGame.getNumLemmingsPossibleMax(); // maximum number of lems currently possible to save (including Blockers)
-                                // show save requirement or maximum lems as the home sub-value depending on "use percentages" option
-                                int homeSubValue = LemGame.isOptionEnabled(LemGame.Option.USE_PERCENTAGES) ? maxLevelLemm : saveRequirement;
-                            	
-                            	int iconWidth = 32;
-                            	int padding = getPadding();
-                            	int xSpace = 4; // space between icon and value
-                            	
-                                int xTime = 638;
-                                // draw everything else in reverse order from xTime, expanding to the left if necessary
-                                int xHome = xTime - ((String.valueOf(homeSubValue).length() + 1) * charWidthSm)
-                                		          - (strHome.length() * charWidthLa)
-                                		          - xSpace - iconWidth - padding;
-                                int xActive = xHome - ((String.valueOf(maxLevelLemm).length() + 1) * charWidthSm)
-                      		                        - (String.valueOf(active).length() * charWidthLa)
-                      		                        - xSpace - iconWidth - padding;
-                                int xHatch = xActive - ((String.valueOf(maxPossibleLemm).length() + 1) * charWidthSm)
-                                		             - (String.valueOf(hatchLems).length() * charWidthLa)
-                      		                         - xSpace - iconWidth - padding;                                
-
-                                // draw hatch lemmings status (the number of lemmings yet to spawn / the maximum possible from the start)
-                                LemImage lemmIconHatch = MiscGfx.getImage(Index.STATUS_HATCH);
-                                offGfx.drawImage(lemmIconHatch, menuOffsetX + xHatch, yOffset);
-                                int xHatchW = lemmIconHatch.getWidth() + xSpace;
-                               
-                                LemImage lemmHatch = LemFont.strImage(String.format("%d", hatchLems), LemFont.LemmColor.GREEN);
-                                offGfx.drawImage(lemmHatch, menuOffsetX + xHatch + xHatchW, yOffset);
-                                
-                                int xMaxLevelLemm = xHatch + xHatchW + lemmHatch.getWidth();
-                                LemImage lemmLevelMax = LemFont.strImage("/" + String.format("%d", maxLevelLemm), LemFont.LemmColor.GREEN);
-                                offGfx.drawImage(lemmLevelMax, menuOffsetX + xMaxLevelLemm, yOffset + 12, 0.5);
-
-                                // draw active lemmings status (the number of lemmings active in the level / the maximum currently possible)
-                                LemImage lemmIconActive = MiscGfx.getImage(Index.STATUS_ACTIVE);
-                                offGfx.drawImage(lemmIconActive, menuOffsetX + xActive, yOffset);
-                                int xActiveW = lemmIconActive.getWidth() + xSpace;
-                                
-                                LemFont.LemmColor activeLemColor;
-                                if (maxPossibleLemm < saveRequirement) {
-                                	activeLemColor = LemFont.LemmColor.RED; // show count in red if there aren't enough lemmings to complete the level
-                                } else {
-                                	activeLemColor = LemFont.LemmColor.GREEN;
-                                }
-                                LemImage lemmActive = LemFont.strImage(String.format("%d", active), activeLemColor);
-                                offGfx.drawImage(lemmActive, menuOffsetX + xActive + xActiveW, yOffset);
-                                
-                                int xMaxPossibleLemm = xActive + xActiveW + lemmActive.getWidth();
-                                LemImage lemmPossibleMax = LemFont.strImage("/" + String.format("%d", maxPossibleLemm), activeLemColor);
-                                offGfx.drawImage(lemmPossibleMax, menuOffsetX + xMaxPossibleLemm, yOffset + 12, 0.5);
-                                
-                                // draw lemmings home status (the number of lemmings exited / the save requirement)
-                                LemImage lemmIconHome = MiscGfx.getImage(Index.STATUS_HOME);
-                                offGfx.drawImage(lemmIconHome, menuOffsetX + xHome, yOffset);
-                                int xHomeW = lemmIconHome.getWidth() + xSpace;
-
-                                LemImage lemmHome;
-                                if (saveRequirement > exited) {
-                                    lemmHome = LemFont.strImage(strHome, LemFont.LemmColor.RED); // not enough saved yet, show as red
-                                } else {
-                                    lemmHome = LemFont.strImage(strHome);
-                                }
-                                offGfx.drawImage(lemmHome, menuOffsetX + xHome + xHomeW, yOffset);
-                                
-                                int xhomeSubValue = xHome + xHomeW + lemmHome.getWidth();
-                                LemImage lemmHomeSubValue = LemFont.strImage("/" + String.format("%d", homeSubValue), LemFont.LemmColor.GREEN);
-                                offGfx.drawImage(lemmHomeSubValue, menuOffsetX + xhomeSubValue, yOffset + 12, 0.5);
-                                
-                                // draw time display (for time limit / infinite time)
-                                LemImage lemmIconTime = MiscGfx.getImage(Index.STATUS_TIME);
-                                offGfx.drawImage(lemmIconTime, menuOffsetX + xTime, yOffset);
-                                int xTimeW = lemmIconTime.getWidth() + xSpace;
-                                
-                                LemFont.LemmColor timeColor;
-                                int time = LemGame.getTime();
-                                String timeString = LemGame.getTimeString();
-
-                                if (LemGame.isTimed()) {
-                                	timeColor = LemFont.LemmColor.GREEN; // time limit
-                                	
-                                	if (time <= 59)
-                                		timeColor = LemFont.LemmColor.YELLOW;
-                                	
-                                	if (time <= 10)
-                                		timeColor = LemFont.LemmColor.RED;
-                                } else
-                                	timeColor = LemFont.LemmColor.BLUE; // infinite time
-
-                                LemImage lemmTime = LemFont.strImage(String.format("%s", timeString), timeColor);
-                                offGfx.drawImage(lemmTime, menuOffsetX + xTime + xTimeW, yOffset);
-
-                                lemmIconHatch = null;
-                                lemmIconActive = null;
-                                lemmIconHome = null;
-                                lemmIconTime = null;
-
-                                lemmInfo = null;
-                                lemmHatch = null;
-                                lemmActive = null;
-                                lemmHome = null;
-                                lemmTime = null;
+                                lemmHome = LemFont.strImage(strHome);
                             }
+                            offGfx.drawImage(lemmHome, menuOffsetX + xHome + xHomeW, yOffset);
+                            
+                            int xhomeSubValue = xHome + xHomeW + lemmHome.getWidth();
+                            LemImage lemmHomeSubValue = LemFont.strImage("/" + String.format("%d", homeSubValue), LemFont.LemmColor.GREEN);
+                            offGfx.drawImage(lemmHomeSubValue, menuOffsetX + xhomeSubValue, yOffset + 12, 0.5);
+                            
+                            // draw time display (for time limit / infinite time)
+                            LemImage lemmIconTime = MiscGfx.getImage(Index.STATUS_TIME);
+                            offGfx.drawImage(lemmIconTime, menuOffsetX + xTime, yOffset);
+                            int xTimeW = lemmIconTime.getWidth() + xSpace;
+                            
+                            LemFont.LemmColor timeColor;
+                            int time = LemGame.getTime();
+                            String timeString = LemGame.getTimeString();
+
+                            if (LemGame.isTimed()) {
+                            	timeColor = LemFont.LemmColor.GREEN; // time limit
+                            	
+                            	if (time <= 59)
+                            		timeColor = LemFont.LemmColor.YELLOW;
+                            	
+                            	if (time <= 10)
+                            		timeColor = LemFont.LemmColor.RED;
+                            } else
+                            	timeColor = LemFont.LemmColor.BLUE; // infinite time
+
+                            LemImage lemmTime = LemFont.strImage(String.format("%s", timeString), timeColor);
+                            offGfx.drawImage(lemmTime, menuOffsetX + xTime + xTimeW, yOffset);
+
+                            lemmIconHatch = null;
+                            lemmIconActive = null;
+                            lemmIconHome = null;
+                            lemmIconTime = null;
+
+                            lemmInfo = null;
+                            lemmHatch = null;
+                            lemmActive = null;
+                            lemmHome = null;
+                            lemmTime = null;
                         }
                         
                         // Additional panel info (smaller text at the top of the panel)
@@ -1233,15 +1238,15 @@ public class LemminiPanel extends JPanel implements Runnable {
                         }
 
                         // draw cursor
-                        if (lemmUnderCursor != null) {
+                        if (cursorLem != null) {
                             if (LemGame.isOptionEnabled(LemGame.Option.CLASSIC_CURSOR)) {
                                 if (mouseHasEntered && !LemCursor.isBox()) {
                                     LemCursor.setBox(true);
                                     setCursor(LemCursor.getCursor());
                                 }
                             } else {
-                                int lx = lemmUnderCursor.footX() - xOfsTemp; //NOTE: footX() was .midX()
-                                int ly = lemmUnderCursor.midY() - yOfsTemp;
+                                int lx = cursorLem.footX() - xOfsTemp; //NOTE: footX() was .midX()
+                                int ly = cursorLem.midY() - yOfsTemp;
                                 LemImage cursorImg = LemCursor.getBoxImage();
                                 lx -= cursorImg.getWidth() / 2;
                                 ly -= cursorImg.getHeight() / 2;

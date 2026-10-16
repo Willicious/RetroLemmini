@@ -287,6 +287,23 @@ public class Stencil {
     public int getHeight() {
         return height;
     }
+    
+    public String getMaskString(final int mask) {
+        if ((mask & MSK_ONE_WAY_LEFT) != 0) return "L-Only";
+        if ((mask & MSK_ONE_WAY_RIGHT) != 0) return "R-Only";
+        if ((mask & MSK_ONE_WAY_UP) != 0) return "U-Only";
+        if ((mask & MSK_ONE_WAY_DOWN) != 0) return "D-Only";
+        
+        switch (mask) {
+            case MSK_TURN_LEFT: return "L-Force";
+            case MSK_TURN_RIGHT: return "R-Force";
+            case MSK_TRAP_LIQUID: return "Water";
+            case MSK_TRAP_REMOVE: return "Trap";
+            case MSK_TRAP_FIRE: return "Fire";
+            case MSK_EXIT: return "Exit";
+            default: return String.valueOf(mask);
+        }
+    }
 }
 
 class StencilPixel {
