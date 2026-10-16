@@ -441,7 +441,7 @@ public class Level {
             	continue;
             
             SpriteObject.Type type = spr.getType();
-            if (type == SpriteObject.Type.PASSIVE || type == SpriteObject.Type.ENTRANCE || type.name().startsWith("ONE_WAY_"))
+            if (type == SpriteObject.Type.PASSIVE || type.name().startsWith("ONE_WAY_"))
                 continue;
 
             g.fillRect(spr.getX() + spr.getMaskX() - xOfs, spr.getY() + spr.getMaskY() - yOfs, spr.getMaskWidth(), spr.getMaskHeight());

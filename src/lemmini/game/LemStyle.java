@@ -263,8 +263,8 @@ public class LemStyle {
             // get trigger area
             maskX = props.getInt("maskX_" + index, 0);
             maskY = props.getInt("maskY_" + index, 0);
-            maskWidth = props.getInt("maskWidth_" + index, 10);
-            maskHeight = props.getInt("maskHeight_" + index, 10);
+            maskWidth = type == SpriteObject.Type.ENTRANCE ? 2 : props.getInt("maskWidth_" + index, 8);
+            maskHeight = type == SpriteObject.Type.ENTRANCE ? 2 : props.getInt("maskHeight_" + index, 8);
             // get sound - this parses the sound from the style .ini file on a per-object basis
             // if there are 2 numbers, the second is what frame the sound should be triggered on
             int[] soundTemp = props.getIntArray("sound_" + index, ArrayUtils.EMPTY_INT_ARRAY);
