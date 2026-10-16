@@ -437,10 +437,12 @@ public class Level {
         g.setColor(new Color(0xFF00FF));
 
         for (SpriteObject spr : sprObjects) {
-            if (spr == null || spr.getType() == SpriteObject.Type.PASSIVE
-                    || spr.getType() == SpriteObject.Type.ENTRANCE) {
+            if (spr == null)
+            	continue;
+            
+            SpriteObject.Type type = spr.getType();
+            if (type == SpriteObject.Type.PASSIVE || type == SpriteObject.Type.ENTRANCE || type.name().startsWith("ONE_WAY_"))
                 continue;
-            }
 
             g.fillRect(spr.getX() + spr.getMaskX() - xOfs, spr.getY() + spr.getMaskY() - yOfs, spr.getMaskWidth(), spr.getMaskHeight());
         }
