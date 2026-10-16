@@ -275,8 +275,14 @@ public class LemStyle {
                     }
                 }
             } else if (ArrayUtils.isNotEmpty(soundTemp)) {
-                sound = new int[1];
-                sound[0] = soundTemp[0];
+                if (animMode == Sprite.Animation.TRIGGERED && numFrames > 1) {
+                    sound = new int[numFrames];
+                    Arrays.fill(sound, -1);
+                    sound[1] = soundTemp[0]; // assign the sound to frame 1 if no frame is specified
+                } else {
+                    sound = new int[1];
+                    sound[0] = soundTemp[0];
+                }
             } else {
                 sound = ArrayUtils.EMPTY_INT_ARRAY;
             }
