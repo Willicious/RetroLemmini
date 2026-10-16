@@ -186,7 +186,6 @@ public class LemStyle {
     public void unloadImages() {
         objects.stream().forEach(obj -> {
             obj.images.clear();
-            obj.mask = null;
         });
         terrain.stream().forEach(ter -> {
             ter.image = null;
@@ -238,11 +237,12 @@ public class LemStyle {
         private final int speed;
         private final Sprite.Animation animMode;
         private final SpriteObject.Type type;
-        private final int maskOffsetX;
-        private final int maskOffsetY;
+        private final int maskX;
+        private final int maskY;
+        private final int maskWidth;
+        private final int maskHeight;
         private final int[] sound;
         private final Map<Orientation, List<LemImage>> images = new EnumMap<>(Orientation.class);
-        private boolean[][] mask = null;
 
         private LvlObject(Props props, String pathPrefix, int idx) {
             index = idx;
@@ -260,9 +260,11 @@ public class LemStyle {
             } else {
                 animMode = animModeTemp;
             }
-            // get mask offsets
-            maskOffsetX = props.getInt("maskOffsetX_" + index, 0);
-            maskOffsetY = props.getInt("maskOffsetY_" + index, 0);
+            // get trigger area
+            maskX = props.getInt("maskX_" + index, 0);
+            maskY = props.getInt("maskY_" + index, 0);
+            maskWidth = props.getInt("maskWidth_" + index, 10);
+            maskHeight = props.getInt("maskHeight_" + index, 10);
             // get sound - this parses the sound from the style .ini file on a per-object basis
             // if there are 2 numbers, the second is what frame the sound should be triggered on
             int[] soundTemp = props.getIntArray("sound_" + index, ArrayUtils.EMPTY_INT_ARRAY);
@@ -304,12 +306,20 @@ public class LemStyle {
             return type;
         }
 
-        public int getMaskOffsetX() {
-            return maskOffsetX;
+        public int getMaskX() {
+            return maskX;
         }
 
-        public int getMaskOffsetY() {
-            return maskOffsetY;
+        public int getMaskY() {
+            return maskY;
+        }
+        
+        public int getMaskWidth() {
+            return maskWidth;
+        }
+
+        public int getMaskHeight() {
+            return maskHeight;
         }
 
         public int[] getSound() {
@@ -337,43 +347,6 @@ public class LemStyle {
         	} catch (ResourceException ex) {
                 throw new LemException(Core.stylePieceResourceError(name, "object", index));
             }
-        }
-
-        public boolean[][] getMask() throws LemException {
-        	try {
-	            if (mask == null) {
-	                switch (type) {
-	                    case EXIT:
-	                    case TURN_LEFT:
-	                    case TURN_RIGHT:
-	                    case ONE_WAY_RIGHT:
-	                    case ONE_WAY_LEFT:
-	                    case ONE_WAY_UP:
-	                    case ONE_WAY_DOWN:
-	                    case TRAP_DIE:
-	                    case TRAP_REPLACE:
-	                    case TRAP_DROWN:
-	                    case STEEL:
-	                        Resource resource = Core.findResource(
-	                                pathPrefix + "om_" + index + ".png",
-	                                Core.IMAGE_EXTENSIONS);
-	                        LemImage sourceImage = Core.loadLemImage(resource);
-	                        mask = new boolean[sourceImage.getHeight()][sourceImage.getWidth()];
-	                        for (int y = 0; y < mask.length; y++) {
-	                            for (int x = 0; x < mask[y].length; x++) {
-	                                mask[y][x] = (sourceImage.getRGB(x, y) >>> 24) >= 0x80;
-	                            }
-	                        }
-	                        break;
-	                    default:
-	                        mask = new boolean[0][0];
-	                        break;
-	                }
-	            }
-	            return mask;
-	        } catch  (ResourceException ex) {
-	            throw new LemException(Core.stylePieceResourceError(name, "object", index));
-	        }
         }
     }
 

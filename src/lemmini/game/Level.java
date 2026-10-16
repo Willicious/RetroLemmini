@@ -695,8 +695,8 @@ public class Level {
             spr.setY(o.yPos);
             // check for entrances
             if (spr.getType() == SpriteObject.Type.ENTRANCE && !fake) {
-                Entrance e = new Entrance(o.xPos + spr.getWidth() / 2 + spr.getMaskOffsetX(),
-                        o.yPos + spr.getMaskOffsetY(), BooleanUtils.toBoolean(o.objSpecificModifier & LvlObject.OPTION_ENTRANCE_LEFT));
+                Entrance e = new Entrance(o.xPos + spr.getWidth() / 2 + spr.getMaskX(),
+                        o.yPos + spr.getMaskY(), BooleanUtils.toBoolean(o.objSpecificModifier & LvlObject.OPTION_ENTRANCE_LEFT));
                 e.id = oCombined.size();
                 entrances.add(e);
             }
@@ -732,8 +732,8 @@ public class Level {
 
             // draw stencil
             if (!fake) {
-                for (int y = spr.getMaskOffsetY(); y < spr.getMaskHeight() + spr.getMaskOffsetY(); y++) {
-                    for (int x = spr.getMaskOffsetX(); x < spr.getMaskWidth() + spr.getMaskOffsetX(); x++) {
+                for (int y = spr.getMaskY(); y < spr.getMaskY() + spr.getMaskHeight(); y++) {
+                    for (int x = spr.getMaskX(); x < spr.getMaskX() + spr.getMaskWidth(); x++) {
                         int xDest = x;
                         int yDest = y;
                         if (rotate) {
@@ -761,7 +761,7 @@ public class Level {
                             continue;
                         }
                         // manage collision mask
-                        if (spr.getMask(x, y)) { // not transparent
+                        if (spr.hasMaskAt(x, y)) {
                             stencil.addGadget(spr.getX() + xDest, yDest + spr.getY(), maskType, n);
                         }
                     }

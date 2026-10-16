@@ -3,8 +3,6 @@ package lemmini.game;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import lemmini.gameutil.Sprite;
 //import lemmini.graphics.GraphicsContext;
 import lemmini.graphics.LemImage;
@@ -87,8 +85,8 @@ public class SpriteObject extends Sprite {
     private Type type;
     /** collision mask - only this part is copied into the stencil */
     private boolean[][] mask;
-    private int maskOffsetX;
-    private int maskOffsetY;
+    private int maskX;
+    private int maskY;
     private int maskWidth;
     private int maskHeight;
     private boolean visOnTerrain;
@@ -144,11 +142,10 @@ public class SpriteObject extends Sprite {
         super(obj.getImages(orientation), obj.getSpeed(), modifiable);
         animMode = obj.getAnimationMode();
         type = obj.getType();
-        mask = obj.getMask();
-        maskOffsetX = obj.getMaskOffsetX();
-        maskOffsetY = obj.getMaskOffsetY();
-        maskWidth = ArrayUtils.isNotEmpty(mask) ? mask[0].length : 0;
-        maskHeight = mask.length;
+        maskX = obj.getMaskX();
+        maskY = obj.getMaskY();
+        maskWidth = obj.getMaskWidth();
+        maskHeight = obj.getMaskHeight();
         sound = obj.getSound().clone();
         x = 0;
         y = 0;
@@ -165,55 +162,13 @@ public class SpriteObject extends Sprite {
         for (int i = 0; i < mask.length; i++) {
             mask[i] = mask[i].clone();
         }
-        maskOffsetX = src.getMaskOffsetX();
-        maskOffsetY = src.getMaskOffsetY();
+        maskX = src.getMaskX();
+        maskY = src.getMaskY();
         maskWidth = src.getMaskWidth();
         maskHeight = src.getMaskHeight();
         type = src.type;
         mask = src.mask; // flat copy - no deep copy needed!
     }
-
-    /**
-     * Set the collision mask.
-     */
-    /*void setMask(final LemImage imgMask) {
-        maskWidth = imgMask.getWidth();
-        maskHeight = imgMask.getHeight();
-        mask = new int[maskWidth * maskHeight];
-        maskOffsetX = 0;
-        maskOffsetY = 0;
-        GraphicsContext g = null;
-        try {
-            g = imgMask.createGraphicsContext();
-            g.grabPixels(imgMask, 0, 0, maskWidth, maskHeight, mask, 0, maskWidth);
-        } finally {
-            if (g != null) {
-                g.dispose();
-            }
-        }
-    }*/
-
-    /**
-     * Set the collision mask.
-     */
-    /*void setMask(final LemImage imgMask, final int xOffset, final int yOffset) {
-        if (imgMask != null) {
-            maskWidth = imgMask.getWidth();
-            maskHeight = imgMask.getHeight();
-            mask = new int[maskWidth * maskHeight];
-            GraphicsContext g = null;
-            try {
-                g = imgMask.createGraphicsContext();
-                g.grabPixels(imgMask, 0, 0, maskWidth, maskHeight, mask, 0, maskWidth);
-            } finally {
-                if (g != null) {
-                    g.dispose();
-                }
-            }
-        }
-        maskOffsetX = xOffset;
-        maskOffsetY = yOffset;
-    }*/
 
     /**
      * Get type of level object.
@@ -288,13 +243,13 @@ public class SpriteObject extends Sprite {
     public int midY() {
         return y + (height/2);
     }
-
-    public int getMaskOffsetX() {
-        return maskOffsetX;
+    
+    public int getMaskX() {
+        return maskX;
     }
 
-    public int getMaskOffsetY() {
-        return maskOffsetY;
+    public int getMaskY() {
+        return maskY;
     }
 
     public int getMaskWidth() {
@@ -347,16 +302,14 @@ public class SpriteObject extends Sprite {
     }
 
     /**
-     * Get mask value.
+     * Check that there is an active mask at the given co-ordinates
      */
-    public boolean getMask(final int x, final int y) {
-        int tempX = x - maskOffsetX;
-        int tempY = y - maskOffsetY;
-        if (type != Type.PASSIVE && type != Type.ENTRANCE &&
-                tempY >= 0 && tempY < maskHeight && tempX >= 0 && tempX < maskWidth) {
-            return mask[tempY][tempX];
-        } else {
-            return false;
-        }
+    public boolean hasMaskAt(final int x, final int y) {
+        int tempX = x - maskX;
+        int tempY = y - maskY;
+
+        return type != Type.PASSIVE && type != Type.ENTRANCE
+                && tempX >= 0 && tempX < maskWidth
+                && tempY >= 0 && tempY < maskHeight;
     }
 }
