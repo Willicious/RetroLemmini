@@ -26,7 +26,6 @@ import java.net.URI;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Locale;
 
@@ -139,8 +138,6 @@ public class LevelDialog extends JDialog {
      *
      */
     private static final long serialVersionUID = 1L;
-
-    private static Path lvlPath = Paths.get(".");
     
     private Path currentPackFolder = null;
 
@@ -714,11 +711,8 @@ public class LevelDialog extends JDialog {
     }//GEN-LAST:event_jTreeLevelsValueChanged
 
     private void jButtonAddExternalLevelsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddExternalLevelsActionPerformed
-        List<Path> externLvls = ToolBox.getFileNames(this, lvlPath, true, true, Core.LEVEL_EXTENSIONS);
+    	List<Path> externLvls = ToolBox.getFileNames(this, Core.resourcePath.resolve("levels"), true, true, Core.LEVEL_EXTENSIONS);
         if (externLvls != null) {
-            if (!externLvls.isEmpty()) {
-                lvlPath = externLvls.get(0).getParent();
-            }
             int[] lastLevelPosition = null;
             for (Path externLvl : externLvls) {
                 if (Files.isDirectory(externLvl)) {
