@@ -1359,8 +1359,7 @@ public class Lemming {
                 if (hitOneWayLeft || hitOneWayRight || hitOneWayUp || hitOneWayDown ||  hitSteel) {
                     if (playSound) {
                         SpriteObject spr = LemGame.getLevel().getSprObject(LemGame.getStencil().getMaskObjectID(xb, yb));
-                        if (spr != null
-                                        && ((hitOneWayLeft && spr.getType() == SpriteObject.Type.ONE_WAY_LEFT)
+                        if (spr != null && ((hitOneWayLeft && spr.getType() == SpriteObject.Type.ONE_WAY_LEFT)
                                         || (hitOneWayRight && spr.getType() == SpriteObject.Type.ONE_WAY_RIGHT)
                                         || (hitOneWayUp && spr.getType() == SpriteObject.Type.ONE_WAY_UP)
                                         || (hitOneWayDown && spr.getType() == SpriteObject.Type.ONE_WAY_DOWN)
