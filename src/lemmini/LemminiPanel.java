@@ -908,16 +908,16 @@ public class LemminiPanel extends JPanel implements Runnable {
                             offGfx.clearRect(0, 0, width, levelHeight);
 
                             // draw background
-                            LemGame.getLevel().drawBackground(offGfx, width, levelHeight, xOfsTemp, yOfsTemp);
+                            level.drawBackground(offGfx, width, levelHeight, xOfsTemp, yOfsTemp);
 
                             // draw "behind" objects
-                            LemGame.getLevel().drawBehindObjects(offGfx, width, height, xOfsTemp, yOfsTemp);
+                            level.drawBehindObjects(offGfx, width, height, xOfsTemp, yOfsTemp);
 
                             // draw foreground
                             offGfx.drawImage(fgImage, 0, 0, width, levelHeight, xOfsTemp, yOfsTemp, xOfsTemp + width, yOfsTemp + levelHeight);
 
                             // draw "in front" objects
-                            LemGame.getLevel().drawInFrontObjects(offGfx, width, height, xOfsTemp, yOfsTemp);
+                            level.drawInFrontObjects(offGfx, width, height, xOfsTemp, yOfsTemp);
                         }
                         // clear parts of the screen for menu etc.
                         offGfx.setClip(0, LemminiFrame.LEVEL_HEIGHT, width, height - LemminiFrame.LEVEL_HEIGHT);

@@ -273,6 +273,7 @@ public class Lemming {
      * Update animation, move Lemming, check state transitions.
      */
     public void animate() {
+    	Level level = LemGame.getLevel();
         int free;
         Type oldType = type;
         Type newType = type;
@@ -919,7 +920,7 @@ public class Lemming {
             switch (s & (Stencil.MSK_TRAP | Stencil.MSK_EXIT)) {
                 case Stencil.MSK_TRAP_LIQUID:
                     if (type != Type.DROWNER) {
-                        SpriteObject spr = LemGame.getLevel().getSprObject(object);
+                        SpriteObject spr = level.getSprObject(object);
                         if (spr != null) {
                             boolean triggered = true;
                             if (spr.canBeTriggered() && !spr.trigger(this)) {
@@ -956,7 +957,7 @@ public class Lemming {
                     break;
                 case Stencil.MSK_TRAP_REMOVE:
                     {
-                        SpriteObject spr = LemGame.getLevel().getSprObject(object);
+                        SpriteObject spr = level.getSprObject(object);
                         if (spr != null) {
                             boolean triggered = true;
                             if (spr.canBeTriggered() && !spr.trigger(this)) {
@@ -1004,7 +1005,7 @@ public class Lemming {
                         case DIGGER:
                         case DROWNER:
                         case MAX_EXIT_LEM:
-                            SpriteObject spr = LemGame.getLevel().getSprObject(object);
+                            SpriteObject spr = level.getSprObject(object);
                             if (spr != null) {
                                 boolean triggered = true;
                                 if (spr.canBeTriggered() && !spr.trigger(this)) {
@@ -1109,7 +1110,7 @@ public class Lemming {
 
                         int eraseMask = Stencil.MSK_BRICK;
                         int checkMask = 0;
-                        if (!LemGame.getLevel().getClassicSteel()) {
+                        if (!level.getClassicSteel()) {
                             eraseMask |= Stencil.MSK_ONE_WAY;
                             checkMask |= Stencil.MSK_STEEL;
                             checkMask |= Stencil.MSK_ONE_WAY_UP;
