@@ -739,7 +739,7 @@ public class Core {
     }
     
     public static String stylePieceResourceError(final String style, final String type, final int idx) {
-    	String suffix = type == "object" ? "o" : "";
+    	String suffix = type == "object" ? "_o" : "";
         return String.format("<html>Missing style piece: resources/styles/%s/%s%s_%d (%s)<br><br>"
         		+ "Run 'Help > Refresh Styles' and then try loading the level again.<br>"
         		+ "If that doesn't work, contact the pack author/maintainer.<br><br>"

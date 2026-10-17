@@ -330,7 +330,7 @@ public class LemStyle {
         	try {
 	            if (!images.containsKey(Orientation.NORMAL)) {
 	                Resource resource = Core.findResource(
-	                        pathPrefix + "o_" + index + ".png",
+	                        pathPrefix + "_o_" + index + ".png",
 	                        Core.IMAGE_EXTENSIONS);
 	                LemImage sourceImage = Core.loadLemImage(resource);
 	                images.put(Orientation.NORMAL, ToolBox.getAnimation(sourceImage, numFrames));
