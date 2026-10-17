@@ -693,16 +693,26 @@ public class Level {
             boolean flipHorizontally = BooleanUtils.toBoolean(o.flags & LvlObject.FLAG_FLIP_HORIZONTALLY);
             // determine object by its ID
             LemStyle.LvlObject o2 = objectStyle.getObject(o.id);
+            SpriteObject.Type type = o2.getType();
             // check for one-way arrows (these are always drawn on terrain regardless of draw flags, and ignore transform data)
-            boolean isOneWay = (o2.getType() == SpriteObject.Type.ONE_WAY_LEFT) || (o2.getType() == SpriteObject.Type.ONE_WAY_RIGHT)
-            		        || (o2.getType() == SpriteObject.Type.ONE_WAY_DOWN) || (o2.getType() == SpriteObject.Type.ONE_WAY_UP);
-            boolean isForceField = (o2.getType() == SpriteObject.Type.TURN_LEFT) || (o2.getType() == SpriteObject.Type.TURN_RIGHT);
+            boolean isOneWay = (type == SpriteObject.Type.ONE_WAY_LEFT || type == SpriteObject.Type.ONE_WAY_RIGHT
+            		         || type == SpriteObject.Type.ONE_WAY_DOWN || type == SpriteObject.Type.ONE_WAY_UP);
+            boolean isForceField = type == SpriteObject.Type.TURN_LEFT || type == SpriteObject.Type.TURN_RIGHT;
             // disallow transforms for one-way arrows and forcefields
             if (isOneWay || isForceField) {
             	rotate = false;
             	upsideDown = false;
             	upsideDownMask = false;
             	flipHorizontally = false;
+            }
+            // disallow rotation for hatches
+            if (type == SpriteObject.Type.ENTRANCE && (rotate || (upsideDown && flipHorizontally)))
+            {
+            	rotate = false;
+            	upsideDown = false;
+            	upsideDownMask = false;
+            	flipHorizontally = false;
+            	
             }
             // create sprite object
             SpriteObject spr = new SpriteObject(o2, LemStyle.Orientation.getOrientation(flipHorizontally, upsideDown, rotate), false);
