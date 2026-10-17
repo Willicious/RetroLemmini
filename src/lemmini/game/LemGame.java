@@ -1409,7 +1409,7 @@ public class LemGame {
             releaseCtr = releaseBase;
             if (level.getNumEntrances() != 0) {
                 Level.Entrance e = level.getEntrance(TrapDoor.getNext());
-                Lemming l = new Lemming(e.xPos + 2, e.yPos + Lemming.HEIGHT, e.leftEntrance ? Lemming.Direction.LEFT : Lemming.Direction.RIGHT);
+                Lemming l = new Lemming(e.xPos, e.yPos, e.leftEntrance ? Lemming.Direction.LEFT : Lemming.Direction.RIGHT);
                 lemmings.add(l);
                 numLemmingsOut++;
             }
