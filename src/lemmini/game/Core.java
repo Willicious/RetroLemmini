@@ -738,12 +738,11 @@ public class Core {
     		return "Index of terrain piece (" + idx + ") is higher than the number of terrain pieces in '" + style + "'";
     }
     
-    public static String stylePieceResourceError(final String style, final String type, final int idx) {
-    	String suffix = type == "object" ? "_o" : "";
-        return String.format("<html>Missing style piece: resources/styles/%s/%s%s_%d (%s)<br><br>"
+    public static String stylePieceResourceError(final String style, final String type, final String rsrc) {
+        return String.format("<html>Missing style piece: resources/styles/%s/%s (%s)<br><br>"
         		+ "Run 'Help > Refresh Styles' and then try loading the level again.<br>"
         		+ "If that doesn't work, contact the pack author/maintainer.<br><br>"
-        		+ "The system will now return to main menu.<br><br></html>", style, style, suffix, idx, type);
+        		+ "The system will now return to main menu.<br><br></html>", style, rsrc, type);
     }
     
     public static void generalError(final String message) {

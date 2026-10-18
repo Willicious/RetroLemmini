@@ -327,11 +327,10 @@ public class LemStyle {
         }
 
         public List<LemImage> getImages(Orientation orientation) throws LemException {
+        	String fullName = pathPrefix + "_o_" + index + ".png";
         	try {
 	            if (!images.containsKey(Orientation.NORMAL)) {
-	                Resource resource = Core.findResource(
-	                        pathPrefix + "_o_" + index + ".png",
-	                        Core.IMAGE_EXTENSIONS);
+	                Resource resource = Core.findResource(fullName, Core.IMAGE_EXTENSIONS);
 	                LemImage sourceImage = Core.loadLemImage(resource);
 	                images.put(Orientation.NORMAL, ToolBox.getAnimation(sourceImage, numFrames));
 	            }
@@ -345,7 +344,7 @@ public class LemStyle {
 	            }
 	            return images.get(orientation);
         	} catch (ResourceException ex) {
-                throw new LemException(Core.stylePieceResourceError(name, "object", index));
+                throw new LemException(Core.stylePieceResourceError(name, "object", fullName));
             }
         }
     }
@@ -370,38 +369,30 @@ public class LemStyle {
         }
 
         public LemImage getImage() throws LemException {
+        	String fullName = (index >= 0) ? pathPrefix + "_" + index + ".png" : pathPrefix + ".png";
         	try {
 	            if (image == null) {
-	                Resource resource;
-	                if (index >= 0) {
-	                    resource = Core.findResource(
-	                            pathPrefix + "_" + index + ".png",
-	                            Core.IMAGE_EXTENSIONS);
-	                } else {
-	                    resource = Core.findResource(pathPrefix + ".png",
-	                            Core.IMAGE_EXTENSIONS);
-	                }
+	                Resource resource = Core.findResource(fullName, Core.IMAGE_EXTENSIONS);
 	                image = Core.loadLemImage(resource);
 	            }
 	            return image;
         	} catch (ResourceException ex) {
-                throw new LemException(Core.stylePieceResourceError(name, "terrain", index));
+                throw new LemException(Core.stylePieceResourceError(name, "terrain", fullName));
         	}
         }
 
         public boolean[][] getMask() throws LemException {
             if (mask != null) return mask;
+            String fullName = (index >= 0) ? pathPrefix + "m_" + index + ".png" : pathPrefix + "m.png";
             LemImage sourceImage;
             try {
-                Resource resource = (index >= 0)
-                        ? Core.findResource(pathPrefix + "m_" + index + ".png", Core.IMAGE_EXTENSIONS)
-                        : Core.findResource(pathPrefix + "m.png", Core.IMAGE_EXTENSIONS);
+                Resource resource = Core.findResource(fullName, Core.IMAGE_EXTENSIONS);
                 sourceImage = Core.loadLemImage(resource);
             } catch (ResourceException ex) {
                 try {
                     sourceImage = getImage();
                 } catch (LemException e) {
-                    throw new LemException(Core.stylePieceResourceError(name, "terrain", index));
+                    throw new LemException(Core.stylePieceResourceError(name, "terrain", fullName));
                 }
             }
             mask = new boolean[sourceImage.getHeight()][sourceImage.getWidth()];
