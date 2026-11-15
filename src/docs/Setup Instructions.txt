@@ -4,7 +4,7 @@ A clone of the DMA Design game Lemmings(TM) with graphics from Lemmings For Wind
 
 Instructions for installation:
 
-Windows / Mac:
+Windows:
 
 1) Copy across any levels, mods, music, player data, replays, sounds and styles
    from your existing (Super)Lemmini(Too) installation into the relevant folder
@@ -15,19 +15,12 @@ Windows / Mac:
    (NOTE: The "docs" folder contains some useful documentation for help with
    using RetroLemmini including hotkeys, cheat codes, level formatting, etc.)
    
+   (NOTE: The "app" folder contains the jpackage config that links the .exe to
+   the .jar, you don't need to do anything with this)
+   
    (NOTE: The "custom-runtime" folder contains a lightweight Java runtime
    that RetroLemmini needs to run, you don't need to do anything with this)
-
-Windows:
  
 2) Run RetroLemmini.exe
-
-3) Enjoy!
-
-Mac:
-
-2) Open Terminal and type the following:
-
-./custom-runtime/bin/java -jar RetroLemmini.jar &
 
 3) Enjoy!
