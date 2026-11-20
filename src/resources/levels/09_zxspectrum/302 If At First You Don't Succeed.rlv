@@ -1,11 +1,11 @@
 ﻿# LVL 302 If At First You Don't Succeed.rlv
-# Created with RetroLemmini Editor Version 1.2
-# RetroLemmini Level Version 3
+# Created with RetroLemmini Editor Version 2.1
+# RetroLemmini Level Version 4
 
 # Level stats
 name = If At First You Don't Suceed...
-author = 
-version = 3
+author = Ron Stard
+version = 4
 releaseRate = 40
 maxReleaseRate = 99
 lockReleaseRate = False
@@ -22,6 +22,7 @@ numMiners = 2
 numDiggers = 2
 xPosCenter = 628
 yPosCenter = 160
+directDrop = False
 superlemming = False
 forceNormalTimerSpeed = True
 maxFallDistance = 126

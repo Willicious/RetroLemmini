@@ -1,11 +1,11 @@
 ﻿# LVL 401 There Must Be More To Life.rlv
-# Created with RetroLemmini Editor Version 1.2
-# RetroLemmini Level Version 3
+# Created with RetroLemmini Editor Version 2.1
+# RetroLemmini Level Version 4
 
 # Level stats
 name = There Must Be More To Life
-author = 
-version = 3
+author = Ron Stard
+version = 4
 releaseRate = 50
 maxReleaseRate = 99
 lockReleaseRate = False
@@ -22,6 +22,7 @@ numMiners = 0
 numDiggers = 14
 xPosCenter = 447
 yPosCenter = 160
+directDrop = False
 superlemming = False
 forceNormalTimerSpeed = True
 maxFallDistance = 126

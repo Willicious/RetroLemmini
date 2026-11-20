@@ -1,11 +1,11 @@
 ﻿# LVL 304 King Of The Castle.rlv
-# Created with RetroLemmini Editor Version 1.2
-# RetroLemmini Level Version 2
+# Created with RetroLemmini Editor Version 2.1
+# RetroLemmini Level Version 3
 
 # Level stats
 name = King Of The Castle
-author = 
-version = 2
+author = Ron Stard
+version = 3
 releaseRate = 40
 maxReleaseRate = 99
 lockReleaseRate = False
@@ -22,6 +22,7 @@ numMiners = 0
 numDiggers = 0
 xPosCenter = 554
 yPosCenter = 160
+directDrop = False
 superlemming = False
 forceNormalTimerSpeed = True
 maxFallDistance = 126
