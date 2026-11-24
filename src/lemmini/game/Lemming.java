@@ -492,6 +492,17 @@ public class Lemming {
                         newType = getExploderType();
                         break;
                     }
+                    if (y <= LemGame.getTopBoundary() + 1) {
+                        flipDir();
+                        if (dir == Direction.LEFT) {
+                            x -= 1;
+                        } else {
+                            x += 1;
+                        }
+                        newType = Type.FALLER;
+                        counter = 0;
+                        break;
+                    }
                     int idx = frameIdx + 1;
                     if (idx >= lemRes.frames * TIME_SCALE) {
                         idx = 0;
@@ -1570,24 +1581,24 @@ public class Lemming {
     }
 
     /**
-     * Get number of free pixels above the lemming (max of step is checked).
+     * Returns true if the climber has enough vertical clearance (at least 2px near the top)
+     * to continue climbing/hoisting; returns false so the climber turns and falls.
      */
     private boolean freeAboveClimber() {
-        if (x < LemGame.getLeftBoundary()
-                || x >= LemGame.getWidth() + LemGame.getRightBoundary()
-                || y <= LemGame.getTopBoundary()) {
+        if (x < LemGame.getLeftBoundary() || x >= LemGame.getWidth() + LemGame.getRightBoundary())
             return false;
-        }
 
-        int ym = y - 18;
-        int xm = x;
-        if (dir == Direction.LEFT) {
-            xm += 1;
-        } else {
-            xm -= 1;
-        }
+        int topLimit = LemGame.getTopBoundary();
+        if (y <= topLimit + 1)
+            return false;
+
+        int xm = x + ((dir == Direction.LEFT) ? 1 : -1);
+        if (xm < 0 || xm >= LemGame.getWidth())
+            return false;
+
+        int checkY = Math.max(topLimit, y - 1);
         Stencil stencil = LemGame.getStencil();
-        return ym >= 0 && !BooleanUtils.toBoolean((stencil.getMask(xm, ym) & Stencil.MSK_BRICK));
+        return !BooleanUtils.toBoolean(stencil.getMask(xm, checkY) & Stencil.MSK_BRICK);
     }
 
     /**
@@ -1634,19 +1645,28 @@ public class Lemming {
      * Check if climber reached a plateau he can walk on.
      */
     private boolean reachedPlateau(final int hand) {
-        if (x - 2 < LemGame.getLeftBoundary()
-                || x + 2 >= LemGame.getWidth() + LemGame.getRightBoundary()) {
+        if (x - 2 < LemGame.getLeftBoundary() || x + 2 >= LemGame.getWidth() + LemGame.getRightBoundary()) {
             return false;
         }
+
         int ym = y - hand;
-        if (ym >= LemGame.getHeight()) {
+        if (ym >= LemGame.getHeight())
             return true;
-        } else if (ym < 0 || ym <= LemGame.getTopBoundary()) {
+        
+        if (ym < 0)
             return false;
-        }
-        int pos = x;
-        pos += ym * LemGame.getWidth();
-        return !BooleanUtils.toBoolean(LemGame.getStencil().getMask(pos) & Stencil.MSK_BRICK);
+
+        Stencil stencil = LemGame.getStencil();
+        int pos = x + ym * LemGame.getWidth();
+        boolean atPlateauIsFree = !BooleanUtils.toBoolean(stencil.getMask(pos) & Stencil.MSK_BRICK);
+        if (!atPlateauIsFree)
+            return false;
+
+        int aboveY = ym - 1;
+        if (aboveY >= LemGame.getTopBoundary())
+            return !BooleanUtils.toBoolean(stencil.getMask(x, aboveY) & Stencil.MSK_BRICK);
+
+        return aboveY >= 0;
     }
     
 //    /**
