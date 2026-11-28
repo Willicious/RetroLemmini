@@ -1,4 +1,4 @@
-  CHANGED: special.zip
+  CHANGED: xmas.zip
 UNCHANGED: brick.zip
 UNCHANGED: bubble.zip
 UNCHANGED: classic.zip
@@ -13,6 +13,6 @@ UNCHANGED: pillar.zip
 UNCHANGED: rock.zip
 UNCHANGED: sega.zip
 UNCHANGED: snow.zip
+UNCHANGED: special.zip
 UNCHANGED: starlight.zip
 UNCHANGED: sugar.zip
-UNCHANGED: xmas.zip
